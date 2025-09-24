@@ -20,7 +20,7 @@ uv pip install ordeq
 
 <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
   <img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="Pandas" height="50"/>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg" alt="Spark" height="50"/>
+  <img src="https://icon.icepanel.io/Technology/svg/Apache-Spark.svg" alt="Spark" height="50"/>
   <img src="https://numpy.org/images/logo.svg" alt="NumPy" height="50"/>
   <img src="https://avatars.githubusercontent.com/u/83768144?s=200&v=4" alt="Polars" height="50"/>
   <img src="https://ibis-project.org/logo.svg" alt="Ibis" height="50"/>
@@ -33,7 +33,7 @@ uv pip install ordeq
   <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png" alt="Requests" height="60"/>
 <img src="https://cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png" alt="Google Cloud" height="50"/>
 <img src="https://avatars.githubusercontent.com/u/110818415?v=4" alt="Pydantic" height="50"/>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Apache_Parquet_logo.svg/1200px-Apache_Parquet_logo.svg.png" alt="Parquet" height="50"/>
+<img src="https://api.nuget.org/v3-flatcontainer/parquet.net/4.22.0/icon" alt="Parquet" height="50"/>
 </div>
 
 Ordeq integrates seamlessly with existing tooling.

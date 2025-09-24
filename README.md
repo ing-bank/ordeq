@@ -1,5 +1,7 @@
 # Welcome to Ordeq!
 
+[![Build](https://github.com/ing-bank/ordeq/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ing-bank/ordeq/actions/workflows/build.yml)
+
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.
 Ordeq elevates your proof-of-concept to a production-grade pipelines.

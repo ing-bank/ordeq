@@ -39,7 +39,7 @@ uv pip install ordeq
   <tr>
     <td width="80" height="60" align="center"><img src="https://boto3.amazonaws.com/v1/documentation/api/latest/_static/logos/aws_dark_theme_logo.svg" alt="Boto3" height="40"/></td>
     <td width="80" height="60" align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png" alt="Requests" height="40"/></td>
-    <td width="80" height="60" align="center"><img src="https://cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png" alt="Google Cloud" height="40"/></td>
+    <td width="80" height="80" align="center"><img src="https://cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png" alt="Google Cloud" height="40"/></td>
     <td width="80" height="60" align="center"><img src="https://avatars.githubusercontent.com/u/110818415?v=4" alt="Pydantic" height="40"/></td>
     <td width="80" height="60" align="center"><img src="https://api.nuget.org/v3-flatcontainer/parquet.net/4.22.0/icon" alt="Parquet" height="40"/></td>
   </tr>

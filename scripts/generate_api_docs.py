@@ -16,7 +16,7 @@ ROOT_DIR = Path(__file__).parent.parent
 PACKAGES_DIR = ROOT_DIR / "packages"
 PACKAGE_DIRS = PACKAGES_DIR.glob("*")
 DOCS_DIR = ROOT_DIR / "docs"
-API_DIR = DOCS_DIR / "3_API"
+API_DIR = DOCS_DIR / "api"
 
 for package_dir in sorted(PACKAGE_DIRS):
     package_src = package_dir / "src"

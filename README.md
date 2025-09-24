@@ -42,6 +42,7 @@ uv pip install ordeq
     <td width="80" height="80" align="center"><img src="https://cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png" alt="Google Cloud" height="40"/></td>
     <td width="80" height="60" align="center"><img src="https://avatars.githubusercontent.com/u/110818415?v=4" alt="Pydantic" height="40"/></td>
     <td width="80" height="60" align="center"><img src="https://api.nuget.org/v3-flatcontainer/parquet.net/4.22.0/icon" alt="Parquet" height="40"/></td>
+ <td height="60"><img src="https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Azure-Emblem.png" alt="Azure"/></td>
   </tr>
 </table>
 

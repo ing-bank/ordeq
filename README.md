@@ -33,6 +33,7 @@ uv pip install ordeq
   <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png" alt="Requests" height="60"/>
 <img src="https://cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png" alt="Google Cloud" height="50"/>
 <img src="https://avatars.githubusercontent.com/u/110818415?v=4" alt="Pydantic" height="50"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Apache_Parquet_logo.svg/1200px-Apache_Parquet_logo.svg.png" alt="Parquet" height="50"/>
 </div>
 
 Ordeq integrates seamlessly with existing tooling.

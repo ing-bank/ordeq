@@ -1,6 +1,8 @@
 # Welcome to Ordeq!
 
-[![Publish documentation](https://github.com/ing-bank/ordeq/actions/workflows/publish-docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/publish-docs.yml)
+[![Build](https://github.com/ing-bank/ordeq/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ing-bank/ordeq/actions/workflows/build.yml)
+[![Docs](https://github.com/ing-bank/ordeq/actions/workflows/publish-docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/publish-docs.yml)
+![PyPI](https://img.shields.io/pypi/v/ordeq?label=pypi%20package)
 
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.

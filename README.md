@@ -62,10 +62,10 @@ Documentation is available at https://ing-bank.github.io/ordeq/.
 
 ## Why consider Ordeq?
 
-- Ordeq is **the GenAI companion**: it gives your project structure and consistency, such that GenAI can thrive
-- It offers **seamless integrations** with existing data & ML tooling, such as Spark, Pandas, Pydantic and PyMuPDF, and
+- :raised_hands: Ordeq is **the GenAI companion**: it gives your project structure and consistency, such that GenAI can thrive
+- :diamond_shape_with_a_dot_inside: It offers **seamless integrations** with existing data & ML tooling, such as Spark, Pandas, Pydantic and PyMuPDF, and
   adding new integrations is trivial
-- It's **actively developed** and **trusted** by data scientists, engineers, analysts and machine learning engineers at
+- :large_orange_diamond: It's **actively developed** and **trusted** by data scientists, engineers, analysts and machine learning engineers at
   ING
 
 ## Learning Ordeq

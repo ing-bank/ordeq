@@ -47,7 +47,6 @@ uv pip install ordeq
 Ordeq integrates seamlessly with existing tooling.
 It provides integrations with many popular libraries out of the box.
 You can install them as needed.
-
 For example, for reading and writing data with Pandas, install the `ordeq-pandas` package:
 
 ```shell
@@ -74,7 +73,7 @@ To learn more about Ordeq, check out the following resources:
 
 [core-concepts]: docs/getting-started/concepts/io.md
 
-[api-ref]: docs/api/ordeq/types.md
+[api-ref]: https://ing-bank.github.io/ordeq/api
 
 [intro]: docs/getting-started/introduction.md
 

@@ -1,6 +1,5 @@
-name: Publish MkDocs site
+name: Publish documentation
 
-# Publish the Ordeq documentation
 on:
   push:
     branches:
@@ -16,6 +15,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
       - name: Set up Python
         uses: actions/setup-python@v5

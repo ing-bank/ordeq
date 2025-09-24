@@ -126,10 +126,10 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
                         f"got {type(t)}: {t}"
                     )
                 if len(t) == 2 and callable(t[0]):
-                    partition_cols.append(t[1])
+                    partition_cols.append(t[1])  # type: ignore[index-out-of-bounds]
                 elif len(t) == 1 and isinstance(t[0], str):
                     # Otherwise, we assume it is a single column name
-                    partition_cols.append(t[0])
+                    partition_cols.append(t[0])  # type: ignore[index-out-of-bounds]
                 else:
                     raise TypeError(
                         f"Expected partition_by to be a tuple of tuples with "
@@ -204,7 +204,7 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
                         f"got {type(t)}: {t}"
                     )
                 if len(t) == 2 and callable(t[0]):
-                    partitions.append(t[0](t[1]))
+                    partitions.append(t[0](t[1]))  # type: ignore[index-out-of-bounds]
                 elif len(t) == 1 and isinstance(t[0], str):
                     # Otherwise, we assume it is a single column name
                     partitions.append(F.col(t[0]))

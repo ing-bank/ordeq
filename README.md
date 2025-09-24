@@ -57,6 +57,9 @@ uv pip install ordeq-pandas
 
 Have a look at the [API reference][api-ref] for the documentation of each package.
 
+## Documentation
+Documentation is available at https://ing-bank.github.io/ordeq/.
+
 ## Why consider Ordeq?
 
 - Ordeq is **the GenAI companion**: it gives your project structure and consistency, such that GenAI can thrive

@@ -1,4 +1,4 @@
-# Welcome to the Ordeq documentation!
+# Welcome to Ordeq!
 
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.

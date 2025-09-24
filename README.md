@@ -18,7 +18,7 @@ uv pip install ordeq
 
 ## Integrations
 
-<div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
+<div style="display: flex; gap: 80px; align-items: center; flex-wrap: wrap;">
   <img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="Pandas" height="50"/>
   <img src="https://icon.icepanel.io/Technology/svg/Apache-Spark.svg" alt="Spark" height="50"/>
   <img src="https://numpy.org/images/logo.svg" alt="NumPy" height="50"/>

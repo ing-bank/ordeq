@@ -19,7 +19,7 @@ uv pip install ordeq
 ## Seamless integration
 
 <!-- Data processing library logos -->
-<div style="display: flex; gap: 24px; align-items: center; flex-wrap: wrap;">
+<div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
   <img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="Pandas" height="40"/>
   <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg" alt="Spark" height="40"/>
   <img src="https://numpy.org/images/logo.svg" alt="NumPy" height="40"/>

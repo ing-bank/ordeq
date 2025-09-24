@@ -16,23 +16,21 @@ To install Ordeq, run:
 uv pip install ordeq
 ```
 
-## Seamless integration
+## Integrations
 
-<!-- Data processing library logos -->
 <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap;">
-  <img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="Pandas" height="40"/>
+  <img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="Pandas" height="50"/>
   <img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg" alt="Spark" height="40"/>
-  <img src="https://numpy.org/images/logo.svg" alt="NumPy" height="40"/>
-  <img src="https://www.pola.rs/assets/img/logo.svg" alt="Polars" height="40"/>
-  <img src="https://ibis-project.org/_static/ibis-logo.svg" alt="Ibis" height="40"/>
-  <img src="https://matplotlib.org/_static/images/logo2.svg" alt="Matplotlib" height="40"/>
-  <img src="https://raw.githubusercontent.com/facebookresearch/faiss/main/resources/faiss_logo.png" alt="Faiss" height="40"/>
-  <img src="https://joblib.readthedocs.io/en/latest/_static/joblib-logo-light.svg" alt="Joblib" height="40"/>
+  <img src="https://numpy.org/images/logo.svg" alt="NumPy" height="50"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Polars_software_logo.svg" alt="Polars" height="30"/>
+  <img src="https://ibis-project.org/logo.svg" alt="Ibis" height="40"/>
+  <img src="https://matplotlib.org/_static/images/logo2.svg" alt="Matplotlib" height="30"/>
+  <img src="https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg" alt="Joblib" height="40"/>
   <img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="HuggingFace" height="40"/>
-  <img src="https://pymupdf.readthedocs.io/en/latest/_static/logo.png" alt="PyMuPDF" height="40"/>
-  <img src="https://www.sbert.net/_static/logo.png" alt="SentenceTransformers" height="40"/>
-  <img src="https://boto3.amazonaws.com/v1/documentation/api/latest/_static/boto3.png" alt="Boto3" height="40"/>
-  <img src="https://requests.readthedocs.io/en/latest/_static/requests-logo.png" alt="Requests" height="40"/>
+  <img src="https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg" alt="PyMuPDF" height="40"/>
+  <img src="https://www.sbert.net/_static/logo.png" alt="SentenceTransformers" height="30"/>
+  <img src="https://boto3.amazonaws.com/v1/documentation/api/latest/_static/logos/aws_dark_theme_logo.svg" alt="Boto3" height="30"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png" alt="Requests" height="40"/>
 </div>
 
 Ordeq integrates seamlessly with existing tooling.

@@ -1,7 +1,7 @@
 
 nav:
   - Getting started:
-      - getting-started/quickstart.md
+      - Quickstart: index.md
       - getting-started/introduction.md
       - Concepts:
           - IO: getting-started/concepts/io.md

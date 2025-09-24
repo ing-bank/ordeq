@@ -24,7 +24,7 @@ uv pip install ordeq
   <img src="https://numpy.org/images/logo.svg" alt="NumPy" height="50"/>
   <img src="https://avatars.githubusercontent.com/u/83768144?s=200&v=4" alt="Polars" height="50"/>
   <img src="https://ibis-project.org/logo.svg" alt="Ibis" height="50"/>
-  <img src="https://matplotlib.org/_static/images/logo2.svg" alt="Matplotlib" height="30"/>
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png" alt="Matplotlib" height="30"/>
   <img src="https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg" alt="Joblib" height="50"/>
   <img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="HuggingFace" height="50"/>
   <img src="https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg" alt="PyMuPDF" height="50"/>

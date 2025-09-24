@@ -1,23 +1,11 @@
 ---
 site_name: Ordeq
+site_url: https://ing-bank.github.io/ordeq
+site_description: "Ordeq simplifies IO and modularizes pipeline logic."
 
-nav:
-  - Getting started:
-      - getting-started/quickstart.md
-      - getting-started/introduction.md
-      - Concepts:
-          - IO: getting-started/concepts/io.md
-          - Nodes: getting-started/concepts/nodes.md
-          - Catalogs: getting-started/concepts/catalogs.md
-          - Hooks: getting-started/concepts/hooks.md
-  - Guides & examples:
-      - Custom IO: guides/custom_io.md
-      - Testing nodes: guides/testing_nodes.md
-      - Examples:
-          - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
-          - Lazy IO: guides/examples/lazy_io.md
-      # TODO: Add an example project
-    # TODO: Add API reference
+# nav:
+# Do not alter this section. We use awesome-nav for automatic navigation generation.
+# See docs/.nav.yml and https://lukasgeiter.github.io/mkdocs-awesome-nav/ for more info.
 
 theme:
   name: material
@@ -31,5 +19,35 @@ theme:
     - scheme: slate
       primary: black
 
+markdown_extensions:
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      use_pygments: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
 plugins:
   - search
+  - awesome-nav
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            show_source: false
+            docstring_style: google

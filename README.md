@@ -71,7 +71,7 @@ To learn more about Ordeq, check out the following resources:
 - Check out the [core concepts][core-concepts] to learn how to use Ordeq
 - Explore the [example project][example-project] to see how Ordeq is used
 
-[core-concepts]: docs/getting-started/concepts/io.md
+[core-concepts]: https://ing-bank.github.io/ordeq/getting-started/concepts/io/
 
 [api-ref]: https://ing-bank.github.io/ordeq/api/ordeq/framework/io/
 

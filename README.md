@@ -55,7 +55,7 @@ For example, for reading and writing data with Pandas, install the `ordeq-pandas
 uv pip install ordeq-pandas
 ```
 
-Have a look at the [API reference][api-ref] for the documentation of each package.
+Have a look at the [API reference][api-ref] for a list of available packages.
 
 ## Documentation
 Documentation is available at https://ing-bank.github.io/ordeq/.

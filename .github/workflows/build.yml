@@ -67,7 +67,7 @@ jobs:
 
   test:
     name: Test
-    needs: [ packages ]
+    needs: [ packages, static_code_analysis ]
     runs-on: ubuntu-latest
     strategy:
       matrix:

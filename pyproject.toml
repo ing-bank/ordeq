@@ -17,6 +17,7 @@ docs = [
     "mkdocs-material",
     "mkdocs-material-extensions",
     "mkdocstrings[python]",
+    "mkdocs-awesome-nav",
     "markdown",
     "pymdown-extensions",
 ]

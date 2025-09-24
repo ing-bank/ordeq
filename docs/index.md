@@ -1,4 +1,4 @@
-# Quickstart
+# Welcome to Ordeq!
 
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.
@@ -29,8 +29,10 @@ Have a look at the [API reference][api-ref] for a list of available packages and
 ## Why consider Ordeq?
 
 - Ordeq is **the GenAI companion**: it gives your project structure and consistency, such that GenAI can thrive
-- It offers **seamless integrations** with existing data & ML tooling, such as Spark, Pandas, Pydantic and PyMuPDF, and adding new integrations is trivial
-- It's **actively developed** and **trusted** by data scientists, engineers, analysts and machine learning engineers at ING
+- It offers **seamless integrations** with existing data & ML tooling, such as Spark, Pandas, Pydantic and PyMuPDF, and
+  adding new integrations is trivial
+- It's **actively developed** and **trusted** by data scientists, engineers, analysts and machine learning engineers at
+  ING
 
 ## Learning Ordeq
 
@@ -40,13 +42,13 @@ To learn more about Ordeq, check out the following resources:
 - Check out the [core concepts][core-concepts] to learn how to use Ordeq
 - Explore the [example project][example-project] to see how Ordeq is used
 
-[core-concepts]: ./concepts/io.md
+[core-concepts]: getting-started/concepts/io.md
 
-[api-ref]: ../api/ordeq/types.md
+[api-ref]: api/ordeq/types.md
 
-[intro]: ../getting-started/introduction.md
+[intro]: getting-started/introduction.md
 
-[example-project]: ../guides/examples/example-project/README.md
+[example-project]: guides/examples/example-project/README.md
 
 [license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE
 

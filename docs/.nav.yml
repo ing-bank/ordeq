@@ -1,0 +1,22 @@
+
+nav:
+  - Getting started:
+      - Quickstart: index.md
+      - getting-started/introduction.md
+      - Concepts:
+          - IO: getting-started/concepts/io.md
+          - Nodes: getting-started/concepts/nodes.md
+          - Catalogs: getting-started/concepts/catalogs.md
+          - Hooks: getting-started/concepts/hooks.md
+  - Guides & examples:
+      - guides/custom_io.md
+      - guides/testing_nodes.md
+      - Examples:
+          - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
+          - Lazy IO: guides/examples/lazy_io.md
+      # TODO: Add an example project
+  - API: api
+  - Contributing:
+      - How to: contributing/contributing.md
+      - Acknowledgements: contributing/acknowledgements.md
+      - Documentation setup: contributing/documentation.md

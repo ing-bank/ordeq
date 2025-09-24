@@ -1,11 +1,13 @@
-name: Publish MkDocs site
+name: Publish documentation
 
-# Publish the Ordeq documentation
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
@@ -13,6 +15,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,11 +35,8 @@ jobs:
       - name: Generate API documentation
         run: uv run python scripts/generate_api_docs.py
 
-      - name: Build MkDocs site
-        run: uv run mkdocs build
+      - name: Build site
+        run: uv run mkdocs build --strict
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
+      - name: Publish site
+        run: uv run mkdocs gh-deploy --force

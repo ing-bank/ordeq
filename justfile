@@ -36,6 +36,7 @@ fix:
 # Test all packages individually
 # or test specific ones by passsing the names as arguments
 # eg. `just test` (Run tests in all packages)
+
 # or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
 test *PACKAGES:
     if [ -z "{{ PACKAGES }}" ]; then \
@@ -57,9 +58,20 @@ test_all:
     uv run --group test pytest packages/ --cov=packages/ --cov-report=html
 
 # Build the documentation
-docs:
+docs-build:
     uv run scripts/generate_api_docs.py
-    uv run --group docs mkdocs serve --strict
+    uv run --group docs mkdocs build --strict
+
+# Build and serve the documentation locally
+docs-serve:
+    uv run scripts/generate_api_docs.py
+    uv run --group docs mkdocs serve
+
+# Publish the documentation to GitHub Pages
+docs-publish:
+    uv run scripts/generate_api_docs.py
+    uv run --group docs mkdocs build --strict
+    uv run --group docs mkdocs gh-deploy --force
 
 # Run pre-commit hooks
 precommit:

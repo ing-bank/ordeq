@@ -31,7 +31,7 @@ The following table lists all available packages:
 
 | Package                                                                                                                                              | Description                                                     |
 |------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
-| <img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="drawing" width="100"/> `ordeq-pandas` | IOs for reading and writing data with Pandas                    |
+| `ordeq-pandas` <img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="drawing" height="30"/> | IOs for reading and writing data with Pandas                    |
 | ![spark](https://upload.wikimedia.org/wikipedia/commons/f/f3/Apache_Spark_logo.svg) `ordeq-spark`                                                    | IOs for reading and writing data with PySpark                   |
 | ![numpy](https://numpy.org/images/logo.svg) `ordeq-numpy`                                                                                            | IOs for reading and writing data with NumPy                     |
 | ![polars](https://www.pola.rs/assets/img/logo.svg) `ordeq-polars`                                                                                    | IOs for reading and writing data with Polars                    |

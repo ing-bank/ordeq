@@ -22,7 +22,7 @@ In data pipelines, the inputs and outputs usually represent data that is process
 ### Specifying inputs and outputs
 
 Suppose we want to greet a list of people whose names are provided in a CSV.
-Let's use the CSV IO discussed in the [IO](_IO.md) section.
+Let's use the CSV IO discussed in the [IO](io.md) section.
 First we define the CSV IO in `catalog.py`. Next, we modify the node in `nodes.py`:
 
 === "nodes.py"
@@ -248,8 +248,8 @@ Refer to the documentation of these extensions for more information.
     - See how to extend inject custom logic with [node hooks][hooks]
     - Check out the [guide on testing nodes][testing-guide]
 
-[catalog]: ../2_Concepts/catalogs.md
+[catalog]: ../concepts/catalogs.md
 [hooks]: hooks.md
-[testing-guide]: ../../2_Guides/testing_nodes.md
+[testing-guide]: ../../guides/testing_nodes.md
 [dag]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
-[example-project]: ../../2_Guides/examples/example-project/README.md
+[example-project]: ../../guides/examples/example-project/README.md

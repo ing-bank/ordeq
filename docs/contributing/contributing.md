@@ -139,4 +139,4 @@ If you use another tool to manage your JDKs, run the equivalent tasks to make su
 
 [sdkm]: https://sdkman.io/
 
-[open-issues]: github.com/ing-bank/ordeq/issues/
+[open-issues]: https://github.com/ing-bank/ordeq/issues/

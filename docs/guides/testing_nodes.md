@@ -114,4 +114,4 @@ def test_run_greet(io):
 
 For more information on the fixture scope, refer to the `pytest` [documentation](https://docs.pytest.org/en/stable/how-to/fixtures.html#fixture-scopes).
 
-[concepts-node]: ../1_Getting_started/2_Concepts/_nodes.md
+[concepts-node]: ../getting-started/concepts/nodes.md

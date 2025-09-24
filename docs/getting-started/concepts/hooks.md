@@ -143,6 +143,6 @@ For a more elaborate guide, including details on how to implement your own hooks
     - Check out the [guide on testing nodes][testing-nodes]
 
 
-[custom-hooks]: ../../2_Guides/custom_hooks.md
-[testing-nodes]: ../../2_Guides/testing_nodes.md
-[running-a-node]: ./_nodes.md#running-a-node
+[custom-hooks]: ../../guides/custom_hooks.md
+[testing-nodes]: ../../guides/testing_nodes.md
+[running-a-node]: nodes.md#running-a-node

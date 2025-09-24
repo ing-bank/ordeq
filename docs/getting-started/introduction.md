@@ -398,4 +398,4 @@ Dependencies between nodes are automatically resolved.
 
 !!!success "Where to go from here?"
 
-    - Learn more about Ordeqs [core concepts](./2_Concepts/_IO.md)
+    - Learn more about Ordeqs [core concepts](./concepts/io.md)

@@ -147,12 +147,12 @@ For more information on the available load and save options, refer to the docume
     - See how to extend inject custom logic with [IO hooks][hooks]
     - Check out the [guide on creating custom IOs][custom-ios]
 
-[custom-ios]: ../../2_Guides/io.md
+[custom-ios]: ../../guides/custom_io.md
 
 [hooks]: hooks.md
 
-[nodes]: _nodes.md
+[nodes]: nodes.md
 
 [catalogs]: ./catalogs.md
 
-[api]: ../../3_API/ordeq/types.md
+[api]: ../../api/ordeq/types.md

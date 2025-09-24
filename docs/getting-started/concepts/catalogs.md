@@ -168,7 +168,7 @@ predictions = SparkCSV(path="path/to/test/predictions.csv")
 ```
 
 You can place the catalog in the source package, with the other catalogs.
-In that case, you can import it in your nodes [as shown above](#switching-between-catalogs).
+In that case, you can import it in your nodes as shown above.
 
 If you place the catalog in another package, say the `tests` package, the easiest way to use the test catalog is to patch:
 
@@ -207,4 +207,4 @@ def test_it_predicts():
 This is especially useful for unit tests.
 Checkout the [node testing guide][node-testing] for more details.
 
-[node-testing]: ../../2_Guides/testing_nodes.md
+[node-testing]: ../../guides/testing_nodes.md

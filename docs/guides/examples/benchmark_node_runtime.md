@@ -1,6 +1,6 @@
 # Benchmarking node runtime
 
-Node [hooks](../../1_Getting_started/2_Concepts/hooks.md) can be used to keep
+Node [hooks](../../getting-started/concepts/hooks.md) can be used to keep
 track of node execution durations. Using hooks to achieve this has the
 advantage that the timing does not add cognitive complexity to the dataset
 transformations. It also avoids repetitive boilerplate code inside the nodes.

@@ -2,3 +2,4 @@
 # scripts/generate_api_docs.py
 *
 !.gitignore
+!.nav.yml

@@ -153,3 +153,5 @@ tests-resources/derby/*
 
 # Test output
 **/test-output.xml
+
+**.DS_Store

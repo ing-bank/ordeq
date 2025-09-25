@@ -1,0 +1,92 @@
+name: Build
+
+on:
+  push:
+    tags:
+      - '*'
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  pythonVersion: '3.10'
+
+jobs:
+  packages:
+    name: Determine packages in scope
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.set-packages.outputs.packages }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Determine packages scope and set matrix variable
+        id: set-packages
+        run: |
+          echo "##[group]Running release script"
+          TARGET_BRANCH=origin/${{ github.event.pull_request.base.ref || 'HEAD~1' }}
+          PACKAGES=$(bash -x scripts/release.sh --git-ref ${{ github.ref_name }} --target-branch $TARGET_BRANCH | tail -1)
+          echo "Packages: $PACKAGES"
+          # Convert comma-separated to JSON array
+          JSON_ARRAY="["
+          IFS=',' read -ra ADDR <<< "$PACKAGES"
+          for package in "${ADDR[@]}"; do
+              JSON_ARRAY+="\"$package\","
+          done
+          JSON_ARRAY="${JSON_ARRAY%,}]"
+          echo "Packages JSON array: $JSON_ARRAY"
+          echo "packages=$JSON_ARRAY" >> $GITHUB_OUTPUT
+          echo "##[endgroup]"
+
+  static_code_analysis:
+    name: Check formatting, linting and typing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ env.pythonVersion }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.pythonVersion }}
+      - name: Install uv
+        run: python -m pip install --upgrade uv
+      - name: Install the project
+        run: uv sync --all-packages --all-groups --all-extras
+      - name: Check formatting
+        run: uv run just format
+      - name: Check linting
+        run: uv run just lint
+      - name: Check typing (ty)
+        run: uv run just ty
+      - name: Check typing (mypy)
+        run: uv run just mypy
+
+  test:
+    name: Test
+    needs: [ packages, static_code_analysis ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ${{ fromJson(needs.packages.outputs.packages) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python ${{ env.pythonVersion }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.pythonVersion }}
+      - name: Install uv
+        run: python -m pip install --upgrade uv
+      - name: Install the project
+        run: uv sync --all-packages --group test --group test-ci
+      - name: Run unit tests
+        run: uv run --group test --group test-ci pytest -v --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ matrix.package }}
+          path: '**/coverage.xml'

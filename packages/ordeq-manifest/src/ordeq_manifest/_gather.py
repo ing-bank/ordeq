@@ -1,8 +1,8 @@
 import ast
 import importlib
-import pathlib
 import pkgutil
-from collections.abc import Generator, Hashable
+from collections.abc import Generator
+from pathlib import Path
 from types import ModuleType
 
 from ordeq import IO, Input, Output
@@ -50,7 +50,7 @@ def gather_objects(
 
 
 def load_ast(module: ModuleType) -> ast.Module:
-    with pathlib.Path(module.__file__).open("r", encoding="utf-8") as f:
+    with Path(module.__file__).open("r", encoding="utf-8") as f:  # type: ignore[arg-type]
         return ast.parse(f.read(), filename=__file__)
 
 
@@ -105,7 +105,7 @@ def gather(
             if idx not in io_models_by_id:
                 io_models_by_id[idx] = io_model
             ios_to_id[value] = idx
-        elif isinstance(value, Hashable) and value in NODE_REGISTRY:
+        elif callable(value) and value in NODE_REGISTRY:
             fqn = f"{module.__name__}.{name}"
             idx = symbol_table.get(fqn, fqn)
             node = get_node(value)

@@ -19,6 +19,13 @@ To install `ordeq-manifest` from the PyPi registry, run:
 uv pip install ordeq-manifest
 ```
 
+## Development status
+
+This package is currently in beta stage.
+Please report any issues or requests on the [GitHub repository][github-repo].
+
 [license]: ../LICENSE
 
 [notice]: ../NOTICE
+
+[github-repo]: https://github.com/ing-bank/ordeq/issues

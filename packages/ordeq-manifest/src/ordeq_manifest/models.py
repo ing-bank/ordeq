@@ -4,11 +4,7 @@ from pydantic import BaseModel, Field
 
 
 class IOModel(BaseModel):
-    """Model representing an IO in a project.
-
-    # TODO: Add hooks to the model.
-
-    """
+    """Model representing an IO in a project."""
 
     id: str
     name: str
@@ -16,11 +12,7 @@ class IOModel(BaseModel):
 
 
 class NodeModel(BaseModel):
-    """Model representing a node in a project.
-
-    # TODO: Add hooks to the model.
-
-    """
+    """Model representing a node in a project."""
 
     id: str
     name: str
@@ -30,11 +22,7 @@ class NodeModel(BaseModel):
 
 
 class ProjectModel(BaseModel):
-    """Model representing a project.
-
-    # TODO: Add hooks to the model.
-
-    """
+    """Model representing a project."""
 
     name: str
     nodes: dict[str, NodeModel] = Field(default_factory=dict)

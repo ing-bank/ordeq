@@ -47,7 +47,7 @@ ordeq-matplotlib = { workspace = true }
 ordeq-numpy = { workspace = true }
 ordeq-pandas = { workspace = true }
 ordeq-polars = { workspace = true }
-ordeq-project = { workspace = true }
+ordeq-manifest = { workspace = true }
 ordeq-pydantic = { workspace = true }
 ordeq-pymupdf = { workspace = true }
 ordeq-requests = { workspace = true }

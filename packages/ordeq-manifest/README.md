@@ -24,8 +24,8 @@ uv pip install ordeq-manifest
 This package is currently in beta stage.
 Please report any issues or requests on the [GitHub repository][github-repo].
 
-[license]: ../LICENSE
+[license]: ./LICENSE
 
-[notice]: ../NOTICE
+[notice]: ./NOTICE
 
 [github-repo]: https://github.com/ing-bank/ordeq/issues

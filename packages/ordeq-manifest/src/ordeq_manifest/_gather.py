@@ -1,8 +1,6 @@
-import ast
 import importlib
 import pkgutil
-from collections.abc import Generator
-from pathlib import Path
+from collections.abc import Generator, Hashable
 from types import ModuleType
 
 from ordeq import IO, Input, Output
@@ -49,33 +47,6 @@ def gather_objects(
             yield m, name, value
 
 
-def load_ast(module: ModuleType) -> ast.Module:
-    with Path(module.__file__).open("r", encoding="utf-8") as f:  # type: ignore[arg-type]
-        return ast.parse(f.read(), filename=__file__)
-
-
-def compute_symbol_table(package: ModuleType) -> dict[str, str]:
-    symbol_table: dict[str, str] = {}
-    for module in gather_modules(package):
-        if module.__file__ and module.__file__.endswith(".py"):
-            tree = load_ast(module)
-            for node in ast.walk(tree):
-                if isinstance(node, ast.ImportFrom):
-                    mod = node.module
-                    for alias in node.names:
-                        local_name = alias.asname or alias.name
-                        symbol_table[f"{module.__name__}.{local_name}"] = (
-                            f"{mod}.{alias.name}"
-                        )
-                elif isinstance(node, ast.Import):
-                    for alias in node.names:
-                        local_name = alias.asname or alias.name
-                        symbol_table[f"{module.__name__}.{local_name}"] = (
-                            alias.name
-                        )
-    return symbol_table
-
-
 def gather(
     module_or_package: ModuleType,
 ) -> tuple[dict[str, NodeModel], dict[str, IOModel]]:
@@ -92,12 +63,9 @@ def gather(
     ios_to_id: dict[IO | Input | Output, str] = {}
     node_models_by_id: dict[str, NodeModel] = {}
 
-    symbol_table = compute_symbol_table(module_or_package)
-
     for module, name, value in gather_objects(module_or_package):
         if isinstance(value, (IO, Input, Output)):
-            fqn = f"{module.__name__}.{name}"
-            idx = symbol_table.get(fqn, fqn)
+            idx = f"{module.__name__}.{name}"
             t = type(value)
             io_model = IOModel(
                 id=idx, name=name, type=f"{t.__module__}.{t.__name__}"
@@ -105,9 +73,12 @@ def gather(
             if idx not in io_models_by_id:
                 io_models_by_id[idx] = io_model
             ios_to_id[value] = idx
-        elif callable(value) and value in NODE_REGISTRY:
-            fqn = f"{module.__name__}.{name}"
-            idx = symbol_table.get(fqn, fqn)
+        elif (
+            callable(value)
+            and isinstance(value, Hashable)
+            and value in NODE_REGISTRY
+        ):
+            idx = f"{module.__name__}.{name}"
             node = get_node(value)
             node_models_by_id[idx] = NodeModel(
                 id=idx,

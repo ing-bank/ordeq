@@ -10,7 +10,7 @@ Output:
     "examples.project.nodes_import_reassign.B"
    ],
    "outputs": [
-    "examples.project.catalog_2.f"
+    "examples.project.nodes_import_reassign.f"
    ],
    "tags": []
   },
@@ -22,24 +22,24 @@ Output:
     "examples.project.nodes_import_reassign.BB"
    ],
    "outputs": [
-    "examples.project.catalog_2.f"
+    "examples.project.nodes_import_reassign.f"
    ],
    "tags": []
   }
  },
  "ios": {
-  "examples.project.catalog_1.a": {
-   "id": "examples.project.catalog_1.a",
+  "examples.project.nodes_import_reassign.a": {
+   "id": "examples.project.nodes_import_reassign.a",
    "name": "a",
    "type": "ordeq_common.io.static.Static"
   },
-  "examples.project.catalog_1.b": {
-   "id": "examples.project.catalog_1.b",
+  "examples.project.nodes_import_reassign.b": {
+   "id": "examples.project.nodes_import_reassign.b",
    "name": "b",
    "type": "ordeq_common.io.string_buffer.StringBuffer"
   },
-  "examples.project.catalog_2.f": {
-   "id": "examples.project.catalog_2.f",
+  "examples.project.nodes_import_reassign.f": {
+   "id": "examples.project.nodes_import_reassign.f",
    "name": "f",
    "type": "ordeq_common.io.printer.Print"
   },
@@ -67,6 +67,6 @@ Output:
 }
 
 Typing:
-packages/ordeq-manifest/tests/resources/nodes_import_reassign.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/nodes_import_reassign.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/nodes_import_reassign.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/nodes_import_reassign.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)

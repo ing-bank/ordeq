@@ -2,14 +2,14 @@ Output:
 {
  "name": "examples.project",
  "nodes": {
-  "examples.project.nested.nodes.func": {
-   "id": "examples.project.nested.nodes.func",
+  "examples.project.inner.nodes.func": {
+   "id": "examples.project.inner.nodes.func",
    "name": "func",
    "inputs": [
-    "examples.project.nested.nodes.x"
+    "examples.project.inner.nodes.x"
    ],
    "outputs": [
-    "examples.project.nested.nodes.y"
+    "examples.project.inner.nodes.y"
    ],
    "tags": [
     "dummy"
@@ -32,11 +32,11 @@ Output:
    "id": "examples.project.nodes_import.func_a",
    "name": "func_a",
    "inputs": [
-    "examples.project.catalog_1.a",
-    "examples.project.catalog_1.b"
+    "examples.project.nodes_import.a",
+    "examples.project.nodes_import.b"
    ],
    "outputs": [
-    "examples.project.catalog_2.f"
+    "examples.project.nodes_import.f"
    ],
    "tags": []
   },
@@ -44,11 +44,11 @@ Output:
    "id": "examples.project.nodes_import.func_b",
    "name": "func_b",
    "inputs": [
-    "examples.project.catalog_1.a",
-    "examples.project.catalog_1.b"
+    "examples.project.nodes_import.a",
+    "examples.project.nodes_import.b"
    ],
    "outputs": [
-    "examples.project.catalog_2.f"
+    "examples.project.nodes_import.f"
    ],
    "tags": {
     "viz": "orange"
@@ -58,11 +58,11 @@ Output:
    "id": "examples.project.nodes_import_alias.func",
    "name": "func",
    "inputs": [
-    "examples.project.catalog_1.a",
-    "examples.project.catalog_1.b"
+    "examples.project.nodes_import_alias.a",
+    "examples.project.nodes_import_alias.B"
    ],
    "outputs": [
-    "examples.project.catalog_2.f"
+    "examples.project.nodes_import_alias.f"
    ],
    "tags": {
     "key": "threshold",
@@ -77,7 +77,7 @@ Output:
     "examples.project.nodes_import_reassign.B"
    ],
    "outputs": [
-    "examples.project.catalog_2.f"
+    "examples.project.nodes_import_reassign.f"
    ],
    "tags": []
   },
@@ -89,7 +89,7 @@ Output:
     "examples.project.nodes_import_reassign.BB"
    ],
    "outputs": [
-    "examples.project.catalog_2.f"
+    "examples.project.nodes_import_reassign.f"
    ],
    "tags": []
   }
@@ -125,13 +125,13 @@ Output:
    "name": "f",
    "type": "ordeq_common.io.printer.Print"
   },
-  "examples.project.nested.nodes.x": {
-   "id": "examples.project.nested.nodes.x",
+  "examples.project.inner.nodes.x": {
+   "id": "examples.project.inner.nodes.x",
    "name": "x",
    "type": "ordeq.framework.io.IO"
   },
-  "examples.project.nested.nodes.y": {
-   "id": "examples.project.nested.nodes.y",
+  "examples.project.inner.nodes.y": {
+   "id": "examples.project.inner.nodes.y",
    "name": "y",
    "type": "ordeq_common.io.printer.Print"
   },
@@ -143,6 +143,51 @@ Output:
   "examples.project.nodes.y": {
    "id": "examples.project.nodes.y",
    "name": "y",
+   "type": "ordeq_common.io.printer.Print"
+  },
+  "examples.project.nodes_import.a": {
+   "id": "examples.project.nodes_import.a",
+   "name": "a",
+   "type": "ordeq_common.io.static.Static"
+  },
+  "examples.project.nodes_import.b": {
+   "id": "examples.project.nodes_import.b",
+   "name": "b",
+   "type": "ordeq_common.io.string_buffer.StringBuffer"
+  },
+  "examples.project.nodes_import.f": {
+   "id": "examples.project.nodes_import.f",
+   "name": "f",
+   "type": "ordeq_common.io.printer.Print"
+  },
+  "examples.project.nodes_import_alias.a": {
+   "id": "examples.project.nodes_import_alias.a",
+   "name": "a",
+   "type": "ordeq_common.io.static.Static"
+  },
+  "examples.project.nodes_import_alias.B": {
+   "id": "examples.project.nodes_import_alias.B",
+   "name": "B",
+   "type": "ordeq_common.io.string_buffer.StringBuffer"
+  },
+  "examples.project.nodes_import_alias.f": {
+   "id": "examples.project.nodes_import_alias.f",
+   "name": "f",
+   "type": "ordeq_common.io.printer.Print"
+  },
+  "examples.project.nodes_import_reassign.a": {
+   "id": "examples.project.nodes_import_reassign.a",
+   "name": "a",
+   "type": "ordeq_common.io.static.Static"
+  },
+  "examples.project.nodes_import_reassign.b": {
+   "id": "examples.project.nodes_import_reassign.b",
+   "name": "b",
+   "type": "ordeq_common.io.string_buffer.StringBuffer"
+  },
+  "examples.project.nodes_import_reassign.f": {
+   "id": "examples.project.nodes_import_reassign.f",
+   "name": "f",
    "type": "ordeq_common.io.printer.Print"
   },
   "examples.project.nodes_import_reassign.A": {
@@ -169,6 +214,7 @@ Output:
 }
 
 Typing:
-packages/ordeq-manifest/tests/resources/project.py:2: error: Skipping analyzing "examples": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/project.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 1 error in 1 file (checked 1 source file)
+packages/ordeq-manifest/tests/resources/manifests/project.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/project.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/project.py:2: error: Skipping analyzing "examples": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+Found 2 errors in 1 file (checked 1 source file)

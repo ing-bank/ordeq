@@ -192,7 +192,9 @@ convention = "google"
 [tool.ty.src]
 exclude = [
     "packages/*/src/*/_version.py",
-    "packages/*/tests/resources/*"  # type checking on resources is conducted by snapshot tests
+    # type checking on resources is conducted by snapshot tests:
+    "packages/*/tests/resources/*",
+    "packages/*/tests/examples/*",
 ]
 
 [tool.ty.rules]

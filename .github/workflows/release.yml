@@ -5,6 +5,7 @@ on:
     tags:
       - ordeq-*/v*  # e.g., ordeq-spark/v1.2.3
       - ordeq/v*  # e.g. ordeq/v1.2.3
+  workflow_dispatch:
 
 jobs:
   run:

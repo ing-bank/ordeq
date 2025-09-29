@@ -80,7 +80,7 @@ To learn more about Ordeq, check out the following resources:
 - Explore the [example project][example-project] to see how Ordeq is used
 
 ## Acknowledgements
-Ordeq builds upon design choices and ideas from [Kedro][kedro].
+Ordeq builds upon design choices and ideas from [Kedro][kedro] and other frameworks.
 It has been developed at ING, with contributions from various individuals.
 Please refer to the [acknowledgements] section in the documentation for more details.
 

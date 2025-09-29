@@ -79,6 +79,11 @@ To learn more about Ordeq, check out the following resources:
 - Check out the [core concepts][core-concepts] to learn how to use Ordeq
 - Explore the [example project][example-project] to see how Ordeq is used
 
+## Acknowledgements
+Ordeq builds upon design choices and ideas from [Kedro][kedro].
+It has been developed at ING, with contributions from various individuals.
+Please refer to the [acknowledgements] section in the documentation for more details.
+
 [core-concepts]: https://ing-bank.github.io/ordeq/getting-started/concepts/io/
 
 [api-ref]: https://ing-bank.github.io/ordeq/api/ordeq/framework/io/
@@ -87,6 +92,10 @@ To learn more about Ordeq, check out the following resources:
 
 [example-project]: docs/guides/examples/example-project/README.md
 
-[license]: ./LICENSE
+[license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE
 
-[notice]: ./NOTICE
+[notice]: https://github.com/ing-bank/ordeq/blob/main/NOTICE
+
+[kedro]: https://github.com/kedro-org/kedro
+
+[acknowledgements]: https://ing-bank.github.io/ordeq/contributing/acknowledgements/

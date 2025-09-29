@@ -16,6 +16,6 @@ nav:
       # TODO: Add an example project
   - API: api
   - Contributing:
-      - How to: contributing/contributing.md
+      - How to: CONTRIBUTING.md
       - Acknowledgements: contributing/acknowledgements.md
       - Documentation setup: contributing/documentation.md

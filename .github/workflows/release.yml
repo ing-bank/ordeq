@@ -3,8 +3,8 @@ name: "Release"
 on:
   push:
     tags:
-      # Publish on any tag starting with a `v`, e.g., v0.1.0
-      - v*
+      - ordeq-*/v*  # e.g., ordeq-spark/v1.2.3
+      - ordeq/v*  # e.g. ordeq/v1.2.3
 
 jobs:
   run:

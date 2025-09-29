@@ -68,6 +68,30 @@ Output:
     "key": "threshold",
     "value": 0.23
    }
+  },
+  "examples.project.nodes_import_reassign.func_a": {
+   "id": "examples.project.nodes_import_reassign.func_a",
+   "name": "func_a",
+   "inputs": [
+    "examples.project.nodes_import_reassign.A",
+    "examples.project.nodes_import_reassign.B"
+   ],
+   "outputs": [
+    "examples.project.catalog_2.f"
+   ],
+   "tags": []
+  },
+  "examples.project.nodes_import_reassign.func_b": {
+   "id": "examples.project.nodes_import_reassign.func_b",
+   "name": "func_b",
+   "inputs": [
+    "examples.project.nodes_import_reassign.AA",
+    "examples.project.nodes_import_reassign.BB"
+   ],
+   "outputs": [
+    "examples.project.catalog_2.f"
+   ],
+   "tags": []
   }
  },
  "ios": {
@@ -120,6 +144,26 @@ Output:
    "id": "examples.project.nodes.y",
    "name": "y",
    "type": "ordeq_common.io.printer.Print"
+  },
+  "examples.project.nodes_import_reassign.A": {
+   "id": "examples.project.nodes_import_reassign.A",
+   "name": "A",
+   "type": "ordeq_common.io.static.Static"
+  },
+  "examples.project.nodes_import_reassign.B": {
+   "id": "examples.project.nodes_import_reassign.B",
+   "name": "B",
+   "type": "ordeq_common.io.string_buffer.StringBuffer"
+  },
+  "examples.project.nodes_import_reassign.AA": {
+   "id": "examples.project.nodes_import_reassign.AA",
+   "name": "AA",
+   "type": "ordeq_common.io.static.Static"
+  },
+  "examples.project.nodes_import_reassign.BB": {
+   "id": "examples.project.nodes_import_reassign.BB",
+   "name": "BB",
+   "type": "ordeq_common.io.string_buffer.StringBuffer"
   }
  }
 }

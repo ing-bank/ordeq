@@ -1,20 +1,14 @@
-name: "Release"
+name: Release
 
 on:
   push:
     tags:
       - ordeq-*/v*  # e.g., ordeq-spark/v1.2.3
       - ordeq/v*  # e.g. ordeq/v1.2.3
-  workflow_dispatch: # this will be disabled after the first release
-    inputs:
-      tag_name:
-        description: 'Tag to release (e.g., ordeq-spark/v1.2.3)'
-        required: false
-        type: string
 
 env:
-  TAG_NAME: ${{ github.event.inputs.tag_name || github.ref_name }}
-  PACKAGE_NAME: ${{ (github.event.inputs.tag_name || github.ref_name).split('/')[0] }}
+  TAG_NAME: ${{ github.ref_name }}
+  PACKAGE_NAME: ${{ github.ref_name.split('/')[0] }}
 
 jobs:
   run:

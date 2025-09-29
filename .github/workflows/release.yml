@@ -7,6 +7,10 @@ on:
       - ordeq/v*  # e.g. ordeq/v1.2.3
   workflow_dispatch:
 
+env:
+  TAG_NAME: ${{ github.ref_name }}
+  PACKAGE_NAME: ${{ github.ref_name && github.ref_name.split('/')[0] }}
+
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -26,7 +30,7 @@ jobs:
         run: uv python install 3.13
 
       - name: Build
-        run: uv build --all-packages --sdist
+        run: uv build $PACKAGE_NAME --sdist
 
       - name: Publish
-        run: uv publish
+        run: uv publish --package $PACKAGE_NAME

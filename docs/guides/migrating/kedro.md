@@ -106,7 +106,7 @@ Switch the tabs to see the Kedro catalog and its Ordeq equivalent:
 For each dataset in the Kedro catalog, we have defined an equivalent Ordeq IO.
 
 - `companies` is a `pandas.CSVDataset` dataset,, so we use the `ordeq_pandas.PandasCSV` IO.
-- `shuttles` `pandas.ExcelDataset` dataset, so we use the `ordeq_pandas.PandasExcel` IO.
+- `shuttles` is a `pandas.ExcelDataset` dataset, so we use the `ordeq_pandas.PandasExcel` IO.
     - The `load_args` in Kedro are translated to `with_load_options` in Ordeq.
 - `preprocessed_companies` and `preprocessed_shuttles` are `pandas.ParquetDataset` datasets, so we use the `ordeq_pandas.PandasParquet` IO.
 
@@ -115,10 +115,10 @@ For each dataset in the Kedro catalog, we have defined an equivalent Ordeq IO.
 
 ### Custom datasets
 
-The datasets in the example above are all supported by Ordeq.
-If you have custom datasets in Kedro, you can create equivalent custom IOs in Ordeq.
-The same applies if you have datasets that are not yet supported by Ordeq.
-For more information, please refer to the [guide on creating custom IOs][custom-ios].
+The datasets in the example above all have an equivalent IO in `ordeq-pandas`.
+If you custom datasets in Kedro, you can create equivalent custom IOs in Ordeq.
+The same applies for datasets for which no equivalent IO is offered by Ordeq (yet).
+lease refer to the [guide on creating custom IOs][custom-ios] for more information.
 
 ## Migrating the pipeline
 

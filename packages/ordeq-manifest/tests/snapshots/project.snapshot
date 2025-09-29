@@ -1,0 +1,130 @@
+Output:
+{
+ "name": "examples.project",
+ "nodes": {
+  "examples.project.nested.nodes.func": {
+   "id": "examples.project.nested.nodes.func",
+   "name": "func",
+   "inputs": [
+    "examples.project.nested.nodes.x"
+   ],
+   "outputs": [
+    "examples.project.nested.nodes.y"
+   ],
+   "tags": [
+    "dummy"
+   ]
+  },
+  "examples.project.nodes.func": {
+   "id": "examples.project.nodes.func",
+   "name": "func",
+   "inputs": [
+    "examples.project.nodes.x"
+   ],
+   "outputs": [
+    "examples.project.nodes.y"
+   ],
+   "tags": [
+    "dummy"
+   ]
+  },
+  "examples.project.nodes_import.func_a": {
+   "id": "examples.project.nodes_import.func_a",
+   "name": "func_a",
+   "inputs": [
+    "examples.project.catalog_1.a",
+    "examples.project.catalog_1.b"
+   ],
+   "outputs": [
+    "examples.project.catalog_2.f"
+   ],
+   "tags": []
+  },
+  "examples.project.nodes_import.func_b": {
+   "id": "examples.project.nodes_import.func_b",
+   "name": "func_b",
+   "inputs": [
+    "examples.project.catalog_1.a",
+    "examples.project.catalog_1.b"
+   ],
+   "outputs": [
+    "examples.project.catalog_2.f"
+   ],
+   "tags": {
+    "viz": "orange"
+   }
+  },
+  "examples.project.nodes_import_alias.func": {
+   "id": "examples.project.nodes_import_alias.func",
+   "name": "func",
+   "inputs": [
+    "examples.project.catalog_1.a",
+    "examples.project.catalog_1.b"
+   ],
+   "outputs": [
+    "examples.project.catalog_2.f"
+   ],
+   "tags": {
+    "key": "threshold",
+    "value": 0.23
+   }
+  }
+ },
+ "ios": {
+  "examples.project.catalog_1.a": {
+   "id": "examples.project.catalog_1.a",
+   "name": "a",
+   "type": "ordeq_common.io.static.Static"
+  },
+  "examples.project.catalog_1.b": {
+   "id": "examples.project.catalog_1.b",
+   "name": "b",
+   "type": "ordeq_common.io.string_buffer.StringBuffer"
+  },
+  "examples.project.catalog_1.c": {
+   "id": "examples.project.catalog_1.c",
+   "name": "c",
+   "type": "ordeq_common.io.printer.Print"
+  },
+  "examples.project.catalog_2.d": {
+   "id": "examples.project.catalog_2.d",
+   "name": "d",
+   "type": "ordeq_common.io.static.Static"
+  },
+  "examples.project.catalog_2.e": {
+   "id": "examples.project.catalog_2.e",
+   "name": "e",
+   "type": "ordeq_common.io.string_buffer.StringBuffer"
+  },
+  "examples.project.catalog_2.f": {
+   "id": "examples.project.catalog_2.f",
+   "name": "f",
+   "type": "ordeq_common.io.printer.Print"
+  },
+  "examples.project.nested.nodes.x": {
+   "id": "examples.project.nested.nodes.x",
+   "name": "x",
+   "type": "ordeq.framework.io.IO"
+  },
+  "examples.project.nested.nodes.y": {
+   "id": "examples.project.nested.nodes.y",
+   "name": "y",
+   "type": "ordeq_common.io.printer.Print"
+  },
+  "examples.project.nodes.x": {
+   "id": "examples.project.nodes.x",
+   "name": "x",
+   "type": "ordeq.framework.io.IO"
+  },
+  "examples.project.nodes.y": {
+   "id": "examples.project.nodes.y",
+   "name": "y",
+   "type": "ordeq_common.io.printer.Print"
+  }
+ }
+}
+
+Typing:
+packages/ordeq-manifest/tests/resources/project.py:2: error: Skipping analyzing "examples": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/project.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 1 source file)

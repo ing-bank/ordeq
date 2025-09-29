@@ -1,0 +1,37 @@
+Output:
+{
+ "name": "examples.project.nested",
+ "nodes": {
+  "examples.project.nested.nodes.func": {
+   "id": "examples.project.nested.nodes.func",
+   "name": "func",
+   "inputs": [
+    "examples.project.nested.nodes.x"
+   ],
+   "outputs": [
+    "examples.project.nested.nodes.y"
+   ],
+   "tags": [
+    "dummy"
+   ]
+  }
+ },
+ "ios": {
+  "examples.project.nested.nodes.x": {
+   "id": "examples.project.nested.nodes.x",
+   "name": "x",
+   "type": "ordeq.framework.io.IO"
+  },
+  "examples.project.nested.nodes.y": {
+   "id": "examples.project.nested.nodes.y",
+   "name": "y",
+   "type": "ordeq_common.io.printer.Print"
+  }
+ }
+}
+
+Typing:
+packages/ordeq-manifest/tests/resources/nested.py:2: error: Skipping analyzing "examples.project.nested": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/nested.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/nested.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+Found 2 errors in 1 file (checked 1 source file)

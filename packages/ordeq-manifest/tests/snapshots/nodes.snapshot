@@ -1,0 +1,37 @@
+Output:
+{
+ "name": "examples.project.nodes",
+ "nodes": {
+  "examples.project.nodes.func": {
+   "id": "examples.project.nodes.func",
+   "name": "func",
+   "inputs": [
+    "examples.project.nodes.x"
+   ],
+   "outputs": [
+    "examples.project.nodes.y"
+   ],
+   "tags": [
+    "dummy"
+   ]
+  }
+ },
+ "ios": {
+  "examples.project.nodes.x": {
+   "id": "examples.project.nodes.x",
+   "name": "x",
+   "type": "ordeq.framework.io.IO"
+  },
+  "examples.project.nodes.y": {
+   "id": "examples.project.nodes.y",
+   "name": "y",
+   "type": "ordeq_common.io.printer.Print"
+  }
+ }
+}
+
+Typing:
+packages/ordeq-manifest/tests/resources/nodes.py:2: error: Skipping analyzing "examples.project.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/nodes.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/nodes.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+Found 2 errors in 1 file (checked 1 source file)

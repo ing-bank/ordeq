@@ -1,7 +1,7 @@
 import importlib
 from pathlib import Path
 from types import ModuleType
-from typing import Literal, overload
+from typing import Any, Literal, overload
 
 from ordeq.framework.runner import (
     _gather_nodes_from_module,  # noqa: PLC2701 (private-member-access)
@@ -20,13 +20,16 @@ def viz(
     *modules: ModuleType,
     fmt: Literal["kedro", "mermaid"],
     output: Path,
-    **options,
+    **options: Any,
 ) -> None: ...
 
 
 @overload
 def viz(
-    *modules: str, fmt: Literal["kedro", "mermaid"], output: Path, **options
+    *modules: str,
+    fmt: Literal["kedro", "mermaid"],
+    output: Path,
+    **options: Any,
 ) -> None: ...
 
 
@@ -34,7 +37,7 @@ def viz(
     *modules: str | ModuleType,
     fmt: Literal["kedro", "mermaid"],
     output: Path,
-    **options,
+    **options: Any,
 ) -> None:
     """Visualize the pipeline from the provided packages or modules
 

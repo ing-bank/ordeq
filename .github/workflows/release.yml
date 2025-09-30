@@ -8,6 +8,7 @@ on:
 
 jobs:
   run:
+    name: Release package
     runs-on: ubuntu-latest
     environment:
       name: pypi
@@ -29,7 +30,7 @@ jobs:
         run: uv python install 3.13
 
       - name: Build
-        run: uv build $PACKAGE_NAME --sdist
+        run: uv build --package $PACKAGE_NAME --sdist
 
       - name: Publish
         run: uv publish --package $PACKAGE_NAME

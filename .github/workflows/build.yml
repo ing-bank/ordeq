@@ -9,6 +9,10 @@ env:
   pythonVersion: '3.10'
 
 jobs:
+  docs:
+    name: Run Docs Workflow
+    uses: ./.github/workflows/docs.yml
+
   packages:
     name: Determine packages in scope
     runs-on: ubuntu-latest

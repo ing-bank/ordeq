@@ -52,7 +52,14 @@ jobs:
           python-version: ${{ env.pythonVersion }}
       - name: Install uv
         run: python -m pip install --upgrade uv
+      - name: Cache uv dependencies
+        id: cache-uv
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: uv-${{ runner.os }}-${{ env.pythonVersion }}-${{ hashFiles('**/pyproject.toml') }}
       - name: Install the project
+        if: steps.cache-uv.outputs.cache-hit != 'true'
         run: uv sync --all-packages --all-groups --all-extras
       - name: Check formatting
         run: uv run just format
@@ -79,7 +86,14 @@ jobs:
           python-version: ${{ env.pythonVersion }}
       - name: Install uv
         run: python -m pip install --upgrade uv
+      - name: Cache uv dependencies
+        id: cache-uv
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: uv-${{ runner.os }}-${{ env.pythonVersion }}-${{ hashFiles('**/pyproject.toml') }}
       - name: Install the project
+        if: steps.cache-uv.outputs.cache-hit != 'true'
         run: uv sync --all-packages --group test
       - name: Run unit tests
         run: uv run --group test pytest -v --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"

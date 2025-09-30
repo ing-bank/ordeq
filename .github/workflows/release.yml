@@ -23,6 +23,9 @@ jobs:
         id: extract
         run: echo "PACKAGE_NAME=${GITHUB_REF_NAME%%/*}" >> $GITHUB_ENV
 
+      - name: Copy README to package
+        run: bash scripts/copy-readme.sh "$PACKAGE_NAME"
+
       - name: Install uv
         uses: astral-sh/setup-uv@v6
 

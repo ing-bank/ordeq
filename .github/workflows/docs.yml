@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   deploy:
+    name: Build docs
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

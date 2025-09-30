@@ -1,7 +1,46 @@
+from typing import Any
+
 from ordeq.framework.io import Input, Output
 from ordeq.framework.nodes import Node
 
 from ordeq_viz.graph import _gather_graph
+
+
+def _filter_none(d: dict[str, Any]) -> dict[str, Any]:
+    return {
+        k: (_filter_none(v) if isinstance(v, dict) else v)
+        for k, v in d.items()
+        if (v is not None if not isinstance(v, dict) else _filter_none(v))
+    }
+
+
+def _make_mermaid_header(
+    header_dict: dict[str, str | dict[str, str | None] | None],
+) -> str:
+    """Generate the mermaid header.
+
+    Args:
+        header_dict: A dictionary containing header fields.
+
+    Returns:
+        The mermaid header as a string.
+    """
+
+    header_dict = _filter_none(header_dict)
+
+    if not header_dict:
+        return ""
+
+    header_lines = ["---"]
+    for key, value in header_dict.items():
+        if isinstance(value, dict):
+            header_lines.append(f"{key}:")
+            for subkey, subvalue in value.items():
+                header_lines.append(f"  {subkey}: {subvalue}")
+        else:
+            header_lines.append(f'{key}: "{value}"')
+    header_lines.append("---")
+    return "\n".join(header_lines) + "\n"
 
 
 def pipeline_to_mermaid(
@@ -10,6 +49,10 @@ def pipeline_to_mermaid(
     legend: bool = True,
     use_dataset_styles: bool = True,
     connect_wrapped_datasets: bool = True,
+    title: str | None = None,
+    layout: str | None = None,
+    theme: str | None = None,
+    look: str | None = None,
 ) -> str:
     """Convert a pipeline to a mermaid diagram
 
@@ -20,6 +63,10 @@ def pipeline_to_mermaid(
         use_dataset_styles: if True, use a distinct color for each dataset type
         connect_wrapped_datasets: if True, connect wrapped datasets with a
             dashed line
+        title: Title of the mermaid diagram
+        layout: Layout type for the diagram (e.g., 'dagre')
+        theme: Theme for the diagram (e.g., 'neo')
+        look: Look and feel for the diagram (e.g., 'neo')
 
     Returns:
         the pipeline rendered as mermaid diagram syntax
@@ -52,8 +99,14 @@ def pipeline_to_mermaid(
     >>> Path("pipeline.mermaid").write_text(mermaid)  # doctest: +SKIP
 
     ```
-
     """
+
+    header_dict = {
+        "title": title,
+        "config": {"layout": layout, "theme": theme, "look": look},
+    }
+    mermaid_header = _make_mermaid_header(header_dict)
+
     node_data, dataset_data = _gather_graph(nodes, datasets)
 
     wraps_data: list[tuple[int, str, int]] = []
@@ -93,7 +146,7 @@ def pipeline_to_mermaid(
         for idx, dataset_type in enumerate(distinct_dataset_types)
     }
 
-    data = ""
+    data = mermaid_header
     data += """graph TB\n"""
     data += f"\tclassDef function {node_style}\n"
     data += f"\tclassDef dataset {dataset_style}\n"

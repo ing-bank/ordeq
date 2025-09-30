@@ -1,8 +1,10 @@
 # Welcome to Ordeq!
 
-[![Build](https://github.com/ing-bank/ordeq/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/ing-bank/ordeq/actions/workflows/build.yml)
-[![Docs](https://github.com/ing-bank/ordeq/actions/workflows/publish-docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/publish-docs.yml)
-![PyPI](https://img.shields.io/pypi/v/ordeq?label=pypi%20package)
+[![Release](https://github.com/ing-bank/ordeq/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/ing-bank/ordeq/actions/workflows/release.yml)
+[![Docs](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml)
+![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.
@@ -76,6 +78,11 @@ To learn more about Ordeq, check out the following resources:
 - Check out the [core concepts][core-concepts] to learn how to use Ordeq
 - Explore the [example project][example-project] to see how Ordeq is used
 
+## Acknowledgements
+Ordeq builds upon design choices and ideas from [Kedro][kedro] and other frameworks.
+It has been developed at ING, with contributions from various individuals.
+Please refer to the [acknowledgements] section in the documentation for more details.
+
 [core-concepts]: https://ing-bank.github.io/ordeq/getting-started/concepts/io/
 
 [api-ref]: https://ing-bank.github.io/ordeq/api/ordeq/framework/io/
@@ -84,6 +91,10 @@ To learn more about Ordeq, check out the following resources:
 
 [example-project]: docs/guides/examples/example-project/README.md
 
-[license]: ./LICENSE
+[license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE
 
-[notice]: ./NOTICE
+[notice]: https://github.com/ing-bank/ordeq/blob/main/NOTICE
+
+[kedro]: https://github.com/kedro-org/kedro
+
+[acknowledgements]: https://ing-bank.github.io/ordeq/contributing/acknowledgements/

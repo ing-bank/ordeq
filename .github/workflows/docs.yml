@@ -1,10 +1,16 @@
-name: Publish documentation
+name: Docs
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      publish_docs:
+        required: false
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -39,4 +45,5 @@ jobs:
         run: uv run mkdocs build --strict
 
       - name: Publish site
+        if: ${{ inputs.publish_docs }}
         run: uv run mkdocs gh-deploy --force

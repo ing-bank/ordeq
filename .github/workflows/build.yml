@@ -9,6 +9,12 @@ env:
   pythonVersion: '3.10'
 
 jobs:
+  docs:
+    name: Build docs
+    uses: ./.github/workflows/docs.yml
+    with:
+      publish_docs: false
+
   packages:
     name: Determine packages in scope
     runs-on: ubuntu-latest
@@ -59,7 +65,7 @@ jobs:
 
   test:
     name: Test
-    needs: [ packages, static_code_analysis ]
+    needs: [ packages, static_code_analysis, docs ]
     runs-on: ubuntu-latest
     strategy:
       matrix:

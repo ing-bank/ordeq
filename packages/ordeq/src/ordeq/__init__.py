@@ -9,7 +9,6 @@ from ordeq.framework import (
     Output,
     OutputHook,
     RunHook,
-    is_pipeline,
     node,
     run,
 )
@@ -25,7 +24,6 @@ __all__ = (
     "Output",
     "OutputHook",
     "RunHook",
-    "is_pipeline",
     "node",
     "run",
 )

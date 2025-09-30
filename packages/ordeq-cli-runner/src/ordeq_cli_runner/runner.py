@@ -3,7 +3,6 @@ from collections.abc import Callable
 from types import ModuleType
 
 from ordeq import NodeHook
-from ordeq.framework.pipeline import Pipeline, is_pipeline
 from ordeq.framework.runner import DataStoreType, SaveMode, run
 
 
@@ -41,9 +40,10 @@ def get_obj(
     >>> isinstance(node, Node)  # doctest: +SKIP
     True
 
-    >>> from ordeq.framework.pipeline import is_pipeline
     >>> pipeline = get_obj("path.to.module:everything")  # doctest: +SKIP
-    >>> is_pipeline(pipeline)  # doctest: +SKIP
+    >>> isinstance(pipeline, set) # doctest: +SKIP
+    True
+    >>> all(callable(o) for o in pipeline) # doctest: +SKIP
     True
 
     >>> from ordeq.framework import Hook
@@ -102,7 +102,7 @@ def get_node(
 
 def get_pipeline(
     ref: str, _get_obj: Callable[[str], object] = get_obj
-) -> Pipeline:
+) -> set[Callable]:
     """Gets a pipeline based on its reference. The reference should be
     formatted ``{package}.{subpackage}.{...}:{name}``. Used to retrieve a
     pipeline based on a reference provided to the CLI.
@@ -119,10 +119,10 @@ def get_pipeline(
     """
 
     obj = _get_obj(ref)
-    if not is_pipeline(obj):
+    if not isinstance(obj, set) or any(not callable(o) for o in obj):
         msg = f"'{ref}' is not a pipeline"
         raise TypeError(msg)
-    return obj
+    return obj  # ty: ignore[invalid-return-type]
 
 
 def get_hook(ref: str) -> NodeHook:

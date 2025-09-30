@@ -1,8 +1,8 @@
+from collections.abc import Callable
 from unittest.mock import Mock
 
 import pytest
 from ordeq import Node
-from ordeq.framework import Pipeline
 from ordeq.framework.hook import NodeHook
 from ordeq_cli_runner.runner import get_hook, get_node, get_obj, get_pipeline
 from ordeq_common import Static
@@ -24,7 +24,7 @@ def node_3():
 
 
 @pytest.fixture(scope="module")
-def pipeline(node_1, node_2, node_3) -> Pipeline:
+def pipeline(node_1, node_2, node_3) -> set[Callable]:
     return {node_1, node_2, node_3}
 
 
@@ -67,13 +67,15 @@ class TestGetNode:
 
 
 class TestGetPipeline:
-    def test_it_gets_a_pipeline(self, pipeline: Pipeline):
+    def test_it_gets_a_pipeline(self, pipeline: set[Callable]):
         assert (
             get_pipeline("module:pipeline", _get_obj=lambda _: pipeline)
             == pipeline
         )
 
-    def test_it_raises_an_error_if_not_a_pipeline(self, pipeline: Pipeline):
+    def test_it_raises_an_error_if_not_a_pipeline(
+        self, pipeline: set[Callable]
+    ):
         with pytest.raises(
             TypeError, match="'module:something_else' is not a pipeline"
         ):
@@ -88,10 +90,12 @@ something = ""  # something that is not a hook
 
 
 class TestGetHook:
-    def test_it_gets_a_hook(self, pipeline: Pipeline):
+    def test_it_gets_a_hook(self, pipeline: set[Callable]):
         assert get_hook(f"{__name__}:{MyHook.__name__}") == MyHook
 
-    def test_it_raises_an_error_if_not_a_pipeline(self, pipeline: Pipeline):
+    def test_it_raises_an_error_if_not_a_pipeline(
+        self, pipeline: set[Callable]
+    ):
         with pytest.raises(
             TypeError, match=f"'{__name__}:something' is not a hook"
         ):

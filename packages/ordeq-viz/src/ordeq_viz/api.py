@@ -17,18 +17,24 @@ from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 @overload
 def viz(
-    *modules: ModuleType, fmt: Literal["kedro", "mermaid"], output: Path
+    *modules: ModuleType,
+    fmt: Literal["kedro", "mermaid"],
+    output: Path,
+    **options,
 ) -> None: ...
 
 
 @overload
 def viz(
-    *modules: str, fmt: Literal["kedro", "mermaid"], output: Path
+    *modules: str, fmt: Literal["kedro", "mermaid"], output: Path, **options
 ) -> None: ...
 
 
 def viz(
-    *modules: str | ModuleType, fmt: Literal["kedro", "mermaid"], output: Path
+    *modules: str | ModuleType,
+    fmt: Literal["kedro", "mermaid"],
+    output: Path,
+    **options,
 ) -> None:
     """Visualize the pipeline from the provided packages or modules
 
@@ -36,6 +42,7 @@ def viz(
         modules: Package names or modules from which to gather nodes from.
         fmt: Format of the output visualization, ("kedro" or "mermaid").
         output: output file or directory where the viz will be saved.
+        options: Additional options for the visualization functions.
 
     Raises:
         TypeError: if modules are not all modules or all package names
@@ -65,7 +72,9 @@ def viz(
         )
     match fmt:
         case "kedro":
-            pipeline_to_kedro_viz(nodes, ios, output_directory=output)
+            pipeline_to_kedro_viz(
+                nodes, ios, output_directory=output, **options
+            )
         case "mermaid":
-            result = pipeline_to_mermaid(nodes, ios)
+            result = pipeline_to_mermaid(nodes, ios, **options)
             output.write_text(result, encoding="utf8")

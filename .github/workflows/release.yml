@@ -19,9 +19,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - name: Extract package name
+      - name: Extract package name and version
         id: extract
-        run: echo "PACKAGE_NAME=${GITHUB_REF_NAME%%/*}" >> $GITHUB_ENV
+        run: |
+          echo "PACKAGE_NAME=${GITHUB_REF_NAME%%/*}" >> $GITHUB_ENV
+          echo "PACKAGE_VERSION=$(echo $GITHUB_REF_NAME | sed -E 's|.*/v?([0-9][^/]*)|\1|')" >> $GITHUB_ENV
 
       - name: Copy README to package
         run: bash scripts/copy-readme.sh "$PACKAGE_NAME"
@@ -37,3 +39,6 @@ jobs:
 
       - name: Publish
         run: uv publish
+
+      - name: Test
+        run: uv run --with $PACKAGE_NAME==$PACKAGE_VERSION --no-project -- python -c "import $PACKAGE_NAME"

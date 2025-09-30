@@ -146,6 +146,7 @@ ignore = [
     "PLR2004", # Magic value used in comparison
     "PLR1722", # Use `sys.exit()` instead of `exit`
     "PLR0915", # Too many statements (61 > 50)
+    "PLR0914", # Too many local variables (22 > 15)
     "TC003", # Move standard library import
     "TC002", # Move third-party import `airflow.models.param.Param`
     "PLR0917", # Too many positional arguments (6/5)

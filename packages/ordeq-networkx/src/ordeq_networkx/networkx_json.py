@@ -1,5 +1,6 @@
 import json
 from dataclasses import dataclass
+from typing import Any
 
 import networkx as nx
 from ordeq import IO
@@ -27,12 +28,12 @@ class NetworkxJSON(IO[nx.Graph]):
 
     path: PathLike
 
-    def load(self, **load_options) -> nx.Graph:
+    def load(self, **load_options: Any) -> nx.Graph:
         with self.path.open("r", encoding="utf-8") as f:
             data = json.load(f, **load_options)
         return nx.node_link_graph(data)
 
-    def save(self, graph: nx.Graph, **save_options) -> None:
+    def save(self, graph: nx.Graph, **save_options: Any) -> None:
         data = nx.node_link_data(graph)
         with self.path.open("w", encoding="utf-8") as f:
             json.dump(data, f, **save_options)

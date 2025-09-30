@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import networkx as nx
 from ordeq import IO
@@ -25,8 +26,8 @@ class NetworkxGraphML(IO[nx.Graph]):
 
     path: Path
 
-    def load(self, **load_options) -> nx.Graph:
+    def load(self, **load_options: Any) -> nx.Graph:
         return nx.read_graphml(self.path, **load_options)
 
-    def save(self, graph: nx.Graph, **save_options) -> None:
+    def save(self, graph: nx.Graph, **save_options: Any) -> None:
         nx.write_graphml(graph, self.path, **save_options)

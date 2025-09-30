@@ -81,3 +81,68 @@ def test_viz_to_kedro_call(
         expected_example_ios,
         output_directory=output_folder,
     )
+
+
+def test_viz_main_mermaid_with_callables(tmp_path: Path) -> None:
+    import example.nodes  # ty: ignore[unresolved-import]
+    import example2.nodes  # ty: ignore[unresolved-import]
+
+    output_file = tmp_path / "output.mermaid"
+    viz(
+        example.nodes.world,
+        example2.nodes.transform_input_2,
+        fmt="mermaid",
+        output=output_file,
+    )
+    assert output_file.exists()
+    output_file_content = output_file.read_text("utf8")
+    assert "graph TB" in output_file_content
+    assert "world(" in output_file_content
+    assert "transform_input_2(" in output_file_content
+    assert "[(x)]" in output_file_content
+    assert "[(y)]" in output_file_content
+    assert "[(TestInput2)]" in output_file_content
+    assert "[(TestOutput2)]" in output_file_content
+
+
+def test_viz_main_mermaid_with_callables_dynamic_function(
+    tmp_path: Path,
+) -> None:
+    import example3.nodes  # ty: ignore[unresolved-import]
+
+    output_file = tmp_path / "output.mermaid"
+    viz(
+        example3.nodes.f1, example3.nodes.f2, fmt="mermaid", output=output_file
+    )
+    assert output_file.exists()
+    output_file_content = output_file.read_text("utf8")
+    assert "graph TB" in output_file_content
+    # we would prefer to see f1 and f2, but since they are dynamically created
+    # with the same name, mermaid shows them both as "hello" for now.
+    assert (
+        """	subgraph pipeline["Pipeline"]
+		direction TB
+		hello:::function
+		hello:::function
+	end"""
+        in output_file_content
+    )
+
+
+def test_viz_main_mermaid_with_module_dynamic_function(tmp_path: Path) -> None:
+    import example3.nodes  # ty: ignore[unresolved-import]
+
+    output_file = tmp_path / "output.mermaid"
+    viz(example3.nodes, fmt="mermaid", output=output_file)
+    assert output_file.exists()
+    output_file_content = output_file.read_text("utf8")
+    assert "graph TB" in output_file_content
+    # see previous test
+    assert (
+        """	subgraph pipeline["Pipeline"]
+		direction TB
+		hello:::function
+		hello:::function
+	end"""
+        in output_file_content
+    )

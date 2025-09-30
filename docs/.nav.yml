@@ -8,6 +8,7 @@ nav:
           - Catalogs: getting-started/concepts/catalogs.md
           - Hooks: getting-started/concepts/hooks.md
   - Guides & examples:
+      - guides/run_and_viz.md
       - guides/custom_io.md
       - guides/testing_nodes.md
       - Examples:

@@ -1,5 +1,5 @@
 import os
-from typing import Literal, get_args
+from typing import Any, Literal, get_args
 
 import altair as alt
 from ordeq import Output
@@ -37,7 +37,7 @@ class AltairChart(Output[alt.Chart]):
             )
         self._fmt = fmt  # type: ignore[assignment]
 
-    def save(self, chart: alt.Chart, **save_options) -> None:
+    def save(self, chart: alt.Chart, **save_options: Any) -> None:
         """Saves the Altair chart to a specified path in HTML format.
 
         Args:

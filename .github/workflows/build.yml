@@ -10,8 +10,10 @@ env:
 
 jobs:
   docs:
-    name: Run Docs Workflow
+    name: Build docs
     uses: ./.github/workflows/docs.yml
+    with:
+      publish_docs: false
 
   packages:
     name: Determine packages in scope

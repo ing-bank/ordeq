@@ -33,4 +33,4 @@ jobs:
         run: uv build --package $PACKAGE_NAME --sdist
 
       - name: Publish
-        run: uv publish --package $PACKAGE_NAME
+        run: uv publish

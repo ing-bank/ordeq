@@ -6,10 +6,6 @@ on:
       - ordeq-*/v*  # e.g., ordeq-spark/v1.2.3
       - ordeq/v*  # e.g. ordeq/v1.2.3
 
-env:
-  TAG_NAME: ${{ github.ref_name }}
-  PACKAGE_NAME: ${{ github.ref_name.split('/')[0] }}
-
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -21,6 +17,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: Extract package name
+        id: extract
+        run: echo "PACKAGE_NAME=${GITHUB_REF_NAME%%/*}" >> $GITHUB_ENV
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6

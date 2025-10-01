@@ -57,7 +57,7 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
     ... )
     >>> @node(inputs=fruits, outputs=fruits_filtered)
     ... def filter_fruits(fruits: DuckDBPyRelation) -> DuckDBPyRelation:
-    ...     return fruits.filter("col0 > 1")
+    ...     return fruits.filter("color = 'red'")
 
     ```
 

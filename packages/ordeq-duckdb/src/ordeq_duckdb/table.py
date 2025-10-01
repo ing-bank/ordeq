@@ -50,8 +50,8 @@ class DuckDBTable(IO[DuckDBPyRelation]):
     >>> result = run(convert_to_duckdb_relation)
     >>> connection.table("my_data").show()
     ┌───────┬─────────┐
-    │  id   │  value  │
-    │ int64 │ varchar │
+    │ col0  │  col1   │
+    │ int32 │ varchar │
     ├───────┼─────────┤
     │     2 │ b       │
     └───────┴─────────┘

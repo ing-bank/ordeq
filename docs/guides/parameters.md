@@ -1,17 +1,18 @@
-# Parameters
+# Parametrizing IOs
 
-A parameter is an IO that is used by another IO to configure its load or save behavior.
+A parameterized IO is an IO that uses a _parameter_ to configure its load or save behavior.
 Typical examples of parameters are environment variables, command line arguments, or configuration files.
 These parameters can configure various aspects of the IO, such as file paths and connection strings.
-For example, you might want to:
+
+For example, you can parametrize an IO to:
 
 - save a JSON file to a path based on a command line argument
-- load an Excel sheet, and the sheet name is taken from a configuration file
-- make an API request, and the authentication is taken from an environment variable
+- load an Excel sheet, where the sheet name is taken from a configuration file
+- make an API request to a URL that is determined from an environment variable
 
 ### Approach
 
-To create a parameter for an IO, we need two things:
+To create a parameter for an IO, we need:
 
 - a custom IO class (see the guide on [custom IOs](custom_io.md))
 - the parameter IO (the environment variable, command line argument, configuration file, etc.)
@@ -20,14 +21,14 @@ The approach is as follows:
 
 - The custom IO class will take the parameter IO as an attribute
 - The `load` and `save` methods load the parameter IO
-- The `load` and `save` methods use the loaded parameter to load or save the data.
+- The `load` and `save` methods use the loaded parameter to load or save the data
 
 ## Examples
 
 ### Saving a file based on a command line argument
 
 The following example shows how to load a JSON file based on a command line argument.
-First, we create a custom class `ParameterizedJSON`.
+First, we create a custom class `JSONWithParameter`.
 
 !!!info "Install `ordeq-args` and `ordeq-files`"
     To follow the example below, you need to install the `ordeq-args` and `ordeq-files` package.
@@ -36,50 +37,47 @@ First, we create a custom class `ParameterizedJSON`.
 import json
 from pathlib import Path
 from functools import cached_property
+from dataclasses import dataclass
 
 from ordeq import Input, IO
 from ordeq_args import CommandLineArg
+from ordeq_files import JSON
 
-class JSONWithParameter(IO[dict]):
-    path: CommandLineArg[Path]
+@dataclass(frozen=True)
+class JSONWithParameter(JSON):
+    path_io: CommandLineArg[Path]
 
     @cached_property
-    def _path(self) -> Path:
-        return self.path.load()
-
-    def load(self):
-        with self._path.open(mode='r') as file:
-            return json.load(file)
-
-    def save(self, data: dict) -> None:
-        with self._path.open(mode='w') as file:
-            return json.dump(data, file)
+    def path(self) -> Path:
+        return self.path_io.load()
 ```
 
-The `ParameterizedJSON` IO takes a command line argument as a parameter.
-Suppose we use the IO as follows:
+This IO inherits from the `JSON` IO in `ordeq-files`, but instead of taking a static `path` argument, it takes a`path_io` argument, which is a `CommandLineArg` IO that loads a `Path`.
+On load and save, the `path` property will return the path from the command line argument.
+
+We can the parametrized IO as follows:
 
 ```python title="main.py"
 from ordeq import node
-from ordeq_files import JSON
+from ordeq_files import JSON, YAML
 from ordeq_args import CommandLineArg
 from pathlib import Path
 
-source = JSON(path=Path('to/source.json'))
-target = JSONWithParameter(path=CommandLineArg(name='--target', type=Path))
+source = YAML(path=Path('to/source.yaml'))
+target = JSONWithParameter(path_io=CommandLineArg(name='--target', type=Path))
 
 @node(inputs=source, outputs=target)
-def copy_json(data: dict) -> dict:
+def convert_yaml_to_json(data: dict) -> dict:
     return data
 ```
 
 Now you can run the node from the command line, and specify the target path as argument:
 
 ```bash
-ordeq run --nodes main:copy_json --target output.json
+ordeq run --nodes main:convert_yaml_to_json --target output.json
 ```
 
-This will copy the contents of `source.json` to `output.json`.
+This will copy the contents of `source.yaml` to `output.json`.
 
 ### Loading an Excel sheet based on a configuration file
 
@@ -109,7 +107,8 @@ class PandasExcel(Input[pd.DataFrame]):
 
 ```
 
-On load, the `PandasExcel` IO will load the configuration dictionary from the `config` IO, and pass the configuration as keyword arguments to `pd.read_excel`.
+On load, the `PandasExcel` IO will load the configuration dictionary from the `config` IO, and pass the configuration as
+keyword arguments to `pd.read_excel`.
 
 We can initialize `PandasExcel` with any IO that loads a dictionary.
 For example, we can use the `YAML` IO from `ordeq-files` as a parameter:
@@ -146,7 +145,8 @@ New keys in the configuration file will be passed as keyword arguments to `pd.re
 
 ### Make a request to an endpoint from an environment variable
 
-Next, we will create an IO that makes a request to an endpoint, where the endpoint is created from an environment variable.
+Next, we will create an IO that makes a request to an endpoint, where the endpoint is created from an environment
+variable.
 
 !!!info "Install `ordeq-args` and `requests`"
     To follow the example below, you need to install the `ordeq-args` and `requests` package.
@@ -198,15 +198,15 @@ By composing an IO with a parameter IO, you can easily change the behavior of th
 When adding parameters to your IOs, consider the following best practices:
 
 - **Keep parameters simple**:
-IOs should not perform any transformations.
-If the load or save logic is getting complex, consider creating a node instead.
+  IOs should not perform any transformations.
+  If the load or save logic is getting complex, consider creating a node instead.
 
 - **Caching**:
-The approach above loads the parameter IO every time the `load` or `save` method is called.
-You can implement caching to avoid loading the parameter multiple times.
+  The approach above loads the parameter IO every time the `load` or `save` method is called.
+  You can implement caching to avoid loading the parameter multiple times.
 
 - **Manage reuse**
-If you find yourself reusing the same parameter IO across different IOs, consider creating a node instead.
+  If you find yourself reusing the same parameter IO across different IOs, consider creating a node instead.
 
 If you have any questions or suggestions, feel free to [open an issue][new-issue] on GitHub!
 

@@ -9,11 +9,13 @@ nav:
           - Hooks: getting-started/concepts/hooks.md
   - Guides & examples:
       - guides/run_and_viz.md
-      - guides/custom_io.md
+      - IO:
+        - Custom IO: guides/custom_io.md
+        - Parameters: guides/parameters.md
+        - Lazy IO: guides/lazy_io.md
       - guides/testing_nodes.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
-          - Lazy IO: guides/examples/lazy_io.md
       # TODO: Add an example project
   - API: api
   - Contributing:

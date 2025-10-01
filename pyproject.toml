@@ -36,6 +36,7 @@ ordeq-args = { workspace = true }
 ordeq-boto3 = { workspace = true }
 ordeq-common = { workspace = true }
 ordeq-cli-runner = { workspace = true }
+ordeq-duckdb = { workspace = true }
 ordeq-faiss = { workspace = true }
 ordeq-files = { workspace = true }
 ordeq-huggingface = { workspace = true }

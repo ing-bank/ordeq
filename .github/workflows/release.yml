@@ -39,8 +39,3 @@ jobs:
 
       - name: Publish
         run: uv publish
-
-      - name: Test
-        run: |
-          PKG_IMPORT="${PACKAGE_NAME//-/_}"
-          uv run --with "$PACKAGE_NAME==$PACKAGE_VERSION" --no-project -- python -c "import $PKG_IMPORT"

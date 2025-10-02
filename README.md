@@ -56,6 +56,11 @@ Some of the available integrations:
     <td width="80" height="60" align="center"><img src="https://raw.githubusercontent.com/apache/parquet-format/25f05e73d8cd7f5c83532ce51cb4f4de8ba5f2a2/logo/parquet-logos_1.svg" alt="Parquet" height="50"/>Parquet</td>
     <td width="80" height="60" align="center"><img src="https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Azure-Emblem.png" alt="Azure" height="40"/>Azure</td>
   </tr>
+  <tr>
+    <td width="80" height="60" align="center">
+      <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/duckdb-umoj5fxu8w5pzg7d0js9.png/duckdb-kz05ottxukbgvmp8c3bpi.png?_a=DATAg1AAZAA0" alt="DuckDB" height="40"/><br/>DuckDB
+    </td>
+  </tr>
 </table>
 
 Have a look at the [API reference][api-ref] for a list of available packages.

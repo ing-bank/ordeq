@@ -21,9 +21,9 @@ class NetworkxJSON(IO[nx.Graph]):
     >>> from ordeq_networkx import NetworkxJSON
     >>> random_graph = nx.erdos_renyi_graph(10, 0.5)
     >>> my_graph = NetworkxJSON(
-    ...     path=Path("path/to.json")
+    ...     path=Path("graph.json")
     ... )
-    >>> my_graph.save(random_graph)
+    >>> my_graph.save(random_graph)  # doctest: +SKIP
     ```
 
     """

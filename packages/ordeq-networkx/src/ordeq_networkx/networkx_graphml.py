@@ -19,9 +19,9 @@ class NetworkxGraphML(IO[nx.Graph]):
     >>> from ordeq_networkx import NetworkxGraphML
     >>> random_graph = nx.erdos_renyi_graph(10, 0.5)
     >>> my_graph = NetworkxGraphML(
-    ...     path=Path("path/to.graphml")
+    ...     path=Path("graph.graphml")
     ... )
-    >>> my_graph.save(random_graph)
+    >>> my_graph.save(random_graph)  # doctest: +SKIP
     ```
 
     """

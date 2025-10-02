@@ -17,11 +17,13 @@ class NetworkxJSON(IO[nx.Graph]):
 
     ```python
     >>> from pathlib import Path
+    >>> import networkx as nx
     >>> from ordeq_networkx import NetworkxJSON
-    >>> MyGraph = NetworkxJSON(
+    >>> random_graph = nx.erdos_renyi_graph(10, 0.5)
+    >>> my_graph = NetworkxJSON(
     ...     path=Path("path/to.json")
     ... )
-
+    >>> my_graph.save(random_graph)
     ```
 
     """

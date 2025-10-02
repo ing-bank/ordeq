@@ -15,10 +15,13 @@ class NetworkxGML(IO[nx.Graph]):
 
     ```python
     >>> from pathlib import Path
+    >>> import networkx as nx
     >>> from ordeq_networkx import NetworkxGML
-    >>> MyGraph = NetworkxGML(
+    >>> random_graph = nx.erdos_renyi_graph(10, 0.5)
+    >>> my_graph = NetworkxGML(
     ...     path=Path("path/to.gml")
     ... )
+    >>> my_graph.save(random_graph)
 
     ```
 

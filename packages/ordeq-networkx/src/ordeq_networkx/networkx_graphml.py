@@ -15,11 +15,13 @@ class NetworkxGraphML(IO[nx.Graph]):
 
     ```python
     >>> from pathlib import Path
+    >>> import networkx as nx
     >>> from ordeq_networkx import NetworkxGraphML
-    >>> MyGraph = NetworkxGraphML(
+    >>> random_graph = nx.erdos_renyi_graph(10, 0.5)
+    >>> my_graph = NetworkxGraphML(
     ...     path=Path("path/to.graphml")
     ... )
-
+    >>> my_graph.save(random_graph)
     ```
 
     """

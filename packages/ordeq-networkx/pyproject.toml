@@ -16,7 +16,7 @@ maintainers = [
     { name = "Niels Neerhoff" },
     { name = "Simon Brugman" },
 ]
-requires-python = "~=3.10"
+requires-python = ">=3.10"
 dependencies = [
     "ordeq>=0.2.1",
     "networkx"

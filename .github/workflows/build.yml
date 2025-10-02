@@ -12,8 +12,6 @@ jobs:
   docs:
     name: Build docs
     uses: ./.github/workflows/docs.yml
-    with:
-      publish_docs: false
 
   packages:
     name: Determine packages in scope

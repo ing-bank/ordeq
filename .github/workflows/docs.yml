@@ -6,11 +6,6 @@ on:
       - main
   workflow_dispatch:
   workflow_call:
-    inputs:
-      publish_docs:
-        required: false
-        type: boolean
-        default: true
 
 permissions:
   contents: write
@@ -48,5 +43,5 @@ jobs:
         run: uv run mkdocs build --strict
 
       - name: Publish site
-        if: ${{ inputs.publish_docs }}
+        if: ${{ github.event_name == 'push' }}
         run: uv run mkdocs gh-deploy --force

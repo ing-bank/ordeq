@@ -11,7 +11,7 @@ nav:
       - guides/run_and_viz.md
       - IO:
         - Custom IO: guides/custom_io.md
-        - Parametrizing IO: guides/parameters.md
+        - Parametrizing IO: guides/parametrized_io.md
         - Lazy IO: guides/lazy_io.md
       - guides/testing_nodes.md
       - Examples:

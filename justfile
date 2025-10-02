@@ -65,7 +65,7 @@ docs-build:
 # Build and serve the documentation locally
 docs-serve:
     uv run scripts/generate_api_docs.py
-    uv run --group docs mkdocs serve
+    uv run --group docs mkdocs serve --strict
 
 # Publish the documentation to GitHub Pages
 docs-publish:

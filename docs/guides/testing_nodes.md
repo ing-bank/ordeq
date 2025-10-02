@@ -61,6 +61,7 @@ In contrast to the unit tests, this test depends on the content of the CSV file 
 As shown above, the result of `greet` can be retrieved by accessing the `result` dictionary with the `Output` of `greet` as the key:
 
 ### Running nodes with alternative IO
+
 Many times we do not want to connect to a real file system or database when testing.
 This can be because connecting to the real data is slow, or because we do not want the tests to change the actual data.
 Instead, we want to test the logic with some seed data, often stored locally.
@@ -85,6 +86,7 @@ def test_run_greet():
 When `greet` is run, Ordeq will use the `local_names` and `local_greetings` IOs as replacements of the `names` and `greetings` defined in the catalog.
 
 ### IO fixtures
+
 You can also use the `io` argument to `run` as a fixture in your tests.
 This allows you to define the IOs once and reuse them multiple times.
 

@@ -1,4 +1,5 @@
 # Introduction
+
 We have all been there. As your data project grows:
 
 - Logic gets tightly coupled
@@ -25,8 +26,7 @@ if __name__ == '__main__':
     txs_and_clients.write.mode('overwrite').saveAsTable('txs_and_clients')
 ```
 
-!!!example "Ordeq works with any data processing tool"
-
+!!! example "Ordeq works with any data processing tool"
     The example above uses PySpark, since it is a popular data processing tool, but the same principles apply to other tools.
     If you are not familiar with Spark, imagine the same logic implemented with Pandas, Dask, or another tool of your choice.
 
@@ -135,13 +135,13 @@ Lastly, a `__main__.py` module takes care of running the job:
         run(join_txs_and_clients)
     ```
 
-
 The idea behind the separation is that changes to the IO should not affect the transformations, and vice versa.
 Furthermore, the separation helps you keep your project organized.
 
 ### Decoupling in practice
 
 #### Changing IO
+
 Say you want to read the transactions from a Iceberg table instead of a Hive table,
 you only need to change `catalog.py`.
 
@@ -185,7 +185,6 @@ you only need to change `catalog.py`.
 
 Or, maybe the date comes from an environment variable instead of a command line argument:
 
-
 === "nodes.py"
     ```python
     from ordeq import node
@@ -223,7 +222,6 @@ Or, maybe the date comes from an environment variable instead of a command line 
     if __name__ == '__main__':
         run(join_txs_and_clients)
     ```
-
 
 Perhaps you want to append data to the `txs_and_clients` table instead of overwriting it:
 
@@ -269,15 +267,12 @@ Perhaps you want to append data to the `txs_and_clients` table instead of overwr
         run(join_txs_and_clients)
     ```
 
-
-
-
-
 All changes above require only amendments to `catalog.py`.
 The transformations in `nodes.py` remain unchanged.
 Furthermore, each IO is defined once and can be reused throughout your project.
 
 #### Changing transformations
+
 Vice versa, if you want to change the logic of how transactions and clients are joined, you only need to change `nodes.py`.
 For example, you might want to filter out inactive clients and transactions with a non-positive amount:
 
@@ -392,10 +387,10 @@ You can add new nodes and IO without changing existing code.
 Each transformation is modular and isolated.
 
 #### Running the pipeline
+
 Meanwhile, the `run` function takes care of loading the inputs and saving the outputs of each node.
 You no longer need to route the inputs and outputs of each transformation through the functions.
 Dependencies between nodes are automatically resolved.
 
-!!!success "Where to go from here?"
-
+!!! success "Where to go from here?"
     - Learn more about Ordeqs [core concepts](./concepts/io.md)

@@ -32,6 +32,7 @@ types = [
 
 [tool.uv.sources]
 ordeq = { workspace = true }
+ordeq-altair = { workspace = true }
 ordeq-args = { workspace = true }
 ordeq-boto3 = { workspace = true }
 ordeq-common = { workspace = true }

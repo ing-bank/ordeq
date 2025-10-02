@@ -67,6 +67,9 @@ jobs:
       - name: Check linting
         run: uv run just lint
 
+      - name: Check markdown formatting (mdformat)
+        run: uv run just mdformat
+
       - name: Check typing (ty)
         run: uv run just ty
 

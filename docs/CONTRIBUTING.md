@@ -107,11 +107,9 @@ ERROR tests/.../test_xxx.py::TestFile::test_function - docker.errors.DockerExcep
 This can be remedied by changing the configuration of Docker Desktop for macOS:
 
 1. Open Docker Desktop, go to Settings ⇒ Advanced
-2. Enable "Docker CLI Tools System ⇒ (requires password)"
-3. Enable "Allow default Docker socket (requires password)"
-4. Click "Apply & Restart"
-
-[tesco]: https://pypi.org/project/testcontainers/
+1. Enable "Docker CLI Tools System ⇒ (requires password)"
+1. Enable "Allow default Docker socket (requires password)"
+1. Click "Apply & Restart"
 
 #### Spark & Java
 
@@ -137,6 +135,6 @@ sdk default java 17.0.12-tem
 
 If you use another tool to manage your JDKs, run the equivalent tasks to make sure your `JAVA_HOME` is set correctly.
 
-[sdkm]: https://sdkman.io/
-
 [open-issues]: https://github.com/ing-bank/ordeq/issues/
+[sdkm]: https://sdkman.io/
+[tesco]: https://pypi.org/project/testcontainers/

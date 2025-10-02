@@ -7,6 +7,9 @@ localsetup: install precommit_install
 # Linting and formatting with ruff
 ruff: lint format
 
+mdformat:
+    uv run mdformat docs/ README.md
+
 # Linting with ruff
 lint:
     uv run --group lint ruff check packages/ scripts/ || exit 1
@@ -24,6 +27,7 @@ mypy:
     for dir in `find packages -maxdepth 1 -type d -name "ordeq*"`; do \
         uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
     done
+
 
 # Static analysis (lint + type checking)
 sa: ruff ty mypy

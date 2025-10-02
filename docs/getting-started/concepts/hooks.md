@@ -69,7 +69,7 @@ class TimeHook(InputHook):
     def before_input_load(self, io: Input) -> None:
         self.start_time = time.time()
 
-    def after_input_load(self, io: Input) -> None:
+    def after_input_load(self, io: Input, data) -> None:
         end_time = time.time()
         print(f"Loading {io} took {end_time - self.start_time} seconds")
 ```
@@ -88,6 +88,7 @@ To ensure the hook is executed, it needs to be attached to the input:
     ```
 
 ### Types of hooks
+
 Ordeq provides three types of hooks:
 
 - `RunHook`: called around a set of nodes
@@ -137,12 +138,10 @@ graph LR
 This page demonstrated the concept of hooks and discussed an elementary examples.
 For a more elaborate guide, including details on how to implement your own hooks, see [Creating custom hooks][custom-hooks].
 
-
-!!!success "Where to go from here?"
+!!! success "Where to go from here?"
     - See how to create custom hooks in the [guide][custom-hooks]
     - Check out the [guide on testing nodes][testing-nodes]
 
-
 [custom-hooks]: ../../guides/custom_hooks.md
-[testing-nodes]: ../../guides/testing_nodes.md
 [running-a-node]: nodes.md#running-a-node
+[testing-nodes]: ../../guides/testing_nodes.md

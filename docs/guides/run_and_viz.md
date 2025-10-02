@@ -71,5 +71,4 @@ if __name__ == "__main__":
 This is particularly powerful for debugging and understanding complex workflows.
 
 !!! note "Split screen development"
-
     Split screen view in your IDE is very handy for working with source code, `run` and `viz` outputs side by side.

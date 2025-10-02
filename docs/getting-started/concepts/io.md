@@ -14,8 +14,9 @@ We could write a function that loads the CSV file directly:
 import csv
 from pathlib import Path
 
+
 def load_csv(path: Path) -> list[list[str]]:
-    with path.open(mode='r') as f:
+    with path.open(mode="r") as f:
         reader = csv.reader(f)
         return list(reader)
 ```
@@ -128,7 +129,7 @@ Under the hood, these options are passed to `pandas.read_excel`.
 
 Similarly, you can alter the saving behaviour of an IO through its _save options_:
 
-```python
+```pycon
 >>> fruit_sales = fruit_sales.with_save_options(index=False)
 >>> fruit_sales.save(df)
 ```

@@ -44,14 +44,11 @@ from pyspark.sql import DataFrame
 
 from catalogs import local  # or 'production'
 
-@node(
-    inputs=local.iris,
-    outputs=local.predictions,
-)
+
+@node(inputs=local.iris, outputs=local.predictions)
 def predict(iris: DataFrame) -> DataFrame:
     # Your prediction logic here
     ...
-
 ```
 
 !!! tip "Avoid individual IO imports"
@@ -82,14 +79,11 @@ from pyspark.sql import DataFrame
 
 from catalogs import catalog  # resolves to 'local' or 'production'
 
-@node(
-    inputs=catalog.iris,
-    outputs=catalog.predictions,
-)
+
+@node(inputs=catalog.iris, outputs=catalog.predictions)
 def predict(iris: DataFrame) -> DataFrame:
     # Your prediction logic here
     ...
-
 ```
 
 When the environment variable `ENV=local` it uses the local catalog.
@@ -154,7 +148,9 @@ from ordeq_spark import SparkCSV
 
 from catalogs.production import *
 
-iris_large = SparkCSV(path="path/to/staging/iris_large.csv")  # Extends with a new IO
+iris_large = SparkCSV(
+    path="path/to/staging/iris_large.csv"
+)  # Extends with a new IO
 ```
 
 Note that the extended catalog is not consistent with the `production` catalog, since it defines a new IO.
@@ -183,6 +179,7 @@ from unittest import patch
 import nodes
 import tests
 
+
 @patch("nodes.catalog", new=tests.catalog)
 def test_it_predicts(catalog):
     actual = run(predict)
@@ -201,11 +198,9 @@ from ordeq_spark import SparkCSV
 
 from catalogs import catalog
 
+
 def test_it_predicts():
-    actual = run(
-        predict,
-        io={catalog.iris: SparkCSV(path="path/to/test.csv")}
-    )
+    actual = run(predict, io={catalog.iris: SparkCSV(path="path/to/test.csv")})
     assert catalog.predictions.load() == ...  # do your assertions here
 ```
 

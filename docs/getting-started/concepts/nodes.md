@@ -10,6 +10,7 @@ Nodes can be created by decorating a function with the `@node` decorator:
     from ordeq import node
     from typing import Iterable
 
+
     @node
     def greet(names: Iterable[str]) -> None:
         """Prints a greeting for each person."""
@@ -31,6 +32,7 @@ First we define the CSV IO in `catalog.py`. Next, we modify the node in `nodes.p
     ```python
     from ordeq import node
     import catalog
+
 
     @node(inputs=catalog.names)
     def greet(names: tuple[str, ...]):
@@ -61,6 +63,7 @@ Similarly, we can add a `greetings` IO and specify it as output to the `greet` n
 
     ```python
     import catalog
+
 
     @node(inputs=catalog.names, outputs=catalog.greetings)
     def greet(names: tuple[str, ...]) -> list[str]:
@@ -136,18 +139,14 @@ Let's extend our example with another node that parses the name to greet from a 
     ```python hl_lines="3-9"
     import catalog
 
-    @node(
-        inputs=catalog.invitees,
-        outputs=catalog.names,
-    )
+
+    @node(inputs=catalog.invitees, outputs=catalog.names)
     def parse_names(invitees: dict) -> list[str]:
         """Parse the names from the invitees data."""
         return [invitee["name"] for invitee in invitees]
 
-    @node(
-        inputs=catalog.names,
-        outputs=catalog.greetings
-    )
+
+    @node(inputs=catalog.names, outputs=catalog.greetings)
     def greet(names: tuple[str, ...]) -> list[str]:
         """Returns a greeting for each person."""
         greetings = []
@@ -224,19 +223,14 @@ Tags can be set using the `tags` parameter in the `@node` decorator:
     ```python
     import catalog
 
-    @node(
-        inputs=catalog.names,
-        outputs=catalog.greetings,
-        tags=["size:large"]
-    )
+
+    @node(inputs=catalog.names, outputs=catalog.greetings, tags=["size:large"])
     def greet(names: Iterable[str]) -> None:
         """Returns a greeting for each person."""
         greetings = []
         for name in names:
             greetings.append(f"Hello, {name}!")
         return greetings
-
-
     ```
 
 The tags can be retrieved as follows:

@@ -12,10 +12,8 @@ To see how hooks can be useful, let's consider the following example:
     ```python
     import catalog
 
-    @node(
-        inputs=catalog.names,
-        outputs=catalog.greetings
-    )
+
+    @node(inputs=catalog.names, outputs=catalog.greetings)
     def greet(names: tuple[str, ...]) -> list[str]:
         """Returns a greeting for each person."""
         greetings = []
@@ -67,6 +65,7 @@ import time
 
 from ordeq import InputHook, Node, Input
 
+
 class TimeHook(InputHook):
     def before_input_load(self, io: Input) -> None:
         self.start_time = time.time()
@@ -84,9 +83,7 @@ To ensure the hook is executed, it needs to be attached to the input:
     from ordeq_files import CSV, Text
     from pathlib import Path
 
-    names = CSV(
-        path=Path("names.csv")
-    ).with_input_hooks(TimeHook())
+    names = CSV(path=Path("names.csv")).with_input_hooks(TimeHook())
     greetings = Text(path=Path("greetings.txt"))
     ```
 

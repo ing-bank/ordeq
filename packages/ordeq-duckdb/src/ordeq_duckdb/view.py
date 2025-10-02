@@ -72,7 +72,7 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
         """Loads a DuckDB view.
 
         Returns:
-            a DuckDBPyConnection.
+            The DuckDB view.
         """
 
         return duckdb.view(self.view, connection=self.connection)
@@ -80,12 +80,11 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
     def save(
         self, relation: duckdb.DuckDBPyRelation, replace: bool = True
     ) -> None:
-        """Saves a DuckDBPyRelation to a DuckDB view.
+        """Saves a DuckDB relation to a DuckDB view.
 
         Args:
-            relation: The DuckDBPyRelation to save.
+            relation: The DuckDB relation to save.
             replace: Whether to replace the view if it already exists.
-
         """
 
         relation.create_view(self.view, replace=replace)

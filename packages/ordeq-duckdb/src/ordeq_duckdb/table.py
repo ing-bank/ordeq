@@ -67,10 +67,10 @@ class DuckDBTable(IO[DuckDBPyRelation]):
     )
 
     def load(self) -> DuckDBPyRelation:
-        """Load the DuckDB table into a DuckDBPyRelation.
+        """Load the DuckDB table into a DuckDB relation.
 
         Returns:
-            A DuckDBPyRelation representing the loaded table.
+            A relation representing the loaded table.
         """
 
         return duckdb.table(self.table, connection=self.connection)
@@ -80,10 +80,10 @@ class DuckDBTable(IO[DuckDBPyRelation]):
         relation: DuckDBPyRelation,
         mode: Literal["create", "insert"] = "create",
     ) -> None:
-        """Save a DuckDBPyRelation to the DuckDB table.
+        """Save a relation to the DuckDB table.
 
         Args:
-            relation: The DuckDBPyRelation to save.
+            relation: The relation to save.
             mode: The save mode.
                 "create" will create the table,
                 "insert" will insert into the table if it exists,

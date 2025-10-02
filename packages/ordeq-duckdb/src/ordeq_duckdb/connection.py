@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 import duckdb
 from ordeq import Input
@@ -11,14 +12,14 @@ class DuckDBConnection(Input[duckdb.DuckDBPyConnection]):
 
     database: str | Path = ":memory:"
 
-    def load(self, **load_options) -> duckdb.DuckDBPyConnection:
+    def load(self, **kwargs: Any) -> duckdb.DuckDBPyConnection:
         """Loads a DuckDB connection.
 
         Args:
-            load_options: Additional options to pass to duckdb.connect.
+            **kwargs: Additional kwargs to pass to `duckdb.connect`.
 
         Returns:
-            a DuckDBPyConnection.
+            The DuckDB connection.
         """
 
-        return duckdb.connect(self.database, **load_options)
+        return duckdb.connect(self.database, **kwargs)

@@ -1,7 +1,8 @@
 from pathlib import Path
 
+import duckdb
 from duckdb import DuckDBPyConnection
-from ordeq_duckdb import DuckDBCSV, DuckDBTable
+from ordeq_duckdb import DuckDBCSV
 
 
 def test_it_loads(connection: DuckDBPyConnection, tmp_path: Path):
@@ -12,10 +13,9 @@ def test_it_loads(connection: DuckDBPyConnection, tmp_path: Path):
     ]
 
 
-def test_it_creates(connection: DuckDBPyConnection):
-    relation = connection.sql("from range(2)")
-    DuckDBTable(table="test_it_creates").save(relation)
-    assert connection.table("test_it_creates").execute().fetchall() == [
-        (0,),
-        (1,),
-    ]
+def test_it_saves(tmp_path: Path):
+    path = str(tmp_path / "test_it_saves.csv")
+    data = ["a", "apples", "green and red"]
+    relation = duckdb.values(data)
+    DuckDBCSV(path=path).save(relation)
+    assert duckdb.read_csv(path).fetchall() == [tuple(data)]

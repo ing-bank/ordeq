@@ -65,6 +65,9 @@ Some of the available integrations:
     <td width="80" height="60" align="center">
       <img src="https://avatars.githubusercontent.com/u/22396732?s=200&v=4" alt="Altair" height="40"/><br/>Altair
     </td>
+    <td width="80" height="60" align="center">
+        <img src="https://avatars.githubusercontent.com/u/388785?s=200&v=4" alt="Networkx" height="40"/><br/>NetworkX
+    </td>
   </tr>
 </table>
 

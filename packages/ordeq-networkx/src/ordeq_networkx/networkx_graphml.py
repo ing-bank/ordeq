@@ -29,7 +29,26 @@ class NetworkxGraphML(IO[nx.Graph]):
     path: Path
 
     def load(self, **load_options: Any) -> nx.Graph:
+        """Load a graph from the GraphML file at the specified path.
+
+        Args:
+            **load_options: Additional keyword arguments passed to `networkx.read_graphml`.
+                These can be used to control how the GraphML file is parsed.
+
+        Returns:
+            The loaded NetworkX graph.
+        """
         return nx.read_graphml(self.path, **load_options)
 
     def save(self, graph: nx.Graph, **save_options: Any) -> None:
+        """Save a NetworkX graph to the GraphML file at the specified path.
+
+        Args:
+            graph: The NetworkX graph to save.
+            **save_options: Additional keyword arguments passed to `networkx.write_graphml`.
+                These can be used to control how the GraphML file is written.
+
+        Returns:
+            None
+        """
         nx.write_graphml(graph, self.path, **save_options)

@@ -2,12 +2,11 @@ from dataclasses import dataclass, field
 from typing import Literal
 
 import duckdb
-from duckdb import CatalogException, DuckDBPyConnection, DuckDBPyRelation
 from ordeq import IO
 
 
 @dataclass(frozen=True)
-class DuckDBTable(IO[DuckDBPyRelation]):
+class DuckDBTable(IO[duckdb.DuckDBPyRelation]):
     """IO to load from and save to a DuckDB table.
 
     Example:
@@ -46,7 +45,7 @@ class DuckDBTable(IO[DuckDBPyRelation]):
     ...     connection=connection,
     ... )
     >>> @node(outputs=table)
-    ... def convert_to_duckdb_relation() -> DuckDBPyRelation:
+    ... def convert_to_duckdb_relation() -> duckdb.DuckDBPyRelation:
     ...     return connection.values([2, "b"])
     >>> result = run(convert_to_duckdb_relation)
     >>> connection.table("my_data").show()
@@ -63,9 +62,11 @@ class DuckDBTable(IO[DuckDBPyRelation]):
     """
 
     table: str
-    connection: DuckDBPyConnection = field(default_factory=duckdb.connect)
+    connection: duckdb.DuckDBPyConnection = field(
+        default_factory=duckdb.connect
+    )
 
-    def load(self) -> DuckDBPyRelation:
+    def load(self) -> duckdb.DuckDBPyRelation:
         """Load the DuckDB table into a DuckDB relation.
 
         Returns:
@@ -76,7 +77,7 @@ class DuckDBTable(IO[DuckDBPyRelation]):
 
     def save(
         self,
-        relation: DuckDBPyRelation,
+        relation: duckdb.DuckDBPyRelation,
         mode: Literal["create", "insert"] = "create",
     ) -> None:
         """Save a relation to the DuckDB table.
@@ -98,7 +99,7 @@ class DuckDBTable(IO[DuckDBPyRelation]):
         elif mode == "insert":
             try:
                 relation.create(self.table)
-            except CatalogException as e:
+            except duckdb.CatalogException as e:
                 if "already exists" in e.args[0]:
                     relation.insert_into(self.table)
                 else:

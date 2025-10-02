@@ -1,8 +1,7 @@
 import duckdb
 import pytest
-from duckdb import DuckDBPyConnection
 
 
 @pytest.fixture
-def connection() -> DuckDBPyConnection:
+def connection() -> duckdb.DuckDBPyConnection:
     return duckdb.connect(":memory:")

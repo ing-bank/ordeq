@@ -2,12 +2,11 @@ from dataclasses import dataclass
 from typing import Any
 
 import duckdb
-from duckdb import DuckDBPyRelation
 from ordeq import IO
 
 
 @dataclass(frozen=True)
-class DuckDBCSV(IO[DuckDBPyRelation]):
+class DuckDBCSV(IO[duckdb.DuckDBPyRelation]):
     """IO to load and save CSV files using DuckDB.
 
     Example:
@@ -38,7 +37,7 @@ class DuckDBCSV(IO[DuckDBPyRelation]):
 
     path: str
 
-    def load(self, **kwargs: Any) -> DuckDBPyRelation:
+    def load(self, **kwargs: Any) -> duckdb.DuckDBPyRelation:
         """Load a CSV file into a DuckDB relation.
 
         Args:
@@ -50,7 +49,7 @@ class DuckDBCSV(IO[DuckDBPyRelation]):
 
         return duckdb.read_csv(self.path, **kwargs)
 
-    def save(self, relation: DuckDBPyRelation, **kwargs: Any) -> None:
+    def save(self, relation: duckdb.DuckDBPyRelation, **kwargs: Any) -> None:
         """Save a DuckDB relation to a CSV file.
 
         Args:

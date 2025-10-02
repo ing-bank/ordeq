@@ -1,10 +1,11 @@
+import duckdb
 import pytest
 from duckdb import DuckDBPyConnection
 from ordeq import IOException
 from ordeq_duckdb import DuckDBView
 
 
-def test_it_loads(connection: DuckDBPyConnection):
+def test_it_loads(connection: duckdb.DuckDBPyConnection):
     connection.values(["a", "apples", "green and red"]).to_view(
         "test_it_loads"
     )

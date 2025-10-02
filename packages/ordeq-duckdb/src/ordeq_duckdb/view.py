@@ -1,12 +1,11 @@
 from dataclasses import dataclass, field
 
 import duckdb
-from duckdb import DuckDBPyConnection, DuckDBPyRelation
 from ordeq import IO
 
 
 @dataclass(frozen=True)
-class DuckDBView(IO[DuckDBPyRelation]):
+class DuckDBView(IO[duckdb.DuckDBPyRelation]):
     """IO to load and save a DuckDB view.
 
     Example:
@@ -47,7 +46,7 @@ class DuckDBView(IO[DuckDBPyRelation]):
     ```python
     >>> from ordeq import node
     >>> from ordeq_duckdb import DuckDBTable
-    >>> from duckdb import DuckDBPyRelation
+    >>> import duckdb
     >>> connection = duckdb.connect(":memory:")
     >>> fruits = DuckDBTable(
     ...     table="fruits",
@@ -58,7 +57,9 @@ class DuckDBView(IO[DuckDBPyRelation]):
     ...     connection=connection,
     ... )
     >>> @node(inputs=fruits, outputs=fruits_filtered)
-    ... def filter_fruits(fruits: DuckDBPyRelation) -> DuckDBPyRelation:
+    ... def filter_fruits(
+    ...     fruits: duckdb.DuckDBPyRelation
+    ... ) -> duckdb.DuckDBPyRelation:
     ...     return fruits.filter("color = 'red'")
 
     ```
@@ -66,11 +67,11 @@ class DuckDBView(IO[DuckDBPyRelation]):
     """
 
     view: str
-    connection: DuckDBPyConnection | None = field(
+    connection: duckdb.DuckDBPyConnection | None = field(
         default_factory=duckdb.connect
     )
 
-    def load(self) -> DuckDBPyRelation:
+    def load(self) -> duckdb.DuckDBPyRelation:
         """Loads a DuckDB view.
 
         Returns:
@@ -79,7 +80,9 @@ class DuckDBView(IO[DuckDBPyRelation]):
 
         return duckdb.view(self.view, connection=self.connection)
 
-    def save(self, relation: DuckDBPyRelation, replace: bool = True) -> None:
+    def save(
+        self, relation: duckdb.DuckDBPyRelation, replace: bool = True
+    ) -> None:
         """Saves a DuckDB relation to a DuckDB view.
 
         Args:

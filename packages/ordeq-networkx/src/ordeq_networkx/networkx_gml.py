@@ -33,8 +33,9 @@ class NetworkxGML(IO[nx.Graph]):
         """Load a graph from the GML file at the specified path.
 
         Args:
-            **load_options: Additional keyword arguments passed to `networkx.read_gml`.
-                These can be used to control how the GML file is parsed (e.g., `label`, `destringizer`).
+            **load_options: Additional keyword arguments passed to
+                `networkx.read_gml`. These can be used to control how the
+                GML file is parsed (e.g., `label`, `destringizer`).
 
         Returns:
             The loaded NetworkX graph.
@@ -46,10 +47,9 @@ class NetworkxGML(IO[nx.Graph]):
 
         Args:
             graph: The NetworkX graph to save.
-            **save_options: Additional keyword arguments passed to `networkx.write_gml`.
-                These can be used to control how the GML file is written (e.g., `stringizer`, `prettyprint`).
+            **save_options: Additional keyword arguments passed to
+                `networkx.write_gml`. These can be used to control how the
+                GML file is written (e.g., `stringizer`, `prettyprint`).
 
-        Returns:
-            None
         """
         nx.write_gml(graph, self.path, **save_options)

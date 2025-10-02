@@ -52,8 +52,6 @@ class NetworkxJSON(IO[nx.Graph]):
             **save_options: Additional keyword arguments passed to `json.dump`.
                 These can be used to control JSON encoding options.
 
-        Returns:
-            None
         """
         data = nx.node_link_data(graph)
         with self.path.open("w", encoding="utf-8") as f:

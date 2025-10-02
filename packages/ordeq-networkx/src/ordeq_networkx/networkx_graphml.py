@@ -32,8 +32,9 @@ class NetworkxGraphML(IO[nx.Graph]):
         """Load a graph from the GraphML file at the specified path.
 
         Args:
-            **load_options: Additional keyword arguments passed to `networkx.read_graphml`.
-                These can be used to control how the GraphML file is parsed.
+            **load_options: Additional keyword arguments passed to
+                `networkx.read_graphml`. These can be used to control how the
+                GraphML file is parsed.
 
         Returns:
             The loaded NetworkX graph.
@@ -45,10 +46,9 @@ class NetworkxGraphML(IO[nx.Graph]):
 
         Args:
             graph: The NetworkX graph to save.
-            **save_options: Additional keyword arguments passed to `networkx.write_graphml`.
-                These can be used to control how the GraphML file is written.
+            **save_options: Additional keyword arguments passed to
+                `networkx.write_graphml`. These can be used to control how the
+                GraphML file is written.
 
-        Returns:
-            None
         """
         nx.write_graphml(graph, self.path, **save_options)

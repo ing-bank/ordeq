@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ordeq_networkx"
+dynamic = ["version"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+maintainers = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq>=1.0.0",
+    "networkx"
+]
+
+[dependency-groups]
+test = []
+
+[tool.setuptools_scm]
+root = "../../"
+version_file = "src/ordeq_networkx/_version.py"
+tag_regex = "^ordeq-networkx/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){{0,2}}[^\\+]*)(?:\\+.*)?$"
+git_describe_command = "git describe --dirty --tags --long --match ordeq-networkx/*"
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+addopts = "--doctest-modules"
+
+[tool.coverage.run]
+omit = [
+    "src/ordeq_networkx/_version.py"
+]
+

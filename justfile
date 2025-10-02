@@ -8,7 +8,7 @@ localsetup: install precommit_install
 ruff: lint format
 
 mdformat:
-    uv run --with mdformat-mkdocs --with mdformat-ruff --with ruff mdformat --check docs/ README.md
+    uv run --with mdformat-mkdocs --with mdformat-ruff --with ruff mdformat --check docs/ README.md || exit 1
 
 # Linting with ruff
 lint:

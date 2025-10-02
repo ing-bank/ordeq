@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -120,12 +121,11 @@ def test_viz_main_mermaid_with_callables_dynamic_function(
     # we would prefer to see f1 and f2, but since they are dynamically created
     # with the same name, mermaid shows them both as "hello" for now.
     assert (
-        """	subgraph pipeline["Pipeline"]
-		direction TB
-		hello:::function
-		hello:::function
-	end"""
-        in output_file_content
+        '\tsubgraph pipeline["Pipeline"]\n'
+        "\t\tdirection TB\n"
+        "\t\thello([hello]):::node\n"
+        "\t\thello([hello]):::node\n"
+        "\tend\n" in output_file_content
     )
 
 
@@ -139,10 +139,38 @@ def test_viz_main_mermaid_with_module_dynamic_function(tmp_path: Path) -> None:
     assert "graph TB" in output_file_content
     # see previous test
     assert (
-        """	subgraph pipeline["Pipeline"]
-		direction TB
-		hello:::function
-		hello:::function
-	end"""
-        in output_file_content
+        '\tsubgraph pipeline["Pipeline"]\n'
+        "\t\tdirection TB\n"
+        "\t\thello([hello]):::node\n"
+        "\t\thello([hello]):::node\n"
+        "\tend\n" in output_file_content
     )
+
+
+def test_rag(tmp_path: Path, resources_dir: Path):
+    import rag_pipeline  # ty: ignore[unresolved-import]
+    import rag_pipeline.rag  # ty: ignore[unresolved-import]
+    import rag_pipeline.rag.annotation  # ty: ignore[unresolved-import]
+    import rag_pipeline.rag.evaluation  # ty: ignore[unresolved-import]
+    import rag_pipeline.rag.indexer  # ty: ignore[unresolved-import]
+    import rag_pipeline.rag.policies  # ty: ignore[unresolved-import]
+    import rag_pipeline.rag.question_answering  # ty: ignore[unresolved-import]
+    import rag_pipeline.rag.retrieval  # ty: ignore[unresolved-import]  # noqa: F401
+
+    output_file = tmp_path / "output.mermaid"
+
+    viz(
+        "rag_pipeline",
+        fmt="mermaid",
+        output=output_file,
+        io_shape_template="({value})",
+        use_dataset_styles=True,
+        legend=True,
+        title="RAG Pipeline",
+    )
+
+    content = output_file.read_text()
+    expected = (resources_dir / "rag_pipeline.mermaid").read_text()
+    content = re.sub(r"-?\d+", "000", content)
+    expected = re.sub(r"-?\d+", "000", expected)
+    assert content == expected

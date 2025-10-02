@@ -32,10 +32,12 @@ types = [
 
 [tool.uv.sources]
 ordeq = { workspace = true }
+ordeq-altair = { workspace = true }
 ordeq-args = { workspace = true }
 ordeq-boto3 = { workspace = true }
 ordeq-common = { workspace = true }
 ordeq-cli-runner = { workspace = true }
+ordeq-duckdb = { workspace = true }
 ordeq-faiss = { workspace = true }
 ordeq-files = { workspace = true }
 ordeq-huggingface = { workspace = true }
@@ -94,6 +96,7 @@ target-version = "py310"
 
 [tool.ruff.format]
 skip-magic-trailing-comma = true
+docstring-code-format = true
 
 [tool.ruff.lint]
 extend-select = [

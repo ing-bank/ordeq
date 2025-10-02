@@ -12,8 +12,6 @@ jobs:
   docs:
     name: Build docs
     uses: ./.github/workflows/docs.yml
-    with:
-      publish_docs: false
 
   packages:
     name: Determine packages in scope
@@ -66,6 +64,9 @@ jobs:
 
       - name: Check linting
         run: uv run just lint
+
+      - name: Check markdown formatting (mdformat)
+        run: uv run just mdformat
 
       - name: Check typing (ty)
         run: uv run just ty

@@ -12,13 +12,13 @@ def resources_dir(request: pytest.FixtureRequest) -> Path:
     For example, in tests/test_sth.py, this test should pass:
 
     >>> def test_method(resources_dir):
-    ...     assert resources_dir == 'tests/test_sth'
+    ...     assert resources_dir == "tests/test_sth"
 
     Can be used to load and save data during tests in its own dedicated
     folder, for instance:
 
     >>> def test_method(resources_dir):
-    ...     with open(resources_dir / "test_method.csv", 'r') as file:
+    ...     with open(resources_dir / "test_method.csv", "r") as file:
     ...         assert len(file.readlines()) == 1
 
     Args:

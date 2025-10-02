@@ -13,9 +13,25 @@ def test_mermaid():
     )
 
     assert diagram.startswith("graph TB")
-    assert "world:::function" in diagram
-    assert "[(x)]:::dataset0" in diagram
-    assert "[(y)]:::dataset0" in diagram
+    assert "world([world]):::node" in diagram
+    assert "[(x)]:::io0" in diagram
+    assert "[(y)]:::io0" in diagram
+
+
+def test_mermaid_io_shape_template():
+    from example import nodes as mod  # ty: ignore[unresolved-import]
+
+    diagram = pipeline_to_mermaid(
+        nodes={get_node(mod.world)},
+        datasets={"x": mod.x, "y": mod.y},
+        io_shape_template="({value})",
+        node_shape_template="({value})",
+    )
+
+    assert diagram.startswith("graph TB")
+    assert "world(world):::node" in diagram
+    assert "(x):::io0" in diagram
+    assert "(y):::io0" in diagram
 
 
 def test_mermaid_wrapped():

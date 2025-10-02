@@ -59,7 +59,7 @@ class CommandLineArg(Input[T]):
     Alternatively, you can parse using a user-defined function, e.g.:
 
         >>> def hyphenated(string: str) -> str:
-        ...     return '-'.join([w[:4] for w in string.casefold().split()])
+        ...     return "-".join([w[:4] for w in string.casefold().split()])
         >>> parser = argparse.ArgumentParser()
         >>> Title = CommandLineArg("--title", type=hyphenated)
 

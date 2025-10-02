@@ -4,8 +4,10 @@ Because nodes behave like plain Python functions, they can be tested using any P
 Let's reconsider the `greet` node from the [node concepts section][concepts-node]:
 
 === "nodes.py"
+
     ```python
     import catalog
+
 
     @node(inputs=catalog.names, outputs=catalog.greetings)
     def greet(names: tuple[str, ...]) -> list[str]:
@@ -17,6 +19,7 @@ Let's reconsider the `greet` node from the [node concepts section][concepts-node
     ```
 
 === "catalog.py"
+
     ```python
     from ordeq_files import CSV, Text
     from pathlib import Path
@@ -31,11 +34,14 @@ This node can be unit-tested as follows:
 def test_greet_empty():
     assert greet() == []
 
+
 def test_greet_one_name():
     assert greet(["Alice"]) == ["Hello, Alice!"]
 
+
 def test_greet_two_names():
     assert greet(["Alice", "Bob"]) == ["Hello, Alice!", "Hello, Bob!"]
+
 
 def test_greet_special_chars():
     assert greet(["A$i%*c"]) == ["Hello, A$i%*c!"]
@@ -54,13 +60,19 @@ The result of the run will be a dictionary containing the data for each input an
 ```python
 def test_run_greet():
     result = run(greet)
-    assert result[greetings] == ["Hello, Abraham!", "Hello, Adam!", "Hello, Azul!", ...]
+    assert result[greetings] == [
+        "Hello, Abraham!",
+        "Hello, Adam!",
+        "Hello, Azul!",
+        ...,
+    ]
 ```
 
 In contrast to the unit tests, this test depends on the content of the CSV file used as input to `greet`.
 As shown above, the result of `greet` can be retrieved by accessing the `result` dictionary with the `Output` of `greet` as the key:
 
 ### Running nodes with alternative IO
+
 Many times we do not want to connect to a real file system or database when testing.
 This can be because connecting to the real data is slow, or because we do not want the tests to change the actual data.
 Instead, we want to test the logic with some seed data, often stored locally.
@@ -75,16 +87,23 @@ from ordeq import run
 
 from nodes import greet, names, greetings
 
+
 def test_run_greet():
     local_names = CSV(path=Path("to/local/names.csv"))
     local_greetings = Text(path=Path("to/local/greetings.txt"))
     result = run(greet, io={names: local_names, greetings: local_greetings})
-    assert result[greetings] == ["Hello, Abraham!", "Hello, Adam!", "Hello, Azul!", ...]
+    assert result[greetings] == [
+        "Hello, Abraham!",
+        "Hello, Adam!",
+        "Hello, Azul!",
+        ...,
+    ]
 ```
 
 When `greet` is run, Ordeq will use the `local_names` and `local_greetings` IOs as replacements of the `names` and `greetings` defined in the catalog.
 
 ### IO fixtures
+
 You can also use the `io` argument to `run` as a fixture in your tests.
 This allows you to define the IOs once and reuse them multiple times.
 
@@ -94,6 +113,7 @@ from ordeq import IO, Input, Output
 from nodes import names, greetings
 from ordeq_files import CSV, Text
 from pathlib import Path
+
 
 @pytest.fixture(scope="session")
 def io() -> dict[IO | Input | Output, IO | Input | Output]:

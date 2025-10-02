@@ -5,6 +5,7 @@ For example, you might have an IO that loads a CSV file.
 In Ordeq, an IO is represented by an `IO` class.
 
 ## Why use IOs?
+
 To understand why IOs are useful, let's look at a simple example.
 Suppose we want to load a simple CSV file.
 We could write a function that loads the CSV file directly:
@@ -13,8 +14,9 @@ We could write a function that loads the CSV file directly:
 import csv
 from pathlib import Path
 
+
 def load_csv(path: Path) -> list[list[str]]:
-    with path.open(mode='r') as f:
+    with path.open(mode="r") as f:
         reader = csv.reader(f)
         return list(reader)
 ```
@@ -42,7 +44,8 @@ Defining the IO does not load the data yet, until we tell it to:
 [(1, "kiwis", 7.2), (2, "grapefruits", 1.4)]
 ```
 
-!!!note "IOs do not hold any data"
+!!! note "IOs do not hold any data"
+
     IOs do not hold any data themselves, they just know how to load and save data.
 
 This means IOs can be defined separately from when they are used.
@@ -62,7 +65,8 @@ Lastly, IOs serve as convenient and lightweight representations of data in your 
 CSV(path=PosixPath('to/data.csv'))
 ```
 
-!!!info "More complex IOs"
+!!! info "More complex IOs"
+
     A key feature of IOs is that they abstract the loading and saving behaviour from the user.
     IOs are typically used to handle the interaction with file systems, cloud storage, APIs, databases and other data sources.
     Unlike the example above, these more complex IOs manage everything from authentication to (de)serialization.
@@ -118,41 +122,40 @@ dtype: object
 Here, the load options are used to specify the data types, select specific columns, and rename a column.
 Under the hood, these options are passed to `pandas.read_excel`.
 
-!!!note "Building IO load and save options"
+!!! note "Building IO load and save options"
+
     The `with_load_options` and `with_save_options` methods return a new IO instance with the updated options.
     The original IO instance remains unchanged.
 
 Similarly, you can alter the saving behaviour of an IO through its _save options_:
 
-```python
+```pycon
 >>> fruit_sales = fruit_sales.with_save_options(index=False)
 >>> fruit_sales.save(df)
 ```
 
 For more information on the available load and save options, refer to the documentation of the specific IO you are using.
 
-!!!warning "IOs should not apply transformations"
+!!! warning "IOs should not apply transformations"
+
     IOs should only be concerned with loading and saving data.
     Therefore, IOs should not apply any transformation on load or save.
-    Some load or save options do incur what can be considered a _transformation_,  like the casting or renaming done above.
+    Some load or save options do incur what can be considered a _transformation_, like the casting or renaming done above.
     As a rule of thumb:
 
-    -   if the option is specific to your use case, it should be done outside the IO
-    -   if the option refers to an operation that is likely to be useful to others, it might be appropriate as a load/save option.
-    -   if the option is closely tied to the IO implementation, it is likely appropriate as a load/save option.
+    - if the option is specific to your use case, it should be done outside the IO
+    - if the option refers to an operation that is likely to be useful to others, it might be appropriate as a load/save option.
+    - if the option is closely tied to the IO implementation, it is likely appropriate as a load/save option.
 
-!!!success "Where to go from here?"
-    - See how IOs are used in [nodes][nodes]
-    - Find out how to organise IOs with [catalogs][catalogs]
+!!! success "Where to go from here?"
+
+    - See how IOs are used in [nodes]
+    - Find out how to organise IOs with [catalogs]
     - See how to extend inject custom logic with [IO hooks][hooks]
     - Check out the [guide on creating custom IOs][custom-ios]
 
-[custom-ios]: ../../guides/custom_io.md
-
-[hooks]: hooks.md
-
-[nodes]: nodes.md
-
-[catalogs]: ./catalogs.md
-
 [api]: ../../api/ordeq/types.md
+[catalogs]: ./catalogs.md
+[custom-ios]: ../../guides/custom_io.md
+[hooks]: hooks.md
+[nodes]: nodes.md

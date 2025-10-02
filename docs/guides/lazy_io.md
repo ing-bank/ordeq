@@ -30,4 +30,3 @@ Instead, `Iterate` makes use of Python generators to process the datasets one by
 ...         yield {"content": content}
 
 ```
-

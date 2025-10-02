@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Literal
 
 import duckdb
-from duckdb import CatalogException, DuckDBPyRelation
+from duckdb import CatalogException, DuckDBPyConnection, DuckDBPyRelation
 from ordeq import IO
 
 
@@ -14,6 +14,7 @@ class DuckDBTable(IO[DuckDBPyRelation]):
 
     ```python
     >>> import duckdb
+    >>> from ordeq_duckdb import DuckDBTable
     >>> connection = duckdb.connect(":memory:")
     >>> table = DuckDBTable(
     ...     table="my_table",
@@ -45,7 +46,7 @@ class DuckDBTable(IO[DuckDBPyRelation]):
     ...     connection=connection,
     ... )
     >>> @node(outputs=table)
-    ... def convert_to_duckdb_relation() -> duckdb.DuckDBPyRelation:
+    ... def convert_to_duckdb_relation() -> DuckDBPyRelation:
     ...     return connection.values([2, "b"])
     >>> result = run(convert_to_duckdb_relation)
     >>> connection.table("my_data").show()
@@ -62,9 +63,7 @@ class DuckDBTable(IO[DuckDBPyRelation]):
     """
 
     table: str
-    connection: duckdb.DuckDBPyConnection = field(
-        default_factory=duckdb.connect
-    )
+    connection: DuckDBPyConnection = field(default_factory=duckdb.connect)
 
     def load(self) -> DuckDBPyRelation:
         """Load the DuckDB table into a DuckDB relation.

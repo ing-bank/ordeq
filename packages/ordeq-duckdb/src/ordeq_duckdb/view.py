@@ -1,17 +1,19 @@
 from dataclasses import dataclass, field
 
 import duckdb
+from duckdb import DuckDBPyConnection, DuckDBPyRelation
 from ordeq import IO
 
 
 @dataclass(frozen=True)
-class DuckDBView(IO[duckdb.DuckDBPyRelation]):
+class DuckDBView(IO[DuckDBPyRelation]):
     """IO to load and save a DuckDB view.
 
     Example:
 
     ```python
     >>> import duckdb
+    >>> from ordeq_duckdb import DuckDBView
     >>> connection = duckdb.connect(":memory:")
     >>> view = DuckDBView(
     ...     view="fruits",
@@ -64,11 +66,11 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
     """
 
     view: str
-    connection: duckdb.DuckDBPyConnection | None = field(
+    connection: DuckDBPyConnection | None = field(
         default_factory=duckdb.connect
     )
 
-    def load(self) -> duckdb.DuckDBPyRelation:
+    def load(self) -> DuckDBPyRelation:
         """Loads a DuckDB view.
 
         Returns:
@@ -77,9 +79,7 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
 
         return duckdb.view(self.view, connection=self.connection)
 
-    def save(
-        self, relation: duckdb.DuckDBPyRelation, replace: bool = True
-    ) -> None:
+    def save(self, relation: DuckDBPyRelation, replace: bool = True) -> None:
         """Saves a DuckDB relation to a DuckDB view.
 
         Args:

@@ -5,9 +5,7 @@ track of node execution durations. Using hooks to achieve this has the
 advantage that the timing does not add cognitive complexity to the dataset
 transformations. It also avoids repetitive boilerplate code inside the nodes.
 
-`timer_hook.py`:
-
-```pycon
+```pycon title="timer_hook.py"
 >>> from time import perf_counter
 >>>
 >>> from ordeq import Node, NodeHook

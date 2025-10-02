@@ -57,7 +57,7 @@ Also, the logic is still tightly coupled, and you cannot easily reuse parts of i
 Can we do better?
 Let's try to modularize the logic by splitting it into functions:
 
-```python hl_lines="5 6 8 9 11-14 16-18" title="__main__.py"
+```python hl_lines="6 7 10 11 14-17 20-22" title="__main__.py"
 from pyspark.sql import SparkSession
 from argparse import ArgumentParser
 from pyspark.sql import DataFrame
@@ -365,7 +365,7 @@ For example, we might want to add a node that aggregates the transaction amount 
 
 === "catalog.py"
 
-    ```python hl_lines="12-16"
+    ```python hl_lines="10-12"
     from ordeq_args import EnvironmentVariable
     from ordeq_spark import SparkIcebergTable, SparkHiveTable
 

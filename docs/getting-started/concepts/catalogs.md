@@ -143,7 +143,7 @@ This way, the `staging` catalog inherits all IOs from `production`, except for `
 
 You can also extend catalogs, as follows:
 
-```python title="catalogs/staging.py"  hl_lines="5"
+```python title="catalogs/staging.py"  hl_lines="6"
 from ordeq_spark import SparkCSV
 
 from catalogs.production import *

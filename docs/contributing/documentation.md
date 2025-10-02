@@ -9,18 +9,10 @@ To view the documentation locally, first install all dependencies:
 just install
 ```
 
-Next, generate the API documentation:
-
-```shell
-uv run python scripts/generate_api_docs.py
-```
-
 To spin up the documentation server, run:
 
 ```shell
-uv run mkdocs serve
+just docs-serve
 ```
-
-Optionally, use the `--strict` flag that causes the build fail on warnings, for instance due to missing links.
 
 Now navigate to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and enjoy the documentation!

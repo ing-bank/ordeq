@@ -8,6 +8,7 @@ With hooks, you can execute custom functionality such as data quality checks, lo
 To see how hooks can be useful, let's consider the following example:
 
 === "nodes.py"
+
     ```python
     import catalog
 
@@ -24,6 +25,7 @@ To see how hooks can be useful, let's consider the following example:
     ```
 
 === "catalog.py"
+
     ```python
     from ordeq_files import CSV, Text
     from pathlib import Path
@@ -77,6 +79,7 @@ class TimeHook(InputHook):
 To ensure the hook is executed, it needs to be attached to the input:
 
 === "catalog.py"
+
     ```python
     from ordeq_files import CSV, Text
     from pathlib import Path
@@ -139,6 +142,7 @@ This page demonstrated the concept of hooks and discussed an elementary examples
 For a more elaborate guide, including details on how to implement your own hooks, see [Creating custom hooks][custom-hooks].
 
 !!! success "Where to go from here?"
+
     - See how to create custom hooks in the [guide][custom-hooks]
     - Check out the [guide on testing nodes][testing-nodes]
 

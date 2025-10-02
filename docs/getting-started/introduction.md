@@ -27,6 +27,7 @@ if __name__ == '__main__':
 ```
 
 !!! example "Ordeq works with any data processing tool"
+
     The example above uses PySpark, since it is a popular data processing tool, but the same principles apply to other tools.
     If you are not familiar with Spark, imagine the same logic implemented with Pandas, Dask, or another tool of your choice.
 
@@ -98,6 +99,7 @@ While the transformations reside in `nodes.py`, IOs are defined in a separate `c
 Lastly, a `__main__.py` module takes care of running the job:
 
 === "nodes.py"
+
     ```python
     from ordeq import node
     import catalog
@@ -116,6 +118,7 @@ Lastly, a `__main__.py` module takes care of running the job:
     ```
 
 === "catalog.py"
+
     ```python
     from ordeq_args import CommandLineArg
     from ordeq_spark import SparkHiveTable
@@ -127,6 +130,7 @@ Lastly, a `__main__.py` module takes care of running the job:
     ```
 
 === "\__main__.py"
+
     ```python
     from ordeq import run
     from nodes import join_txs_and_clients
@@ -146,6 +150,7 @@ Say you want to read the transactions from a Iceberg table instead of a Hive tab
 you only need to change `catalog.py`.
 
 === "nodes.py"
+
     ```python
     from ordeq import node
     import catalog
@@ -164,6 +169,7 @@ you only need to change `catalog.py`.
     ```
 
 === "catalog.py"
+
     ```python hl_lines="5"
     from ordeq_args import CommandLineArg
     from ordeq_spark import SparkHiveTable
@@ -175,6 +181,7 @@ you only need to change `catalog.py`.
     ```
 
 === "\__main__.py"
+
     ```python
     from ordeq import run
     from nodes import join_txs_and_clients
@@ -186,6 +193,7 @@ you only need to change `catalog.py`.
 Or, maybe the date comes from an environment variable instead of a command line argument:
 
 === "nodes.py"
+
     ```python
     from ordeq import node
     import catalog
@@ -204,6 +212,7 @@ Or, maybe the date comes from an environment variable instead of a command line 
     ```
 
 === "catalog.py"
+
     ```python hl_lines="1 4"
     from ordeq_args import EnvironmentVariable
     from ordeq_spark import SparkIcebergTable, SparkHiveTable
@@ -215,6 +224,7 @@ Or, maybe the date comes from an environment variable instead of a command line 
     ```
 
 === "\__main__.py"
+
     ```python
     from ordeq import run
     from nodes import join_txs_and_clients
@@ -226,6 +236,7 @@ Or, maybe the date comes from an environment variable instead of a command line 
 Perhaps you want to append data to the `txs_and_clients` table instead of overwriting it:
 
 === "nodes.py"
+
     ```python
     from ordeq import node
     import catalog
@@ -244,6 +255,7 @@ Perhaps you want to append data to the `txs_and_clients` table instead of overwr
     ```
 
 === "catalog.py"
+
     ```python hl_lines="7-11"
     from ordeq_args import EnvironmentVariable
     from ordeq_spark import SparkIcebergTable, SparkHiveTable
@@ -259,6 +271,7 @@ Perhaps you want to append data to the `txs_and_clients` table instead of overwr
     ```
 
 === "\__main__.py"
+
     ```python
     from ordeq import run
     from nodes import join_txs_and_clients
@@ -277,6 +290,7 @@ Vice versa, if you want to change the logic of how transactions and clients are 
 For example, you might want to filter out inactive clients and transactions with a non-positive amount:
 
 === "nodes.py"
+
     ```python hl_lines="14-17"
     from ordeq import node
     import catalog
@@ -298,6 +312,7 @@ For example, you might want to filter out inactive clients and transactions with
     ```
 
 === "catalog.py"
+
     ```python hl_lines="7-11"
     from ordeq_args import EnvironmentVariable
     from ordeq_spark import SparkIcebergTable, SparkHiveTable
@@ -313,6 +328,7 @@ For example, you might want to filter out inactive clients and transactions with
     ```
 
 === "\__main__.py"
+
     ```python
     from ordeq import run
     from nodes import join_txs_and_clients
@@ -326,6 +342,7 @@ What if we want to add more nodes?
 For example, we might want to add a node that aggregates the transaction amount by client:
 
 === "nodes.py"
+
     ```python hl_lines="19-26"
     from ordeq import node
     import catalog
@@ -354,6 +371,7 @@ For example, we might want to add a node that aggregates the transaction amount 
     ```
 
 === "catalog.py"
+
     ```python hl_lines="12-16"
     from ordeq_args import EnvironmentVariable
     from ordeq_spark import SparkIcebergTable, SparkHiveTable
@@ -374,6 +392,7 @@ For example, we might want to add a node that aggregates the transaction amount 
     ```
 
 === "\__main__.py"
+
     ```python hl_lines="5"
     from ordeq import run
     from nodes import join_txs_and_clients, aggregate_txs
@@ -393,4 +412,5 @@ You no longer need to route the inputs and outputs of each transformation throug
 Dependencies between nodes are automatically resolved.
 
 !!! success "Where to go from here?"
+
     - Learn more about Ordeqs [core concepts](./concepts/io.md)

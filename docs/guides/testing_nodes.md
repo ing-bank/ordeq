@@ -4,6 +4,7 @@ Because nodes behave like plain Python functions, they can be tested using any P
 Let's reconsider the `greet` node from the [node concepts section][concepts-node]:
 
 === "nodes.py"
+
     ```python
     import catalog
 
@@ -17,6 +18,7 @@ Let's reconsider the `greet` node from the [node concepts section][concepts-node
     ```
 
 === "catalog.py"
+
     ```python
     from ordeq_files import CSV, Text
     from pathlib import Path

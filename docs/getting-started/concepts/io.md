@@ -44,6 +44,7 @@ Defining the IO does not load the data yet, until we tell it to:
 ```
 
 !!! note "IOs do not hold any data"
+
     IOs do not hold any data themselves, they just know how to load and save data.
 
 This means IOs can be defined separately from when they are used.
@@ -64,6 +65,7 @@ CSV(path=PosixPath('to/data.csv'))
 ```
 
 !!! info "More complex IOs"
+
     A key feature of IOs is that they abstract the loading and saving behaviour from the user.
     IOs are typically used to handle the interaction with file systems, cloud storage, APIs, databases and other data sources.
     Unlike the example above, these more complex IOs manage everything from authentication to (de)serialization.
@@ -120,6 +122,7 @@ Here, the load options are used to specify the data types, select specific colum
 Under the hood, these options are passed to `pandas.read_excel`.
 
 !!! note "Building IO load and save options"
+
     The `with_load_options` and `with_save_options` methods return a new IO instance with the updated options.
     The original IO instance remains unchanged.
 
@@ -133,9 +136,10 @@ Similarly, you can alter the saving behaviour of an IO through its _save options
 For more information on the available load and save options, refer to the documentation of the specific IO you are using.
 
 !!! warning "IOs should not apply transformations"
+
     IOs should only be concerned with loading and saving data.
     Therefore, IOs should not apply any transformation on load or save.
-    Some load or save options do incur what can be considered a _transformation_,  like the casting or renaming done above.
+    Some load or save options do incur what can be considered a _transformation_, like the casting or renaming done above.
     As a rule of thumb:
 
     - if the option is specific to your use case, it should be done outside the IO
@@ -143,6 +147,7 @@ For more information on the available load and save options, refer to the docume
     - if the option is closely tied to the IO implementation, it is likely appropriate as a load/save option.
 
 !!! success "Where to go from here?"
+
     - See how IOs are used in [nodes]
     - Find out how to organise IOs with [catalogs]
     - See how to extend inject custom logic with [IO hooks][hooks]

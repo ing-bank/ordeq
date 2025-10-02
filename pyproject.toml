@@ -94,6 +94,7 @@ target-version = "py310"
 
 [tool.ruff.format]
 skip-magic-trailing-comma = true
+docstring-code-format = true
 
 [tool.ruff.lint]
 extend-select = [

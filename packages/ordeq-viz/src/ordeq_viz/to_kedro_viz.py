@@ -206,7 +206,6 @@ def pipeline_to_kedro_viz(
     export KEDRO_DISABLE_TELEMETRY=true
     kedro viz run --load-file kedro-pipeline-example
     ```
-
     """
     node_data, dataset_data = _gather_graph(nodes, datasets)
 

@@ -21,7 +21,7 @@ number.save(42)
 string = DynamicType[str]()
 string.save("hello")
 
-io = DynamicType()
+io = DynamicType()  # this should raise a type error
 
 
 @node(outputs=io)

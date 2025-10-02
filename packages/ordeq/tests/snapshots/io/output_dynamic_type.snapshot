@@ -1,0 +1,12 @@
+Output:
+DynamicType() int: 42
+DynamicType() str: 42
+DynamicType() str: hello
+
+Logging:
+INFO	ordeq.framework.io	Saving DynamicType()
+INFO	ordeq.framework.io	Saving DynamicType()
+
+Typing:
+packages/ordeq/tests/resources/io/output_dynamic_type.py:24: error: Need type annotation for "io"  [var-annotated]
+Found 1 error in 1 file (checked 1 source file)

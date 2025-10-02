@@ -1,0 +1,7 @@
+Exception:
+TypeError: metaclass conflict: the metaclass of a derived class must be a (non-strict) subclass of the metaclasses of all its bases
+
+Typing:
+packages/ordeq/tests/resources/io/io_different_load_and_save_type.py:9: error: Metaclass conflict: the metaclass of a derived class must be a (non-strict) subclass of the metaclasses of all its bases  [metaclass]
+packages/ordeq/tests/resources/io/io_different_load_and_save_type.py:9: note: "ordeq.framework.io._InputMeta" (metaclass of "ordeq.framework.io.Input") conflicts with "ordeq.framework.io._OutputMeta" (metaclass of "ordeq.framework.io.Output")
+Found 1 error in 1 file (checked 1 source file)

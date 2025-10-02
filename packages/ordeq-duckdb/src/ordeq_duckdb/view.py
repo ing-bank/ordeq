@@ -67,7 +67,7 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
     """
 
     view: str
-    connection: duckdb.DuckDBPyConnection | None = field(
+    connection: duckdb.DuckDBPyConnection = field(
         default_factory=duckdb.connect
     )
 

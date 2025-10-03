@@ -16,6 +16,7 @@ class Bytes(IO[bytes]):
     >>> MyPNG = Bytes(
     ...     path=Path("path/to.png")
     ... )
+
     ```
 
     """

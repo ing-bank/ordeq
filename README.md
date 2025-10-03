@@ -68,6 +68,9 @@ Some of the available integrations:
     <td width="80" height="60" align="center">
         <img src="https://avatars.githubusercontent.com/u/388785?s=200&v=4" alt="Networkx" height="40"/><br/>NetworkX
     </td>
+    <td width="80" height="60" align="center">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/TOML_Logo.svg" alt="TOML" height="40"/><br/>TOML
+    </td>
   </tr>
 </table>
 

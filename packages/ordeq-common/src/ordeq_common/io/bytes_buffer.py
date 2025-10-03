@@ -12,7 +12,7 @@ class BytesBuffer(IO[bytes]):
     Example:
 
     ```pycon
-    >>> from ordeq_common import StringBuffer
+    >>> from ordeq_common import BytesBuffer
     >>> buffer = BytesBuffer()
     >>> buffer.load()
     b''
@@ -38,7 +38,7 @@ class BytesBuffer(IO[bytes]):
 
     ```pycon
     >>> from ordeq_args import CommandLineArg
-    >>> from ordeq_common import StringBuffer, Static
+    >>> from ordeq_common import BytesBuffer, Static
     >>> from ordeq import node, run
     >>> result = BytesBuffer(b"Greeting")
     >>> @node(

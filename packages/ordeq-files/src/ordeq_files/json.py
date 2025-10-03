@@ -12,7 +12,7 @@ class JSON(IO[dict]):
     Example usage:
 
     ```pycon
-    >>> from ordeq_files import YAML
+    >>> from ordeq_files import JSON
     >>> from pathlib import Path
     >>> MyJSON = JSON(
     ...     path=Path("path/to.json")

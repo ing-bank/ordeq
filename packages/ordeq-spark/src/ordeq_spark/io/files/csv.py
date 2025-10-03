@@ -28,8 +28,8 @@ class SparkCSV(IO[DataFrame]):
     Use `single_file` if you want to write to a file instead:
 
     ```pycon
-    >>> from ordeq_spark import SparkJSON
-    >>> csv = SparkJSON(
+    >>> from ordeq_spark import SparkCSV
+    >>> csv = SparkCSV(
     ...     path="to.json"
     ... ).with_load_options(single_file=True)
 

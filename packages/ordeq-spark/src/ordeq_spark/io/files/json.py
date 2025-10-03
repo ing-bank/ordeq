@@ -16,7 +16,7 @@ class SparkJSON(IO[DataFrame]):
 
     ```pycon
     >>> from ordeq_spark import SparkJSON
-    >>> csv = SparkJSON(
+    >>> json = SparkJSON(
     ...     path="to.json"
     ... )
 
@@ -27,7 +27,7 @@ class SparkJSON(IO[DataFrame]):
 
     ```pycon
     >>> from ordeq_spark import SparkJSON
-    >>> csv = SparkJSON(
+    >>> json = SparkJSON(
     ...     path="to.json"
     ... ).with_load_options(single_file=True)
 

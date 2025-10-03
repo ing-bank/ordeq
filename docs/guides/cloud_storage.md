@@ -9,7 +9,7 @@ We will discuss three ways to operate on cloud storage:
 
 - Leveraging built-in support
 - Using IO with CloudPath
-- Low-level IO
+- Using a low-level IO
 
 ## Leveraging built-in support
 

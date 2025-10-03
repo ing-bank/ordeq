@@ -51,5 +51,3 @@ Check the [API reference][api] for more details.
 
 [api]: ../api/ordeq/types.md
 [cloudpathlib]: https://cloudpathlib.drivendata.org/stable/
-[contribute]: ../CONTRIBUTING.md
-[custom-io]: ./custom_io.md

@@ -75,9 +75,9 @@ Some of the available integrations are listed below.
 
 <table>
     <tr>
-        <td height="60"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Amazon-S3-Logo.svg" alt="Azure" height="40"/>Amazon S3</td>
-        <td height="60"><img src="https://funnel.io/hubfs/Google_Storage-Logo-1.png" alt="Azure" height="40"/>Google Cloud Storage</td>
-        <td height="60"><img src="https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Azure-Emblem.png" alt="Azure" height="40"/>Azure Blob Storage</td>
+        <td width="80" height="60" align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Amazon-S3-Logo.svg" alt="Azure" height="40"/>Amazon S3</td>
+        <td width="80" height="60" align="center"><img src="https://funnel.io/hubfs/Google_Storage-Logo-1.png" alt="Azure" height="40"/>Google Cloud Storage</td>
+        <td width="80" height="60" align="center"><img src="https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Azure-Emblem.png" alt="Azure" height="40"/>Azure Blob Storage</td>
     </tr>
 </table>
 

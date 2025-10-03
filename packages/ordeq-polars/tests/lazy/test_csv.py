@@ -18,12 +18,12 @@ def test_it_loads_str(tmp_path: Path, lf: LazyFrame):
 
 
 def test_it_saves_path(tmp_path: Path, lf: LazyFrame):
-    path = tmp_path / "test_it_saves_path.json"
+    path = tmp_path / "test_it_saves_path.csv"
     PolarsLazyCSV(path=path).save(lf)
     assert pl.read_csv(path).equals(lf.collect())
 
 
 def test_it_saves_str(tmp_path: Path, lf: LazyFrame):
-    path = str(tmp_path / "test_it_saves_str.json")
+    path = str(tmp_path / "test_it_saves_str.csv")
     PolarsLazyCSV(path=path).save(lf)
     assert pl.read_csv(path).equals(lf.collect())

@@ -10,6 +10,7 @@ Many IOs offered by Ordeq leverage client libraries with built-in cloud storage 
 For instance, you can load and save a CSV to S3 using Pandas as follows:
 
 !!! info "Install the `ordeq-pandas` package"
+
     To follow the example below, you need to install the `ordeq-pandas` package.
 
 ```pycon
@@ -36,6 +37,7 @@ CloudPaths abstract away the complexities of interacting with cloud storage like
     To follow the example below, you need to install the `cloudpathlib` package.
 
 The following example loads a JSON from Azure Blob Storage:
+
 ```pycon
 >>> from cloudpathlib import CloudPath
 >>> json = JSON(path=CloudPath("az://my-container/txs.json"))

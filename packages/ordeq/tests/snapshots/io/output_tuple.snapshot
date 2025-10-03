@@ -1,0 +1,8 @@
+Exception:
+ValueError: Node outputs invalid for return annotation: Node(name=output_tuple:create_tuple,...). Node has 1 output(s), but the return type annotation expects 2 value(s).
+
+Output:
+Tuple() data: ('hello', 'world')
+
+Logging:
+INFO	ordeq.framework.io	Saving Tuple()

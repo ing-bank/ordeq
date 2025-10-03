@@ -24,7 +24,7 @@ class PolarsLazyCSV(IO[pl.LazyFrame]):
 
     """
 
-    path: Path
+    path: Path | str
 
     def load(self, **load_options) -> pl.LazyFrame:
         return pl.scan_csv(source=self.path, **load_options)

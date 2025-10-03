@@ -1,8 +1,8 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 import polars as pl
 from ordeq.framework.io import IO
-from ordeq.types import PathLike
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -11,7 +11,7 @@ class PolarsEagerParquet(IO[pl.DataFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_polars import PolarsEagerParquet
     >>> from pathlib import Path
     >>> csv = PolarsEagerParquet(
@@ -24,11 +24,10 @@ class PolarsEagerParquet(IO[pl.DataFrame]):
 
     """
 
-    path: PathLike
+    path: Path | str
 
     def load(self, **load_options) -> pl.DataFrame:
         return pl.read_parquet(source=self.path, **load_options)  # type: ignore[arg-type]
 
     def save(self, df: pl.DataFrame, **save_options) -> None:
-        with self.path.open(mode="wb") as fh:
-            df.write_parquet(file=fh, **save_options)
+        df.write_parquet(file=self.path, **save_options)

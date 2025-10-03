@@ -11,7 +11,7 @@ class StringBuffer(IO[str]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_common import StringBuffer
     >>> buffer = StringBuffer()
     >>> buffer.load()
@@ -21,7 +21,7 @@ class StringBuffer(IO[str]):
 
     The buffer is initially empty, unless provided with initial data:
 
-    ```python
+    ```pycon
     >>> buffer = StringBuffer("Initial data")
     >>> buffer.load()
     'Initial data'
@@ -30,7 +30,7 @@ class StringBuffer(IO[str]):
 
     Saving to the buffer appends data to the existing content:
 
-    ```python
+    ```pycon
     >>> buffer.save("New data")
     >>> buffer.load()
     'Initial dataNew data'
@@ -39,7 +39,7 @@ class StringBuffer(IO[str]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq_args import CommandLineArg
     >>> from ordeq_common import StringBuffer, Static
     >>> from ordeq import node, run

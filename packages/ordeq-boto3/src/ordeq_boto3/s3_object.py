@@ -16,7 +16,7 @@ class S3Object(IO[bytes]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_boto3 import S3Object
     >>> import boto3
 
@@ -31,7 +31,7 @@ class S3Object(IO[bytes]):
 
     Extra parameters can be passed to the `load` and `save` methods, such as:
 
-    ```python
+    ```pycon
     >>> from datetime import datetime
     >>> data = s3_object.load(
     ...     IfModifiedSince=datetime(2015, 1, 1)
@@ -43,7 +43,7 @@ class S3Object(IO[bytes]):
     When `client` is not provided, it will be created using
     `boto3.client("s3")`:
 
-    ```python
+    ```pycon
     >>> s3_object = S3Object(
     ...     bucket="my-bucket",
     ...     key="path/to/my_object",

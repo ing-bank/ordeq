@@ -14,7 +14,7 @@ class SparkJSON(IO[DataFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark import SparkJSON
     >>> csv = SparkJSON(
     ...     path="to.json"
@@ -25,7 +25,7 @@ class SparkJSON(IO[DataFrame]):
     By default, Spark creates a directory on save.
     Use `single_file` if you want to write to a file instead:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark import SparkJSON
     >>> csv = SparkJSON(
     ...     path="to.json"

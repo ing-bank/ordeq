@@ -11,7 +11,7 @@ class PolarsLazyParquet(IO[pl.LazyFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_polars import PolarsLazyParquet
     >>> from pathlib import Path
     >>> csv = PolarsLazyParquet(

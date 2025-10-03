@@ -11,7 +11,7 @@ class PolarsEagerParquet(IO[pl.DataFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_polars import PolarsEagerParquet
     >>> from pathlib import Path
     >>> csv = PolarsEagerParquet(

@@ -11,7 +11,7 @@ class PolarsEagerExcel(IO[pl.DataFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_polars import PolarsEagerExcel
     >>> from pathlib import Path
     >>> xlsx = PolarsEagerExcel(

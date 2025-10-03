@@ -11,7 +11,7 @@ class NumpyText(IO[np.ndarray]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_numpy import NumpyText
     >>> MyArray = NumpyText(

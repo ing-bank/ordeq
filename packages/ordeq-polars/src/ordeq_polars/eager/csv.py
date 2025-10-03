@@ -11,7 +11,7 @@ class PolarsEagerCSV(IO[pl.DataFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_polars import PolarsEagerCSV
     >>> from pathlib import Path
     >>> csv = PolarsEagerCSV(

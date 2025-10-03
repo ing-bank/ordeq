@@ -12,7 +12,7 @@ class PandasExcel(IO[pd.DataFrame]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_pandas import PandasExcel
     >>> MyExcel = PandasExcel(
@@ -23,7 +23,7 @@ class PandasExcel(IO[pd.DataFrame]):
 
     Load behaviour is configured by `with_load_options`:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_pandas import PandasExcel
     >>> MyExcel = (

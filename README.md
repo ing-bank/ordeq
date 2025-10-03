@@ -25,7 +25,7 @@ uv pip install ordeq
 ## Integrations
 
 Ordeq integrates seamlessly with existing tooling.
-It provides many integrations out of the box.
+It provides integrations with many popular libraries out of the box.
 You can install them as needed.
 For example, for reading and writing data with Pandas, install the `ordeq-pandas` package:
 
@@ -33,10 +33,9 @@ For example, for reading and writing data with Pandas, install the `ordeq-pandas
 uv pip install ordeq-pandas
 ```
 
-Some of the available integrations are listed below.
-Have a look at the [API reference][api-ref] for a list of available packages.
+Some of the available integrations:
 
-#### Data processing
+<!-- Data processing library logos -->
 
 <table>
   <tr>
@@ -47,19 +46,22 @@ Have a look at the [API reference][api-ref] for a list of available packages.
     <td width="80" height="60" align="center"><img src="https://ibis-project.org/logo.svg" alt="Ibis" height="50"/>Ibis</td>
     <td width="80" height="60" align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png" alt="Matplotlib" height="40"/>Matplotlib</td>
     <td width="80" height="60" align="center"><img src="https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg" alt="Joblib" height="40"/>Joblib</td>
+    <td width="80" height="60" align="center"><img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="HuggingFace" height="40"/>HuggingFace</td>
   </tr>
   <tr>
-<td width="80" height="60" align="center"><img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="HuggingFace" height="40"/>HuggingFace</td>
     <td width="80" height="60" align="center"><img src="https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg" alt="PyMuPDF" height="40"/>PyMuPDF</td>
     <td width="80" height="60" align="center"><img src="https://www.sbert.net/_static/logo.png" alt="SentenceTransformers" height="40"/>st</td>
+    <td width="80" height="60" align="center"><img src="https://boto3.amazonaws.com/v1/documentation/api/latest/_static/logos/aws_dark_theme_logo.svg" alt="Boto3" height="40"/>AWS</td>
     <td width="80" height="60" align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png" alt="Requests" height="50"/>Requests</td>
+    <td width="80" height="60" align="center"><img src="https://cloud.google.com/_static/cloud/images/social-icon-google-cloud-1200-630.png" alt="Google Cloud" height="40"/>GCP</td>
     <td width="80" height="60" align="center"><img src="https://avatars.githubusercontent.com/u/110818415?v=4" alt="Pydantic" height="40"/>Pydantic</td>
     <td width="80" height="60" align="center"><img src="https://raw.githubusercontent.com/apache/parquet-format/25f05e73d8cd7f5c83532ce51cb4f4de8ba5f2a2/logo/parquet-logos_1.svg" alt="Parquet" height="50"/>Parquet</td>
-    <td width="80" height="60" align="center">
-        <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/duckdb-umoj5fxu8w5pzg7d0js9.png/duckdb-kz05ottxukbgvmp8c3bpi.png?_a=DATAg1AAZAA0" alt="DuckDB" height="40"/><br/>DuckDB
-    </td>
+    <td width="80" height="60" align="center"><img src="https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Azure-Emblem.png" alt="Azure" height="40"/>Azure</td>
   </tr>
   <tr>
+    <td width="80" height="60" align="center">
+      <img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/duckdb-umoj5fxu8w5pzg7d0js9.png/duckdb-kz05ottxukbgvmp8c3bpi.png?_a=DATAg1AAZAA0" alt="DuckDB" height="40"/><br/>DuckDB
+    </td>
     <td width="80" height="60" align="center">
       <img src="https://avatars.githubusercontent.com/u/22396732?s=200&v=4" alt="Altair" height="40"/><br/>Altair
     </td>
@@ -72,15 +74,7 @@ Have a look at the [API reference][api-ref] for a list of available packages.
   </tr>
 </table>
 
-#### Cloud storage
-
-<table>
-    <tr>
-        <td width="120" height="60" align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Amazon-S3-Logo.svg" alt="Azure" height="40"/>Amazon S3</td>
-        <td width="120" height="60" align="center"><img src="https://funnel.io/hubfs/Google_Storage-Logo-1.png" alt="Azure" height="40"/>Google Cloud Storage</td>
-        <td width="120" height="60" align="center"><img src="https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Azure-Emblem.png" alt="Azure" height="40"/>Azure Blob Storage</td>
-    </tr>
-</table>
+Have a look at the [API reference][api-ref] for a list of available packages.
 
 ## Documentation
 

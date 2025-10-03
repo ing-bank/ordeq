@@ -14,6 +14,8 @@ nav:
         - Parametrizing IO: guides/parametrized_io.md
         - Lazy IO: guides/lazy_io.md
       - guides/testing_nodes.md
+      - Migrating:
+          - Migrating from Kedro: guides/migrating/kedro.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
       # TODO: Add an example project

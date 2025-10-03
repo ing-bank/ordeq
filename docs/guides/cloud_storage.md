@@ -23,6 +23,7 @@ For instance, you can load and save a CSV to S3 using the `ordeq_pandas.PandasCS
    id    name      date   amount
 0   1   Alice 2024-01-01     100
 1   2     Bob 2024-01-02     150
+...
 ```
 
 Whether the IO offers built-in support for cloud storage is often dependent on the client library that it delegates to.
@@ -86,7 +87,7 @@ Here is an example of an `S3Object` that loads a JSON file from S3:
 ```pycon
 >>> from ordeq_boto3 import S3Object
 >>> obj = S3Object(bucket_name="my-bucket", object_key="my-data.json")
->>> obj.load()
+>>> obj.load()  # this loads from Amazon S3
 b'{'transactions': [{'amount': 100, 'date': '2023-01-01'
 ```
 
@@ -96,8 +97,8 @@ For instance, you can specify options specific to S3:
 ```pycon
 >>> from datetime import datetime
 >>> obj.load(IfModifiedSince=datetime(2015, 1, 1))
-b'{'transactions': [{'amount': 100, 'date': '2023-01-01'
->>> obj.save(ACL="authenticated-read")
+b"{'transactions': [{'amount': 100, 'date': '2023-01-01
+>>> obj.save(b"{'transactions': ...}", ACL="authenticated-read")
 ```
 
 The low-level IO is a light-weight choice, as it avoids the overhead of a higher-level abstraction.

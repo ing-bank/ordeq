@@ -13,6 +13,7 @@ nav:
         - Custom IO: guides/custom_io.md
         - Parametrizing IO: guides/parametrized_io.md
         - Lazy IO: guides/lazy_io.md
+        - Cloud storage: guides/cloud_storage.md
       - guides/testing_nodes.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md

@@ -148,13 +148,13 @@ def test_viz_main_mermaid_with_module_dynamic_function(tmp_path: Path) -> None:
 
 
 def test_rag(tmp_path: Path, resources_dir: Path):
-    import rag_pipeline  # ty: ignore[unresolved-import]
-    import rag_pipeline.rag  # ty: ignore[unresolved-import]
-    import rag_pipeline.rag.annotation  # ty: ignore[unresolved-import]
-    import rag_pipeline.rag.evaluation  # ty: ignore[unresolved-import]
-    import rag_pipeline.rag.indexer  # ty: ignore[unresolved-import]
-    import rag_pipeline.rag.policies  # ty: ignore[unresolved-import]
-    import rag_pipeline.rag.question_answering  # ty: ignore[unresolved-import]
+    import rag_pipeline  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
+    import rag_pipeline.rag  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
+    import rag_pipeline.rag.annotation  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
+    import rag_pipeline.rag.evaluation  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
+    import rag_pipeline.rag.indexer  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
+    import rag_pipeline.rag.policies  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
+    import rag_pipeline.rag.question_answering  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
     import rag_pipeline.rag.retrieval  # ty: ignore[unresolved-import]  # noqa: F401
 
     output_file = tmp_path / "output.mermaid"

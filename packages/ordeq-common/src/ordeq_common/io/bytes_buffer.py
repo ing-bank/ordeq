@@ -16,6 +16,7 @@ class BytesBuffer(IO[bytes]):
     >>> buffer = BytesBuffer()
     >>> buffer.load()
     b''
+
     ```
 
     The buffer is initially empty, unless provided with initial data:
@@ -24,6 +25,7 @@ class BytesBuffer(IO[bytes]):
     >>> buffer = BytesBuffer(b"Initial data")
     >>> buffer.load()
     b'Initial data'
+
     ```
 
     Saving to the buffer appends data to the existing content:
@@ -32,6 +34,7 @@ class BytesBuffer(IO[bytes]):
     >>> buffer.save(b"New data")
     >>> buffer.load()
     b'Initial dataNew data'
+
     ```
 
     Example in a node:
@@ -48,6 +51,7 @@ class BytesBuffer(IO[bytes]):
     ...     return greeting + b", " + name + b"!"
     >>> run(greet).get(result)
     b'Hello, you!'
+
     ```
 
     """

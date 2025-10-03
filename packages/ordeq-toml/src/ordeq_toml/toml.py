@@ -25,6 +25,7 @@ class TOML(IO[dict[str, Any]]):
     >>> io = TOML(path=toml_path)
     >>> data = {"key": "value", "number": 42}
     >>> io.save(data)
+
     ```
     """
 

@@ -63,6 +63,7 @@ class CommandLineArg(Input[T]):
     ...     return "-".join([w[:4] for w in string.casefold().split()])
     >>> parser = argparse.ArgumentParser()
     >>> Title = CommandLineArg("--title", type=hyphenated)
+
     ```
 
     Parsing command line arguments as `argparse.FileType` is discouraged as

@@ -85,7 +85,6 @@ def method_w_2_ret(a: str) -> tuple[str, str]:
             (StringBuffer("a"), StringBuffer("b"), StringBuffer("c")),
         ),  # 2 too many
         (method_w_2_ret, ()),  # too few
-        (method_w_2_ret, (StringBuffer("a"),)),  # too few
         (
             method_w_2_ret,
             (StringBuffer("a"), StringBuffer("b"), StringBuffer("c")),

@@ -111,6 +111,10 @@ def _raise_for_invalid_outputs(n: Node) -> None:
         except (NameError, ImportError):
             return
 
+    # any return type is valid for a single output
+    if len(n.outputs) == 1:
+        return
+
     # A type annotation was provided
     if returns is None:
         return_types = []

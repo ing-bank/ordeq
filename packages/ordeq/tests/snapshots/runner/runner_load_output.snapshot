@@ -5,7 +5,7 @@ Output:
 saving! Hello, World!
 
 Logging:
-INFO	ordeq.framework.runner	Running node Node(name=runner_load_output:my_node, inputs=[], outputs=[Output(idx=ID1)])
+INFO	ordeq.framework.runner	Running node Node(name=runner_load_output:my_node, outputs=[Output(idx=ID1)])
 INFO	ordeq.framework.io	Saving Output(idx=ID1)
 
 Typing:

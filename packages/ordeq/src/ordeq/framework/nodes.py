@@ -46,10 +46,23 @@ class Node(Generic[FuncParams, FuncReturns]):
         return full_name
 
     def __repr__(self) -> str:
-        inputs = ", ".join(repr(i) for i in getattr(self, "inputs", []))
-        outputs = ", ".join(repr(o) for o in getattr(self, "outputs", []))
-        tags = f", tags={self.tags!r}" if self.tags else ""
-        return f"Node(name={self.name}, inputs=[{inputs}], outputs=[{outputs}]{tags})"  # noqa: E501 (line too long)
+        attributes = {"name": self.name}
+
+        inputs = getattr(self, "inputs", None)
+        if inputs:
+            input_str = ", ".join(repr(i) for i in inputs)
+            attributes["inputs"] = f"[{input_str}]"
+
+        outputs = getattr(self, "outputs", None)
+        if outputs:
+            output_str = ", ".join(repr(o) for o in outputs)
+            attributes["outputs"] = f"[{output_str}]"
+
+        if self.tags:
+            attributes["tags"] = repr(self.tags)
+
+        attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
+        return f"Node({attributes_str})"
 
     def _replace(
         self,

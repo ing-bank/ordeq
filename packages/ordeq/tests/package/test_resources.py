@@ -86,6 +86,13 @@ def test_resources(file_path: Path, capsys, caplog) -> None:
     # Normalize object hashes
     captured = replace_uuid4(replace_object_hashes(output))
 
+    # Normalize platform-specific paths
+    captured = (
+        captured.replace("PosixPath", "Path")
+        .replace("WindowsPath", "Path")
+        .replace("\\", "/")
+    )
+
     # Read snapshot
     expected = (
         snapshot_path.read_text() if snapshot_path.exists() else "<NONE>"
@@ -102,5 +109,7 @@ def test_resources(file_path: Path, capsys, caplog) -> None:
                 tofile="actual",
             )
         )
-        snapshot_path.with_suffix(".snapshot").write_text(captured)
+        snapshot_path.with_suffix(".snapshot").write_text(
+            captured, newline="\n"
+        )
         pytest.fail(f"Output does not match snapshot:\n{diff}")

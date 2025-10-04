@@ -8,10 +8,10 @@ Output:
 <class 'with_save_options.ExampleOutputSaveArg'>
 
 Logging:
-INFO	ordeq.framework.io	Saving ExampleOutputSaveKwarg(path=PosixPath('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Saving ExampleOutputSaveKwarg(path=PosixPath('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Saving ExampleOutputSaveKwarg(path=PosixPath('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Saving ExampleOutputSaveKwarg(path=PosixPath('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Saving ExampleOutputSaveArg(path=PosixPath('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Saving ExampleOutputSaveArg(path=PosixPath('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Saving ExampleOutputSaveArg(path=PosixPath('hello.txt'), attribute='L1')
+INFO	ordeq.framework.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.framework.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.framework.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.framework.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.framework.io	Saving ExampleOutputSaveArg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.framework.io	Saving ExampleOutputSaveArg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.framework.io	Saving ExampleOutputSaveArg(path=Path('hello.txt'), attribute='L1')

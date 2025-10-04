@@ -16,7 +16,7 @@ class CommandLineArg(Input[T]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq import node
     >>> from ordeq_spark import SparkHiveTable
     >>> import pyspark.sql.functions as F
@@ -45,7 +45,7 @@ class CommandLineArg(Input[T]):
     By default, the command line arguments are parsed as string. You can
     parse as different type using built-in type converters, for instance:
 
-    ```python
+    ```pycon
     >>> K = CommandLineArg("--k", type=int)
     >>> Threshold = CommandLineArg("--threshold", type=float)
     >>> Address = CommandLineArg("--address", type=ascii)
@@ -58,10 +58,13 @@ class CommandLineArg(Input[T]):
 
     Alternatively, you can parse using a user-defined function, e.g.:
 
-        >>> def hyphenated(string: str) -> str:
-        ...     return "-".join([w[:4] for w in string.casefold().split()])
-        >>> parser = argparse.ArgumentParser()
-        >>> Title = CommandLineArg("--title", type=hyphenated)
+    ```pycon
+    >>> def hyphenated(string: str) -> str:
+    ...     return "-".join([w[:4] for w in string.casefold().split()])
+    >>> parser = argparse.ArgumentParser()
+    >>> Title = CommandLineArg("--title", type=hyphenated)
+
+    ```
 
     Parsing command line arguments as `argparse.FileType` is discouraged as
     [it has been deprecated](https://docs.python.org/3.14/whatsnew/3.14.html#deprecated)

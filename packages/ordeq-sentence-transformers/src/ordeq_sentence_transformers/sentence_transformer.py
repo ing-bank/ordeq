@@ -11,7 +11,7 @@ class SentenceTransformer(Input[st.SentenceTransformer]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_sentence_transformers import SentenceTransformer
     >>> huggingface_token = "your_hf_token_here"
     >>> model = SentenceTransformer(

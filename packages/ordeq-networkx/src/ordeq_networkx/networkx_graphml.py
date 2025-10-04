@@ -13,7 +13,7 @@ class NetworkxGraphML(IO[nx.Graph]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> import networkx as nx
     >>> from ordeq_networkx import NetworkxGraphML

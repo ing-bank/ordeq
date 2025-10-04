@@ -14,8 +14,8 @@ class PolarsEagerParquet(IO[pl.DataFrame]):
     ```pycon
     >>> from ordeq_polars import PolarsEagerParquet
     >>> from pathlib import Path
-    >>> csv = PolarsEagerParquet(
-    ...     path=Path("to.csv")
+    >>> parquet = PolarsEagerParquet(
+    ...     path=Path("to.parquet")
     ... ).with_load_options(
     ...     n_rows=1_000
     ... )

@@ -22,7 +22,7 @@ class SparkJDBC:
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark import SparkJDBCTable
     >>> SparkJDBCTable(
     ...     table="schema.table",
@@ -39,7 +39,7 @@ class SparkJDBC:
 
     Use `SparkJDBCQuery` to execute a custom query on load:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark import SparkJDBCQuery
     >>> SparkJDBCQuery(
     ...     query="SELECT 1;",

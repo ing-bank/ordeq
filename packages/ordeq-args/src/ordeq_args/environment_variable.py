@@ -17,7 +17,7 @@ class EnvironmentVariable(IO[str]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq import node
     >>> from ordeq_spark import SparkHiveTable
     >>> import pyspark.sql.functions as F

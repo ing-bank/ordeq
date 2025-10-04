@@ -13,7 +13,7 @@ class Static(Input[T]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_common import Static
     >>> Static("someValue").load()
     'someValue'

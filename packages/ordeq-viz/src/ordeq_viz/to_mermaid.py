@@ -80,7 +80,7 @@ def pipeline_to_mermaid(
 
     Examples:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_viz import (
     ...    gather_ios_from_module,
@@ -94,13 +94,13 @@ def pipeline_to_mermaid(
     ```
 
     Gather all nodes in your project:
-    ```python
+    ```pycon
     >>> nodes = gather_nodes_from_registry()
 
     ```
 
     Find all objects of type "IO" in catalog.py:
-    ```python
+    ```pycon
     >>> datasets = gather_ios_from_module(catalog_module)  # doctest: +SKIP
     >>> mermaid = pipeline_to_mermaid(nodes, datasets)  # doctest: +SKIP
     >>> Path("pipeline.mermaid").write_text(mermaid)  # doctest: +SKIP

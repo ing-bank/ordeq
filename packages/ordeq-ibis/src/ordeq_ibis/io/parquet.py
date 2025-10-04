@@ -13,7 +13,7 @@ class IbisParquet(IO[Table]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_ibis import IbisParquet
     >>> MyParquetUsingPolars = IbisParquet(

@@ -15,7 +15,7 @@ class PolarsEagerExcel(IO[pl.DataFrame]):
     >>> from ordeq_polars import PolarsEagerExcel
     >>> from pathlib import Path
     >>> xlsx = PolarsEagerExcel(
-    ...     path=Path("to.csv")
+    ...     path=Path("to.xlsx")
     ... ).with_load_options(
     ...     has_header=True
     ... )

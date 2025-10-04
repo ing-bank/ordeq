@@ -11,7 +11,7 @@ class DuckDBTable(IO[duckdb.DuckDBPyRelation]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> import duckdb
     >>> from ordeq_duckdb import DuckDBTable
     >>> connection = duckdb.connect(":memory:")
@@ -35,7 +35,7 @@ class DuckDBTable(IO[duckdb.DuckDBPyRelation]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq import node, run
     >>> from ordeq_common import Static
     >>> from pathlib import Path

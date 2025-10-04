@@ -12,7 +12,7 @@ class FaissIndex(IO[faiss.Index]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_faiss import FaissIndex
     >>> MyIndex = FaissIndex(

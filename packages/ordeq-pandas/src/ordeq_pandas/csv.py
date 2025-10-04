@@ -12,7 +12,7 @@ class PandasCSV(IO[pd.DataFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> import pandas as pd
     >>> from pathlib import Path
     >>> from ordeq_pandas import PandasCSV
@@ -24,7 +24,7 @@ class PandasCSV(IO[pd.DataFrame]):
 
     Load behaviour is configured by `with_load_options`:
 
-    ```python
+    ```pycon
     >>> csv = PandasCSV(
     ...     path=Path("path/to.csv")
     ... ).with_load_options(header="infer")
@@ -33,7 +33,7 @@ class PandasCSV(IO[pd.DataFrame]):
 
     Save behaviour is configured by `with_save_options`:
 
-    ```python
+    ```pycon
     >>> csv = PandasCSV(
     ...     path=Path("path/to.csv"),
     ... ).with_save_options(header=True)

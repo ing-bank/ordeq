@@ -67,8 +67,8 @@ from ordeq_args import CommandLineArg
 from pathlib import Path
 from json_with_parameter import JSONWithParameter
 
-source = YAML(path=Path('to/source.yaml'))
-target = JSONWithParameter(path_io=CommandLineArg(name='--target', type=Path))
+source = YAML(path=Path("to/source.yaml"))
+target = JSONWithParameter(path_io=CommandLineArg(name="--target", type=Path))
 
 
 @node(inputs=source, outputs=target)
@@ -115,7 +115,6 @@ class PandasExcel(Input[pd.DataFrame]):
     def load(self) -> pd.DataFrame:
         config = self.config.load()  # e.g. {"sheet_name": "Sheet1"}
         return pd.read_excel(self.path, **config)
-
 ```
 
 On load, the `PandasExcel` IO will load the configuration dictionary from the `config` IO, and pass the configuration as
@@ -173,13 +172,13 @@ import requests
 
 class UsersRequest(IO[requests.Response]):
     def __init__(self, idx: IO[str]):
-        self.base_url = 'https://jsonplaceholder.typicode.com/users/'
+        self.base_url = "https://jsonplaceholder.typicode.com/users/"
         self.idx = idx
         super().__init__()
 
     def load(self) -> requests.Response:
         idx = self.idx.load()
-        url = f'{self.base_url}/{idx}'
+        url = f"{self.base_url}/{idx}"
         return requests.get(url)
 ```
 

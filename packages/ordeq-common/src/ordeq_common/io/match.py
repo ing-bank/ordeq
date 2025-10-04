@@ -77,7 +77,7 @@ def Match(
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_common import Static, Match
     >>> from ordeq_args import EnvironmentVariable
     >>> import os
@@ -95,7 +95,7 @@ def Match(
 
     If a default is provided, it will be used when no cases match:
 
-    ```python
+    ```pycon
     >>> os.environ["COUNTRY"] = "DE"
     >>> Country.load()
     'Unknown'
@@ -104,7 +104,7 @@ def Match(
 
     Otherwise, it raises an error when none of the provided cases are matched:
 
-    ```python
+    ```pycon
     >>> Match(EnvironmentVariable("COUNTRY")).load()  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
     ...
@@ -114,7 +114,7 @@ def Match(
 
     Match on save works as follows:
 
-    ```python
+    ```pycon
     >>> SmallOrLarge = (
     ...     Match()
     ...     .Case("S", EnvironmentVariable("SMALL"))
@@ -135,7 +135,7 @@ def Match(
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq import node
     >>> from ordeq_files import JSON
     >>> from ordeq_args import CommandLineArg

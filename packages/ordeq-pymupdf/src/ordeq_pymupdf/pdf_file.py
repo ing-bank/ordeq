@@ -11,7 +11,7 @@ class PymupdfFile(IO[pymupdf.Document]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_pymupdf import PymupdfFile
     >>> MyPDF = PymupdfFile(

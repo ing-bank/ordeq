@@ -10,7 +10,7 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> import duckdb
     >>> from ordeq_duckdb import DuckDBView
     >>> connection = duckdb.connect(":memory:")
@@ -34,7 +34,7 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
     By default, the view will be replaced if it already exists.
     To change this, pass `replace=False` to the `save` method:
 
-    ```python
+    ```pycon
     >>> view = view.with_save_options(replace=False)
     >>> view.save(data) # doctest: +SKIP
     IOException('Failed to save DuckDBView(view='fruits', ...
@@ -43,7 +43,7 @@ class DuckDBView(IO[duckdb.DuckDBPyRelation]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq import node
     >>> from ordeq_duckdb import DuckDBTable
     >>> import duckdb

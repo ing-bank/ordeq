@@ -11,36 +11,48 @@ class BytesBuffer(IO[bytes]):
 
     Example:
 
-        >>> from ordeq_common import StringBuffer
-        >>> buffer = BytesBuffer()
-        >>> buffer.load()
-        b''
+    ```pycon
+    >>> from ordeq_common import BytesBuffer
+    >>> buffer = BytesBuffer()
+    >>> buffer.load()
+    b''
+
+    ```
 
     The buffer is initially empty, unless provided with initial data:
 
-        >>> buffer = BytesBuffer(b"Initial data")
-        >>> buffer.load()
-        b'Initial data'
+    ```pycon
+    >>> buffer = BytesBuffer(b"Initial data")
+    >>> buffer.load()
+    b'Initial data'
+
+    ```
 
     Saving to the buffer appends data to the existing content:
 
-        >>> buffer.save(b"New data")
-        >>> buffer.load()
-        b'Initial dataNew data'
+    ```pycon
+    >>> buffer.save(b"New data")
+    >>> buffer.load()
+    b'Initial dataNew data'
+
+    ```
 
     Example in a node:
 
-        >>> from ordeq_args import CommandLineArg
-        >>> from ordeq_common import StringBuffer, Static
-        >>> from ordeq import node, run
-        >>> result = BytesBuffer(b"Greeting")
-        >>> @node(
-        ...     inputs=[BytesBuffer(b"Hello"), Static(b"you")], outputs=result
-        ... )
-        ... def greet(greeting: bytes, name: bytes) -> bytes:
-        ...     return greeting + b", " + name + b"!"
-        >>> run(greet).get(result)
-        b'Hello, you!'
+    ```pycon
+    >>> from ordeq_args import CommandLineArg
+    >>> from ordeq_common import BytesBuffer, Static
+    >>> from ordeq import node, run
+    >>> result = BytesBuffer(b"Greeting")
+    >>> @node(
+    ...     inputs=[BytesBuffer(b"Hello"), Static(b"you")], outputs=result
+    ... )
+    ... def greet(greeting: bytes, name: bytes) -> bytes:
+    ...     return greeting + b", " + name + b"!"
+    >>> run(greet).get(result)
+    b'Hello, you!'
+
+    ```
 
     """
 

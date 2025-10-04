@@ -11,7 +11,7 @@ class NumpyBinary(IO[np.ndarray]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_numpy import NumpyBinary
     >>> MyArray = NumpyBinary(

@@ -15,7 +15,7 @@ class Response(Input[T]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_requests import Response
     >>> User = ResponseContent(
     ...     url="https://jsonplaceholder.typicode.com/users/1"
@@ -26,7 +26,7 @@ class Response(Input[T]):
 
     Use `ResponseText` or `ResponseJSON` to parse as `str` or `dict`:
 
-    ```python
+    ```pycon
     >>> from ordeq_requests import ResponseText
     >>> UserText = ResponseText(
     ...     url="https://jsonplaceholder.typicode.com/users/1"
@@ -43,7 +43,7 @@ class Response(Input[T]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq.framework import node
     >>> from ordeq_files import JSON
     >>> from pathlib import Path
@@ -63,7 +63,7 @@ class Response(Input[T]):
     By default, each `Response` instance will create a new `requests.Session`. To
     reuse a session across multiple datasets, pass it as attribute on init:
 
-    ```python
+    ```pycon
     >>> from requests.auth import HTTPBasicAuth
     >>> session = Session()
     >>> RequestWithCookies = ResponseJSON(
@@ -85,7 +85,7 @@ class Response(Input[T]):
 
     Authentication can also be set on the `session` attribute:
 
-    ```python
+    ```pycon
     >>> from requests.auth import HTTPBasicAuth
     >>> session = Session()
     >>> session.auth = HTTPBasicAuth('user', 'password')

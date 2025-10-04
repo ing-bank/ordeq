@@ -11,7 +11,7 @@ class YAML(IO[dict]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from ordeq_files import YAML
     >>> from pathlib import Path
     >>> MyYAML = YAML(

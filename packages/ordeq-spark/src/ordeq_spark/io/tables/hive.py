@@ -19,7 +19,7 @@ class SparkHiveTable(SparkTable, IO[DataFrame]):
 
     Save a DataFrame to a Hive table:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark import SparkHiveTable
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.enableHiveSupport().getOrCreate()  # doctest: +SKIP

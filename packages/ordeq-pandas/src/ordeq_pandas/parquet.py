@@ -12,7 +12,7 @@ class PandasParquet(IO[pd.DataFrame]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_pandas import PandasParquet
     >>> MyParquet = PandasParquet(

@@ -12,7 +12,7 @@ class MatplotlibFigure(Output[plt.Figure]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_matplotlib import MatplotlibFigure
     >>> MyFigure = MatplotlibFigure(

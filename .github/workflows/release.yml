@@ -16,7 +16,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v5
 
       - name: Extract package name and version
@@ -35,7 +35,7 @@ jobs:
         run: uv python install 3.13
 
       - name: Build
-        run: uv build --package $PACKAGE_NAME --sdist
+        run: uv build --package $PACKAGE_NAME
 
       - name: Publish
         run: uv publish

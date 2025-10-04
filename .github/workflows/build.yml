@@ -19,8 +19,8 @@ jobs:
     outputs:
       packages: ${{ steps.set-packages.outputs.packages }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 

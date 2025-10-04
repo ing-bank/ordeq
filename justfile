@@ -99,7 +99,7 @@ upgrade:
 # Required when the package is first released.
 # You need an API token from PyPI to run this command.
 publish PACKAGE:
-    uv build --package {{ PACKAGE }} --sdist
+    uv build --package {{ PACKAGE }}
     uv publish
 
 # Lock dependencies

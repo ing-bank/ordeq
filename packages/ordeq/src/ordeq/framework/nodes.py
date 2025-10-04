@@ -1,10 +1,10 @@
 import importlib
 import logging
-from collections.abc import Callable, Iterable, Sequence
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import cached_property, wraps
 from inspect import Signature, signature
-from typing import Generic, ParamSpec, TypeVar, overload
+from typing import Any, Generic, ParamSpec, TypeVar, overload
 
 from ordeq.framework._registry import NODE_REGISTRY
 from ordeq.framework.io import Input, Output
@@ -21,7 +21,7 @@ class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
-    tags: Iterable = field(default_factory=list, hash=False)
+    tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
 
     def __post_init__(self):
         """Nodes always have to be hashable"""
@@ -159,7 +159,7 @@ def _create_node(
     func: Callable[FuncParams, FuncReturns],
     inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: Iterable | None = None,
+    tags: list[str] | dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]:
     n = Node(
         func,
@@ -177,7 +177,7 @@ def node(
     *,
     inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: Iterable | None = None,
+    tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[FuncParams, FuncReturns]: ...
 
 
@@ -186,7 +186,7 @@ def node(
     *,
     inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: Iterable | None = None,
+    tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[
     [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
 ]: ...
@@ -197,7 +197,7 @@ def node(
     *,
     inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: Iterable | None = None,
+    tags: list[str] | dict[str, Any] | None = None,
 ) -> (
     Callable[
         [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]

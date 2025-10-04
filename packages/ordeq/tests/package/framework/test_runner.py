@@ -1,6 +1,5 @@
 import copy
 
-import pytest
 from ordeq import Node, node
 from ordeq.framework import get_node
 from ordeq.framework.graph import NodeGraph
@@ -43,49 +42,60 @@ def test_run_node_with_zero_inputs_and_outputs():
     assert loaded == computed
 
 
-plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
-minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
-square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
-
-
-@pytest.mark.parametrize(
-    ("nodes", "expected_data_store"),
-    [
-        (
-            [get_node(plus), get_node(minus), get_node(square)],
-            {
-                C: "A + BAAsomething",
-                E: "A + BAAsomething - D",
-                F: "(A + BAAsomething - D)^2",
-            },
-        ),
-        (
-            [get_node(plus), get_node(minus)],
-            {C: "A + BAAsomething", E: "A + BAAsomething - D"},
-        ),
-        ([get_node(plus)], {C: "A + BAAsomething"}),
-    ],
-)
-def test_run_graph(nodes, expected_data_store):
+def test_run_graph_all():
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
+    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
+    square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
+    nodes = [get_node(plus), get_node(minus), get_node(square)]
+    expected_data_store = {
+        C: "A + BAAsomething",
+        E: "A + BAAsomething - D",
+        F: "(A + BAAsomething - D)^2",
+    }
     data_store = _run_graph(NodeGraph.from_nodes(nodes))
     assert data_store == expected_data_store
 
 
-@pytest.mark.parametrize(
-    ("nodes", "expected_data_store"),
-    [
-        (
-            (plus, minus, square),
-            {
-                C: "A + BAAsomething",
-                E: "A + BAAsomething - D",
-                F: "(A + BAAsomething - D)^2",
-            },
-        ),
-        ((plus, minus), {C: "A + BAAsomething", E: "A + BAAsomething - D"}),
-        ((plus,), {C: "A + BAAsomething"}),
-    ],
-)
-def test_run_parametrized(nodes, expected_data_store):
-    data_store = run(*nodes)
+def test_run_graph_two():
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
+    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
+    nodes = [get_node(plus), get_node(minus)]
+    expected_data_store = {C: "A + BAAsomething", E: "A + BAAsomething - D"}
+    data_store = _run_graph(NodeGraph.from_nodes(nodes))
+    assert data_store == expected_data_store
+
+
+def test_run_graph_one():
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
+    nodes = [get_node(plus)]
+    expected_data_store = {C: "A + BAAsomething"}
+    data_store = _run_graph(NodeGraph.from_nodes(nodes))
+    assert data_store == expected_data_store
+
+
+def test_run_parametrized_all():
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
+    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
+    square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
+    data_store = run(plus, minus, square)
+    expected_data_store = {
+        C: "A + BAAsomething",
+        E: "A + BAAsomething - D",
+        F: "(A + BAAsomething - D)^2",
+    }
+    assert data_store == expected_data_store
+
+
+def test_run_parametrized_two():
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
+    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
+    data_store = run(plus, minus)
+    expected_data_store = {C: "A + BAAsomething", E: "A + BAAsomething - D"}
+    assert data_store == expected_data_store
+
+
+def test_run_parametrized_one():
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
+    data_store = run(plus)
+    expected_data_store = {C: "A + BAAsomething"}
     assert data_store == expected_data_store

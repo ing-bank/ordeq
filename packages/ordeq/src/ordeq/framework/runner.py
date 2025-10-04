@@ -1,13 +1,14 @@
 import logging
-from collections.abc import Callable, Hashable, Sequence
+from collections.abc import Callable, Sequence
 from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeVar, overload
 
+from ordeq.framework._gather import _collect_nodes
 from ordeq.framework.graph import NodeGraph
 from ordeq.framework.hook import NodeHook, RunHook
 from ordeq.framework.io import Input, Output, _InputCache
-from ordeq.framework.nodes import NODE_REGISTRY, Node, get_node
+from ordeq.framework.nodes import Node
 
 logger = logging.getLogger(__name__)
 
@@ -155,25 +156,6 @@ def _patch_io(
     )
 
 
-def _gather_nodes_from_module(module: ModuleType) -> list[Node]:
-    """Gathers all nodes defined in a module.
-
-    Args:
-        module: the module to gather nodes from
-
-    Returns:
-        a list of nodes defined in the module
-
-    """
-
-    nodes = []
-    for attr in dir(module):
-        obj = getattr(module, attr)
-        if isinstance(obj, Hashable) and obj in NODE_REGISTRY:
-            nodes.append(NODE_REGISTRY.get(obj))
-    return nodes
-
-
 @overload
 def run(
     *runnables: ModuleType,
@@ -213,22 +195,10 @@ def run(
     Returns:
         a dict mapping each IO to the computed data
 
-    Raises:
-        TypeError: if runnables are not all modules or all callables
     """
 
-    if all(isinstance(r, ModuleType) for r in runnables):
-        modules: tuple[ModuleType, ...] = runnables  # type: ignore[assignment]
-        nodes_ = []
-        for module in modules:
-            nodes_.extend(_gather_nodes_from_module(module))
-    elif all(callable(r) for r in runnables):
-        funcs: tuple[Callable, ...] = runnables  # type: ignore[assignment]
-        nodes_ = [get_node(func) for func in funcs]
-    else:
-        raise TypeError("All runnables must be either modules or nodes.")
-
-    graph = NodeGraph.from_nodes(nodes_)
+    nodes = _collect_nodes(*runnables)
+    graph = NodeGraph.from_nodes(nodes)
 
     if verbose:
         print(graph)

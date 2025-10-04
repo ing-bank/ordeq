@@ -1,3 +1,5 @@
+set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
+
 _default:
     @just --list --unsorted
 
@@ -7,20 +9,30 @@ localsetup: install precommit_install
 # Linting and formatting with ruff
 ruff: lint format
 
+# Formatting with mdformat
 mdformat:
-    uv run --with mdformat-mkdocs --with mdformat-ruff --with ruff mdformat --check docs/ README.md || exit 1
+    uv run --with mdformat-mkdocs --with mdformat-ruff --with ruff mdformat --check docs/ README.md
+
+mdformat-fix:
+    uv run --with mdformat-mkdocs --with mdformat-ruff mdformat docs/ README.md
 
 # Linting with ruff
 lint:
-    uv run --group lint ruff check packages/ scripts/ || exit 1
+    uv run --group lint ruff check packages/ scripts/
+
+lint-fix:
+    uv run --group lint ruff check --fix packages/ scripts/
 
 # Formatting with ruff
 format:
-    uv run --group lint ruff format --check packages/ scripts/ || exit 1
+    uv run --group lint ruff format --check packages/ scripts/
+
+format-fix:
+    uv run --group lint ruff format packages/ scripts/
 
 # Type checking with ty
 ty:
-    uv run --group types ty check packages/ scripts/ || exit 1
+    uv run --group types ty check packages/ scripts/
 
 # Type checking with mypy
 mypy:
@@ -33,13 +45,10 @@ mypy:
 sa: ruff ty mypy
 
 # Format code and apply lint fixes with ruff and mdformat
-fix:
-    uv run --group lint ruff format packages/ scripts/ || exit 1
-    uv run --group lint ruff check --fix packages/ scripts/ || exit 1
-    uv run --with mdformat-mkdocs --with mdformat-ruff mdformat docs/ README.md
+fix: format-fix lint-fix mdformat-fix
 
 # Test all packages individually
-# or test specific ones by passsing the names as arguments
+# or test specific ones by passing the names as arguments
 # eg. `just test` (Run tests in all packages)
 
 # or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
@@ -62,20 +71,19 @@ test_package PACKAGE:
 test_all:
     uv run --group test pytest packages/ --cov=packages/ --cov-report=html
 
-# Build the documentation
-docs-build:
+generate-api-docs:
     uv run scripts/generate_api_docs.py
+
+# Build the documentation
+docs-build: generate-api-docs
     uv run --group docs mkdocs build --strict
 
 # Build and serve the documentation locally
-docs-serve:
-    uv run scripts/generate_api_docs.py
+docs-serve: generate-api-docs
     uv run --group docs mkdocs serve --strict
 
 # Publish the documentation to GitHub Pages
-docs-publish:
-    uv run scripts/generate_api_docs.py
-    uv run --group docs mkdocs build --strict
+docs-publish: docs-build
     uv run --group docs mkdocs gh-deploy --force
 
 # Run pre-commit hooks
@@ -108,4 +116,4 @@ lock:
 
 # Bump version
 bump *ARGS:
-    uv run scripts/next_tag.py {{ ARGS }} || exit 1
+    uv run scripts/next_tag.py {{ ARGS }}

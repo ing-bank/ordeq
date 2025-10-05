@@ -24,20 +24,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Determine packages in scope
-        id: set-packages
+      - name: List packages in repository
+        id: list-packages
         run: |
           set -e
-          PACKAGES=$(ls packages | tr '\n' ',' | sed 's/,$//')
-          echo "Packages: $PACKAGES"
-          JSON_ARRAY="["
-          IFS=',' read -ra ADDR <<< "$PACKAGES"
-          for package in "${ADDR[@]}"; do
-            JSON_ARRAY+="\"$package\","
-          done
-          JSON_ARRAY="${JSON_ARRAY%,}]"
-          echo "Packages JSON array: $JSON_ARRAY"
-          echo "packages=$JSON_ARRAY" >> $GITHUB_OUTPUT
+          echo "packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')" >> ${GITHUB_OUTPUT}
 
   static_code_analysis:
     name: Check formatting, linting and typing
@@ -95,8 +86,8 @@ jobs:
         with:
           enable-cache: true
 
-      - name: Install the project
-        run: uv sync --all-packages --group test
+      - name: Install the package
+        run: uv sync --package ${{ matrix.package }} --group test
 
       - name: Run unit tests
         run: uv run --group test pytest -v --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"

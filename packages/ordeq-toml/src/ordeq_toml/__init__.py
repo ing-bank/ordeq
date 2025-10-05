@@ -1,3 +1,3 @@
-from ordeq_toml.toml import TOML
+from ordeq_toml.toml import TOML, TOMLInput
 
-__all__ = ["TOML"]
+__all__ = ["TOML", "TOMLInput"]

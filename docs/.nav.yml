@@ -9,6 +9,7 @@ nav:
           - Hooks: getting-started/concepts/hooks.md
   - Guides & examples:
       - guides/run_and_viz.md
+      - guides/node_parameters.md
       - IO:
         - Custom IO: guides/custom_io.md
         - Parametrizing IO: guides/parametrized_io.md

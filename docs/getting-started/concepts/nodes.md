@@ -247,12 +247,10 @@ Refer to the documentation of these extensions for more information.
 
 !!! success "Where to go from here?"
 
-    - Have a look at the [example project][example-project] to see how nodes are used in practice
     - See how to extend inject custom logic with [node hooks][hooks]
     - Check out the [guide on testing nodes][testing-guide]
 
 [catalog]: ../concepts/catalogs.md
 [dag]: https://en.wikipedia.org/wiki/Directed_acyclic_graph
-[example-project]: ../../guides/examples/example-project/README.md
 [hooks]: hooks.md
 [testing-guide]: ../../guides/testing_nodes.md

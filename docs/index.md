@@ -40,11 +40,9 @@ To learn more about Ordeq, check out the following resources:
 
 - See how Ordeq can help your project in the [introduction][intro]
 - Check out the [core concepts][core-concepts] to learn how to use Ordeq
-- Explore the [example project][example-project] to see how Ordeq is used
 
 [api-ref]: api/ordeq/types.md
 [core-concepts]: getting-started/concepts/io.md
-[example-project]: guides/examples/example-project/README.md
 [intro]: getting-started/introduction.md
 [license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE
 [notice]: https://github.com/ing-bank/ordeq/blob/main/NOTICE

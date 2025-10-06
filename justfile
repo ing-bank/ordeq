@@ -106,8 +106,8 @@ upgrade:
 # Publish a package to PyPI
 # You need an API token from PyPI to run this command.
 publish PACKAGE:
-    cp -n ./README.md ./packages/{{ PACKAGE }}/README.md
-    cp -n ./LICENSE ./packages/{{ PACKAGE }}/LICENSE
+    cp -n ./README.md ./packages/{{ PACKAGE }}/README.md || true
+    cp -n ./LICENSE ./packages/{{ PACKAGE }}/LICENSE || true
     uv build --package {{ PACKAGE }}
     uv publish
 

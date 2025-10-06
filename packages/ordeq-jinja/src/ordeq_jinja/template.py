@@ -1,7 +1,7 @@
-from jinja2 import Environment, Template
-
-from ordeq import Input
 from dataclasses import dataclass
+
+from jinja2 import Environment, Template
+from ordeq import Input
 
 
 @dataclass(frozen=True, kw_only=True)

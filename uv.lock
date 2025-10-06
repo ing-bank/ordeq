@@ -32,7 +32,6 @@ members = [
     "ordeq-project",
     "ordeq-pydantic",
     "ordeq-pymupdf",
-    "ordeq-pyproject",
     "ordeq-requests",
     "ordeq-sentence-transformers",
     "ordeq-spark",
@@ -2681,23 +2680,6 @@ dependencies = [
 requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
     { name = "pymupdf" },
-]
-
-[package.metadata.requires-dev]
-test = []
-
-[[package]]
-name = "ordeq-pyproject"
-source = { editable = "packages/ordeq-pyproject" }
-dependencies = [
-    { name = "ordeq" },
-    { name = "ordeq-toml" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "ordeq", editable = "packages/ordeq" },
-    { name = "ordeq-toml", editable = "packages/ordeq-toml" },
 ]
 
 [package.metadata.requires-dev]

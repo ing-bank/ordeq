@@ -2277,6 +2277,8 @@ dependencies = [
 [package.dev-dependencies]
 test = [
     { name = "boto3-stubs", extra = ["s3"] },
+    { name = "minio" },
+    { name = "testcontainers" },
 ]
 types = [
     { name = "boto3-stubs", extra = ["s3"] },
@@ -2289,7 +2291,11 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = [{ name = "boto3-stubs", extras = ["s3"] }]
+test = [
+    { name = "boto3-stubs", extras = ["s3"] },
+    { name = "minio", specifier = "==7.2.15" },
+    { name = "testcontainers", specifier = "==4.8.1" },
+]
 types = [{ name = "boto3-stubs", extras = ["s3"] }]
 
 [[package]]

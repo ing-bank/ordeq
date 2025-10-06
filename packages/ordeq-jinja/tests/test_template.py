@@ -5,7 +5,7 @@ from ordeq_jinja import JinjaTemplate
 
 
 def test_it_loads():
-    env = Environment(loader=FileSystemLoader(Path(__file__)))  # noqa: S701 (unsafe autoescape)
+    env = Environment(loader=FileSystemLoader(Path(__file__).parent))  # noqa: S701 (unsafe autoescape)
     template_name = "dummy_template.jinja"
     jinja_template = JinjaTemplate(environment=env, template=template_name)
     template = jinja_template.load()

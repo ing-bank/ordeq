@@ -7,15 +7,15 @@ T = TypeVar("T")
 
 
 @dataclass(frozen=True, eq=False)
-class Static(Input[T]):
+class Literal(Input[T]):
     """IO that returns a pre-defined value on load. Mostly useful for
     testing purposes.
 
     Example:
 
     ```pycon
-    >>> from ordeq_common import Static
-    >>> Static("someValue").load()
+    >>> from ordeq_common import Literal
+    >>> Literal("someValue").load()
     'someValue'
 
     ```

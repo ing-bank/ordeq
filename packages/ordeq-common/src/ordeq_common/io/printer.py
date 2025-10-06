@@ -13,10 +13,10 @@ class Print(Output[Any]):
     Example:
 
     ```pycon
-    >>> from ordeq_common import Print, Static
+    >>> from ordeq_common import Print, Literal
     >>> from ordeq import node, run
     >>> @node(
-    ...     inputs=Static("hello, world!"),
+    ...     inputs=Literal("hello, world!"),
     ...     outputs=Print()
     ... )
     ... def print_message(message: str) -> str:

@@ -78,14 +78,14 @@ def Match(
     Example:
 
     ```pycon
-    >>> from ordeq_common import Static, Match
+    >>> from ordeq_common import Literal, Match
     >>> from ordeq_args import EnvironmentVariable
     >>> import os
     >>> Country = (
     ...     Match(EnvironmentVariable("COUNTRY"))
-    ...     .Case("NL", Static("Netherlands"))
-    ...     .Case("BE", Static("Belgium"))
-    ...     .Default(Static("Unknown"))
+    ...     .Case("NL", Literal("Netherlands"))
+    ...     .Case("BE", Literal("Belgium"))
+    ...     .Default(Literal("Unknown"))
     ... )
     >>> os.environ["COUNTRY"] = "NL"
     >>> Country.load()

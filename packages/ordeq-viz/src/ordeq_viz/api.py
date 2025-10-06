@@ -1,18 +1,12 @@
-import importlib
 from collections.abc import Callable
 from pathlib import Path
 from types import ModuleType
 from typing import Any, Literal, overload
 
-from ordeq.framework.nodes import get_node
-from ordeq.framework.runner import (
-    _gather_nodes_from_module,  # noqa: PLC2701 (private-member-access)
+from ordeq.framework._gather import (
+    _collect_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
 )
 
-from ordeq_viz.gather import (
-    gather_ios_from_module,
-    gather_nodes_and_ios_from_package,
-)
 from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
@@ -59,41 +53,10 @@ def viz(
         output: output file or directory where the viz will be saved.
         options: Additional options for the visualization functions.
 
-    Raises:
-        TypeError: if runnables are not all modules, all package names,
-            or all nodes
     """
-    if all(isinstance(r, ModuleType) for r in runnables):
-        module_types: tuple[ModuleType, ...] = runnables  # type: ignore[assignment]
-        nodes = set()
-        ios = {}
-        for module in module_types:
-            nodes.update(_gather_nodes_from_module(module))
-            ios.update(gather_ios_from_module(module))
-    elif all(isinstance(r, str) for r in runnables):
-        package_names: tuple[str, ...] = runnables  # type: ignore[assignment]
-        nodes = set()
-        ios = {}
-        for package in package_names:
-            package_mod = importlib.import_module(package)
-            nodes.update(_gather_nodes_from_module(package_mod))
-            package_nodes, package_ios = gather_nodes_and_ios_from_package(
-                package_mod
-            )
-            nodes.update(package_nodes)
-            ios.update(package_ios)
-    elif all(callable(r) for r in runnables):
-        callables: tuple[Callable, ...] = runnables  # type: ignore[assignment]
-        nodes = {get_node(func) for func in callables}
-        ios = {}
-        for node in nodes:
-            mod = importlib.import_module(node.func.__module__)
-            ios.update(gather_ios_from_module(mod))
-    else:
-        raise TypeError(
-            "All objects provided must be either modules, package names,"
-            " or nodes."
-        )
+
+    nodes, ios = _collect_nodes_and_ios(*runnables)
+
     match fmt:
         case "kedro":
             pipeline_to_kedro_viz(

@@ -1,8 +1,8 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 import pandas as pd
 from ordeq.framework.io import IO
-from ordeq.types import PathLike
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -15,7 +15,7 @@ class PandasExcel(IO[pd.DataFrame]):
     ```pycon
     >>> from pathlib import Path
     >>> from ordeq_pandas import PandasExcel
-    >>> MyExcel = PandasExcel(
+    >>> xlsx = PandasExcel(
     ...     path=Path("path/to.xlsx")
     ... ).load(usecols="A:C")  # doctest: +SKIP
 
@@ -24,19 +24,17 @@ class PandasExcel(IO[pd.DataFrame]):
     Load behaviour is configured by `with_load_options`:
 
     ```pycon
-    >>> from pathlib import Path
-    >>> from ordeq_pandas import PandasExcel
-    >>> MyExcel = (
+    >>> xlsx = (
     ...     PandasExcel(
     ...         path=Path("path/to.xlsx")
     ...     )
     ...     .with_load_options(usecols="A:C")
-    ... ).load()  # doctest: +SKIP
+    ... )
 
     ```
     """
 
-    path: PathLike
+    path: Path | str
 
     def load(self, **load_options) -> pd.DataFrame:
         return pd.read_excel(self.path, **load_options)

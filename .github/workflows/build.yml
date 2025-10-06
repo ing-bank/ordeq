@@ -14,10 +14,10 @@ jobs:
     uses: ./.github/workflows/docs.yml
 
   packages:
-    name: Determine packages in scope
+    name: List packages
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.set-packages.outputs.packages }}
+      packages: ${{ steps.list-packages.outputs.packages }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -27,7 +27,6 @@ jobs:
       - name: List packages in repository
         id: list-packages
         run: |
-          set -e
           echo "packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')" >> ${GITHUB_OUTPUT}
 
   static_code_analysis:

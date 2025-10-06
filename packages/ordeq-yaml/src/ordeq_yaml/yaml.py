@@ -12,9 +12,9 @@ class YAML(IO[dict]):
     Example usage:
 
     ```pycon
-    >>> from ordeq_files import YAML
+    >>> from ordeq_yaml import YAML
     >>> from pathlib import Path
-    >>> MyYAML = YAML(
+    >>> my_yaml = YAML(
     ...     path=Path("path/to.yaml")
     ... )
 

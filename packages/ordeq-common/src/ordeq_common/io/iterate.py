@@ -29,7 +29,7 @@ def Iterate(*ios: IO[T]) -> _Iterate[T]:
 
     The load function returns a generator:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_files import Text, JSON
     >>> from ordeq_common import Iterate
@@ -41,7 +41,7 @@ def Iterate(*ios: IO[T]) -> _Iterate[T]:
 
     The load function returns the contents of the files in this case:
 
-    ```python
+    ```pycon
     >>> list(text_ios.load())  # doctest: +SKIP
     ['hello', 'world']
     ```
@@ -49,7 +49,7 @@ def Iterate(*ios: IO[T]) -> _Iterate[T]:
     By iterating over the contents, each file will be loaded and saved
     without the need to keep multiple files in memory at the same time:
 
-    ```python
+    ```pycon
     >>> for idx, content in enumerate(text_ios.load()):   # doctest: +SKIP
     ...    JSON(
     ...        path=paths[idx].with_suffix(".json")
@@ -60,7 +60,7 @@ def Iterate(*ios: IO[T]) -> _Iterate[T]:
     We can achieve the same by passing a generator to the `Iterate.save`
     method:
 
-    ```python
+    ```pycon
     >>> json_dataset = Iterate(
     ...     *[
     ...         JSON(path=path.with_suffix(".json"))

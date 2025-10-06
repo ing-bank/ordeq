@@ -176,7 +176,7 @@ def pipeline_to_kedro_viz(
 
     Examples:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_viz import (
     ...     gather_ios_from_module,

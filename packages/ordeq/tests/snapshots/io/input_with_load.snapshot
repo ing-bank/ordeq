@@ -2,4 +2,4 @@ Output:
 hello.txt@L1: Hello world!
 
 Logging:
-INFO	ordeq.framework.io	Loading ExampleInputLoadArg(path=PosixPath('hello.txt'), attribute='L1')
+INFO	ordeq.framework.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')

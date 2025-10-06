@@ -12,7 +12,7 @@ class Print(Output[Any]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_common import Print, Static
     >>> from ordeq import node, run
     >>> @node(

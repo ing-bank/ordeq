@@ -11,7 +11,7 @@ class DuckDBCSV(IO[duckdb.DuckDBPyRelation]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq import node, run
     >>> from ordeq_duckdb import DuckDBCSV
     >>> csv = DuckDBCSV(path="data.csv")

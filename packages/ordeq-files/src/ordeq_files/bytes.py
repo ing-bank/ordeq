@@ -10,7 +10,7 @@ class Bytes(IO[bytes]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_files import Bytes
     >>> from pathlib import Path
     >>> MyPNG = Bytes(

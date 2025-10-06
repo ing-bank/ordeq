@@ -17,12 +17,16 @@ class TOML(IO[dict[str, Any]]):
     """IO class for reading and writing TOML files.
 
     Example usage:
-        >>> from pathlib import Path
-        >>> from ordeq_toml import TOML
-        >>> toml_path = Path("config.toml")
-        >>> io = TOML(path=toml_path)
-        >>> data = {"key": "value", "number": 42}
-        >>> io.save(data)
+
+    ```pycon
+    >>> from pathlib import Path
+    >>> from ordeq_toml import TOML
+    >>> toml_path = Path("config.toml")
+    >>> io = TOML(path=toml_path)
+    >>> data = {"key": "value", "number": 42}
+    >>> io.save(data)
+
+    ```
     """
 
     path: PathLike

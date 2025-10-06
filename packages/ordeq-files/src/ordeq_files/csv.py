@@ -13,7 +13,7 @@ class CSV(IO[Iterable[Iterable[Any]]]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from ordeq_files import CSV
     >>> from pathlib import Path
     >>> computer_sales = CSV(
@@ -24,7 +24,7 @@ class CSV(IO[Iterable[Iterable[Any]]]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq import node
     >>> computer_sales_in_nl = CSV(path=Path("computer_sales_nl.csv"))
     >>> @node(
@@ -38,7 +38,7 @@ class CSV(IO[Iterable[Iterable[Any]]]):
 
     Loading and saving can be configured with additional parameters, e.g:
 
-    ```python
+    ```pycon
     >>> computer_sales.load(quotechar='"', delimiter=',')  # doctest: +SKIP
     >>> computer_sales.with_load_options(dialect='excel').load()  # doctest: +SKIP
     >>> data = [["NL", "2023-10-01", 1000], ["BE", "2023-10-02", 1500]]

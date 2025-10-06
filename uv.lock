@@ -2228,6 +2228,11 @@ dependencies = [
     { name = "ordeq" },
 ]
 
+[package.dev-dependencies]
+test = [
+    { name = "pandas" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "altair", extras = ["save"] },
@@ -2235,7 +2240,7 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = []
+test = [{ name = "pandas" }]
 
 [[package]]
 name = "ordeq-args"
@@ -2626,6 +2631,7 @@ dependencies = [
 
 [package.dev-dependencies]
 test = [
+    { name = "mypy" },
     { name = "ordeq-common" },
 ]
 
@@ -2633,7 +2639,10 @@ test = [
 requires-dist = [{ name = "ordeq", editable = "packages/ordeq" }]
 
 [package.metadata.requires-dev]
-test = [{ name = "ordeq-common", editable = "packages/ordeq-common" }]
+test = [
+    { name = "mypy" },
+    { name = "ordeq-common", editable = "packages/ordeq-common" },
+]
 
 [[package]]
 name = "ordeq-pydantic"

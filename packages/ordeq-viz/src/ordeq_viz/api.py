@@ -37,6 +37,7 @@ def viz(
     **options: Any,
 ) -> None: ...
 
+
 @overload
 def viz(
     *runnables: str | ModuleType | Callable,
@@ -51,7 +52,7 @@ def viz(
     fmt: Literal["kedro", "mermaid"],
     output: Path | None = None,
     **options: Any,
-) ->  str | None:
+) -> str | None:
     """Visualize the pipeline from the provided packages, modules, or nodes
 
     Args:

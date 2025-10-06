@@ -51,7 +51,7 @@ def viz(
     fmt: Literal["kedro", "mermaid"],
     output: Path | None = None,
     **options: Any,
-) -> None:
+) ->  str | None:
     """Visualize the pipeline from the provided packages, modules, or nodes
 
     Args:
@@ -60,6 +60,10 @@ def viz(
         fmt: Format of the output visualization, ("kedro" or "mermaid").
         output: output file or directory where the viz will be saved.
         options: Additional options for the visualization functions.
+
+    Returns:
+        If `fmt` is 'mermaid' and `output` is not provided, returns the mermaid
+        diagram as a string. Otherwise, returns None.
 
     Raises:
         ValueError: If `fmt` is 'kedro' and `output` is not provided.

@@ -5,7 +5,7 @@ import pytest
 import yaml
 from cloudpathlib import CloudPath
 from minio.helpers import ObjectWriteResult
-from ordeq_files import YAML
+from ordeq_yaml import YAML
 from urllib3 import BaseHTTPResponse
 
 

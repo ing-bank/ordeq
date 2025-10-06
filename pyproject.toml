@@ -56,6 +56,7 @@ ordeq-spark = { workspace = true }
 ordeq-toml = { workspace = true }
 ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }
+ordeq-yaml = { workspace = true }
 
 [tool.uv]
 required-version = ">=0.8.23"

@@ -158,7 +158,8 @@ Let's extend our example with another node that parses the name to greet from a 
 === "catalog.py"
 
     ```python hl_lines="4"
-    from ordeq_files import CSV, Text, YAML
+    from ordeq_files import CSV, Text
+    from ordeq_yaml import YAML
     from pathlib import Path
 
     invitees = YAML(path=Path("invitees.yaml"))

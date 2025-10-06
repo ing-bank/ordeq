@@ -174,3 +174,16 @@ def test_rag(tmp_path: Path, resources_dir: Path):
     content = re.sub(r"-?\d+", "000", content)
     expected = re.sub(r"-?\d+", "000", expected)
     assert content == expected
+
+
+def test_viz_main_kedro_no_output_raises(tmp_path: Path) -> None:
+    with pytest.raises(
+        ValueError, match="`output` is required when `fmt` is 'kedro'"
+    ):
+        viz("example", fmt="kedro")
+
+
+def test_viz_main_mermaid_no_output_returns_str() -> None:
+    result = viz("example", fmt="mermaid", output=None)
+    assert isinstance(result, str)
+    assert "graph TB" in result

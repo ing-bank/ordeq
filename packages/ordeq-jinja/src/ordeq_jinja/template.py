@@ -17,6 +17,7 @@ class JinjaTemplate(Input[Template]):
     >>> env = Environment(loader=FileSystemLoader('templates'))
     >>> io = JinjaTemplate(environment=env, template='my_template.jinja')
     >>> template = io.load()  # doctest: +SKIP
+    <Template 'my_template.jinja'>
     >>> template.render(name='World')  # doctest: +SKIP
     'Hello, World!'
 

@@ -24,7 +24,8 @@ dependencies = [
 
 [dependency-groups]
 test = [
-    "ordeq-common"
+    "ordeq-common",
+    "mypy"
 ]
 
 [tool.setuptools_scm]

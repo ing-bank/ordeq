@@ -7,7 +7,7 @@ Commonly used parameter types that are supported out of the box include:
 
 - Python built-in types: `str`, `int`, `float`, `bool`
 - Configuration files (TOML, YAML, JSON, INI, etc.)
-- Pydantic models
+- Pydantic models or dataclass instances
 - CLI arguments or environment variables
 
 ## Using IOs instead of global variables
@@ -69,17 +69,18 @@ Ordeq can read parameters from a `[tool.your_tool_name]` section in `pyproject.t
 from typing import Any
 from pathlib import Path
 from ordeq import node, IO
-from ordeq_pyproject import Pyproject
+from ordeq_common import Item
+from ordeq_toml import TOML
 
 
 name = IO()
-pyproject = Pyproject(path=Path("pyproject.toml"), section="tool.my_tool")
+pyproject = TOML(path=Path("pyproject.toml"))
+language = Item(pyproject, key=("tool", "my_tool", "language"), default="en")
 greeting = IO()
 
 
-@node(inputs=[name, pyproject], outputs=greeting)
-def greet(name: str, settings: dict[str, Any]) -> str:
-    language = settings.get("language", "en")
+@node(inputs=[name, language], outputs=greeting)
+def greet(name: str, language: str) -> str:
     if language == "en":
         return f"Hello, {name}"
 

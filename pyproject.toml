@@ -51,6 +51,7 @@ ordeq-project = { workspace = true }
 ordeq-pydantic = { workspace = true }
 ordeq-pymupdf = { workspace = true }
 ordeq-requests = { workspace = true }
+ordeq-sentence-transformers = { workspace = true }
 ordeq-spark = { workspace = true }
 ordeq-toml = { workspace = true }
 ordeq-viz = { workspace = true }

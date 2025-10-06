@@ -42,6 +42,7 @@ ordeq-faiss = { workspace = true }
 ordeq-files = { workspace = true }
 ordeq-huggingface = { workspace = true }
 ordeq-ibis = { workspace = true }
+ordeq-jinja = { workspace = true }
 ordeq-joblib = { workspace = true }
 ordeq-matplotlib = { workspace = true }
 ordeq-numpy = { workspace = true }

@@ -22,6 +22,7 @@ members = [
     "ordeq-files",
     "ordeq-huggingface",
     "ordeq-ibis",
+    "ordeq-jinja",
     "ordeq-joblib",
     "ordeq-matplotlib",
     "ordeq-networkx",
@@ -2443,6 +2444,23 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 test = [{ name = "ibis-framework", extras = ["polars", "duckdb"] }]
+
+[[package]]
+name = "ordeq-jinja"
+source = { editable = "packages/ordeq-jinja" }
+dependencies = [
+    { name = "jinja2" },
+    { name = "ordeq" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "jinja2" },
+    { name = "ordeq", editable = "packages/ordeq" },
+]
+
+[package.metadata.requires-dev]
+test = []
 
 [[package]]
 name = "ordeq-joblib"

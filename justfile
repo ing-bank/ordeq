@@ -40,7 +40,6 @@ mypy:
         uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
     done
 
-
 # Static analysis (lint + type checking)
 sa: ruff ty mypy
 
@@ -106,8 +105,6 @@ upgrade:
 # Publish a package to PyPI
 # You need an API token from PyPI to run this command.
 publish PACKAGE:
-    cp -n ./README.md ./packages/{{ PACKAGE }}/README.md || true
-    cp -n ./LICENSE ./packages/{{ PACKAGE }}/LICENSE || true
     uv build --package {{ PACKAGE }}
     uv publish
 

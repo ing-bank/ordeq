@@ -5,9 +5,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ordeq_duckdb"
 dynamic = ["version"]
-readme = "README.md"
+readme = "../../README.md"
 license = "MIT"
-license-files = ["LICENSE"]
+license-files = ["../../LICENSE"]
 authors = [
     { name = "Niels Neerhoff" },
     { name = "Simon Brugman" },

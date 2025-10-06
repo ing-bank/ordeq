@@ -2228,6 +2228,11 @@ dependencies = [
     { name = "ordeq" },
 ]
 
+[package.dev-dependencies]
+test = [
+    { name = "pandas" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "altair", extras = ["save"] },
@@ -2235,7 +2240,7 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = []
+test = [{ name = "pandas" }]
 
 [[package]]
 name = "ordeq-args"
@@ -2272,6 +2277,8 @@ dependencies = [
 [package.dev-dependencies]
 test = [
     { name = "boto3-stubs", extra = ["s3"] },
+    { name = "minio" },
+    { name = "testcontainers" },
 ]
 types = [
     { name = "boto3-stubs", extra = ["s3"] },
@@ -2284,7 +2291,11 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = [{ name = "boto3-stubs", extras = ["s3"] }]
+test = [
+    { name = "boto3-stubs", extras = ["s3"] },
+    { name = "minio", specifier = "==7.2.15" },
+    { name = "testcontainers", specifier = "==4.8.1" },
+]
 types = [{ name = "boto3-stubs", extras = ["s3"] }]
 
 [[package]]
@@ -2337,11 +2348,19 @@ dependencies = [
     { name = "ordeq" },
 ]
 
+[package.dev-dependencies]
+test = [
+    { name = "ordeq-common" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "duckdb" },
     { name = "ordeq", editable = "packages/ordeq" },
 ]
+
+[package.metadata.requires-dev]
+test = [{ name = "ordeq-common", editable = "packages/ordeq-common" }]
 
 [[package]]
 name = "ordeq-faiss"
@@ -2405,6 +2424,9 @@ requires-dist = [
     { name = "datasets" },
     { name = "ordeq", editable = "packages/ordeq" },
 ]
+
+[package.metadata.requires-dev]
+test = []
 
 [[package]]
 name = "ordeq-ibis"
@@ -2594,18 +2616,14 @@ types = [{ name = "pandas-stubs" }]
 name = "ordeq-polars"
 source = { editable = "packages/ordeq-polars" }
 dependencies = [
-    { name = "fastexcel" },
     { name = "ordeq" },
-    { name = "polars" },
-    { name = "xlsxwriter" },
+    { name = "polars", extra = ["excel", "pyarrow"] },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "fastexcel" },
     { name = "ordeq", editable = "packages/ordeq" },
-    { name = "polars", specifier = ">=1.0" },
-    { name = "xlsxwriter" },
+    { name = "polars", extras = ["excel", "pyarrow"], specifier = ">=1.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -2620,6 +2638,7 @@ dependencies = [
 
 [package.dev-dependencies]
 test = [
+    { name = "mypy" },
     { name = "ordeq-common" },
 ]
 
@@ -2627,7 +2646,10 @@ test = [
 requires-dist = [{ name = "ordeq", editable = "packages/ordeq" }]
 
 [package.metadata.requires-dev]
-test = [{ name = "ordeq-common", editable = "packages/ordeq-common" }]
+test = [
+    { name = "mypy" },
+    { name = "ordeq-common", editable = "packages/ordeq-common" },
+]
 
 [[package]]
 name = "ordeq-pydantic"
@@ -2713,6 +2735,9 @@ requires-dist = [
     { name = "sentence-transformers" },
 ]
 
+[package.metadata.requires-dev]
+test = []
+
 [[package]]
 name = "ordeq-spark"
 source = { editable = "packages/ordeq-spark" }
@@ -2723,6 +2748,7 @@ dependencies = [
 
 [package.dev-dependencies]
 test = [
+    { name = "ordeq-common" },
     { name = "pymssql" },
     { name = "pyspark" },
     { name = "testcontainers" },
@@ -2736,6 +2762,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 test = [
+    { name = "ordeq-common", editable = "packages/ordeq-common" },
     { name = "pymssql", specifier = "==2.3.7" },
     { name = "pyspark", specifier = "==3.3.1" },
     { name = "testcontainers", specifier = "==4.8.1" },
@@ -2770,13 +2797,25 @@ dependencies = [
 [package.dev-dependencies]
 test = [
     { name = "ordeq-common" },
+    { name = "ordeq-faiss" },
+    { name = "ordeq-files" },
+    { name = "ordeq-pandas" },
+    { name = "ordeq-pymupdf" },
+    { name = "ordeq-sentence-transformers" },
 ]
 
 [package.metadata]
 requires-dist = [{ name = "ordeq", editable = "packages/ordeq" }]
 
 [package.metadata.requires-dev]
-test = [{ name = "ordeq-common", editable = "packages/ordeq-common" }]
+test = [
+    { name = "ordeq-common", editable = "packages/ordeq-common" },
+    { name = "ordeq-faiss", editable = "packages/ordeq-faiss" },
+    { name = "ordeq-files", editable = "packages/ordeq-files" },
+    { name = "ordeq-pandas", editable = "packages/ordeq-pandas" },
+    { name = "ordeq-pymupdf", editable = "packages/ordeq-pymupdf" },
+    { name = "ordeq-sentence-transformers", editable = "packages/ordeq-sentence-transformers" },
+]
 
 [[package]]
 name = "ordeq-viz-cli"
@@ -2787,6 +2826,9 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "ordeq-viz", editable = "packages/ordeq-viz" }]
+
+[package.metadata.requires-dev]
+test = []
 
 [[package]]
 name = "packaging"
@@ -3030,6 +3072,17 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/7a/26/4c5da9f42fa067b2302fe62bcbf91faac5506c6513d910fae9548fc78d65/polars-1.33.1-cp39-abi3-manylinux_2_24_aarch64.whl", hash = "sha256:094a37d06789286649f654f229ec4efb9376630645ba8963b70cb9c0b008b3e1", size = 36684940, upload-time = "2025-09-09T08:36:50.561Z" },
     { url = "https://files.pythonhosted.org/packages/06/a6/dc535da476c93b2efac619e04ab81081e004e4b4553352cd10e0d33a015d/polars-1.33.1-cp39-abi3-win_amd64.whl", hash = "sha256:c9781c704432a2276a185ee25898aa427f39a904fbe8fde4ae779596cdbd7a9e", size = 39456676, upload-time = "2025-09-09T08:36:54.612Z" },
     { url = "https://files.pythonhosted.org/packages/cb/4e/a4300d52dd81b58130ccadf3873f11b3c6de54836ad4a8f32bac2bd2ba17/polars-1.33.1-cp39-abi3-win_arm64.whl", hash = "sha256:c3cfddb3b78eae01a218222bdba8048529fef7e14889a71e33a5198644427642", size = 35445171, upload-time = "2025-09-09T08:36:58.043Z" },
+]
+
+[package.optional-dependencies]
+excel = [
+    { name = "fastexcel" },
+    { name = "openpyxl" },
+    { name = "xlsx2csv" },
+    { name = "xlsxwriter" },
+]
+pyarrow = [
+    { name = "pyarrow" },
 ]
 
 [[package]]
@@ -4606,6 +4659,15 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/79/d9/7cfd5a312760ac4dd8bf0184a6ee9e43c33e47f3dadc303032ce012b8fa3/wrapt-1.17.3-cp314-cp314t-win_amd64.whl", hash = "sha256:73d496de46cd2cdbdbcce4ae4bcdb4afb6a11234a1df9c085249d55166b95116", size = 41334, upload-time = "2025-08-12T05:53:14.178Z" },
     { url = "https://files.pythonhosted.org/packages/46/78/10ad9781128ed2f99dbc474f43283b13fea8ba58723e98844367531c18e9/wrapt-1.17.3-cp314-cp314t-win_arm64.whl", hash = "sha256:f38e60678850c42461d4202739f9bf1e3a737c7ad283638251e79cc49effb6b6", size = 38471, upload-time = "2025-08-12T05:52:57.784Z" },
     { url = "https://files.pythonhosted.org/packages/1f/f6/a933bd70f98e9cf3e08167fc5cd7aaaca49147e48411c0bd5ae701bb2194/wrapt-1.17.3-py3-none-any.whl", hash = "sha256:7171ae35d2c33d326ac19dd8facb1e82e5fd04ef8c6c0e394d7af55a55051c22", size = 23591, upload-time = "2025-08-12T05:53:20.674Z" },
+]
+
+[[package]]
+name = "xlsx2csv"
+version = "0.8.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/36/20/94860286a308a4213581c1beacd4fc7be724250c03583fcff23aaa6107bb/xlsx2csv-0.8.4.tar.gz", hash = "sha256:2aa809888826f6af5b26c77fc7f613f2bbeada0d8cc09e5a58e0f59684bb6911", size = 221390, upload-time = "2024-11-19T17:06:07.818Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c4/c0/15c21556362c67f1155f3643a375d50ac67559b82c768e64e800a42a2577/xlsx2csv-0.8.4-py3-none-any.whl", hash = "sha256:52ab873fc7b2f2ca75d14aee8bd1985a9f5c1bcb3cc7b80df7a5d57a40a67473", size = 15904, upload-time = "2024-11-19T17:06:05.362Z" },
 ]
 
 [[package]]

@@ -31,5 +31,5 @@ jobs:
         run: uv python install 3.13
 
       - name: Publish package
-        run: just publish ${PACKAGE_NAME}
+        run: just publish $PACKAGE_NAME
 

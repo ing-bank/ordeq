@@ -11,7 +11,7 @@ class SparkSession(Input[pyspark.sql.SparkSession]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark.io.session import SparkSession
     >>> spark_session = SparkSession()
     >>> spark = spark_session.load()  # doctest: +SKIP
@@ -22,7 +22,7 @@ class SparkSession(Input[pyspark.sql.SparkSession]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq import node
     >>> from ordeq_common import Static
     >>> items = Static({'id': [1, 2, 3], 'value': ['a', 'b', 'c']})

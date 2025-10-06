@@ -15,7 +15,7 @@ class SparkTempView(IO[DataFrame]):
 
     Create and save a DataFrame to a temp view:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark import SparkTempView
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.getOrCreate()  # doctest: +SKIP
@@ -29,7 +29,7 @@ class SparkTempView(IO[DataFrame]):
 
     Load the DataFrame from the temp view:
 
-    ```python
+    ```pycon
     >>> loaded_df = view.load()  # doctest: +SKIP
     >>> loaded_df.show()  # doctest: +SKIP
 

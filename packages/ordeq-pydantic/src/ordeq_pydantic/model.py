@@ -11,7 +11,7 @@ class PydanticJSON(IO[pydantic.BaseModel]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_pydantic import PydanticJSON
     >>> from pydantic import BaseModel

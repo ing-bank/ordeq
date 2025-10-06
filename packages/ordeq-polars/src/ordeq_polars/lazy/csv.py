@@ -11,7 +11,7 @@ class PolarsLazyCSV(IO[pl.LazyFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_polars import PolarsLazyCSV
     >>> from pathlib import Path
     >>> csv = PolarsLazyCSV(

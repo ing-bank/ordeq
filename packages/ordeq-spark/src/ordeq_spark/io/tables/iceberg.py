@@ -31,7 +31,7 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark import (
     ...     SparkIcebergTable
     ... )
@@ -69,7 +69,7 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
     Table properties can be specified on the `properties` attribute.
     Currently, the properties will be taken into account on write only.
 
-    ```python
+    ```pycon
     >>> TableWithProperties = SparkIcebergTable(
     ...     table="my.iceberg.table",
     ...     properties=(

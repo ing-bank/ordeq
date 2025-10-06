@@ -12,7 +12,7 @@ class Glob(Input[Generator[PathLike, None, None]]):
     for most cases it would be more suitable to inherit from
     this class and extend the `load` method, for example:
 
-    ```python
+    ```pycon
     >>> class LoadPartitions(Glob):
     ...     def load(self):
     ...         paths = super().load()

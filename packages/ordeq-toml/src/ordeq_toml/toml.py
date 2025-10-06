@@ -59,7 +59,6 @@ class TOML(TOMLInput, Output[dict[str, Any]], metaclass=_IOMeta):
     >>> io.save(data)  # doctest: +SKIP
 
     ```
-
     """
 
     path: PathLike

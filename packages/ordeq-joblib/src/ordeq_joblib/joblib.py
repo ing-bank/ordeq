@@ -14,7 +14,7 @@ class Joblib(IO[T]):
 
     Example of stand-alone use:
 
-    ```python
+    ```pycon
     >>> from ordeq_joblib import Joblib
     >>> from pathlib import Path
     >>> Model = Joblib(path=Path("model.pkl"))
@@ -24,7 +24,7 @@ class Joblib(IO[T]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq_joblib import Joblib
     >>> from ordeq_pandas import PandasExcel
     >>> import pandas as pd

@@ -11,7 +11,7 @@ class Pickle(IO[T]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from ordeq_files import Pickle
     >>> from pathlib import Path
     >>> MyPickle = Pickle(

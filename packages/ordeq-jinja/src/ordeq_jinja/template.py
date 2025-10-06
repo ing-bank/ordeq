@@ -21,11 +21,17 @@ class JinjaTemplate(Input[Template]):
 
     ```
 
-
     """
 
     environment: Environment
     template: str
 
-    def load(self) -> Template:
-        return self.environment.get_template(self.template)
+    def load(self, **load_options) -> Template:
+        """
+        Load the Jinja2 template.
+
+        Args:
+            **load_options: Additional options for loading the template.
+        """
+
+        return self.environment.get_template(self.template, **load_options)

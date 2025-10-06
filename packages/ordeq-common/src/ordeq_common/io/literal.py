@@ -15,8 +15,11 @@ class Literal(Input[T]):
 
     ```pycon
     >>> from ordeq_common import Literal
-    >>> Literal("someValue").load()
+    >>> value = Literal("someValue")
+    >>> value.load()
     'someValue'
+    >>> print(value)
+    Literal('someValue')
 
     ```
 
@@ -26,3 +29,6 @@ class Literal(Input[T]):
 
     def load(self) -> T:
         return self.value
+
+    def __repr__(self):
+        return f"Literal({self.value!r})"

@@ -84,6 +84,7 @@ jobs:
         uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
+          save-cache: false
 
       - name: Install the package
         run: uv sync --package ${{ matrix.package }} --group test

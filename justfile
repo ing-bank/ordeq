@@ -34,6 +34,10 @@ format-fix:
 ty:
     uv run --group types ty check packages/ scripts/
 
+# List all packages
+list:
+    ls -1 packages/
+
 # Type checking with mypy
 mypy:
     for dir in `find packages -maxdepth 1 -type d -name "ordeq*"`; do \

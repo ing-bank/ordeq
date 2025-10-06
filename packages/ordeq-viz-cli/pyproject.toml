@@ -5,10 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ordeq_viz_cli"
 dynamic = ["version"]
+readme = "README.md"
 description = "Command line interface for Ordeq visualization"
-readme = "../../README.md"
 license = "MIT"
-license-files = ["../../LICENSE"]
+license-files = ["LICENSE"]
 authors = [
     { name = "Niels Neerhoff" },
     { name = "Simon Brugman" },

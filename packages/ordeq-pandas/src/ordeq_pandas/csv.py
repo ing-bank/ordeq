@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 import pandas as pd
 from ordeq.framework.io import IO
-from ordeq.types import PathLike
+from pathlib import Path
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -42,7 +42,7 @@ class PandasCSV(IO[pd.DataFrame]):
 
     """
 
-    path: PathLike | str
+    path: Path | str
 
     def load(self, **load_options) -> pd.DataFrame:
         return pd.read_csv(self.path, **load_options)

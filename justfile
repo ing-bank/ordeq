@@ -99,7 +99,10 @@ precommit_install:
 
 # Install development dependencies
 install:
-    uv sync --all-packages --all-groups --all-extras
+    uv sync --all-packages --all-groups --all-extras --locked
+
+update:
+    uv update --all-packages --all-groups --all-extras
 
 # Upgrade (pre-commit only)
 upgrade:

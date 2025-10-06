@@ -15,7 +15,7 @@ class FaissIndex(IO[faiss.Index]):
     ```pycon
     >>> from pathlib import Path
     >>> from ordeq_faiss import FaissIndex
-    >>> MyIndex = FaissIndex(
+    >>> my_index = FaissIndex(
     ...     path=Path("path/to.index")
     ... )
 

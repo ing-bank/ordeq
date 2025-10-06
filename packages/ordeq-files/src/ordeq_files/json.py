@@ -14,7 +14,7 @@ class JSON(IO[dict]):
     ```pycon
     >>> from ordeq_files import JSON
     >>> from pathlib import Path
-    >>> MyJSON = JSON(
+    >>> my_json = JSON(
     ...     path=Path("path/to.json")
     ... )
 

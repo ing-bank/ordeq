@@ -1,6 +1,6 @@
 # Creating a IO class
 
-This guide will help you create a new IO class by extending the base classes provided in `ordeq.framework.io`.
+This guide will help you create a new IO class by extending the base classes provided by Ordeq.
 IO classes are basic building block in `ordeq` to abstract IO operations from data transformations.
 
 Frequently used IO implementations are offered out-of-the-box as `ordeq` packages.
@@ -24,7 +24,7 @@ The `FaissIndex` class extends the `IO` class and implements the `load` and `sav
 from dataclasses import dataclass
 from pathlib import Path
 import faiss
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -49,7 +49,7 @@ Create a new class that extends the `IO` class and implement the `load` and `sav
 ```python
 from dataclasses import dataclass
 from pathlib import Path
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -92,7 +92,7 @@ For instance, we could let the user control the newline character used by `write
 ```python
 from dataclasses import dataclass
 from pathlib import Path
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -114,7 +114,7 @@ Below is an example of this for a Pandas CSV IO class:
 from dataclasses import dataclass
 from pathlib import Path
 import pandas as pd
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -136,7 +136,7 @@ This type should match the return type of the `load` method and the first parame
 ```python
 from dataclasses import dataclass
 from pathlib import Path
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -167,11 +167,11 @@ Practical examples are:
 For a practical example of a class that is Read-only, we will consider generating of synthetic sensor data.
 The `SensorDataGenerator` class will extend the `Input` class, meaning it will only have to implement the `load` method.
 
-```python
+````python
 import random
 from dataclasses import dataclass
 from typing import Any
-from ordeq.framework.io import Input
+from ordeq import Input
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -180,9 +180,12 @@ class SensorDataGenerator(Input[dict[str, Any]]):
 
     Example usage:
 
-        >>> generator = SensorDataGenerator(sensor_id="sensor_3")
-        >>> data = generator.load()
-        {'sensor_id': 'sensor_3', 'temperature': 22.001252691230633, 'humidity': 35.2674852725557}
+    ```pycon
+    >>> generator = SensorDataGenerator(sensor_id="sensor_3")
+    >>> data = generator.load()
+    {'sensor_id': 'sensor_3', 'temperature': 22.001252691230633, 'humidity': 35.2674852725557}
+    ```
+
     """
 
     sensor_id: str
@@ -194,9 +197,9 @@ class SensorDataGenerator(Input[dict[str, Any]]):
             "temperature": random.uniform(20.0, 30.0),
             "humidity": random.uniform(30.0, 50.0),
         }
-```
+````
 
-Saving data using this dataset would raise a `ordeq.framework.io.IOException` explaining the save method is not implemented.
+Saving data using this dataset would raise a `ordeq.IOException` explaining the save method is not implemented.
 
 Similarly, you can inherit from the `Output` class for IO that only require to implement the `save` method.
 The `ordeq-matplotlib` package contains an example of this in `MatplotlibFigure`.

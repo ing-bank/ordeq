@@ -10,7 +10,7 @@ Running nodes with Ordeq is as simple as calling the `run` function from the `or
 from ordeq import run, node
 
 
-@node()
+@node
 def my_node():
     print("Hello, Ordeq!")
 
@@ -36,7 +36,7 @@ if __name__ == "__main__":
 from ordeq import node
 
 
-@node()
+@node
 def my_node():
     print("Hello, Ordeq!")
 ```

@@ -20,7 +20,7 @@ class SparkStatic(Input[DataFrame]):
     ```pycon
     >>> from pyspark.sql.types import *
     >>> from ordeq_spark import SparkStatic
-    >>> DF = SparkStatic(
+    >>> df = SparkStatic(
     ...     schema=StructType([
     ...         StructField("year", IntegerType()),
     ...         StructField("datafile", StringType()),

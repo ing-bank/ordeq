@@ -13,7 +13,7 @@ class AltairChart(Output[alt.Chart]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_altair import AltairChart
     >>> my_chart = AltairChart(

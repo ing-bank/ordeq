@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from jinja2 import Environment, Template
 from ordeq import Input
+from typing import Any
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -26,9 +27,8 @@ class JinjaTemplate(Input[Template]):
     environment: Environment
     template: str
 
-    def load(self, **load_options) -> Template:
-        """
-        Load the Jinja2 template.
+    def load(self, **load_options: Any) -> Template:
+        """Load the Jinja2 template.
 
         Args:
             **load_options: Additional options for loading the template.

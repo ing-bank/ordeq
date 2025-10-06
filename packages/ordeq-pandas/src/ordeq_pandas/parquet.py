@@ -1,8 +1,8 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 import pandas as pd
 from ordeq.framework.io import IO
-from pathlib import Path
 
 
 @dataclass(frozen=True, kw_only=True)

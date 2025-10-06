@@ -2218,7 +2218,7 @@ test = [
 [package.metadata.requires-dev]
 test = [
     { name = "cloudpathlib", extras = ["s3"], specifier = ">=0.20.0" },
-    { name = "mypy", specifier = ">=1.18.2" },
+    { name = "mypy" },
     { name = "ordeq-common", editable = "packages/ordeq-common" },
 ]
 

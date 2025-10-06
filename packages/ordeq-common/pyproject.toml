@@ -24,6 +24,7 @@ test = [
     "ordeq-args",
     "ordeq-spark",
     "ordeq-files",
+    "ordeq-toml",
 ]
 
 [project.scripts]

@@ -37,7 +37,6 @@ class DuckDBTable(IO[duckdb.DuckDBPyRelation]):
 
     ```pycon
     >>> from ordeq import node, run
-    >>> from ordeq_common import Static
     >>> from pathlib import Path
     >>> connection = duckdb.connect(":memory:")
     >>> table = DuckDBTable(

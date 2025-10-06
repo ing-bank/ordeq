@@ -3,7 +3,7 @@ from typing import Generator, Iterable
 
 from ordeq import node, IO
 from ordeq.framework.runner import run
-from ordeq_common import Static
+from ordeq_common import Literal
 
 
 @dataclass(eq=False)
@@ -21,7 +21,7 @@ class Stream(IO[Generator[str, None, None]]):
 
 x1 = Stream(["1", "2", "3"])
 x2 = Stream()
-x3 = Static("2")
+x3 = Literal("2")
 x4 = Stream()
 
 

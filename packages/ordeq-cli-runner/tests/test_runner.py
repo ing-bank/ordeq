@@ -5,7 +5,7 @@ import pytest
 from ordeq import Node
 from ordeq.framework.hook import NodeHook
 from ordeq_cli_runner.runner import get_hook, get_node, get_obj, get_pipeline
-from ordeq_common import Static
+from ordeq_common import Literal
 
 
 @pytest.fixture(scope="module")
@@ -39,7 +39,7 @@ def module(node_1, node_2, node_3, pipeline) -> Mock:
     return mock_module
 
 
-A, B, C, D, E, F = [Static(c) for c in "ABCDEF"]
+A, B, C, D, E, F = [Literal(c) for c in "ABCDEF"]
 
 
 class TestGetObj:

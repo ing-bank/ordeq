@@ -37,11 +37,19 @@ def viz(
     **options: Any,
 ) -> None: ...
 
+@overload
+def viz(
+    *runnables: str | ModuleType | Callable,
+    fmt: Literal["mermaid"],
+    output: None = None,
+    **options: Any,
+) -> str: ...
+
 
 def viz(
     *runnables: str | ModuleType | Callable,
     fmt: Literal["kedro", "mermaid"],
-    output: Path,
+    output: Path | None = None,
     **options: Any,
 ) -> None:
     """Visualize the pipeline from the provided packages, modules, or nodes
@@ -53,15 +61,22 @@ def viz(
         output: output file or directory where the viz will be saved.
         options: Additional options for the visualization functions.
 
+    Raises:
+        ValueError: If `fmt` is 'kedro' and `output` is not provided.
     """
 
     nodes, ios = _collect_nodes_and_ios(*runnables)
 
     match fmt:
         case "kedro":
+            if not output:
+                raise ValueError("`output` is required when `fmt` is 'kedro'")
             pipeline_to_kedro_viz(
                 nodes, ios, output_directory=output, **options
             )
         case "mermaid":
             result = pipeline_to_mermaid(nodes, ios, **options)
-            output.write_text(result, encoding="utf8")
+            if output:
+                output.write_text(result, encoding="utf8")
+            return result
+    return None

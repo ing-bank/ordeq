@@ -48,7 +48,7 @@ The following example loads a JSON from Azure Blob Storage:
 Check out the [cloudpathlib documentation][cloudpathlib] for more information and examples.
 
 Many file-like IOs accept a CloudPath object as path.
-Examples include `ordeq_files.YAML`, `ordeq_matplotlib.MatplotlibFigure` and `ordeq_altair.AltairChart`.
+Examples include `ordeq_yaml.YAML`, `ordeq_matplotlib.MatplotlibFigure` and `ordeq_altair.AltairChart`.
 Check the [API reference][api] for more details.
 
 [api]: ../api/ordeq/types.md

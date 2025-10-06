@@ -4,6 +4,5 @@ from ordeq_files.glob import Glob
 from ordeq_files.json import JSON
 from ordeq_files.pickle import Pickle
 from ordeq_files.text import Text
-from ordeq_files.yaml import YAML
 
-__all__ = ("CSV", "JSON", "YAML", "Bytes", "Glob", "Pickle", "Text")
+__all__ = ("CSV", "JSON", "Bytes", "Glob", "Pickle", "Text")

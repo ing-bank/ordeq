@@ -24,6 +24,11 @@ dependencies = [
 [dependency-groups]
 test = [
     "ordeq-common",
+    "ordeq-faiss",
+    "ordeq-files",
+    "ordeq-pandas",
+    "ordeq-pymupdf",
+    "ordeq-sentence-transformers",
 ]
 
 [tool.setuptools_scm]

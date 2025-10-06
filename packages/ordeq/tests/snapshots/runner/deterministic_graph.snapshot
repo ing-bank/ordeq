@@ -8,20 +8,20 @@ NodeGraph:
      deterministic_graph:f4 -> [deterministic_graph:a, deterministic_graph:z]
      deterministic_graph:z -> []
   Nodes:
-     Node(name=deterministic_graph:a, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)], outputs=[])
-     Node(name=deterministic_graph:f1, inputs=[], outputs=[IO(idx=ID1)])
-     Node(name=deterministic_graph:f2, inputs=[], outputs=[IO(idx=ID2)])
-     Node(name=deterministic_graph:f3, inputs=[], outputs=[IO(idx=ID3)])
-     Node(name=deterministic_graph:f4, inputs=[], outputs=[IO(idx=ID4)])
-     Node(name=deterministic_graph:z, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)], outputs=[])
+     Node(name=deterministic_graph:a, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
+     Node(name=deterministic_graph:f1, outputs=[IO(idx=ID1)])
+     Node(name=deterministic_graph:f2, outputs=[IO(idx=ID2)])
+     Node(name=deterministic_graph:f3, outputs=[IO(idx=ID3)])
+     Node(name=deterministic_graph:f4, outputs=[IO(idx=ID4)])
+     Node(name=deterministic_graph:z, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
 
 Logging:
-INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:f4, inputs=[], outputs=[IO(idx=ID4)])
-INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:f3, inputs=[], outputs=[IO(idx=ID3)])
-INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:f2, inputs=[], outputs=[IO(idx=ID2)])
-INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:f1, inputs=[], outputs=[IO(idx=ID1)])
-INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:z, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)], outputs=[])
-INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:a, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)], outputs=[])
+INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:f4, outputs=[IO(idx=ID4)])
+INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:f3, outputs=[IO(idx=ID3)])
+INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:f2, outputs=[IO(idx=ID2)])
+INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:f1, outputs=[IO(idx=ID1)])
+INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:z, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
+INFO	ordeq.framework.runner	Running node Node(name=deterministic_graph:a, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
 
 Typing:
 packages/ordeq/tests/resources/runner/deterministic_graph.py:5: error: Need type annotation for "o1"  [var-annotated]

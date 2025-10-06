@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from typing import Any
 
 import tomli_w
-from ordeq import IO
+from ordeq import Input, Output
+from ordeq.framework.io import _IOMeta  # noqa: PLC2701
 from ordeq.types import PathLike
 
 if sys.version_info >= (3, 11):
@@ -13,7 +14,38 @@ else:
 
 
 @dataclass(frozen=True, kw_only=True)
-class TOML(IO[dict[str, Any]]):
+class TOMLInput(Input[dict[str, Any]]):
+    """IO class for reading TOML files.
+
+    Example usage:
+
+    ```pycon
+    >>> from pathlib import Path
+    >>> from ordeq_toml import TOMLInput
+    >>> toml_path = Path("config.toml")
+    >>> io = TOMLInput(path=toml_path)
+    >>> io.load()  # doctest: +SKIP
+
+    ```
+    """
+
+    path: PathLike
+
+    def load(self, **load_options: Any) -> dict[str, Any]:
+        """Load and parse the TOML file specified by the path attribute.
+
+        Args:
+            **load_options: Additional options to pass to the TOML loader.
+
+        Returns:
+            A dictionary representing the contents of the TOML file.
+        """
+        with self.path.open("rb") as file:
+            return tomllib.load(file, **load_options)
+
+
+@dataclass(frozen=True, kw_only=True)
+class TOML(TOMLInput, Output[dict[str, Any]], metaclass=_IOMeta):
     """IO class for reading and writing TOML files.
 
     Example usage:
@@ -24,7 +56,7 @@ class TOML(IO[dict[str, Any]]):
     >>> toml_path = Path("config.toml")
     >>> io = TOML(path=toml_path)
     >>> data = {"key": "value", "number": 42}
-    >>> io.save(data)
+    >>> io.save(data)  # doctest: +SKIP
 
     ```
     """

@@ -20,6 +20,9 @@ maintainers = [
 requires-python = ">=3.10"
 dependencies = ["ordeq-viz>=0.4.0"]
 
+[dependency-groups]
+test = []
+
 [project.scripts]
 ordeq-viz = "ordeq_viz_cli:main"
 

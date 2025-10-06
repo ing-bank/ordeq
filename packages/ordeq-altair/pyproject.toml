@@ -23,7 +23,9 @@ dependencies = [
 ]
 
 [dependency-groups]
-test = []
+test = [
+    "pandas"
+]
 
 [tool.setuptools_scm]
 root = "../../"

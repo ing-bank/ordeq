@@ -22,6 +22,11 @@ dependencies = [
     "duckdb",
 ]
 
+[dependency-groups]
+test = [
+    "ordeq-common"
+]
+
 [tool.setuptools_scm]
 root = "../../"
 version_file = "src/ordeq_duckdb/_version.py"

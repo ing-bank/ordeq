@@ -102,10 +102,14 @@ upgrade:
     # TODO: keep an eye out for: https://github.com/astral-sh/uv/issues/6794
     pre-commit autoupdate
 
-# Publish a package to PyPI
+build PACKAGE:
+    cp -n ./README.md ./packages/{{ PACKAGE }}/README.md || true
+    cp -n ./README.md ./packages/{{ PACKAGE }}/LICENSE || true
+    uv build --package {{ PACKAGE }}
+
 # You need an API token from PyPI to run this command.
 publish PACKAGE:
-    uv build --package {{ PACKAGE }}
+    just build {{ PACKAGE }}
     uv publish
 
 # Lock dependencies

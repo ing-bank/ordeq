@@ -12,12 +12,20 @@ if [ $# -ne 1 ]; then
 fi
 
 pkg="packages/$1"
-target="$pkg/README.md"
+readme_target="$pkg/README.md"
+license_target="$pkg/LICENSE"
+
 if [ -d "$pkg" ]; then
-  if [ -f "$target" ]; then
+  if [ -f "$readme_target" ]; then
     echo "README.md already exists in '$pkg'. Skipping copy."
   else
-    cp README.md "$target"
+    cp README.md "$readme_target"
+  fi
+
+  if [ -f "$license_target" ]; then
+    echo "LICENSE already exists in '$pkg'. Skipping copy."
+  else
+    cp LICENSE "$license_target"
   fi
 else
   echo "Package directory '$pkg' does not exist."

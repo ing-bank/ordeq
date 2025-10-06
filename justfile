@@ -104,9 +104,9 @@ upgrade:
     pre-commit autoupdate
 
 # Publish a package to PyPI
-# Required when the package is first released.
 # You need an API token from PyPI to run this command.
 publish PACKAGE:
+    sh scripts/copy-readme-license.sh {{ PACKAGE }}
     uv build --package {{ PACKAGE }}
     uv publish
 

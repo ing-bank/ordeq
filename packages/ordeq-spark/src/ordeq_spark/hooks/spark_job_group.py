@@ -15,10 +15,9 @@ class SparkJobGroupHook(NodeHook):
     Example usage:
 
     ```python
-    >>> from ordeq.framework import node
+    >>> from ordeq import node, run
     >>> from ordeq_spark import SparkHiveTable
     >>> from pyspark.sql import DataFrame
-    >>> from ordeq.framework.runner import run
 
     >>> @node(
     ...     inputs=SparkHiveTable(table="tables.a"),

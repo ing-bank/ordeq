@@ -21,6 +21,10 @@ dependencies = [
     "ordeq>=1.0.0",
     "sentence-transformers",
 ]
+
+[dependency-groups]
+test = []
+
 [tool.setuptools_scm]
 root = "../../"
 version_file = "src/ordeq_sentence_transformers/_version.py"

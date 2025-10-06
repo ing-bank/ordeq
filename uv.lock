@@ -2343,6 +2343,9 @@ requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
 ]
 
+[package.metadata.requires-dev]
+test = []
+
 [[package]]
 name = "ordeq-faiss"
 source = { editable = "packages/ordeq-faiss" }
@@ -2405,6 +2408,9 @@ requires-dist = [
     { name = "datasets" },
     { name = "ordeq", editable = "packages/ordeq" },
 ]
+
+[package.metadata.requires-dev]
+test = []
 
 [[package]]
 name = "ordeq-ibis"
@@ -2713,6 +2719,9 @@ requires-dist = [
     { name = "sentence-transformers" },
 ]
 
+[package.metadata.requires-dev]
+test = []
+
 [[package]]
 name = "ordeq-spark"
 source = { editable = "packages/ordeq-spark" }
@@ -2787,6 +2796,9 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [{ name = "ordeq-viz", editable = "packages/ordeq-viz" }]
+
+[package.metadata.requires-dev]
+test = []
 
 [[package]]
 name = "packaging"

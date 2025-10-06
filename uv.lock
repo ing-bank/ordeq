@@ -2348,6 +2348,11 @@ dependencies = [
     { name = "ordeq" },
 ]
 
+[package.dev-dependencies]
+test = [
+    { name = "ordeq-common" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "duckdb" },
@@ -2355,7 +2360,7 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = []
+test = [{ name = "ordeq-common", editable = "packages/ordeq-common" }]
 
 [[package]]
 name = "ordeq-faiss"

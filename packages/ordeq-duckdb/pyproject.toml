@@ -23,7 +23,9 @@ dependencies = [
 ]
 
 [dependency-groups]
-test = []
+test = [
+    "ordeq-common"
+]
 
 [tool.setuptools_scm]
 root = "../../"

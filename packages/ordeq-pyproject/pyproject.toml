@@ -3,7 +3,7 @@ requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ordeq_polars"
+name = "ordeq_pyproject"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -19,7 +19,7 @@ maintainers = [
 requires-python = ">=3.10"
 dependencies = [
     "ordeq>=1.0.0",
-    "polars[excel,pyarrow]>=1.0",
+    "ordeq-toml",
 ]
 
 [dependency-groups]
@@ -27,9 +27,9 @@ test = []
 
 [tool.setuptools_scm]
 root = "../../"
-version_file = "src/ordeq_polars/_version.py"
-tag_regex = "^ordeq-polars/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
-git_describe_command = "git describe --dirty --tags --long --match ordeq-polars/*"
+version_file = "src/ordeq_pyproject/_version.py"
+tag_regex = "^ordeq-pyproject/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
+git_describe_command = "git describe --dirty --tags --long --match ordeq-pyproject/*"
 
 [tool.setuptools.packages.find]
 namespaces = true
@@ -41,5 +41,5 @@ addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [
-    "src/ordeq_polars/_version.py"
+    "src/ordeq_pyproject/_version.py"
 ]

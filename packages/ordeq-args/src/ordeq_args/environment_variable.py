@@ -10,36 +10,40 @@ class EnvironmentVariable(IO[str]):
         - as input, to parameterize the node logic
         - as output, to set an environment variable based on node logic
 
-    Gets and sets `os.environ` on load and save. See [1] for more
+    Gets and sets `os.environ` on load and save. See the [Python docs] for more
     information.
 
-    [1] https://docs.python.org/3/library/os.html#os.environ
+    [Python docs]: https://docs.python.org/3/library/os.html#os.environ
 
     Example in a node:
 
-    ```pycon
-    >>> from ordeq import node
-    >>> from ordeq_spark import SparkHiveTable
-    >>> import pyspark.sql.functions as F
-    >>> from pyspark.sql import DataFrame
+    ```python title="main.py"
+    from ordeq import run, node
+    from ordeq_spark import SparkHiveTable
+    import pyspark.sql.functions as F
+    from pyspark.sql import DataFrame
 
-    >>> @node(
-    ...    inputs=[
-    ...         SparkHiveTable(table="my.table"),
-    ...         EnvironmentVariable("KEY", default="DEFAULT")
-    ...    ],
-    ...    outputs=SparkHiveTable(table="my.output"),
-    ... )
-    ... def transform(df: DataFrame, value: str) -> DataFrame:
-    ...     return df.where(F.col("col") == value)
 
+    @node(
+        inputs=[
+            SparkHiveTable(table="my.table"),
+            EnvironmentVariable("KEY", default="DEFAULT"),
+        ],
+        outputs=SparkHiveTable(table="my.output"),
+    )
+    def transform(df: DataFrame, value: str) -> DataFrame:
+        return df.where(F.col("col") == value)
+
+
+    if __name__ == "__main__":
+        run(transform)
     ```
 
     When you run `transform` through the CLI as follows:
 
     ```shell
     export KEY=MyValue
-    python {your-entrypoint} run --node transform
+    python main.py transform
     ```
 
     `MyValue` will be used as `value` in `transform`.

@@ -23,10 +23,6 @@ jobs:
         id: extract
         run: |
           echo "PACKAGE_NAME=${GITHUB_REF_NAME%%/*}" >> $GITHUB_ENV
-          echo "PACKAGE_VERSION=$(echo $GITHUB_REF_NAME | sed -E 's|.*/v?([0-9][^/]*)|\1|')" >> $GITHUB_ENV
-
-      - name: Copy README to package
-        run: bash scripts/copy-readme.sh "$PACKAGE_NAME"
 
       - name: Install uv
         uses: astral-sh/setup-uv@v6
@@ -34,8 +30,6 @@ jobs:
       - name: Install Python 3.13
         run: uv python install 3.13
 
-      - name: Build
-        run: uv build --package $PACKAGE_NAME
+      - name: Publish package
+        run: just publish $PACKAGE_NAME
 
-      - name: Publish
-        run: uv publish

@@ -14,7 +14,7 @@ class Pickle(IO[T]):
     ```pycon
     >>> from ordeq_files import Pickle
     >>> from pathlib import Path
-    >>> MyPickle = Pickle(
+    >>> my_pickle = Pickle(
     ...     path=Path("path/to.pkl")
     ... )
 

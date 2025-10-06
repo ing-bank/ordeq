@@ -1,43 +1,18 @@
-import importlib
-import sys
 from collections.abc import Callable
-from pathlib import Path
 
 import pytest
-from ordeq.framework._registry import NODE_REGISTRY
-from ordeq.framework.io import IO, Input, Output
-from ordeq.framework.nodes import Node, get_node
+from ordeq import IO, Input, Node, Output
+from ordeq.framework import get_node
+from ordeq.framework._gather import (
+    _gather_ios_from_module,
+    _gather_nodes_and_ios_from_package,
+    _gather_nodes_from_registry,
+)
+from ordeq_common import StringBuffer
 
 
 @pytest.fixture
-def resources_dir() -> Path:
-    """Return the path to the resources directory.
-
-    Returns:
-        the path to the resources directory
-    """
-
-    PACKAGE_DIR = Path(__file__).resolve().parent
-    return PACKAGE_DIR / "resources"
-
-
-@pytest.fixture(autouse=True)
-def append_resources_dir_to_sys_path(resources_dir):
-    """Append the resources directory to sys.path."""
-    sys.path.append(str(resources_dir))
-    yield
-    sys.path.remove(str(resources_dir))
-    for n in filter(lambda m: m.startswith("example"), list(sys.modules)):
-        # Remove the example.* and example2.* modules from sys.modules
-        # to ensure a clean state for each test
-        del sys.modules[n]
-    NODE_REGISTRY._data.clear()
-
-    importlib.invalidate_caches()
-
-
-@pytest.fixture
-def expected_example_nodes() -> set[Callable]:
+def expected_example_nodes(append_packages_dir_to_sys_path) -> set[Callable]:
     """Expected nodes in the example package.
 
     Returns:
@@ -58,7 +33,9 @@ def expected_example_nodes() -> set[Callable]:
 
 
 @pytest.fixture
-def expected_example_ios() -> dict[str, IO | Input | Output]:
+def expected_example_ios(
+    append_packages_dir_to_sys_path,
+) -> dict[str, IO | Input | Output]:
     """Expected IOs in the example package.
 
     Returns:
@@ -98,3 +75,37 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
         a set of expected node objects
     """
     return {get_node(f) for f in expected_example_nodes}
+
+
+def test_gather_ios_from_module(append_packages_dir_to_sys_path):
+    from example import catalog as mod  # ty: ignore[unresolved-import]
+
+    datasets = _gather_ios_from_module(mod)
+
+    assert len(datasets) == 4
+    assert isinstance(datasets["Hello"], StringBuffer)
+    assert isinstance(datasets["World"], StringBuffer)
+    assert datasets["TestInput"].__class__.__name__ == "MockInput"
+    assert datasets["TestOutput"].__class__.__name__ == "MockOutput"
+
+
+def test_gather_nodes_from_module(append_packages_dir_to_sys_path):
+    from example import nodes as mod  # ty: ignore[unresolved-import]
+
+    nodes = _gather_nodes_from_registry()
+
+    assert len(nodes) >= 1
+    assert get_node(mod.world) in nodes
+
+
+def test_gather_nodes_and_ios_from_package(
+    expected_example_nodes,
+    expected_example_ios,
+    append_packages_dir_to_sys_path,
+) -> None:
+    """Test gathering nodes and IOs from a package."""
+    import example  # ty: ignore[unresolved-import]
+
+    nodes, ios = _gather_nodes_and_ios_from_package(example)
+    assert expected_example_nodes == {n.func for n in nodes}
+    assert expected_example_ios == ios

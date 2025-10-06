@@ -25,6 +25,8 @@ dependencies = [
 [dependency-groups]
 test = [
     { include-group = "types" },
+    "minio==7.2.15",
+    "testcontainers==4.8.1",
 ]
 types = [
     "boto3-stubs[s3]",

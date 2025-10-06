@@ -13,7 +13,7 @@ class Bytes(IO[bytes]):
     ```pycon
     >>> from ordeq_files import Bytes
     >>> from pathlib import Path
-    >>> MyPNG = Bytes(
+    >>> my_png = Bytes(
     ...     path=Path("path/to.png")
     ... )
 

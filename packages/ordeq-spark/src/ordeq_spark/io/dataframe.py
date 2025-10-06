@@ -20,7 +20,7 @@ class SparkDataFrame(Input[DataFrame]):
     ```pycon
     >>> from pyspark.sql.types import *
     >>> from ordeq_spark import SparkDataFrame
-    >>> DF = SparkDataFrame(
+    >>> df = SparkDataFrame(
     ...     schema=StructType([
     ...         StructField("year", IntegerType()),
     ...         StructField("datafile", StringType()),

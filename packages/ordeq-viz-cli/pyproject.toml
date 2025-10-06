@@ -5,6 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "ordeq_viz_cli"
 dynamic = ["version"]
+description = "Command line interface for Ordeq visualization"
 readme = "../../README.md"
 license = "MIT"
 license-files = ["../../LICENSE"]

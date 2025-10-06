@@ -1,6 +1,6 @@
 # Welcome to Ordeq!
 
-[![Release](https://github.com/ing-bank/ordeq/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/ing-bank/ordeq/actions/workflows/release.yml)
+[![Release](https://github.com/ing-bank/ordeq/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/ing-bank/ordeq/actions/workflows/release.yml)
 [![Docs](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml)
 ![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)

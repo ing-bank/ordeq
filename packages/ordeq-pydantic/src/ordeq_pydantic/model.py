@@ -32,12 +32,19 @@ class PydanticModel(IO[pydantic.BaseModel]):
     Instead of using:
 
     ```python
+    from pathlib import Path
+    from ordeq_pydantic import PydanticModel
+    from ordeq_json import JSON
+
     my_model = PydanticModel(io=JSON(path=Path(...)), model_type=MyModel)
     ```
 
     you can also use:
 
     ```python
+    from pathlib import Path
+    from ordeq_pydantic import PydanticJSON
+
     PydanticJSON(path=Path(...), model_type=MyModel)
     ```
 
@@ -49,10 +56,24 @@ class PydanticModel(IO[pydantic.BaseModel]):
     io: IO[dict[str, Any]]
     model_type: type[pydantic.BaseModel]
 
-    def load(self, **load_options) -> pydantic.BaseModel:
+    def load(self, **load_options: Any) -> pydantic.BaseModel:
+        """Load the Pydantic model from the underlying IO.
+
+        Args:
+            **load_options: Options to pass to the Pydantic model validation.
+
+        Returns:
+            The loaded Pydantic model.
+        """
         data = self.io.load()
         return self.model_type.model_validate(data, **load_options)
 
-    def save(self, model: pydantic.BaseModel, **save_options) -> None:
+    def save(self, model: pydantic.BaseModel, **save_options: Any) -> None:
+        """Save the Pydantic model to the underlying IO.
+
+        Args:
+            model: The Pydantic model to save.
+            **save_options: Options to pass to the Pydantic model dump.
+        """
         data = model.model_dump(**save_options)
         self.io.save(data)

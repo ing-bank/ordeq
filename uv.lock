@@ -2655,6 +2655,7 @@ dependencies = [
 
 [package.dev-dependencies]
 test = [
+    { name = "ordeq-common" },
     { name = "ordeq-toml" },
     { name = "ordeq-yaml" },
 ]
@@ -2667,6 +2668,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 test = [
+    { name = "ordeq-common", editable = "packages/ordeq-common" },
     { name = "ordeq-toml", editable = "packages/ordeq-toml" },
     { name = "ordeq-yaml", editable = "packages/ordeq-yaml" },
 ]

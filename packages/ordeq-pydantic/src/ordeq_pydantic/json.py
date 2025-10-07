@@ -33,9 +33,20 @@ class PydanticJSON(IO[pydantic.BaseModel]):
     model_type: type[pydantic.BaseModel]
 
     def load(self) -> pydantic.BaseModel:
+        """Load the Pydantic model from the JSON file.
+
+        Returns:
+            The loaded Pydantic model.
+        """
         data = self.path.read_text()
         return self.model_type.model_validate_json(data)
 
     def save(self, model: pydantic.BaseModel) -> None:
+        """Save the Pydantic model to a JSON file.
+
+        Args:
+            model: The Pydantic model to save.
+
+        """
         data = model.model_dump_json()
         self.path.write_text(data)

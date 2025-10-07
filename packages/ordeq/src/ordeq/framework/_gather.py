@@ -27,7 +27,7 @@ def _gather_nodes_from_module(module: ModuleType) -> list[Node]:
     return nodes
 
 
-def _collect_nodes(*runnables: ModuleType | Callable) -> list[Node]:
+def _collect_nodes(*runnables: ModuleType | Callable | str) -> list[Node]:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -125,7 +125,8 @@ def _collect_nodes_and_ios(
             or all nodes
     """
     if all(isinstance(r, ModuleType) for r in runnables):
-        module_types: tuple[ModuleType, ...] = runnables  # type: ignore[assignment]
+        module_types: tuple[
+            ModuleType, ...] = runnables  # type: ignore[assignment]
         nodes = set()
         ios = {}
         for module in module_types:

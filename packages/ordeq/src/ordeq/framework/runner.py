@@ -2,7 +2,7 @@ import logging
 from collections.abc import Callable, Sequence
 from itertools import chain
 from types import ModuleType
-from typing import Literal, TypeVar, overload
+from typing import Literal, TypeVar
 
 from ordeq.framework._gather import _collect_nodes
 from ordeq.framework.graph import NodeGraph
@@ -75,8 +75,7 @@ def _run_node(
     # persisting computed data only if outputs are loaded again later
     for node_output in node.outputs:
         if isinstance(node_output, _InputCache):
-            node_output.persist(
-                computed[node_output])  # ty: ignore[call-non-callable]
+            node_output.persist(computed[node_output])  # ty: ignore[call-non-callable]
 
     for node_hook in hooks:
         node_hook.after_node_run(node)

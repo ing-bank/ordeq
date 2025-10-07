@@ -28,8 +28,5 @@ packages/ordeq/tests/resources/runner/deterministic_graph.py:5: error: Need type
 packages/ordeq/tests/resources/runner/deterministic_graph.py:6: error: Need type annotation for "o2"  [var-annotated]
 packages/ordeq/tests/resources/runner/deterministic_graph.py:7: error: Need type annotation for "o3"  [var-annotated]
 packages/ordeq/tests/resources/runner/deterministic_graph.py:8: error: Need type annotation for "o4"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:41: error: No overload variant of "run" matches argument types "set[function]", "bool"  [call-overload]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:41: note: Possible overload variants:
-packages/ordeq/tests/resources/runner/deterministic_graph.py:41: note:     def [T] run(*runnables: Module, hooks: Sequence[NodeHook | RunHook] = ..., save: Literal['all', 'sinks', 'none'] = ..., verbose: bool = ..., io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = ...) -> dict[Input[Any] | Output[Any], Any]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:41: note:     def [T] run(*runnables: Callable[..., Any], hooks: Sequence[NodeHook | RunHook] = ..., save: Literal['all', 'sinks', 'none'] = ..., verbose: bool = ..., io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = ...) -> dict[Input[Any] | Output[Any], Any]
+packages/ordeq/tests/resources/runner/deterministic_graph.py:41: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any]  [arg-type]
 Found 5 errors in 1 file (checked 1 source file)

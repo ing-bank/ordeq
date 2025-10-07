@@ -62,16 +62,7 @@ INFO	ordeq.framework.runner	Running node Node(name=graph:f2, inputs=[StringBuffe
 INFO	ordeq.framework.runner	Running node Node(name=graph:f4, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>), StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])
 
 Typing:
-packages/ordeq/tests/resources/runner/graph.py:35: error: No overload variant of "run" matches argument types "set[function]", "str", "bool"  [call-overload]
-packages/ordeq/tests/resources/runner/graph.py:35: note: Possible overload variants:
-packages/ordeq/tests/resources/runner/graph.py:35: note:     def [T] run(*runnables: Module, hooks: Sequence[NodeHook | RunHook] = ..., save: Literal['all', 'sinks', 'none'] = ..., verbose: bool = ..., io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = ...) -> dict[Input[Any] | Output[Any], Any]
-packages/ordeq/tests/resources/runner/graph.py:35: note:     def [T] run(*runnables: Callable[..., Any], hooks: Sequence[NodeHook | RunHook] = ..., save: Literal['all', 'sinks', 'none'] = ..., verbose: bool = ..., io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = ...) -> dict[Input[Any] | Output[Any], Any]
-packages/ordeq/tests/resources/runner/graph.py:38: error: No overload variant of "run" matches argument types "set[function]", "str", "bool"  [call-overload]
-packages/ordeq/tests/resources/runner/graph.py:38: note: Possible overload variants:
-packages/ordeq/tests/resources/runner/graph.py:38: note:     def [T] run(*runnables: Module, hooks: Sequence[NodeHook | RunHook] = ..., save: Literal['all', 'sinks', 'none'] = ..., verbose: bool = ..., io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = ...) -> dict[Input[Any] | Output[Any], Any]
-packages/ordeq/tests/resources/runner/graph.py:38: note:     def [T] run(*runnables: Callable[..., Any], hooks: Sequence[NodeHook | RunHook] = ..., save: Literal['all', 'sinks', 'none'] = ..., verbose: bool = ..., io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = ...) -> dict[Input[Any] | Output[Any], Any]
-packages/ordeq/tests/resources/runner/graph.py:41: error: No overload variant of "run" matches argument types "set[function]", "str", "bool"  [call-overload]
-packages/ordeq/tests/resources/runner/graph.py:41: note: Possible overload variants:
-packages/ordeq/tests/resources/runner/graph.py:41: note:     def [T] run(*runnables: Module, hooks: Sequence[NodeHook | RunHook] = ..., save: Literal['all', 'sinks', 'none'] = ..., verbose: bool = ..., io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = ...) -> dict[Input[Any] | Output[Any], Any]
-packages/ordeq/tests/resources/runner/graph.py:41: note:     def [T] run(*runnables: Callable[..., Any], hooks: Sequence[NodeHook | RunHook] = ..., save: Literal['all', 'sinks', 'none'] = ..., verbose: bool = ..., io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = ...) -> dict[Input[Any] | Output[Any], Any]
+packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any]  [arg-type]
+packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any]  [arg-type]
+packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any]  [arg-type]
 Found 3 errors in 1 file (checked 1 source file)

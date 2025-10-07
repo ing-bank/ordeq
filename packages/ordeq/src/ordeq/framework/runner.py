@@ -75,7 +75,8 @@ def _run_node(
     # persisting computed data only if outputs are loaded again later
     for node_output in node.outputs:
         if isinstance(node_output, _InputCache):
-            node_output.persist(computed[node_output])  # ty: ignore[call-non-callable]
+            node_output.persist(
+                computed[node_output])  # ty: ignore[call-non-callable]
 
     for node_hook in hooks:
         node_hook.after_node_run(node)
@@ -154,26 +155,6 @@ def _patch_io(
         inputs=[io.get(ip, ip) for ip in node.inputs],  # type: ignore[misc]
         outputs=[io.get(op, op) for op in node.outputs],  # type: ignore[misc]
     )
-
-
-@overload
-def run(
-    *runnables: ModuleType,
-    hooks: Sequence[NodeHook | RunHook] = (),
-    save: SaveMode = "all",
-    verbose: bool = False,
-    io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
-) -> DataStoreType: ...
-
-
-@overload
-def run(
-    *runnables: Callable,
-    hooks: Sequence[NodeHook | RunHook] = (),
-    save: SaveMode = "all",
-    verbose: bool = False,
-    io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
-) -> DataStoreType: ...
 
 
 def run(

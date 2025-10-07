@@ -37,20 +37,20 @@ def _collect_nodes(*runnables: ModuleType | Callable) -> list[Node]:
         a list of nodes collected from the runnables
 
     Raises:
-        TypeError: if runnables are not all modules or all callables
+        TypeError: if a runnable is not a module and not a node
     """
-    if all(isinstance(r, ModuleType) for r in runnables):
-        modules: tuple[ModuleType, ...] = runnables  # type: ignore[assignment]
-        nodes = []
-        for module in modules:
-            nodes.extend(_gather_nodes_from_module(module))
-        return nodes
 
-    if all(callable(r) for r in runnables):
-        funcs: tuple[Callable, ...] = runnables  # type: ignore[assignment]
-        return [get_node(func) for func in funcs]
-
-    raise TypeError("All runnables must be either modules or nodes.")
+    nodes = []
+    for runnable in runnables:
+        if isinstance(runnable, ModuleType):
+            nodes.extend(_gather_nodes_from_module(runnable))
+        elif callable(runnable):
+            nodes.append(get_node(runnable))
+        else:
+            raise TypeError(
+                "Each runnable must be a module or node."
+            )
+    return nodes
 
 
 def _gather_ios_from_module(
@@ -124,7 +124,8 @@ def _collect_nodes_and_ios(
             or all nodes
     """
     if all(isinstance(r, ModuleType) for r in runnables):
-        module_types: tuple[ModuleType, ...] = runnables  # type: ignore[assignment]
+        module_types: tuple[
+            ModuleType, ...] = runnables  # type: ignore[assignment]
         nodes = set()
         ios = {}
         for module in module_types:

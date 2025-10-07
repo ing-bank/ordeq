@@ -26,9 +26,6 @@ test = [
     "ordeq-files",
 ]
 
-[project.scripts]
-ordeq = "ordeq.cli:main"
-
 [tool.setuptools_scm]
 root = "../../"
 version_file = "src/ordeq_common/_version.py"

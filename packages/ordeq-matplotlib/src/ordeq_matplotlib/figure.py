@@ -15,7 +15,7 @@ class MatplotlibFigure(Output[plt.Figure]):
     ```pycon
     >>> from pathlib import Path
     >>> from ordeq_matplotlib import MatplotlibFigure
-    >>> MyFigure = MatplotlibFigure(
+    >>> my_figure = MatplotlibFigure(
     ...     path=Path("path/figure.pdf")
     ... )
 

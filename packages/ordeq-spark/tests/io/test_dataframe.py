@@ -1,4 +1,4 @@
-from ordeq_spark import SparkStatic
+from ordeq_spark import SparkDataFrame
 from pyspark.sql import SparkSession
 from pyspark.sql.types import (
     IntegerType,
@@ -10,7 +10,7 @@ from pyspark.sql.types import (
 
 
 def test_it_loads(spark: SparkSession):
-    assert SparkStatic(
+    assert SparkDataFrame(
         schema=StructType(
             fields=[
                 StructField("village", StringType()),

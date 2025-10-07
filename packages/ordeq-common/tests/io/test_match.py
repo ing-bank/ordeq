@@ -1,11 +1,11 @@
 from ordeq_args import EnvironmentVariable
-from ordeq_common import Match, Static
+from ordeq_common import Literal, Match
 
 
 def test_wraps_match_on_load():
     ev = EnvironmentVariable("COUNTRY")
-    s1 = Static("Netherlands")
-    s2 = Static("Belgium")
+    s1 = Literal("Netherlands")
+    s2 = Literal("Belgium")
     country = Match(ev).Case("NL", s1).Case("BE", s2)
     assert country.references == {"io": [ev], "cases": [s1, s2]}
 

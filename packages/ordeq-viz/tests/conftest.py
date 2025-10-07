@@ -1,3 +1,4 @@
+import importlib
 import sys
 from collections.abc import Callable
 from pathlib import Path
@@ -31,6 +32,8 @@ def append_resources_dir_to_sys_path(resources_dir):
         # to ensure a clean state for each test
         del sys.modules[n]
     NODE_REGISTRY._data.clear()
+
+    importlib.invalidate_caches()
 
 
 @pytest.fixture

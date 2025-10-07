@@ -1,0 +1,14 @@
+Output:
+NodeGraph:
+  Edges:
+     run_shared_resource:first -> []
+     run_shared_resource:second -> []
+  Nodes:
+     Node(name=run_shared_resource:first, outputs=[File])
+     Node(name=run_shared_resource:second, inputs=[File])
+
+Logging:
+INFO	ordeq.framework.io	Loading File
+INFO	ordeq.framework.runner	Running node Node(name=run_shared_resource:second, inputs=[File])
+INFO	ordeq.framework.runner	Running node Node(name=run_shared_resource:first, outputs=[File])
+INFO	ordeq.framework.io	Saving File

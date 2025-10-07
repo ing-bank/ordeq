@@ -1,7 +1,7 @@
 from ordeq import node
-from ordeq_common import StringBuffer, Static
+from ordeq_common import StringBuffer, Literal
 
-x = Static("X")
+x = Literal("X")
 
 
 @node(inputs=x, outputs=x)  # outputs should be of type Output or IO

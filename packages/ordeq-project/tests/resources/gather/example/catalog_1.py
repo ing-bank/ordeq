@@ -1,5 +1,5 @@
-from ordeq_common import Print, StringBuffer, Static
+from ordeq_common import Print, StringBuffer, Literal
 
-a = Static("a")
+a = Literal("a")
 b = StringBuffer("b")
 c = Print()

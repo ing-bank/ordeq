@@ -1,8 +1,8 @@
 from ordeq import node
 from ordeq.framework.runner import run
-from ordeq_common import Static, StringBuffer
+from ordeq_common import Literal, StringBuffer
 
-x1 = Static(1)
+x1 = Literal(1)
 x2 = StringBuffer()
 x3 = StringBuffer()
 
@@ -22,6 +22,6 @@ regular = run(increment, decrement, verbose=True)
 print(regular)
 
 # provide alternative IO when running the pipeline
-patched = run(increment, decrement, io={x1: Static(200)}, verbose=True)
+patched = run(increment, decrement, io={x1: Literal(200)}, verbose=True)
 
 print(patched)

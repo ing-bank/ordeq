@@ -62,7 +62,8 @@ We can use the parametrized IO as follows:
 
 ```python title="main.py"
 from ordeq import node, run
-from ordeq_files import JSON, YAML
+from ordeq_files import JSON
+from ordeq_yaml import YAML
 from ordeq_args import CommandLineArg
 from pathlib import Path
 from json_with_parameter import JSONWithParameter
@@ -121,7 +122,7 @@ On load, the `PandasExcel` IO will load the configuration dictionary from the `c
 keyword arguments to `pd.read_excel`.
 
 We can initialize `PandasExcel` with any IO that loads a dictionary.
-For example, we can use the `YAML` IO from `ordeq-files` as a parameter:
+For example, we can use the `YAML` IO from `ordeq-yaml` as a parameter:
 
 ```pycon
 >>> from pandas_excel import PandasExcel

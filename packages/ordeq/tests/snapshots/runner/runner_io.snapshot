@@ -5,7 +5,7 @@ NodeGraph:
      runner_io:increment -> [runner_io:decrement]
   Nodes:
      Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     Node(name=runner_io:increment, inputs=[Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): '2', StringBuffer(_buffer=<_io.StringIO object at HASH3>): '0'}
 NodeGraph:
   Edges:
@@ -13,21 +13,21 @@ NodeGraph:
      runner_io:increment -> [runner_io:decrement]
   Nodes:
      Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     Node(name=runner_io:increment, inputs=[Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): '3', StringBuffer(_buffer=<_io.StringIO object at HASH3>): '-30'}
 
 Logging:
-INFO	ordeq.framework.io	Loading Static(value=1)
-INFO	ordeq.framework.runner	Running node Node(name=runner_io:increment, inputs=[Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.framework.io	Loading Literal(1)
+INFO	ordeq.framework.runner	Running node Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.framework.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.framework.runner	Running node Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.framework.io	Loading Static(value=2)
-INFO	ordeq.framework.runner	Running node Node(name=runner_io:increment, inputs=[Static(value=2)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.framework.io	Loading Literal(2)
+INFO	ordeq.framework.runner	Running node Node(name=runner_io:increment, inputs=[Literal(2)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.framework.io	Loading Static(value='33')
-INFO	ordeq.framework.runner	Running node Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Static(value='33')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
+INFO	ordeq.framework.io	Loading Literal('33')
+INFO	ordeq.framework.runner	Running node Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal('33')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 Typing:

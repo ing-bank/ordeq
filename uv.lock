@@ -32,12 +32,14 @@ members = [
     "ordeq-project",
     "ordeq-pydantic",
     "ordeq-pymupdf",
+    "ordeq-pyproject",
     "ordeq-requests",
     "ordeq-sentence-transformers",
     "ordeq-spark",
     "ordeq-toml",
     "ordeq-viz",
     "ordeq-viz-cli",
+    "ordeq-yaml",
 ]
 
 [[package]]
@@ -2216,7 +2218,7 @@ test = [
 [package.metadata.requires-dev]
 test = [
     { name = "cloudpathlib", extras = ["s3"], specifier = ">=0.20.0" },
-    { name = "mypy", specifier = ">=1.17" },
+    { name = "mypy" },
     { name = "ordeq-common", editable = "packages/ordeq-common" },
 ]
 
@@ -2384,7 +2386,6 @@ name = "ordeq-files"
 source = { editable = "packages/ordeq-files" }
 dependencies = [
     { name = "ordeq" },
-    { name = "pyyaml" },
 ]
 
 [package.dev-dependencies]
@@ -2393,15 +2394,9 @@ test = [
     { name = "minio" },
     { name = "testcontainers" },
 ]
-types = [
-    { name = "types-pyyaml" },
-]
 
 [package.metadata]
-requires-dist = [
-    { name = "ordeq", editable = "packages/ordeq" },
-    { name = "pyyaml" },
-]
+requires-dist = [{ name = "ordeq", editable = "packages/ordeq" }]
 
 [package.metadata.requires-dev]
 test = [
@@ -2409,7 +2404,6 @@ test = [
     { name = "minio", specifier = "==7.2.15" },
     { name = "testcontainers", specifier = "==4.8.1" },
 ]
-types = [{ name = "types-pyyaml" }]
 
 [[package]]
 name = "ordeq-huggingface"
@@ -2578,7 +2572,7 @@ test = [
     { name = "pytest-cov", specifier = ">=6.2.1" },
 ]
 types = [
-    { name = "mypy", specifier = ">=1.17" },
+    { name = "mypy", specifier = ">=1.18.2" },
     { name = "ty", specifier = ">=0.0.1a16" },
 ]
 
@@ -2659,6 +2653,13 @@ dependencies = [
     { name = "pydantic" },
 ]
 
+[package.dev-dependencies]
+test = [
+    { name = "ordeq-common" },
+    { name = "ordeq-toml" },
+    { name = "ordeq-yaml" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
@@ -2666,7 +2667,11 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = []
+test = [
+    { name = "ordeq-common", editable = "packages/ordeq-common" },
+    { name = "ordeq-toml", editable = "packages/ordeq-toml" },
+    { name = "ordeq-yaml", editable = "packages/ordeq-yaml" },
+]
 
 [[package]]
 name = "ordeq-pymupdf"
@@ -2680,6 +2685,23 @@ dependencies = [
 requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
     { name = "pymupdf" },
+]
+
+[package.metadata.requires-dev]
+test = []
+
+[[package]]
+name = "ordeq-pyproject"
+source = { editable = "packages/ordeq-pyproject" }
+dependencies = [
+    { name = "ordeq" },
+    { name = "ordeq-toml" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "ordeq-toml", editable = "packages/ordeq-toml" },
 ]
 
 [package.metadata.requires-dev]
@@ -2829,6 +2851,38 @@ requires-dist = [{ name = "ordeq-viz", editable = "packages/ordeq-viz" }]
 
 [package.metadata.requires-dev]
 test = []
+
+[[package]]
+name = "ordeq-yaml"
+source = { editable = "packages/ordeq-yaml" }
+dependencies = [
+    { name = "ordeq" },
+    { name = "pyyaml" },
+]
+
+[package.dev-dependencies]
+test = [
+    { name = "cloudpathlib", extra = ["s3"] },
+    { name = "minio" },
+    { name = "testcontainers" },
+]
+types = [
+    { name = "types-pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "pyyaml" },
+]
+
+[package.metadata.requires-dev]
+test = [
+    { name = "cloudpathlib", extras = ["s3"], specifier = ">=0.20.0" },
+    { name = "minio", specifier = "==7.2.15" },
+    { name = "testcontainers", specifier = "==4.8.1" },
+]
+types = [{ name = "types-pyyaml" }]
 
 [[package]]
 name = "packaging"

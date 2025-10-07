@@ -1,8 +1,8 @@
 from ordeq import node
 from ordeq.framework.runner import run
-from ordeq_common import Static, StringBuffer
+from ordeq_common import Literal, StringBuffer
 
-x1 = Static(1)
+x1 = Literal(1)
 x2 = StringBuffer()
 x3 = StringBuffer("2")
 x4 = StringBuffer()
@@ -26,7 +26,7 @@ print(regular)
 patched = run(
     increment,
     decrement,
-    io={x1: Static(2), x3: Static("33"), x4: StringBuffer()},
+    io={x1: Literal(2), x3: Literal("33"), x4: StringBuffer()},
     verbose=True,
 )
 

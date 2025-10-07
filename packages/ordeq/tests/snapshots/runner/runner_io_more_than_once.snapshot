@@ -4,30 +4,30 @@ NodeGraph:
      runner_io_more_than_once:decrement -> []
      runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
   Nodes:
-     Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
-     Node(name=runner_io_more_than_once:increment, inputs=[Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+     Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): '2', StringBuffer(_buffer=<_io.StringIO object at HASH2>): '1'}
 NodeGraph:
   Edges:
      runner_io_more_than_once:decrement -> []
      runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
   Nodes:
-     Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
-     Node(name=runner_io_more_than_once:increment, inputs=[Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+     Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): '201', StringBuffer(_buffer=<_io.StringIO object at HASH2>): '1'}
 
 Logging:
-INFO	ordeq.framework.io	Loading Static(value=1)
-INFO	ordeq.framework.runner	Running node Node(name=runner_io_more_than_once:increment, inputs=[Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.framework.io	Loading Literal(1)
+INFO	ordeq.framework.runner	Running node Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.framework.runner	Running node Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Static(value=1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.framework.runner	Running node Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.framework.io	Loading Static(value=200)
-INFO	ordeq.framework.runner	Running node Node(name=runner_io_more_than_once:increment, inputs=[Static(value=200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.framework.io	Loading Literal(200)
+INFO	ordeq.framework.runner	Running node Node(name=runner_io_more_than_once:increment, inputs=[Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.framework.runner	Running node Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Static(value=200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.framework.runner	Running node Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 Typing:
-packages/ordeq/tests/resources/runner/runner_io_more_than_once.py:25: error: Argument "io" to "run" has incompatible type "dict[Static[int], Static[int]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+packages/ordeq/tests/resources/runner/runner_io_more_than_once.py:25: error: Argument "io" to "run" has incompatible type "dict[Literal[int], Literal[int]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
 Found 1 error in 1 file (checked 1 source file)

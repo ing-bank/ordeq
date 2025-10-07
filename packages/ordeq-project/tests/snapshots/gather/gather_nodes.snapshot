@@ -1,9 +1,9 @@
 Output:
 {}
 {}
-{'resources.gather.example.nodes.func': Node(name=resources.gather.example.nodes:func, inputs=[Static(value='a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}
-{'resources.gather.example.nodes_relative_import.func': Node(name=resources.gather.example.nodes_relative_import:func, inputs=[Static(value='a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}
-{'resources.gather.example.nodes.func': Node(name=resources.gather.example.nodes:func, inputs=[Static(value='a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]), 'resources.gather.example.nodes_relative_import.func': Node(name=resources.gather.example.nodes_relative_import:func, inputs=[Static(value='a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}
+{'resources.gather.example.nodes.func': Node(name=resources.gather.example.nodes:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}
+{'resources.gather.example.nodes_relative_import.func': Node(name=resources.gather.example.nodes_relative_import:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}
+{'resources.gather.example.nodes.func': Node(name=resources.gather.example.nodes:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]), 'resources.gather.example.nodes_relative_import.func': Node(name=resources.gather.example.nodes_relative_import:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}
 
 Typing:
 packages/ordeq-project/tests/resources/gather/gather_nodes.py:2: error: Skipping analyzing "resources.gather.example": module is installed, but missing library stubs or py.typed marker  [import-untyped]

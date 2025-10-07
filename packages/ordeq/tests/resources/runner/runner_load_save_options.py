@@ -1,6 +1,6 @@
 from ordeq import node, IO
 from ordeq.framework.runner import run
-from ordeq_common import Static, StringBuffer
+from ordeq_common import Literal, StringBuffer
 
 
 class CustomIO(IO[str]):

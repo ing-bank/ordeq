@@ -24,8 +24,8 @@ class SparkSession(Input[pyspark.sql.SparkSession]):
 
     ```pycon
     >>> from ordeq import node
-    >>> from ordeq_common import Static
-    >>> items = Static({'id': [1, 2, 3], 'value': ['a', 'b', 'c']})
+    >>> from ordeq_common import Literal
+    >>> items = Literal({'id': [1, 2, 3], 'value': ['a', 'b', 'c']})
     >>> @node(
     ...     inputs=[items, spark_session],
     ...     outputs=[],

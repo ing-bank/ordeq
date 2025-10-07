@@ -10,7 +10,7 @@ from ordeq_spark.utils import get_spark_session
 
 
 @dataclass(frozen=True, kw_only=True, eq=False)
-class SparkStatic(Input[DataFrame]):
+class SparkDataFrame(Input[DataFrame]):
     """Allows a Spark DataFrame to be hard-coded in python. This is suitable
     for small tables such as very simple dimension tables that are unlikely to
     change. It may also be useful in unit testing.
@@ -19,8 +19,8 @@ class SparkStatic(Input[DataFrame]):
 
     ```pycon
     >>> from pyspark.sql.types import *
-    >>> from ordeq_spark import SparkStatic
-    >>> DF = SparkStatic(
+    >>> from ordeq_spark import SparkDataFrame
+    >>> df = SparkDataFrame(
     ...     schema=StructType([
     ...         StructField("year", IntegerType()),
     ...         StructField("datafile", StringType()),

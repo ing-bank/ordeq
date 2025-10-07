@@ -261,7 +261,7 @@ class Input(
     """Base class for all inputs in Ordeq. An `Input` is a class that loads
     data. All `Input` classes should implement a load method. By default,
     loading an input raises a `NotImplementedError`. See the Ordeq IO packages
-    for some out-of-the-box implementations (e.g., `Static`, `StringBuffer`,
+    for some out-of-the-box implementations (e.g., `Literal`, `StringBuffer`,
     etc.).
 
     `Input` can also be used directly as placeholder. This can be useful when
@@ -298,8 +298,8 @@ class Input(
     To use the `greet` node, we need to provide an actual input. For instance:
 
     ```python
-    >>> from ordeq_common import Static
-    >>> result = run(greet, io={name: Static("Alice")})
+    >>> from ordeq_common import Literal
+    >>> result = run(greet, io={name: Literal("Alice")})
     >>> result[greeting]
     'Hello, Alice!'
     ```
@@ -551,10 +551,10 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
     ```python
     >>> from ordeq import Input, node
-    >>> from ordeq_common import StringBuffer, Static
+    >>> from ordeq_common import StringBuffer, Literal
 
     >>> hello = StringBuffer("hi")
-    >>> name = Static("Bob")
+    >>> name = Literal("Bob")
     >>> greeting = IO[str]()
     >>> greeting_capitalized = StringBuffer()
 

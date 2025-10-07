@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 import pytest
 from ordeq.framework.catalog import CatalogError, check_catalogs_are_consistent
-from ordeq_common import Static, StringBuffer
+from ordeq_common import Literal, StringBuffer
 
 
 @pytest.mark.parametrize(
@@ -25,11 +25,11 @@ from ordeq_common import Static, StringBuffer
                 "something_else": 4  # not an IO
             },
         ),
-        ({"hello": StringBuffer()}, {"hello": Static("hello")}),
+        ({"hello": StringBuffer()}, {"hello": Literal("hello")}),
         (
             {"hello": StringBuffer(), "result": StringBuffer()},
             {
-                "hello": Static("hello"),
+                "hello": Literal("hello"),
                 "result": StringBuffer(),
                 "something_else": 4,  # not an IO
             },
@@ -50,7 +50,7 @@ def test_it_checks_consistent(a, b):
         (
             {"hello": StringBuffer(), "result": StringBuffer()},
             {
-                "hello": Static("hello")
+                "hello": Literal("hello")
                 # result is mising
             },
         ),
@@ -59,20 +59,20 @@ def test_it_checks_consistent(a, b):
                 "hello": StringBuffer()
                 # result is missing
             },
-            {"hello": Static("hello"), "result": StringBuffer()},
+            {"hello": Literal("hello"), "result": StringBuffer()},
         ),
         (
             {
                 # empty
             },
-            {"hello": Static("hello")},
+            {"hello": Literal("hello")},
         ),
         (
             {
                 # empty but contains non-IO
                 "something_else": 4
             },
-            {"hello": Static("hello"), "result": StringBuffer()},
+            {"hello": Literal("hello"), "result": StringBuffer()},
         ),
     ],
 )

@@ -1,9 +1,9 @@
 Output:
-{'resources.gather.example.catalog_1.a': Static(value='a'), 'resources.gather.example.catalog_1.b': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.catalog_1.c': Print()}
-{'resources.gather.example.catalog_2.d': Static(value='a'), 'resources.gather.example.catalog_2.e': StringBuffer(_buffer=<_io.StringIO object at HASH2>), 'resources.gather.example.catalog_2.f': Print()}
-{'resources.gather.example.nodes.a': Static(value='a'), 'resources.gather.example.nodes.B': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.nodes.f': Print()}
+{'resources.gather.example.catalog_1.a': Literal('a'), 'resources.gather.example.catalog_1.b': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.catalog_1.c': Print()}
+{'resources.gather.example.catalog_2.d': Literal('a'), 'resources.gather.example.catalog_2.e': StringBuffer(_buffer=<_io.StringIO object at HASH2>), 'resources.gather.example.catalog_2.f': Print()}
+{'resources.gather.example.nodes.a': Literal('a'), 'resources.gather.example.nodes.B': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.nodes.f': Print()}
 {}
-{'resources.gather.example.catalog_1.a': Static(value='a'), 'resources.gather.example.catalog_1.b': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.catalog_1.c': Print(), 'resources.gather.example.catalog_2.d': Static(value='a'), 'resources.gather.example.catalog_2.e': StringBuffer(_buffer=<_io.StringIO object at HASH2>), 'resources.gather.example.catalog_2.f': Print(), 'resources.gather.example.nodes.a': Static(value='a'), 'resources.gather.example.nodes.B': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.nodes.f': Print()}
+{'resources.gather.example.catalog_1.a': Literal('a'), 'resources.gather.example.catalog_1.b': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.catalog_1.c': Print(), 'resources.gather.example.catalog_2.d': Literal('a'), 'resources.gather.example.catalog_2.e': StringBuffer(_buffer=<_io.StringIO object at HASH2>), 'resources.gather.example.catalog_2.f': Print(), 'resources.gather.example.nodes.a': Literal('a'), 'resources.gather.example.nodes.B': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.nodes.f': Print()}
 
 Typing:
 packages/ordeq-project/tests/resources/gather/gather_ios.py:2: error: Skipping analyzing "resources.gather.example": module is installed, but missing library stubs or py.typed marker  [import-untyped]

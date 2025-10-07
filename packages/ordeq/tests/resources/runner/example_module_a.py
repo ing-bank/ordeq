@@ -1,8 +1,8 @@
 # Imported by ./run_module.py, ./run_modules.py and ./run_module_and_nodes.py
 from ordeq import node
-from ordeq_common import Static, StringBuffer
+from ordeq_common import Literal, StringBuffer
 
-x1 = Static(12345)
+x1 = Literal(12345)
 x2 = StringBuffer()
 x3 = StringBuffer("12345")
 x4 = StringBuffer()

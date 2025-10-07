@@ -87,7 +87,7 @@ jobs:
           save-cache: false
 
       - name: Install the package
-        run: uv sync --package ${{ matrix.package }} --group test
+        run: uv sync --package ${{ matrix.package }} --group test --locked
 
       - name: Run unit tests
         run: uv run --group test pytest -v --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"

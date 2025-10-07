@@ -26,7 +26,7 @@ test = [
     "pytest>=8.4.1",
 ]
 types = [
-    "mypy>=1.17",
+    "mypy>=1.18.2",
     "ty>=0.0.1a16",
 ]
 
@@ -56,6 +56,7 @@ ordeq-spark = { workspace = true }
 ordeq-toml = { workspace = true }
 ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }
+ordeq-yaml = { workspace = true }
 
 [tool.uv]
 required-version = ">=0.8.23"
@@ -175,6 +176,8 @@ split-on-trailing-comma = false
     "DOC",
     "INP",
     "PLC2701",
+    # `import` should be at the top-level of a file
+    "PLC0415",
     "PLR6301",
     "S101",
     "S608",
@@ -197,7 +200,9 @@ convention = "google"
 [tool.ty.src]
 exclude = [
     "packages/*/src/*/_version.py",
-    "packages/*/tests/resources/*"  # type checking on resources is conducted by snapshot tests
+    # type checking on resources is conducted by snapshot tests
+    "packages/*/tests/resources/*",
+    "packages/*/tests/packages/*"
 ]
 
 [tool.ty.rules]

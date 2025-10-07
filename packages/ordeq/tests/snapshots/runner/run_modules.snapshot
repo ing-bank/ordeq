@@ -7,16 +7,16 @@ NodeGraph:
      resources.runner.example_module_b:increment -> [resources.runner.example_module_b:decrement]
   Nodes:
      Node(name=resources.runner.example_module_a:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     Node(name=resources.runner.example_module_a:increment, inputs=[Static(value=12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     Node(name=resources.runner.example_module_a:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
      Node(name=resources.runner.example_module_b:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>), StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])
-     Node(name=resources.runner.example_module_b:increment, inputs=[Static(value=12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
+     Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
 
 Logging:
-INFO	ordeq.framework.io	Loading Static(value=12345)
-INFO	ordeq.framework.runner	Running node Node(name=resources.runner.example_module_b:increment, inputs=[Static(value=12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
+INFO	ordeq.framework.io	Loading Literal(12345)
+INFO	ordeq.framework.runner	Running node Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.framework.io	Loading Static(value=12345)
-INFO	ordeq.framework.runner	Running node Node(name=resources.runner.example_module_a:increment, inputs=[Static(value=12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.framework.io	Loading Literal(12345)
+INFO	ordeq.framework.runner	Running node Node(name=resources.runner.example_module_a:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.framework.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH5>)
 INFO	ordeq.framework.runner	Running node Node(name=resources.runner.example_module_b:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>), StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])

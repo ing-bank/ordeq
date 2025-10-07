@@ -1,0 +1,111 @@
+from collections.abc import Callable
+
+import pytest
+from ordeq import IO, Input, Node, Output
+from ordeq.framework import get_node
+from ordeq.framework._gather import (
+    _gather_ios_from_module,
+    _gather_nodes_and_ios_from_package,
+    _gather_nodes_from_registry,
+)
+from ordeq_common import StringBuffer
+
+
+@pytest.fixture
+def expected_example_nodes(append_packages_dir_to_sys_path) -> set[Callable]:
+    """Expected nodes in the example package.
+
+    Returns:
+        a set of expected nodes
+    """
+    from example.nodes import world  # ty: ignore[unresolved-import]
+    from example.pipeline import (  # ty: ignore[unresolved-import]
+        transform_input,
+        transform_mock_input,
+    )
+    from example.wrapped_io import (  # ty: ignore[unresolved-import]
+        hello,
+        print_message,
+    )
+
+    """Expected nodes in the example package."""
+    return {transform_input, transform_mock_input, world, hello, print_message}
+
+
+@pytest.fixture
+def expected_example_ios(
+    append_packages_dir_to_sys_path,
+) -> dict[str, IO | Input | Output]:
+    """Expected IOs in the example package.
+
+    Returns:
+        a dict of expected IOs with their variable name as key
+    """
+    from example.catalog import (  # ty: ignore[unresolved-import]
+        Hello,
+        TestInput,
+        TestOutput,
+        World,
+    )
+    from example.nodes import x, y  # ty: ignore[unresolved-import]
+    from example.wrapped_io import (  # ty: ignore[unresolved-import]
+        message,
+        name_generator,
+        name_printer,
+    )
+
+    return {
+        "Hello": Hello,
+        "TestInput": TestInput,
+        "TestOutput": TestOutput,
+        "World": World,
+        "x": x,
+        "y": y,
+        "message": message,
+        "name_generator": name_generator,
+        "name_printer": name_printer,
+    }
+
+
+@pytest.fixture
+def expected_example_node_objects(expected_example_nodes) -> set[Node]:
+    """Expected node objects in the example package.
+
+    Returns:
+        a set of expected node objects
+    """
+    return {get_node(f) for f in expected_example_nodes}
+
+
+def test_gather_ios_from_module(append_packages_dir_to_sys_path):
+    from example import catalog as mod  # ty: ignore[unresolved-import]
+
+    datasets = _gather_ios_from_module(mod)
+
+    assert len(datasets) == 4
+    assert isinstance(datasets["Hello"], StringBuffer)
+    assert isinstance(datasets["World"], StringBuffer)
+    assert datasets["TestInput"].__class__.__name__ == "MockInput"
+    assert datasets["TestOutput"].__class__.__name__ == "MockOutput"
+
+
+def test_gather_nodes_from_module(append_packages_dir_to_sys_path):
+    from example import nodes as mod  # ty: ignore[unresolved-import]
+
+    nodes = _gather_nodes_from_registry()
+
+    assert len(nodes) >= 1
+    assert get_node(mod.world) in nodes
+
+
+def test_gather_nodes_and_ios_from_package(
+    expected_example_nodes,
+    expected_example_ios,
+    append_packages_dir_to_sys_path,
+) -> None:
+    """Test gathering nodes and IOs from a package."""
+    import example  # ty: ignore[unresolved-import]
+
+    nodes, ios = _gather_nodes_and_ios_from_package(example)
+    assert expected_example_nodes == {n.func for n in nodes}
+    assert expected_example_ios == ios

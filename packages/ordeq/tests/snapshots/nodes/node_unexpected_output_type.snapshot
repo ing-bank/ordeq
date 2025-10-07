@@ -1,5 +1,5 @@
 Typing:
-packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: error: No overload variant of "node" matches argument types "Static[str]", "Static[str]"  [call-overload]
+packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: error: No overload variant of "node" matches argument types "Literal[str]", "Literal[str]"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note: Possible overload variants:
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any]] | Input[Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., tags: list[str] | dict[str, Any] | None = ...) -> Callable[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note:     def node(*, inputs: Sequence[Input[Any]] | Input[Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., tags: list[str] | dict[str, Any] | None = ...) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]

@@ -13,7 +13,7 @@ maintainers = [{ name = "Jose R. Sanchez Viloria <@josersanvil>" }]
 requires-python = ">=3.10"
 dependencies = [
     "ordeq>=0.2.1",
-    "pyiceberg[glue,sql-sqlite]>=0.10.0",
+    "pyiceberg>=0.10.0",
 ]
 
 [dependency-groups]
@@ -27,6 +27,9 @@ root = "../../"
 version_file = "src/ordeq_iceberg/_version.py"
 tag_regex = "^ordeq-iceberg/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
 git_describe_command = "git describe --dirty --tags --long --match ordeq-iceberg/*"
+
+[[tool.uv.index]]
+url = "https://pkgs.dev.azure.com/INGCDaaS/IngOne/_packaging/P11945-outgoing/pypi/simple/"
 
 [tool.setuptools.packages.find]
 namespaces = true

@@ -1,0 +1,14 @@
+Output:
+NodeGraph:
+  Edges:
+     run_shared_resource:first -> []
+     run_shared_resource:second -> []
+  Nodes:
+     Node(name=run_shared_resource:first, outputs=[Buffer(buffer=<_io.StringIO object at HASH1>)])
+     Node(name=run_shared_resource:second, inputs=[Buffer(buffer=<_io.StringIO object at HASH1>)])
+
+Logging:
+INFO	ordeq.framework.io	Loading Buffer(buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.framework.runner	Running node Node(name=run_shared_resource:second, inputs=[Buffer(buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.framework.runner	Running node Node(name=run_shared_resource:first, outputs=[Buffer(buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.framework.io	Saving Buffer(buffer=<_io.StringIO object at HASH1>)

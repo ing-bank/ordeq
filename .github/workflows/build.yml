@@ -97,3 +97,16 @@ jobs:
         with:
           name: coverage-${{ matrix.package }}
           path: '**/coverage.xml'
+
+  complete:
+    name: All checks passed
+    runs-on: ubuntu-latest
+    needs:
+      - test
+      - static_code_analysis
+      - docs
+      - packages
+
+    steps:
+      - name: Complete
+        run: echo "🎉"

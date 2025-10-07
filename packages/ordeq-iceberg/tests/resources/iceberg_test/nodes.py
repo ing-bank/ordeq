@@ -4,7 +4,7 @@ from pyiceberg.catalog import Catalog
 from pyiceberg.table import Table
 
 @node(inputs=[my_catalog, test_namespace], outputs=[my_save_table])
-def create_save_table(catalog: Catalog, namespace: str) -> Catalog:
+def create_save_table(catalog: Catalog, namespace: str) -> None:
     catalog.create_namespace(namespace)
 
 @node(inputs=[my_catalog, my_save_table], outputs=[])

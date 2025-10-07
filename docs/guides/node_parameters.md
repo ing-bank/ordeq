@@ -10,9 +10,9 @@ Commonly used parameter types that are supported out of the box include:
 - Pydantic models or dataclass instances
 - CLI arguments or environment variables
 
-## Using IOs instead of global variables
+## Using IOs instead of variables in the global scope
 
-Although it is possible to use global variables for parameters, it is not recommended.
+Although it is possible to use variables in the global scope as parameters, it is not recommended.
 Using IOs has several advantages:
 
 - **Clarity**: It is clear which parameters a node depends on. The parameters are included in `run` and `viz` outputs.
@@ -23,9 +23,8 @@ Example using global variables (not recommended):
 
 ```python
 from ordeq import node, IO
-from ordeq_common import Static, StringBuffer
 
-name_str = StringBuffer("John")
+name_str = IO()
 greeting = IO()
 excited = False
 
@@ -42,11 +41,11 @@ Instead, use an IO for the `excited` parameter:
 
 ```python
 from ordeq import node, IO
-from ordeq_common import Static, StringBuffer
+from ordeq_common import Literal
 
-name_str = StringBuffer("John")
+name_str = IO()
 greeting = IO()
-is_excited = Static(False)
+is_excited = Literal(False)
 
 
 @node(inputs=[name_str, is_excited], outputs=greeting)
@@ -99,3 +98,39 @@ The example above reads the `language` parameter from the `pyproject.toml` file 
 The data is passed as a dictionary to the node.
 
 For more information on the pyproject.toml format, see [writing your pyproject.toml](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-your-pyproject-toml).
+
+## Using Pydantic models
+
+Pydantic models and dataclasses are a great way to define structured parameters with validation.
+The following example a Pydantic model that is read from a YAML file, validated and passed to a node:
+
+```python
+from pathlib import Path
+from pydantic import BaseModel
+from ordeq import node, IO
+from ordeq_pydantic import PydanticModel
+from ordeq_yaml import YAML
+
+
+class GreetingConfig(BaseModel):
+    language: str = "en"
+    excited: bool = False
+
+
+name = IO()
+config = PydanticModel(
+    io=YAML(path=Path("path/to/file.yml")),
+    model_type=GreetingConfig
+)
+greeting = IO()
+
+
+@node(inputs=[name, config], outputs=greeting)
+def greet(name: str, cfg: GreetingConfig) -> str:
+    if cfg.language == "en":
+        return f"Hello, {name}"
+    if cfg.language == "es":
+        return f"Hola, {name}"
+
+    raise ValueError("Language not supported")
+```

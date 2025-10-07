@@ -16,6 +16,10 @@ class File(IO[str]):
         with self.path.open(mode='wt') as file:
             file.write(data)
 
+    def __repr__(self):
+        # To clean the output
+        return "File"
+
 
 with NamedTemporaryFile(delete=False, mode='wt') as tmp:
     path = Path(tmp.name)

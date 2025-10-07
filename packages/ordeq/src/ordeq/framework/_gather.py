@@ -83,22 +83,20 @@ def _resolve_module_to_ios(
     return {name: obj for name, obj in vars(module).items() if _is_io(obj)}
 
 
-def _resolve_runnables_to_nodes(
-    *runnables: ModuleType | Callable | str,
-) -> set[Node]:
-    """Collects nodes from the provided runnables.
+def _resolve_runnables_to_nodes_and_modules(
+    *runnables: str | ModuleType | Callable,
+) -> tuple[set[Node], Generator[ModuleType, None, None]]:
+    """Collects nodes and modules from the provided runnables.
 
     Args:
         runnables: modules, packages or callables to gather nodes from
 
     Returns:
-        the nodes collected from the runnables
+        the nodes and modules collected from the runnables
 
     Raises:
         TypeError: if a runnable is not a module and not a node
     """
-
-    # Split runnables into modules/strings and callables
     modules_and_strs = []
     nodes = set()
     for runnable in runnables:
@@ -113,6 +111,23 @@ def _resolve_runnables_to_nodes(
             )
 
     modules = _resolve_runnables_to_modules(*modules_and_strs)
+    return nodes, modules
+
+
+def _resolve_runnables_to_nodes(
+    *runnables: ModuleType | Callable | str,
+) -> set[Node]:
+    """Collects nodes from the provided runnables.
+
+    Args:
+        runnables: modules, packages or callables to gather nodes from
+
+    Returns:
+        the nodes collected from the runnables
+
+    """
+
+    nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
         nodes.update(_resolve_module_to_nodes(module))
 
@@ -128,33 +143,6 @@ def _gather_nodes_from_registry() -> set[Node]:
     return set(NODE_REGISTRY._data.values())  # noqa: SLF001
 
 
-def _gather_nodes_and_ios_from_package(
-    package: ModuleType,
-) -> tuple[set[Node], dict[str, IO | Input | Output]]:
-    """Gather all nodes and IOs from the provided package.
-
-    Args:
-        package: the Python package object
-
-    Returns:
-        a tuple of a set of `Node` objects and a dict of `IO` objects
-    """
-    module_names = [
-        name for _, name, _ in pkgutil.iter_modules(package.__path__)
-    ]
-    modules = [
-        importlib.import_module(f".{name}", package=package.__name__)
-        for name in module_names
-    ]
-    ios = {}
-    for m in modules:
-        ios.update(_resolve_module_to_ios(m))
-
-    # Gather nodes from the registry
-    nodes = _gather_nodes_from_registry()
-    return nodes, ios
-
-
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: str | ModuleType | Callable,
 ) -> tuple[set[Node], dict[str, IO | Input | Output]]:
@@ -166,45 +154,16 @@ def _resolve_runnables_to_nodes_and_ios(
 
     Returns:
         a tuple of nodes and IOs collected from the runnables
-
-    Raises:
-        TypeError: if runnables are not all modules, all package names,
-            or all nodes
     """
-    if all(isinstance(r, ModuleType) for r in runnables):
-        module_types: tuple[ModuleType, ...] = runnables  # type: ignore[assignment]
-        nodes = set()
-        ios = {}
-        for module in module_types:
-            nodes.update(_resolve_module_to_nodes(module))
-            ios.update(_resolve_module_to_ios(module))
 
-        return nodes, ios
-    if all(isinstance(r, str) for r in runnables):
-        package_names: tuple[str, ...] = runnables  # type: ignore[assignment]
-        nodes = set()
-        ios = {}
-        for package in package_names:
-            package_mod = importlib.import_module(package)
-            nodes.update(_resolve_module_to_nodes(package_mod))
-            package_nodes, package_ios = _gather_nodes_and_ios_from_package(
-                package_mod
-            )
-            nodes.update(package_nodes)
-            ios.update(package_ios)
+    ios = {}
+    nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
+    for node in nodes:
+        mod = _resolve_string_to_module(node.func.__module__)
+        ios.update(_resolve_module_to_ios(mod))
 
-        return nodes, ios
+    for module in modules:
+        nodes.update(_resolve_module_to_nodes(module))
+        ios.update(_resolve_module_to_ios(module))
 
-    if all(callable(r) for r in runnables):
-        callables: tuple[Callable, ...] = runnables  # type: ignore[assignment]
-        nodes = {get_node(func) for func in callables}
-        ios = {}
-        for node in nodes:
-            mod = importlib.import_module(node.func.__module__)
-            ios.update(_resolve_module_to_ios(mod))
-
-        return nodes, ios
-
-    raise TypeError(
-        "All objects provided must be either modules, package names, or nodes."
-    )
+    return nodes, ios

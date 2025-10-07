@@ -4,9 +4,9 @@ import pytest
 from ordeq import IO, Input, Node, Output
 from ordeq.framework import get_node
 from ordeq.framework._gather import (
-    _gather_nodes_and_ios_from_package,
     _gather_nodes_from_registry,
     _resolve_module_to_ios,
+    _resolve_runnables_to_nodes_and_ios,
 )
 from ordeq_common import StringBuffer
 
@@ -106,6 +106,6 @@ def test_gather_nodes_and_ios_from_package(
     """Test gathering nodes and IOs from a package."""
     import example  # ty: ignore[unresolved-import]
 
-    nodes, ios = _gather_nodes_and_ios_from_package(example)
+    nodes, ios = _resolve_runnables_to_nodes_and_ios(example)
     assert expected_example_nodes == {n.func for n in nodes}
     assert expected_example_ios == ios

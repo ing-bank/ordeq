@@ -13,25 +13,7 @@ from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 @overload
 def viz(
-    *runnables: ModuleType,
-    fmt: Literal["kedro", "mermaid"],
-    output: Path,
-    **options: Any,
-) -> None: ...
-
-
-@overload
-def viz(
-    *runnables: str,
-    fmt: Literal["kedro", "mermaid"],
-    output: Path,
-    **options: Any,
-) -> None: ...
-
-
-@overload
-def viz(
-    *runnables: Callable,
+    *runnables: str | ModuleType | Callable,
     fmt: Literal["kedro", "mermaid"],
     output: Path,
     **options: Any,

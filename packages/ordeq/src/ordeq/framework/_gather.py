@@ -48,7 +48,7 @@ def _collect_nodes(*runnables: ModuleType | Callable) -> list[Node]:
             nodes.append(get_node(runnable))
         else:
             raise TypeError(
-                f"{runnable} is not something we can run."
+                f"{runnable} is not something we can run. "
                 f"Expected a module or a node, got {type(runnable)}"
             )
     return nodes

@@ -125,8 +125,7 @@ def _collect_nodes_and_ios(
             or all nodes
     """
     if all(isinstance(r, ModuleType) for r in runnables):
-        module_types: tuple[
-            ModuleType, ...] = runnables  # type: ignore[assignment]
+        module_types: tuple[ModuleType, ...] = runnables  # type: ignore[assignment]
         nodes = set()
         ios = {}
         for module in module_types:

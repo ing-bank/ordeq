@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import StrEnum
 
-from ordeq.framework.io import Input, Output, _IOMeta  # noqa: PLC2701
+from ordeq.framework.io import Input, Output
 from pyiceberg.catalog import Catalog
 from pyiceberg.catalog.glue import GlueCatalog
 from pyiceberg.catalog.memory import InMemoryCatalog
@@ -17,17 +17,18 @@ class IfTableExistsSaveOptions(StrEnum):
     """Drop the existing table before creating a new one."""
     IGNORE = "ignore"
     """Do nothing if the table already exists."""
+    ERROR = "error"
+    """Raise an error if the table already exists."""
 
 
 @dataclass(frozen=True, kw_only=True)
-class IcebergTable(Input[Table], Output[None], metaclass=_IOMeta):
+class IcebergTable(Input[Table]):
     """IO for loading an Iceberg table.
 
     Example:
 
     ```python
     >>> from ordeq_iceberg import IcebergTable, IcebergGlueCatalog
-    >>> from pathlib import Path
     >>> catalog = IcebergGlueCatalog(
     ...     name="my_catalog"
     ... )
@@ -38,26 +39,15 @@ class IcebergTable(Input[Table], Output[None], metaclass=_IOMeta):
     ... )
 
     ```
-
     """
 
     catalog: Input[Catalog | GlueCatalog | InMemoryCatalog]
     table_name: str
     namespace: str
-    schema: Schema | StructType | None = None
-    """Schema to use when creating a new table. Required for saving"""
-    if_exists: IfTableExistsSaveOptions | None = None
-    """What to do if the table already exists when saving.
-    By default, an error is raised.
-    """
 
     @property
     def table_identifier(self) -> str:
         return f"{self.namespace}.{self.table_name}"
-
-    def table_exists(self) -> bool:
-        catalog = self.catalog.load()
-        return catalog.table_exists(self.table_identifier)
 
     def load(self, **load_options) -> Table:
         """Load the table instance from the catalog
@@ -69,26 +59,63 @@ class IcebergTable(Input[Table], Output[None], metaclass=_IOMeta):
         catalog = self.catalog.load()
         return catalog.load_table(self.table_identifier, **load_options)
 
-    def save(self, _: None = None, **save_options) -> None:
-        """Create the table in the catalog with the provided schema.
 
-        Raises:
-            ValueError: If the schema is not provided when creating a new table
-        """
-        print(f"Saving Iceberg table '{self.table_identifier}'...")
-        catalog = self.catalog.load()
+@dataclass(frozen=True, kw_only=True)
+class IcebergTableCreate(Output[None]):
+    """IO for saving (creating) an Iceberg table in a catalog.
+
+    This IO creates a new table in the specified catalog with the provided
+    schema, without any input data.
+
+    Example:
+    ```python
+    >>> from ordeq_iceberg import IcebergTableCreate, IcebergGlueCatalog
+    >>> from pyiceberg.schema import Schema
+    >>> from pyiceberg.types import NestedField, IntegerType, StringType
+    >>> catalog = IcebergGlueCatalog(
+    ...     name="my_catalog"
+    ... )
+    >>> table = IcebergTable(
+    ...     catalog=catalog,
+    ...     table_name="my_table",
+    ...     namespace="my_namespace"
+    ... )
+    >>> table_create = IcebergTableCreate(
+    ...     table=table,
+    ...     schema=Schema(
+    ...         NestedField(1, "id", IntegerType(), required=True),
+    ...         NestedField(2, "data", StringType(), required=False),
+    ...     ),
+    ...     if_exists="drop"  # Options: None, "error", "drop", "ignore"
+    ... )
+
+    ```
+    """
+
+    table: IcebergTable
+    """IcebergTable Input object defining the table to create."""
+    schema: Schema | StructType
+    """Schema to use when creating the table"""
+    if_exists: IfTableExistsSaveOptions | None = None
+    """What to do if the table already exists when saving.
+    By default, an error is raised.
+    """
+
+    def save(self, _: None = None, **save_options) -> None:
+        """Create the table in the catalog with the provided schema."""
+        print(f"Saving Iceberg table '{self.table.table_identifier}'...")
+        loaded_catalog = self.table.catalog.load()
         schema = self.schema or save_options.pop("schema", None)
-        if schema is None:
-            raise ValueError("Schema must be provided to create a new table.")
         if isinstance(schema, StructType):
             schema = Schema(*schema.fields)
-        table_exists = self.table_exists()
+        table_identifier = self.table.table_identifier
+        table_exists = loaded_catalog.table_exists(table_identifier)
         if table_exists:
             match self.if_exists:
                 case IfTableExistsSaveOptions.IGNORE:
                     return
                 case IfTableExistsSaveOptions.DROP:
-                    catalog.drop_table(self.table_identifier)
-        catalog.create_table(
-            identifier=self.table_identifier, schema=schema, **save_options
+                    loaded_catalog.drop_table(table_identifier)
+        loaded_catalog.create_table(
+            identifier=table_identifier, schema=schema, **save_options
         )

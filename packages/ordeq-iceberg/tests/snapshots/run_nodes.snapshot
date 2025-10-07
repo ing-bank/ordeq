@@ -1,5 +1,6 @@
 Output:
 Saving Iceberg table 'test_namespace.new_test_table'...
+Loading Iceberg table 'test_namespace.new_test_table'...
 Table loaded from catalog: 'new_test_table(
   1: id: required int,
   2: data: optional string
@@ -7,14 +8,22 @@ Table loaded from catalog: 'new_test_table(
 partition by: [],
 sort order: [],
 snapshot: null'
-Table loaded from IO object: 'None'
+Load Table loaded from IO object: 'new_test_table(
+  1: id: required int,
+  2: data: optional string
+),
+partition by: [],
+sort order: [],
+snapshot: null'
 
 Logging:
 INFO	ordeq.framework.io	Loading IcebergInMemoryCatalog(name='test_catalog')
 INFO	ordeq.framework.io	Loading Literal('test_namespace')
-INFO	ordeq.framework.runner	Running node Node(name=resources.iceberg_test.nodes:create_save_table, inputs=[IcebergInMemoryCatalog(name='test_catalog'), Literal('test_namespace')], outputs=[IcebergTable(catalog=IcebergInMemoryCatalog(name='test_catalog'), table_name='new_test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=2, name='data', field_type=StringType(), required=False),)), if_exists=None)])
-INFO	ordeq.framework.io	Saving IcebergTable(catalog=IcebergInMemoryCatalog(name='test_catalog'), table_name='new_test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=2, name='data', field_type=StringType(), required=False),)), if_exists=None)
-INFO	ordeq.framework.runner	Running node Node(name=resources.iceberg_test.nodes:load_table, inputs=[IcebergInMemoryCatalog(name='test_catalog'), IcebergTable(catalog=IcebergInMemoryCatalog(name='test_catalog'), table_name='new_test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=2, name='data', field_type=StringType(), required=False),)), if_exists=None)])
+INFO	ordeq.framework.runner	Running node Node(name=resources.iceberg_test.nodes:create_save_table, inputs=[IcebergInMemoryCatalog(name='test_catalog'), Literal('test_namespace')], outputs=[IcebergTableCreate(table=IcebergTable(catalog=IcebergInMemoryCatalog(name='test_catalog'), table_name='new_test_table', namespace='test_namespace'), schema=StructType(fields=(NestedField(field_id=1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=2, name='data', field_type=StringType(), required=False),)), if_exists=None), StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.framework.io	Saving IcebergTableCreate(table=IcebergTable(catalog=IcebergInMemoryCatalog(name='test_catalog'), table_name='new_test_table', namespace='test_namespace'), schema=StructType(fields=(NestedField(field_id=1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=2, name='data', field_type=StringType(), required=False),)), if_exists=None)
+INFO	ordeq.framework.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.framework.io	Loading IcebergTable(catalog=IcebergInMemoryCatalog(name='test_catalog'), table_name='new_test_table', namespace='test_namespace')
+INFO	ordeq.framework.runner	Running node Node(name=resources.iceberg_test.nodes:load_table, inputs=[IcebergInMemoryCatalog(name='test_catalog'), StringBuffer(_buffer=<_io.StringIO object at HASH1>), IcebergTable(catalog=IcebergInMemoryCatalog(name='test_catalog'), table_name='new_test_table', namespace='test_namespace')])
 
 Typing:
 packages/ordeq-iceberg/tests/resources/run_nodes.py:1: error: Skipping analyzing "resources.iceberg_test": module is installed, but missing library stubs or py.typed marker  [import-untyped]

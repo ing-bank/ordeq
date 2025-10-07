@@ -2,16 +2,24 @@ import importlib
 
 import pytest
 from ordeq.framework._gather import (
+    _resolve_runnables_to_modules,
     _resolve_runnables_to_nodes,
     _resolve_runnables_to_nodes_and_ios,
 )
 
 
 @pytest.mark.parametrize(
-    ("imports", "expected_nodes", "expected_ios"),
+    ("imports", "expected_modules", "expected_nodes", "expected_ios"),
     [
         pytest.param(
             ["example"],
+            [
+                "example",
+                "example.catalog",
+                "example.nodes",
+                "example.pipeline",
+                "example.wrapped_io",
+            ],
             [
                 "example.nodes:world",
                 "example.pipeline:transform_input",
@@ -41,6 +49,25 @@ from ordeq.framework._gather import (
                 "example.nodes",
             ],
             [
+                "example",
+                "example.catalog",
+                "example.nodes",
+                "example.pipeline",
+                "example.wrapped_io",
+                "example",
+                "example.catalog",
+                "example.nodes",
+                "example.pipeline",
+                "example.wrapped_io",
+                "example",
+                "example.catalog",
+                "example.nodes",
+                "example.pipeline",
+                "example.wrapped_io",
+                "example.wrapped_io",
+                "example.nodes",
+            ],
+            [
                 "example.nodes:world",
                 "example.pipeline:transform_input",
                 "example.pipeline:transform_mock_input",
@@ -62,6 +89,7 @@ from ordeq.framework._gather import (
         ),
         pytest.param(
             ["example.wrapped_io"],
+            ["example.wrapped_io"],
             ["example.wrapped_io:hello", "example.wrapped_io:print_message"],
             [
                 "message:SayHello",
@@ -72,25 +100,45 @@ from ordeq.framework._gather import (
         ),
         pytest.param(
             ["example2"],
+            ["example2", "example2.catalog", "example2.nodes"],
             ["example2.nodes:transform_input_2"],
             ["TestInput2:Input", "TestOutput2:Output"],
             id="example2",
         ),
         pytest.param(
             ["example3"],
+            ["example3", "example3.func_defs", "example3.nodes"],
             ["example3.func_defs:hello", "example3.func_defs:hello"],
             [],
             id="example3",
         ),
         pytest.param(
             ["duplicates"],
+            ["duplicates", "duplicates.file1", "duplicates.file2"],
             ["duplicates.file1:foo", "duplicates.file2:foo"],
             ["x_value:Literal", "y_value:IO"],
             id="duplicates",
         ),
-        pytest.param(["nested"], [], [], id="nested"),
+        pytest.param(
+            ["nested"],
+            [
+                "nested",
+                "nested.subpackage",
+                "nested.subpackage.subsubpackage",
+                "nested.subpackage.subsubpackage.hello",
+            ],
+            ["nested.subpackage.subsubpackage.hello:world"],
+            [],
+            id="nested",
+        ),
         pytest.param(
             ["function_reuse"],
+            [
+                "function_reuse",
+                "function_reuse.catalog",
+                "function_reuse.func_defs",
+                "function_reuse.nodes",
+            ],
             [
                 "function_reuse.func_defs:print_input",
                 "function_reuse.func_defs:print_input",
@@ -109,6 +157,7 @@ from ordeq.framework._gather import (
         ),
         pytest.param(
             ["function_reuse.nodes"],
+            ["function_reuse.nodes"],
             [
                 "function_reuse.func_defs:print_input",
                 "function_reuse.func_defs:print_input",
@@ -121,6 +170,17 @@ from ordeq.framework._gather import (
         ),
         pytest.param(
             ["rag_pipeline"],
+            [
+                "rag_pipeline",
+                "rag_pipeline.catalog",
+                "rag_pipeline.rag",
+                "rag_pipeline.rag.annotation",
+                "rag_pipeline.rag.evaluation",
+                "rag_pipeline.rag.indexer",
+                "rag_pipeline.rag.policies",
+                "rag_pipeline.rag.question_answering",
+                "rag_pipeline.rag.retrieval",
+            ],
             [
                 "rag_pipeline.rag.annotation:annotate_documents",
                 "rag_pipeline.rag.evaluation:evaluate_answers",
@@ -148,6 +208,24 @@ from ordeq.framework._gather import (
         pytest.param(
             ["rag_pipeline", "rag_pipeline.rag"],
             [
+                "rag_pipeline",
+                "rag_pipeline.catalog",
+                "rag_pipeline.rag",
+                "rag_pipeline.rag.annotation",
+                "rag_pipeline.rag.evaluation",
+                "rag_pipeline.rag.indexer",
+                "rag_pipeline.rag.policies",
+                "rag_pipeline.rag.question_answering",
+                "rag_pipeline.rag.retrieval",
+                "rag_pipeline.rag",
+                "rag_pipeline.rag.annotation",
+                "rag_pipeline.rag.evaluation",
+                "rag_pipeline.rag.indexer",
+                "rag_pipeline.rag.policies",
+                "rag_pipeline.rag.question_answering",
+                "rag_pipeline.rag.retrieval",
+            ],
+            [
                 "rag_pipeline.rag.annotation:annotate_documents",
                 "rag_pipeline.rag.evaluation:evaluate_answers",
                 "rag_pipeline.rag.indexer:create_vector_index",
@@ -173,6 +251,16 @@ from ordeq.framework._gather import (
         ),
         pytest.param(
             ["rag_pipeline.rag", "rag_pipeline.catalog"],
+            [
+                "rag_pipeline.rag",
+                "rag_pipeline.rag.annotation",
+                "rag_pipeline.rag.evaluation",
+                "rag_pipeline.rag.indexer",
+                "rag_pipeline.rag.policies",
+                "rag_pipeline.rag.question_answering",
+                "rag_pipeline.rag.retrieval",
+                "rag_pipeline.catalog",
+            ],
             [
                 "rag_pipeline.rag.annotation:annotate_documents",
                 "rag_pipeline.rag.evaluation:evaluate_answers",
@@ -200,6 +288,15 @@ from ordeq.framework._gather import (
         pytest.param(
             ["rag_pipeline.rag"],
             [
+                "rag_pipeline.rag",
+                "rag_pipeline.rag.annotation",
+                "rag_pipeline.rag.evaluation",
+                "rag_pipeline.rag.indexer",
+                "rag_pipeline.rag.policies",
+                "rag_pipeline.rag.question_answering",
+                "rag_pipeline.rag.retrieval",
+            ],
+            [
                 "rag_pipeline.rag.annotation:annotate_documents",
                 "rag_pipeline.rag.evaluation:evaluate_answers",
                 "rag_pipeline.rag.indexer:create_vector_index",
@@ -221,6 +318,14 @@ from ordeq.framework._gather import (
                 "rag_pipeline.rag.retrieval",
             ],
             [
+                "rag_pipeline.rag.annotation",
+                "rag_pipeline.rag.evaluation",
+                "rag_pipeline.rag.indexer",
+                "rag_pipeline.rag.policies",
+                "rag_pipeline.rag.question_answering",
+                "rag_pipeline.rag.retrieval",
+            ],
+            [
                 "rag_pipeline.rag.annotation:annotate_documents",
                 "rag_pipeline.rag.evaluation:evaluate_answers",
                 "rag_pipeline.rag.indexer:create_vector_index",
@@ -233,6 +338,15 @@ from ordeq.framework._gather import (
             id="rag_pipeline_all",
         ),
         pytest.param(
+            [
+                "rag_pipeline.rag.annotation",
+                "rag_pipeline.rag.evaluation",
+                "rag_pipeline.rag.indexer",
+                "rag_pipeline.rag.policies",
+                "rag_pipeline.rag.question_answering",
+                "rag_pipeline.rag.retrieval",
+                "rag_pipeline.catalog",
+            ],
             [
                 "rag_pipeline.rag.annotation",
                 "rag_pipeline.rag.evaluation",
@@ -270,6 +384,7 @@ from ordeq.framework._gather import (
 )
 def test_gather_nodes_and_ios_from_package(
     imports: list[str],
+    expected_modules,
     expected_nodes,
     expected_ios,
     append_packages_dir_to_sys_path,
@@ -279,6 +394,9 @@ def test_gather_nodes_and_ios_from_package(
     runnables = [
         importlib.import_module(import_path) for import_path in imports
     ]
+
+    modules = _resolve_runnables_to_modules(*runnables)
+    assert [m.__name__ for m in modules] == expected_modules
 
     nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
     assert nodes == _resolve_runnables_to_nodes(*runnables)

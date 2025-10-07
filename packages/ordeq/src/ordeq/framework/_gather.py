@@ -143,6 +143,26 @@ def _gather_nodes_from_registry() -> set[Node]:
     return set(NODE_REGISTRY._data.values())  # noqa: SLF001
 
 
+def _check_missing_ios(
+    nodes: set[Node], ios: dict[str, IO | Input | Output]
+) -> None:
+    missing_ios = set()
+    for node in nodes:
+        for inp in node.inputs:
+            if inp not in ios.values():
+                missing_ios.add(inp)
+        for out in node.outputs:
+            if out not in ios.values():
+                missing_ios.add(out)
+
+    if missing_ios:
+        raise ValueError(
+            f"The following IOs are used by nodes but not defined: "
+            f"{missing_ios}. Please include the module defining them in "
+            f"the runnables."
+        )
+
+
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: str | ModuleType | Callable,
 ) -> tuple[set[Node], dict[str, IO | Input | Output]]:

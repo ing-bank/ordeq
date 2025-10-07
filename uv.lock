@@ -2653,6 +2653,12 @@ dependencies = [
     { name = "pydantic" },
 ]
 
+[package.dev-dependencies]
+test = [
+    { name = "ordeq-toml" },
+    { name = "ordeq-yaml" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
@@ -2660,7 +2666,10 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = []
+test = [
+    { name = "ordeq-toml", editable = "packages/ordeq-toml" },
+    { name = "ordeq-yaml", editable = "packages/ordeq-yaml" },
+]
 
 [[package]]
 name = "ordeq-pymupdf"

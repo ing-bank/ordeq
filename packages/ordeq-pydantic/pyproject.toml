@@ -23,7 +23,10 @@ dependencies = [
 ]
 
 [dependency-groups]
-test = []
+test = [
+    "ordeq-toml",
+    "ordeq-yaml",
+]
 
 [tool.setuptools_scm]
 root = "../../"

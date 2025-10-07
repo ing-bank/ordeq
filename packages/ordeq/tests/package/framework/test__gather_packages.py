@@ -1,6 +1,4 @@
 import importlib
-import sys
-from pathlib import Path
 
 import pytest
 from ordeq.framework._gather import _collect_nodes_and_ios
@@ -143,7 +141,6 @@ def test_gather_nodes_and_ios_from_package(
     imports: list[str],
     expected_nodes,
     expected_ios,
-    packages_dir: Path,
     append_packages_dir_to_sys_path,
 ) -> None:
     """Test gathering nodes and IOs from a package."""
@@ -157,11 +154,3 @@ def test_gather_nodes_and_ios_from_package(
     assert expected_ios == sorted([
         f"{name}:{type(io).__name__}" for name, io in ios.items()
     ])
-
-    packages = tuple(directory.name for directory in packages_dir.iterdir())
-    for import_path in filter(
-        lambda m: m.startswith(packages), list(sys.modules)
-    ):
-        del sys.modules[import_path]
-
-    importlib.invalidate_caches()

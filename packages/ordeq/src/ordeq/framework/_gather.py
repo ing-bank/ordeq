@@ -47,7 +47,10 @@ def _collect_nodes(*runnables: ModuleType | Callable) -> list[Node]:
         elif callable(runnable):
             nodes.append(get_node(runnable))
         else:
-            raise TypeError("Each runnable must be a module or node.")
+            raise TypeError(
+                f"{runnable} is not something we can run."
+                f"Expected a module or a node, got {type(runnable)}"
+            )
     return nodes
 
 
@@ -122,7 +125,8 @@ def _collect_nodes_and_ios(
             or all nodes
     """
     if all(isinstance(r, ModuleType) for r in runnables):
-        module_types: tuple[ModuleType, ...] = runnables  # type: ignore[assignment]
+        module_types: tuple[
+            ModuleType, ...] = runnables  # type: ignore[assignment]
         nodes = set()
         ios = {}
         for module in module_types:

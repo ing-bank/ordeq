@@ -102,7 +102,12 @@ class IcebergTableCreate(Output[None]):
     """
 
     def save(self, _: None = None, **save_options) -> None:
-        """Create the table in the catalog with the provided schema."""
+        """Create the table in the catalog with the provided schema.
+
+        Raises:
+            ValueError: If the table already exists and `if_exists`
+            is set to "error"
+        """
         print(f"Saving Iceberg table '{self.table.table_identifier}'...")
         loaded_catalog = self.table.catalog.load()
         schema = self.schema or save_options.pop("schema", None)
@@ -116,6 +121,11 @@ class IcebergTableCreate(Output[None]):
                     return
                 case IfTableExistsSaveOptions.DROP:
                     loaded_catalog.drop_table(table_identifier)
+                case IfTableExistsSaveOptions.ERROR:
+                    raise ValueError(
+                        f"Table '{table_identifier}' already exists "
+                        f"in catalog '{loaded_catalog.name}'."
+                    )
         loaded_catalog.create_table(
             identifier=table_identifier, schema=schema, **save_options
         )

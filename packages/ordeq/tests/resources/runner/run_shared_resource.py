@@ -1,34 +1,39 @@
+from tempfile import NamedTemporaryFile
+
 from ordeq import run, node, IO
-from io import StringIO
 from dataclasses import dataclass
+from pathlib import Path
 
 
 @dataclass(frozen=True, eq=False)
-class Buffer(IO[str]):
-    buffer: StringIO
+class File(IO[str]):
+    path: Path
 
     def load(self) -> str:
-        return self.buffer.getvalue()
+        return self.path.read_text()
 
     def save(self, data: str) -> None:
-        self.buffer.write(data)
+        with self.path.open(mode='wt') as file:
+            file.write(data)
 
 
-raw_buffer = StringIO()
-first_buffer_io = Buffer(buffer=raw_buffer)
-second_buffer_io = Buffer(buffer=raw_buffer)
+with NamedTemporaryFile(delete=False, mode='wt') as tmp:
+    path = Path(tmp.name)
+    first_file = File(path=path)
+    second_file = File(path=path)
 
 
-@node(outputs=first_buffer_io)
-def first() -> str:
-    return "Hello, world!"
+    @node(outputs=first_file)
+    def first() -> str:
+        return "Hello, world!"
 
 
-@node(inputs=second_buffer_io)
-def second(value: str) -> None:
-    print(value)
+    @node(inputs=second_file)
+    def second(value: str) -> None:
+        print(value)
 
 
-# The run needs to recognize that 'first' and 'second' share the same resource
-# It should plan first -> second.
-run(second, first, verbose=True)
+    # The run needs to recognize that 'first_file' and 'second_file'
+    # share the same resource.
+    # It should plan first -> second.
+    run(second, first, verbose=True)

@@ -146,7 +146,7 @@ def _gather_nodes_from_registry() -> set[Node]:
 def _check_missing_ios(
     nodes: set[Node], ios: dict[str, IO | Input | Output]
 ) -> None:
-    missing_ios = set()
+    missing_ios: set[IO | Input | Output] = set()
     for node in nodes:
         for inp in node.inputs:
             if inp not in ios.values():

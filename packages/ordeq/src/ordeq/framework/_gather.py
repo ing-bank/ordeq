@@ -1,6 +1,6 @@
 import importlib
 import pkgutil
-from collections.abc import Callable, Hashable
+from collections.abc import Callable, Generator, Hashable, Iterable
 from types import ModuleType
 
 from ordeq.framework._registry import NODE_REGISTRY
@@ -8,53 +8,68 @@ from ordeq.framework.io import IO, Input, Output
 from ordeq.framework.nodes import Node, get_node
 
 
-def _gather_nodes_from_module(module: ModuleType) -> list[Node]:
+def _is_module(obj: object) -> bool:
+    return isinstance(obj, ModuleType)
+
+
+def _is_package(module: ModuleType) -> bool:
+    return hasattr(module, "__path__")
+
+
+def _is_io(obj: object) -> bool:
+    return isinstance(obj, (IO, Input, Output))
+
+
+def _is_node(obj: object) -> bool:
+    return isinstance(obj, Hashable) and obj in NODE_REGISTRY
+
+
+def _resolve_string_to_module(name: str) -> ModuleType:
+    return importlib.import_module(name)
+
+
+def _resolve_packages_to_modules(
+    modules: Iterable[ModuleType],
+) -> Generator[ModuleType, None, None]:
+    for module in modules:
+        yield module
+        if _is_package(module):
+            submodules = (
+                importlib.import_module(f".{name}", package=module.__name__)
+                for _, name, _ in pkgutil.iter_modules(module.__path__)
+            )
+            yield from _resolve_packages_to_modules(submodules)
+
+
+def _resolve_runnables_to_modules(
+    *runnables: str | ModuleType,
+) -> Generator[ModuleType, None, None]:
+    # First, resolve all strings to modules or packages
+    packaged_and_modules = (
+        _resolve_string_to_module(r) if isinstance(r, str) else r
+        for r in runnables
+    )
+
+    # Then, for each module or package, if it's a package, resolve to all its
+    # submodules recursively
+    return _resolve_packages_to_modules(packaged_and_modules)
+
+
+def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
     """Gathers all nodes defined in a module.
 
     Args:
         module: the module to gather nodes from
 
     Returns:
-        a list of nodes defined in the module
+        the nodes defined in the module
 
     """
 
-    nodes = []
-    for attr in dir(module):
-        obj = getattr(module, attr)
-        if isinstance(obj, Hashable) and obj in NODE_REGISTRY:
-            nodes.append(NODE_REGISTRY.get(obj))
-    return nodes
+    return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
 
 
-def _collect_nodes(*runnables: ModuleType | Callable | str) -> list[Node]:
-    """Collects nodes from the provided runnables.
-
-    Args:
-        runnables: modules or callables to gather nodes from
-
-    Returns:
-        a list of nodes collected from the runnables
-
-    Raises:
-        TypeError: if a runnable is not a module and not a node
-    """
-
-    nodes = []
-    for runnable in runnables:
-        if isinstance(runnable, ModuleType):
-            nodes.extend(_gather_nodes_from_module(runnable))
-        elif callable(runnable):
-            nodes.append(get_node(runnable))
-        else:
-            raise TypeError(
-                f"{runnable} is not something we can run. "
-                f"Expected a module or a node, got {type(runnable)}"
-            )
-    return nodes
-
-
-def _gather_ios_from_module(
+def _resolve_module_to_ios(
     module: ModuleType,
 ) -> dict[str, IO | Input | Output]:
     """Find all `IO` objects defined in the provided module
@@ -65,11 +80,43 @@ def _gather_ios_from_module(
     Returns:
         a dict of `IO` objects with their variable name as key
     """
-    return {
-        k: v
-        for k, v in vars(module).items()
-        if isinstance(v, (IO, Input, Output))
-    }
+    return {name: obj for name, obj in vars(module).items() if _is_io(obj)}
+
+
+def _resolve_runnables_to_nodes(
+    *runnables: ModuleType | Callable | str,
+) -> set[Node]:
+    """Collects nodes from the provided runnables.
+
+    Args:
+        runnables: modules, packages or callables to gather nodes from
+
+    Returns:
+        the nodes collected from the runnables
+
+    Raises:
+        TypeError: if a runnable is not a module and not a node
+    """
+
+    # Split runnables into modules/strings and callables
+    modules_and_strs = []
+    nodes = set()
+    for runnable in runnables:
+        if isinstance(runnable, (ModuleType, str)):
+            modules_and_strs.append(runnable)
+        elif callable(runnable):
+            nodes.add(get_node(runnable))
+        else:
+            raise TypeError(
+                f"{runnable} is not something we can run. "
+                f"Expected a module or a node, got {type(runnable)}"
+            )
+
+    modules = _resolve_runnables_to_modules(*modules_and_strs)
+    for module in modules:
+        nodes.update(_resolve_module_to_nodes(module))
+
+    return nodes
 
 
 def _gather_nodes_from_registry() -> set[Node]:
@@ -101,14 +148,14 @@ def _gather_nodes_and_ios_from_package(
     ]
     ios = {}
     for m in modules:
-        ios.update(_gather_ios_from_module(m))
+        ios.update(_resolve_module_to_ios(m))
 
     # Gather nodes from the registry
     nodes = _gather_nodes_from_registry()
     return nodes, ios
 
 
-def _collect_nodes_and_ios(
+def _resolve_runnables_to_nodes_and_ios(
     *runnables: str | ModuleType | Callable,
 ) -> tuple[set[Node], dict[str, IO | Input | Output]]:
     """Collects nodes and IOs from the provided runnables.
@@ -129,8 +176,8 @@ def _collect_nodes_and_ios(
         nodes = set()
         ios = {}
         for module in module_types:
-            nodes.update(_gather_nodes_from_module(module))
-            ios.update(_gather_ios_from_module(module))
+            nodes.update(_resolve_module_to_nodes(module))
+            ios.update(_resolve_module_to_ios(module))
 
         return nodes, ios
     if all(isinstance(r, str) for r in runnables):
@@ -139,7 +186,7 @@ def _collect_nodes_and_ios(
         ios = {}
         for package in package_names:
             package_mod = importlib.import_module(package)
-            nodes.update(_gather_nodes_from_module(package_mod))
+            nodes.update(_resolve_module_to_nodes(package_mod))
             package_nodes, package_ios = _gather_nodes_and_ios_from_package(
                 package_mod
             )
@@ -154,7 +201,7 @@ def _collect_nodes_and_ios(
         ios = {}
         for node in nodes:
             mod = importlib.import_module(node.func.__module__)
-            ios.update(_gather_ios_from_module(mod))
+            ios.update(_resolve_module_to_ios(mod))
 
         return nodes, ios
 

@@ -4,9 +4,9 @@ import pytest
 from ordeq import IO, Input, Node, Output
 from ordeq.framework import get_node
 from ordeq.framework._gather import (
-    _gather_ios_from_module,
     _gather_nodes_and_ios_from_package,
     _gather_nodes_from_registry,
+    _resolve_module_to_ios,
 )
 from ordeq_common import StringBuffer
 
@@ -80,7 +80,7 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
 def test_gather_ios_from_module(append_packages_dir_to_sys_path):
     from example import catalog as mod  # ty: ignore[unresolved-import]
 
-    datasets = _gather_ios_from_module(mod)
+    datasets = _resolve_module_to_ios(mod)
 
     assert len(datasets) == 4
     assert isinstance(datasets["Hello"], StringBuffer)

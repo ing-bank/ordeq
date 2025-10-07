@@ -4,7 +4,7 @@ from types import ModuleType
 from typing import Any, Literal, overload
 
 from ordeq.framework._gather import (
-    _collect_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
+    _resolve_runnables_to_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
 )
 
 from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
@@ -70,7 +70,7 @@ def viz(
         ValueError: If `fmt` is 'kedro' and `output` is not provided.
     """
 
-    nodes, ios = _collect_nodes_and_ios(*runnables)
+    nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
 
     match fmt:
         case "kedro":

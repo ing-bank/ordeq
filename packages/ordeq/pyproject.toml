@@ -22,7 +22,7 @@ requires-python = ">=3.10"
 test = [
     "cloudpathlib[s3]>=0.20.0",
     "ordeq-common",
-    "mypy"  # for snapshot testing
+    "mypy>=0.18.2",  # for snapshot testing
 ]
 
 [tool.setuptools_scm]

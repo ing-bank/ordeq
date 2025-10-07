@@ -68,13 +68,12 @@ Ordeq can read parameters from a `[tool.your_tool_name]` section in `pyproject.t
 from typing import Any
 from pathlib import Path
 from ordeq import node, IO
-from ordeq_common import Item
+from ordeq_pyproject import Pyproject
 from ordeq_toml import TOML
 
 
 name = IO()
-pyproject = TOML(path=Path("pyproject.toml"))
-language = Item(pyproject, key=("tool", "my_tool", "language"), default="en")
+language = Pyproject(path=Path("pyproject.toml"), section="tool.my_tool.language")
 greeting = IO()
 
 

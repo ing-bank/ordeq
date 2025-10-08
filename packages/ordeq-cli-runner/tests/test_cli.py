@@ -1,100 +1,96 @@
+from ordeq_cli_runner import main
+import sys
+from unittest.mock import patch
+
 import pytest
 from ordeq_cli_runner import parse_args
+from pathlib import Path
+
+RESOURCES_DIR = Path(__file__).parent / "resources"
 
 
-class TestParseArgs:
-    @pytest.mark.parametrize(
-        ("args", "expected"),
-        [
-            (
-                ("run", "--nodes", "domain_A:name_A"),
+@pytest.mark.parametrize(
+    ("args", "expected"),
+    [
+        (
+                ("run", "domain_A:name_A"),
                 {
                     "action": "run",
-                    "nodes": ["domain_A:name_A"],
-                    "pipeline": None,
-                    "save": "all",
+                    "runnables": ["domain_A:name_A"],
                     "hooks": [],
-                },
-            ),
-            (
-                ("run", "--nodes", "domain_A:name_A", "domain_B:name_B"),
-                {
-                    "action": "run",
-                    "nodes": ["domain_A:name_A", "domain_B:name_B"],
-                    "pipeline": None,
                     "save": "all",
-                    "hooks": [],
                 },
-            ),
-            (
-                ("run", "--pipeline", "domain_Z:name_Z"),
+        ),
+        (
+                ("run", "domain_A:name_A", "domain_B:name_B"),
                 {
                     "action": "run",
-                    "nodes": None,
-                    "pipeline": "domain_Z:name_Z",
+                    "runnables": ["domain_A:name_A", "domain_B:name_B"],
+                    "hooks": [],
                     "save": "all",
-                    "hooks": [],
                 },
-            ),
-            (
-                # This test case checks that the parser only parses known args.
-                ("run", "--nodes", "domain_A:name_A", "--var", "bla"),
+        ),
+        (
+                ("run", "domain_X:name_X", "--save", "sinks"),
                 {
                     "action": "run",
-                    "nodes": ["domain_A:name_A"],
-                    "pipeline": None,
-                    "save": "all",
+                    "runnables": ["domain_X:name_X"],
                     "hooks": [],
-                },
-            ),
-            (
-                ("run", "--pipeline", "domain_X:name_X", "--save", "sinks"),
-                {
-                    "action": "run",
-                    "nodes": None,
-                    "pipeline": "domain_X:name_X",
                     "save": "sinks",
-                    "hooks": [],
                 },
-            ),
-            (
-                (
-                    "run",
-                    "--pipeline",
-                    "domain_X:name_X",
-                    "--hooks",
-                    "x:Logger",
-                ),
+        ),
+        (
+                ("run", "domain_X:name_X", "--hooks", "x:Logger"),
                 {
                     "action": "run",
-                    "nodes": None,
-                    "pipeline": "domain_X:name_X",
-                    "save": "all",
+                    "runnables": ["domain_X:name_X"],
                     "hooks": ["x:Logger"],
+                    "save": "all",
                 },
-            ),
-            (
-                (
-                    "run",
-                    "--pipeline",
-                    "domain_X:name_X",
-                    "--hooks",
-                    "x:Logger",
-                    "y:Debugger",
-                ),
+        ),
+        (
+                ("run", "domain_X:name_X", "--hooks", "x:Logger",
+                 "y:Debugger"),
                 {
                     "action": "run",
-                    "nodes": None,
-                    "pipeline": "domain_X:name_X",
-                    "save": "all",
+                    "runnables": ["domain_X:name_X"],
                     "hooks": ["x:Logger", "y:Debugger"],
+                    "save": "all",
                 },
-            ),
-        ],
-    )
-    def test_it_parses(self, args, expected):
-        assert vars(parse_args(args)) == expected
+        ),
+    ],
+)
+def test_it_parses(args, expected):
+    assert vars(parse_args(args)) == expected
 
-    def test_nodes_and_pipeline_are_mutually_exclusive(self):
-        with pytest.raises(SystemExit):
-            parse_args(("--nodes", "bla", "--pipeline", "bluh"))
+
+def test_missing_runnables():
+    with pytest.raises(SystemExit):
+        parse_args(("run",))
+
+
+@pytest.mark.parametrize(
+    "runnable",
+    [
+        "subpackage",
+        "subpackage.hello",
+        "subpackage.hello:world",
+    ]
+)
+def test_it_runs(capsys: pytest.CaptureFixture, runnable: str):
+    try:
+        sys.path.append(str(RESOURCES_DIR))
+        with patch.object(
+            sys,
+            "argv",
+            [
+                "ordeq",
+                "run",
+                runnable,
+            ],
+        ):
+            main()
+            captured = capsys.readouterr()
+            assert captured.out.strip() == "Hello, World!"
+    finally:
+        sys.path.remove(str(RESOURCES_DIR))

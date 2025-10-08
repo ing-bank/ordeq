@@ -29,30 +29,39 @@ def _resolve_string_to_module(name: str) -> ModuleType:
 
 
 def _resolve_packages_to_modules(
-    modules: Iterable[ModuleType],
-) -> Generator[ModuleType, None, None]:
-    for module in modules:
-        yield module
+    modules: Iterable[tuple[str, ModuleType]],
+) -> Generator[tuple[str, ModuleType], None, None]:
+    for name, module in modules:
+        yield name, module
         if _is_package(module):
             submodules = (
                 importlib.import_module(f".{name}", package=module.__name__)
                 for _, name, _ in pkgutil.iter_modules(module.__path__)
             )
-            yield from _resolve_packages_to_modules(submodules)
+            yield from _resolve_packages_to_modules(
+                (mod.__name__, mod) for mod in submodules
+            )
 
 
 def _resolve_runnables_to_modules(
     *runnables: str | ModuleType,
-) -> Generator[ModuleType, None, None]:
-    # First, resolve all strings to modules or packages
-    packaged_and_modules = (
-        _resolve_string_to_module(r) if isinstance(r, str) else r
-        for r in runnables
-    )
+) -> Generator[tuple[str, ModuleType], None, None]:
+    modules = {}
+    for runnable in runnables:
+        if isinstance(runnable, ModuleType):
+            modules[runnable.__name__] = runnable
+        elif isinstance(runnable, str):
+            mod = _resolve_string_to_module(runnable)
+            modules[mod.__name__] = mod
+        else:
+            raise TypeError(
+                f"{runnable} is not something we can run. "
+                f"Expected a module or a string, got {type(runnable)}"
+            )
 
     # Then, for each module or package, if it's a package, resolve to all its
     # submodules recursively
-    return _resolve_packages_to_modules(packaged_and_modules)
+    return _resolve_packages_to_modules(modules.items())
 
 
 def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
@@ -85,7 +94,7 @@ def _resolve_module_to_ios(
 
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: str | ModuleType | Callable,
-) -> tuple[set[Node], Generator[ModuleType, None, None]]:
+) -> tuple[set[Node], set[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -110,7 +119,9 @@ def _resolve_runnables_to_nodes_and_modules(
                 f"Expected a module or a node, got {type(runnable)}"
             )
 
-    modules = _resolve_runnables_to_modules(*modules_and_strs)
+    modules = set(
+        dict(_resolve_runnables_to_modules(*modules_and_strs)).values()
+    )
     return nodes, modules
 
 

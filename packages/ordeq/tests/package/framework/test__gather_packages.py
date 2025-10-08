@@ -54,18 +54,6 @@ from ordeq.framework._gather import (
                 "example.nodes",
                 "example.pipeline",
                 "example.wrapped_io",
-                "example",
-                "example.catalog",
-                "example.nodes",
-                "example.pipeline",
-                "example.wrapped_io",
-                "example",
-                "example.catalog",
-                "example.nodes",
-                "example.pipeline",
-                "example.wrapped_io",
-                "example.wrapped_io",
-                "example.nodes",
             ],
             [
                 "example.nodes:world",
@@ -210,13 +198,6 @@ from ordeq.framework._gather import (
             [
                 "rag_pipeline",
                 "rag_pipeline.catalog",
-                "rag_pipeline.rag",
-                "rag_pipeline.rag.annotation",
-                "rag_pipeline.rag.evaluation",
-                "rag_pipeline.rag.indexer",
-                "rag_pipeline.rag.policies",
-                "rag_pipeline.rag.question_answering",
-                "rag_pipeline.rag.retrieval",
                 "rag_pipeline.rag",
                 "rag_pipeline.rag.annotation",
                 "rag_pipeline.rag.evaluation",
@@ -395,8 +376,8 @@ def test_gather_nodes_and_ios_from_package(
         importlib.import_module(import_path) for import_path in imports
     ]
 
-    modules = _resolve_runnables_to_modules(*runnables)
-    assert [m.__name__ for m in modules] == expected_modules
+    modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
+    assert modules == expected_modules
 
     nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
     assert nodes == _resolve_runnables_to_nodes(*runnables)

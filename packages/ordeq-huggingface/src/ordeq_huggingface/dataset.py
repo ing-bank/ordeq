@@ -16,7 +16,15 @@ class HuggingfaceDataset(
 ):
     """Load a dataset from the Huggingface datasets library.
 
-    https://huggingface.co/docs/datasets/en/
+    Example usage:
+
+    ```pycon
+    >>> from ordeq_huggingface import HuggingfaceDataset
+    >>> ds = HuggingfaceDataset(path="imdb")
+    >>> data = ds.load(split="train[:10%]")  # doctest: +SKIP
+    >>> len(data)  # doctest: +SKIP
+
+    ```
     """
 
     path: str

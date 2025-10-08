@@ -3,8 +3,8 @@ requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ordeq-project"
-description = "Utilities for Ordeq projects"
+name = "ordeq-manifest"
+description = "Manifests for Ordeq projects"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -19,7 +19,8 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "ordeq"
+    "ordeq",
+    "pydantic"
 ]
 
 [dependency-groups]
@@ -30,9 +31,9 @@ test = [
 
 [tool.setuptools_scm]
 root = "../../"
-version_file = "src/ordeq_project/_version.py"
-tag_regex = "^ordeq-project/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
-git_describe_command = "git describe --dirty --tags --long --match ordeq-project/*"
+version_file = "src/ordeq_manifest/_version.py"
+tag_regex = "^ordeq-manifest/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
+git_describe_command = "git describe --dirty --tags --long --match ordeq-manifest/*"
 
 [tool.setuptools.packages.find]
 namespaces = true
@@ -43,5 +44,5 @@ pythonpath = ["src", "tests"]
 
 [tool.coverage.run]
 omit = [
-    "src/ordeq_project/_version.py"
+    "src/ordeq_manifest/_version.py"
 ]

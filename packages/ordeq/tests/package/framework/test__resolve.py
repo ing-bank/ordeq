@@ -3,7 +3,7 @@ from collections.abc import Callable
 import pytest
 from ordeq import IO, Input, Node, Output
 from ordeq.framework import get_node
-from ordeq.framework._gather import (
+from ordeq.framework._resolve import (
     _gather_nodes_from_registry,
     _resolve_module_to_ios,
     _resolve_runnables_to_nodes_and_ios,

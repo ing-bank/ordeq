@@ -1,3 +1,5 @@
+"""Resolve packages and modules to nodes and IOs."""
+
 import importlib
 import pkgutil
 from collections.abc import Callable, Generator, Hashable, Iterable

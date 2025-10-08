@@ -4,7 +4,7 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeVar
 
-from ordeq.framework._gather import _resolve_runnables_to_nodes
+from ordeq.framework._resolve import _resolve_runnables_to_nodes
 from ordeq.framework.graph import NodeGraph
 from ordeq.framework.hook import NodeHook, RunHook
 from ordeq.framework.io import Input, Output, _InputCache

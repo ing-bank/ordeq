@@ -39,12 +39,14 @@ def test_viz_main_mermaid_multiple_modules(tmp_path: Path) -> None:
     assert "transform_input_2(" in output_file_content
 
 
-def test_viz_main_error_when_mixed_inputs(tmp_path: Path) -> None:
+def test_viz_main_mixed_inputs(tmp_path: Path) -> None:
     import example.nodes  # ty: ignore[unresolved-import]
 
     output_file = tmp_path / "output.mermaid"
-    with pytest.raises(TypeError, match="All objects provided must be either"):
-        viz("example", example.nodes, fmt="mermaid", output=output_file)
+    viz("example", example.nodes, fmt="mermaid", output=output_file)
+    assert output_file.exists()
+    output_file_content = output_file.read_text("utf8")
+    assert "graph TB" in output_file_content
 
 
 def test_viz_main_kedro(tmp_path: Path) -> None:
@@ -149,13 +151,6 @@ def test_viz_main_mermaid_with_module_dynamic_function(tmp_path: Path) -> None:
 
 def test_rag(tmp_path: Path, resources_dir: Path):
     import rag_pipeline  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-    import rag_pipeline.rag  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-    import rag_pipeline.rag.annotation  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-    import rag_pipeline.rag.evaluation  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-    import rag_pipeline.rag.indexer  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-    import rag_pipeline.rag.policies  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-    import rag_pipeline.rag.question_answering  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-    import rag_pipeline.rag.retrieval  # ty: ignore[unresolved-import]  # noqa: F401
 
     output_file = tmp_path / "output.mermaid"
 

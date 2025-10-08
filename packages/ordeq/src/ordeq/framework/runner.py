@@ -4,7 +4,7 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeVar
 
-from ordeq.framework._gather import _collect_nodes
+from ordeq.framework._resolve import _resolve_runnables_to_nodes
 from ordeq.framework.graph import NodeGraph
 from ordeq.framework.hook import NodeHook, RunHook
 from ordeq.framework.io import Input, Output, _InputCache
@@ -157,7 +157,7 @@ def _patch_io(
 
 
 def run(
-    *runnables: ModuleType | Callable,
+    *runnables: ModuleType | Callable | str,
     hooks: Sequence[NodeHook | RunHook] = (),
     save: SaveMode = "all",
     verbose: bool = False,
@@ -166,7 +166,7 @@ def run(
     """Runs nodes in topological order.
 
     Args:
-        runnables: the nodes to run, or a modules containing nodes
+        runnables: the nodes to run, or modules or packages containing nodes
         hooks: hooks to apply
         save: 'all' | 'sinks'. If 'sinks', only saves the sink outputs
         verbose: whether to print the node graph
@@ -177,7 +177,7 @@ def run(
 
     """
 
-    nodes = _collect_nodes(*runnables)
+    nodes = _resolve_runnables_to_nodes(*runnables)
     graph = NodeGraph.from_nodes(nodes)
 
     if verbose:

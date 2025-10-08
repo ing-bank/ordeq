@@ -3,8 +3,8 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any, Literal, overload
 
-from ordeq.framework._gather import (
-    _collect_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
+from ordeq.framework._resolve import (
+    _resolve_runnables_to_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
 )
 
 from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
@@ -13,25 +13,7 @@ from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 @overload
 def viz(
-    *runnables: ModuleType,
-    fmt: Literal["kedro", "mermaid"],
-    output: Path,
-    **options: Any,
-) -> None: ...
-
-
-@overload
-def viz(
-    *runnables: str,
-    fmt: Literal["kedro", "mermaid"],
-    output: Path,
-    **options: Any,
-) -> None: ...
-
-
-@overload
-def viz(
-    *runnables: Callable,
+    *runnables: str | ModuleType | Callable,
     fmt: Literal["kedro", "mermaid"],
     output: Path,
     **options: Any,
@@ -70,7 +52,7 @@ def viz(
         ValueError: If `fmt` is 'kedro' and `output` is not provided.
     """
 
-    nodes, ios = _collect_nodes_and_ios(*runnables)
+    nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
 
     match fmt:
         case "kedro":

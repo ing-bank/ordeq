@@ -1,6 +1,6 @@
 import pytest
 from ordeq.framework import get_node
-from ordeq.framework._gather import _gather_nodes_and_ios_from_package
+from ordeq.framework._resolve import _resolve_runnables_to_nodes_and_ios
 
 from ordeq_viz.to_mermaid import _make_mermaid_header, pipeline_to_mermaid
 
@@ -37,7 +37,7 @@ def test_mermaid_io_shape_template():
 def test_mermaid_wrapped():
     import example  # ty: ignore[unresolved-import]
 
-    nodes, ios = _gather_nodes_and_ios_from_package(example)
+    nodes, ios = _resolve_runnables_to_nodes_and_ios(example)
     diagram = pipeline_to_mermaid(nodes=nodes, datasets=ios)
 
     assert "-.->|name|" in diagram

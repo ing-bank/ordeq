@@ -94,13 +94,39 @@ def _resolve_module_to_ios(
     return {name: obj for name, obj in vars(module).items() if _is_io(obj)}
 
 
+def _resolve_node_reference(ref: str) -> Node:
+    """Resolves a node reference string of the form 'module:node_name'.
+
+    Args:
+        ref: Reference string, e.g. 'my_package.my_module:my_node'
+
+    Returns:
+        The resolved Node object
+
+    Raises:
+        ValueError: if the node cannot be found in the module
+    """
+
+    if ":" not in ref:
+        raise ValueError(f"Invalid node reference: {ref}")
+    module_name, _, node_name = ref.partition(":")
+    module = _resolve_string_to_module(module_name)
+    node_obj = getattr(module, node_name, None)
+    if not _is_node(node_obj):
+        raise ValueError(
+            f"Node '{node_name}' not found in module '{module_name}'"
+        )
+    return get_node(node_obj)
+
+
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: str | ModuleType | Callable,
 ) -> tuple[set[Node], set[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
-        runnables: modules, packages or callables to gather nodes from
+        runnables: modules, packages, node references or callables to gather
+            nodes from
 
     Returns:
         the nodes and modules collected from the runnables
@@ -111,7 +137,12 @@ def _resolve_runnables_to_nodes_and_modules(
     modules_and_strs = []
     nodes = set()
     for runnable in runnables:
-        if isinstance(runnable, (ModuleType, str)):
+        if isinstance(runnable, str):
+            if ":" in runnable:
+                nodes.add(_resolve_node_reference(runnable))
+            else:
+                modules_and_strs.append(runnable)
+        elif isinstance(runnable, ModuleType):
             modules_and_strs.append(runnable)
         elif callable(runnable):
             nodes.add(get_node(runnable))
@@ -133,17 +164,16 @@ def _resolve_runnables_to_nodes(
     """Collects nodes from the provided runnables.
 
     Args:
-        runnables: modules, packages or callables to gather nodes from
+        runnables: modules, packages, node references or callables to gather
+            nodes from
 
     Returns:
         the nodes collected from the runnables
 
     """
-
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
         nodes.update(_resolve_module_to_nodes(module))
-
     return nodes
 
 
@@ -182,8 +212,8 @@ def _resolve_runnables_to_nodes_and_ios(
     """Collects nodes and IOs from the provided runnables.
 
     Args:
-        runnables: package names, modules, or callables to gather nodes and IOs
-            from
+        runnables: modules, packages, node references or callables to gather
+            nodes and IOs from
 
     Returns:
         a tuple of nodes and IOs collected from the runnables

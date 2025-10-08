@@ -7,7 +7,7 @@ from ordeq.framework._resolve import (
     _gather_nodes_from_registry,
     _resolve_module_to_ios,
     _resolve_runnables_to_nodes,
-    _resolve_runnables_to_nodes_and_ios,
+    _resolve_runnables_to_nodes_and_ios, _resolve_node_reference,
 )
 from ordeq_common import StringBuffer
 
@@ -132,3 +132,11 @@ def test_resolve_node_by_reference_not_a_node(
         match=r"Node 'i_do_not_exist' not found in module 'example.nodes'",
     ):
         _resolve_runnables_to_nodes("example.nodes:i_do_not_exist")
+
+
+def test_resolve_node_by_reference_no_module() -> None:
+    with pytest.raises(
+        ValueError,
+        match="Invalid node reference: 'invalidformat'",
+    ):
+        _resolve_node_reference("invalidformat")

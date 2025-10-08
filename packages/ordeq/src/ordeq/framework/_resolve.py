@@ -108,7 +108,7 @@ def _resolve_node_reference(ref: str) -> Node:
     """
 
     if ":" not in ref:
-        raise ValueError(f"Invalid node reference: {ref}")
+        raise ValueError(f"Invalid node reference: '{ref}'.")
     module_name, _, node_name = ref.partition(":")
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)

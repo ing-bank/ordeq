@@ -107,6 +107,7 @@ upgrade:
     pre-commit autoupdate
 
 build PACKAGE:
+    echo "prune tests" > ./packages/{{ PACKAGE }}/MANIFEST.in || true
     cp -n ./README.md ./packages/{{ PACKAGE }}/README.md || true
     cp -n ./README.md ./packages/{{ PACKAGE }}/LICENSE || true
     uv build --package {{ PACKAGE }}

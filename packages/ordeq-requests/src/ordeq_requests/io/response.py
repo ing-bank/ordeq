@@ -1,10 +1,11 @@
 from abc import abstractmethod
 from dataclasses import dataclass, field
-from typing import Literal, TypeVar
+from typing import Any, Literal, TypeVar
 
 import requests
 from ordeq.framework.io import Input
 from requests import Session
+from urllib3.response import HTTPResponse
 
 T = TypeVar("T")
 
@@ -111,17 +112,23 @@ class Response(Input[T]):
     @abstractmethod
     def load(self) -> T: ...
 
-    def _request(self) -> requests.Response:
+    def _request(self, **request_args: Any) -> requests.Response:
         """Make a request and return the response.
+
+        Args:
+            **request_args: Additional arguments to pass to `requests.request`.
 
         Returns:
             `requests` Response
+
         Raises:
             HTTPError, if one occurred
 
         """
 
-        r = self.session.request(method=self.method, url=self.url)
+        r = self.session.request(
+            method=self.method, url=self.url, **request_args
+        )
         r.raise_for_status()
         return r
 
@@ -142,3 +149,9 @@ class ResponseText(Response[str]):
 class ResponseJSON(Response[dict]):
     def load(self) -> dict:
         return self._request().json()
+
+
+@dataclass(frozen=True)
+class ResponseStream(Response[HTTPResponse]):
+    def load(self) -> HTTPResponse:
+        return self._request(stream=True).raw

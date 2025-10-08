@@ -4,6 +4,7 @@ from ordeq_requests import (
     Response,
     ResponseContent,
     ResponseJSON,
+    ResponseStream,
     ResponseText,
 )
 
@@ -35,3 +36,12 @@ class TestResponseJSON:
     def test_it_loads(self, url):
         data = ResponseJSON(url=f"{url}/").load()
         assert data == {"Hello": "World"}
+
+
+class TestResponseStream:
+    def test_it_loads(self, url):
+        stream = ResponseStream(url=f"{url}/").load()
+        # Read all bytes from the stream
+        content = stream.read()
+        assert content == b'{"Hello":"World"}'
+        stream.close()

@@ -1,6 +1,0 @@
-Output:
-{'resources.gather.example.catalog_1.a': Literal('a'), 'resources.gather.example.catalog_1.b': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.catalog_1.c': Print()}
-{'resources.gather.example.catalog_2.d': Literal('a'), 'resources.gather.example.catalog_2.e': StringBuffer(_buffer=<_io.StringIO object at HASH2>), 'resources.gather.example.catalog_2.f': Print()}
-{'resources.gather.example.nodes.a': Literal('a'), 'resources.gather.example.nodes.B': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.nodes.f': Print()}
-{}
-{'resources.gather.example.catalog_1.a': Literal('a'), 'resources.gather.example.catalog_1.b': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.catalog_1.c': Print(), 'resources.gather.example.catalog_2.d': Literal('a'), 'resources.gather.example.catalog_2.e': StringBuffer(_buffer=<_io.StringIO object at HASH2>), 'resources.gather.example.catalog_2.f': Print(), 'resources.gather.example.nodes.a': Literal('a'), 'resources.gather.example.nodes.B': StringBuffer(_buffer=<_io.StringIO object at HASH1>), 'resources.gather.example.nodes.f': Print()}

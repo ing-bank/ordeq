@@ -1,6 +1,0 @@
-Output:
-{}
-{}
-{'resources.gather.example.nodes.func': Node(name=resources.gather.example.nodes:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}
-{'resources.gather.example.nodes_relative_import.func': Node(name=resources.gather.example.nodes_relative_import:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}
-{'resources.gather.example.nodes.func': Node(name=resources.gather.example.nodes:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]), 'resources.gather.example.nodes_relative_import.func': Node(name=resources.gather.example.nodes_relative_import:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])}

@@ -117,7 +117,7 @@ def test_resolve_node_by_reference(
     expected_example_node_objects, append_packages_dir_to_sys_path
 ) -> None:
     """Test resolving nodes by reference."""
-    from example.nodes import world
+    from example.nodes import world  # ty: ignore[unresolved-import]
 
     nodes = _resolve_runnables_to_nodes("example.nodes:world")
     assert nodes == {get_node(world)}

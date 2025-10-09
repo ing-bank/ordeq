@@ -137,15 +137,14 @@ def _resolve_runnables_to_nodes_and_modules(
     modules_and_strs: list[ModuleType | str] = []
     nodes = set()
     for runnable in runnables:
-        if isinstance(runnable, str):
-            if ":" in runnable:
-                nodes.add(_resolve_node_reference(runnable))
-            else:
-                modules_and_strs.append(runnable)
-        elif isinstance(runnable, ModuleType):
+        if isinstance(runnable, ModuleType) or (
+            isinstance(runnable, str) and ":" not in runnable
+        ):
             modules_and_strs.append(runnable)
         elif callable(runnable):
             nodes.add(get_node(runnable))
+        elif isinstance(runnable, str):
+            nodes.add(_resolve_node_reference(runnable))
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "

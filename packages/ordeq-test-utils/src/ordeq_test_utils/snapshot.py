@@ -4,6 +4,8 @@ import logging
 import re
 from pathlib import Path
 
+from _pytest.capture import CaptureFixture
+from _pytest.logging import LogCaptureFixture
 from mypy import api as mypy_api
 
 
@@ -19,7 +21,7 @@ def _replace_pattern_with_seq(text: str, pattern: str, prefix: str) -> str:
     Returns:
         The text with each unique match replaced by prefix1, prefix2, etc.
     """
-    seen = {}
+    seen: dict[str, str] = {}
     for match in re.finditer(pattern, text):
         val = match.group(0)
         if val not in seen:
@@ -71,6 +73,10 @@ def run_module(file_path: Path) -> str | None:
         the exception.
     """
     spec = importlib.util.spec_from_file_location(file_path.stem, file_path)
+    if spec is None:
+        return f"ImportError: Could not load spec for {file_path}"
+    if spec.loader is None:
+        return f"ValueError: Spec loader is None for {file_path}"
     module = importlib.util.module_from_spec(spec)
     try:
         spec.loader.exec_module(module)
@@ -100,7 +106,9 @@ def make_output_invariant(output: str) -> str:
     )
 
 
-def capture_module(file_path: Path, caplog, capsys) -> str:
+def capture_module(
+    file_path: Path, caplog: LogCaptureFixture, capsys: CaptureFixture
+) -> str:
     """Capture the output, logging, errors, and typing feedback from running
     a Python module.
 
@@ -166,7 +174,10 @@ def compare(captured: str, expected: str) -> str:
 
 
 def compare_resources_against_snapshots(
-    file_path: Path, snapshot_path: Path, caplog, capsys
+    file_path: Path,
+    snapshot_path: Path,
+    caplog: LogCaptureFixture,
+    capsys: CaptureFixture,
 ) -> str | None:
     """Compare the output of a resource file against its snapshot, updating
     the snapshot if different.

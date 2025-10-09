@@ -5,10 +5,10 @@ import pkgutil
 from collections.abc import Callable, Generator, Hashable, Iterable
 from types import ModuleType
 
+from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
 from ordeq._nodes import Node, get_node
 from ordeq._registry import NODE_REGISTRY
-from ordeq._hook import NodeHook, RunHook
 
 
 def _is_module(obj: object) -> bool:

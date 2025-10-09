@@ -112,7 +112,7 @@ def _resolve_node_reference(ref: str) -> Node:
     module_name, _, node_name = ref.partition(":")
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
-    if not _is_node(node_obj) or node_obj is None:
+    if node_obj is None or not _is_node(node_obj):
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )

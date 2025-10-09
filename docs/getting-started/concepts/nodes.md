@@ -237,7 +237,7 @@ Tags can be set using the `tags` parameter in the `@node` decorator:
 The tags can be retrieved as follows:
 
 ```pycon
->>> from ordeq.framework import get_node
+>>> from ordeq.nodes import get_node
 >>> node = get_node(greet)
 >>> node.tags
 ['size:large']

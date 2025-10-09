@@ -1,6 +1,6 @@
 from ordeq.hook import InputHook, NodeHook, OutputHook, RunHook
 from ordeq.io import IO, Input, IOException, Output
-from ordeq.nodes import Node, NodeNotFound, get_node, node
+from ordeq.nodes import Node, NodeNotFound, node
 from ordeq.runner import run
 
 __all__ = (
@@ -14,7 +14,6 @@ __all__ = (
     "Output",
     "OutputHook",
     "RunHook",
-    "get_node",
     "node",
     "run",
 )

@@ -3,8 +3,8 @@ import pkgutil
 from collections.abc import Hashable
 from types import ModuleType
 
-from ordeq.framework import IO, Input, Node, Output
-from ordeq.framework._registry import (
+from ordeq import IO, Input, Node, Output
+from ordeq._registry import (
     NODE_REGISTRY,  # noqa: PLC2701 (private-member-access)
 )
 

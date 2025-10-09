@@ -139,7 +139,7 @@ It has been developed at ING, with contributions from various individuals.
 Please refer to the [acknowledgements] section in the documentation for more details.
 
 [acknowledgements]: https://ing-bank.github.io/ordeq/contributing/acknowledgements/
-[api-ref]: https://ing-bank.github.io/ordeq/api/ordeq/framework/io/
+[api-ref]: https://ing-bank.github.io/ordeq/api/ordeq/io/
 [core-concepts]: https://ing-bank.github.io/ordeq/getting-started/concepts/io/
 [example-project]: docs/guides/examples/example-project/README.md
 [intro]: https://ing-bank.github.io/ordeq/getting-started/introduction/

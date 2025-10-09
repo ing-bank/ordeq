@@ -108,7 +108,7 @@ def Match(
     >>> Match(EnvironmentVariable("COUNTRY")).load()  # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
     ...
-    ordeq.framework.io.IOException: Failed to load
+    ordeq.IOException: Failed to load
     Unsupported case 'DE'
     ```
 

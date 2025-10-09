@@ -1,7 +1,8 @@
 import copy
 
-from ordeq import Node, get_node, node
+from ordeq import Node, node
 from ordeq.graph import NodeGraph
+from ordeq.nodes import get_node
 from ordeq.runner import _run_graph, _run_node, run
 from ordeq_common import StringBuffer
 

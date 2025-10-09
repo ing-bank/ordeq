@@ -109,6 +109,32 @@ def compare(captured: str, expected: str) -> str:
     )
 
 
+def compare_resources_against_snapshots(
+    file_path: Path, snapshot_path: Path, caplog, capsys
+) -> str | None:
+    """Snapshot test for all resource files in this package."""
+    # Capture module output
+    captured = capture_module(file_path, caplog, capsys)
+
+    # Read expected content
+    expected = (
+        snapshot_path.read_text(encoding="utf-8")
+        if snapshot_path.exists()
+        else "<NONE>"
+    )
+
+    # Compare with snapshot and update if different
+    if captured != expected:
+        diff = compare(captured, expected)
+
+        # Always write the snapshot file with normalized line endings
+        snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+        snapshot_path.write_text(captured, encoding="utf-8", newline="\n")
+
+        return diff
+    return None
+
+
 PACKAGE_DIR = Path(__file__).resolve().parent.parent
 RESOURCE_DIR = PACKAGE_DIR / "resources"
 SNAPSHOT_DIR = PACKAGE_DIR / "snapshots"
@@ -129,23 +155,8 @@ SNAPSHOT_DIR = PACKAGE_DIR / "snapshots"
 def test_resources(
     file_path: Path, snapshot_path: Path, capsys, caplog
 ) -> None:
-    """Snapshot test for all resource files in this package."""
-    # Capture module output
-    captured = capture_module(file_path, caplog, capsys)
-
-    # Read expected content
-    expected = (
-        snapshot_path.read_text(encoding="utf-8")
-        if snapshot_path.exists()
-        else "<NONE>"
+    diff = compare_resources_against_snapshots(
+        file_path, snapshot_path, caplog, capsys
     )
-
-    # Compare with snapshot and update if different
-    if captured != expected:
-        diff = compare(captured, expected)
-
-        # Always write the snapshot file with normalized line endings
-        snapshot_path.parent.mkdir(parents=True, exist_ok=True)
-        snapshot_path.write_text(captured, encoding="utf-8", newline="\n")
-
+    if diff:
         pytest.fail(f"Output does not match snapshot:\n{diff}")

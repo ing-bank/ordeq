@@ -156,8 +156,6 @@ def _resolve_hooks(
     Returns:
         A tuple of lists with node hooks and run hooks
 
-    Raises:
-        TypeError: if the hook is not a string or a Hook object
     """
 
     run_hooks = []

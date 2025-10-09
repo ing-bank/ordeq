@@ -4,7 +4,7 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeVar
 
-from ordeq._resolve import _resolve_runnables_to_nodes
+from ordeq._resolve import _resolve_runnables_to_nodes, _resolve_hook_reference
 from ordeq.graph import NodeGraph
 from ordeq.hook import NodeHook, RunHook
 from ordeq.io import Input, Output, _InputCache
@@ -158,7 +158,7 @@ def _patch_io(
 
 def run(
     *runnables: ModuleType | Callable | str,
-    hooks: Sequence[NodeHook | RunHook] = (),
+    hooks: Sequence[NodeHook | RunHook | str] = (),
     save: SaveMode = "all",
     verbose: bool = False,
     io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
@@ -183,8 +183,9 @@ def run(
     if verbose:
         print(graph)
 
-    node_hooks: list[NodeHook] = [h for h in hooks if isinstance(h, NodeHook)]
-    run_hooks: list[RunHook] = [h for h in hooks if isinstance(h, RunHook)]
+    resolved_hooks = [_resolve_hook_reference(h) for h in hooks]
+    node_hooks: list[NodeHook] = [h for h in resolved_hooks if isinstance(h, NodeHook)]
+    run_hooks: list[RunHook] = [h for h in resolved_hooks if isinstance(h, RunHook)]
 
     for run_hook in run_hooks:
         run_hook.before_run(graph)

@@ -16,6 +16,7 @@ from ordeq._resolve import (
             [
                 "example",
                 "example.catalog",
+                "example.hooks",
                 "example.nodes",
                 "example.pipeline",
                 "example.wrapped_io",
@@ -51,6 +52,7 @@ from ordeq._resolve import (
             [
                 "example",
                 "example.catalog",
+                "example.hooks",
                 "example.nodes",
                 "example.pipeline",
                 "example.wrapped_io",

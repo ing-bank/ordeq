@@ -1,6 +1,3 @@
-Exception:
-TypeError: () is not a hook. Expected a string or a hook object, got <class 'tuple'>
-
 Output:
 NodeGraph:
   Edges:
@@ -9,3 +6,9 @@ NodeGraph:
   Nodes:
      Node(name=run_shared_resource:first, outputs=[File])
      Node(name=run_shared_resource:second, inputs=[File])
+
+Logging:
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running node Node(name=run_shared_resource:second, inputs=[File])
+INFO	ordeq.runner	Running node Node(name=run_shared_resource:first, outputs=[File])
+INFO	ordeq.io	Saving File

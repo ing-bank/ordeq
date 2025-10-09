@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 from graphlib import TopologicalSorter
 
-from ordeq.nodes import Node
+from ordeq._nodes import Node
 
 try:
     from typing import Self  # type: ignore[attr-defined]

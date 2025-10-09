@@ -1,7 +1,7 @@
 from argparse import ArgumentParser, Namespace
 from typing import get_args
 
-from ordeq.runner import SaveMode
+from ordeq._runner import SaveMode  # noqa: PLC2701 (private-member-access)
 
 from ordeq_cli_runner.runner import run_node_refs, run_pipeline_ref
 

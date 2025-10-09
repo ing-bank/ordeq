@@ -5,10 +5,10 @@ import pkgutil
 from collections.abc import Callable, Generator, Hashable, Iterable
 from types import ModuleType
 
+from ordeq._io import IO, Input, Output
+from ordeq._nodes import Node, get_node
 from ordeq._registry import NODE_REGISTRY
-from ordeq.hook import NodeHook, RunHook
-from ordeq.io import IO, Input, Output
-from ordeq.nodes import Node, get_node
+from ordeq._hook import NodeHook, RunHook
 
 
 def _is_module(obj: object) -> bool:
@@ -147,12 +147,12 @@ def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
 
 
 def _resolve_hooks(
-    *hook: str | NodeHook | RunHook,
+    *hooks: str | NodeHook | RunHook,
 ) -> tuple[list[NodeHook], list[RunHook]]:
     """Resolves a hook which can be a reference string or a Hook object.
 
     Args:
-        hook: Reference string or Hook object
+        hooks: References to hooks, or hook objects
 
     Returns:
         A tuple of lists with node hooks and run hooks
@@ -163,21 +163,22 @@ def _resolve_hooks(
 
     node_hooks = []
     run_hooks = []
-    if isinstance(hook, NodeHook):
-        node_hooks.append(node_hooks)
-    elif isinstance(hook, RunHook):
-        run_hooks.append(node_hooks)
-    elif isinstance(hook, str):
-        resolved_hook = _resolve_hook_reference(hook)
-        if isinstance(resolved_hook, NodeHook):
-            node_hooks.append(resolved_hook)
-        elif isinstance(resolved_hook, RunHook):
-            run_hooks.append(resolved_hook)
-    else:
-        raise TypeError(
-            f"{hook} is not a hook. "
-            f"Expected a string or a hook object, got {type(hook)}"
-        )
+    for hook in hooks:
+        if isinstance(hook, NodeHook):
+            node_hooks.append(node_hooks)
+        elif isinstance(hook, RunHook):
+            run_hooks.append(node_hooks)
+        elif isinstance(hook, str):
+            resolved_hook = _resolve_hook_reference(hook)
+            if isinstance(resolved_hook, NodeHook):
+                node_hooks.append(resolved_hook)
+            elif isinstance(resolved_hook, RunHook):
+                run_hooks.append(resolved_hook)
+        else:
+            raise TypeError(
+                f"{hook} is not a hook. "
+                f"Expected a string or a hook object, got {type(hook)}"
+            )
     return node_hooks, run_hooks
 
 

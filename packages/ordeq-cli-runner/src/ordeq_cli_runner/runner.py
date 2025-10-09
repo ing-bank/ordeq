@@ -2,8 +2,8 @@ import importlib
 from collections.abc import Callable
 from types import ModuleType
 
-from ordeq import NodeHook
-from ordeq.runner import DataStoreType, SaveMode, run
+from ordeq import NodeHook, run
+from ordeq._runner import DataStoreType, SaveMode
 
 
 def get_module(module_ref: str) -> ModuleType:
@@ -46,7 +46,7 @@ def get_obj(
     >>> all(callable(o) for o in pipeline) # doctest: +SKIP
     True
 
-    >>> from ordeq.hook import Hook
+    >>> from ordeq._hook import Hook
     >>> log_hook = get_obj("path.to.module:LogHook")  # doctest: +SKIP
     >>> isinstance(log_hook, Hook)  # doctest: +SKIP
     True

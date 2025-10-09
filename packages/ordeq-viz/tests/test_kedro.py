@@ -1,6 +1,6 @@
 import json
 
-from ordeq.nodes import get_node
+from ordeq._nodes import get_node
 
 from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 

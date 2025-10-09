@@ -1,2 +1,2 @@
 Exception:
-TypeError: (<mixed_hook.MixedHook object at HASH1>,) is not a hook. Expected a string or a hook object, got <class 'tuple'>
+AttributeError: 'list' object has no attribute 'before_node_run'

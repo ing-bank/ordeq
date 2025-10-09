@@ -36,6 +36,7 @@ members = [
     "ordeq-requests",
     "ordeq-sentence-transformers",
     "ordeq-spark",
+    "ordeq-test-utils",
     "ordeq-toml",
     "ordeq-viz",
     "ordeq-viz-cli",
@@ -2209,8 +2210,8 @@ source = { editable = "packages/ordeq" }
 [package.dev-dependencies]
 test = [
     { name = "cloudpathlib", extra = ["s3"] },
-    { name = "mypy" },
     { name = "ordeq-common" },
+    { name = "ordeq-test-utils" },
 ]
 
 [package.metadata]
@@ -2218,8 +2219,8 @@ test = [
 [package.metadata.requires-dev]
 test = [
     { name = "cloudpathlib", extras = ["s3"], specifier = ">=0.20.0" },
-    { name = "mypy", specifier = ">=0.18.2" },
     { name = "ordeq-common", editable = "packages/ordeq-common" },
+    { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
 ]
 
 [[package]]
@@ -2789,6 +2790,20 @@ test = [
     { name = "pyspark", specifier = "==3.3.1" },
     { name = "testcontainers", specifier = "==4.8.1" },
 ]
+
+[[package]]
+name = "ordeq-test-utils"
+version = "0.1.0"
+source = { editable = "packages/ordeq-test-utils" }
+dependencies = [
+    { name = "mypy" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "mypy", specifier = ">=0.18.2" }]
+
+[package.metadata.requires-dev]
+test = []
 
 [[package]]
 name = "ordeq-toml"

@@ -1,2 +1,5 @@
 Exception:
-TypeError: ('packages.example.hooks:MyHook', <run_hook_ref_and_object.MyHook object at HASH1>) is not a hook. Expected a string or a hook object, got <class 'tuple'>
+AttributeError: 'list' object has no attribute 'before_node_run'
+
+Output:
+Starting the run

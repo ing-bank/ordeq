@@ -58,6 +58,9 @@ ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }
 ordeq-yaml = { workspace = true }
 
+# Development packages
+ordeq-test-utils = { workspace = true }
+
 [tool.uv]
 required-version = ">=0.8.23"
 

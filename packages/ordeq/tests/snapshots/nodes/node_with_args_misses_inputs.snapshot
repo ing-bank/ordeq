@@ -1,2 +1,2 @@
 Exception:
-TypeError: () is not a hook. Expected a string or a hook object, got <class 'tuple'>
+ValueError: Node inputs invalid for function arguments: Node(name=node_with_args_misses_inputs:func,...)

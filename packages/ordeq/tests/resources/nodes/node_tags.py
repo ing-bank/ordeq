@@ -1,5 +1,5 @@
 from ordeq import node
-from ordeq.nodes import get_node
+from ordeq._nodes import get_node
 from ordeq_common import StringBuffer
 
 x = StringBuffer("x")

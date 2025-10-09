@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from ordeq.nodes import Node
+    from ordeq._nodes import Node
 
 from collections.abc import Hashable
 from typing import Generic, TypeVar

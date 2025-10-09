@@ -5,8 +5,8 @@ from pathlib import Path
 
 import pytest
 from ordeq import IO, Input, Node, Output
+from ordeq._nodes import get_node
 from ordeq._registry import NODE_REGISTRY
-from ordeq.nodes import get_node
 
 
 @pytest.fixture

@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
 from ordeq import Node, node
-from ordeq.nodes import get_node
+from ordeq._nodes import get_node
 from ordeq_common import StringBuffer
 
 mock_x = StringBuffer("X")

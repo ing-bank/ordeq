@@ -1,6 +1,6 @@
 from types import ModuleType
 
-from ordeq.io import IO, Input, Output
+from ordeq._io import IO, Input, Output
 
 
 class CatalogError(Exception): ...

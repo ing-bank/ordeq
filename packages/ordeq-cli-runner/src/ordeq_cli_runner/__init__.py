@@ -2,7 +2,7 @@ from argparse import ArgumentParser, Namespace
 from typing import get_args
 
 from ordeq import run
-from ordeq.runner import SaveMode
+from ordeq._runner import SaveMode  # noqa: PLC2701 (private-member-access)
 
 
 def _create_parser() -> ArgumentParser:

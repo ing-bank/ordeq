@@ -1,4 +1,4 @@
-from ordeq.hook import InputHook, NodeHook, OutputHook
+from ordeq import InputHook, NodeHook, OutputHook
 
 
 class SpyHook(InputHook, OutputHook, NodeHook):

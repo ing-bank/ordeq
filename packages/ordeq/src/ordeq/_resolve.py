@@ -120,11 +120,14 @@ def _resolve_node_reference(ref: str) -> Node:
     return get_node(node_obj)
 
 
-def _resolve_hook_reference(ref: NodeHook | RunHook | str) -> NodeHook | RunHook:
+def _resolve_hook_reference(
+    ref: NodeHook | RunHook | str,
+) -> NodeHook | RunHook:
     """Resolves a hook reference to a Hook object.
 
     Args:
-        ref: A NodeHook, RunHook, or a string reference of the form 'package.module:hook_name'.
+        ref: A NodeHook, RunHook, or a string reference of the form
+            'package.module:hook_name'.
 
     Returns:
         The resolved Hook object.
@@ -142,7 +145,8 @@ def _resolve_hook_reference(ref: NodeHook | RunHook | str) -> NodeHook | RunHook
     hook_obj = getattr(module, hook_name, None)
     if hook_obj is None or not isinstance(hook_obj, (NodeHook, RunHook)):
         raise ValueError(
-            f"Hook '{hook_name}' not found or not a valid hook in module '{module_name}'"
+            f"Hook '{hook_name}' not found "
+            f"or not a valid hook in module '{module_name}'"
         )
     return hook_obj
 

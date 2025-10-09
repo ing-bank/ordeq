@@ -112,7 +112,7 @@ def _resolve_node_reference(ref: str) -> Node:
     module_name, _, node_name = ref.partition(":")
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
-    if not _is_node(node_obj):
+    if not _is_node(node_obj) or node_obj is None:
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )
@@ -134,7 +134,7 @@ def _resolve_runnables_to_nodes_and_modules(
     Raises:
         TypeError: if a runnable is not a module and not a node
     """
-    modules_and_strs = []
+    modules_and_strs: list[ModuleType | str] = []
     nodes = set()
     for runnable in runnables:
         if isinstance(runnable, str):

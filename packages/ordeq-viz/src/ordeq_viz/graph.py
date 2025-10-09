@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from ordeq import Input, IOException, Node, Output
-from ordeq.graph import NodeGraph
+from ordeq._graph import NodeGraph  # noqa: PLC2701 private import
 
 
 @dataclass

@@ -4,7 +4,7 @@ from typing import Any
 
 import tomli_w
 from ordeq import Input, Output
-from ordeq.io import _IOMeta  # noqa: PLC2701
+from ordeq._io import _IOMeta  # noqa: PLC2701
 from ordeq.types import PathLike
 
 if sys.version_info >= (3, 11):

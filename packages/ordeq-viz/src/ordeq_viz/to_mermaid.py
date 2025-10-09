@@ -98,7 +98,7 @@ def pipeline_to_mermaid(
 
     ```
 
-    Find all objects of type "IO" in catalog.py:
+    Find all objects of type "IO" in _catalog.py:
     ```pycon
     >>> datasets = gather_ios_from_module(catalog_module)  # doctest: +SKIP
     >>> mermaid = pipeline_to_mermaid(nodes, datasets)  # doctest: +SKIP

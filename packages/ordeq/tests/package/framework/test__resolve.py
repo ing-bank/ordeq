@@ -2,6 +2,7 @@ from collections.abc import Callable
 
 import pytest
 from ordeq import IO, Input, Node, Output
+from ordeq._nodes import get_node
 from ordeq._resolve import (
     _gather_nodes_from_registry,
     _resolve_module_to_ios,
@@ -9,7 +10,6 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes,
     _resolve_runnables_to_nodes_and_ios,
 )
-from ordeq.nodes import get_node
 from ordeq_common import StringBuffer
 
 

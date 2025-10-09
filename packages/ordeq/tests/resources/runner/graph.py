@@ -1,5 +1,5 @@
 from ordeq import node
-from ordeq.runner import run
+from ordeq._runner import run
 from ordeq_common import StringBuffer
 
 I1 = StringBuffer("Hello")

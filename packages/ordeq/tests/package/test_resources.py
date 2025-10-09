@@ -42,30 +42,48 @@ def replace_uuid4(text: str) -> str:
     )
 
 
-@pytest.mark.parametrize(
-    "file_path",
-    FILES,
-    ids=[str(file.relative_to(RESOURCE_DIR)) for file in FILES],
-)
-def test_resources(file_path: Path, capsys, caplog) -> None:
+def run_module(file_path: Path) -> str | None:
+    # Dynamically import the module
+    spec = importlib.util.spec_from_file_location(file_path.stem, file_path)
+    module = importlib.util.module_from_spec(spec)
+
+    try:
+        spec.loader.exec_module(module)
+    except Exception as e:
+        return f"{type(e).__name__}: {e}"
+
+    return None
+
+
+def make_output_invariant(output: str) -> str:
+    """Ensure the output is invariant to:
+    - uuid IDs (used by IOs)
+    - Python object hashes
+    - Operating system
+    """
+
+    # Normalize object hashes
+    captured = replace_uuid4(replace_object_hashes(output))
+
+    # Normalize platform-specific paths
+    return (
+        captured.replace("PosixPath", "Path")
+        .replace("WindowsPath", "Path")
+        .replace("\\", "/")
+    )
+
+
+def capture_module(file_path: Path, caplog, capsys):
     caplog.set_level(logging.INFO)
     caplog.handler.setFormatter(
         logging.Formatter(fmt="%(levelname)s\t%(name)s\t%(message)s")
     )
 
-    snapshot_path = SNAPSHOT_DIR / file_path.relative_to(RESOURCE_DIR)
-    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
-    snapshot_path = snapshot_path.with_suffix(".snapshot")
-
-    # Dynamically import the module
-    spec = importlib.util.spec_from_file_location(file_path.stem, file_path)
-    module = importlib.util.module_from_spec(spec)
-
     sections = {}
-    try:
-        spec.loader.exec_module(module)
-    except Exception as e:
-        sections["Exception"] = f"{type(e).__name__}: {e}"
+    exception = run_module(file_path)
+
+    if exception is not None:
+        sections["Exception"] = exception
 
     captured_out_err = capsys.readouterr()
     if captured_out_err.out:
@@ -75,6 +93,7 @@ def test_resources(file_path: Path, capsys, caplog) -> None:
     if caplog.text:
         sections["Logging"] = caplog.text
 
+    # Add typing feedback
     type_out, _, exit_code = mypy_api.run([str(file_path)])
     if exit_code != 0:
         sections["Typing"] = type_out
@@ -83,21 +102,26 @@ def test_resources(file_path: Path, capsys, caplog) -> None:
         f"{key}:\n{value.rstrip()}" for key, value in sections.items()
     )
 
-    # Normalize object hashes
-    captured = replace_uuid4(replace_object_hashes(output))
+    return make_output_invariant(output)
 
-    # Normalize platform-specific paths
-    captured = (
-        captured.replace("PosixPath", "Path")
-        .replace("WindowsPath", "Path")
-        .replace("\\", "/")
-    )
+
+@pytest.mark.parametrize(
+    "file_path",
+    FILES,
+    ids=[str(file.relative_to(RESOURCE_DIR)) for file in FILES],
+)
+def test_resources(file_path: Path, capsys, caplog) -> None:
+    captured = capture_module(file_path, caplog, capsys)
+
+    # setup snapshot path
+    snapshot_path = SNAPSHOT_DIR / file_path.relative_to(RESOURCE_DIR)
+    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+    snapshot_path = snapshot_path.with_suffix(".snapshot")
 
     # Read snapshot
     expected = (
         snapshot_path.read_text() if snapshot_path.exists() else "<NONE>"
     )
-    expected = replace_object_hashes(expected)
 
     # Compare and write diff if not equal
     if captured != expected:

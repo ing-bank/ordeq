@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from _typeshed import DataclassInstance
 from dataclasses import dataclass
 
-from ordeq.framework.io import IO, Input
+from ordeq import IO, Input
 
 
 @dataclass(frozen=True)

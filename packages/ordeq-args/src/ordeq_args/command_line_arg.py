@@ -1,7 +1,7 @@
 import argparse
 from typing import Any, TypeVar
 
-from ordeq.framework.io import Input
+from ordeq import Input
 
 T = TypeVar("T")
 

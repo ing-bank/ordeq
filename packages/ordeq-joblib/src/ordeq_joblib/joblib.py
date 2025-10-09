@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import TypeVar
 
 import joblib
-from ordeq.framework.io import IO
+from ordeq import IO
 
 T = TypeVar("T")
 

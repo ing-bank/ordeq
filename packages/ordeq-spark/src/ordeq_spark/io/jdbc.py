@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from ordeq.framework.io import IO, Input
+from ordeq import IO, Input
 from pyspark.sql import DataFrame, DataFrameReader, DataFrameWriter
 from pyspark.sql.types import StructType
 

@@ -11,4 +11,4 @@ NodeGraph:
      Node(name=incremental_placeholder:g, inputs=[IO(idx=ID3)], outputs=[Output(idx=ID4)])
 
 Logging:
-INFO	ordeq.framework.io	Loading Input(idx=ID1)
+INFO	ordeq.io	Loading Input(idx=ID1)

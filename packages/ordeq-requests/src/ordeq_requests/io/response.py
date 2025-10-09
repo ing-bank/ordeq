@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from typing import Any, Literal, TypeVar
 
 import requests
-from ordeq.framework.io import Input
+from ordeq import Input
 from requests import Session
 from urllib3.response import HTTPResponse
 
@@ -45,7 +45,7 @@ class Response(Input[T]):
     Example in a node:
 
     ```pycon
-    >>> from ordeq.framework import node
+    >>> from ordeq import node
     >>> from ordeq_files import JSON
     >>> from pathlib import Path
     >>> @node(

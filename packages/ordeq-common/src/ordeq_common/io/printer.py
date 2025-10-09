@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from ordeq.framework.io import Output
+from ordeq import Output
 
 
 @dataclass(frozen=True, eq=False)

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import TypeVar
 
-from ordeq.framework.io import Input
+from ordeq import Input
 
 T = TypeVar("T")
 

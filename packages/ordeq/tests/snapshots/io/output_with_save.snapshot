@@ -1,2 +1,2 @@
 Logging:
-INFO	ordeq.framework.io	Saving ExampleOutputsaveArg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.io	Saving ExampleOutputsaveArg(path=Path('hello.txt'), attribute='L1')

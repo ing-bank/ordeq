@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Literal
 
-from ordeq.framework.io import IO
+from ordeq import IO
 from pyspark.sql import DataFrame
 
 from ordeq_spark.io.tables.table import SparkTable

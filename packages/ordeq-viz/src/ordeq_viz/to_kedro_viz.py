@@ -3,8 +3,7 @@ import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from ordeq.framework import Node
-from ordeq.framework.io import Input, Output
+from ordeq import Node, Input, Output
 
 from ordeq_viz.graph import IOData, NodeData, _gather_graph
 
@@ -106,40 +105,40 @@ def _generate_nodes(nodes: list[NodeData], datasets: list[IOData]):
 
 def _generate_main(nodes: list[NodeData], datasets: list[IOData]):
     main_nodes = [
-        Task(
-            id=str(node.id),
-            name=node.name,
-            tags=[],
-            pipelines=["__default__"],
-            modular_pipelines=None,
-            parameters={},
-        )
-        for node in nodes
-    ] + [
-        Data(
-            id=str(dataset.id),
-            name=dataset.name,
-            tags=[],
-            pipelines=["__default__"],
-            modular_pipelines=None,
-            layer=None,
-            dataset_type=dataset.type,
-            stats=None,
-        )
-        for dataset in datasets
-    ]
+                     Task(
+                         id=str(node.id),
+                         name=node.name,
+                         tags=[],
+                         pipelines=["__default__"],
+                         modular_pipelines=None,
+                         parameters={},
+                     )
+                     for node in nodes
+                 ] + [
+                     Data(
+                         id=str(dataset.id),
+                         name=dataset.name,
+                         tags=[],
+                         pipelines=["__default__"],
+                         modular_pipelines=None,
+                         layer=None,
+                         dataset_type=dataset.type,
+                         stats=None,
+                     )
+                     for dataset in datasets
+                 ]
     main = Main(
         nodes=main_nodes,
         edges=[
-            Edge(source=str(dataset), target=str(node.id))
-            for node in nodes
-            for dataset in node.inputs
-        ]
-        + [
-            Edge(source=str(node.id), target=str(dataset))
-            for node in nodes
-            for dataset in node.outputs
-        ],
+                  Edge(source=str(dataset), target=str(node.id))
+                  for node in nodes
+                  for dataset in node.inputs
+              ]
+              + [
+                  Edge(source=str(node.id), target=str(dataset))
+                  for node in nodes
+                  for dataset in node.outputs
+              ],
         layers=[],
         tags=[],
         pipelines=[Pipeline(id="__default__", name="__default__")],
@@ -167,8 +166,8 @@ def pipeline_to_kedro_viz(
     """Convert a pipeline to a kedro-viz static pipeline directory
 
     Args:
-        nodes: `ordeq.framework.Pipeline`, or a set of `ordeq.framework.Node`
-        datasets: dict of name and `ordeq.framework.IO`
+        nodes: set of `ordeq.Node`
+        datasets: dict of name and `ordeq.IO`
         output_directory: path to write the output data to
 
     Raises:

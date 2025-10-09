@@ -8,7 +8,7 @@ NodeGraph:
      Node(name=run_shared_resource:second, inputs=[File])
 
 Logging:
-INFO	ordeq._io	Loading File
-INFO	ordeq._runner	Running node Node(name=run_shared_resource:second, inputs=[File])
-INFO	ordeq._runner	Running node Node(name=run_shared_resource:first, outputs=[File])
-INFO	ordeq._io	Saving File
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running node Node(name=run_shared_resource:second, inputs=[File])
+INFO	ordeq.runner	Running node Node(name=run_shared_resource:first, outputs=[File])
+INFO	ordeq.io	Saving File

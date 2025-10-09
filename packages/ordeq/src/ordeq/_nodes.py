@@ -9,7 +9,7 @@ from typing import Any, Generic, ParamSpec, TypeVar, overload
 from ordeq._io import Input, Output
 from ordeq._registry import NODE_REGISTRY
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("ordeq.nodes")
 
 T = TypeVar("T")
 FuncParams = ParamSpec("FuncParams")

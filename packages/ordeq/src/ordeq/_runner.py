@@ -10,7 +10,7 @@ from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node
 from ordeq._resolve import _resolve_runnables_to_nodes
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("ordeq.runner")
 
 T = TypeVar("T")
 

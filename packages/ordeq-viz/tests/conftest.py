@@ -4,8 +4,8 @@ from collections.abc import Callable
 from pathlib import Path
 
 import pytest
+from ordeq import IO, Input, Node, Output
 from ordeq._registry import NODE_REGISTRY
-from ordeq import IO, Input, Output, Node
 from ordeq.nodes import get_node
 
 

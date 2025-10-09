@@ -27,5 +27,4 @@ class MatplotlibFigure(Output[plt.Figure]):
 
     def save(self, fig: plt.Figure) -> None:
         with self.path.open(mode="wb") as fh:
-            fig.savefig(fh, format=os.path.splitext(str(self.path))[1][
-                1:])  # noqa: PTH122
+            fig.savefig(fh, format=os.path.splitext(str(self.path))[1][1:])  # noqa: PTH122

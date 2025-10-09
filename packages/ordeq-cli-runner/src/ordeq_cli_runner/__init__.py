@@ -39,7 +39,7 @@ def _create_parser() -> ArgumentParser:
         "--save",
         choices=get_args(SaveMode),
         help="Which outputs to save: all, or only sinks (outputs with "
-             "no successor node)",
+        "no successor node)",
         default="all",
     )
     return parser

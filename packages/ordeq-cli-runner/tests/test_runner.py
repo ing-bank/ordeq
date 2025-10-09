@@ -2,8 +2,7 @@ from collections.abc import Callable
 from unittest.mock import Mock
 
 import pytest
-from ordeq import Node
-from ordeq import NodeHook
+from ordeq import Node, NodeHook
 from ordeq_cli_runner.runner import get_hook, get_node, get_obj, get_pipeline
 from ordeq_common import Literal
 

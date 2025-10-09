@@ -1,7 +1,7 @@
 from itertools import cycle
 from typing import Any
 
-from ordeq import Input, Output, Node
+from ordeq import Input, Node, Output
 
 from ordeq_viz.graph import _gather_graph
 

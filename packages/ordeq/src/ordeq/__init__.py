@@ -14,6 +14,7 @@ __all__ = (
     "Output",
     "OutputHook",
     "RunHook",
+    "get_node",
     "node",
     "run",
 )

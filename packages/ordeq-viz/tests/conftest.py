@@ -4,9 +4,9 @@ from collections.abc import Callable
 from pathlib import Path
 
 import pytest
-from ordeq.framework._registry import NODE_REGISTRY
-from ordeq.framework.io import IO, Input, Output
-from ordeq.framework.nodes import Node, get_node
+from ordeq import IO, Input, Node, Output
+from ordeq._registry import NODE_REGISTRY
+from ordeq.nodes import get_node
 
 
 @pytest.fixture

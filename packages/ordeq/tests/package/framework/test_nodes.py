@@ -1,8 +1,7 @@
 import pytest
-from ordeq import Node, node
-from ordeq.framework import IO, get_node
-from ordeq.framework.nodes import NodeNotFound
-from ordeq.framework.runner import _run_node
+from ordeq import IO, Node, node
+from ordeq.nodes import NodeNotFound, get_node
+from ordeq.runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 
 

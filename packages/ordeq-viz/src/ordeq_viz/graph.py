@@ -1,9 +1,8 @@
 from dataclasses import dataclass, field
 from typing import Any
 
-from ordeq.framework.graph import NodeGraph
-from ordeq.framework.io import Input, IOException, Output
-from ordeq.framework.nodes import Node
+from ordeq import Input, IOException, Node, Output
+from ordeq.graph import NodeGraph
 
 
 @dataclass

@@ -1,6 +1,6 @@
 import pytest
 from ordeq import Node
-from ordeq.framework._registry import Registry
+from ordeq._registry import Registry
 
 
 def f():

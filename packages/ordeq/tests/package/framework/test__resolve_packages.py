@@ -1,7 +1,7 @@
 import importlib
 
 import pytest
-from ordeq.framework._resolve import (
+from ordeq._resolve import (
     _resolve_runnables_to_modules,
     _resolve_runnables_to_nodes,
     _resolve_runnables_to_nodes_and_ios,

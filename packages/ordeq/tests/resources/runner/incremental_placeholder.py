@@ -1,5 +1,5 @@
 from ordeq import IO, Input, Output, node
-from ordeq.framework.runner import run
+from ordeq.runner import run
 from ordeq_common import StringBuffer
 
 I1 = Input[str]()

@@ -1,9 +1,9 @@
 import copy
 
 from ordeq import Node, node
-from ordeq.framework import get_node
-from ordeq.framework.graph import NodeGraph
-from ordeq.framework.runner import _run_graph, _run_node, run
+from ordeq.graph import NodeGraph
+from ordeq.nodes import get_node
+from ordeq.runner import _run_graph, _run_node, run
 from ordeq_common import StringBuffer
 
 A, B, D = [StringBuffer(c) for c in "ABD"]

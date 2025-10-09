@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 
 import pytest
-from ordeq.framework._registry import NODE_REGISTRY
+from ordeq._registry import NODE_REGISTRY
 from ordeq_common import StringBuffer
 
 

@@ -3,7 +3,7 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any, Literal, overload
 
-from ordeq.framework._resolve import (
+from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
 )
 

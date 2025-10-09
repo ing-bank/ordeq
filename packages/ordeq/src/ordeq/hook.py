@@ -10,9 +10,9 @@ from typing import (
 )
 
 if TYPE_CHECKING:
-    from ordeq.framework.graph import NodeGraph
-    from ordeq.framework.io import IO, Input, Output
-    from ordeq.framework.nodes import Node
+    from ordeq.graph import NodeGraph
+    from ordeq.io import IO, Input, Output
+    from ordeq.nodes import Node
 
 T = TypeVar("T")
 

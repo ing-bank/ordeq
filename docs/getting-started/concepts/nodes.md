@@ -214,38 +214,6 @@ Of course, you can also load the data directly from the IOs:
 
 This has the overhead of loading the data from storage, but it can be useful if you want to access the data after the run has completed.
 
-### _Advanced_: node tags
-
-Nodes can be tagged to help organize and filter them.
-Tags can be set using the `tags` parameter in the `@node` decorator:
-
-=== "nodes.py"
-
-    ```python
-    import catalog
-
-
-    @node(inputs=catalog.names, outputs=catalog.greetings, tags=["size:large"])
-    def greet(names: Iterable[str]) -> None:
-        """Returns a greeting for each person."""
-        greetings = []
-        for name in names:
-            greetings.append(f"Hello, {name}!")
-        return greetings
-    ```
-
-The tags can be retrieved as follows:
-
-```pycon
->>> from ordeq.framework import get_node
->>> node = get_node(greet)
->>> node.tags
-['size:large']
-```
-
-Tags are currently used by Ordeq extensions such as `ordeq-cli-runner`, or `ordeq-viz`.
-Refer to the documentation of these extensions for more information.
-
 !!! success "Where to go from here?"
 
     - See how to extend inject custom logic with [node hooks][hooks]

@@ -1,5 +1,5 @@
 import pytest
-from ordeq.framework.io import IOException
+from ordeq import IOException
 from ordeq_spark import SparkTempView
 from pyspark.sql import SparkSession
 

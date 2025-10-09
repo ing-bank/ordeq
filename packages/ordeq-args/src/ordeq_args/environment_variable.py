@@ -1,7 +1,7 @@
 import os
 from dataclasses import KW_ONLY, dataclass
 
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True)

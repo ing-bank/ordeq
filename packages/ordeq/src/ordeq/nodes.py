@@ -6,8 +6,8 @@ from functools import cached_property, wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
 
-from ordeq.framework._registry import NODE_REGISTRY
-from ordeq.framework.io import Input, Output
+from ordeq._registry import NODE_REGISTRY
+from ordeq.io import Input, Output
 
 logger = logging.getLogger(__name__)
 

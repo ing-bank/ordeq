@@ -1,5 +1,5 @@
 from ordeq import node
-from ordeq.framework.catalog import check_catalogs_are_consistent
+from ordeq.catalog import check_catalogs_are_consistent
 
 from resources.catalog.catalogs import inconsistent, local
 

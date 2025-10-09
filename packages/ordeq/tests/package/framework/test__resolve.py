@@ -2,12 +2,14 @@ from collections.abc import Callable
 
 import pytest
 from ordeq import IO, Input, Node, Output
-from ordeq.framework import get_node
-from ordeq.framework._resolve import (
+from ordeq._resolve import (
     _gather_nodes_from_registry,
     _resolve_module_to_ios,
+    _resolve_node_reference,
+    _resolve_runnables_to_nodes,
     _resolve_runnables_to_nodes_and_ios,
 )
+from ordeq.nodes import get_node
 from ordeq_common import StringBuffer
 
 
@@ -109,3 +111,32 @@ def test_gather_nodes_and_ios_from_package(
     nodes, ios = _resolve_runnables_to_nodes_and_ios(example)
     assert expected_example_nodes == {n.func for n in nodes}
     assert expected_example_ios == ios
+
+
+def test_resolve_node_by_reference(
+    expected_example_node_objects, append_packages_dir_to_sys_path
+) -> None:
+    """Test resolving nodes by reference."""
+    from example.nodes import world  # ty: ignore[unresolved-import]
+
+    nodes = _resolve_runnables_to_nodes("example.nodes:world")
+    assert nodes == {get_node(world)}
+
+
+def test_resolve_node_by_reference_not_a_node(
+    append_packages_dir_to_sys_path,
+) -> None:
+    """Test resolving nodes by reference when the reference is not a node."""
+
+    with pytest.raises(
+        ValueError,
+        match=r"Node 'i_do_not_exist' not found in module 'example.nodes'",
+    ):
+        _resolve_runnables_to_nodes("example.nodes:i_do_not_exist")
+
+
+def test_resolve_node_by_reference_no_module() -> None:
+    with pytest.raises(
+        ValueError, match="Invalid node reference: 'invalidformat'"
+    ):
+        _resolve_node_reference("invalidformat")

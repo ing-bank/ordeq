@@ -1,8 +1,6 @@
 from typing import Literal
 
-from ordeq import Node
-from ordeq.framework.hook import OutputHook
-from ordeq.framework.io import Output
+from ordeq import Node, Output, OutputHook
 from pyspark.sql import DataFrame
 
 

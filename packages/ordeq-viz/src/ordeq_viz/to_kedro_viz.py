@@ -3,8 +3,7 @@ import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from ordeq.framework import Node
-from ordeq.framework.io import Input, Output
+from ordeq import Input, Node, Output
 
 from ordeq_viz.graph import IOData, NodeData, _gather_graph
 
@@ -167,8 +166,8 @@ def pipeline_to_kedro_viz(
     """Convert a pipeline to a kedro-viz static pipeline directory
 
     Args:
-        nodes: `ordeq.framework.Pipeline`, or a set of `ordeq.framework.Node`
-        datasets: dict of name and `ordeq.framework.IO`
+        nodes: set of `ordeq.Node`
+        datasets: dict of name and `ordeq.IO`
         output_directory: path to write the output data to
 
     Raises:

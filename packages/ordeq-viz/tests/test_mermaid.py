@@ -1,6 +1,6 @@
 import pytest
-from ordeq.framework import get_node
-from ordeq.framework._resolve import _resolve_runnables_to_nodes_and_ios
+from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
+from ordeq.nodes import get_node
 
 from ordeq_viz.to_mermaid import _make_mermaid_header, pipeline_to_mermaid
 

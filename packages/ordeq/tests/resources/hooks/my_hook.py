@@ -1,5 +1,5 @@
 from ordeq import Node, NodeHook, Output, OutputHook, node
-from ordeq.framework import get_node
+from ordeq.nodes import get_node
 from ordeq_common import StringBuffer
 
 

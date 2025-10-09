@@ -1,9 +1,9 @@
 import logging
 
 from ordeq import node
-from ordeq.framework import get_node
-from ordeq.framework.graph import NodeGraph
-from ordeq.framework.runner import _run_graph
+from ordeq.nodes import get_node
+from ordeq.graph import NodeGraph
+from ordeq.runner import _run_graph
 from ordeq_common import StringBuffer
 
 logging.basicConfig(level=logging.INFO)

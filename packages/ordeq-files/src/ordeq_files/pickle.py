@@ -1,8 +1,11 @@
 import pickle
 from dataclasses import dataclass
+from typing import TypeVar
 
-from ordeq.framework.io import IO, T
+from ordeq import IO
 from ordeq.types import PathLike
+
+T = TypeVar("T")
 
 
 @dataclass(frozen=True, kw_only=True)

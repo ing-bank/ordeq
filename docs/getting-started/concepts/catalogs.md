@@ -99,7 +99,7 @@ Here is how you would adapt the previous script:
 
 ```python title="catalogs/__init__.py"  hl_lines="2 6"
 import os
-from ordeq.framework.catalog import check_catalogs_are_consistent
+from ordeq.catalog import check_catalogs_are_consistent
 
 from catalogs import local, production
 

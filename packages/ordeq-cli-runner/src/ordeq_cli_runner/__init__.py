@@ -2,7 +2,7 @@ from argparse import ArgumentParser, Namespace
 from typing import get_args
 
 from ordeq import run
-from ordeq.framework.runner import SaveMode
+from ordeq.runner import SaveMode
 
 
 def _create_parser() -> ArgumentParser:

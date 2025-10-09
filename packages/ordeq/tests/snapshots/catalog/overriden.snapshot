@@ -3,6 +3,6 @@ HELLO FROM REMOTE!
 {Print(): 'HELLO FROM REMOTE!'}
 
 Logging:
-INFO	ordeq.framework.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.framework.runner	Running node Node(name=overriden:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])
-INFO	ordeq.framework.io	Saving Print()
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node Node(name=overriden:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])
+INFO	ordeq.io	Saving Print()

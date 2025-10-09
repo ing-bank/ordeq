@@ -1,7 +1,7 @@
 from collections.abc import Generator
 from dataclasses import dataclass
 
-from ordeq.framework.io import Input
+from ordeq import Input
 from ordeq.types import GlobPath, PathLike
 
 

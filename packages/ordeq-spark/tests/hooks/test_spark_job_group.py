@@ -3,7 +3,7 @@ from io import StringIO
 from typing import Any
 
 from ordeq import IO, node
-from ordeq.framework import get_node
+from ordeq.nodes import get_node
 from ordeq_spark import SparkJobGroupHook
 
 

@@ -1,8 +1,7 @@
 from itertools import cycle
 from typing import Any
 
-from ordeq.framework.io import Input, Output
-from ordeq.framework.nodes import Node
+from ordeq import Input, Node, Output
 
 from ordeq_viz.graph import _gather_graph
 
@@ -60,8 +59,8 @@ def pipeline_to_mermaid(
     """Convert a pipeline to a mermaid diagram
 
     Args:
-        nodes: set of `ordeq.framework.Node`
-        datasets: dict of name and `ordeq.framework.IO`
+        nodes: set of `ordeq.Node`
+        datasets: dict of name and `ordeq.IO`
         legend: if True, display a legend
         use_dataset_styles: if True, use a distinct color for each dataset type
         connect_wrapped_datasets: if True, connect wrapped datasets with a

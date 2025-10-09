@@ -1,2 +1,4 @@
-Exception:
-ImportError: cannot import name 'get_node' from 'ordeq' (/Users/sw05nn/Developer/ordeq/packages/ordeq/src/ordeq/__init__.py)
+Output:
+saving data `hello` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
+running node Node(name=my_hook:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
+saving data `world` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`

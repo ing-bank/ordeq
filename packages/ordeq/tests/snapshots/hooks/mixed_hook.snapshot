@@ -1,7 +1,2 @@
-Output:
-Hook: before saving output of node mixed_hook:my_node with data: Hello, World!
-saving! Hello, World!
-
-Logging:
-INFO	ordeq.runner	Running node Node(name=mixed_hook:my_node, outputs=[Output(idx=ID1)])
-INFO	ordeq.io	Saving Output(idx=ID1)
+Exception:
+TypeError: (<mixed_hook.MixedHook object at HASH1>,) is not a hook. Expected a string or a hook object, got <class 'tuple'>

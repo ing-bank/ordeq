@@ -120,14 +120,11 @@ def _resolve_node_reference(ref: str) -> Node:
     return get_node(node_obj)
 
 
-def _resolve_hook_reference(
-    ref: NodeHook | RunHook | str,
-) -> NodeHook | RunHook:
-    """Resolves a hook reference to a Hook object.
+def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
+    """Resolves a hook reference string of the form 'package.module:hook_name'.
 
     Args:
-        ref: A NodeHook, RunHook, or a string reference of the form
-            'package.module:hook_name'.
+        ref: Reference string, e.g. 'my_package.my_module:my_hook'
 
     Returns:
         The resolved Hook object.
@@ -136,8 +133,6 @@ def _resolve_hook_reference(
         ValueError: if the hook cannot be found or is not a valid Hook object.
     """
 
-    if isinstance(ref, (NodeHook, RunHook)):
-        return ref
     if ":" not in ref:
         raise ValueError(f"Invalid hook reference: '{ref}'.")
     module_name, _, hook_name = ref.partition(":")
@@ -149,6 +144,41 @@ def _resolve_hook_reference(
             f"or not a valid hook in module '{module_name}'"
         )
     return hook_obj
+
+
+def _resolve_hooks(
+    *hook: str | NodeHook | RunHook,
+) -> tuple[list[NodeHook], list[RunHook]]:
+    """Resolves a hook which can be a reference string or a Hook object.
+
+    Args:
+        hook: Reference string or Hook object
+
+    Returns:
+        A tuple of lists with node hooks and run hooks
+
+    Raises:
+        TypeError: if the hook is not a string or a Hook object
+    """
+
+    node_hooks = []
+    run_hooks = []
+    if isinstance(hook, NodeHook):
+        node_hooks.append(node_hooks)
+    elif isinstance(hook, RunHook):
+        run_hooks.append(node_hooks)
+    elif isinstance(hook, str):
+        resolved_hook = _resolve_hook_reference(hook)
+        if isinstance(resolved_hook, NodeHook):
+            node_hooks.append(resolved_hook)
+        elif isinstance(resolved_hook, RunHook):
+            run_hooks.append(resolved_hook)
+    else:
+        raise TypeError(
+            f"{hook} is not a hook. "
+            f"Expected a string or a hook object, got {type(hook)}"
+        )
+    return node_hooks, run_hooks
 
 
 def _resolve_runnables_to_nodes_and_modules(

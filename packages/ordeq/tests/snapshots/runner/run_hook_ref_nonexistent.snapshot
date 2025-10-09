@@ -1,2 +1,2 @@
 Exception:
-ValueError: Hook 'idontexist' not found or not a valid hook in module 'packages.example.hooks'
+TypeError: ('packages.example.hooks:idontexist',) is not a hook. Expected a string or a hook object, got <class 'tuple'>

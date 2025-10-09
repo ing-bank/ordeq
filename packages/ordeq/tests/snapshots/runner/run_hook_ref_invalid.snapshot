@@ -1,2 +1,2 @@
 Exception:
-ValueError: Invalid hook reference: 'invalid'.
+TypeError: ('invalid',) is not a hook. Expected a string or a hook object, got <class 'tuple'>

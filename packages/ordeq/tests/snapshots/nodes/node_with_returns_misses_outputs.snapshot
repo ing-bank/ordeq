@@ -1,2 +1,2 @@
 Exception:
-ValueError: Node outputs invalid for return annotation: Node(name=node_with_returns_misses_outputs:func,...). Node has 0 output(s), but the return type annotation expects 1 value(s).
+TypeError: () is not a hook. Expected a string or a hook object, got <class 'tuple'>

@@ -68,14 +68,42 @@ def test_missing_runnables():
 
 
 @pytest.mark.parametrize(
-    "runnable", ["subpackage", "subpackage.hello", "subpackage.hello:world"]
+    ("runnables", "hooks", "expected"),
+    [
+        pytest.param(["subpackage"], [], "Hello, World!", id="package"),
+        pytest.param(["subpackage"], ["subpackage.hooks:MyNodeHook"], "(before-node)\nHello, World!\n(after-node)", id="package + hook"),
+        pytest.param(["subpackage"], ["subpackage.hooks:MyNodeHook", "subpackage.hooks:MyRunHook"], "(before-run)\n(before-node)\nHello, World!\n(after-node)\n(after-run)", id="package + hooks"),
+        pytest.param(["subpackage.hello"], [], "Hello, World!", id="module"),
+        pytest.param(
+            ["subpackage.hello:world"], [], "Hello, World!", id="node"
+        ),
+        pytest.param(
+            ["subpackage.hello:world"],
+            ["subpackage.hooks:MyNodeHook"],
+            "(before-node)\nHello, World!\n(after-node)",
+            id="node + hook",
+        ),
+        pytest.param(
+            ["subpackage.hello:world"],
+            ["subpackage.hooks:MyNodeHook", "subpackage.hooks:MyRunHook"],
+            "(before-run)\n(before-node)\nHello, World!\n(after-node)\n(after-run)",
+            id="node + hooks",
+        ),
+    ],
 )
-def test_it_runs(capsys: pytest.CaptureFixture, runnable: str):
+def test_it_runs(
+    capsys: pytest.CaptureFixture,
+    runnables: list[str],
+    hooks: list[str],
+    expected: str,
+):
     try:
         sys.path.append(str(RESOURCES_DIR))
-        with patch.object(sys, "argv", ["ordeq", "run", runnable]):
+        with patch.object(
+            sys, "argv", ["ordeq", "run", *runnables, "--hooks", *hooks]
+        ):
             main()
             captured = capsys.readouterr()
-            assert captured.out.strip() == "Hello, World!"
+            assert captured.out.strip() == expected
     finally:
         sys.path.remove(str(RESOURCES_DIR))

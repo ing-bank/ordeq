@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 
 import pytest
-from ordeq.framework.graph import (
+from ordeq.graph import (
     _build_graph,
     _find_sink_nodes,
     _find_topological_ordering,

@@ -13,7 +13,7 @@ try:
 except ImportError:
     from typing_extensions import Self
 
-from ordeq.framework.hook import InputHook, OutputHook
+from ordeq.hook import InputHook, OutputHook
 
 logger = logging.getLogger(__name__)
 
@@ -269,7 +269,7 @@ class Input(
     yet. In this case, you can:
 
     ```python
-    >>> from ordeq.framework import Input, node
+    >>> from ordeq import Input, node
     >>> from ordeq_common import StringBuffer
 
     >>> name = Input[str]()
@@ -503,7 +503,7 @@ class Output(
     In this case, you can:
 
     ```python
-    >>> from ordeq.framework import Output, node
+    >>> from ordeq import Output, node
     >>> from ordeq_common import StringBuffer
 
     >>> greeting = StringBuffer("hello")

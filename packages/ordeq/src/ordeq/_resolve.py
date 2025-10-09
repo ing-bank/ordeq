@@ -5,9 +5,9 @@ import pkgutil
 from collections.abc import Callable, Generator, Hashable, Iterable
 from types import ModuleType
 
-from ordeq.framework._registry import NODE_REGISTRY
-from ordeq.framework.io import IO, Input, Output
-from ordeq.framework.nodes import Node, get_node
+from ordeq._registry import NODE_REGISTRY
+from ordeq.io import IO, Input, Output
+from ordeq.nodes import Node, get_node
 
 
 def _is_module(obj: object) -> bool:

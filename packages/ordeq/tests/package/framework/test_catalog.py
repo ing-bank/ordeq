@@ -2,7 +2,7 @@ from types import ModuleType
 from unittest.mock import Mock
 
 import pytest
-from ordeq.framework.catalog import CatalogError, check_catalogs_are_consistent
+from ordeq.catalog import CatalogError, check_catalogs_are_consistent
 from ordeq_common import Literal, StringBuffer
 
 

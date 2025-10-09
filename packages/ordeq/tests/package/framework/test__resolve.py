@@ -1,9 +1,8 @@
 from collections.abc import Callable
 
 import pytest
-from ordeq import IO, Input, Node, Output
-from ordeq.framework import get_node
-from ordeq.framework._resolve import (
+from ordeq import IO, Input, Node, Output, get_node
+from ordeq._resolve import (
     _gather_nodes_from_registry,
     _resolve_module_to_ios,
     _resolve_node_reference,

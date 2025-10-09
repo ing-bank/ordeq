@@ -71,8 +71,22 @@ def test_missing_runnables():
     ("runnables", "hooks", "expected"),
     [
         pytest.param(["subpackage"], [], "Hello, World!", id="package"),
-        pytest.param(["subpackage"], ["subpackage.hooks:MyNodeHook"], "(before-node)\nHello, World!\n(after-node)", id="package + hook"),
-        pytest.param(["subpackage"], ["subpackage.hooks:MyNodeHook", "subpackage.hooks:MyRunHook"], "(before-run)\n(before-node)\nHello, World!\n(after-node)\n(after-run)", id="package + hooks"),
+        pytest.param(
+            ["subpackage"],
+            ["subpackage.hooks:MyNodeHook"],
+            "(before-node)\nHello, World!\n(after-node)",
+            id="package + hook",
+        ),
+        pytest.param(
+            ["subpackage"],
+            ["subpackage.hooks:MyNodeHook", "subpackage.hooks:MyRunHook"],
+            "(before-run)\n"
+            "(before-node)\n"
+            "Hello, World!\n"
+            "(after-node)\n"
+            "(after-run)",
+            id="package + hooks",
+        ),
         pytest.param(["subpackage.hello"], [], "Hello, World!", id="module"),
         pytest.param(
             ["subpackage.hello:world"], [], "Hello, World!", id="node"
@@ -86,7 +100,11 @@ def test_missing_runnables():
         pytest.param(
             ["subpackage.hello:world"],
             ["subpackage.hooks:MyNodeHook", "subpackage.hooks:MyRunHook"],
-            "(before-run)\n(before-node)\nHello, World!\n(after-node)\n(after-run)",
+            "(before-run)\n"
+            "(before-node)\n"
+            "Hello, World!\n"
+            "(after-node)\n"
+            "(after-run)",
             id="node + hooks",
         ),
     ],

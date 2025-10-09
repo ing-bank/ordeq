@@ -188,7 +188,7 @@ def pipeline_to_kedro_viz(
 
     >>> # Gather all nodes in your project:
     >>> nodes = gather_nodes_from_registry()
-    >>> # Find all objects of type "IO" in _catalog.py
+    >>> # Find all objects of type "IO" in catalog.py
     >>> datasets = gather_ios_from_module(catalog_module)  # doctest: +SKIP
 
     >>> pipeline_to_kedro_viz(

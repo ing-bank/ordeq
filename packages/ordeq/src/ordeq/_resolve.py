@@ -6,6 +6,7 @@ from collections.abc import Callable, Generator, Hashable, Iterable
 from types import ModuleType
 
 from ordeq._registry import NODE_REGISTRY
+from ordeq.hook import NodeHook, RunHook
 from ordeq.io import IO, Input, Output
 from ordeq.nodes import Node, get_node
 
@@ -117,6 +118,37 @@ def _resolve_node_reference(ref: str) -> Node:
             f"Node '{node_name}' not found in module '{module_name}'"
         )
     return get_node(node_obj)
+
+
+def _resolve_hook_reference(
+    ref: NodeHook | RunHook | str,
+) -> NodeHook | RunHook:
+    """Resolves a hook reference to a Hook object.
+
+    Args:
+        ref: A NodeHook, RunHook, or a string reference of the form
+            'package.module:hook_name'.
+
+    Returns:
+        The resolved Hook object.
+
+    Raises:
+        ValueError: if the hook cannot be found or is not a valid Hook object.
+    """
+
+    if isinstance(ref, (NodeHook, RunHook)):
+        return ref
+    if ":" not in ref:
+        raise ValueError(f"Invalid hook reference: '{ref}'.")
+    module_name, _, hook_name = ref.partition(":")
+    module = _resolve_string_to_module(module_name)
+    hook_obj = getattr(module, hook_name, None)
+    if hook_obj is None or not isinstance(hook_obj, (NodeHook, RunHook)):
+        raise ValueError(
+            f"Hook '{hook_name}' not found "
+            f"or not a valid hook in module '{module_name}'"
+        )
+    return hook_obj
 
 
 def _resolve_runnables_to_nodes_and_modules(

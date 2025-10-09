@@ -4,12 +4,21 @@ import logging
 import re
 from pathlib import Path
 
-import pytest
 from mypy import api as mypy_api
 
 
 def _replace_pattern_with_seq(text: str, pattern: str, prefix: str) -> str:
-    """Replace unique matches of pattern with prefix1, prefix2, ..."""
+    """Replace unique matches of a regex pattern in the text with a sequential
+    prefix.
+
+    Args:
+        text: The input string to process.
+        pattern: The regex pattern to match in the text.
+        prefix: The prefix to use for replacements (e.g., 'HASH', 'ID').
+
+    Returns:
+        The text with each unique match replaced by prefix1, prefix2, etc.
+    """
     seen = {}
     for match in re.finditer(pattern, text):
         val = match.group(0)
@@ -23,12 +32,27 @@ def _replace_pattern_with_seq(text: str, pattern: str, prefix: str) -> str:
 
 
 def replace_object_hashes(text: str) -> str:
-    """Replace object hashes like 0x103308890 with HASH1, HASH2, etc."""
+    """Replace object hashes (e.g., 0x103308890) in the text with sequential
+    placeholders.
+
+    Args:
+        text: The input string to process.
+
+    Returns:
+        The text with object hashes replaced by HASH1, HASH2, etc.
+    """
     return _replace_pattern_with_seq(text, r"0x[0-9a-fA-F]+", "HASH")
 
 
 def replace_uuid4(text: str) -> str:
-    """Replace UUID4 strings with ID1, ID2, etc."""
+    """Replace UUID4 strings in the text with sequential placeholders.
+
+    Args:
+        text: The input string to process.
+
+    Returns:
+        The text with UUID4 strings replaced by ID1, ID2, etc.
+    """
     return _replace_pattern_with_seq(
         text,
         r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
@@ -37,7 +61,15 @@ def replace_uuid4(text: str) -> str:
 
 
 def run_module(file_path: Path) -> str | None:
-    """Dynamically import and run a Python module"""
+    """Dynamically import and run a Python module from a file path.
+
+    Args:
+        file_path: The path to the Python file to import and run.
+
+    Returns:
+        None if the module runs successfully, otherwise a string describing
+        the exception.
+    """
     spec = importlib.util.spec_from_file_location(file_path.stem, file_path)
     module = importlib.util.module_from_spec(spec)
     try:
@@ -48,12 +80,15 @@ def run_module(file_path: Path) -> str | None:
 
 
 def make_output_invariant(output: str) -> str:
-    """Ensure the output is invariant to:
-    - uuid IDs (used by IOs)
-    - Python object hashes
-    - Operating system
-    """
+    """Normalize output to be invariant to UUIDs, object hashes, and
+    OS-specific paths.
 
+    Args:
+        output: The captured output string to normalize.
+
+    Returns:
+        The normalized output string.
+    """
     # Normalize object hashes
     captured = replace_uuid4(replace_object_hashes(output))
 
@@ -65,7 +100,18 @@ def make_output_invariant(output: str) -> str:
     )
 
 
-def capture_module(file_path: Path, caplog, capsys):
+def capture_module(file_path: Path, caplog, capsys) -> str:
+    """Capture the output, logging, errors, and typing feedback from running
+    a Python module.
+
+    Args:
+        file_path: The path to the Python file to run.
+        caplog: The pytest caplog fixture for capturing logs.
+        capsys: The pytest capsys fixture for capturing stdout/stderr.
+
+    Returns:
+        The normalized captured output as a string.
+    """
     caplog.set_level(logging.INFO)
     caplog.handler.setFormatter(
         logging.Formatter(fmt="%(levelname)s\t%(name)s\t%(message)s")
@@ -98,7 +144,17 @@ def capture_module(file_path: Path, caplog, capsys):
 
 
 def compare(captured: str, expected: str) -> str:
-    assert captured != expected
+    """Return a unified diff between captured and expected strings.
+
+    Args:
+        captured: The actual captured output.
+        expected: The expected output.
+
+    Returns:
+        A unified diff string showing the differences.
+    """
+    if captured == expected:
+        return ""
     return "\n".join(
         difflib.unified_diff(
             expected.splitlines(),
@@ -112,7 +168,18 @@ def compare(captured: str, expected: str) -> str:
 def compare_resources_against_snapshots(
     file_path: Path, snapshot_path: Path, caplog, capsys
 ) -> str | None:
-    """Snapshot test for all resource files in this package."""
+    """Compare the output of a resource file against its snapshot, updating
+    the snapshot if different.
+
+    Args:
+        file_path: The path to the resource file to test.
+        snapshot_path: The path to the snapshot file to compare against.
+        caplog: The pytest caplog fixture for capturing logs.
+        capsys: The pytest capsys fixture for capturing stdout/stderr.
+
+    Returns:
+        A unified diff string if the outputs differ, otherwise None.
+    """
     # Capture module output
     captured = capture_module(file_path, caplog, capsys)
 
@@ -133,30 +200,3 @@ def compare_resources_against_snapshots(
 
         return diff
     return None
-
-
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-RESOURCE_DIR = PACKAGE_DIR / "resources"
-SNAPSHOT_DIR = PACKAGE_DIR / "snapshots"
-
-
-@pytest.mark.parametrize(
-    ("file_path", "snapshot_path"),
-    [
-        pytest.param(
-            file_path,
-            SNAPSHOT_DIR
-            / file_path.relative_to(RESOURCE_DIR).with_suffix(".snapshot"),
-            id=str(file_path.relative_to(RESOURCE_DIR)),
-        )
-        for file_path in RESOURCE_DIR.rglob("*.py")
-    ],
-)
-def test_resources(
-    file_path: Path, snapshot_path: Path, capsys, caplog
-) -> None:
-    diff = compare_resources_against_snapshots(
-        file_path, snapshot_path, caplog, capsys
-    )
-    if diff:
-        pytest.fail(f"Output does not match snapshot:\n{diff}")

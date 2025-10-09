@@ -1,2 +1,6 @@
-Exception:
-ImportError: cannot import name 'get_node' from 'ordeq' (/Users/sw05nn/Developer/ordeq/packages/ordeq/src/ordeq/__init__.py)
+Output:
+[]
+Node(name=node_tags:func2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)], tags=['tag1', 'tag2'])
+['tag1', 'tag2']
+{'key1': 'value1'}
+[]

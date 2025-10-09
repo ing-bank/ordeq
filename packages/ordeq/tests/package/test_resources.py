@@ -7,12 +7,6 @@ from pathlib import Path
 import pytest
 from mypy import api as mypy_api
 
-PACKAGE_DIR = Path(__file__).resolve().parent.parent
-RESOURCE_DIR = PACKAGE_DIR / "resources"
-SNAPSHOT_DIR = PACKAGE_DIR / "snapshots"
-
-FILES = list(RESOURCE_DIR.rglob("*.py"))
-
 
 def _replace_pattern_with_seq(text: str, pattern: str, prefix: str) -> str:
     """Replace unique matches of pattern with prefix1, prefix2, ..."""
@@ -43,15 +37,13 @@ def replace_uuid4(text: str) -> str:
 
 
 def run_module(file_path: Path) -> str | None:
-    # Dynamically import the module
+    """Dynamically import and run a Python module"""
     spec = importlib.util.spec_from_file_location(file_path.stem, file_path)
     module = importlib.util.module_from_spec(spec)
-
     try:
         spec.loader.exec_module(module)
     except Exception as e:
         return f"{type(e).__name__}: {e}"
-
     return None
 
 
@@ -105,35 +97,55 @@ def capture_module(file_path: Path, caplog, capsys):
     return make_output_invariant(output)
 
 
-@pytest.mark.parametrize(
-    "file_path",
-    FILES,
-    ids=[str(file.relative_to(RESOURCE_DIR)) for file in FILES],
-)
-def test_resources(file_path: Path, capsys, caplog) -> None:
-    captured = capture_module(file_path, caplog, capsys)
-
-    # setup snapshot path
-    snapshot_path = SNAPSHOT_DIR / file_path.relative_to(RESOURCE_DIR)
-    snapshot_path.parent.mkdir(parents=True, exist_ok=True)
-    snapshot_path = snapshot_path.with_suffix(".snapshot")
-
-    # Read snapshot
-    expected = (
-        snapshot_path.read_text() if snapshot_path.exists() else "<NONE>"
+def compare(captured: str, expected: str) -> str:
+    assert captured != expected
+    return "\n".join(
+        difflib.unified_diff(
+            expected.splitlines(),
+            captured.splitlines(),
+            fromfile="expected",
+            tofile="actual",
+        )
     )
 
-    # Compare and write diff if not equal
+
+PACKAGE_DIR = Path(__file__).resolve().parent.parent
+RESOURCE_DIR = PACKAGE_DIR / "resources"
+SNAPSHOT_DIR = PACKAGE_DIR / "snapshots"
+
+
+@pytest.mark.parametrize(
+    ("file_path", "snapshot_path"),
+    [
+        pytest.param(
+            file_path,
+            SNAPSHOT_DIR
+            / file_path.relative_to(RESOURCE_DIR).with_suffix(".snapshot"),
+            id=str(file_path.relative_to(RESOURCE_DIR)),
+        )
+        for file_path in RESOURCE_DIR.rglob("*.py")
+    ],
+)
+def test_resources(
+    file_path: Path, snapshot_path: Path, capsys, caplog
+) -> None:
+    """Snapshot test for all resource files in this package."""
+    # Capture module output
+    captured = capture_module(file_path, caplog, capsys)
+
+    # Read expected content
+    expected = (
+        snapshot_path.read_text(encoding="utf-8")
+        if snapshot_path.exists()
+        else "<NONE>"
+    )
+
+    # Compare with snapshot and update if different
     if captured != expected:
-        diff = "\n".join(
-            difflib.unified_diff(
-                expected.splitlines(),
-                captured.splitlines(),
-                fromfile="expected",
-                tofile="actual",
-            )
-        )
-        snapshot_path.with_suffix(".snapshot").write_text(
-            captured, newline="\n"
-        )
+        diff = compare(captured, expected)
+
+        # Always write the snapshot file with normalized line endings
+        snapshot_path.parent.mkdir(parents=True, exist_ok=True)
+        snapshot_path.write_text(captured, encoding="utf-8", newline="\n")
+
         pytest.fail(f"Output does not match snapshot:\n{diff}")

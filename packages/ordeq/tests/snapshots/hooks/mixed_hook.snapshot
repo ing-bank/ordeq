@@ -1,2 +1,7 @@
-Exception:
-AttributeError: 'list' object has no attribute 'before_node_run'
+Output:
+Hook: before saving output of node mixed_hook:my_node with data: Hello, World!
+saving! Hello, World!
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=mixed_hook:my_node, outputs=[Output(idx=ID1)])
+INFO	ordeq.io	Saving Output(idx=ID1)

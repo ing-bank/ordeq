@@ -140,15 +140,14 @@ def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
     hook_obj = getattr(module, hook_name, None)
     if hook_obj is None or not isinstance(hook_obj, (NodeHook, RunHook)):
         raise ValueError(
-            f"Hook '{hook_name}' not found "
-            f"or not a valid hook in module '{module_name}'"
+            f"Hook '{hook_name}' not found in module '{module_name}'"
         )
     return hook_obj
 
 
 def _resolve_hooks(
     *hooks: str | NodeHook | RunHook,
-) -> tuple[list[NodeHook], list[RunHook]]:
+) -> tuple[list[RunHook], list[NodeHook]]:
     """Resolves a hook which can be a reference string or a Hook object.
 
     Args:
@@ -161,25 +160,20 @@ def _resolve_hooks(
         TypeError: if the hook is not a string or a Hook object
     """
 
-    node_hooks = []
     run_hooks = []
+    node_hooks = []
     for hook in hooks:
         if isinstance(hook, NodeHook):
-            node_hooks.append(node_hooks)
+            node_hooks.append(hook)
         elif isinstance(hook, RunHook):
-            run_hooks.append(node_hooks)
+            run_hooks.append(hook)
         elif isinstance(hook, str):
             resolved_hook = _resolve_hook_reference(hook)
             if isinstance(resolved_hook, NodeHook):
                 node_hooks.append(resolved_hook)
             elif isinstance(resolved_hook, RunHook):
                 run_hooks.append(resolved_hook)
-        else:
-            raise TypeError(
-                f"{hook} is not a hook. "
-                f"Expected a string or a hook object, got {type(hook)}"
-            )
-    return node_hooks, run_hooks
+    return run_hooks, node_hooks
 
 
 def _resolve_runnables_to_nodes_and_modules(

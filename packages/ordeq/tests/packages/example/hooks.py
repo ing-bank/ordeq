@@ -10,3 +10,5 @@ class _MyHook(RunHook):
 
 
 MyHook = _MyHook()
+
+other_obj = 123

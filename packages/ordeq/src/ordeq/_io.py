@@ -13,9 +13,9 @@ try:
 except ImportError:
     from typing_extensions import Self
 
-from ordeq.hook import InputHook, OutputHook
+from ordeq._hook import InputHook, OutputHook
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("ordeq.io")
 
 
 class IOException(Exception):

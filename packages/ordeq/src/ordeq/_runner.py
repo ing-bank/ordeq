@@ -4,13 +4,13 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeVar
 
+from ordeq._graph import NodeGraph
+from ordeq._hook import NodeHook, RunHook
+from ordeq._io import Input, Output, _InputCache
+from ordeq._nodes import Node
 from ordeq._resolve import _resolve_runnables_to_nodes
-from ordeq.graph import NodeGraph
-from ordeq.hook import NodeHook, RunHook
-from ordeq.io import Input, Output, _InputCache
-from ordeq.nodes import Node
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("ordeq.runner")
 
 T = TypeVar("T")
 

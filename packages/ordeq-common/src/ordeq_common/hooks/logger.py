@@ -1,6 +1,7 @@
+import logging
 from logging import Logger, getLogger
 
-from ordeq.hook import InputHook, NodeHook, OutputHook
+from ordeq._hook import InputHook, NodeHook, OutputHook
 
 _DEFAULT_LOGGER = getLogger("LoggerHook")
 
@@ -9,8 +10,13 @@ class LoggerHook(InputHook, OutputHook, NodeHook):
     """Hook that prints the calls to the methods.
     Typically only used for test purposes."""
 
-    def __init__(self, logger: Logger = _DEFAULT_LOGGER):
+    def __init__(
+        self,
+        logger: Logger | None = _DEFAULT_LOGGER,
+        level: int = logging.INFO
+    ) -> None:
         self._logger = logger
+        self._level = level
 
     def before_node_run(self, *args) -> None:
         return self._register_call("before_node_run", *args)
@@ -34,4 +40,4 @@ class LoggerHook(InputHook, OutputHook, NodeHook):
         return self._register_call("after_node_run", *args)
 
     def _register_call(self, item, *args) -> None:
-        self._logger.info("Called '%s' with args: %s", item, args)
+        self._logger.log(self._level, "Called '%s' with args: %s", item, args)

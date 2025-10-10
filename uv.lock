@@ -2331,6 +2331,7 @@ test = [
     { name = "ordeq-args" },
     { name = "ordeq-files" },
     { name = "ordeq-spark" },
+    { name = "ordeq-test-utils" },
 ]
 
 [package.metadata]
@@ -2341,6 +2342,7 @@ test = [
     { name = "ordeq-args", editable = "packages/ordeq-args" },
     { name = "ordeq-files", editable = "packages/ordeq-files" },
     { name = "ordeq-spark", editable = "packages/ordeq-spark" },
+    { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
 ]
 
 [[package]]

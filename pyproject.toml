@@ -81,8 +81,8 @@ fail_under = 85
 [tool.coverage.run]
 omit = [
     "_version.py",
-    "packages/ordeq/tests/resources/*",
-    "packages/ordeq/tests/snapshots/*",
+    "packages/*/tests/resources/*",
+    "packages/*/tests/snapshots/*",
 ]
 
 [tool.pytest.ini_options]

@@ -4,8 +4,12 @@ from ordeq import node, IO, run
 from ordeq_common import Literal, LoggerHook
 
 _logger = logging.getLogger("custom_logger")
-_logger.setLevel(logging.CRITICAL)
-logger = LoggerHook(logger=_logger)
+_logger.setLevel(logging.FATAL)
+
+logger = LoggerHook(
+    logger=logging.getLogger("custom_logger"),
+    level=logging.ERROR
+)
 
 
 @node(inputs=Literal("name"), outputs=IO())

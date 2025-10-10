@@ -1,9 +1,10 @@
 import logging
 from logging import Logger, getLogger
 
-from ordeq._hook import InputHook, NodeHook, OutputHook
+from ordeq import InputHook, NodeHook, OutputHook
 
 _DEFAULT_LOGGER = getLogger("LoggerHook")
+_DEFAULT_LOGGER.setLevel(logging.INFO)
 
 
 class LoggerHook(InputHook, OutputHook, NodeHook):
@@ -12,11 +13,14 @@ class LoggerHook(InputHook, OutputHook, NodeHook):
 
     def __init__(
         self,
+        *,
         logger: Logger | None = _DEFAULT_LOGGER,
-        level: int = logging.INFO
+        level: int | None = None,
     ) -> None:
         self._logger = logger
-        self._level = level
+        self._level = logger.level
+        if level is not None:
+            self._level = level
 
     def before_node_run(self, *args) -> None:
         return self._register_call("before_node_run", *args)

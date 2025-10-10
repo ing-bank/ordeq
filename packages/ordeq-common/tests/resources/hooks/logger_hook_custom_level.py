@@ -1,9 +1,9 @@
 import logging
 
 from ordeq import node, IO, run
-from ordeq_common import SpyHook, Literal, LoggerHook
+from ordeq_common import Literal, LoggerHook
 
-logger = LoggerHook(level=logging.DEBUG)
+logger = LoggerHook(level=logging.FATAL)
 
 
 @node(inputs=Literal("name"), outputs=IO())

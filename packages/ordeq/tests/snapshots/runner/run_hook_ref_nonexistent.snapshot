@@ -1,2 +1,2 @@
 Exception:
-ValueError: Hook 'idontexist' not found or not a valid hook in module 'packages.example.hooks'
+ValueError: Hook 'idontexist' not found in module 'packages.example.hooks'

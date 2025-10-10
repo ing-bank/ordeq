@@ -24,6 +24,7 @@ test = [
     "ordeq-args",
     "ordeq-spark",
     "ordeq-files",
+    "ordeq-test-utils",
 ]
 
 [tool.setuptools_scm]
@@ -35,10 +36,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-common/
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

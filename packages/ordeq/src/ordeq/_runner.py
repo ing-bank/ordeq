@@ -8,7 +8,7 @@ from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node
-from ordeq._resolve import _resolve_hook_reference, _resolve_runnables_to_nodes
+from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -183,13 +183,7 @@ def run(
     if verbose:
         print(graph)
 
-    resolved_hooks = [_resolve_hook_reference(h) for h in hooks]
-    node_hooks: list[NodeHook] = [
-        h for h in resolved_hooks if isinstance(h, NodeHook)
-    ]
-    run_hooks: list[RunHook] = [
-        h for h in resolved_hooks if isinstance(h, RunHook)
-    ]
+    run_hooks, node_hooks = _resolve_hooks(*hooks)
 
     for run_hook in run_hooks:
         run_hook.before_run(graph)

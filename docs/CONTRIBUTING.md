@@ -76,19 +76,20 @@ uv run pre-commit install
 
 ### Publishing to PyPi for the first time
 
-GitHub Actions cannot publish a new package to PyPi until GitHub is added as a Trusted Publisher for the project. To enable automated publishing, you must first publish the package to PyPi manually and configure the Trusted Publisher settings:
+GitHub Actions cannot publish a new package to PyPi until GitHub is added as a Trusted Publisher for the project.
+To enable automated publishing, you must first publish the package to PyPi manually and configure the Trusted Publisher settings:
 
-1. Create a tag for the package as described in the release instructions.
-1. Run `just publish` locally to publish the package.
+- Create a tag for the package as described in the release instructions.
+- Run `just publish` locally to publish the package.
     - You will be prompted for a PyPi token, which can be generated at: https://pypi.org/manage/account/token/
-1. Visit the PyPi project page and select "Manage project".
+- Visit the PyPi project page and select "Manage project".
     - Note: The project may not be immediately searchable. You can access it directly at `https://pypi.org/project/{package}/`.
-1. In the "Publishing" section, add a new publisher:
+- In the "Publishing" section, add a new publisher:
     - Organization: `ing-bank`
     - Repository: `ordeq`
     - Workflow: `release.yml`
     - Environment: `pypi`
-1. After completing these steps, future tags pushed to the repository will trigger automated publishing via GitHub Actions.
+- After completing these steps, future tags pushed to the repository will trigger automated publishing via GitHub Actions.
 
 ### Troubleshooting
 

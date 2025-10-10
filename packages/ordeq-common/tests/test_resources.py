@@ -4,7 +4,6 @@ import pytest
 from ordeq_test_utils import compare_resources_against_snapshots
 
 TESTS_DIR = Path(__file__).resolve().parent
-print(TESTS_DIR)
 RESOURCE_DIR = TESTS_DIR / "resources"
 SNAPSHOT_DIR = TESTS_DIR / "snapshots"
 

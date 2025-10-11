@@ -370,7 +370,7 @@ def test_gather_nodes_and_ios_from_package(
     expected_modules,
     expected_nodes,
     expected_ios,
-    append_packages_dir_to_sys_path,
+    packages,
 ) -> None:
     """Test gathering nodes and IOs from a package."""
 

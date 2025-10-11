@@ -1,7 +1,6 @@
 import pytest
 from ordeq import IO, Node, node
 from ordeq._nodes import get_node
-from ordeq._resolve import _resolve_proxy_to_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 

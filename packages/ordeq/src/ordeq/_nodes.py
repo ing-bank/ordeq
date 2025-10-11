@@ -295,7 +295,7 @@ def node(
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            inner.__ordeq_node__ = _create_node(inner, inputs, outputs, tags)
+            inner.__ordeq_node__ = _create_node(inner, inputs, outputs, tags)  # type: ignore[attr-defined]
             return inner
 
         return wrapped
@@ -307,7 +307,7 @@ def node(
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    wrapper.__ordeq_node__ = _create_node(wrapper, inputs, outputs, tags)
+    wrapper.__ordeq_node__ = _create_node(wrapper, inputs, outputs, tags)  # type: ignore[attr-defined]
     return wrapper
 
 
@@ -325,6 +325,6 @@ def get_node(func: Callable) -> Node:
     """
 
     try:
-        return func.__ordeq_node__
+        return func.__ordeq_node__  # type: ignore[attr-defined]
     except AttributeError as e:
         raise ValueError(f"'{func.__name__}' is not a node") from e

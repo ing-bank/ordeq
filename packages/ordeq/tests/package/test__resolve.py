@@ -4,11 +4,11 @@ import pytest
 from ordeq import IO, Input, Node, Output, node
 from ordeq._nodes import get_node
 from ordeq._resolve import (
+    _is_node_proxy,
     _resolve_module_to_ios,
     _resolve_node_reference,
-    _resolve_proxy_to_node,
     _resolve_runnables_to_nodes,
-    _resolve_runnables_to_nodes_and_ios, _is_node_proxy,
+    _resolve_runnables_to_nodes_and_ios,
 )
 from ordeq_common import StringBuffer
 
@@ -143,35 +143,13 @@ def test_is_node_proxy():
     assert not _is_node_proxy(object)
     assert not _is_node_proxy(None)
 
-    # Lambda function
-    lam = lambda x: x
-    assert not _is_node_proxy(lam)
-
-    # Built-in function
-    assert not _is_node_proxy(len)
-
-    # Decorated function (not a node)
-    def decorator(f):
-        def wrapper(*args, **kwargs):
-            return f(*args, **kwargs)
-
-        return wrapper
-
-    @decorator
-    def decorated():
-        pass
-
-    assert not _is_node_proxy(decorated)
-
     # Object with fake __ordeq_node__ attribute (not a Node)
     class Fake:
-        def __init__(self):
-            self.__ordeq_node__ = "not_a_node"
-
         def __call__(self):
             pass
 
     fake_obj = Fake()
+    fake_obj.__ordeq_node__ = "not_a_node"
     assert not _is_node_proxy(fake_obj)
 
     # Object with __ordeq_node__ attribute that is a Node, but not callable

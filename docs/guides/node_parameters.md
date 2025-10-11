@@ -22,7 +22,7 @@ Using IOs has several advantages:
 Example using global variables (not recommended):
 
 ```python
-from ordeq import node, IO
+from ordeq import IO, node
 
 name_str = IO()
 greeting = IO()
@@ -40,7 +40,7 @@ def greet(name: str) -> str:
 Instead, use an IO for the `excited` parameter:
 
 ```python
-from ordeq import node, IO
+from ordeq import IO, node
 from ordeq_common import Literal
 
 name_str = IO()
@@ -65,15 +65,15 @@ The [`[tool]`](https://packaging.python.org/en/latest/specifications/pyproject-t
 Ordeq can read parameters from a `[tool.your_tool_name]` section in `pyproject.toml` and pass it to one or more nodes using little code.
 
 ```python
-from typing import Any
 from pathlib import Path
-from ordeq import node, IO
-from ordeq_pyproject import Pyproject
-from ordeq_toml import TOML
 
+from ordeq import IO, node
+from ordeq_pyproject import Pyproject
 
 name = IO()
-language = Pyproject(path=Path("pyproject.toml"), section="tool.my_tool.language")
+language = Pyproject(
+    path=Path("pyproject.toml"), section="tool.my_tool.language"
+)
 greeting = IO()
 
 
@@ -105,10 +105,11 @@ The following example a Pydantic model that is read from a YAML file, validated 
 
 ```python
 from pathlib import Path
-from pydantic import BaseModel
-from ordeq import node, IO
+
+from ordeq import IO, node
 from ordeq_pydantic import PydanticModel
 from ordeq_yaml import YAML
+from pydantic import BaseModel
 
 
 class GreetingConfig(BaseModel):
@@ -118,8 +119,7 @@ class GreetingConfig(BaseModel):
 
 name = IO()
 config = PydanticModel(
-    io=YAML(path=Path("path/to/file.yml")),
-    model_type=GreetingConfig
+    io=YAML(path=Path("path/to/file.yml")), model_type=GreetingConfig
 )
 greeting = IO()
 

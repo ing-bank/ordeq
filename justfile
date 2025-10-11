@@ -11,10 +11,18 @@ ruff: lint format
 
 # Formatting with mdformat
 mdformat:
-    uv run --with mdformat-mkdocs --with mdformat-ruff --with ruff mdformat --check docs/ README.md
+    uv run --with mdformat-mkdocs mdformat --check docs/ README.md
 
 mdformat-fix:
-    uv run --with mdformat-mkdocs --with mdformat-ruff mdformat docs/ README.md
+    uv run --with mdformat-mkdocs mdformat docs/ README.md
+
+doccmd-ruff-format:
+    uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff format" docs/ README.md
+
+doccmd-ruff-lint:
+    uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff check --fix" docs/ README.md
+
+doccmd-fix: doccmd-ruff-format doccmd-ruff-lint
 
 # Linting with ruff
 lint:
@@ -48,7 +56,7 @@ mypy:
 sa: ruff ty mypy
 
 # Format code and apply lint fixes with ruff and mdformat
-fix: format-fix lint-fix mdformat-fix
+fix: format-fix lint-fix mdformat-fix doccmd-fix
 
 # Test all packages individually
 # or test specific ones by passing the names as arguments

@@ -2,13 +2,12 @@
 
 import importlib
 import pkgutil
-from collections.abc import Callable, Generator, Hashable, Iterable
+from collections.abc import Callable, Generator, Iterable
 from types import ModuleType
 
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
-from ordeq._nodes import Node, get_node
-from ordeq._registry import NODE_REGISTRY
+from ordeq._nodes import Node
 
 
 def _is_module(obj: object) -> bool:
@@ -23,8 +22,18 @@ def _is_io(obj: object) -> bool:
     return isinstance(obj, (IO, Input, Output))
 
 
-def _is_node(obj: object) -> bool:
-    return isinstance(obj, Hashable) and obj in NODE_REGISTRY
+def _is_node_proxy(obj: object) -> bool:
+    return callable(obj) and hasattr(obj, "__ordeq_node__") and isinstance(
+        obj.__ordeq_node__, Node
+    )
+
+
+def _resolve_object_to_node(obj: object) -> Node:
+    if _is_node_proxy(obj):
+        node = getattr(obj, "__ordeq_node__")
+        return node
+        return node.replace(name=obj.__name__)
+    raise TypeError(f"{obj} is not a node")
 
 
 def _resolve_string_to_module(name: str) -> ModuleType:
@@ -78,7 +87,8 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
     """
 
-    return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
+    return {_resolve_object_to_node(obj) for obj in vars(module).values() if
+            _is_node_proxy(obj)}
 
 
 def _resolve_module_to_ios(
@@ -113,11 +123,11 @@ def _resolve_node_reference(ref: str) -> Node:
     module_name, _, node_name = ref.partition(":")
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
-    if node_obj is None or not _is_node(node_obj):
+    if node_obj is None or not _is_node_proxy(node_obj):
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )
-    return get_node(node_obj)
+    return _resolve_object_to_node(node_obj)
 
 
 def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
@@ -197,7 +207,7 @@ def _resolve_runnables_to_nodes_and_modules(
         ):
             modules_and_strs.append(runnable)
         elif callable(runnable):
-            nodes.add(get_node(runnable))
+            nodes.add(_resolve_object_to_node(runnable))
         elif isinstance(runnable, str):
             nodes.add(_resolve_node_reference(runnable))
         else:
@@ -229,15 +239,6 @@ def _resolve_runnables_to_nodes(
     for module in modules:
         nodes.update(_resolve_module_to_nodes(module))
     return nodes
-
-
-def _gather_nodes_from_registry() -> set[Node]:
-    """Find all `Node` objects defined in the provided module
-
-    Returns:
-        a set of `Node` objects
-    """
-    return set(NODE_REGISTRY._data.values())  # noqa: SLF001
 
 
 def _check_missing_ios(

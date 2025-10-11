@@ -2,13 +2,11 @@ from collections.abc import Callable
 
 import pytest
 from ordeq import IO, Input, Node, Output
-from ordeq._nodes import get_node
 from ordeq._resolve import (
-    _gather_nodes_from_registry,
     _resolve_module_to_ios,
     _resolve_node_reference,
     _resolve_runnables_to_nodes,
-    _resolve_runnables_to_nodes_and_ios,
+    _resolve_runnables_to_nodes_and_ios,_resolve_object_to_node
 )
 from ordeq_common import StringBuffer
 
@@ -74,7 +72,7 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
     Returns:
         a set of expected node objects
     """
-    return {get_node(f) for f in expected_example_nodes}
+    return {_resolve_object_to_node(f) for f in expected_example_nodes}
 
 
 def test_gather_ios_from_module(packages):
@@ -89,14 +87,12 @@ def test_gather_ios_from_module(packages):
     assert datasets["TestOutput"].__class__.__name__ == "MockOutput"
 
 
-def test_gather_nodes_from_module(packages):
-    from example import nodes as mod  # ty: ignore[unresolved-import]
-
-    nodes = _gather_nodes_from_registry()
-
-    assert len(nodes) >= 1
-    assert get_node(mod.world) in nodes
-
+# def test_gather_nodes_from_module(packages):
+#     from example import nodes as mod  # ty: ignore[unresolved-import]
+#
+#     assert len(nodes) >= 1
+#     assert get_node(mod.world) in nodes
+#
 
 def test_gather_nodes_and_ios_from_package(
     expected_example_nodes, expected_example_ios, packages
@@ -116,7 +112,7 @@ def test_resolve_node_by_reference(
     from example.nodes import world  # ty: ignore[unresolved-import]
 
     nodes = _resolve_runnables_to_nodes("example.nodes:world")
-    assert nodes == {get_node(world)}
+    assert nodes == {_resolve_object_to_node(world)}
 
 
 def test_resolve_node_by_reference_not_a_node(packages) -> None:

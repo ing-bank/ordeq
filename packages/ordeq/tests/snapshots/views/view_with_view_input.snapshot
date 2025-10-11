@@ -1,0 +1,19 @@
+Output:
+NodeGraph:
+  Edges:
+     view_with_view_input:first_view -> [view_with_view_input:second_view]
+     view_with_view_input:my_node -> []
+     view_with_view_input:second_view -> [view_with_view_input:my_node]
+  Nodes:
+     Node(name=view_with_view_input:first_view, outputs=[Node(name=view_with_view_input:first_view)])
+     Node(name=view_with_view_input:my_node, inputs=[Node(name=view_with_view_input:second_view, inputs=[Node(name=view_with_view_input:first_view)])], outputs=[Print()])
+     Node(name=view_with_view_input:second_view, inputs=[Node(name=view_with_view_input:first_view)], outputs=[Node(name=view_with_view_input:second_view, inputs=[Node(name=view_with_view_input:first_view)])])
+data from node: 'data from 2nd view: 'data from 1st view''
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=view_with_view_input:first_view, outputs=[Node(name=view_with_view_input:first_view)])
+INFO	ordeq.io	Saving Node(name=view_with_view_input:first_view)
+INFO	ordeq.runner	Running node Node(name=view_with_view_input:second_view, inputs=[Node(name=view_with_view_input:first_view)], outputs=[Node(name=view_with_view_input:second_view, inputs=[Node(name=view_with_view_input:first_view)])])
+INFO	ordeq.io	Saving Node(name=view_with_view_input:second_view, inputs=[Node(name=view_with_view_input:first_view)])
+INFO	ordeq.runner	Running node Node(name=view_with_view_input:my_node, inputs=[Node(name=view_with_view_input:second_view, inputs=[Node(name=view_with_view_input:first_view)])], outputs=[Print()])
+INFO	ordeq.io	Saving Print()

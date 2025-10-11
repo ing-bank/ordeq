@@ -1,0 +1,17 @@
+Output:
+NodeGraph:
+  Edges:
+     node_with_mixed_inputs:greet -> []
+     node_with_mixed_inputs:world -> [node_with_mixed_inputs:greet]
+  Nodes:
+     Node(name=node_with_mixed_inputs:greet, inputs=[Literal('Hello'), Node(name=node_with_mixed_inputs:world)], outputs=[Print()])
+     Node(name=node_with_mixed_inputs:world, outputs=[Node(name=node_with_mixed_inputs:world)])
+Hello, world!
+{Node(name=node_with_mixed_inputs:world): 'world', Print(): 'Hello, world!'}
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=node_with_mixed_inputs:world, outputs=[Node(name=node_with_mixed_inputs:world)])
+INFO	ordeq.io	Saving Node(name=node_with_mixed_inputs:world)
+INFO	ordeq.io	Loading Literal('Hello')
+INFO	ordeq.runner	Running node Node(name=node_with_mixed_inputs:greet, inputs=[Literal('Hello'), Node(name=node_with_mixed_inputs:world)], outputs=[Print()])
+INFO	ordeq.io	Saving Print()

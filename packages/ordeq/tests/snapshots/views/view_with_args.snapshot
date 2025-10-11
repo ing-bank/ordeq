@@ -1,0 +1,19 @@
+Output:
+NodeGraph:
+  Edges:
+     view_with_args:my_node -> []
+     view_with_args:view_with_args -> [view_with_args:my_node]
+  Nodes:
+     Node(name=view_with_args:my_node, inputs=[Node(name=view_with_args:view_with_args, inputs=[Literal('arg1'), Literal(2), Literal(3.0)])], outputs=[Print()])
+     Node(name=view_with_args:view_with_args, inputs=[Literal('arg1'), Literal(2), Literal(3.0)], outputs=[Node(name=view_with_args:view_with_args, inputs=[Literal('arg1'), Literal(2), Literal(3.0)])])
+data from view: '('arg1', 2, 3.0)'
+{Node(name=view_with_args:view_with_args, inputs=[Literal('arg1'), Literal(2), Literal(3.0)]): ('arg1', 2, 3.0), Print(): "data from view: '('arg1', 2, 3.0)'"}
+
+Logging:
+INFO	ordeq.io	Loading Literal('arg1')
+INFO	ordeq.io	Loading Literal(2)
+INFO	ordeq.io	Loading Literal(3.0)
+INFO	ordeq.runner	Running node Node(name=view_with_args:view_with_args, inputs=[Literal('arg1'), Literal(2), Literal(3.0)], outputs=[Node(name=view_with_args:view_with_args, inputs=[Literal('arg1'), Literal(2), Literal(3.0)])])
+INFO	ordeq.io	Saving Node(name=view_with_args:view_with_args, inputs=[Literal('arg1'), Literal(2), Literal(3.0)])
+INFO	ordeq.runner	Running node Node(name=view_with_args:my_node, inputs=[Node(name=view_with_args:view_with_args, inputs=[Literal('arg1'), Literal(2), Literal(3.0)])], outputs=[Print()])
+INFO	ordeq.io	Saving Print()

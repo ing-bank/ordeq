@@ -2,9 +2,9 @@ import copy
 
 from ordeq import Node, node
 from ordeq._graph import NodeGraph
-from ordeq._nodes import get_node
 from ordeq._runner import _run_graph, _run_node, run
 from ordeq_common import StringBuffer
+from ordeq._resolve import _resolve_object_to_node
 
 A, B, D = [StringBuffer(c) for c in "ABD"]
 C = StringBuffer()
@@ -46,7 +46,8 @@ def test_run_graph_all():
     plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
     minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
     square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
-    nodes = [get_node(plus), get_node(minus), get_node(square)]
+    nodes = [_resolve_object_to_node(plus), _resolve_object_to_node(minus),
+             _resolve_object_to_node(square)]
     expected_data_store = {
         C: "A + BAAsomething",
         E: "A + BAAsomething - D",
@@ -59,7 +60,7 @@ def test_run_graph_all():
 def test_run_graph_two():
     plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
     minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
-    nodes = [get_node(plus), get_node(minus)]
+    nodes = [_resolve_object_to_node(plus), _resolve_object_to_node(minus)]
     expected_data_store = {C: "A + BAAsomething", E: "A + BAAsomething - D"}
     data_store = _run_graph(NodeGraph.from_nodes(nodes))
     assert data_store == expected_data_store
@@ -67,7 +68,7 @@ def test_run_graph_two():
 
 def test_run_graph_one():
     plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
-    nodes = [get_node(plus)]
+    nodes = [_resolve_object_to_node(plus)]
     expected_data_store = {C: "A + BAAsomething"}
     data_store = _run_graph(NodeGraph.from_nodes(nodes))
     assert data_store == expected_data_store

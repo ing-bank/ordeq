@@ -1,0 +1,19 @@
+Exception:
+AttributeError: 'function' object has no attribute 'save'
+
+Output:
+NodeGraph:
+  Edges:
+     view_as_output:calc -> []
+  Nodes:
+     Node(name=view_as_output:calc, outputs=[<function view at HASH1>])
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=view_as_output:calc, outputs=[<function view at HASH1>])
+
+Typing:
+packages/ordeq/tests/resources/views/view_as_output.py:11: error: No overload variant of "node" matches argument type "Callable[[], str]"  [call-overload]
+packages/ordeq/tests/resources/views/view_as_output.py:11: note: Possible overload variants:
+packages/ordeq/tests/resources/views/view_as_output.py:11: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., tags: list[str] | dict[str, Any] | None = ...) -> Callable[FuncParams, FuncReturns]
+packages/ordeq/tests/resources/views/view_as_output.py:11: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., tags: list[str] | dict[str, Any] | None = ...) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
+Found 1 error in 1 file (checked 1 source file)

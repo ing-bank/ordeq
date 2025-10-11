@@ -1,9 +1,0 @@
-Exception:
-AttributeError: 'function' object has no attribute 'load'
-
-Output:
-NodeGraph:
-  Edges:
-     func_as_input:calc -> []
-  Nodes:
-     Node(name=func_as_input:calc, inputs=[<function func at HASH1>], outputs=[Print()])

@@ -26,7 +26,6 @@ def _get_node_name(func: Callable) -> str:
 
 @dataclass(frozen=True)
 class Node(Generic[FuncParams, FuncReturns]):
-    name: str
     func: Callable[FuncParams, FuncReturns]
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
@@ -313,3 +312,22 @@ def node(
 
     wrapper.__ordeq_node__ = _create_node(wrapper, inputs, outputs, tags)
     return wrapper
+
+
+def _get_node(proxy: Callable) -> Node:
+    """Gets the node from a callable created with the `@node` decorator.
+
+    Args:
+        proxy: a callable created with the `@node` decorator
+
+    Returns:
+        the node associated with the callable
+
+    Raises:
+        ValueError: if the callable was not created with the `@node` decorator
+    """
+
+    try:
+        return getattr(proxy, "__ordeq_node__")
+    except AttributeError:
+        raise TypeError(f"{proxy} is not a node")

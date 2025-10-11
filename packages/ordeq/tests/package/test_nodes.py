@@ -2,7 +2,7 @@ import pytest
 from ordeq import IO, Node, node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
-from ordeq._resolve import _resolve_object_to_node
+from ordeq._resolve import _resolve_proxy_to_node
 
 
 class TestNode:
@@ -104,7 +104,7 @@ class TestGetNode:
         def my_func(a: str) -> str:
             return a
 
-        node_obj = _resolve_object_to_node(my_func)
+        node_obj = _resolve_proxy_to_node(my_func)
         assert node_obj is not None
         assert node_obj.func == my_func
 
@@ -113,4 +113,4 @@ class TestGetNode:
             return a
 
         with pytest.raises(TypeError, match=f"{my_func} is not a node"):
-            _resolve_object_to_node(my_func)
+            _resolve_proxy_to_node(my_func)

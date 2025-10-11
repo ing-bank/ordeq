@@ -6,7 +6,7 @@ from ordeq._resolve import (
     _resolve_module_to_ios,
     _resolve_node_reference,
     _resolve_runnables_to_nodes,
-    _resolve_runnables_to_nodes_and_ios,_resolve_object_to_node
+    _resolve_runnables_to_nodes_and_ios, _resolve_proxy_to_node
 )
 from ordeq_common import StringBuffer
 
@@ -72,7 +72,7 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
     Returns:
         a set of expected node objects
     """
-    return {_resolve_object_to_node(f) for f in expected_example_nodes}
+    return {_resolve_proxy_to_node(f) for f in expected_example_nodes}
 
 
 def test_gather_ios_from_module(packages):
@@ -112,7 +112,7 @@ def test_resolve_node_by_reference(
     from example.nodes import world  # ty: ignore[unresolved-import]
 
     nodes = _resolve_runnables_to_nodes("example.nodes:world")
-    assert nodes == {_resolve_object_to_node(world)}
+    assert nodes == {_resolve_proxy_to_node(world)}
 
 
 def test_resolve_node_by_reference_not_a_node(packages) -> None:

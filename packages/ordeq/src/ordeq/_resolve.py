@@ -7,7 +7,7 @@ from types import ModuleType
 
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
-from ordeq._nodes import Node, _get_node_name
+from ordeq._nodes import Node, _get_node_name, _get_node, _get_node
 
 
 def _is_module(obj: object) -> bool:
@@ -28,11 +28,9 @@ def _is_node_proxy(obj: object) -> bool:
     )
 
 
-def _resolve_object_to_node(obj: object) -> Node:
-    if _is_node_proxy(obj):
-        node = getattr(obj, "__ordeq_node__")
-        return node._replace(name=_get_node_name(obj))
-    raise TypeError(f"{obj} is not a node")
+def _resolve_proxy_to_node(proxy: Callable) -> Node:
+    node = _get_node(proxy)
+    return node._replace(name=_get_node_name(proxy))
 
 
 def _resolve_string_to_module(name: str) -> ModuleType:
@@ -86,7 +84,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
     """
 
-    return {_resolve_object_to_node(obj) for obj in vars(module).values() if
+    return {_resolve_proxy_to_node(obj) for obj in vars(module).values() if
             _is_node_proxy(obj)}
 
 
@@ -126,7 +124,7 @@ def _resolve_node_reference(ref: str) -> Node:
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )
-    return _resolve_object_to_node(node_obj)
+    return _resolve_proxy_to_node(node_obj)
 
 
 def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
@@ -206,7 +204,7 @@ def _resolve_runnables_to_nodes_and_modules(
         ):
             modules_and_strs.append(runnable)
         elif callable(runnable):
-            nodes.add(_resolve_object_to_node(runnable))
+            nodes.add(_resolve_proxy_to_node(runnable))
         elif isinstance(runnable, str):
             nodes.add(_resolve_node_reference(runnable))
         else:

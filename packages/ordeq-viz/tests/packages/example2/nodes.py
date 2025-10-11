@@ -17,4 +17,3 @@ def transform_input_2(input_data: str) -> str:
         The transformed input data.
     """
     return input_data.strip()
-

@@ -1,4 +1,3 @@
-import re
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
@@ -149,7 +148,7 @@ def test_viz_main_mermaid_with_module_dynamic_function(tmp_path: Path) -> None:
     )
 
 
-def test_rag(tmp_path: Path, resources_dir: Path):
+def test_rag(tmp_path: Path, packages_dir: Path):
     import rag_pipeline  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
 
     output_file = tmp_path / "output.mermaid"
@@ -165,9 +164,7 @@ def test_rag(tmp_path: Path, resources_dir: Path):
     )
 
     content = output_file.read_text()
-    expected = (resources_dir / "rag_pipeline.mermaid").read_text()
-    content = re.sub(r"-?\d+", "000", content)
-    expected = re.sub(r"-?\d+", "000", expected)
+    expected = (packages_dir / "rag_pipeline.mermaid").read_text()
     assert content == expected
 
 

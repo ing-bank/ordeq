@@ -178,19 +178,25 @@ def pipeline_to_kedro_viz(
     ```pycon
     >>> from pathlib import Path
     >>> from ordeq_viz import (
-    ...     gather_ios_from_module,
-    ...     gather_nodes_from_registry,
     ...     pipeline_to_kedro_viz
     ... )
 
     >>> import catalog as catalog_module  # doctest: +SKIP
     >>> import nodes as nodes_module  # doctest: +SKIP
+    ```
 
-    >>> # Gather all nodes in your project:
-    >>> nodes = gather_nodes_from_registry()
-    >>> # Find all objects of type "IO" in catalog.py
-    >>> datasets = gather_ios_from_module(catalog_module)  # doctest: +SKIP
+    Gather all nodes and ios in your project:
+    ```pycon
+    >>> from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
+    >>> nodes, ios = _resolve_runnables_to_nodes_and_ios(  # doctest: +SKIP
+    ...     catalog_module,
+    ...     pipeline_module
+    ... )
+    ```
 
+    Create the kedro-viz output directory:
+
+    ```pycon
     >>> pipeline_to_kedro_viz(
     ...    nodes,
     ...    datasets,

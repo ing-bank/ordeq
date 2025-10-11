@@ -113,7 +113,7 @@ def test_resolve_node_by_reference(
     from example.nodes import world  # ty: ignore[unresolved-import]
 
     nodes = _resolve_runnables_to_nodes("example.nodes:world")
-    assert nodes == {_resolve_proxy_to_node(world)}
+    assert nodes == {get_node(world)}
 
 
 def test_resolve_node_by_reference_not_a_node(packages) -> None:

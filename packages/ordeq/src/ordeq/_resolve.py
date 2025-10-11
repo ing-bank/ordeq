@@ -7,7 +7,7 @@ from types import ModuleType
 
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
-from ordeq._nodes import Node, _get_node_name, _get_node, _get_node
+from ordeq._nodes import Node, get_node
 
 
 def _is_module(obj: object) -> bool:
@@ -23,8 +23,10 @@ def _is_io(obj: object) -> bool:
 
 
 def _is_node_proxy(obj: object) -> bool:
-    return callable(obj) and hasattr(obj, "__ordeq_node__") and isinstance(
-        obj.__ordeq_node__, Node
+    return (
+        callable(obj)
+        and hasattr(obj, "__ordeq_node__")
+        and isinstance(obj.__ordeq_node__, Node)
     )
 
 
@@ -32,7 +34,7 @@ def _resolve_proxy_to_node(proxy: Callable) -> Node:
     # TODO: return node._replace(name=_get_node_name(proxy))
     # This sets the name of the node to the object of proxy,
     # instead of the function name.
-    return _get_node(proxy)
+    return get_node(proxy)
 
 
 def _resolve_string_to_module(name: str) -> ModuleType:
@@ -86,8 +88,11 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
     """
 
-    return {_resolve_proxy_to_node(obj) for obj in vars(module).values() if
-            _is_node_proxy(obj)}
+    return {
+        _resolve_proxy_to_node(obj)
+        for obj in vars(module).values()
+        if _is_node_proxy(obj)
+    }
 
 
 def _resolve_module_to_ios(

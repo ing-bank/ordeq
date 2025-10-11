@@ -320,7 +320,7 @@ def node(
     return wrapper
 
 
-def _get_node(func: Callable) -> Node:
+def get_node(func: Callable) -> Node:
     """Gets the node from a callable created with the `@node` decorator.
 
     Args:
@@ -334,6 +334,6 @@ def _get_node(func: Callable) -> Node:
     """
 
     try:
-        return getattr(func, "__ordeq_node__")
-    except AttributeError:
-        raise TypeError(f"{func} is not a node")
+        return func.__ordeq_node__
+    except AttributeError as e:
+        raise ValueError(f"{func} is not a node") from e

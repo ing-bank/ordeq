@@ -2,11 +2,13 @@ from collections.abc import Callable
 
 import pytest
 from ordeq import IO, Input, Node, Output
+from ordeq._nodes import get_node
 from ordeq._resolve import (
     _resolve_module_to_ios,
     _resolve_node_reference,
+    _resolve_proxy_to_node,
     _resolve_runnables_to_nodes,
-    _resolve_runnables_to_nodes_and_ios, _resolve_proxy_to_node
+    _resolve_runnables_to_nodes_and_ios,
 )
 from ordeq_common import StringBuffer
 
@@ -87,12 +89,11 @@ def test_gather_ios_from_module(packages):
     assert datasets["TestOutput"].__class__.__name__ == "MockOutput"
 
 
-# def test_gather_nodes_from_module(packages):
-#     from example import nodes as mod  # ty: ignore[unresolved-import]
-#
-#     assert len(nodes) >= 1
-#     assert get_node(mod.world) in nodes
-#
+def test_gather_nodes_from_module(packages):
+    from example import nodes as mod  # ty: ignore[unresolved-import]
+
+    assert get_node(mod.world) is not None
+
 
 def test_gather_nodes_and_ios_from_package(
     expected_example_nodes, expected_example_ios, packages

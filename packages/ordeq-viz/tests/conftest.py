@@ -6,7 +6,6 @@ from pathlib import Path
 import pytest
 from ordeq import IO, Input, Node, Output
 from ordeq._nodes import get_node
-from ordeq._registry import NODE_REGISTRY
 
 
 @pytest.fixture
@@ -31,7 +30,6 @@ def append_resources_dir_to_sys_path(resources_dir):
         # Remove the example.* and example2.* modules from sys.modules
         # to ensure a clean state for each test
         del sys.modules[n]
-    NODE_REGISTRY._data.clear()
 
     importlib.invalidate_caches()
 

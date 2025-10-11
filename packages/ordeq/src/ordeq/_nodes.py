@@ -7,7 +7,6 @@ from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
 
 from ordeq._io import Input, Output
-from ordeq._registry import NODE_REGISTRY
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -178,14 +177,12 @@ def _create_node(
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]:
-    n = Node(
+    return Node(
         func,
         _sequence_to_tuple(inputs),
         _sequence_to_tuple(outputs),
         [] if tags is None else tags,
     )
-    NODE_REGISTRY.set(func, n)
-    return n
 
 
 @overload
@@ -298,7 +295,7 @@ def node(
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            _create_node(inner, inputs, outputs, tags)
+            inner.__ordeq_node__ = _create_node(inner, inputs, outputs, tags)  # type: ignore[attr-defined]
             return inner
 
         return wrapped
@@ -310,32 +307,24 @@ def node(
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    _create_node(wrapper, inputs, outputs, tags)
+    wrapper.__ordeq_node__ = _create_node(wrapper, inputs, outputs, tags)  # type: ignore[attr-defined]
     return wrapper
 
 
-class NodeNotFound(Exception):
-    """Exception raised when a Node is not found in the registry."""
-
-
-def get_node(
-    func: Callable[FuncParams, FuncReturns],
-) -> Node[FuncParams, FuncReturns]:
-    """Retrieve a Node from the node registry based on a function.
+def get_node(func: Callable) -> Node:
+    """Gets the node from a callable created with the `@node` decorator.
 
     Args:
-        func: the function for which to retrieve the Node
+        func: a callable created with the `@node` decorator
 
     Returns:
-        the Node
+        the node associated with the callable
 
     Raises:
-        NodeNotFound: if the node is not found in the registry.
+        ValueError: if the callable was not created with the `@node` decorator
     """
 
     try:
-        return NODE_REGISTRY.get(func)
-    except KeyError:
-        raise NodeNotFound(
-            f"Node '{func.__name__}' not found in the registry"
-        ) from None
+        return func.__ordeq_node__  # type: ignore[attr-defined]
+    except AttributeError as e:
+        raise ValueError(f"'{func.__name__}' is not a node") from e

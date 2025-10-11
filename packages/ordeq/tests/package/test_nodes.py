@@ -1,6 +1,6 @@
 import pytest
 from ordeq import IO, Node, node
-from ordeq._nodes import NodeNotFound, get_node
+from ordeq._nodes import get_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 
@@ -112,5 +112,5 @@ class TestGetNode:
         def my_func(a: str) -> str:
             return a
 
-        with pytest.raises(NodeNotFound, match="Node 'my_func' not found"):
+        with pytest.raises(ValueError, match="'my_func' is not a node"):
             get_node(my_func)

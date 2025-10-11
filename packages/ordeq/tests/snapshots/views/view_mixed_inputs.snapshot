@@ -1,0 +1,9 @@
+Exception:
+AttributeError: 'Node' object has no attribute 'load'
+
+Output:
+NodeGraph:
+  Edges:
+     view_mixed_inputs:n -> []
+  Nodes:
+     Node(name=view_mixed_inputs:n, inputs=[Node(name=view_mixed_inputs:another_view, inputs=[Literal('Jane'), Node(name=view_mixed_inputs:view)])])

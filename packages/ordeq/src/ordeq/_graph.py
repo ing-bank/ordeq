@@ -10,6 +10,24 @@ except ImportError:
 EdgesType = dict[Node, list[Node]]
 
 
+def _collect_views(*nodes: Node) -> set[Node]:
+    """Collects all views used by a set of nodes. Since a view can take
+    another view as input, this function collects recursively.
+
+    Args:
+        nodes: iterable of `Node` objects
+
+    Returns:
+        the set of all views used by the provided nodes
+    """
+
+    views = set()
+    for node in nodes:
+        for view in node.views:
+            views |= {view, *_collect_views(view)}
+    return views
+
+
 def _build_graph(nodes: Iterable[Node]) -> EdgesType:
     """Builds a mapping of node to node(s), i.e., the edge map of a graph.
 
@@ -22,10 +40,12 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
     Raises:
         ValueError: if an output is defined by more than one node
     """
-    output_to_node: dict = {}
+
+    views = _collect_views(*nodes)
+    output_to_node: dict = {view: view for view in views}
     input_to_nodes: dict = {}
-    edges: dict = {node: [] for node in nodes}
-    for node in nodes:
+    edges: dict = {node: [] for node in set(nodes) | views}
+    for node in set(nodes) | views:
         for output_ in node.outputs:
             if output_ in output_to_node:
                 msg = f"IO {output_} cannot be outputted by more than one node"
@@ -33,9 +53,11 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
             output_to_node[output_] = node
         for input_ in node.inputs:
             input_to_nodes[input_] = [*input_to_nodes.get(input_, []), node]
+
     for node_output, node in output_to_node.items():
         if node_output in input_to_nodes:
             edges[node] += input_to_nodes[node_output]
+
     return edges
 
 

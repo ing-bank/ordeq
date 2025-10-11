@@ -1,0 +1,12 @@
+Exception:
+AttributeError: 'Node' object has no attribute 'load'
+
+Output:
+NodeGraph:
+  Edges:
+     node_mixed_inputs:n -> []
+  Nodes:
+     Node(name=node_mixed_inputs:n, inputs=[Literal('Jane'), Node(name=node_mixed_inputs:view)], outputs=[Print()])
+
+Logging:
+INFO	ordeq.io	Loading Literal('Jane')

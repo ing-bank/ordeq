@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import importlib
 import logging
 from collections.abc import Callable, Sequence
@@ -18,7 +20,7 @@ FuncReturns = TypeVar("FuncReturns")
 @dataclass(frozen=True)
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
-    inputs: tuple[Input, ...]
+    inputs: tuple[Input | Node, ...]
     outputs: tuple[Output, ...]
     tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
 
@@ -34,6 +36,10 @@ class Node(Generic[FuncParams, FuncReturns]):
         """These checks are performed before the node is run."""
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
+
+    @cached_property
+    def views(self) -> list[Node]:
+        return [i for i in self.inputs if isinstance(i, Node)]
 
     @cached_property
     def name(self) -> str:
@@ -67,7 +73,7 @@ class Node(Generic[FuncParams, FuncReturns]):
         self,
         inputs: Sequence[Input] | Input,
         outputs: Sequence[Output] | Output,
-    ) -> "Node[FuncParams, FuncReturns]":
+    ) -> Node[FuncParams, FuncReturns]:
         return replace(
             self,
             inputs=_sequence_to_tuple(inputs),
@@ -173,15 +179,15 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
 
 def _create_node(
     func: Callable[FuncParams, FuncReturns],
-    inputs: Sequence[Input] | Input | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]:
+    inputs = tuple(
+        get_node(i) if callable(i) else i for i in _sequence_to_tuple(inputs)
+    )
     return Node(
-        func,
-        _sequence_to_tuple(inputs),
-        _sequence_to_tuple(outputs),
-        [] if tags is None else tags,
+        func, inputs, _sequence_to_tuple(outputs), [] if tags is None else tags
     )
 
 
@@ -189,7 +195,7 @@ def _create_node(
 def node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input] | Input | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[FuncParams, FuncReturns]: ...
@@ -198,7 +204,7 @@ def node(
 @overload
 def node(
     *,
-    inputs: Sequence[Input] | Input | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[
@@ -209,7 +215,7 @@ def node(
 def node(
     func: Callable[FuncParams, FuncReturns] | None = None,
     *,
-    inputs: Sequence[Input] | Input | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> (

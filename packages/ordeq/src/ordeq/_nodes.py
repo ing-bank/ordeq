@@ -15,15 +15,6 @@ FuncParams = ParamSpec("FuncParams")
 FuncReturns = TypeVar("FuncReturns")
 
 
-def _get_node_name(func: Callable) -> str:
-    full_name = func.__name__
-    if hasattr(func, "__module__"):
-        module = str(func.__module__)
-        if module != "__main__":
-            full_name = module + ":" + full_name
-    return full_name
-
-
 @dataclass(frozen=True)
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
@@ -336,4 +327,4 @@ def get_node(func: Callable) -> Node:
     try:
         return func.__ordeq_node__
     except AttributeError as e:
-        raise ValueError(f"{func} is not a node") from e
+        raise ValueError(f"'{func.__name__}' is not a node") from e

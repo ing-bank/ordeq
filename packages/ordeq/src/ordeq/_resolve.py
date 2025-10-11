@@ -32,8 +32,8 @@ def _is_node_proxy(obj: object) -> bool:
 
 def _resolve_proxy_to_node(proxy: Callable) -> Node:
     # TODO: return node._replace(name=_get_node_name(proxy))
-    # This sets the name of the node to the object of proxy,
-    # instead of the function name.
+    # This sets the name of the node to the name of the proxy,
+    # instead of the node's function name.
     return get_node(proxy)
 
 

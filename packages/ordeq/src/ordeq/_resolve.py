@@ -30,13 +30,6 @@ def _is_node_proxy(obj: object) -> bool:
     )
 
 
-def _resolve_proxy_to_node(proxy: Callable) -> Node:
-    # TODO: return node._replace(name=_get_node_name(proxy))
-    # This sets the name of the node to the name of the proxy,
-    # instead of the node's function name.
-    return get_node(proxy)
-
-
 def _resolve_string_to_module(name: str) -> ModuleType:
     return importlib.import_module(name)
 
@@ -89,9 +82,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
     """
 
     return {
-        _resolve_proxy_to_node(obj)
-        for obj in vars(module).values()
-        if _is_node_proxy(obj)
+        get_node(obj) for obj in vars(module).values() if _is_node_proxy(obj)
     }
 
 
@@ -131,7 +122,7 @@ def _resolve_node_reference(ref: str) -> Node:
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )
-    return _resolve_proxy_to_node(node_obj)
+    return get_node(node_obj)
 
 
 def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
@@ -211,7 +202,7 @@ def _resolve_runnables_to_nodes_and_modules(
         ):
             modules_and_strs.append(runnable)
         elif callable(runnable):
-            nodes.add(_resolve_proxy_to_node(runnable))
+            nodes.add(get_node(runnable))
         elif isinstance(runnable, str):
             nodes.add(_resolve_node_reference(runnable))
         else:

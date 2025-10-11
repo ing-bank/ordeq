@@ -3,9 +3,9 @@ import pkgutil
 from types import ModuleType
 
 from ordeq import IO, Input, Node, Output
+from ordeq._nodes import get_node  # noqa: PLC2701 (private-member-access)
 from ordeq._resolve import (
     _is_node_proxy,  # noqa: PLC2701 (private-member-access)
-    _resolve_proxy_to_node,  # noqa: PLC2701 (private-member-access)
 )
 
 
@@ -34,7 +34,7 @@ def gather_nodes(module_or_package: ModuleType) -> dict[str, Node]:
     for module in modules:
         for k, v in vars(module).items():
             if _is_node_proxy(v):
-                node = _resolve_proxy_to_node(v)
+                node = get_node(v)
                 nodes[f"{module.__name__}.{k}"] = node
     return nodes
 

@@ -44,6 +44,15 @@ class Node(Generic[FuncParams, FuncReturns]):
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
 
+    @cached_property
+    def name(self) -> str:
+        full_name = self.func.__name__
+        if hasattr(self.func, "__module__"):
+            module = str(self.func.__module__)
+            if module != "__main__":
+                full_name = module + ":" + full_name
+        return full_name
+
     def __repr__(self) -> str:
         attributes = {"name": self.name}
 
@@ -65,15 +74,13 @@ class Node(Generic[FuncParams, FuncReturns]):
 
     def _replace(
         self,
-        name: str | None = None,
-        inputs: Sequence[Input] | Input = None,
-        outputs: Sequence[Output] | Output = None,
+        inputs: Sequence[Input] | Input,
+        outputs: Sequence[Output] | Output,
     ) -> "Node[FuncParams, FuncReturns]":
         return replace(
             self,
-            name=name or self.name,
-            inputs=_sequence_to_tuple(inputs) or self.inputs,
-            outputs=_sequence_to_tuple(outputs) or self.outputs,
+            inputs=_sequence_to_tuple(inputs),
+            outputs=_sequence_to_tuple(outputs),
         )
 
 
@@ -180,7 +187,6 @@ def _create_node(
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]:
     return Node(
-        _get_node_name(func),
         func,
         _sequence_to_tuple(inputs),
         _sequence_to_tuple(outputs),
@@ -314,11 +320,11 @@ def node(
     return wrapper
 
 
-def _get_node(proxy: Callable) -> Node:
+def _get_node(func: Callable) -> Node:
     """Gets the node from a callable created with the `@node` decorator.
 
     Args:
-        proxy: a callable created with the `@node` decorator
+        func: a callable created with the `@node` decorator
 
     Returns:
         the node associated with the callable
@@ -328,6 +334,6 @@ def _get_node(proxy: Callable) -> Node:
     """
 
     try:
-        return getattr(proxy, "__ordeq_node__")
+        return getattr(func, "__ordeq_node__")
     except AttributeError:
-        raise TypeError(f"{proxy} is not a node")
+        raise TypeError(f"{func} is not a node")

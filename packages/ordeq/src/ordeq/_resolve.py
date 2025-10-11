@@ -7,7 +7,7 @@ from types import ModuleType
 
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
-from ordeq._nodes import Node
+from ordeq._nodes import Node, _get_node_name
 
 
 def _is_module(obj: object) -> bool:
@@ -31,8 +31,7 @@ def _is_node_proxy(obj: object) -> bool:
 def _resolve_object_to_node(obj: object) -> Node:
     if _is_node_proxy(obj):
         node = getattr(obj, "__ordeq_node__")
-        return node
-        return node.replace(name=obj.__name__)
+        return node._replace(name=_get_node_name(obj))
     raise TypeError(f"{obj} is not a node")
 
 

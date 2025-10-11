@@ -112,5 +112,5 @@ class TestGetNode:
         def my_func(a: str) -> str:
             return a
 
-        with pytest.raises(ValueError, match=f"'my_func' is not a node"):
+        with pytest.raises(ValueError, match="'my_func' is not a node"):
             _resolve_proxy_to_node(my_func)

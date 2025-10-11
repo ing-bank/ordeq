@@ -2841,6 +2841,7 @@ test = [
     { name = "ordeq-pandas" },
     { name = "ordeq-pymupdf" },
     { name = "ordeq-sentence-transformers" },
+    { name = "ordeq-test-utils" },
 ]
 
 [package.metadata]
@@ -2854,6 +2855,7 @@ test = [
     { name = "ordeq-pandas", editable = "packages/ordeq-pandas" },
     { name = "ordeq-pymupdf", editable = "packages/ordeq-pymupdf" },
     { name = "ordeq-sentence-transformers", editable = "packages/ordeq-sentence-transformers" },
+    { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
 ]
 
 [[package]]

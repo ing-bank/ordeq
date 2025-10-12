@@ -8,3 +8,5 @@ This applies to code in the `src/` directory, not tests.
 Code examples in Python docstrings and markdown must be wrapped in triple backticks with the language "python" or "pycon".
 We use `pycon` for interactive examples that include the Python prompt (`>>>`), with at least one printed output.
 All other code examples should use `python`.
+
+Markdown headers should use sentence case, not title case.

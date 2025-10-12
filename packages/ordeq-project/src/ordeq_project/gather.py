@@ -1,11 +1,11 @@
 import importlib
 import pkgutil
-from collections.abc import Hashable
 from types import ModuleType
 
 from ordeq import IO, Input, Node, Output
-from ordeq._registry import (
-    NODE_REGISTRY,  # noqa: PLC2701 (private-member-access)
+from ordeq._nodes import get_node  # noqa: PLC2701 (private-member-access)
+from ordeq._resolve import (
+    _is_node_proxy,  # noqa: PLC2701 (private-member-access)
 )
 
 
@@ -33,8 +33,8 @@ def gather_nodes(module_or_package: ModuleType) -> dict[str, Node]:
     nodes: dict[str, Node] = {}
     for module in modules:
         for k, v in vars(module).items():
-            if isinstance(v, Hashable) and v in NODE_REGISTRY:
-                node = NODE_REGISTRY.get(v)
+            if _is_node_proxy(v):
+                node = get_node(v)
                 nodes[f"{module.__name__}.{k}"] = node
     return nodes
 

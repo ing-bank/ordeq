@@ -1,10 +1,10 @@
 from collections.abc import Callable
 
 import pytest
-from ordeq import IO, Input, Node, Output
+from ordeq import IO, Input, Node, Output, node
 from ordeq._nodes import get_node
 from ordeq._resolve import (
-    _gather_nodes_from_registry,
+    _is_node_proxy,
     _resolve_module_to_ios,
     _resolve_node_reference,
     _resolve_runnables_to_nodes,
@@ -92,10 +92,7 @@ def test_gather_ios_from_module(packages):
 def test_gather_nodes_from_module(packages):
     from example import nodes as mod  # ty: ignore[unresolved-import]
 
-    nodes = _gather_nodes_from_registry()
-
-    assert len(nodes) >= 1
-    assert get_node(mod.world) in nodes
+    assert get_node(mod.world) is not None
 
 
 def test_gather_nodes_and_ios_from_package(
@@ -134,3 +131,30 @@ def test_resolve_node_by_reference_no_module() -> None:
         ValueError, match="Invalid node reference: 'invalidformat'"
     ):
         _resolve_node_reference("invalidformat")
+
+
+def test_is_node_proxy():
+    def func():
+        pass
+
+    proxy = node(func)
+    assert _is_node_proxy(proxy)
+    assert not _is_node_proxy(func)
+    assert not _is_node_proxy(object)
+    assert not _is_node_proxy(None)
+
+    # Object with fake __ordeq_node__ attribute (not a Node)
+    class Fake:
+        def __call__(self):
+            pass
+
+    fake_obj = Fake()
+    fake_obj.__ordeq_node__ = "not_a_node"
+    assert not _is_node_proxy(fake_obj)
+
+    # Object with __ordeq_node__ attribute that is a Node, but not callable
+    class NotCallable:
+        __ordeq_node__ = proxy
+
+    not_callable = NotCallable()
+    assert not _is_node_proxy(not_callable)

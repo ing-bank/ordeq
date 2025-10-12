@@ -1,0 +1,14 @@
+Exception:
+AttributeError: 'Node' object has no attribute 'load'
+
+Output:
+NodeGraph:
+  Edges:
+     view_multiple_outputs:n -> []
+     view_multiple_outputs:view -> [view_multiple_outputs:n]
+  Nodes:
+     Node(name=view_multiple_outputs:n, inputs=[Node(name=view_multiple_outputs:view)])
+     Node(name=view_multiple_outputs:view)
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=view_multiple_outputs:view)

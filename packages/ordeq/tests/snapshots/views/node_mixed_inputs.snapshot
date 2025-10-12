@@ -5,8 +5,11 @@ Output:
 NodeGraph:
   Edges:
      node_mixed_inputs:n -> []
+     node_mixed_inputs:view -> [node_mixed_inputs:n]
   Nodes:
      Node(name=node_mixed_inputs:n, inputs=[Literal('Jane'), Node(name=node_mixed_inputs:view)], outputs=[Print()])
+     Node(name=node_mixed_inputs:view)
 
 Logging:
+INFO	ordeq.runner	Running node Node(name=node_mixed_inputs:view)
 INFO	ordeq.io	Loading Literal('Jane')

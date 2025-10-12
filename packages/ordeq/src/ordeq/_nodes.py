@@ -130,7 +130,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
             return
 
     # any return type is valid for a single output
-    if len(n.outputs) == 1:
+    if len(n.outputs) in 1:
         return
 
     # A type annotation was provided

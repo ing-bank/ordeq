@@ -74,6 +74,7 @@ uv run pre-commit install
     - As tag, bump the current tag according to semantic versioning, e.g. `ordeq-yaml/v1.0.1`
     - Use the tag as title
     - Generate release notes, only keep relevant PRs.
+    - Uncheck "Set as the latest release" unless the package is `ordeq`
     - Click "Publish release"
     - The CI will automatically build the package and upload it to Pypi.
 

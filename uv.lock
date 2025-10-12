@@ -23,13 +23,13 @@ members = [
     "ordeq-huggingface",
     "ordeq-ibis",
     "ordeq-joblib",
+    "ordeq-manifest",
     "ordeq-matplotlib",
     "ordeq-networkx",
     "ordeq-numpy",
     "ordeq-packages",
     "ordeq-pandas",
     "ordeq-polars",
-    "ordeq-project",
     "ordeq-pydantic",
     "ordeq-pymupdf",
     "ordeq-pyproject",
@@ -2470,6 +2470,32 @@ requires-dist = [
 test = [{ name = "ordeq-pandas", editable = "packages/ordeq-pandas" }]
 
 [[package]]
+name = "ordeq-manifest"
+source = { editable = "packages/ordeq-manifest" }
+dependencies = [
+    { name = "ordeq" },
+    { name = "pydantic" },
+]
+
+[package.dev-dependencies]
+test = [
+    { name = "ordeq-common" },
+    { name = "ordeq-test-utils" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "pydantic" },
+]
+
+[package.metadata.requires-dev]
+test = [
+    { name = "ordeq-common", editable = "packages/ordeq-common" },
+    { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
+]
+
+[[package]]
 name = "ordeq-matplotlib"
 source = { editable = "packages/ordeq-matplotlib" }
 dependencies = [
@@ -2625,28 +2651,6 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 test = []
-
-[[package]]
-name = "ordeq-project"
-source = { editable = "packages/ordeq-project" }
-dependencies = [
-    { name = "ordeq" },
-]
-
-[package.dev-dependencies]
-test = [
-    { name = "mypy" },
-    { name = "ordeq-common" },
-]
-
-[package.metadata]
-requires-dist = [{ name = "ordeq", editable = "packages/ordeq" }]
-
-[package.metadata.requires-dev]
-test = [
-    { name = "mypy" },
-    { name = "ordeq-common", editable = "packages/ordeq-common" },
-]
 
 [[package]]
 name = "ordeq-pydantic"

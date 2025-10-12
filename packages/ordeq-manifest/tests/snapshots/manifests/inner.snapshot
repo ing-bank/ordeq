@@ -1,0 +1,36 @@
+Output:
+{
+  "name": "examples.project.inner",
+  "nodes": {
+    "nodes.examples.project.inner.nodes:func": {
+      "id": "nodes.examples.project.inner.nodes:func",
+      "name": "examples.project.inner.nodes:func",
+      "inputs": [
+        "ios.x"
+      ],
+      "outputs": [
+        "ios.y"
+      ],
+      "tags": [
+        "dummy"
+      ]
+    }
+  },
+  "ios": {
+    "x": {
+      "id": "ios.x",
+      "name": "x",
+      "type": "ordeq._io.IO"
+    },
+    "y": {
+      "id": "ios.y",
+      "name": "y",
+      "type": "ordeq_common.io.printer.Print"
+    }
+  }
+}
+
+Typing:
+packages/ordeq-manifest/tests/resources/manifests/inner.py:2: error: Cannot find implementation or library stub for module named "examples.project"  [import-not-found]
+packages/ordeq-manifest/tests/resources/manifests/inner.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 1 source file)

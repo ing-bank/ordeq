@@ -2,7 +2,7 @@
 
 [![Release](https://github.com/ing-bank/ordeq/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/ing-bank/ordeq/actions/workflows/release.yml)
 [![Docs](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml)
-![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)
+[![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)](https://pypi.org/project/ordeq/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 

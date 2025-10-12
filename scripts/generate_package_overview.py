@@ -74,30 +74,6 @@ def get_pypi_name_description_group(
     return name, description, group
 
 
-def generate_table_rows(package_dirs: list[Path]) -> list[str]:
-    """Generate markdown table rows for each package directory.
-
-    Args:
-        package_dirs: A list of package directory paths.
-
-    Returns:
-        A list of markdown table row strings.
-    """
-    rows = []
-    for pkg_dir in sorted(package_dirs, key=lambda d: d.name):
-        pyproject = pkg_dir / "pyproject.toml"
-        if not pyproject.exists():
-            continue
-        pypi_name, description = get_pypi_name_and_description(pyproject)
-        docs = f"[API Docs](https://ing-bank.github.io/ordeq/api/{pypi_name}/)"
-        badge = (
-            f"[![PyPI](https://img.shields.io/pypi/v/{pypi_name}.svg)]"
-            f"(https://pypi.org/project/{pypi_name}/)"
-        )
-        rows.append(f"| {pkg_dir.name} | {description} | {docs} | {badge} |")
-    return rows
-
-
 def generate_table_rows_by_group(
     package_dirs: list[Path],
 ) -> dict[str, list[str]]:
@@ -117,12 +93,12 @@ def generate_table_rows_by_group(
         pypi_name, description, group = get_pypi_name_description_group(
             pyproject
         )
-        docs = f"[API Docs](https://ing-bank.github.io/ordeq/api/{pypi_name}/)"
-        badge = (
-            f"[![PyPI](https://img.shields.io/pypi/v/{pypi_name}.svg)]"
+        name_col = (
+            f"[![PyPI](https://img.shields.io/pypi/v/{pypi_name}?label={pkg_dir.name})]"
             f"(https://pypi.org/project/{pypi_name}/)"
         )
-        row = f"| {pkg_dir.name} | {description} | {docs} | {badge} |"
+        docs = f"[API Docs](https://ing-bank.github.io/ordeq/api/{pypi_name}/)"
+        row = f"| {name_col} | {description} | {docs} |"
         group_key = group or "Other"
         groups.setdefault(group_key, []).append(row)
     return groups
@@ -139,8 +115,8 @@ def write_markdown_table(rows: list[str], output_path: Path) -> None:
         "# Package Overview\n\n"
         "This page lists all packages in the `ordeq` project, with links to "
         "their PyPI pages and API documentation.\n\n"
-        "| Name | Description | API Docs | PyPI |\n"
-        "|------|-------------|----------|------|\n"
+        "| Name | Description | API Docs |\n"
+        "|------|-------------|----------|\n"
     )
     with output_path.open("w", encoding="utf-8") as f:
         f.write(header)
@@ -163,8 +139,8 @@ def write_markdown_table_by_group(
         "This page lists all public packages in the `ordeq` project.\n\n"
     )
     table_header = (
-        "| Name | Description | API Docs | PyPI |\n"
-        "|------|-------------|----------|------|\n"
+        "| Name | Description | API Docs |\n"
+        "|------|-------------|----------|\n"
     )
     group_order = ["framework", "CLI", "ios"]
     excluded_groups = {"developer-tools"}

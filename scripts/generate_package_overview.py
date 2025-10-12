@@ -159,7 +159,7 @@ def write_markdown_table_by_group(
         output_path: The path to the output markdown file.
     """
     header = (
-        "# Package Overview\n\n"
+        "# Package overview\n\n"
         "This page lists all public packages in the `ordeq` project.\n\n"
     )
     table_header = (
@@ -169,10 +169,10 @@ def write_markdown_table_by_group(
     group_order = ["framework", "CLI", "ios"]
     excluded_groups = {"developer-tools"}
     pretty_names = {
-        "framework": "Framework Packages",
-        "CLI": "Command Line Interfaces",
-        "ios": "IO Packages",
-        "Other": "Other Packages",
+        "framework": "Framework packages",
+        "CLI": "Command line interfaces",
+        "ios": "IO packages",
+        "Other": "Other packages",
     }
     group_descriptions = {
         "framework": "Libraries that provide framework functionality "

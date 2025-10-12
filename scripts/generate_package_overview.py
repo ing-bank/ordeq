@@ -97,7 +97,8 @@ def generate_table_rows_by_group(
             f"[![PyPI](https://img.shields.io/pypi/v/{pypi_name}?label={pkg_dir.name})]"
             f"(https://pypi.org/project/{pypi_name}/)"
         )
-        docs = f"[API Docs](https://ing-bank.github.io/ordeq/api/{pypi_name}/)"
+        src_name = pkg_dir.name.replace("-", "_")
+        docs = f"[API Docs](https://ing-bank.github.io/ordeq/api/{src_name}/)"
         row = f"| {name_col} | {description} | {docs} |"
         group_key = group or "Other"
         groups.setdefault(group_key, []).append(row)

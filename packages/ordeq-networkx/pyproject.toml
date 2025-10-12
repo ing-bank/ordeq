@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_networkx"
+description = "NetworkX integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -21,6 +22,9 @@ dependencies = [
     "ordeq>=1.0.0",
     "networkx"
 ]
+
+[tool.ordeq]
+group = "ios"
 
 [dependency-groups]
 test = []
@@ -43,4 +47,3 @@ addopts = "--doctest-modules"
 omit = [
     "src/ordeq_networkx/_version.py"
 ]
-

@@ -85,12 +85,15 @@ test_all:
 generate-api-docs:
     uv run scripts/generate_api_docs.py
 
+generate-package-overview:
+    uv run scripts/generate_package_overview.py
+
 # Build the documentation
-docs-build: generate-api-docs
+docs-build: generate-api-docs generate-package-overview
     uv run --group docs mkdocs build --strict
 
 # Build and serve the documentation locally
-docs-serve: generate-api-docs
+docs-serve: generate-api-docs generate-package-overview
     uv run --group docs mkdocs serve --strict
 
 # Publish the documentation to GitHub Pages

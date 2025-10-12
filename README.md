@@ -92,7 +92,7 @@ Some of the available integrations:
     </tr>
 </table>
 
-Have a look at the [API reference][api-ref] for a list of available packages.
+Have a look at the [package overview][packages] and [API reference][api-ref] for a list of available packages.
 
 **Cloud storage**
 
@@ -146,3 +146,4 @@ Please refer to the [acknowledgements] section in the documentation for more det
 [kedro]: https://github.com/kedro-org/kedro
 [license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE
 [notice]: https://github.com/ing-bank/ordeq/blob/main/NOTICE
+[packages]: https://ing-bank.github.io/ordeq/packages/

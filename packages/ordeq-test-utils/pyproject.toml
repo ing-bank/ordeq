@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_test_utils"
+description = "Testing utilities for Ordeq packages - not distributed on PyPI"
 version = "0.1.0"
 readme = "README.md"
 license = "MIT"
@@ -20,6 +21,9 @@ requires-python = ">=3.10"
 dependencies = [
     "mypy>=0.18.2",  # for snapshot testing
 ]
+
+[tool.ordeq]
+group = "developer-tools"
 
 [dependency-groups]
 test = []

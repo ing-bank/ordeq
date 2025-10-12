@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_viz"
+description = "Visualization for Ordeq project"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -20,6 +21,9 @@ requires-python = ">=3.10"
 dependencies = [
     "ordeq>=1.0.0",
 ]
+
+[tool.ordeq]
+group = "framework"
 
 [dependency-groups]
 test = [

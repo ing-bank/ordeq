@@ -210,15 +210,12 @@ def write_markdown_table_by_group(
             f.write("\n")
 
 
-def main() -> None:
+if __name__ == "__main__":
     """Generate the package overview markdown file."""
+    print("Generating package overview...")
     root = Path(__file__).parent.parent
     packages_dir = root / "packages"
     output_path = root / "docs" / "packages.md"
     package_dirs = get_package_dirs(packages_dir)
     groups = generate_table_rows_by_group(package_dirs)
     write_markdown_table_by_group(groups, output_path)
-
-
-if __name__ == "__main__":
-    main()

@@ -41,16 +41,22 @@ def generate_api_docs():
         package_src = package_dir / "src"
         for module in sorted(package_src.rglob("*.py")):
             module_path = module.relative_to(package_src).with_suffix("")
-            full_doc_path = API_DIR / module_path.with_suffix(".md")
-
-            full_doc_path.parent.mkdir(parents=True, exist_ok=True)
-
             parts = tuple(module_path.parts)
 
             if parts[-1] in {"__main__", "_version", "__init__"}:
                 continue
 
             module_name = parts[-1]
+            # Avoid reserved name 'index.md' in MkDocs (ordeq-faiss/index.py)
+            if module_name == "index":
+                output_name = "index_module"
+            else:
+                output_name = module_name
+
+            full_doc_path = API_DIR / module_path.with_name(
+                f"{output_name}.md"
+            )
+            full_doc_path.parent.mkdir(parents=True, exist_ok=True)
 
             with full_doc_path.open(mode="w") as fh:
                 print(f"---\ntitle: {module_name}.py\n---", file=fh)
@@ -58,6 +64,20 @@ def generate_api_docs():
                 print("::: " + identifier, file=fh)
 
 
+def generate_api_readmes() -> None:
+    """Generate a README.md in each top-level docs/api/*/ directory.
+
+    The README.md will contain a Markdown H1 title using the directory name.
+    """
+    for subdir in API_DIR.iterdir():
+        if subdir.is_dir():
+            readme = subdir / "README.md"
+            title = f"# {subdir.name}\n"
+            readme.write_text(title, encoding="utf-8")
+
+
 if __name__ == "__main__":
+    print("Generating API docs...")
     clear_api_docs()
     generate_api_docs()
+    generate_api_readmes()

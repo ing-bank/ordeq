@@ -8,8 +8,6 @@ from functools import cached_property, reduce, wraps
 from typing import Any, Generic, TypeVar
 from uuid import uuid4
 
-from ordeq._resolve import _get_io_sequence, _is_io
-
 try:
     from typing import Self  # type: ignore[attr-defined]
 except ImportError:
@@ -40,10 +38,11 @@ def _find_references(attributes) -> dict[str, list[Input | Output | IO]]:
     Returns:
         a dictionary mapping attribute names to lists of Input, Output, or IO
     """
+    from ordeq._resolve import _get_io_sequence  # noqa: PLC0415
 
     wrapped = {}
     for attribute, value in attributes.items():
-        ios = [value] if _is_io(value) else _get_io_sequence(value)
+        ios = _get_io_sequence(value)
         if ios:
             wrapped[attribute] = ios
     return wrapped

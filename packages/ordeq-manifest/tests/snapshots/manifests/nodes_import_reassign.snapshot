@@ -31,37 +31,44 @@ Output:
     "A": {
       "id": "ios.A",
       "name": "A",
-      "type": "ordeq_common.io.literal.Literal"
+      "type": "ordeq_common.io.literal.Literal",
+      "references": []
     },
     "AA": {
       "id": "ios.AA",
       "name": "AA",
-      "type": "ordeq_common.io.literal.Literal"
+      "type": "ordeq_common.io.literal.Literal",
+      "references": []
     },
     "B": {
       "id": "ios.B",
       "name": "B",
-      "type": "ordeq_common.io.string_buffer.StringBuffer"
+      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "references": []
     },
     "BB": {
       "id": "ios.BB",
       "name": "BB",
-      "type": "ordeq_common.io.string_buffer.StringBuffer"
+      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "references": []
     },
     "a": {
       "id": "ios.a",
       "name": "a",
-      "type": "ordeq_common.io.literal.Literal"
+      "type": "ordeq_common.io.literal.Literal",
+      "references": []
     },
     "b": {
       "id": "ios.b",
       "name": "b",
-      "type": "ordeq_common.io.string_buffer.StringBuffer"
+      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "references": []
     },
     "f": {
       "id": "ios.f",
       "name": "f",
-      "type": "ordeq_common.io.printer.Print"
+      "type": "ordeq_common.io.printer.Print",
+      "references": []
     }
   }
 }

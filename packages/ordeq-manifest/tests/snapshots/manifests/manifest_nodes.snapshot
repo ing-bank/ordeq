@@ -20,12 +20,14 @@ Output:
     "x": {
       "id": "ios.x",
       "name": "x",
-      "type": "ordeq._io.IO"
+      "type": "ordeq._io.IO",
+      "references": []
     },
     "y": {
       "id": "ios.y",
       "name": "y",
-      "type": "ordeq_common.io.printer.Print"
+      "type": "ordeq_common.io.printer.Print",
+      "references": []
     }
   }
 }

@@ -13,6 +13,7 @@ class IOModel(BaseModel):
     id: str
     name: str
     type: str
+    references: list[str] = Field(default_factory=list)
 
     @classmethod
     def from_io(
@@ -20,7 +21,12 @@ class IOModel(BaseModel):
     ) -> "IOModel":
         idx = ".".join(name)
         t = type(io)
-        return cls(id=idx, name=name[1], type=f"{t.__module__}.{t.__name__}")
+        return cls(
+            id=idx,
+            name=name[1],
+            type=f"{t.__module__}.{t.__name__}",
+            references=list(io.references.keys()),
+        )
 
 
 class NodeModel(BaseModel):

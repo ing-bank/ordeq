@@ -7,7 +7,6 @@ from ordeq_pandas import PandasExcel
 from ordeq_pymupdf import PymupdfFile
 from ordeq_sentence_transformers import SentenceTransformer
 
-
 policies = PandasExcel(path=Path("policies.xlsx"))
 llm_model = SentenceTransformer(model="llm-model")
 llm_vision_retrieval_model = SentenceTransformer(model="vision-model")

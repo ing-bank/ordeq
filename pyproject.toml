@@ -212,8 +212,5 @@ exclude = [
 
 [tool.ty.rules]
 invalid-argument-type = "ignore"
-invalid-type-form = "ignore"
-possibly-unbound-attribute = "ignore"
+possibly-unbound-attribute = "ignore"  # faiss issue
 unresolved-attribute = "ignore"
-unsupported-operator = "ignore"
-missing-argument = "ignore"  # TODO: enable when `with_load_options` / `with_save_options` is fixed

@@ -24,7 +24,7 @@ class IOData:
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
-def _add_io_data(dataset, reverse_lookup, io_data, kind):
+def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
     """Add IOData for a dataset to the io_data dictionary.
 
     Args:
@@ -76,21 +76,19 @@ def _add_io_data(dataset, reverse_lookup, io_data, kind):
 
 
 def _gather_graph(
-    pipeline: set[Node], datasets: dict[str, Input | Output]
+    pipeline: set[Node], ios: dict[str, Input | Output]
 ) -> tuple[list[NodeData], list[IOData]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 
     Args:
         pipeline: set of nodes
-        datasets: dictionary from name to datasets
+        ios: dictionary from name to datasets
 
     Returns:
         metadata for nodes (NodeData)
-        metadata for datasets (IOData)
+        metadata for ios (IOData)
     """
-    reverse_lookup = {
-        hash(dataset): name for name, dataset in datasets.items()
-    }
+    reverse_lookup = {hash(dataset): name for name, dataset in ios.items()}
 
     nodes = []
     io_data: dict[int, IOData] = {}

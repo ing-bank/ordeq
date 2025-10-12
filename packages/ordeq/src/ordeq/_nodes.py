@@ -327,9 +327,9 @@ def node(
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            inner.__ordeq_node__ = _create_node(
+            inner.__ordeq_node__ = _create_node(  # type: ignore[attr-defined]
                 inner, inputs=inputs, outputs=outputs, tags=tags
-            )  # type: ignore[attr-defined]
+            )
             return inner
 
         return wrapped
@@ -341,9 +341,9 @@ def node(
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    wrapper.__ordeq_node__ = _create_node(
+    wrapper.__ordeq_node__ = _create_node(  # type: ignore[attr-defined]
         wrapper, inputs=inputs, outputs=outputs, tags=tags
-    )  # type: ignore[attr-defined]
+    )
     return wrapper
 
 

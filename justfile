@@ -117,7 +117,8 @@ upgrade:
 build PACKAGE:
     echo "prune tests" > ./packages/{{ PACKAGE }}/MANIFEST.in || true
     cp -n ./README.md ./packages/{{ PACKAGE }}/README.md || true
-    cp -n ./README.md ./packages/{{ PACKAGE }}/LICENSE || true
+    cp -n ./LICENSE ./packages/{{ PACKAGE }}/LICENSE || true
+    cp -n ./NOTICE ./packages/{{ PACKAGE }}/NOTICE || true
     uv build --package {{ PACKAGE }}
 
 # You need an API token from PyPI to run this command.

@@ -131,7 +131,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
     # deal with `from __future__ import annotations`
     if isinstance(returns, str):
         try:
-            mod = importlib.import_module(getattr(func, "__module__", ""))
+            mod = importlib.import_module(func.__module__)
             returns = eval(returns, mod.__dict__)  # noqa: S307
         except (NameError, ImportError):
             return

@@ -50,7 +50,7 @@ def test_viz_main_mixed_inputs(tmp_path: Path) -> None:
 
 def test_viz_main_kedro(tmp_path: Path) -> None:
     output_folder = tmp_path / "kedro_output"
-    viz("example", fmt="kedro", output=output_folder)
+    viz("example", fmt="kedro-viz", output=output_folder)
     assert output_folder.exists()
     assert (output_folder / "api" / "main").exists()
 
@@ -77,7 +77,7 @@ def test_viz_to_kedro_call(
     expected_example_ios,
 ) -> None:
     output_folder = tmp_path / "kedro_output"
-    viz("example", fmt="kedro", output=output_folder)
+    viz("example", fmt="kedro-viz", output=output_folder)
     patched_pipeline_to_kedro.assert_called_once_with(
         expected_example_node_objects,
         expected_example_ios,
@@ -170,9 +170,9 @@ def test_rag(tmp_path: Path, packages_dir: Path):
 
 def test_viz_main_kedro_no_output_raises(tmp_path: Path) -> None:
     with pytest.raises(
-        ValueError, match="`output` is required when `fmt` is 'kedro'"
+        ValueError, match="`output` is required when `fmt` is 'kedro-viz'"
     ):
-        viz("example", fmt="kedro")
+        viz("example", fmt="kedro-viz")
 
 
 def test_viz_main_mermaid_no_output_returns_str() -> None:

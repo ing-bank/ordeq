@@ -37,7 +37,7 @@ def _is_io_sequence(value: Any) -> bool:
     return bool(_get_io_sequence(value))
 
 
-def _is_node_proxy(obj: object) -> bool:
+def _is_node(obj: object) -> bool:
     return (
         callable(obj)
         and hasattr(obj, "__ordeq_node__")
@@ -96,9 +96,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
     """
 
-    return {
-        get_node(obj) for obj in vars(module).values() if _is_node_proxy(obj)
-    }
+    return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
 
 
 def _resolve_module_to_ios(
@@ -133,7 +131,7 @@ def _resolve_node_reference(ref: str) -> Node:
     module_name, _, node_name = ref.partition(":")
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
-    if node_obj is None or not _is_node_proxy(node_obj):
+    if node_obj is None or not _is_node(node_obj):
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )

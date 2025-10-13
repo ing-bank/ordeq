@@ -8,9 +8,9 @@ def view() -> str:
 
 
 @node(inputs=view)
-def n(v: str):
+def n(v: str) -> None:
     print(f"Node received {v}")
 
 
-print(get_node(view))
-print(get_node(n))
+print(repr(get_node(view)))
+print(repr(get_node(n)))

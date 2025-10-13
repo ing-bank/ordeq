@@ -119,7 +119,8 @@ class _InputMeta(type):
                     continue
                 if (
                     param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                    and param.kind != inspect._ParameterKind.VAR_KEYWORD
+                    # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -366,7 +367,8 @@ class _OutputMeta(type):
                     continue
                 if (
                     param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                    and param.kind != inspect._ParameterKind.VAR_KEYWORD
+                    # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -581,3 +583,7 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
     def __repr__(self):
         return f"IO(idx={self._idx})"
+
+
+def _is_io(obj: object) -> bool:
+    return isinstance(obj, (IO, Input, Output))

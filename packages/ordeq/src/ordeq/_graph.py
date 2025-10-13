@@ -1,7 +1,7 @@
 from collections.abc import Iterable
 from graphlib import TopologicalSorter
 
-from ordeq._nodes import Node
+from ordeq._nodes import Node, View
 
 try:
     from typing import Self  # type: ignore[attr-defined]
@@ -10,7 +10,7 @@ except ImportError:
 EdgesType = dict[Node, list[Node]]
 
 
-def _collect_views(*nodes: Node) -> set[Node]:
+def _collect_views(*nodes: Node) -> set[View]:
     """Collects all views used by a set of nodes. Since a view can take
     another view as input, this function collects recursively.
 
@@ -42,16 +42,19 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
     """
 
     views = _collect_views(*nodes)
-    output_to_node: dict = {view: view for view in views}
+    output_to_node: dict = {view._sentinel: view for view in views}
     input_to_nodes: dict = {}
-    edges: dict = {node: [] for node in set(nodes) | views}
-    for node in set(nodes) | views:
+    all_nodes = set(nodes) | views
+    edges: dict = {node: [] for node in all_nodes}
+    for node in all_nodes:
         for output_ in node.outputs:
             if output_ in output_to_node:
                 msg = f"IO {output_} cannot be outputted by more than one node"
                 raise ValueError(msg)
             output_to_node[output_] = node
         for input_ in node.inputs:
+            if isinstance(input_, View):
+                input_ = input_._sentinel
             input_to_nodes[input_] = [*input_to_nodes.get(input_, []), node]
 
     for node_output, node in output_to_node.items():

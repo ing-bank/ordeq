@@ -17,10 +17,10 @@ mdformat-fix:
     uv run --with mdformat-mkdocs mdformat docs/ README.md
 
 doccmd-ruff-format:
-    uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff format" docs/ README.md
+    uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff format --quiet" docs/ README.md
 
 doccmd-ruff-lint:
-    uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff check --fix" docs/ README.md
+    uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff check --quiet --fix" docs/ README.md
 
 doccmd-fix: doccmd-ruff-format doccmd-ruff-lint
 

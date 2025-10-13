@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_common"
+description = "Frequently used IOs and Hooks for Ordeq projects"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -17,17 +18,18 @@ maintainers = [
     { name = "Simon Brugman" },
 ]
 requires-python = ">=3.10"
-dependencies = ["ordeq>=0.2.1"]
+dependencies = ["ordeq>=1.2.0"]
+
+[tool.ordeq]
+group = "ios"
 
 [dependency-groups]
 test = [
     "ordeq-args",
     "ordeq-spark",
     "ordeq-files",
+    "ordeq-test-utils",
 ]
-
-[project.scripts]
-ordeq = "ordeq.cli:main"
 
 [tool.setuptools_scm]
 root = "../../"
@@ -38,10 +40,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-common/
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

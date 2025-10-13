@@ -11,11 +11,11 @@ class PolarsLazyParquet(IO[pl.LazyFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_polars import PolarsLazyParquet
     >>> from pathlib import Path
-    >>> csv = PolarsLazyParquet(
-    ...     path=Path("to.csv")
+    >>> parquet = PolarsLazyParquet(
+    ...     path=Path("to.parquet")
     ... ).with_load_options(
     ...     n_rows=1_000
     ... )
@@ -24,7 +24,7 @@ class PolarsLazyParquet(IO[pl.LazyFrame]):
 
     """
 
-    path: Path
+    path: Path | str
 
     def load(self, **load_options) -> pl.LazyFrame:
         return pl.scan_parquet(source=self.path, **load_options)

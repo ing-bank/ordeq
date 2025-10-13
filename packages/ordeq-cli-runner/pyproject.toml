@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_cli_runner"
+description = "Command line interface for the Ordeq runner"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -17,7 +18,10 @@ maintainers = [
     { name = "Simon Brugman" },
 ]
 requires-python = ">=3.10"
-dependencies = ["ordeq>=0.5.0"]
+dependencies = ["ordeq>=1.2.0"]
+
+[tool.ordeq]
+group = "CLI"
 
 [dependency-groups]
 test = [

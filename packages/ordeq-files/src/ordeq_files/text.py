@@ -10,10 +10,10 @@ class Text(IO[str]):
 
     Examples:
 
-    ```python
+    ```pycon
     >>> from ordeq_files import Text
     >>> from pathlib import Path
-    >>> MyText = Text(
+    >>> my_text = Text(
     ...     path=Path("path/to.txt")
     ... )
 

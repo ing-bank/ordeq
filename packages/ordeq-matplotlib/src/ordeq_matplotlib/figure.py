@@ -2,7 +2,7 @@ import os
 from dataclasses import dataclass
 
 import matplotlib.pyplot as plt
-from ordeq.framework.io import Output
+from ordeq import Output
 from ordeq.types import PathLike
 
 
@@ -12,10 +12,10 @@ class MatplotlibFigure(Output[plt.Figure]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_matplotlib import MatplotlibFigure
-    >>> MyFigure = MatplotlibFigure(
+    >>> my_figure = MatplotlibFigure(
     ...     path=Path("path/figure.pdf")
     ... )
 

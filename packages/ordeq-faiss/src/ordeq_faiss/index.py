@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import faiss
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -12,10 +12,10 @@ class FaissIndex(IO[faiss.Index]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_faiss import FaissIndex
-    >>> MyIndex = FaissIndex(
+    >>> my_index = FaissIndex(
     ...     path=Path("path/to.index")
     ... )
 

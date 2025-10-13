@@ -3,8 +3,7 @@ import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from ordeq.framework import Node
-from ordeq.framework.io import Input, Output
+from ordeq import Input, Node, Output
 
 from ordeq_viz.graph import IOData, NodeData, _gather_graph
 
@@ -167,8 +166,8 @@ def pipeline_to_kedro_viz(
     """Convert a pipeline to a kedro-viz static pipeline directory
 
     Args:
-        nodes: `ordeq.framework.Pipeline`, or a set of `ordeq.framework.Node`
-        datasets: dict of name and `ordeq.framework.IO`
+        nodes: set of `ordeq.Node`
+        datasets: dict of name and `ordeq.IO`
         output_directory: path to write the output data to
 
     Raises:
@@ -176,22 +175,28 @@ def pipeline_to_kedro_viz(
 
     Examples:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_viz import (
-    ...     gather_ios_from_module,
-    ...     gather_nodes_from_registry,
     ...     pipeline_to_kedro_viz
     ... )
 
     >>> import catalog as catalog_module  # doctest: +SKIP
     >>> import nodes as nodes_module  # doctest: +SKIP
+    ```
 
-    >>> # Gather all nodes in your project:
-    >>> nodes = gather_nodes_from_registry()
-    >>> # Find all objects of type "IO" in catalog.py
-    >>> datasets = gather_ios_from_module(catalog_module)  # doctest: +SKIP
+    Gather all nodes and ios in your project:
+    ```pycon
+    >>> from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
+    >>> nodes, ios = _resolve_runnables_to_nodes_and_ios(  # doctest: +SKIP
+    ...     catalog_module,
+    ...     pipeline_module
+    ... )
+    ```
 
+    Create the kedro-viz output directory:
+
+    ```pycon
     >>> pipeline_to_kedro_viz(
     ...    nodes,
     ...    datasets,
@@ -206,7 +211,6 @@ def pipeline_to_kedro_viz(
     export KEDRO_DISABLE_TELEMETRY=true
     kedro viz run --load-file kedro-pipeline-example
     ```
-
     """
     node_data, dataset_data = _gather_graph(nodes, datasets)
 

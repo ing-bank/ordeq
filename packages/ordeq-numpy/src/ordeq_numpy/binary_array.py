@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 import numpy as np
-from ordeq.framework.io import IO
+from ordeq import IO
 from ordeq.types import PathLike
 
 
@@ -11,7 +11,7 @@ class NumpyBinary(IO[np.ndarray]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_numpy import NumpyBinary
     >>> MyArray = NumpyBinary(

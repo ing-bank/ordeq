@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_files"
+description = "A collection of file IOs for Ordeq (e.g. Text, CSV, JSON, Pickle)"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -18,12 +19,13 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "ordeq>=0.2.1",
-    "pyyaml",
+    "ordeq>=1.0.0",
 ]
 
+[tool.ordeq]
+group = "ios"
+
 [dependency-groups]
-types = ["types-PyYAML"]
 test = [
     "cloudpathlib[s3]>=0.20.0",
     "minio==7.2.15",

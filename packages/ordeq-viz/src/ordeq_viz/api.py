@@ -1,71 +1,71 @@
-import importlib
+from collections.abc import Callable
 from pathlib import Path
 from types import ModuleType
-from typing import Literal, overload
+from typing import Any, Literal, overload
 
-from ordeq.framework.runner import (
-    _gather_nodes_from_module,  # noqa: PLC2701 (private-member-access)
+from ordeq._resolve import (
+    _resolve_runnables_to_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
 )
 
-from ordeq_viz.gather import (
-    gather_ios_from_module,
-    gather_nodes_and_ios_from_package,
-)
 from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 
 @overload
 def viz(
-    *modules: ModuleType, fmt: Literal["kedro", "mermaid"], output: Path
+    *runnables: str | ModuleType | Callable,
+    fmt: Literal["kedro-viz", "mermaid"],
+    output: Path,
+    **options: Any,
 ) -> None: ...
 
 
 @overload
 def viz(
-    *modules: str, fmt: Literal["kedro", "mermaid"], output: Path
-) -> None: ...
+    *runnables: str | ModuleType | Callable,
+    fmt: Literal["mermaid"],
+    output: None = None,
+    **options: Any,
+) -> str: ...
 
 
 def viz(
-    *modules: str | ModuleType, fmt: Literal["kedro", "mermaid"], output: Path
-) -> None:
-    """Visualize the pipeline from the provided packages or modules
+    *runnables: str | ModuleType | Callable,
+    fmt: Literal["kedro-viz", "mermaid"],
+    output: Path | None = None,
+    **options: Any,
+) -> str | None:
+    """Visualize the pipeline from the provided packages, modules, or nodes
 
     Args:
-        modules: Package names or modules from which to gather nodes from.
-        fmt: Format of the output visualization, ("kedro" or "mermaid").
+        runnables: Package names, modules, or node callables from which to
+            gather nodes from.
+        fmt: Format of the output visualization, ("kedro-viz" or "mermaid").
         output: output file or directory where the viz will be saved.
+        options: Additional options for the visualization functions.
+
+    Returns:
+        If `fmt` is 'mermaid' and `output` is not provided, returns the mermaid
+        diagram as a string. Otherwise, returns None.
 
     Raises:
-        TypeError: if modules are not all modules or all package names
+        ValueError: If `fmt` is 'kedro-viz' and `output` is not provided.
     """
-    if all(isinstance(r, ModuleType) for r in modules):
-        module_types: tuple[ModuleType, ...] = modules  # type: ignore[assignment]
-        nodes = set()
-        ios = {}
-        for module in module_types:
-            nodes.update(_gather_nodes_from_module(module))
-            ios.update(gather_ios_from_module(module))
-    elif all(isinstance(r, str) for r in modules):
-        package_names: tuple[str, ...] = modules  # type: ignore[assignment]
-        nodes = set()
-        ios = {}
-        for package in package_names:
-            package_mod = importlib.import_module(package)
-            nodes.update(_gather_nodes_from_module(package_mod))
-            package_nodes, package_ios = gather_nodes_and_ios_from_package(
-                package_mod
-            )
-            nodes.update(package_nodes)
-            ios.update(package_ios)
-    else:
-        raise TypeError(
-            "All objects provided must be either modules or package names."
-        )
+
+    nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
+
     match fmt:
-        case "kedro":
-            pipeline_to_kedro_viz(nodes, ios, output_directory=output)
+        case "kedro-viz":
+            if not output:
+                raise ValueError(
+                    "`output` is required when `fmt` is 'kedro-viz'"
+                )
+            pipeline_to_kedro_viz(
+                nodes, ios, output_directory=output, **options
+            )
         case "mermaid":
-            result = pipeline_to_mermaid(nodes, ios)
-            output.write_text(result, encoding="utf8")
+            result = pipeline_to_mermaid(nodes, ios, **options)
+            if output:
+                output.write_text(result, encoding="utf8")
+            return result
+    return None

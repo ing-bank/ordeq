@@ -1,4 +1,4 @@
-## Acknowledgements
+# Acknowledgements
 
 Ordeq has been developed at ING, with contributions from various individuals.
 We would like to acknowledge the following:

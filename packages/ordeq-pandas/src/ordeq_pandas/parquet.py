@@ -1,8 +1,8 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 import pandas as pd
-from ordeq.framework.io import IO
-from ordeq.types import PathLike
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -12,10 +12,10 @@ class PandasParquet(IO[pd.DataFrame]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from pathlib import Path
     >>> from ordeq_pandas import PandasParquet
-    >>> MyParquet = PandasParquet(
+    >>> parquet = PandasParquet(
     ...     path=Path("path/to.parquet")
     ... )
 
@@ -23,7 +23,7 @@ class PandasParquet(IO[pd.DataFrame]):
 
     """
 
-    path: PathLike
+    path: Path | str
 
     def load(self, **load_options) -> pd.DataFrame:
         return pd.read_parquet(self.path, **load_options)

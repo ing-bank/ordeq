@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-from ordeq.framework.io import Output
+from ordeq import Output
 
 
 @dataclass(frozen=True, eq=False)
@@ -12,11 +12,11 @@ class Print(Output[Any]):
 
     Example:
 
-    ```python
-    >>> from ordeq_common import Print, Static
+    ```pycon
+    >>> from ordeq_common import Print, Literal
     >>> from ordeq import node, run
     >>> @node(
-    ...     inputs=Static("hello, world!"),
+    ...     inputs=Literal("hello, world!"),
     ...     outputs=Print()
     ... )
     ... def print_message(message: str) -> str:

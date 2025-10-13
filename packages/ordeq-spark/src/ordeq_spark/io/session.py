@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-import pyspark
+import pyspark.sql
 from ordeq import Input
 
 
@@ -11,7 +11,7 @@ class SparkSession(Input[pyspark.sql.SparkSession]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark.io.session import SparkSession
     >>> spark_session = SparkSession()
     >>> spark = spark_session.load()  # doctest: +SKIP
@@ -22,10 +22,10 @@ class SparkSession(Input[pyspark.sql.SparkSession]):
 
     Example in a node:
 
-    ```python
+    ```pycon
     >>> from ordeq import node
-    >>> from ordeq_common import Static
-    >>> items = Static({'id': [1, 2, 3], 'value': ['a', 'b', 'c']})
+    >>> from ordeq_common import Literal
+    >>> items = Literal({'id': [1, 2, 3], 'value': ['a', 'b', 'c']})
     >>> @node(
     ...     inputs=[items, spark_session],
     ...     outputs=[],

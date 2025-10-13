@@ -1,8 +1,8 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 import pandas as pd
-from ordeq.framework.io import IO
-from ordeq.types import PathLike
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -12,11 +12,11 @@ class PandasCSV(IO[pd.DataFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> import pandas as pd
     >>> from pathlib import Path
     >>> from ordeq_pandas import PandasCSV
-    >>> MyCSV = PandasCSV(
+    >>> csv = PandasCSV(
     ...     path=Path("path/to.csv")
     ... ).load(header="infer")  # doctest: +SKIP
 
@@ -24,37 +24,25 @@ class PandasCSV(IO[pd.DataFrame]):
 
     Load behaviour is configured by `with_load_options`:
 
-    ```python
-    >>> import pandas as pd
-    >>> from pathlib import Path
-    >>> from ordeq_pandas import PandasCSV
-    >>> MyCSV = (
-    ...     PandasCSV(
-    ...         path=Path("path/to.csv")
-    ...     )
-    ...     .with_load_options(header="infer")
-    ... ).load()  # doctest: +SKIP
+    ```pycon
+    >>> csv = PandasCSV(
+    ...     path=Path("path/to.csv")
+    ... ).with_load_options(header="infer")
 
     ```
 
     Save behaviour is configured by `with_save_options`:
 
-    ```python
-    >>> import pandas as pd
-    >>> from pathlib import Path
-    >>> from ordeq_pandas import PandasCSV
-    >>> MyCSV = (
-    ...     PandasCSV(
-    ...         path=Path("path/to.csv"),
-    ...     )
-    ...     .with_save_options(header=True)
-    ... ).save()  # doctest: +SKIP
+    ```pycon
+    >>> csv = PandasCSV(
+    ...     path=Path("path/to.csv"),
+    ... ).with_save_options(header=True)
 
     ```
 
     """
 
-    path: PathLike
+    path: Path | str
 
     def load(self, **load_options) -> pd.DataFrame:
         return pd.read_csv(self.path, **load_options)

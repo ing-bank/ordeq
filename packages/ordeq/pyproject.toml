@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq"
+description = "Ordeq is a framework that simplifies IO and modularizes pipeline logic"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -18,11 +19,14 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 
+[tool.ordeq]
+group = "framework"
+
 [dependency-groups]
 test = [
     "cloudpathlib[s3]>=0.20.0",
     "ordeq-common",
-    "mypy>=1.17"  # for snapshot testing
+    "ordeq_test_utils",
 ]
 
 [tool.setuptools_scm]

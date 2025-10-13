@@ -1,7 +1,7 @@
 import argparse
 from typing import Any, TypeVar
 
-from ordeq.framework.io import Input
+from ordeq import Input
 
 T = TypeVar("T")
 
@@ -16,28 +16,29 @@ class CommandLineArg(Input[T]):
 
     Example:
 
-    ```python
-    >>> from ordeq import node
-    >>> from ordeq_spark import SparkHiveTable
-    >>> import pyspark.sql.functions as F
-    >>> from pyspark.sql import DataFrame
+    ```python title="main.py"
+    from ordeq import node, run
+    from ordeq_spark import SparkHiveTable
+    import pyspark.sql.functions as F
+    from pyspark.sql import DataFrame
 
-    >>> @node(
-    ...    inputs=[
-    ...         SparkHiveTable(table="my.table"),
-    ...         CommandLineArg("--value")
-    ...    ],
-    ...    outputs=SparkHiveTable(table="my.output"),
-    ... )
-    ... def transform(df: DataFrame, value: str) -> DataFrame:
-    ...     return df.where(F.col("col") == value)
 
+    @node(
+        inputs=[SparkHiveTable(table="my.table"), CommandLineArg("--value")],
+        outputs=SparkHiveTable(table="my.output"),
+    )
+    def transform(df: DataFrame, value: str) -> DataFrame:
+        return df.where(F.col("col") == value)
+
+
+    if __name__ == "__main__":
+        run(transform)
     ```
 
     When you run `transform` through the CLI as follows:
 
     ```shell
-    python {your-entrypoint} run --node transform --value MyValue
+    python main.py --value MyValue
     ```
 
     `MyValue` will be used as `value` in `transform`.
@@ -46,22 +47,37 @@ class CommandLineArg(Input[T]):
     parse as different type using built-in type converters, for instance:
 
     ```python
-    >>> K = CommandLineArg("--k", type=int)
-    >>> Threshold = CommandLineArg("--threshold", type=float)
-    >>> Address = CommandLineArg("--address", type=ascii)
-    >>> import pathlib
-    >>> Path = CommandLineArg("--path", type=pathlib.Path)
-    >>> import datetime
-    >>> DateTime = CommandLineArg("--date", type=datetime.date.fromisoformat)
+    import pathlib
+    import datetime
+
+    k = CommandLineArg("--k", type=int)
+    threshold = CommandLineArg("--threshold", type=float)
+    address = CommandLineArg("--address", type=ascii)
+    path = CommandLineArg("--path", type=pathlib.Path)
+    date_time = CommandLineArg("--date", type=datetime.date.fromisoformat)
 
     ```
 
     Alternatively, you can parse using a user-defined function, e.g.:
 
-        >>> def hyphenated(string: str) -> str:
-        ...     return '-'.join([w[:4] for w in string.casefold().split()])
-        >>> parser = argparse.ArgumentParser()
-        >>> Title = CommandLineArg("--title", type=hyphenated)
+    ```python
+    def hyphenated(string: str) -> str:
+        return "-".join([w[:4] for w in string.casefold().split()])
+
+
+    title = CommandLineArg("--title", type=hyphenated)
+    ```
+
+    When using multiple `CommandLineArg` IOs in a node, then you can link them
+    to the same argument parser:
+
+    ```python
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    arg1 = CommandLineArg("--arg1", parser=parser)
+    arg2 = CommandLineArg("--arg2", parser=parser)
+    ```
 
     Parsing command line arguments as `argparse.FileType` is discouraged as
     [it has been deprecated](https://docs.python.org/3.14/whatsnew/3.14.html#deprecated)

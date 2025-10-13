@@ -1,5 +1,4 @@
-from ordeq import Node
-from ordeq.framework.hook import NodeHook
+from ordeq import Node, NodeHook
 
 from ordeq_spark.utils import get_spark_session
 
@@ -14,11 +13,10 @@ class SparkJobGroupHook(NodeHook):
 
     Example usage:
 
-    ```python
-    >>> from ordeq.framework import node
+    ```pycon
+    >>> from ordeq import node, run
     >>> from ordeq_spark import SparkHiveTable
     >>> from pyspark.sql import DataFrame
-    >>> from ordeq.framework.runner import run
 
     >>> @node(
     ...     inputs=SparkHiveTable(table="tables.a"),

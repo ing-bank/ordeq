@@ -18,7 +18,8 @@ predictions = SparkCSV(path="path/to/local/predictions.csv")
 
 Here, `iris` and `predictions` are IOs pointing to local CSV files.
 
-!!!info "IO naming convention"
+!!! info "IO naming convention"
+
     Following [PEP-8](https://peps.python.org/pep-0008/#function-and-variable-names), IO instances should be lowercased.
     For instance, use `iris` instead of `Iris`.
     IO classes, on the other hand, should be in `PascalCase`, such as `SparkCSV`.
@@ -43,17 +44,15 @@ from pyspark.sql import DataFrame
 
 from catalogs import local  # or 'production'
 
-@node(
-    inputs=local.iris,
-    outputs=local.predictions,
-)
+
+@node(inputs=local.iris, outputs=local.predictions)
 def predict(iris: DataFrame) -> DataFrame:
     # Your prediction logic here
     ...
-
 ```
 
-!!!tip "Avoid individual IO imports"
+!!! tip "Avoid individual IO imports"
+
     It is best practice to import the catalog entirely, rather than individual IOs.
     This keeps the import statements clean, and makes it easier to switch catalogs.
     It also avoids name clashes between IOs and function arguments in your code.
@@ -80,14 +79,11 @@ from pyspark.sql import DataFrame
 
 from catalogs import catalog  # resolves to 'local' or 'production'
 
-@node(
-    inputs=catalog.iris,
-    outputs=catalog.predictions,
-)
+
+@node(inputs=catalog.iris, outputs=catalog.predictions)
 def predict(iris: DataFrame) -> DataFrame:
     # Your prediction logic here
     ...
-
 ```
 
 When the environment variable `ENV=local` it uses the local catalog.
@@ -103,7 +99,7 @@ Here is how you would adapt the previous script:
 
 ```python title="catalogs/__init__.py"  hl_lines="2 6"
 import os
-from ordeq.framework.catalog import check_catalogs_are_consistent
+from ordeq import check_catalogs_are_consistent
 
 from catalogs import local, production
 
@@ -113,7 +109,8 @@ catalog = local if os.getenv("ENV") == "local" else production
 
 If the catalogs have different variable names, this function will raise an error, helping you catch mistakes early.
 
-!!!tip "When (not) to use catalogs"
+!!! tip "When (not) to use catalogs"
+
     Creating separate modules for different environments makes most sense if each module contains a different set of IOs that cannot be otherwise resolved at run-time.
 
     For instance, if the only difference between your local and production environments is the namespace, you can use environment variables or configuration file to set the table names dynamically, rather than creating separate catalogs:
@@ -129,6 +126,7 @@ If the catalogs have different variable names, this function will raise an error
     This approach is simpler and avoids the overhaead of multiple catalog modules.
 
 ## Extending catalogs
+
 Often we do not want to create a new catalog from scratch, but rather extend an existing one.
 For example, you might want to create a `staging` catalog that is similar to `production`, but with a few differences.
 You can do this by importing the base catalog and overriding specific IOs:
@@ -145,12 +143,14 @@ This way, the `staging` catalog inherits all IOs from `production`, except for `
 
 You can also extend catalogs, as follows:
 
-```python title="catalogs/staging.py"  hl_lines="5"
+```python title="catalogs/staging.py"  hl_lines="6"
 from ordeq_spark import SparkCSV
 
 from catalogs.production import *
 
-iris_large = SparkCSV(path="path/to/staging/iris_large.csv")  # Extends with a new IO
+iris_large = SparkCSV(
+    path="path/to/staging/iris_large.csv"
+)  # Extends with a new IO
 ```
 
 Note that the extended catalog is not consistent with the `production` catalog, since it defines a new IO.
@@ -179,13 +179,15 @@ from unittest import patch
 import nodes
 import tests
 
+
 @patch("nodes.catalog", new=tests.catalog)
 def test_it_predicts(catalog):
     actual = run(predict)
     assert predictions.load() == ...  # do your assertions here
 ```
 
-!!!warning "Limitation"
+!!! warning "Limitation"
+
     Patching a catalog only works if the catalog is a plain module, not a package.
 
 If you do not want to create a new catalog, you can run nodes with alternative IOs directly:
@@ -196,11 +198,9 @@ from ordeq_spark import SparkCSV
 
 from catalogs import catalog
 
+
 def test_it_predicts():
-    actual = run(
-        predict,
-        io={catalog.iris: SparkCSV(path="path/to/test.csv")}
-    )
+    actual = run(predict, io={catalog.iris: SparkCSV(path="path/to/test.csv")})
     assert catalog.predictions.load() == ...  # do your assertions here
 ```
 

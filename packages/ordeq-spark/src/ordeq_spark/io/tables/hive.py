@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Literal
 
-from ordeq.framework.io import IO
+from ordeq import IO
 from pyspark.sql import DataFrame
 
 from ordeq_spark.io.tables.table import SparkTable
@@ -19,7 +19,7 @@ class SparkHiveTable(SparkTable, IO[DataFrame]):
 
     Save a DataFrame to a Hive table:
 
-    ```python
+    ```pycon
     >>> from ordeq_spark import SparkHiveTable
     >>> from pyspark.sql import SparkSession
     >>> spark = SparkSession.builder.enableHiveSupport().getOrCreate()  # doctest: +SKIP

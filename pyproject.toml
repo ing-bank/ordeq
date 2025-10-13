@@ -26,16 +26,18 @@ test = [
     "pytest>=8.4.1",
 ]
 types = [
-    "mypy>=1.17",
+    "mypy>=1.18.2",
     "ty>=0.0.1a16",
 ]
 
 [tool.uv.sources]
 ordeq = { workspace = true }
+ordeq-altair = { workspace = true }
 ordeq-args = { workspace = true }
 ordeq-boto3 = { workspace = true }
 ordeq-common = { workspace = true }
 ordeq-cli-runner = { workspace = true }
+ordeq-duckdb = { workspace = true }
 ordeq-faiss = { workspace = true }
 ordeq-files = { workspace = true }
 ordeq-huggingface = { workspace = true }
@@ -45,13 +47,22 @@ ordeq-matplotlib = { workspace = true }
 ordeq-numpy = { workspace = true }
 ordeq-pandas = { workspace = true }
 ordeq-polars = { workspace = true }
-ordeq-project = { workspace = true }
+ordeq-manifest = { workspace = true }
 ordeq-pydantic = { workspace = true }
 ordeq-pymupdf = { workspace = true }
 ordeq-requests = { workspace = true }
+ordeq-sentence-transformers = { workspace = true }
 ordeq-spark = { workspace = true }
+ordeq-toml = { workspace = true }
 ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }
+ordeq-yaml = { workspace = true }
+
+# Development packages
+ordeq-test-utils = { workspace = true }
+
+[tool.uv]
+required-version = ">=0.8.23"
 
 [tool.uv.workspace]
 members = ["packages/*"]
@@ -70,8 +81,8 @@ fail_under = 85
 [tool.coverage.run]
 omit = [
     "_version.py",
-    "packages/ordeq/tests/resources/*",
-    "packages/ordeq/tests/snapshots/*",
+    "packages/*/tests/resources/*",
+    "packages/*/tests/snapshots/*",
 ]
 
 [tool.pytest.ini_options]
@@ -94,6 +105,7 @@ target-version = "py310"
 
 [tool.ruff.format]
 skip-magic-trailing-comma = true
+docstring-code-format = true
 
 [tool.ruff.lint]
 extend-select = [
@@ -146,6 +158,7 @@ ignore = [
     "PLR2004", # Magic value used in comparison
     "PLR1722", # Use `sys.exit()` instead of `exit`
     "PLR0915", # Too many statements (61 > 50)
+    "PLR0914", # Too many local variables (22 > 15)
     "TC003", # Move standard library import
     "TC002", # Move third-party import `airflow.models.param.Param`
     "PLR0917", # Too many positional arguments (6/5)
@@ -166,6 +179,8 @@ split-on-trailing-comma = false
     "DOC",
     "INP",
     "PLC2701",
+    # `import` should be at the top-level of a file
+    "PLC0415",
     "PLR6301",
     "S101",
     "S608",
@@ -181,6 +196,8 @@ split-on-trailing-comma = false
 ]
 # Rules not applicable for scripts
 "scripts/*" = ["INP001", "S607", "S603", "S404", "D103"]
+# Rules not applicable in documentation files
+"docs/*" = ["INP001", "D", "DOC", "S", "E501", "PERF", "PLW1514"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -188,13 +205,12 @@ convention = "google"
 [tool.ty.src]
 exclude = [
     "packages/*/src/*/_version.py",
-    "packages/*/tests/resources/*"  # type checking on resources is conducted by snapshot tests
+    # type checking on resources is conducted by snapshot tests
+    "packages/*/tests/resources/*",
+    "packages/*/tests/packages/*"
 ]
 
 [tool.ty.rules]
 invalid-argument-type = "ignore"
-invalid-type-form = "ignore"
-possibly-unbound-attribute = "ignore"
+possibly-unbound-attribute = "ignore"  # faiss issue
 unresolved-attribute = "ignore"
-unsupported-operator = "ignore"
-missing-argument = "ignore"  # TODO: enable when `with_load_options` / `with_save_options` is fixed

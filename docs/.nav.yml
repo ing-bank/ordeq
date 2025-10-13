@@ -8,16 +8,22 @@ nav:
           - Catalogs: getting-started/concepts/catalogs.md
           - Hooks: getting-started/concepts/hooks.md
   - Guides & examples:
-      - guides/custom_io.md
+      - guides/run_and_viz.md
+      - guides/node_parameters.md
+      - IO:
+        - Custom IO: guides/custom_io.md
+        - Parametrizing IO: guides/parametrized_io.md
+        - Lazy IO: guides/lazy_io.md
+        - Cloud storage: guides/cloud_storage.md
       - guides/testing_nodes.md
       - Migrating:
           - Migrating from Kedro: guides/migrating/kedro.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
-          - Lazy IO: guides/examples/lazy_io.md
       # TODO: Add an example project
+  - Packages: packages.md
   - API: api
   - Contributing:
-      - How to: contributing/contributing.md
+      - How to: CONTRIBUTING.md
       - Acknowledgements: contributing/acknowledgements.md
       - Documentation setup: contributing/documentation.md

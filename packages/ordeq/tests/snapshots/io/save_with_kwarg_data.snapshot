@@ -5,7 +5,7 @@ Output:
 saving! ...
 
 Logging:
-INFO	ordeq.framework.io	Saving Output(idx=ID1)
+INFO	ordeq.io	Saving Output(idx=ID1)
 
 Typing:
 packages/ordeq/tests/resources/io/save_with_kwarg_data.py:5: note: "save" of "Example" defined here

@@ -1,8 +1,11 @@
 import pickle
 from dataclasses import dataclass
+from typing import TypeVar
 
-from ordeq.framework.io import IO, T
+from ordeq import IO
 from ordeq.types import PathLike
+
+T = TypeVar("T")
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -11,10 +14,10 @@ class Pickle(IO[T]):
 
     Example usage:
 
-    ```python
+    ```pycon
     >>> from ordeq_files import Pickle
     >>> from pathlib import Path
-    >>> MyPickle = Pickle(
+    >>> my_pickle = Pickle(
     ...     path=Path("path/to.pkl")
     ... )
 

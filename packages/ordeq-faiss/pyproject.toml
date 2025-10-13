@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_faiss"
+description = "Faiss integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -18,9 +19,12 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "ordeq>=0.2.1",
+    "ordeq>=1.0.0",
     "faiss-cpu",
 ]
+
+[tool.ordeq]
+group = "ios"
 
 [dependency-groups]
 test = []

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import polars as pl
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -11,7 +11,7 @@ class PolarsLazyCSV(IO[pl.LazyFrame]):
 
     Example:
 
-    ```python
+    ```pycon
     >>> from ordeq_polars import PolarsLazyCSV
     >>> from pathlib import Path
     >>> csv = PolarsLazyCSV(
@@ -24,7 +24,7 @@ class PolarsLazyCSV(IO[pl.LazyFrame]):
 
     """
 
-    path: Path
+    path: Path | str
 
     def load(self, **load_options) -> pl.LazyFrame:
         return pl.scan_csv(source=self.path, **load_options)

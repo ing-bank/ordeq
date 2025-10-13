@@ -11,7 +11,7 @@ from urllib3 import BaseHTTPResponse
 
 class TestJSONLocal:
     def test_it_loads(self, tmp_path: Path):
-        data = {"someKey": "someValue"}
+        data = {"someKey": "someValue e, è, é, ê, ë"}
         path = tmp_path / "test_it_loads.json"
         with path.open(mode="w") as fh:
             json.dump(data, fh)
@@ -19,7 +19,7 @@ class TestJSONLocal:
 
     def test_it_saves(self, tmp_path: Path):
         path = tmp_path / "test_it_saves.json"
-        data = {"someKey": "someValue"}
+        data = {"someKey": "someValue - e, è, é, ê, ë"}
         JSON(path=path).save(data)
         with path.open(mode="r") as fh:
             assert json.load(fh) == data

@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_polars"
+description = "Polars integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -18,11 +19,12 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "ordeq>=0.2.1",
-    "polars>=1.0",
-    "fastexcel",
-    "xlsxwriter"
+    "ordeq>=1.0.0",
+    "polars[excel,pyarrow]>=1.0",
 ]
+
+[tool.ordeq]
+group = "ios"
 
 [dependency-groups]
 test = []

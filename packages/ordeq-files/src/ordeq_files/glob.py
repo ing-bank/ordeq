@@ -1,7 +1,7 @@
 from collections.abc import Generator
 from dataclasses import dataclass
 
-from ordeq.framework.io import Input
+from ordeq import Input
 from ordeq.types import GlobPath, PathLike
 
 
@@ -12,7 +12,7 @@ class Glob(Input[Generator[PathLike, None, None]]):
     for most cases it would be more suitable to inherit from
     this class and extend the `load` method, for example:
 
-    ```python
+    ```pycon
     >>> class LoadPartitions(Glob):
     ...     def load(self):
     ...         paths = super().load()

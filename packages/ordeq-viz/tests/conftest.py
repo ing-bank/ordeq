@@ -1,37 +1,28 @@
-import importlib
-import sys
 from collections.abc import Callable
 from pathlib import Path
 
 import pytest
 from ordeq import IO, Input, Node, Output
 from ordeq._nodes import get_node
+from ordeq_test_utils import append_packages_dir_to_sys_path
 
 
 @pytest.fixture
-def resources_dir() -> Path:
-    """Return the path to the resources directory.
+def packages_dir() -> Path:
+    """Return the path to the packages directory.
 
     Returns:
-        the path to the resources directory
+        the path to the packages directory
     """
 
     PACKAGE_DIR = Path(__file__).resolve().parent
-    return PACKAGE_DIR / "resources"
+    return PACKAGE_DIR / "packages"
 
 
 @pytest.fixture(autouse=True)
-def append_resources_dir_to_sys_path(resources_dir):
-    """Append the resources directory to sys.path."""
-    sys.path.append(str(resources_dir))
-    yield
-    sys.path.remove(str(resources_dir))
-    for n in filter(lambda m: m.startswith("example"), list(sys.modules)):
-        # Remove the example.* and example2.* modules from sys.modules
-        # to ensure a clean state for each test
-        del sys.modules[n]
-
-    importlib.invalidate_caches()
+def packages(packages_dir):
+    """Append the packages directory to sys.path."""
+    yield from append_packages_dir_to_sys_path(packages_dir)
 
 
 @pytest.fixture

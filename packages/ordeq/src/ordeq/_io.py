@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import inspect
 import logging
-from collections.abc import Callable, Sequence
+from collections.abc import Callable
 from functools import cached_property, reduce, wraps
 from typing import Any, Generic, TypeVar
 from uuid import uuid4
@@ -38,19 +38,11 @@ def _find_references(attributes) -> dict[str, list[Input | Output | IO]]:
     Returns:
         a dictionary mapping attribute names to lists of Input, Output, or IO
     """
-
-    def get_io_instance(value: Any) -> list[Input | Output | IO]:
-        if isinstance(value, (Input, Output, IO)):
-            return [value]
-        if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-            return [io for v in value for io in get_io_instance(v)]
-        if isinstance(value, dict):
-            return [io for v in value.values() for io in get_io_instance(v)]
-        return []
+    from ordeq._resolve import _get_io_sequence  # noqa: PLC0415
 
     wrapped = {}
     for attribute, value in attributes.items():
-        ios = get_io_instance(value)
+        ios = _get_io_sequence(value)
         if ios:
             wrapped[attribute] = ios
     return wrapped

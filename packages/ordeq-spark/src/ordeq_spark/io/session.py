@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-import pyspark
+import pyspark.sql
 from ordeq import Input
 
 

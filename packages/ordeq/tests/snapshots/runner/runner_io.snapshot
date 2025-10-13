@@ -1,5 +1,5 @@
 Exception:
-TypeError: argument of type 'int' is not iterable
+AttributeError: 'Node' object has no attribute 'views'
 
 Typing:
 packages/ordeq/tests/resources/runner/runner_io.py:29: error: Argument "io" to "run" has incompatible type "dict[object, object]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]

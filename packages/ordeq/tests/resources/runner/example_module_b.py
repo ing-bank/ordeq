@@ -16,3 +16,6 @@ def increment(x: int) -> str:
 @node(inputs=[x2, x3], outputs=x4)
 def decrement(x: str, y: str) -> str:
     return f"{int(x) - int(y)}"
+
+
+renamed = increment

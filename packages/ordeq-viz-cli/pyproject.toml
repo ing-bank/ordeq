@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_viz_cli"
+description = "Command line interface for Ordeq visualization"
 dynamic = ["version"]
 readme = "README.md"
-description = "Command line interface for Ordeq visualization"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [
@@ -19,6 +19,9 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = ["ordeq-viz>=0.4.0"]
+
+[tool.ordeq]
+group = "CLI"
 
 [dependency-groups]
 test = []

@@ -1,14 +1,12 @@
-from __future__ import annotations
-
 import importlib
 import logging
 from collections.abc import Callable, Sequence
-from dataclasses import dataclass, field, replace
-from functools import cached_property, wraps
+from dataclasses import dataclass, field
+from functools import wraps, cached_property
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
 
-from ordeq._io import Input, Output
+from ordeq._io import Input, Output, IO
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -17,10 +15,28 @@ FuncParams = ParamSpec("FuncParams")
 FuncReturns = TypeVar("FuncReturns")
 
 
-@dataclass(frozen=True)
+def infer_node_name_from_func(func: Callable[..., Any]) -> str:
+    """Infers a node name from a function, including its module.
+
+    Args:
+        func: The function to infer the name from.
+
+    Returns:
+        The inferred name.
+    """
+
+    name = func.__name__
+    module = getattr(func, "__module__", None)
+    if module and module != "__main__":
+        return f"{module}:{name}"
+    return name
+
+
+@dataclass(frozen=True, kw_only=True)
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
-    inputs: tuple[Input | Node, ...]
+    name: str
+    inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
     tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
 
@@ -32,23 +48,14 @@ class Node(Generic[FuncParams, FuncReturns]):
         if self.outputs:
             _raise_for_invalid_outputs(self)
 
-    def validate(self):
+    def validate(self) -> None:
         """These checks are performed before the node is run."""
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
 
-    @cached_property
-    def views(self) -> list[Node]:
-        return [i for i in self.inputs if isinstance(i, Node)]
-
-    @cached_property
-    def name(self) -> str:
-        full_name = self.func.__name__
-        if hasattr(self.func, "__module__"):
-            module = str(self.func.__module__)
-            if module != "__main__":
-                full_name = module + ":" + full_name
-        return full_name
+    @property
+    def _sentinel(self) -> IO:
+        return IO()
 
     def __repr__(self) -> str:
         attributes = {"name": self.name}
@@ -71,13 +78,17 @@ class Node(Generic[FuncParams, FuncReturns]):
 
     def _replace(
         self,
-        inputs: Sequence[Input] | Input,
-        outputs: Sequence[Output] | Output,
-    ) -> Node[FuncParams, FuncReturns]:
-        return replace(
-            self,
-            inputs=_sequence_to_tuple(inputs),
-            outputs=_sequence_to_tuple(outputs),
+        *,
+        name: str | None = None,
+        inputs: Sequence[Input] | Input | None = None,
+        outputs: Sequence[Output] | Output | None = None,
+    ) -> "Node[FuncParams, FuncReturns]":
+        return Node(
+            func=self.func,
+            name=name or self.name,
+            inputs=_sequence_to_tuple(inputs or self.inputs),
+            outputs=_sequence_to_tuple(outputs or self.outputs),
+            tags=self.tags,
         )
 
 
@@ -130,7 +141,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
             return
 
     # any return type is valid for a single output
-    if len(n.outputs) in 1:
+    if len(n.outputs) == 1:
         return
 
     # A type annotation was provided
@@ -179,15 +190,34 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
 
 def _create_node(
     func: Callable[FuncParams, FuncReturns],
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    *,
+    name: str | None = None,
+    inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]:
-    inputs = tuple(
-        get_node(i) if callable(i) else i for i in _sequence_to_tuple(inputs)
+    """Creates a Node instance.
+
+    Args:
+        func: The function to be executed by the node.
+        name: Optional name for the node. If not provided, inferred from func.
+        inputs: The inputs to the node.
+        outputs: The outputs from the node.
+        tags: Optional tags for the node.
+
+    Returns:
+        A Node instance.
+    """
+
+    resolved_name = (
+        name if name is not None else infer_node_name_from_func(func)
     )
     return Node(
-        func, inputs, _sequence_to_tuple(outputs), [] if tags is None else tags
+        func=func,
+        name=resolved_name,
+        inputs=_sequence_to_tuple(inputs),
+        outputs=_sequence_to_tuple(outputs),
+        tags=[] if tags is None else tags,
     )
 
 
@@ -301,8 +331,9 @@ def node(
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            inner.__ordeq_node__ = _create_node(inner, inputs, outputs,
-                                                tags)  # type: ignore[attr-defined]
+            inner.__ordeq_node__ = _create_node(  # type: ignore[attr-defined]
+                inner, inputs=inputs, outputs=outputs, tags=tags
+            )
             return inner
 
         return wrapped
@@ -314,8 +345,9 @@ def node(
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    wrapper.__ordeq_node__ = _create_node(wrapper, inputs, outputs,
-                                          tags)  # type: ignore[attr-defined]
+    wrapper.__ordeq_node__ = _create_node(  # type: ignore[attr-defined]
+        wrapper, inputs=inputs, outputs=outputs, tags=tags
+    )
     return wrapper
 
 

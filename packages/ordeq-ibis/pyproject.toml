@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_ibis"
+description = "Ibis integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -21,6 +22,9 @@ dependencies = [
     "ordeq>=1.0.0",
     "ibis-framework",
 ]
+
+[tool.ordeq]
+group = "ios"
 
 [dependency-groups]
 test = [

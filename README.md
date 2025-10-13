@@ -2,7 +2,7 @@
 
 [![Release](https://github.com/ing-bank/ordeq/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/ing-bank/ordeq/actions/workflows/release.yml)
 [![Docs](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml)
-![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)
+[![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)](https://pypi.org/project/ordeq/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -40,59 +40,59 @@ Some of the available integrations:
 <table>
     <tr>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_pandas/parquet/"><img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="Pandas" height="40"/><br />Pandas</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_pandas/"><img src="https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg" alt="Pandas" height="40"/><br />Pandas</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_spark/io/tables/iceberg/"><img src="https://icon.icepanel.io/Technology/svg/Apache-Spark.svg" alt="Spark" height="40"/><br />Spark</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_spark/"><img src="https://icon.icepanel.io/Technology/svg/Apache-Spark.svg" alt="Spark" height="40"/><br />Spark</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_numpy/binary_array/"><img src="https://numpy.org/images/logo.svg" alt="NumPy" height="40"/><br />Numpy</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_numpy/"><img src="https://numpy.org/images/logo.svg" alt="NumPy" height="40"/><br />Numpy</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_polars/eager/parquet/"><img src="https://avatars.githubusercontent.com/u/83768144?s=200&v=4" alt="Polars" height="60"/><br />Polars</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_polars/"><img src="https://avatars.githubusercontent.com/u/83768144?s=200&v=4" alt="Polars" height="60"/><br />Polars</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_ibis/io/parquet/"><img src="https://ibis-project.org/logo.svg" alt="Ibis" height="50"/><br />Ibis</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_ibis/"><img src="https://ibis-project.org/logo.svg" alt="Ibis" height="50"/><br />Ibis</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_matplotlib/figure/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png" alt="Matplotlib" height="40"/><br />Matplotlib</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_matplotlib/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png" alt="Matplotlib" height="40"/><br />Matplotlib</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_joblib/joblib/"><img src="https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg" alt="Joblib" height="40"/><br />Joblib</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_joblib/"><img src="https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg" alt="Joblib" height="40"/><br />Joblib</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_huggingface/dataset/"><img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="HuggingFace" height="40"/><br />HuggingFace</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_huggingface/"><img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="HuggingFace" height="40"/><br />HuggingFace</a>
         </td>
     </tr>
     <tr>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_sentence_transformers/sentence_transformer/"><img src="https://www.sbert.net/_static/logo.png" alt="SentenceTransformers" height="40"/><br />st</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_sentence_transformers/"><img src="https://www.sbert.net/_static/logo.png" alt="SentenceTransformers" height="40"/><br />st</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_requests/io/response/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png" alt="Requests" height="50"/><br />Requests</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_requests/"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png" alt="Requests" height="50"/><br />Requests</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_pydantic/model/"><img src="https://avatars.githubusercontent.com/u/110818415?v=4" alt="Pydantic" height="40"/><br />Pydantic</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_pydantic/"><img src="https://avatars.githubusercontent.com/u/110818415?v=4" alt="Pydantic" height="40"/><br />Pydantic</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_duckdb/table/"><img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/duckdb-umoj5fxu8w5pzg7d0js9.png/duckdb-kz05ottxukbgvmp8c3bpi.png?_a=DATAg1AAZAA0" alt="DuckDB" height="40"/><br/>DuckDB</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_duckdb/"><img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/duckdb-umoj5fxu8w5pzg7d0js9.png/duckdb-kz05ottxukbgvmp8c3bpi.png?_a=DATAg1AAZAA0" alt="DuckDB" height="40"/><br/>DuckDB</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_altair/chart/"><img src="https://avatars.githubusercontent.com/u/22396732?s=200&v=4" alt="Altair" height="40"/><br/>Altair</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_altair/"><img src="https://avatars.githubusercontent.com/u/22396732?s=200&v=4" alt="Altair" height="40"/><br/>Altair</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_networkx/networkx_graphml/"><img src="https://avatars.githubusercontent.com/u/388785?s=200&v=4" alt="Networkx" height="40"/><br/>NetworkX</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_networkx/"><img src="https://avatars.githubusercontent.com/u/388785?s=200&v=4" alt="Networkx" height="40"/><br/>NetworkX</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_toml/toml/"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/TOML_Logo.svg" alt="TOML" height="40"/><br/>TOML</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_toml/"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/TOML_Logo.svg" alt="TOML" height="40"/><br/>TOML</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_pymupdf/pdf_file/"><img src="https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg" alt="PyMuPDF" height="40"/><br />PyMuPDF</a>
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_pymupdf/"><img src="https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg" alt="PyMuPDF" height="40"/><br />PyMuPDF</a>
         </td>
     </tr>
 </table>
 
-Have a look at the [API reference][api-ref] for a list of available packages.
+Have a look at the [package overview][packages] and [API reference][api-ref] for a list of available packages.
 
 **Cloud storage**
 
@@ -108,7 +108,7 @@ Have a look at the [API reference][api-ref] for a list of available packages.
       <a href="https://ing-bank.github.io/ordeq/guides/cloud_storage/"><img src="https://freepngdesign.com/content/uploads/images/p-1692-1-aws-s3-logo-png-transparent-logo-585854250269.png" alt="AWS S3" height="40"/><br />AWS S3</a>
     </td>
     <td width="180" height="60" align="center">
-      <a href="https://ing-bank.github.io/ordeq/api/ordeq_boto3/s3_object/"><img src="https://boto3typed.gallerycdn.vsassets.io/extensions/boto3typed/boto3-ide/0.5.4/1680224848596/Microsoft.VisualStudio.Services.Icons.Default" alt="Boto3" height="40"/><br />Boto3</a>
+      <a href="https://ing-bank.github.io/ordeq/api/ordeq_boto3/"><img src="https://boto3typed.gallerycdn.vsassets.io/extensions/boto3typed/boto3-ide/0.5.4/1680224848596/Microsoft.VisualStudio.Services.Icons.Default" alt="Boto3" height="40"/><br />Boto3</a>
     </td>
   </tr>
 </table>
@@ -146,3 +146,4 @@ Please refer to the [acknowledgements] section in the documentation for more det
 [kedro]: https://github.com/kedro-org/kedro
 [license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE
 [notice]: https://github.com/ing-bank/ordeq/blob/main/NOTICE
+[packages]: https://ing-bank.github.io/ordeq/packages/

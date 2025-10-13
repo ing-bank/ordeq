@@ -1,0 +1,8 @@
+Exception:
+KeyError: IO(idx=ID1)
+
+Typing:
+packages/ordeq-manifest/tests/resources/manifests/project.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/project.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/project.py:2: error: Skipping analyzing "examples": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+Found 2 errors in 1 file (checked 1 source file)

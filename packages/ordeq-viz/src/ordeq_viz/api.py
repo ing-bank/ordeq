@@ -14,7 +14,7 @@ from ordeq_viz.to_mermaid import pipeline_to_mermaid
 @overload
 def viz(
     *runnables: str | ModuleType | Callable,
-    fmt: Literal["kedro", "mermaid"],
+    fmt: Literal["kedro-viz", "mermaid"],
     output: Path,
     **options: Any,
 ) -> None: ...
@@ -31,7 +31,7 @@ def viz(
 
 def viz(
     *runnables: str | ModuleType | Callable,
-    fmt: Literal["kedro", "mermaid"],
+    fmt: Literal["kedro-viz", "mermaid"],
     output: Path | None = None,
     **options: Any,
 ) -> str | None:
@@ -40,7 +40,7 @@ def viz(
     Args:
         runnables: Package names, modules, or node callables from which to
             gather nodes from.
-        fmt: Format of the output visualization, ("kedro" or "mermaid").
+        fmt: Format of the output visualization, ("kedro-viz" or "mermaid").
         output: output file or directory where the viz will be saved.
         options: Additional options for the visualization functions.
 
@@ -49,15 +49,17 @@ def viz(
         diagram as a string. Otherwise, returns None.
 
     Raises:
-        ValueError: If `fmt` is 'kedro' and `output` is not provided.
+        ValueError: If `fmt` is 'kedro-viz' and `output` is not provided.
     """
 
     nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
 
     match fmt:
-        case "kedro":
+        case "kedro-viz":
             if not output:
-                raise ValueError("`output` is required when `fmt` is 'kedro'")
+                raise ValueError(
+                    "`output` is required when `fmt` is 'kedro-viz'"
+                )
             pipeline_to_kedro_viz(
                 nodes, ios, output_directory=output, **options
             )

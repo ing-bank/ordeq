@@ -1,2 +1,5 @@
-Exception:
-TypeError: argument of type 'int' is not iterable
+Output:
+xy
+xY
+xy
+xy

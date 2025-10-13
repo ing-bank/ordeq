@@ -2,8 +2,9 @@
 
 import importlib
 import pkgutil
-from collections.abc import Callable, Generator, Iterable
+from collections.abc import Callable, Generator, Iterable, Sequence
 from types import ModuleType
+from typing import Any
 
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
@@ -22,20 +23,26 @@ def _is_io(obj: object) -> bool:
     return isinstance(obj, (IO, Input, Output))
 
 
-def _is_node_proxy(obj: object) -> bool:
+def _get_io_sequence(value: Any) -> list[Input | Output | IO]:
+    if _is_io(value):
+        return [value]
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return [io for v in value for io in _get_io_sequence(v)]
+    if isinstance(value, dict):
+        return [io for v in value.values() for io in _get_io_sequence(v)]
+    return []
+
+
+def _is_io_sequence(value: Any) -> bool:
+    return bool(_get_io_sequence(value))
+
+
+def _is_node(obj: object) -> bool:
     return (
         callable(obj)
         and hasattr(obj, "__ordeq_node__")
         and isinstance(obj.__ordeq_node__, Node)
     )
-
-
-def _resolve_proxy_to_node(proxy: Callable) -> Node:
-    # TODO: return node._replace(name=_get_node_name(proxy))
-    # This sets the name of the node to the name of the proxy,
-    # instead of the node's function name.
-    return get_node(proxy)
-
 
 def _resolve_string_to_module(name: str) -> ModuleType:
     return importlib.import_module(name)
@@ -88,11 +95,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
     """
 
-    return {
-        _resolve_proxy_to_node(obj)
-        for obj in vars(module).values()
-        if _is_node_proxy(obj)
-    }
+    return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
 
 
 def _resolve_module_to_ios(
@@ -127,11 +130,11 @@ def _resolve_node_reference(ref: str) -> Node:
     module_name, _, node_name = ref.partition(":")
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
-    if node_obj is None or not _is_node_proxy(node_obj):
+    if node_obj is None or not _is_node(node_obj):
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )
-    return _resolve_proxy_to_node(node_obj)
+    return get_node(node_obj)
 
 
 def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
@@ -211,7 +214,7 @@ def _resolve_runnables_to_nodes_and_modules(
         ):
             modules_and_strs.append(runnable)
         elif callable(runnable):
-            nodes.add(_resolve_proxy_to_node(runnable))
+            nodes.add(get_node(runnable))
         elif isinstance(runnable, str):
             nodes.add(_resolve_node_reference(runnable))
         else:

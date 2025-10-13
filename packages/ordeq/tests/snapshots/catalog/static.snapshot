@@ -1,5 +1,5 @@
 Exception:
-TypeError: argument of type 'int' is not iterable
+AttributeError: 'Node' object has no attribute 'views'
 
 Typing:
 packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 7  [no-redef]

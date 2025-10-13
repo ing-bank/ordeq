@@ -1,5 +1,5 @@
 Exception:
-TypeError: argument of type 'int' is not iterable
+AttributeError: 'Node' object has no attribute 'views'
 
 Typing:
 packages/ordeq/tests/resources/runner/runner_exhausted_stream.py:19: error: Unsupported left operand type for + ("Iterable[str]")  [operator]

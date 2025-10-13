@@ -43,6 +43,12 @@ def _make_mermaid_header(
     return "\n".join(header_lines) + "\n"
 
 
+def _hash_to_str(obj_id: int, io_names: dict[int, str]) -> str:
+    if obj_id not in io_names:
+        io_names[obj_id] = f"IO{len(io_names)}"
+    return io_names[obj_id]
+
+
 def pipeline_to_mermaid(
     nodes: set[Node],
     datasets: dict[str, Input | Output],
@@ -82,8 +88,6 @@ def pipeline_to_mermaid(
     ```pycon
     >>> from pathlib import Path
     >>> from ordeq_viz import (
-    ...    gather_ios_from_module,
-    ...    gather_nodes_from_registry,
     ...    pipeline_to_mermaid
     ... )
 
@@ -92,20 +96,25 @@ def pipeline_to_mermaid(
 
     ```
 
-    Gather all nodes in your project:
+    Gather all nodes and ios in your project:
     ```pycon
-    >>> nodes = gather_nodes_from_registry()
+    >>> from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
+    >>> nodes, ios = _resolve_runnables_to_nodes_and_ios(  # doctest: +SKIP
+    ...     catalog_module,
+    ...     pipeline_module
+    ... )
+
 
     ```
 
-    Find all objects of type "IO" in catalog.py:
+    Generate the pipeline visualization and write to file:
     ```pycon
-    >>> datasets = gather_ios_from_module(catalog_module)  # doctest: +SKIP
-    >>> mermaid = pipeline_to_mermaid(nodes, datasets)  # doctest: +SKIP
+    >>> mermaid = pipeline_to_mermaid(nodes, ios)  # doctest: +SKIP
     >>> Path("pipeline.mermaid").write_text(mermaid)  # doctest: +SKIP
 
     ```
     """
+    io_names: dict[int, str] = {}
 
     node_data, dataset_data = _gather_graph(nodes, datasets)
     distinct_dataset_types = sorted({dataset.type for dataset in dataset_data})
@@ -189,17 +198,20 @@ def pipeline_to_mermaid(
     # Inputs/Outputs
     for node in node_data:
         for dataset_id in node.inputs:
-            data += f"\t{dataset_id} --> {node.id}\n"
+            data += f"\t{_hash_to_str(dataset_id, io_names)} --> {node.id}\n"
 
         for dataset_id in node.outputs:
-            data += f"\t{node.id} --> {dataset_id}\n"
+            data += f"\t{node.id} --> {_hash_to_str(dataset_id, io_names)}\n"
 
     data += "\n"
 
     # Wrappers
     if connect_wrapped_datasets:
         for dataset_from_id, attr, dataset_to_id in wraps_data:
-            data += f"\t{dataset_from_id} -.->|{attr}| {dataset_to_id}\n"
+            data += (
+                f"\t{_hash_to_str(dataset_from_id, io_names)} -.->|{attr}| "
+                f"{_hash_to_str(dataset_to_id, io_names)}\n"
+            )
 
     # Nodes
     indent = 1
@@ -219,7 +231,8 @@ def pipeline_to_mermaid(
         else:
             class_name = "io"
         data += (
-            f"{tabs}\t{dataset.id}{io_shape_template.format(value=dataset.name)}"
+            f"{tabs}\t{_hash_to_str(dataset.id, io_names)}"
+            f"{io_shape_template.format(value=dataset.name)}"
             f":::{class_name}\n"
         )
 

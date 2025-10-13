@@ -1,5 +1,2 @@
-Output:
-xy
-xY
-xy
-xy
+Exception:
+TypeError: argument of type 'int' is not iterable

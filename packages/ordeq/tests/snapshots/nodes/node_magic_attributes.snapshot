@@ -1,5 +1,2 @@
-Output:
-A really nice node
-{'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
-func
-node_magic_attributes
+Exception:
+TypeError: argument of type 'int' is not iterable

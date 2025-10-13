@@ -1,2 +1,2 @@
 Exception:
-ValueError: Hook 'idontexist' not found in module 'packages.example.hooks'
+TypeError: argument of type 'int' is not iterable

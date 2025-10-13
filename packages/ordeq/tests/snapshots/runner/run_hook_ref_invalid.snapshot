@@ -1,2 +1,2 @@
 Exception:
-ValueError: Invalid hook reference: 'invalid'.
+TypeError: argument of type 'int' is not iterable

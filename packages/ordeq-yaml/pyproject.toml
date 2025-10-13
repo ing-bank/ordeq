@@ -22,6 +22,7 @@ dependencies = [
     "ordeq>=1.0.0",
     "pyyaml",
 ]
+logo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Official_YAML_Logo.svg/1024px-Official_YAML_Logo.svg.png?20220206165621"
 
 [tool.ordeq]
 group = "ios"

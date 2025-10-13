@@ -24,6 +24,7 @@ dependencies = [
     "tomli>=1.1.0;python_version<'3.11'",
     "tomli-w",
 ]
+logo_url = "https://avatars.githubusercontent.com/u/7966854?v=4"
 
 [tool.ordeq]
 group = "ios"

@@ -22,10 +22,12 @@ dependencies = [
     "ordeq>=1.0.0",
     "pydantic>=2",
 ]
-logo_url = "https://avatars.githubusercontent.com/u/110818415?v=4"
 
 [tool.ordeq]
 group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://avatars.githubusercontent.com/u/110818415?v=4"
 
 [dependency-groups]
 test = [

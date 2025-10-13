@@ -22,10 +22,12 @@ dependencies = [
     "ordeq>=1.0.0",
     "pymupdf",
 ]
-logo_url = "https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg"
 
 [tool.ordeq]
 group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg"
 
 [dependency-groups]
 test = []

@@ -77,7 +77,7 @@ def get_pypi_name_description_group(
 def get_pypi_name_description_group_logo(
     pyproject_path: Path,
 ) -> tuple[str, str, str | None, str | None]:
-    """Extract the relevant attributes for the package pyproject.tomls, including logo_url.
+    """Extract the relevant attributes for the package pyproject.tomls, including logo_url from [tool.ordeq-dev].
 
     Args:
         pyproject_path: The path to the pyproject.toml file.
@@ -89,10 +89,13 @@ def get_pypi_name_description_group_logo(
         data = tomllib.load(f)
     name = data["project"]["name"]
     description = data["project"].get("description", "")
-    logo_url = data["project"].get("logo_url")
-    group = None
+    logo_url = None
     tool_section = data.get("tool", {})
     ordeq_section = tool_section.get("ordeq", {})
+    ordeq_dev_section = tool_section.get("ordeq-dev", {})
+    if isinstance(ordeq_dev_section, dict):
+        logo_url = ordeq_dev_section.get("logo_url")
+    group = None
     if isinstance(ordeq_section, dict):
         group = ordeq_section.get("group")
     return name, description, group, logo_url

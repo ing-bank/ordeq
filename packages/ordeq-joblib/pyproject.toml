@@ -22,10 +22,12 @@ dependencies = [
     "ordeq>=1.0.0",
     "joblib",
 ]
-logo_url = "https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg"
 
 [tool.ordeq]
 group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg"
 
 [dependency-groups]
 test = [

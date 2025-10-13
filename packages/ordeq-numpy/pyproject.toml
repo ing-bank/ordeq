@@ -22,10 +22,12 @@ dependencies = [
     "ordeq>=1.0.0",
     "numpy",
 ]
-logo_url = "https://numpy.org/images/logo.svg"
 
 [tool.ordeq]
 group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://numpy.org/images/logo.svg"
 
 [dependency-groups]
 test = []

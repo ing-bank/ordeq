@@ -1,0 +1,5 @@
+Output:
+['duplicates', 'duplicates.file1', 'duplicates.file2']
+['duplicates.file1:foo', 'duplicates.file2:foo']
+{('duplicates.file1', 'x_value'): Literal(3), ('duplicates.file1', 'y_value'): IO(idx=ID1), ('duplicates.file2', 'x_value'): Literal(3), ('duplicates.file2', 'y_value'): IO(idx=ID2)}
+['duplicates.file1:foo', 'duplicates.file2:foo']

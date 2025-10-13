@@ -63,7 +63,10 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls, name: str, nodes: set[Node], ios: dict[str, IO | Input | Output]
+        cls,
+        name: str,
+        nodes: set[Node],
+        ios: dict[tuple[str, str], IO | Input | Output],
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 
@@ -76,13 +79,13 @@ class ProjectModel(BaseModel):
             A ProjectModel instance.
         """
         io_models = {
-            name: IOModel.from_io(("ios", name), io)
+            ".".join(name): IOModel.from_io(name, io)
             for name, io in sorted(ios.items(), key=operator.itemgetter(0))
         }
         ios_to_id = {
             io: io_model.id
             for name, io in ios.items()
-            if (io_model := io_models.get(name))
+            if (io_model := io_models.get(".".join(name)))
         }
         node_models = {
             f"nodes.{node.name}": NodeModel.from_node(

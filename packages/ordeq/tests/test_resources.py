@@ -21,7 +21,7 @@ SNAPSHOT_DIR = TESTS_DIR / "snapshots"
     ],
 )
 def test_resource(
-    file_path: Path, snapshot_path: Path, capsys, caplog
+    file_path: Path, snapshot_path: Path, capsys, caplog, packages
 ) -> None:
     diff = compare_resources_against_snapshots(
         file_path, snapshot_path, caplog, capsys

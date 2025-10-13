@@ -97,6 +97,7 @@ pythonpath = ["src", "tests"]
 exclude = [
     "packages/*/src/*/_version.py",
     "packages/*/tests/resources/*",
+    "scripts/generate_package_overview.py"
 ]
 force-exclude = true
 line-length = 79

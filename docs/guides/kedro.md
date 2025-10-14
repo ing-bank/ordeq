@@ -2,26 +2,36 @@
 
 This guide is for users familiar with Kedro who want to get started with Ordeq.
 Because the frameworks are conceptually close, it's easy to transition and leverage your existing knowledge.
-If you are new to Kedro, start with the Ordeq [introduction][intro].
-
-## Quick comparison
+If you are new to Ordeq, start with the [introduction][intro].
 
 Ordeq and Kedro share several core abstractions:
 
-- Nodes for modular data pipelines
-- Catalogs for defining and managing IO
+- [Nodes] for modular data pipelines
+- [Catalogs] for defining and managing [IO]
 
 Ordeq offers several advantages over Kedro:
 
 - Lighter weight and Python-first (no YAML required)
-- Integrates easily with Airflow and other Python tools
 - Adding new IOs requires a fraction of the code
-- Suitable for heavy data engineering and resource management
-- User IOs are first-class citizens; built-in IOs are 'Reference IOs' which you can extend
+- Suitable for heavy data engineering and resource configuration
+- Custom IOs are first-class citizens
 
-## Example project
+In this guide, we will compare a starter Kedro project with its Ordeq equivalent.
+You may use this as a reference when transitioning from Kedro to Ordeq.
 
-Below is the directory structure of a [Kedro starter project][kedro-starter] and the Ordeq equivalent.
+## Spaceflight starter project
+
+We will use the [spaceflights-pandas starter project][kedro-starter] as an example.
+Below is the directory structure of the Kedro project, and the Ordeq equivalent.
+
+!!! tip "How to try it out yourself"
+
+    If you would like to follow this guide step-by-step:
+
+    - clone the [spaceflights-pandas starter project][kedro-starter]
+    - create another, empty project, with the Ordeq layout described below
+
+    You can also download the completed Ordeq project [here][completed-repo].
 
 === "Kedro"
 
@@ -30,35 +40,28 @@ Below is the directory structure of a [Kedro starter project][kedro-starter] and
     └── base
         └── catalog.yml
     src/
+    ├── pipeline_registry.py
+    ├── settings.py
+    ├── __main__.py
     └── spaceflights
-        ├── pipelines
-        │   └── data_processing
-        │       ├── __init__.py
-        │       ├── nodes.py
-        │       └── pipeline.py
-        ├── pipeline_registry.py
-        ├── settings.py
-        └── __main__.py
+        ├── __init__.py
+        ├── pipeline.py
+        ├── catalog.py
+        └── nodes.py
+
     ```
 
 === "Ordeq"
 
     ```text
     src/
+    ├── __main__.py
+    ├── catalog.py
     └── spaceflights
-        ├── pipeline.py
-        ├── catalog.py
-        └── __main__.py
+        ├── __init__.py
+        └── pipeline.py
+
     ```
-
-!!! tip
-
-    If you would like to follow this tutorial step-by-step:
-
-    - clone the [spaceflights-pandas starter project][kedro-starter]
-    - create another, empty project, with the Ordeq layout described above
-
-    You can also download the completed Ordeq project [here][completed-repo].
 
 ## Migrating the catalog
 
@@ -66,13 +69,11 @@ Ordeq defines a catalog in code, while Kedro's catalog is YAML-based.
 In Kedro, catalogs entries are called _datasets_, while Ordeq uses _IO_.
 This section will show how to migrate each dataset in the Kedro catalog to an IO in Ordeq catalog.
 
-!!! info
+!!! info "Ordeq also supports layered catalogs"
 
     For simplicity, we assume the Kedro catalog consists of only one YAML file.
-    The guide applies to multiple, layered, catalogs too.
+    Ordeq supports multiple, layered, catalogs too.
     For more information, see [catalogs].
-
-Switch the tabs to see the Kedro catalog and its Ordeq equivalent:
 
 === "conf/base/catalog.yml (Kedro)"
 
@@ -118,30 +119,39 @@ Switch the tabs to see the Kedro catalog and its Ordeq equivalent:
     )
     ```
 
-For each dataset in the Kedro catalog, we have defined an equivalent Ordeq IO.
+Switch the tabs above to see the Kedro catalog and its Ordeq equivalent.
+For each dataset in the Kedro catalog, we have defined an equivalent Ordeq IO:
 
-- `companies` is a `pandas.CSVDataset` dataset, so we use the `ordeq_pandas.PandasCSV` IO.
-- `shuttles` is a `pandas.ExcelDataset` dataset, so we use the `ordeq_pandas.PandasExcel` IO.
-    - The `load_args` in Kedro are translated to `with_load_options` in Ordeq.
-- `preprocessed_companies` and `preprocessed_shuttles` are `pandas.ParquetDataset` datasets, so we use the
-  `ordeq_pandas.PandasParquet` IO.
+- `companies` is a `pandas.CSVDataset`, so we use the `ordeq_pandas.PandasCSV` IO
+- `shuttles` is a `pandas.ExcelDataset`, so we use the `ordeq_pandas.PandasExcel` IO
+    - The `load_args` in Kedro are translated to `with_load_options` in Ordeq
+- `preprocessed_companies` and `preprocessed_shuttles` are `pandas.ParquetDataset`, so we use the
+    `ordeq_pandas.PandasParquet` IO
 
-### User IOs
+!!! tip "User IOs"
 
-Ordeq provides many IOs for popular data processing libraries out-of-the-box (such as `PandasCSV` and `PandasParquet`).
-You can use or extend these IOs directly.
-Creating your own IOs is a first-class feature of Ordeq, designed to be simple and flexible.
-You are always in control of how data is loaded and saved.
-For more information, see the [guide on creating user IOs][custom-ios].
+    Ordeq provides many IOs for popular data processing libraries out-of-the-box, such as `PandasCSV` and `PandasParquet`.
+    You can use or extend these IOs directly.
+    Creating your own IOs is a first-class feature of Ordeq, designed to be simple and flexible.
+    You are always in control of how data is loaded and saved.
+    For more information, see the [guide on creating user IOs][custom-ios].
 
-## Migrating the pipeline
+## Migrating the nodes and pipeline
 
-Next we are going to migrate the pipeline.
+Next we are going to migrate the nodes and the pipeline.
 First, let's cover a couple of differences between Kedro and Ordeq pipelines:
 
-- The Kedro pipeline is defined in a `spaceflights/pipelines/pipeline.py` file, while Ordeq pipelines can be defined anywhere.
-- Kedro pipelines are defined in a `create_pipeline` function, while Ordeq pipelines are defined as Python modules.
-- Kedro uses a string to reference the IO, whereas Ordeq uses the actual IO object.
+- Each Kedro pipeline needs to be defined in a `pipeline.py` file
+- Kedro pipelines are created using a `create_pipeline` function
+- Kedro uses a string to reference the data
+
+In contrast:
+
+- Ordeq pipelines can be defined anywhere
+- Ordeq pipelines are Python files (or, modules)
+- Ordeq uses the actual IO object to reference the data
+
+Below is the nodes and pipeline definition for the Kedro spaceflights project:
 
 === "src/spaceflights/pipeline.py (Kedro)"
 
@@ -164,65 +174,81 @@ First, let's cover a couple of differences between Kedro and Ordeq pipelines:
                 outputs="preprocessed_shuttles",
                 name="preprocess_shuttles_node",
             ),
-            ...,
         ])
     ```
 
-=== "src/pipeline.py (Ordeq)"
+=== "src/spaceflights/nodes.py (Kedro)"
 
     ```python
-    from catalog import (
-        companies,
-        preprocessed_companies,
-        preprocessed_shuttles,
-        shuttles,
-    )
-    from ordeq import node
+    import pandas as pd
 
-    spaceflights = {
-        node(preprocess_companies, inputs=companies, outputs=preprocessed_companies),
-        node(preprocess_shuttles, inputs=shuttles, outputs=preprocessed_shuttles),
-    }
-    ```
+    # ... utility methods omitted for brevity
 
-=== "src/pipeline.py (Ordeq, Pythonic style)"
 
-    ```python
-    from catalog import (
-        companies,
-        preprocessed_companies,
-        preprocessed_shuttles,
-        shuttles,
-    )
-    from nodes import preprocess_companies, preprocess_shuttles
-    from ordeq import node
-
-    spaceflights = set()
-    spaceflights.add(
-        node(
-            preprocess_companies, inputs=companies, outputs=preprocessed_companies
+    def preprocess_companies(companies: pd.DataFrame) -> pd.DataFrame:
+        companies["iata_approved"] = _is_true(companies["iata_approved"])
+        companies["company_rating"] = _parse_percentage(
+            companies["company_rating"]
         )
-    )
-    spaceflights.add(
-        node(preprocess_shuttles, inputs=shuttles, outputs=preprocessed_shuttles)
-    )
-    # You can also use a list or any Python collection
+        return companies
+
+
+    def preprocess_shuttles(shuttles: pd.DataFrame) -> pd.DataFrame:
+        shuttles["d_check_complete"] = _is_true(shuttles["d_check_complete"])
+        shuttles["moon_clearance_complete"] = _is_true(
+            shuttles["moon_clearance_complete"]
+        )
+        shuttles["price"] = _parse_money(shuttles["price"])
+        return shuttles
     ```
 
-Note that name of the pipeline object in the Ordeq project is `spaceflights`.
-In Kedro, the name of the pipeline was implicitly assigned based on the folder name.
+In Kedro, the name of the pipeline is implicitly assigned based on the folder name.
+In this case, the pipeline is called `spaceflights`.
+The datasets are bound to the nodes in the pipeline definition, using strings.
 
-## Migrating `__main__.py`
+Next, let's have a look at the Ordeq equivalent:
 
-Running a Kedro project is done through the `kedro` CLI.
-Ordeq provides two ways to run a project: through the CLI runner, or programmatically.
-This section will show how to migrate the `__main__.py` file to use the CLI runner.
+=== "src/spaceflights/pipeline.py (Ordeq)"
 
-!!! warning "Install the ordeq-cli-runner package"
+    ```python
+    import catalog
+    import pandas as pd
+    from ordeq import node
 
-    To run your Ordeq project through the CLI, make sure to install the `ordeq-cli-runner` package.
+    # ... utility methods omitted for brevity
 
-=== "src/__main__.py (Kedro)"
+
+    @node(inputs=catalog.companies, outputs=catalog.preprocessed_companies)
+    def preprocess_companies(companies: pd.DataFrame) -> pd.DataFrame:
+        companies["iata_approved"] = _is_true(companies["iata_approved"])
+        companies["company_rating"] = _parse_percentage(
+            companies["company_rating"]
+        )
+        return companies
+
+
+    @node(inputs=catalog.shuttles, outputs=catalog.preprocessed_shuttles)
+    def preprocess_shuttles(shuttles: pd.DataFrame) -> pd.DataFrame:
+        shuttles["d_check_complete"] = _is_true(shuttles["d_check_complete"])
+        shuttles["moon_clearance_complete"] = _is_true(
+            shuttles["moon_clearance_complete"]
+        )
+        shuttles["price"] = _parse_money(shuttles["price"])
+        return shuttles
+    ```
+
+In Ordeq, the pipeline is defined by the module itself, so there is no need for an additional file.
+The IOs are bound to the nodes in the node definition, using the actual IO objects instead of strings.
+Note that the node functions themselves are identical in both frameworks.
+
+## Migrating the runner
+
+Running a Kedro project is done through the Kedro CLI.
+Ordeq projects can be run both programmatically, or using a CLI.
+We will first show how to set up a CLI entry point similar to Kedro's.
+Here's the `src/__main__.py` file for both Kedro and Ordeq:
+
+=== "src/\_\_main\_\_.py (Kedro)"
 
     ```python
     import sys
@@ -248,7 +274,7 @@ This section will show how to migrate the `__main__.py` file to use the CLI runn
         main()
     ```
 
-=== "src/__main__.py (Ordeq)"
+=== "src/\_\_main\_\_.py (Ordeq CLI)"
 
     ```python
     from ordeq_cli_runner import main
@@ -257,67 +283,47 @@ This section will show how to migrate the `__main__.py` file to use the CLI runn
         main()
     ```
 
-To run your Ordeq project through the CLI, you can now run:
+!!! info "Install the `ordeq-cli-runner` package"
+
+    To run your Ordeq project through the CLI, make sure to install the `ordeq-cli-runner` package.
+
+To run the Ordeq project through the CLI, you can now run:
 
 ```bash
-python -m src run --pipeline pipeline:spaceflights
+python src/__main__.py run spaceflights.pipeline
 ```
 
-!!! tip
+Alternatively, you can run the pipeline programmatically, as follows:
 
-    You can easily manage dependencies by creating a minimal `pyproject.toml` in your project and installing packages with [uv](https://github.com/astral-sh/uv):
+```python title="src/__main__.py (Ordeq programmatic)"
+from ordeq import run
+from spaceflights import pipeline
 
-    ```bash
-    uv add ordeq-pandas ordeq-cli-runner
-    ```
+run(pipeline)
+```
 
-    This ensures your environment is reproducible and ready to run Ordeq pipelines.
+More info about running Ordeq projects can be found in the [guide][run-and-viz].
 
-!!! warning "Activate the virtual environment"
+## Other components
 
-    To run the command above, make sure to activate the virtual environment where you installed Ordeq and its dependencies.
-    Alternatively, use `uv` to run the command in an isolated environment.
-
-## Conclusion
-
-That's it!
-Because Ordeq builds on the design choices of Kedro, migrating a Kedro project to Ordeq is straightforward.
-Let's wrap up with a couple of notes.
-
-### Nodes
-
-You might have noticed that there is no need to migrate the nodes.
-Because they are just plain Python functions, they can be reused as-is.
-The IOs are bound to the nodes in the pipeline definition, just like in Kedro.
-You can also bind the IO to the nodes using decorators, as shown in the [introduction][intro].
-
-### Settings and pipeline registry
-
-Kedro projects have a settings file and a pipeline registry.
+Kedro projects also have a settings file and a pipeline registry.
 Ordeq does not have these concepts, so there is no need to migrate them:
 
-- Ordeq pipelines are referred to by their variable names, so there is no need for a registry.
-- The settings file typically contains settings specific to the YAML-based catalog, which is not used by Ordeq.
+- Ordeq pipelines are referred to by the name of the module, so there is no need for a registry
+- The settings file typically contains settings specific to the YAML-based catalog, which is not used by Ordeq
 
-### More complex projects
+!!! tip "Need help?"
 
-Real-world Kedro projects can be more complex than the example shown here.
-You might use Kedro's more advanced features, such as parameters or hooks.
-Ordeq supports these features too, although the implementation might differ.
-If you have any questions or run into any issues, please open an issue on [GitHub][issues].
-
-For more information about catalogs and their power in Ordeq, see the [Catalogs documentation][catalogs].
+    You might use Kedro's more advanced features, such as parameters or hooks.
+    Ordeq supports these features too, although the implementation might differ.
+    If you have any questions or run into any issues, please open an issue on [GitHub][issues].
 
 [catalogs]: ../getting-started/concepts/catalogs.md
-
 [completed-repo]: ./kedro-starter-to-ordeq.zip
-
 [custom-ios]: ./custom_io.md
-
 [intro]: ../getting-started/introduction.md
-
+[io]: ../getting-started/concepts/io.md
 [issues]: https://github.com/ing-bank/ordeq/issues
-
 [kedro-starter]: https://github.com/kedro-org/kedro-starters/tree/main/spaceflights-pandas
-
-[node-parameters]: ./node_parameters.md
+[nodes]: ../getting-started/concepts/nodes.md
+[run-and-viz]: ./run_and_viz.md

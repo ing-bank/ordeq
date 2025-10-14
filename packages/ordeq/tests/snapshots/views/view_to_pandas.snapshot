@@ -1,11 +1,4 @@
 Output:
-[Node(name=view_to_pandas:aggregate, inputs=[Sentinel()]), Node(name=view_to_pandas:csv_as_df, inputs=[Literal(┌───────┬───────┬───────┐
-│   1   │   2   │   3   │
-│ int32 │ int32 │ int32 │
-├───────┼───────┼───────┤
-│     1 │     2 │     3 │
-└───────┴───────┴───────┘
-)], outputs=[Sentinel()])]
 NodeGraph:
   Edges:
      view_to_pandas:aggregate -> []

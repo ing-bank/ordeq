@@ -1,5 +1,4 @@
 Output:
-[Node(name=io_hooks:hello_world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])]
 Before loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 After loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 HELLO WORLD

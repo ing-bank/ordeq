@@ -45,7 +45,6 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
     nodes = set(nodes)
     nodes = nodes | collect_views(nodes)
     nodes = list(replace_view_inputs_with_sentinel_ios(*nodes))
-    print(nodes)
     output_to_node: dict = {}
     input_to_nodes: dict = {}
     edges: dict = {node: [] for node in nodes}

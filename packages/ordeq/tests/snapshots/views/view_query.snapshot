@@ -1,5 +1,4 @@
 Output:
-[Node(name=view_query:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)], outputs=[Sentinel()]), Node(name=view_query:range_to_csv, inputs=[Sentinel()])]
 NodeGraph:
   Edges:
      view_query:range_to_csv -> []

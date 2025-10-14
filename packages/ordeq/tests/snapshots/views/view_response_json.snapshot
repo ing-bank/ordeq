@@ -1,5 +1,4 @@
 Output:
-[Node(name=view_response_json:to_yaml, inputs=[Sentinel()]), Node(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)], outputs=[Sentinel()])]
 NodeGraph:
   Edges:
      view_response_json:to_yaml -> []

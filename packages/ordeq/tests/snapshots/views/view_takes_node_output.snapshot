@@ -1,0 +1,36 @@
+Exception:
+IOException: Failed to load IO(idx=ID1).
+
+Output:
+NodeGraph:
+  Edges:
+     view_takes_node_output:hello_from_someone -> [view_takes_node_output:what_i_heard]
+     view_takes_node_output:sink -> []
+     view_takes_node_output:what_i_heard -> [view_takes_node_output:sink]
+  Nodes:
+     Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])
+     Node(name=view_takes_node_output:sink, inputs=[Sentinel()])
+     Node(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)], outputs=[Sentinel()])
+I heard that Jane said 'Hello'
+None
+{IO(idx=ID1): "Jane said 'Hello'"}
+NodeGraph:
+  Edges:
+     view_takes_node_output:sink -> []
+     view_takes_node_output:what_i_heard -> [view_takes_node_output:sink]
+  Nodes:
+     Node(name=view_takes_node_output:sink, inputs=[Sentinel()])
+     Node(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)], outputs=[Sentinel()])
+
+Logging:
+INFO	ordeq.io	Loading Literal('Jane')
+INFO	ordeq.io	Loading Literal('Hello')
+INFO	ordeq.runner	Running node Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])
+INFO	ordeq.runner	Running node Node(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)], outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_takes_node_output:sink, inputs=[Sentinel()])
+INFO	ordeq.io	Loading IO(idx=ID1)
+
+Typing:
+packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
+Found 1 error in 1 file (checked 1 source file)

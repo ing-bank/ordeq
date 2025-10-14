@@ -1,5 +1,4 @@
 Output:
-[Node(name=overriden:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])]
 HELLO FROM REMOTE!
 {Print(): 'HELLO FROM REMOTE!'}
 

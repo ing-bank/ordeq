@@ -1,5 +1,4 @@
 Output:
-[Node(name=run_shared_resource:first, outputs=[File]), Node(name=run_shared_resource:second, inputs=[File])]
 NodeGraph:
   Edges:
      run_shared_resource:first -> []

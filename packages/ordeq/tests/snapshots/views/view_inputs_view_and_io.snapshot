@@ -1,7 +1,6 @@
 Output:
 View(name=view_inputs_view_and_io:hello, inputs=())
 View(name=view_inputs_view_and_io:hello_from_someone, inputs=(Literal('Jane'), View(name=view_inputs_view_and_io:hello, inputs=())))
-[Node(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), Sentinel()], outputs=[Sentinel()]), Node(name=view_inputs_view_and_io:hello, outputs=[Sentinel()]), Node(name=view_inputs_view_and_io:n, inputs=[Sentinel()])]
 NodeGraph:
   Edges:
      view_inputs_view_and_io:hello -> [view_inputs_view_and_io:hello_from_someone]

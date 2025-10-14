@@ -1,6 +1,5 @@
 Output:
 View(name=node_inputs_same_view_twice:hello, inputs=())
-[Node(name=node_inputs_same_view_twice:n, inputs=[Sentinel(), Sentinel()], outputs=[Print()]), Node(name=node_inputs_same_view_twice:hello, outputs=[Sentinel()])]
 NodeGraph:
   Edges:
      node_inputs_same_view_twice:hello -> [node_inputs_same_view_twice:n, node_inputs_same_view_twice:n]

@@ -1,5 +1,4 @@
 Output:
-[Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()]), Node(name=view_returns_optional:conditional, outputs=[Sentinel()])]
 NodeGraph:
   Edges:
      view_returns_optional:conditional -> [view_returns_optional:n]
@@ -9,7 +8,6 @@ NodeGraph:
      Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()])
 Higher value!
 {Print(): 'Higher value!'}
-[Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()]), Node(name=view_returns_optional:conditional, outputs=[Sentinel()])]
 NodeGraph:
   Edges:
      view_returns_optional:conditional -> [view_returns_optional:n]

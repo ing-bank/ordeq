@@ -1,5 +1,4 @@
 Output:
-[Node(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)], outputs=[Sentinel()]), Node(name=view_response_stream:printer, inputs=[Sentinel()], outputs=[Print()])]
 NodeGraph:
   Edges:
      view_response_stream:printer -> []

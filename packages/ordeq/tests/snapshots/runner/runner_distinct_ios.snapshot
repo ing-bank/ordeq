@@ -1,5 +1,4 @@
 Output:
-[Node(name=runner_distinct_ios:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Node(name=runner_distinct_ios:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])]
 NodeGraph:
   Edges:
      runner_distinct_ios:func1 -> []

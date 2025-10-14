@@ -1,6 +1,5 @@
 Output:
 View(name=node_inputs_view_tuple_and_io:hello, inputs=())
-[Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[Sentinel(), Literal('!!!')], outputs=[Print()]), Node(name=node_inputs_view_tuple_and_io:hello, outputs=[Sentinel()])]
 NodeGraph:
   Edges:
      node_inputs_view_tuple_and_io:combine_greeting_with_ending -> []

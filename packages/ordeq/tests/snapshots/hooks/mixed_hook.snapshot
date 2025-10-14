@@ -1,5 +1,4 @@
 Output:
-[Node(name=mixed_hook:my_node, outputs=[Output(idx=ID1)])]
 Hook: before saving output of node mixed_hook:my_node with data: Hello, World!
 saving! Hello, World!
 

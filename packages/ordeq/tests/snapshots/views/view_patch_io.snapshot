@@ -1,5 +1,4 @@
 Output:
-[Node(name=view_patch_io:hello_world, inputs=[Literal('Hello')], outputs=[Sentinel()]), Node(name=view_patch_io:n, inputs=[Sentinel()])]
 NodeGraph:
   Edges:
      view_patch_io:hello_world -> [view_patch_io:n]

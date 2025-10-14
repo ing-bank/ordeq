@@ -2,7 +2,6 @@ Exception:
 AttributeError: 'Example' object has no attribute 'load'
 
 Output:
-[Node(name=runner_load_output:my_node, outputs=[Output(idx=ID1)]), Node(name=runner_load_output:load_node, inputs=[Output(idx=ID1)])]
 saving! Hello, World!
 
 Logging:

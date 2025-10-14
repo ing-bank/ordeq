@@ -1,12 +1,10 @@
 Output:
-[Node(name=run_rename_run:print_message)]
 NodeGraph:
   Edges:
      run_rename_run:print_message -> []
   Nodes:
      Node(name=run_rename_run:print_message)
 Hello from printer
-[Node(name=run_rename_run:print_message)]
 NodeGraph:
   Edges:
      run_rename_run:print_message -> []

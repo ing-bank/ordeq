@@ -1,5 +1,4 @@
 Output:
-[Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])]
 NodeGraph:
   Edges:
      resources.runner.example_module_b:increment -> []

@@ -1,5 +1,2 @@
 Exception:
 ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node
-
-Output:
-[Node(name=runner_non_distinct_ios:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Node(name=runner_non_distinct_ios:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])]

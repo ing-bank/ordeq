@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_toml"
+description = "TOML integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -23,6 +24,9 @@ dependencies = [
     "tomli>=1.1.0;python_version<'3.11'",
     "tomli-w",
 ]
+
+[tool.ordeq]
+group = "ios"
 
 [dependency-groups]
 test = []

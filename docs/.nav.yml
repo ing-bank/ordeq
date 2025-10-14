@@ -19,6 +19,7 @@ nav:
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
       # TODO: Add an example project
+  - Packages: packages.md
   - API: api
   - Contributing:
       - How to: CONTRIBUTING.md

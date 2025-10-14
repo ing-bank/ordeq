@@ -235,7 +235,4 @@ def append_packages_dir_to_sys_path(packages_dir: Path):
         # to ensure a clean state for each test
         del sys.modules[n]
 
-    from ordeq._registry import NODE_REGISTRY  # noqa: PLC0415, PLC2701
-
-    NODE_REGISTRY._data.clear()  # noqa: SLF001
     importlib.invalidate_caches()

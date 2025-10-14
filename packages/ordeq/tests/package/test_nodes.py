@@ -1,6 +1,6 @@
 import pytest
-from ordeq import IO, Node, node
-from ordeq._nodes import NodeNotFound, get_node
+from ordeq import IO, node
+from ordeq._nodes import _create_node, get_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 
@@ -53,7 +53,9 @@ def test_it_raises_for_invalid_inputs(inputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
         ValueError, match="Node inputs invalid for function arguments"
     ):
-        n = Node(func=lambda _: _, inputs=inputs, outputs=(StringBuffer("c"),))
+        n = _create_node(
+            func=lambda _: _, inputs=inputs, outputs=(StringBuffer("c"),)
+        )
         _run_node(n, hooks=())
 
 
@@ -94,7 +96,9 @@ def test_it_raises_for_invalid_outputs(func, outputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
         ValueError, match="Node outputs invalid for return annotation"
     ):
-        n = Node(func=func, inputs=(StringBuffer("a"),), outputs=outputs)
+        n = _create_node(
+            func=func, inputs=(StringBuffer("a"),), outputs=outputs
+        )
         _run_node(n, hooks=())
 
 
@@ -112,5 +116,5 @@ class TestGetNode:
         def my_func(a: str) -> str:
             return a
 
-        with pytest.raises(NodeNotFound, match="Node 'my_func' not found"):
+        with pytest.raises(ValueError, match="'my_func' is not a node"):
             get_node(my_func)

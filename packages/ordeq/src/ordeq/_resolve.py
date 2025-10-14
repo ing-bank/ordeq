@@ -2,13 +2,13 @@
 
 import importlib
 import pkgutil
-from collections.abc import Callable, Generator, Hashable, Iterable
+from collections.abc import Callable, Generator, Iterable, Sequence
 from types import ModuleType
+from typing import Any
 
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
 from ordeq._nodes import Node, get_node
-from ordeq._registry import NODE_REGISTRY
 
 
 def _is_module(obj: object) -> bool:
@@ -23,8 +23,26 @@ def _is_io(obj: object) -> bool:
     return isinstance(obj, (IO, Input, Output))
 
 
+def _get_io_sequence(value: Any) -> list[Input | Output | IO]:
+    if _is_io(value):
+        return [value]
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return [io for v in value for io in _get_io_sequence(v)]
+    if isinstance(value, dict):
+        return [io for v in value.values() for io in _get_io_sequence(v)]
+    return []
+
+
+def _is_io_sequence(value: Any) -> bool:
+    return bool(_get_io_sequence(value))
+
+
 def _is_node(obj: object) -> bool:
-    return isinstance(obj, Hashable) and obj in NODE_REGISTRY
+    return (
+        callable(obj)
+        and hasattr(obj, "__ordeq_node__")
+        and isinstance(obj.__ordeq_node__, Node)
+    )
 
 
 def _resolve_string_to_module(name: str) -> ModuleType:
@@ -229,15 +247,6 @@ def _resolve_runnables_to_nodes(
     for module in modules:
         nodes.update(_resolve_module_to_nodes(module))
     return nodes
-
-
-def _gather_nodes_from_registry() -> set[Node]:
-    """Find all `Node` objects defined in the provided module
-
-    Returns:
-        a set of `Node` objects
-    """
-    return set(NODE_REGISTRY._data.values())  # noqa: SLF001
 
 
 def _check_missing_ios(

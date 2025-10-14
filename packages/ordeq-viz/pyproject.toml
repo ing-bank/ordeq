@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_viz"
+description = "Visualization for Ordeq project"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -21,6 +22,9 @@ dependencies = [
     "ordeq>=1.0.0",
 ]
 
+[tool.ordeq]
+group = "framework"
+
 [dependency-groups]
 test = [
     "ordeq-common",
@@ -29,6 +33,7 @@ test = [
     "ordeq-pandas",
     "ordeq-pymupdf",
     "ordeq-sentence-transformers",
+    "ordeq-test-utils",
 ]
 
 [tool.setuptools_scm]
@@ -47,9 +52,6 @@ extend = "../../pyproject.toml"
 [tool.ruff.lint.extend-per-file-ignores]
 # Ignore unresolved imports and docstring missing in tests
 "tests/*" = ["PLC0415", "D103"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
 
 [tool.coverage.run]
 omit = [

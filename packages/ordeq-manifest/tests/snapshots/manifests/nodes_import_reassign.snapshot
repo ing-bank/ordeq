@@ -1,0 +1,79 @@
+Output:
+{
+  "name": "examples.project.nodes_import_reassign",
+  "nodes": {
+    "nodes.examples.project.nodes_import_reassign:func_a": {
+      "id": "nodes.examples.project.nodes_import_reassign:func_a",
+      "name": "examples.project.nodes_import_reassign:func_a",
+      "inputs": [
+        "ios.AA",
+        "ios.BB"
+      ],
+      "outputs": [
+        "ios.f"
+      ],
+      "tags": []
+    },
+    "nodes.examples.project.nodes_import_reassign:func_b": {
+      "id": "nodes.examples.project.nodes_import_reassign:func_b",
+      "name": "examples.project.nodes_import_reassign:func_b",
+      "inputs": [
+        "ios.AA",
+        "ios.BB"
+      ],
+      "outputs": [
+        "ios.f"
+      ],
+      "tags": []
+    }
+  },
+  "ios": {
+    "A": {
+      "id": "ios.A",
+      "name": "A",
+      "type": "ordeq_common.io.literal.Literal",
+      "references": []
+    },
+    "AA": {
+      "id": "ios.AA",
+      "name": "AA",
+      "type": "ordeq_common.io.literal.Literal",
+      "references": []
+    },
+    "B": {
+      "id": "ios.B",
+      "name": "B",
+      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "references": []
+    },
+    "BB": {
+      "id": "ios.BB",
+      "name": "BB",
+      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "references": []
+    },
+    "a": {
+      "id": "ios.a",
+      "name": "a",
+      "type": "ordeq_common.io.literal.Literal",
+      "references": []
+    },
+    "b": {
+      "id": "ios.b",
+      "name": "b",
+      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "references": []
+    },
+    "f": {
+      "id": "ios.f",
+      "name": "f",
+      "type": "ordeq_common.io.printer.Print",
+      "references": []
+    }
+  }
+}
+
+Typing:
+packages/ordeq-manifest/tests/resources/manifests/nodes_import_reassign.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/nodes_import_reassign.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 1 source file)

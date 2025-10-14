@@ -1,18 +1,18 @@
-from ordeq import node, run
+from ordeq import node, run, view
 from ordeq_common import Print
 
 glob = 2
 
 
-@node
-def view() -> None | int:
+@view
+def conditional() -> None | str:
     if glob > 2:
-        return glob
+        return "Higher value!"
     return None
 
 
-@node(inputs=view, outputs=Print())
-def n(v: None | int):
+@node(inputs=conditional, outputs=Print())
+def n(v: None | str):
     return v
 
 

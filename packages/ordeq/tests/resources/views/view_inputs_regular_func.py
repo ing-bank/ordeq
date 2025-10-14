@@ -1,4 +1,4 @@
-from ordeq import node
+from ordeq import node, view
 from ordeq._nodes import get_node
 from ordeq_common import Print
 
@@ -7,7 +7,7 @@ def string():
     return "I'm super lazy"
 
 
-@node(inputs=string)
+@view(inputs=string)
 def func(data: str) -> str:
     return str(data.__reversed__())
 

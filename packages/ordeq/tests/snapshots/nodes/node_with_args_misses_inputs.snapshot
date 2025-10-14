@@ -1,2 +1,5 @@
 Exception:
-ValueError: Node is not hashable: Node(name=node_with_args_misses_inputs:func, ...)
+ValueError: Node inputs invalid for function arguments: Node(name=node_with_args_misses_inputs:func,...)
+
+Output:
+[Node(name=node_with_args_misses_inputs:func, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])]

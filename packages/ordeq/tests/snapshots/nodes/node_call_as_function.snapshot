@@ -1,2 +1,5 @@
-Exception:
-ValueError: Node is not hashable: Node(name=node_call_as_function:func, ...)
+Output:
+xy
+xY
+xy
+xy

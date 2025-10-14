@@ -1,15 +1,19 @@
 from ordeq import node, run, view
+from ordeq._nodes import get_view
 from ordeq_common import Print
 
 
 @view
-def greeting() -> str:
+def hello() -> str:
     return "Hello, World!"
 
 
-@node(inputs=greeting, outputs=Print())
-def n(name: str, v: str) -> str:
-    return f"{name} said {v}"
+print(repr(get_view(hello)))
+
+
+@node(inputs=hello, outputs=Print())
+def n(greeting: str) -> str:
+    return f"She said '{greeting}'"
 
 
 print(run(n, verbose=True))

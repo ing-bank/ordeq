@@ -1,0 +1,39 @@
+Output:
+[Node(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)], outputs=[Sentinel()]), Node(name=view_response_iter:concatenate, inputs=[Sentinel()])]
+NodeGraph:
+  Edges:
+     view_response_iter:concatenate -> []
+     view_response_iter:users_lines -> [view_response_iter:concatenate]
+  Nodes:
+     Node(name=view_response_iter:concatenate, inputs=[Sentinel()])
+     Node(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)], outputs=[Sentinel()])
+b'{'
+b'  "id": 1,'
+b'  "name": "Leanne Graham",'
+b'  "username": "Bret",'
+b'  "email": "Sincere@april.biz",'
+b'  "address": {'
+b'    "street": "Kulas Light",'
+b'    "suite": "Apt. 556",'
+b'    "city": "Gwenborough",'
+b'    "zipcode": "92998-3874",'
+b'    "geo": {'
+b'      "lat": "-37.3159",'
+b'      "lng": "81.1496"'
+b'    }'
+b'  },'
+b'  "phone": "1-770-736-8031 x56442",'
+b'  "website": "hildegard.org",'
+b'  "company": {'
+b'    "name": "Romaguera-Crona",'
+b'    "catchPhrase": "Multi-layered client-server neural-net",'
+b'    "bs": "harness real-time e-markets"'
+b'  }'
+b'}'
+{}
+
+Logging:
+INFO	ordeq.io	Loading Literal(<Response [200]>)
+INFO	ordeq.runner	Running node Node(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)], outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_response_iter:concatenate, inputs=[Sentinel()])

@@ -1,2 +1,8 @@
-Exception:
-ValueError: Node is not hashable: Node(name=mixed_hook:my_node, ...)
+Output:
+[Node(name=mixed_hook:my_node, outputs=[Output(idx=ID1)])]
+Hook: before saving output of node mixed_hook:my_node with data: Hello, World!
+saving! Hello, World!
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=mixed_hook:my_node, outputs=[Output(idx=ID1)])
+INFO	ordeq.io	Saving Output(idx=ID1)

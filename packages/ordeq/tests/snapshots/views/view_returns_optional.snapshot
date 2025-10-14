@@ -1,0 +1,31 @@
+Output:
+[Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()]), Node(name=view_returns_optional:conditional, outputs=[Sentinel()])]
+NodeGraph:
+  Edges:
+     view_returns_optional:conditional -> [view_returns_optional:n]
+     view_returns_optional:n -> []
+  Nodes:
+     Node(name=view_returns_optional:conditional, outputs=[Sentinel()])
+     Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()])
+Higher value!
+{Print(): 'Higher value!'}
+[Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()]), Node(name=view_returns_optional:conditional, outputs=[Sentinel()])]
+NodeGraph:
+  Edges:
+     view_returns_optional:conditional -> [view_returns_optional:n]
+     view_returns_optional:n -> []
+  Nodes:
+     Node(name=view_returns_optional:conditional, outputs=[Sentinel()])
+     Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()])
+None
+{Print(): None}
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=view_returns_optional:conditional, outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()])
+INFO	ordeq.io	Saving Print()
+INFO	ordeq.runner	Running node Node(name=view_returns_optional:conditional, outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_returns_optional:n, inputs=[Sentinel()], outputs=[Print()])
+INFO	ordeq.io	Saving Print()

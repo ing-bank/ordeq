@@ -1,13 +1,32 @@
 from collections.abc import Iterable
 from graphlib import TopologicalSorter
 
-from ordeq._nodes import Node
+from ordeq._nodes import Node, View
 
 try:
     from typing import Self  # type: ignore[attr-defined]
 except ImportError:
     from typing_extensions import Self
 EdgesType = dict[Node, list[Node]]
+
+
+def collect_views(nodes: set[Node]) -> set[View]:
+    views = set()
+    for node in nodes:
+        node_views = set(node.views)
+        views |= node_views | collect_views(node_views)
+    return views
+
+
+def replace_view_inputs_with_sentinel_ios(*nodes: Node):
+    for node in nodes:
+        inputs = list(node.inputs)
+        for i, input_ in enumerate(node.inputs):
+            if isinstance(input_, View):
+                inputs[i] = input_.outputs[0]
+        yield node._replace(
+            inputs=inputs
+        )
 
 
 def _build_graph(nodes: Iterable[Node]) -> EdgesType:
@@ -22,6 +41,11 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
     Raises:
         ValueError: if an output is defined by more than one node
     """
+
+    nodes = set(nodes)
+    nodes = nodes | collect_views(nodes)
+    nodes = list(replace_view_inputs_with_sentinel_ios(*nodes))
+    print(nodes)
     output_to_node: dict = {}
     input_to_nodes: dict = {}
     edges: dict = {node: [] for node in nodes}

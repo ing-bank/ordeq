@@ -1,4 +1,4 @@
-from ordeq import node, run
+from ordeq import node, run, view
 from ordeq_common import Literal
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -11,7 +11,7 @@ model = Literal(LinearRegression())
 Split = tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]
 
 
-@node(inputs=iris)
+@view(inputs=iris)
 def split(df: pd.DataFrame) -> Split:
     X, y = df['data'], df['target']
     return train_test_split(
@@ -20,10 +20,10 @@ def split(df: pd.DataFrame) -> Split:
 
 
 @node(inputs=split)
-def train(data: Split) -> object:
+def train(data: Split) -> None:
     X_train, y_train, _, _ = data
-    model = LinearRegression().fit(X_train, y_train)
-    return model
+    fitted = LinearRegression().fit(X_train, y_train)
+    print(fitted.coef_)
 
 
 print(run(train, verbose=True))

@@ -1,4 +1,4 @@
-from ordeq import node, run
+from ordeq import node, run, view
 from ordeq_common import Literal
 
 
@@ -8,7 +8,7 @@ class Client:
         return ["bucket1", "bucket2", "bucket3"]
 
 
-@node(inputs=Literal(Client()))
+@view(inputs=Literal(Client()))
 def buckets(client: Client) -> list[str]:
     return client.list_buckets()
 

@@ -1,20 +1,27 @@
-from ordeq import node, run
-from ordeq_common import Literal, Print
+from ordeq import node, run, view
+from ordeq._nodes import get_view
+from ordeq_common import Literal
 
 
-@node
-def view() -> str:
+@view
+def hello() -> str:
     return "Hello, World!"
 
 
-@node(inputs=[Literal("Jane"), view])
-def another_view(name: str, v: str) -> str:
-    return f"{name} said {v}"
+print(repr(get_view(hello)))
 
 
-@node(inputs=another_view)
+@view(inputs=[Literal("Jane"), hello])
+def hello_from_someone(name: str, v: str) -> str:
+    return f"{name} said '{v}'"
+
+
+print(repr(get_view(hello_from_someone)))
+
+
+@node(inputs=hello_from_someone)
 def n(v: str) -> None:
-    print(f"Node received {v}")
+    print(f"I heard that {v}")
 
 
 print(run(n, verbose=True))

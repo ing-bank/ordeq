@@ -1,2 +1,3 @@
-Exception:
-ValueError: Node is not hashable: Node(name=node_custom_name:func, ...)
+Output:
+Original: Node(name=node_custom_name:func)
+Renamed: Node(name=custom-name)

@@ -1,0 +1,17 @@
+Output:
+[Node(name=view_response_json:to_yaml, inputs=[Sentinel()]), Node(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)], outputs=[Sentinel()])]
+NodeGraph:
+  Edges:
+     view_response_json:to_yaml -> []
+     view_response_json:users_json -> [view_response_json:to_yaml]
+  Nodes:
+     Node(name=view_response_json:to_yaml, inputs=[Sentinel()])
+     Node(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)], outputs=[Sentinel()])
+Data: {'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}}
+{}
+
+Logging:
+INFO	ordeq.io	Loading Literal(<Response [200]>)
+INFO	ordeq.runner	Running node Node(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)], outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_response_json:to_yaml, inputs=[Sentinel()])

@@ -1,24 +1,20 @@
 import requests
 
-from ordeq import node, run
-from ordeq_requests import Response
-from ordeq_yaml import YAML
-from pathlib import Path
+from ordeq import node, run, view
+from ordeq_common import Literal
 
-users_response = Response(
-    url="https://jsonplaceholder.typicode.com/users/"
-)
-yaml = YAML(path=Path(".yml"))
+response = requests.get("https://jsonplaceholder.typicode.com/users/1")
+users_response = Literal(response)
 
 
-@node(inputs=users_response)
+@view(inputs=users_response)
 def users_json(r: requests.Response) -> dict:
     return r.json()
 
 
-@node(inputs=users_json, outputs=yaml)
-def to_yaml(d: dict) -> dict:
-    return d
+@node(inputs=users_json)
+def to_yaml(d: dict) -> None:
+    print('Data:', d)
 
 
 print(run(to_yaml, verbose=True))

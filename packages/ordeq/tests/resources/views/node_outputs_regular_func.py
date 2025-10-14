@@ -2,13 +2,11 @@ from ordeq import node
 from ordeq._nodes import get_node
 
 
-def view() -> str:
+def hello() -> str:
     return "Hello, World!"
 
 
-@node(outputs=view)
-def hello() -> None:
-    print("Hello world!")
-
-
-print(repr(get_node(hello)))
+# This should raise a TypeError (it does not currently)
+@node(outputs=hello)
+def say_hello() -> str:
+    return "Hello!"

@@ -1,0 +1,45 @@
+Output:
+[Node(name=view_to_pandas:aggregate, inputs=[Sentinel()]), Node(name=view_to_pandas:csv_as_df, inputs=[Literal(┌───────┬───────┬───────┐
+│   1   │   2   │   3   │
+│ int32 │ int32 │ int32 │
+├───────┼───────┼───────┤
+│     1 │     2 │     3 │
+└───────┴───────┴───────┘
+)], outputs=[Sentinel()])]
+NodeGraph:
+  Edges:
+     view_to_pandas:aggregate -> []
+     view_to_pandas:csv_as_df -> [view_to_pandas:aggregate]
+  Nodes:
+     Node(name=view_to_pandas:aggregate, inputs=[Sentinel()])
+     Node(name=view_to_pandas:csv_as_df, inputs=[Literal(┌───────┬───────┬───────┐
+│   1   │   2   │   3   │
+│ int32 │ int32 │ int32 │
+├───────┼───────┼───────┤
+│     1 │     2 │     3 │
+└───────┴───────┴───────┘
+)], outputs=[Sentinel()])
+{}
+
+Logging:
+INFO	ordeq.io	Loading Literal(┌───────┬───────┬───────┐
+│   1   │   2   │   3   │
+│ int32 │ int32 │ int32 │
+├───────┼───────┼───────┤
+│     1 │     2 │     3 │
+└───────┴───────┴───────┘
+)
+INFO	ordeq.runner	Running node Node(name=view_to_pandas:csv_as_df, inputs=[Literal(┌───────┬───────┬───────┐
+│   1   │   2   │   3   │
+│ int32 │ int32 │ int32 │
+├───────┼───────┼───────┤
+│     1 │     2 │     3 │
+└───────┴───────┴───────┘
+)], outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_to_pandas:aggregate, inputs=[Sentinel()])
+
+Typing:
+packages/ordeq/tests/resources/views/view_to_pandas.py:3: error: Skipping analyzing "duckdb": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/views/view_to_pandas.py:3: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 1 source file)

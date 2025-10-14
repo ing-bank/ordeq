@@ -1,0 +1,10 @@
+Exception:
+TypeError: view() got an unexpected keyword argument 'outputs'
+
+Typing:
+packages/ordeq/tests/resources/views/view_outputs_none.py:4: error: Name "view" already defined (possibly by an import)  [no-redef]
+packages/ordeq/tests/resources/views/view_outputs_none.py:4: error: No overload variant of "view" matches argument type "None"  [call-overload]
+packages/ordeq/tests/resources/views/view_outputs_none.py:4: note: Possible overload variants:
+packages/ordeq/tests/resources/views/view_outputs_none.py:4: note:     def [FuncParams`-1, FuncReturns] view(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., tags: list[str] | dict[str, Any] | None = ...) -> Callable[FuncParams, FuncReturns]
+packages/ordeq/tests/resources/views/view_outputs_none.py:4: note:     def view(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., tags: list[str] | dict[str, Any] | None = ...) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
+Found 2 errors in 1 file (checked 1 source file)

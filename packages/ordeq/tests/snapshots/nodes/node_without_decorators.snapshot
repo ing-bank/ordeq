@@ -1,2 +1,0 @@
-Exception:
-ValueError: Node inputs invalid for function arguments: Node(name=node_without_decorators:<lambda>,...)

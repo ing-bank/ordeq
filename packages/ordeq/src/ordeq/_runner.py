@@ -7,7 +7,7 @@ from typing import Literal, TypeVar
 from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import Input, Output, _InputCache
-from ordeq._nodes import Node
+from ordeq._nodes import Node, Sentinel
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
 
 logger = logging.getLogger("ordeq.runner")
@@ -75,7 +75,8 @@ def _run_node(
     # persisting computed data only if outputs are loaded again later
     for node_output in node.outputs:
         if isinstance(node_output, _InputCache):
-            node_output.persist(computed[node_output])  # ty: ignore[call-non-callable]
+            node_output.persist(
+                computed[node_output])  # ty: ignore[call-non-callable]
 
     for node_hook in hooks:
         node_hook.after_node_run(node)
@@ -133,6 +134,11 @@ def _run_graph(
             if isinstance(io_obj, _InputCache):
                 io_obj.unpersist()
 
+    # remove sentinels from data store
+    patched_data_store = {
+        k: v for k, v in patched_data_store.items() if
+        not isinstance(k, Sentinel)
+    }
     return patched_data_store
 
 

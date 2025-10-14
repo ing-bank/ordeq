@@ -1,2 +1,6 @@
-Exception:
-ValueError: Node is not hashable: Node(name=node_tags:func1, ...)
+Output:
+[]
+Node(name=node_tags:func2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)], tags=['tag1', 'tag2'])
+['tag1', 'tag2']
+{'key1': 'value1'}
+[]

@@ -1,14 +1,6 @@
-from ordeq import node, run
+from ordeq import view
 
 
-@node(outputs=None)
+@view(outputs=None)
 def view() -> str:
     return "Hello, World!"
-
-
-@node(inputs=view)
-def n(v: str) -> None:
-    print(f"Node received {v}")
-
-
-run(n, verbose=True)

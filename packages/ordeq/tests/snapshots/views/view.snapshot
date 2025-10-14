@@ -1,3 +1,0 @@
-Output:
-Node(name=view:view)
-Node(name=view:n, inputs=[Node(name=view:view)])

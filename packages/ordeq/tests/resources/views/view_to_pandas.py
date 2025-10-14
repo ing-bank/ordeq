@@ -1,20 +1,19 @@
-from ordeq import node, run
-from ordeq_duckdb import DuckDBCSV
-from ordeq_common import Print
+from ordeq import node, run, view
+from ordeq_common import Literal
 import duckdb
 import pandas as pd
 
-csv = DuckDBCSV(path="my.csv")
+csv = Literal(duckdb.values((1, 2, 3)))
 
 
-@node(inputs=csv)
+@view(inputs=csv)
 def csv_as_df(data: duckdb.DuckDBPyRelation) -> pd.DataFrame:
     return data.to_df()
 
 
-@node(inputs=csv_as_df, outputs=Print())
-def aggregate(df: pd.DataFrame) -> float:
-    return df["A"].aggregate("sum")
+@node(inputs=csv_as_df)
+def aggregate(df: pd.DataFrame) -> None:
+    df.aggregate("sum").head()
 
 
 print(run(aggregate, verbose=True))

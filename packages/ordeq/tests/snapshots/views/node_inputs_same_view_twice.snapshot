@@ -1,0 +1,18 @@
+Output:
+View(name=node_inputs_same_view_twice:hello, inputs=())
+[Node(name=node_inputs_same_view_twice:n, inputs=[Sentinel(), Sentinel()], outputs=[Print()]), Node(name=node_inputs_same_view_twice:hello, outputs=[Sentinel()])]
+NodeGraph:
+  Edges:
+     node_inputs_same_view_twice:hello -> [node_inputs_same_view_twice:n, node_inputs_same_view_twice:n]
+     node_inputs_same_view_twice:n -> []
+  Nodes:
+     Node(name=node_inputs_same_view_twice:hello, outputs=[Sentinel()])
+     Node(name=node_inputs_same_view_twice:n, inputs=[Sentinel(), Sentinel()], outputs=[Print()])
+Hello, World! == Hello, World!'
+{Print(): "Hello, World! == Hello, World!'"}
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=node_inputs_same_view_twice:hello, outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=node_inputs_same_view_twice:n, inputs=[Sentinel(), Sentinel()], outputs=[Print()])
+INFO	ordeq.io	Saving Print()

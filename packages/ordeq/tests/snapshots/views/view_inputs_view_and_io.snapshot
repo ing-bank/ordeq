@@ -1,0 +1,23 @@
+Output:
+View(name=view_inputs_view_and_io:hello, inputs=())
+View(name=view_inputs_view_and_io:hello_from_someone, inputs=(Literal('Jane'), View(name=view_inputs_view_and_io:hello, inputs=())))
+[Node(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), Sentinel()], outputs=[Sentinel()]), Node(name=view_inputs_view_and_io:hello, outputs=[Sentinel()]), Node(name=view_inputs_view_and_io:n, inputs=[Sentinel()])]
+NodeGraph:
+  Edges:
+     view_inputs_view_and_io:hello -> [view_inputs_view_and_io:hello_from_someone]
+     view_inputs_view_and_io:hello_from_someone -> [view_inputs_view_and_io:n]
+     view_inputs_view_and_io:n -> []
+  Nodes:
+     Node(name=view_inputs_view_and_io:hello, outputs=[Sentinel()])
+     Node(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), Sentinel()], outputs=[Sentinel()])
+     Node(name=view_inputs_view_and_io:n, inputs=[Sentinel()])
+I heard that Jane said 'Hello, World!'
+{}
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=view_inputs_view_and_io:hello, outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.io	Loading Literal('Jane')
+INFO	ordeq.runner	Running node Node(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), Sentinel()], outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_inputs_view_and_io:n, inputs=[Sentinel()])

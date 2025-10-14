@@ -199,6 +199,10 @@ split-on-trailing-comma = false
 "scripts/generate_package_overview.py" = ["E501"]
 # Rules not applicable in documentation files
 "docs/*" = ["INP001", "D", "DOC", "S", "E501", "PERF", "PLW1514"]
+"doccmd_kedro_md*.py" = [
+    # Allow hardcoded secrets in documentation.
+    "F821",
+]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

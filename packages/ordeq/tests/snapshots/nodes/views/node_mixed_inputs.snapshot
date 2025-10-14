@@ -1,2 +1,0 @@
-Exception:
-AttributeError: 'Node' object has no attribute 'views'

@@ -1,4 +1,6 @@
-from ordeq import node, run
+from ordeq import run
+from ordeq import node
+from ordeq import node as view
 import pandas as pd
 from ordeq_pandas import PandasDataFrame, PandasCSV
 
@@ -13,13 +15,15 @@ DataFrame = PandasDataFrame(
 )
 
 
-@node(inputs=DataFrame)
-def df_casted(df: pd.DataFrame) -> pd.DataFrame:
-    df["A"] = df["A"].astype("string")
-    return df
+def filter_df(df: pd.DataFrame, condition: str) -> pd.DataFrame:
+    return df.where(condition)
 
 
-@node(inputs=df_casted, outputs=PandasCSV(path="out.csv"))
+first_df_casted = view(filter_df, inputs=DataFrame)
+second_df_casted = view(filter_df, inputs=DataFrame)
+
+
+@node(inputs=first_df_casted, outputs=PandasCSV(path="out.csv"))
 def group_by(df: pd.DataFrame) -> pd.DataFrame:
     return df.groupby(
         by=["A", ],

@@ -1,0 +1,7 @@
+Exception:
+ModuleNotFoundError: No module named 'module_views'
+
+Typing:
+packages/ordeq/tests/resources/nodes/views/module_views.py:5: error: Cannot find implementation or library stub for module named "module_views"  [import-not-found]
+packages/ordeq/tests/resources/nodes/views/module_views.py:5: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 1 source file)

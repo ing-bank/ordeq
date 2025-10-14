@@ -1,0 +1,17 @@
+Exception:
+AttributeError: 'function' object has no attribute 'load'
+
+Output:
+NodeGraph:
+  Edges:
+     view_dataframe_select:group_by -> []
+  Nodes:
+     Node(name=view_dataframe_select:group_by, inputs=[<function df_selected at HASH1>], outputs=[Print()])
+
+Typing:
+packages/ordeq/tests/resources/nodes/views/view_dataframe_select.py:13: error: Argument "columns" to "PandasDataFrame" has incompatible type "tuple[str, str, str, str]"; expected "list[str] | None"  [arg-type]
+packages/ordeq/tests/resources/nodes/views/view_dataframe_select.py:22: error: No overload variant of "node" matches argument types "Callable[[DataFrame], DataFrame]", "Print"  [call-overload]
+packages/ordeq/tests/resources/nodes/views/view_dataframe_select.py:22: note: Possible overload variants:
+packages/ordeq/tests/resources/nodes/views/view_dataframe_select.py:22: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any]] | Input[Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., tags: list[str] | dict[str, Any] | None = ...) -> Callable[FuncParams, FuncReturns]
+packages/ordeq/tests/resources/nodes/views/view_dataframe_select.py:22: note:     def node(*, inputs: Sequence[Input[Any]] | Input[Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., tags: list[str] | dict[str, Any] | None = ...) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
+Found 2 errors in 1 file (checked 1 source file)

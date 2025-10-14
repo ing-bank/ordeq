@@ -1,23 +1,31 @@
-from ordeq import node
-from ordeq._nodes import get_node
-from ordeq_common import Literal
+from ordeq import node, run
+import pandas as pd
+from ordeq_pandas import PandasDataFrame
+from ordeq_common import Print
+
+DataFrame = PandasDataFrame(
+    data=(
+        (1, 2, 2),
+        (4.0, 5.5, 6.1),
+        ("foo", "bar", "baz"),
+        (True, False, True),
+    ),
+    columns=("A", "B", "C", "D"),
+)
 
 
-class D:
-    @staticmethod
-    def list_buckets() -> list[str]:
-        return ["bucket1", "bucket2", "bucket3"]
+@node(inputs=DataFrame)
+def df_selected(df: pd.DataFrame) -> pd.DataFrame:
+    return df[df["A", "B"]]
 
 
-@node(client=Literal(Client()))
-def view(client: Client) -> list[str]:
-    return client.list_buckets()
+@node(inputs=df_selected, outputs=Print())
+def group_by(df: pd.DataFrame) -> pd.DataFrame:
+    return df.groupby(
+        by=["A", ],
+        as_index=False,
+        dropna=False,
+    ).agg({"A": "mean"})
 
 
-@node(inputs=view)
-def n(v: str) -> None:
-    print(f"Node received {v}")
-
-
-print(repr(get_node(view)))
-print(repr(get_node(n)))
+print(run(group_by, verbose=True))

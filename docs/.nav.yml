@@ -16,8 +16,8 @@ nav:
         - Lazy IO: guides/lazy_io.md
         - Cloud storage: guides/cloud_storage.md
       - guides/testing_nodes.md
-      - Migrating:
-          - Migrating from Kedro: guides/migrating/kedro.md
+      - Other frameworks:
+          - Coming from Kedro: guides/kedro.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
       # TODO: Add an example project

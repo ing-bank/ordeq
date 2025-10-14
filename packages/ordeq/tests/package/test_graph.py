@@ -28,16 +28,19 @@ def test_find_sink_nodes(edges, expected):
 
 def test_it_builds_a_graph():
     first = Mock()
+    first.views = []
     first.name = "first"
     first.inputs = [A]
     first.outputs = [B]
 
     second = Mock()
+    second.views = []
     second.name = "second"
     second.inputs = [B, C]
     second.outputs = [D]
 
     third = Mock()
+    third.views = []
     third.name = "third"
     third.inputs = [B, D]
     third.outputs = [F]
@@ -83,40 +86,40 @@ def test_it_raises_error_on_duplicated_outputs():
             # 0 ---
             # |     |
             # 1 --- 2
-            {0: [1, 2], 1: [2], 2: []},
-            (0, 1, 2),
+                {0: [1, 2], 1: [2], 2: []},
+                (0, 1, 2),
         ),
         (
             # Example 1:
             # 0 --- 2
             # |     |
             # 1 --- 3
-            {0: [1, 2], 1: [3], 2: [3], 3: []},
-            (0, 2, 1, 3),
+                {0: [1, 2], 1: [3], 2: [3], 3: []},
+                (0, 2, 1, 3),
         ),
         (
             # Example 2:
             # 0 --- 2
             # |
             # 1
-            {0: [1, 2], 1: [], 2: []},
-            (0, 2, 1),
+                {0: [1, 2], 1: [], 2: []},
+                (0, 2, 1),
         ),
         (
             # Example 3:
             # 0 --- 2
             # |  /  |
             # 1 --- 3
-            {0: [1, 2], 1: [2, 3], 2: [3], 3: []},
-            (0, 1, 2, 3),
+                {0: [1, 2], 1: [2, 3], 2: [3], 3: []},
+                (0, 1, 2, 3),
         ),
         (
             # Example 4:
             # 0 --- 2
             # |  X  |
             # 1 --- 3
-            {0: [1, 2, 3], 1: [2, 3], 2: [3], 3: []},
-            (0, 1, 2, 3),
+                {0: [1, 2, 3], 1: [2, 3], 2: [3], 3: []},
+                (0, 1, 2, 3),
         ),
     ],
 )

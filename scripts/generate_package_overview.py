@@ -235,7 +235,7 @@ def write_html_table_by_group(
                     f"<a href='https://pypi.org/project/{pkg['pypi_name']}/'>"
                     f"<img src='https://img.shields.io/pypi/v/{pkg['pypi_name']}?label={pkg['pkg_dir']}' style='max-height:35px;'/></a>"
                 )
-                docs_html = f"<a href='https://ing-bank.github.io/ordeq/packages/api/{pkg['src_name']}/'>API Docs</a>"
+                docs_html = f"<a href='https://ing-bank.github.io/ordeq/api/{pkg['src_name']}/'>API Docs</a>"
                 f.write(
                     f"  <tr>\n    <td align='center' width='90' style='text-align:center;vertical-align:middle;max-height:35px;'>{logo_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{name_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{pkg['description']}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{docs_html}</td>\n  </tr>\n"
                 )

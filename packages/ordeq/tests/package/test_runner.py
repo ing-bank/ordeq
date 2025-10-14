@@ -15,13 +15,13 @@ F = StringBuffer()
 def test_run_regular_node():
     Bp = copy.copy(B)
     Bp.unpersist()
-    node = Node.create(inputs=(A,), outputs=(Bp,), func=lambda x: x + x)
+    node = Node.from_func(inputs=(A,), outputs=(Bp,), func=lambda x: x + x)
     computed = _run_node(node, hooks=())
     assert computed[Bp] == "AA"
 
 
 def test_run_node_returns_none():
-    node = Node.create(inputs=(A,), outputs=(), func=lambda _: None)
+    node = Node.from_func(inputs=(A,), outputs=(), func=lambda _: None)
     computed = _run_node(node, hooks=())
     assert computed == {}
 
@@ -29,14 +29,14 @@ def test_run_node_returns_none():
 def test_run_node_with_zero_inputs():
     Bp = copy.copy(B)
     Bp.unpersist()
-    node = Node.create(inputs=(), outputs=(Bp,), func=lambda: "something")
+    node = Node.from_func(inputs=(), outputs=(Bp,), func=lambda: "something")
     loaded = {Bp: "something"}
     computed = _run_node(node, hooks=())
     assert loaded == computed
 
 
 def test_run_node_with_zero_inputs_and_outputs():
-    node = Node.create(inputs=(), outputs=(), func=lambda: print("Hello!"))
+    node = Node.from_func(inputs=(), outputs=(), func=lambda: print("Hello!"))
     loaded = {}
     computed = _run_node(node, hooks=())
     assert loaded == computed

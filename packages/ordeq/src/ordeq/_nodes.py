@@ -88,7 +88,7 @@ class Node(Generic[FuncParams, FuncReturns]):
         )
 
     @classmethod
-    def create(
+    def from_func(
         cls,
         func: Callable[FuncParams, FuncReturns],
         *,
@@ -328,7 +328,7 @@ def node(
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            inner.__ordeq_node__ = Node.create(  # type: ignore[attr-defined]
+            inner.__ordeq_node__ = Node.from_func(  # type: ignore[attr-defined]
                 inner, inputs=inputs, outputs=outputs, tags=tags
             )
             return inner
@@ -342,7 +342,7 @@ def node(
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    wrapper.__ordeq_node__ = Node.create(  # type: ignore[attr-defined]
+    wrapper.__ordeq_node__ = Node.from_func(  # type: ignore[attr-defined]
         wrapper, inputs=inputs, outputs=outputs, tags=tags
     )
     return wrapper

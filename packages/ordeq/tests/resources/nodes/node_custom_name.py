@@ -5,8 +5,8 @@ def func():
     ...
 
 
-node = Node.create(func, inputs=[], outputs=[])
+node = Node.from_func(func, inputs=[], outputs=[])
 print('Original:', node)
 
-node_renamed = Node.create(func, name="custom-name", inputs=[], outputs=[])
+node_renamed = Node.from_func(func, name="custom-name", inputs=[], outputs=[])
 print('Renamed:', node_renamed)

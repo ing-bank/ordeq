@@ -20,8 +20,8 @@ def func(x: str = "X") -> Callable:
 
 inner_func = func()
 assert inner_func("X") == "XX"
-assert get_node(func) == Node.create(func=func, inputs=(mock_x,),
-                                     outputs=(mock_z,))
-assert get_node(inner_func) == Node.create(
+assert get_node(func) == Node.from_func(func=func, inputs=(mock_x,),
+                                        outputs=(mock_z,))
+assert get_node(inner_func) == Node.from_func(
     func=inner_func, inputs=(mock_y,), outputs=(mock_z,)
 )

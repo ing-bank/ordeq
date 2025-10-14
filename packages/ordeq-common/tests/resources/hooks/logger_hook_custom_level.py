@@ -3,7 +3,7 @@ import logging
 from ordeq import node, IO, run
 from ordeq_common import Literal, LoggerHook
 
-logger = LoggerHook(level=logging.FATAL)
+logger = LoggerHook(level=logging.CRITICAL)
 
 
 @node(inputs=Literal("name"), outputs=IO())

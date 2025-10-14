@@ -22,6 +22,9 @@ requires-python = ">=3.10"
 [tool.ordeq]
 group = "framework"
 
+[tool.ordeq-dev]
+logo_url = ""
+
 [dependency-groups]
 test = [
     "cloudpathlib[s3]>=0.20.0",

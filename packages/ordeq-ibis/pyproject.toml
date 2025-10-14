@@ -26,6 +26,9 @@ dependencies = [
 [tool.ordeq]
 group = "ios"
 
+[tool.ordeq-dev]
+logo_url = "https://ibis-project.org/logo.svg"
+
 [dependency-groups]
 test = [
     "ibis-framework[polars,duckdb]",

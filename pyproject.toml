@@ -196,6 +196,7 @@ split-on-trailing-comma = false
 ]
 # Rules not applicable for scripts
 "scripts/*" = ["INP001", "S607", "S603", "S404", "D103"]
+"scripts/generate_package_overview.py" = ["E501"]
 # Rules not applicable in documentation files
 "docs/*" = ["INP001", "D", "DOC", "S", "E501", "PERF", "PLW1514"]
 

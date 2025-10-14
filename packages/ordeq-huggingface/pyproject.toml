@@ -26,6 +26,9 @@ dependencies = [
 [tool.ordeq]
 group = "ios"
 
+[tool.ordeq-dev]
+logo_url = "https://cdn.worldvectorlogo.com/logos/huggingface-2.svg"
+
 [dependency-groups]
 test = []
 

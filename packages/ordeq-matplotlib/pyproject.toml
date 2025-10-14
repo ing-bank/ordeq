@@ -26,6 +26,9 @@ dependencies = [
 [tool.ordeq]
 group = "ios"
 
+[tool.ordeq-dev]
+logo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png"
+
 [dependency-groups]
 test = []
 

@@ -28,6 +28,9 @@ dependencies = [
 [tool.ordeq]
 group = "ios"
 
+[tool.ordeq-dev]
+logo_url = "https://avatars.githubusercontent.com/u/7966854?v=4"
+
 [dependency-groups]
 test = []
 

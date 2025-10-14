@@ -26,6 +26,9 @@ dependencies = [
 [tool.ordeq]
 group = "ios"
 
+[tool.ordeq-dev]
+logo_url = "https://www.sbert.net/_static/logo.png"
+
 [dependency-groups]
 test = []
 

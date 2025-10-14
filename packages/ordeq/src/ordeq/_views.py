@@ -22,6 +22,7 @@ class Sentinel(IO):
         pass
 
     def __repr__(self) -> str:
+        # TODO
         return "Sentinel()"
 
 

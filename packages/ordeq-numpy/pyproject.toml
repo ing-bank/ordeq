@@ -26,6 +26,9 @@ dependencies = [
 [tool.ordeq]
 group = "ios"
 
+[tool.ordeq-dev]
+logo_url = "https://numpy.org/images/logo.svg"
+
 [dependency-groups]
 test = []
 

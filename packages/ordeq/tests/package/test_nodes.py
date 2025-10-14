@@ -1,6 +1,6 @@
 import pytest
-from ordeq import IO, node
-from ordeq._nodes import _create_node, get_node, to_iterable
+from ordeq import IO, Node, node
+from ordeq._nodes import get_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 
@@ -53,7 +53,7 @@ def test_it_raises_for_invalid_inputs(inputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
         ValueError, match="Node inputs invalid for function arguments"
     ):
-        n = _create_node(
+        n = Node.create(
             func=lambda _: _, inputs=inputs, outputs=(StringBuffer("c"),)
         )
         _run_node(n, hooks=())
@@ -96,7 +96,7 @@ def test_it_raises_for_invalid_outputs(func, outputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
         ValueError, match="Node outputs invalid for return annotation"
     ):
-        n = _create_node(
+        n = Node.create(
             func=func, inputs=(StringBuffer("a"),), outputs=outputs
         )
         _run_node(n, hooks=())
@@ -118,17 +118,3 @@ class TestGetNode:
 
         with pytest.raises(ValueError, match="'my_func' is not a node"):
             get_node(my_func)
-
-
-@pytest.mark.parametrize(
-    ("obj", "expected"),
-    [
-        ("a", ("a",)),
-        (("a", "b"), ("a", "b")),
-        (1, (1,)),
-        ((1, 2), (1, 2)),
-        ((None,), (None,)),
-    ],
-)
-def test_to_iterable(obj, expected):
-    assert list(to_iterable(obj)) == list(expected)

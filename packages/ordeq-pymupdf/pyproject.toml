@@ -26,6 +26,9 @@ dependencies = [
 [tool.ordeq]
 group = "ios"
 
+[tool.ordeq-dev]
+logo_url = "https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg"
+
 [dependency-groups]
 test = []
 

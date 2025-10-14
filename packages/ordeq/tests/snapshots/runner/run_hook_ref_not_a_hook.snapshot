@@ -1,2 +1,2 @@
 Exception:
-ValueError: Hook 'other_obj' not found in module 'packages.example.hooks'
+ValueError: Node is not hashable: Node(name=packages.example.nodes:world, ...)

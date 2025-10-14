@@ -44,4 +44,6 @@ class PandasDataFrame(Input[pd.DataFrame]):
             Loaded Pandas DataFrame.
         """
 
-        return pd.DataFrame(data=self.data, columns=self.columns, **load_options)
+        return pd.DataFrame(
+            data=self.data, columns=self.columns, **load_options
+        )

@@ -2,11 +2,12 @@ import importlib
 import logging
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
-from functools import wraps
+from functools import cached_property, wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
 
 from ordeq._io import Input, Output
+from ordeq._views import View
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -36,7 +37,7 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
     name: str
-    inputs: tuple[Input, ...]
+    inputs: tuple[Input | View, ...]
     outputs: tuple[Output, ...]
     tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
 
@@ -52,6 +53,15 @@ class Node(Generic[FuncParams, FuncReturns]):
         """These checks are performed before the node is run."""
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
+
+    @cached_property
+    def views(self) -> list[View]:
+        """Returns all views in the inputs of the node."""
+        views: list[View] = []
+        for inp in self.inputs:
+            if isinstance(inp, View):
+                views.append(inp)
+        return views
 
     def __repr__(self) -> str:
         attributes = {"name": self.name}

@@ -1,5 +1,2 @@
-Output:
-A really nice node
-{'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
-func
-node_magic_attributes
+Exception:
+ValueError: Node is not hashable: Node(name=node_magic_attributes:func, ...)

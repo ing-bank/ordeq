@@ -1,0 +1,2 @@
+Exception:
+ValueError: Node is not hashable: Node(name=example_module_a:decrement, ...)

@@ -1,0 +1,2 @@
+Exception:
+ValueError: Node is not hashable: Node(name=node_static_registry:a, ...)

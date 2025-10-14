@@ -1,2 +1,2 @@
 Exception:
-ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node
+ValueError: Node inputs invalid for function arguments: Node(name=runner_non_distinct_ios:func1,...)

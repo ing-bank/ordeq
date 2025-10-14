@@ -1,2 +1,2 @@
 Exception:
-ValueError: Node inputs invalid for function arguments: Node(name=node_with_args_misses_inputs:func,...)
+ValueError: Node is not hashable: Node(name=node_with_args_misses_inputs:func, ...)

@@ -19,11 +19,13 @@ def cast(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # For standalone usage, I find using the 'node' function a bit.
-# I'd prefer calling 'view' instead:
+# I'd prefer calling 'view' instead (see below).
+# This fits the idea that views are created from reusable functions.
 df_casted = node(cast, inputs=DataFrame)  # awkward, imo
 df_casted = view(cast, inputs=DataFrame)  # better
 # or even
 df_casted = view(cast, DataFrame)  # better
+
 
 
 @node(inputs=df_casted, outputs=PandasCSV(path="out.csv"))

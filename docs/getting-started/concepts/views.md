@@ -1,6 +1,5 @@
 # Views
 
-As we have
 Views are a special type of node.
 They are ideal to reflect common transformations, such as:
 

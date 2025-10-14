@@ -23,6 +23,9 @@ dependencies = [
     "pyspark>=3.3.1",
 ]
 
+[tool.ordeq-dev]
+logo_url = "https://icon.icepanel.io/Technology/svg/Apache-Spark.svg"
+
 [tool.ordeq]
 group = "ios"
 

@@ -26,6 +26,9 @@ dependencies = [
 [tool.ordeq]
 group = "ios"
 
+[tool.ordeq-dev]
+logo_url = "https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png"
+
 [dependency-groups]
 types = ["types-requests"]
 test = [

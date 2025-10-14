@@ -24,3 +24,14 @@ def test_its_unique():
     df1 = PandasDataFrame(data=data, columns=columns)
     df2 = PandasDataFrame(data=data, columns=columns)
     assert df1 != df2
+
+
+def test_its_hashable():
+    data = [
+        (2022, "file_2022.xlsx"),
+        (2023, "file_2023.xlsx"),
+        (2024, "file_2024.xlsx"),
+    ]
+    columns = ["year", "datafile"]
+    df = PandasDataFrame(data=data, columns=columns)
+    assert isinstance(hash(df), int)

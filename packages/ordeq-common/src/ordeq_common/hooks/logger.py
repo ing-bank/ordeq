@@ -14,7 +14,7 @@ class LoggerHook(InputHook, OutputHook, NodeHook):
     def __init__(
         self,
         *,
-        logger: Logger | None = _DEFAULT_LOGGER,
+        logger: Logger = _DEFAULT_LOGGER,
         level: int | None = None,
     ) -> None:
         self._logger = logger

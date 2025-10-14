@@ -57,11 +57,7 @@ class Node(Generic[FuncParams, FuncReturns]):
     @cached_property
     def views(self) -> list[View]:
         """Returns all views in the inputs of the node."""
-        views: list[View] = []
-        for inp in self.inputs:
-            if isinstance(inp, View):
-                views.append(inp)
-        return views
+        return [i for i in self.inputs if isinstance(i, View)]
 
     def __repr__(self) -> str:
         attributes = {"name": self.name}

@@ -32,9 +32,6 @@ class View(Generic[FuncParams, FuncReturns]):
     tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
     sentinel: IO = field(default_factory=Sentinel, repr=False)
 
-    def __repr__(self):
-        return f"View(func={self.func.__name__}, inputs={self.inputs})"
-
     @classmethod
     def create(
         cls,
@@ -66,18 +63,29 @@ class View(Generic[FuncParams, FuncReturns]):
     ) -> View[FuncParams, FuncReturns]:
         return View(func=func or self.func, inputs=inputs or self.inputs)
 
+    @property
+    def views(self) -> list[View]:
+        """Returns all views in the inputs of the view."""
+        return [i for i in self.inputs if isinstance(i, View)]
+
+    def __repr__(self):
+        return f"View(func={self.func.__name__}, inputs={self.inputs})"
+
 
 @overload
 def view(
     func: Callable[FuncParams, FuncReturns],
-    *inputs: Input | Callable,
+    *,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[FuncParams, FuncReturns]: ...
 
 
 @overload
 def view(
-    *inputs: Input | Callable, tags: list[str] | dict[str, Any] | None = None
+    *,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[
     [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
 ]: ...
@@ -85,7 +93,8 @@ def view(
 
 def view(
     func: Callable[FuncParams, FuncReturns] | None = None,
-    *inputs: Input | Callable,
+    *,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> (
     Callable[

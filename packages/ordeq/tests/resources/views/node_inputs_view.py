@@ -1,5 +1,5 @@
 from ordeq import node, run, view
-from ordeq_common import Literal, Print
+from ordeq_common import Print
 
 
 @view

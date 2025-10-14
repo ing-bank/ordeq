@@ -1,0 +1,29 @@
+Output:
+NodeGraph:
+  Edges:
+     view_query:range_to_csv -> []
+     view_query:selected_range -> [view_query:range_to_csv]
+  Nodes:
+     Node(name=view_query:range_to_csv, inputs=[Sentinel()])
+     Node(name=view_query:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)], outputs=[Sentinel()])
+┌───────┐
+│ range │
+│ int64 │
+├───────┤
+│     0 │
+│     1 │
+│     2 │
+└───────┘
+
+{}
+
+Logging:
+INFO	ordeq.io	Loading Literal(<_duckdb.DuckDBPyConnection object at HASH1>)
+INFO	ordeq.runner	Running node Node(name=view_query:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)], outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_query:range_to_csv, inputs=[Sentinel()])
+
+Typing:
+packages/ordeq/tests/resources/views/view_query.py:3: error: Skipping analyzing "duckdb": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/views/view_query.py:3: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 1 source file)

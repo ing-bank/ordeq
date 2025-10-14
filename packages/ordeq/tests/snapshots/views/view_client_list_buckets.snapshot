@@ -1,0 +1,18 @@
+Output:
+NodeGraph:
+  Edges:
+     view_client_list_buckets:buckets -> [view_client_list_buckets:print_buckets]
+     view_client_list_buckets:print_buckets -> []
+  Nodes:
+     Node(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)], outputs=[Sentinel()])
+     Node(name=view_client_list_buckets:print_buckets, inputs=[Sentinel()])
+bucket1
+bucket2
+bucket3
+{}
+
+Logging:
+INFO	ordeq.io	Loading Literal(<view_client_list_buckets.Client object at HASH1>)
+INFO	ordeq.runner	Running node Node(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)], outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=view_client_list_buckets:print_buckets, inputs=[Sentinel()])

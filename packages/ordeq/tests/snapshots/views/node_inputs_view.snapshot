@@ -1,0 +1,17 @@
+Output:
+View(name=node_inputs_view:hello, inputs=())
+NodeGraph:
+  Edges:
+     node_inputs_view:hello -> [node_inputs_view:n]
+     node_inputs_view:n -> []
+  Nodes:
+     Node(name=node_inputs_view:hello, outputs=[Sentinel()])
+     Node(name=node_inputs_view:n, inputs=[Sentinel()], outputs=[Print()])
+She said 'Hello, World!'
+{Print(): "She said 'Hello, World!'"}
+
+Logging:
+INFO	ordeq.runner	Running node Node(name=node_inputs_view:hello, outputs=[Sentinel()])
+INFO	ordeq.io	Saving Sentinel()
+INFO	ordeq.runner	Running node Node(name=node_inputs_view:n, inputs=[Sentinel()], outputs=[Print()])
+INFO	ordeq.io	Saving Print()

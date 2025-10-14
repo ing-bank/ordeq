@@ -2,11 +2,11 @@ import importlib
 import logging
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
-from functools import wraps
+from functools import cached_property, wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
 
-from ordeq._io import Input, Output
+from ordeq._io import IO, Input, Output
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -36,7 +36,7 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
     name: str
-    inputs: tuple[Input, ...]
+    inputs: tuple["Input | View", ...]
     outputs: tuple[Output, ...]
     tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
 
@@ -47,6 +47,10 @@ class Node(Generic[FuncParams, FuncReturns]):
             _raise_for_invalid_inputs(self)
         if self.outputs:
             _raise_for_invalid_outputs(self)
+
+    @cached_property
+    def views(self):
+        return [i for i in self.inputs if isinstance(i, View)]
 
     def validate(self) -> None:
         """These checks are performed before the node is run."""
@@ -85,6 +89,44 @@ class Node(Generic[FuncParams, FuncReturns]):
             inputs=_sequence_to_tuple(inputs or self.inputs),
             outputs=_sequence_to_tuple(outputs or self.outputs),
             tags=self.tags,
+        )
+
+    @classmethod
+    def create(
+        cls,
+        func: Callable[FuncParams, FuncReturns],
+        *,
+        name: str | None = None,
+        inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+        outputs: Sequence[Output] | Output | None = None,
+        tags: list[str] | dict[str, Any] | None = None,
+    ) -> "Node[FuncParams, FuncReturns]":
+        """Creates a Node instance.
+
+        Args:
+            func: The function to be executed by the node.
+            name: name for the node. If not provided, inferred from func.
+            inputs: The inputs to the node.
+            outputs: The outputs from the node.
+            tags: Optional tags for the node.
+
+        Returns:
+            A Node instance.
+        """
+
+        inputs = [
+            get_view(i) if callable(i) else i
+            for i in _sequence_to_tuple(inputs)
+        ]
+        resolved_name = (
+            name if name is not None else infer_node_name_from_func(func)
+        )
+        return cls(
+            func=func,
+            name=resolved_name,
+            inputs=_sequence_to_tuple(inputs),
+            outputs=_sequence_to_tuple(outputs),
+            tags=[] if tags is None else tags,
         )
 
 
@@ -184,44 +226,11 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
     return (obj,)  # ty: ignore[invalid-return-type]
 
 
-def _create_node(
-    func: Callable[FuncParams, FuncReturns],
-    *,
-    name: str | None = None,
-    inputs: Sequence[Input] | Input | None = None,
-    outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
-) -> Node[FuncParams, FuncReturns]:
-    """Creates a Node instance.
-
-    Args:
-        func: The function to be executed by the node.
-        name: Optional name for the node. If not provided, inferred from func.
-        inputs: The inputs to the node.
-        outputs: The outputs from the node.
-        tags: Optional tags for the node.
-
-    Returns:
-        A Node instance.
-    """
-
-    resolved_name = (
-        name if name is not None else infer_node_name_from_func(func)
-    )
-    return Node(
-        func=func,
-        name=resolved_name,
-        inputs=_sequence_to_tuple(inputs),
-        outputs=_sequence_to_tuple(outputs),
-        tags=[] if tags is None else tags,
-    )
-
-
 @overload
 def node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input] | Input | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[FuncParams, FuncReturns]: ...
@@ -230,7 +239,7 @@ def node(
 @overload
 def node(
     *,
-    inputs: Sequence[Input] | Input | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[
@@ -241,7 +250,7 @@ def node(
 def node(
     func: Callable[FuncParams, FuncReturns] | None = None,
     *,
-    inputs: Sequence[Input] | Input | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> (
@@ -327,7 +336,7 @@ def node(
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            inner.__ordeq_node__ = _create_node(  # type: ignore[attr-defined]
+            inner.__ordeq_node__ = Node.create(  # type: ignore[attr-defined]
                 inner, inputs=inputs, outputs=outputs, tags=tags
             )
             return inner
@@ -341,7 +350,7 @@ def node(
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    wrapper.__ordeq_node__ = _create_node(  # type: ignore[attr-defined]
+    wrapper.__ordeq_node__ = Node.create(  # type: ignore[attr-defined]
         wrapper, inputs=inputs, outputs=outputs, tags=tags
     )
     return wrapper
@@ -364,3 +373,113 @@ def get_node(func: Callable) -> Node:
         return func.__ordeq_node__  # type: ignore[attr-defined]
     except AttributeError as e:
         raise ValueError(f"'{func.__name__}' is not a node") from e
+
+
+@dataclass(frozen=True)
+class Sentinel(IO[Any]):
+    _idx: str = field(default_factory=lambda: str(id(object())), init=False)
+
+    def load(self) -> None:
+        return None
+
+    def save(self, data: Any) -> None:
+        return None
+
+    def __repr__(self) -> str:
+        # TODO: Complete
+        return "Sentinel()"
+
+
+@dataclass(frozen=True, kw_only=True)
+class View(Node[FuncParams, FuncReturns]):
+    def __repr__(self):
+        return f"View(name={self.name}, inputs={self.inputs})"
+
+
+@overload
+def view(
+    func: Callable[FuncParams, FuncReturns],
+    *,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    tags: list[str] | dict[str, Any] | None = None,
+) -> Callable[FuncParams, FuncReturns]: ...
+
+
+@overload
+def view(
+    *,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    tags: list[str] | dict[str, Any] | None = None,
+) -> Callable[
+    [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
+]: ...
+
+
+def view(
+    func: Callable[FuncParams, FuncReturns] | None = None,
+    *,
+    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    tags: list[str] | dict[str, Any] | None = None,
+) -> (
+    Callable[
+        [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
+    ]
+    | Callable[FuncParams, FuncReturns]
+):
+    """Decorator that creates a view from a function.
+
+    Args:
+        func: function of the node
+        inputs: sequence of inputs
+        tags: tags to assign to the node
+
+    Returns:
+        a view
+    """
+
+    if func is None:
+        # we are called as @view(inputs=...
+        def wrapped(
+            f: Callable[FuncParams, FuncReturns],
+        ) -> Callable[FuncParams, FuncReturns]:
+            @wraps(f)
+            def inner(*args, **kwargs):
+                # Purpose of this inner is to create a new function from `f`
+                return f(*args, **kwargs)
+
+            inner.__ordeq_view__ = View.create(  # type: ignore[attr-defined]
+                inner, inputs=inputs, outputs=Sentinel(), tags=tags
+            )
+            return inner
+
+        return wrapped
+
+    # else: we are called as view(func, inputs=...)
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        # The purpose of this wrapper is to create a new function from `func`
+        return func(*args, **kwargs)
+
+    wrapper.__ordeq_view__ = View.create(  # type: ignore[attr-defined]
+        wrapper, inputs=inputs, outputs=Sentinel(), tags=tags
+    )
+    return wrapper
+
+
+def get_view(func: Callable) -> View:
+    """Returns the view associated with the function.
+
+    Args:
+        func: function to get the view for
+
+    Returns:
+        the view associated with the function
+
+    Raises:
+        ValueError: if the function is not a view
+
+    """
+
+    if not hasattr(func, "__ordeq_view__"):
+        raise ValueError(f"'{func.__name__}' is not a view.")
+    return func.__ordeq_view__  # type: ignore[attr-defined]

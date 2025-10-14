@@ -75,8 +75,7 @@ def _run_node(
     # persisting computed data only if outputs are loaded again later
     for node_output in node.outputs:
         if isinstance(node_output, _InputCache):
-            node_output.persist(
-                computed[node_output])  # ty: ignore[call-non-callable]
+            node_output.persist(computed[node_output])  # ty: ignore[call-non-callable]
 
     for node_hook in hooks:
         node_hook.after_node_run(node)
@@ -136,8 +135,9 @@ def _run_graph(
 
     # remove sentinels from data store
     patched_data_store = {
-        k: v for k, v in patched_data_store.items() if
-        not isinstance(k, Sentinel)
+        k: v
+        for k, v in patched_data_store.items()
+        if not isinstance(k, Sentinel)
     }
     return patched_data_store
 

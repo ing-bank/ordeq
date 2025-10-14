@@ -19,14 +19,14 @@ def collect_views(nodes: set[Node]) -> set[View]:
 
 
 def replace_view_inputs_with_sentinel_ios(*nodes: Node):
+    replaced = []
     for node in nodes:
         inputs = list(node.inputs)
         for i, input_ in enumerate(node.inputs):
             if isinstance(input_, View):
                 inputs[i] = input_.outputs[0]
-        yield node._replace(
-            inputs=inputs
-        )
+        replaced.append(node._replace(inputs=inputs))
+    return replaced
 
 
 def _build_graph(nodes: Iterable[Node]) -> EdgesType:
@@ -44,7 +44,8 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
 
     nodes = set(nodes)
     nodes = nodes | collect_views(nodes)
-    nodes = list(replace_view_inputs_with_sentinel_ios(*nodes))
+    nodes = replace_view_inputs_with_sentinel_ios(*nodes)
+
     output_to_node: dict = {}
     input_to_nodes: dict = {}
     edges: dict = {node: [] for node in nodes}

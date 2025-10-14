@@ -6,7 +6,9 @@ from ordeq._graph import (
     _find_sink_nodes,
     _find_topological_ordering,
     _nodes,
+    collect_views,
 )
+from ordeq._nodes import View, Node
 from ordeq_common import StringBuffer
 
 A, B, C, D, E, F = [StringBuffer(c) for c in "ABCDEF"]
@@ -27,19 +29,19 @@ def test_find_sink_nodes(edges, expected):
 
 
 def test_it_builds_a_graph():
-    first = Mock()
+    first = Mock(spec=Node)
     first.views = []
     first.name = "first"
     first.inputs = [A]
     first.outputs = [B]
 
-    second = Mock()
+    second = Mock(spec=Node)
     second.views = []
     second.name = "second"
     second.inputs = [B, C]
     second.outputs = [D]
 
-    third = Mock()
+    third = Mock(spec=Node)
     third.views = []
     third.name = "third"
     third.inputs = [B, D]
@@ -51,10 +53,11 @@ def test_it_builds_a_graph():
 
 
 def test_it_builds_graph_with_single_node():
-    first = Mock()
+    first = Mock(spec=Node)
     first.name = "first"
     first.inputs = [A]
     first.outputs = [B]
+    first.views = []
 
     edges = _build_graph([first])
     assert edges == {first: []}
@@ -130,3 +133,49 @@ def test_it_finds_a_topological_ordering(edges, expected):
 
     actual = _find_topological_ordering(edges)
     assert actual == expected
+
+
+def test_collect_views():
+    # Edge case: empty set
+    assert collect_views(set()) == set()
+
+    # Node with no views
+    node1 = Mock()
+    node1.views = []
+    assert collect_views({node1}) == set()
+
+    # Node with a single view
+    view1 = Mock(spec=View)
+    view1.views = []
+    node2 = Mock(spec=Node)
+    node2.views = [view1]
+    assert collect_views({node2}) == {view1}
+
+    # Node with multiple views
+    view2 = Mock(spec=View)
+    view2.views = []
+    view3 = Mock(spec=View)
+    view3.views = []
+    node3 = Mock()
+    node3.views = [view2, view3]
+    assert collect_views({node3}) == {view2, view3}
+
+    # Nested views: a view that itself has a view
+    nested_view = Mock(spec=View)
+    nested_view.views = []
+    view4 = Mock(spec=View)
+    view4.views = [nested_view]
+    node4 = Mock(spec=Node)
+    node4.views = [view4]
+    # collect_views should recursively collect nested_view
+    assert collect_views({node4}) == {view4, nested_view}
+
+    # Multiple nodes with overlapping views
+    node5 = Mock(spec=Node)
+    node6 = Mock(spec=Node)
+    view1.views = []
+    view2.views = []
+    view3.views = []
+    node5.views = [view1, view2]
+    node6.views = [view2, view3]
+    assert collect_views({node5, node6}) == {view1, view2, view3}

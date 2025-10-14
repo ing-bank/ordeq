@@ -6,8 +6,7 @@ from functools import cached_property, wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
 
-from ordeq._io import Input, Output, IO
-from typing import Iterable
+from ordeq._io import IO, Input, Output
 
 logger = logging.getLogger("ordeq.nodes")
 

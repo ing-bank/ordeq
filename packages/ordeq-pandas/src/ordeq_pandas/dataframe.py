@@ -52,5 +52,5 @@ class PandasDataFrame(Input[pd.DataFrame]):
         return pd.DataFrame(
             data=self.data,
             columns=self.columns,  # type: ignore[arg-type]
-            **load_options
+            **load_options,
         )

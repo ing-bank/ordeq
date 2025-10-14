@@ -12,10 +12,7 @@ class LoggerHook(InputHook, OutputHook, NodeHook):
     Typically only used for test purposes."""
 
     def __init__(
-        self,
-        *,
-        logger: Logger = _DEFAULT_LOGGER,
-        level: int | None = None,
+        self, *, logger: Logger = _DEFAULT_LOGGER, level: int | None = None
     ) -> None:
         self._logger = logger
         self._level = logger.level

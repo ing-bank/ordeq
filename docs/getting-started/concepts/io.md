@@ -31,8 +31,9 @@ The main downside of this approach is that it immediately loads the data when th
 Instead, we can use the `CSV` IO from `ordeq_files` to represent the CSV file:
 
 ```python
-from ordeq_files import CSV
 from pathlib import Path
+
+from ordeq_files import CSV
 
 io = CSV(path=Path("to/data.csv"))
 ```
@@ -53,9 +54,9 @@ It also means IOs can be easily reused in different places.
 
 The same IO can be used to save data as well:
 
-```python
-data_to_save = [(1, "apples", 3.5), (2, "bananas", 4.0)]
-io.save(data_to_save)
+```pycon
+>>> data_to_save = [(1, "apples", 3.5), (2, "bananas", 4.0)]
+>>> io.save(data_to_save)
 ```
 
 Lastly, IOs serve as convenient and lightweight representations of data in your project:

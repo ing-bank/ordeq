@@ -1,6 +1,6 @@
 from unittest.mock import Mock, patch
 
-import pyspark
+import pyspark.sql
 import pytest
 from ordeq import IOException
 from ordeq_spark.io.session import SparkSession

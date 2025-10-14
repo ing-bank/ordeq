@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_altair"
+description = "Altair integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -21,6 +22,12 @@ dependencies = [
     "ordeq>=1.0.0",
     "altair[save]",
 ]
+
+[tool.ordeq-dev]
+logo_url = "https://avatars.githubusercontent.com/u/22396732?s=200&v=4"
+
+[tool.ordeq]
+group = "ios"
 
 [dependency-groups]
 test = [

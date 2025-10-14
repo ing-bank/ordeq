@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_requests"
+description = "Requests integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -21,6 +22,12 @@ dependencies = [
     "ordeq>=1.0.0",
     "requests",
 ]
+
+[tool.ordeq]
+group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://upload.wikimedia.org/wikipedia/commons/a/aa/Requests_Python_Logo.png"
 
 [dependency-groups]
 types = ["types-requests"]

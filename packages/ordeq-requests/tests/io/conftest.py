@@ -3,6 +3,7 @@ import time
 
 import pytest
 import requests
+import requests.exceptions
 import uvicorn
 from fastapi import FastAPI
 from pydantic import BaseModel

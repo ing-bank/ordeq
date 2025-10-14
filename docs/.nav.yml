@@ -16,10 +16,14 @@ nav:
         - Lazy IO: guides/lazy_io.md
         - Cloud storage: guides/cloud_storage.md
       - guides/testing_nodes.md
+      - Other frameworks:
+          - Coming from Kedro: guides/kedro.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
       # TODO: Add an example project
-  - API: api
+  - Packages:
+    - Overview: packages.md
+    - API: api
   - Contributing:
       - How to: CONTRIBUTING.md
       - Acknowledgements: contributing/acknowledgements.md

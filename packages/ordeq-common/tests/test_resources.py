@@ -1,8 +1,6 @@
 from pathlib import Path
 
 import pytest
-from _pytest.logging import LogCaptureFixture
-
 from ordeq_test_utils import compare_resources_against_snapshots
 
 TESTS_DIR = Path(__file__).resolve().parent
@@ -23,7 +21,7 @@ SNAPSHOT_DIR = TESTS_DIR / "snapshots"
     ],
 )
 def test_resource(
-    file_path: Path, snapshot_path: Path, caplog: LogCaptureFixture, capsys
+    file_path: Path, snapshot_path: Path, caplog, capsys
 ) -> None:
     diff = compare_resources_against_snapshots(
         file_path, snapshot_path, caplog, capsys

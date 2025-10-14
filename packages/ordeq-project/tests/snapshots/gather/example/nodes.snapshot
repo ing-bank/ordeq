@@ -1,5 +1,0 @@
-Typing:
-packages/ordeq-project/tests/resources/gather/example/nodes.py:2: error: Skipping analyzing "resources.gather.example.catalog_1": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-project/tests/resources/gather/example/nodes.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-packages/ordeq-project/tests/resources/gather/example/nodes.py:4: error: Skipping analyzing "resources.gather.example.catalog_2": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-Found 2 errors in 1 file (checked 1 source file)

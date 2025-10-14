@@ -1,9 +1,8 @@
 from argparse import ArgumentParser, Namespace
 from typing import get_args
 
+from ordeq import run
 from ordeq._runner import SaveMode  # noqa: PLC2701 (private-member-access)
-
-from ordeq_cli_runner.runner import run_node_refs, run_pipeline_ref
 
 
 def _create_parser() -> ArgumentParser:
@@ -16,17 +15,10 @@ def _create_parser() -> ArgumentParser:
         default="run",
         choices=("run",),
     )
-    group = parser.add_mutually_exclusive_group()
-    group.add_argument(
-        "--nodes",
-        dest="nodes",
-        help="list of nodes, e.g. domain_A:node_A domain_B:node_B ...",
-        nargs="*",
-    )
-    group.add_argument(
-        "--pipeline",
-        dest="pipeline",
-        help="pipeline, e.g. domain_A:pipeline_A",
+    parser.add_argument(
+        dest="runnables",
+        help="runnables (package, module, or node references)",
+        nargs="+",
     )
     parser.add_argument(
         "--hooks",
@@ -61,17 +53,9 @@ def parse_args(args: tuple[str, ...] | None = None) -> Namespace:
 
 
 def main() -> None:
-    """Main function for the CLI. Parses arguments and runs the provided
-    nodes."""
+    """Main function for the CLI. Parses arguments and triggers the run."""
     args = parse_args()
-    if args.nodes:
-        run_node_refs(
-            node_refs=args.nodes, hook_refs=args.hooks, save=args.save
-        )
-    else:
-        run_pipeline_ref(
-            pipeline_ref=args.pipeline, hook_refs=args.hooks, save=args.save
-        )
+    run(*args.runnables, hooks=args.hooks, save=args.save)
 
 
 if __name__ == "__main__":

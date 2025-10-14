@@ -1,2 +1,2 @@
 Exception:
-AttributeError: 'Node' object has no attribute 'views'
+ValueError: Hook 'idontexist' not found in module 'packages.example.hooks'

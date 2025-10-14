@@ -1,2 +1,2 @@
 Exception:
-AttributeError: 'Node' object has no attribute 'views'
+ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node

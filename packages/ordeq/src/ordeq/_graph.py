@@ -1,31 +1,13 @@
 from collections.abc import Iterable
 from graphlib import TopologicalSorter
 
-from ordeq._nodes import Node, View
+from ordeq._nodes import Node
 
 try:
     from typing import Self  # type: ignore[attr-defined]
 except ImportError:
     from typing_extensions import Self
 EdgesType = dict[Node, list[Node]]
-
-
-def _collect_views(*nodes: Node) -> set[View]:
-    """Collects all views used by a set of nodes. Since a view can take
-    another view as input, this function collects recursively.
-
-    Args:
-        nodes: iterable of `Node` objects
-
-    Returns:
-        the set of all views used by the provided nodes
-    """
-
-    views = set()
-    for node in nodes:
-        for view in node.views:
-            views |= {view, *_collect_views(view)}
-    return views
 
 
 def _build_graph(nodes: Iterable[Node]) -> EdgesType:
@@ -40,27 +22,20 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
     Raises:
         ValueError: if an output is defined by more than one node
     """
-
-    views = _collect_views(*nodes)
-    output_to_node: dict = {view._sentinel: view for view in views}
+    output_to_node: dict = {}
     input_to_nodes: dict = {}
-    all_nodes = set(nodes) | views
-    edges: dict = {node: [] for node in all_nodes}
-    for node in all_nodes:
+    edges: dict = {node: [] for node in nodes}
+    for node in nodes:
         for output_ in node.outputs:
             if output_ in output_to_node:
                 msg = f"IO {output_} cannot be outputted by more than one node"
                 raise ValueError(msg)
             output_to_node[output_] = node
         for input_ in node.inputs:
-            if isinstance(input_, View):
-                input_ = input_._sentinel
             input_to_nodes[input_] = [*input_to_nodes.get(input_, []), node]
-
     for node_output, node in output_to_node.items():
         if node_output in input_to_nodes:
             edges[node] += input_to_nodes[node_output]
-
     return edges
 
 

@@ -7,7 +7,7 @@ from types import ModuleType
 from typing import Any
 
 from ordeq._hook import NodeHook, RunHook
-from ordeq._io import IO, Input, Output, _is_io
+from ordeq._io import IO, Input, Output
 from ordeq._nodes import Node, get_node
 
 
@@ -17,6 +17,10 @@ def _is_module(obj: object) -> bool:
 
 def _is_package(module: ModuleType) -> bool:
     return hasattr(module, "__path__")
+
+
+def _is_io(obj: object) -> bool:
+    return isinstance(obj, (IO, Input, Output))
 
 
 def _get_io_sequence(value: Any) -> list[Input | Output | IO]:

@@ -1,12 +1,12 @@
-from __future__ import annotations
 import importlib
 import logging
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
-from functools import wraps, cached_property
+from functools import wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
-from ordeq._io import Input, Output, IO, _is_io
+
+from ordeq._io import Input, Output
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -36,7 +36,7 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
     name: str
-    inputs: tuple[Input | "View", ...]
+    inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
     tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
 
@@ -72,10 +72,6 @@ class Node(Generic[FuncParams, FuncReturns]):
         attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
         return f"Node({attributes_str})"
 
-    @cached_property
-    def views(self) -> list["View"]:
-        return [i for i in self.inputs if isinstance(i, View)]
-
     def _replace(
         self,
         *,
@@ -86,15 +82,10 @@ class Node(Generic[FuncParams, FuncReturns]):
         return Node(
             func=self.func,
             name=name or self.name,
-            inputs=tuple(_sequence_to_list(inputs or self.inputs)),
-            outputs=tuple(_sequence_to_list(outputs or self.outputs)),
+            inputs=_sequence_to_tuple(inputs or self.inputs),
+            outputs=_sequence_to_tuple(outputs or self.outputs),
             tags=self.tags,
         )
-
-
-@dataclass(frozen=True, kw_only=True)
-class View(Node[FuncParams, FuncReturns]):
-    _sentinel: IO = field(default_factory=IO, init=False, repr=False)
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:
@@ -146,7 +137,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
             return
 
     # any return type is valid for a single output
-    if len(n.outputs) in (0, 1):
+    if len(n.outputs) == 1:
         return
 
     # A type annotation was provided
@@ -185,17 +176,19 @@ def _raise_if_not_hashable(n: Node) -> None:
         ) from e
 
 
-def _sequence_to_list(obj: Sequence[T] | T) -> list[T]:
+def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
+    if obj is None:
+        return ()
     if isinstance(obj, Sequence):
-        return list(obj)
-    return [obj]
+        return tuple(obj)
+    return (obj,)  # ty: ignore[invalid-return-type]
 
 
 def _create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
     name: str | None = None,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]:
@@ -212,31 +205,14 @@ def _create_node(
         A Node instance.
     """
 
-    if outputs is None:
-        outputs = [IO()]
-        cls = View
-    else:
-        outputs = _sequence_to_list(outputs)
-        cls = Node
-
-    if inputs is None:
-        inputs = []
-    else:
-        inputs = _sequence_to_list(inputs)
-        for i, input_ in enumerate(inputs):
-            if not _is_io(input_) and callable(input_):
-                # This node takes a view as input:
-                inputs[i] = get_node(input_)
-
     resolved_name = (
         name if name is not None else infer_node_name_from_func(func)
     )
-
-    return cls(
+    return Node(
         func=func,
         name=resolved_name,
-        inputs=tuple(inputs),
-        outputs=tuple(outputs),
+        inputs=_sequence_to_tuple(inputs),
+        outputs=_sequence_to_tuple(outputs),
         tags=[] if tags is None else tags,
     )
 
@@ -245,7 +221,7 @@ def _create_node(
 def node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[FuncParams, FuncReturns]: ...
@@ -254,7 +230,7 @@ def node(
 @overload
 def node(
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> Callable[
@@ -265,7 +241,7 @@ def node(
 def node(
     func: Callable[FuncParams, FuncReturns] | None = None,
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
     tags: list[str] | dict[str, Any] | None = None,
 ) -> (

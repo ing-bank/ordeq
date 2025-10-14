@@ -149,6 +149,8 @@ if __name__ == "__main__":
 
 Finally, views can be reused easily.
 
+...
+
 !!! success "Where to go from here?"
 
     - See how to create custom hooks in the [guide][custom-hooks]

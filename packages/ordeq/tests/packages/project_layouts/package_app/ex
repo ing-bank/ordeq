@@ -1,0 +1,12 @@
+.
+├── README.md
+├── ex
+├── pyproject.toml
+├── src
+│   ├── __main__.py
+│   └── package
+│       └── __init__.py
+└── tests
+    └── test_package.py
+
+4 directories, 6 files

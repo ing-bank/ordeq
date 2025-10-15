@@ -46,7 +46,6 @@ Below is the directory structure of the Kedro project, and the Ordeq equivalent.
     └── spaceflights
         ├── __init__.py
         ├── pipeline.py
-        ├── catalog.py
         └── nodes.py
 
     ```

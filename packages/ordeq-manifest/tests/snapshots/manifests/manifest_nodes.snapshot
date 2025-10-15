@@ -6,10 +6,10 @@ Output:
       "id": "nodes.examples.project.nodes:func",
       "name": "examples.project.nodes:func",
       "inputs": [
-        "ios.x"
+        "examples.project.nodes.x"
       ],
       "outputs": [
-        "ios.y"
+        "examples.project.nodes.y"
       ],
       "tags": [
         "dummy"
@@ -17,14 +17,14 @@ Output:
     }
   },
   "ios": {
-    "x": {
-      "id": "ios.x",
+    "examples.project.nodes.x": {
+      "id": "examples.project.nodes.x",
       "name": "x",
       "type": "ordeq._io.IO",
       "references": []
     },
-    "y": {
-      "id": "ios.y",
+    "examples.project.nodes.y": {
+      "id": "examples.project.nodes.y",
       "name": "y",
       "type": "ordeq_common.io.printer.Print",
       "references": []

@@ -101,16 +101,20 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
 def _resolve_module_to_ios(
     module: ModuleType,
-) -> dict[str, IO | Input | Output]:
+) -> dict[tuple[str, str], IO | Input | Output]:
     """Find all `IO` objects defined in the provided module
 
     Args:
         module: the Python module object
 
     Returns:
-        a dict of `IO` objects with their variable name as key
+        a dict of `IO` objects with their fully-qualified name as key
     """
-    return {name: obj for name, obj in vars(module).items() if _is_io(obj)}
+    return {
+        (module.__name__, name): obj
+        for name, obj in vars(module).items()
+        if _is_io(obj)
+    }
 
 
 def _resolve_node_reference(ref: str) -> Node:
@@ -271,7 +275,7 @@ def _check_missing_ios(
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: str | ModuleType | Callable,
-) -> tuple[set[Node], dict[str, IO | Input | Output]]:
+) -> tuple[set[Node], dict[tuple[str, str], IO | Input | Output]]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:

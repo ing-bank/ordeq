@@ -1,16 +1,13 @@
 from collections.abc import Callable
 
 import pytest
-from ordeq import IO, Input, Node, Output, node
+from ordeq import Node, node
 from ordeq._nodes import get_node
 from ordeq._resolve import (
     _is_node,
-    _resolve_module_to_ios,
     _resolve_node_reference,
     _resolve_runnables_to_nodes,
-    _resolve_runnables_to_nodes_and_ios,
 )
-from ordeq_common import StringBuffer
 
 
 @pytest.fixture
@@ -35,39 +32,6 @@ def expected_example_nodes(packages) -> set[Callable]:
 
 
 @pytest.fixture
-def expected_example_ios(packages) -> dict[str, IO | Input | Output]:
-    """Expected IOs in the example package.
-
-    Returns:
-        a dict of expected IOs with their variable name as key
-    """
-    from example.catalog import (  # ty: ignore[unresolved-import]
-        Hello,
-        TestInput,
-        TestOutput,
-        World,
-    )
-    from example.nodes import x, y  # ty: ignore[unresolved-import]
-    from example.wrapped_io import (  # ty: ignore[unresolved-import]
-        message,
-        name_generator,
-        name_printer,
-    )
-
-    return {
-        "Hello": Hello,
-        "TestInput": TestInput,
-        "TestOutput": TestOutput,
-        "World": World,
-        "x": x,
-        "y": y,
-        "message": message,
-        "name_generator": name_generator,
-        "name_printer": name_printer,
-    }
-
-
-@pytest.fixture
 def expected_example_node_objects(expected_example_nodes) -> set[Node]:
     """Expected node objects in the example package.
 
@@ -77,33 +41,10 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
     return {get_node(f) for f in expected_example_nodes}
 
 
-def test_gather_ios_from_module(packages):
-    from example import catalog as mod  # ty: ignore[unresolved-import]
-
-    datasets = _resolve_module_to_ios(mod)
-
-    assert len(datasets) == 4
-    assert isinstance(datasets["Hello"], StringBuffer)
-    assert isinstance(datasets["World"], StringBuffer)
-    assert datasets["TestInput"].__class__.__name__ == "MockInput"
-    assert datasets["TestOutput"].__class__.__name__ == "MockOutput"
-
-
 def test_gather_nodes_from_module(packages):
     from example import nodes as mod  # ty: ignore[unresolved-import]
 
     assert get_node(mod.world) is not None
-
-
-def test_gather_nodes_and_ios_from_package(
-    expected_example_nodes, expected_example_ios, packages
-) -> None:
-    """Test gathering nodes and IOs from a package."""
-    import example  # ty: ignore[unresolved-import]
-
-    nodes, ios = _resolve_runnables_to_nodes_and_ios(example)
-    assert expected_example_nodes == {n.func for n in nodes}
-    assert expected_example_ios == ios
 
 
 def test_resolve_node_by_reference(

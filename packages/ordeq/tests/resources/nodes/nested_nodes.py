@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
 from ordeq import Node, node
-from ordeq._nodes import get_node, _create_node
+from ordeq._nodes import get_node
 from ordeq_common import StringBuffer
 
 mock_x = StringBuffer("X")
@@ -20,8 +20,8 @@ def func(x: str = "X") -> Callable:
 
 inner_func = func()
 assert inner_func("X") == "XX"
-assert get_node(func) == _create_node(func=func, inputs=(mock_x,),
-                                      outputs=(mock_z,))
-assert get_node(inner_func) == _create_node(
+assert get_node(func) == Node.from_func(func=func, inputs=(mock_x,),
+                                        outputs=(mock_z,))
+assert get_node(inner_func) == Node.from_func(
     func=inner_func, inputs=(mock_y,), outputs=(mock_z,)
 )

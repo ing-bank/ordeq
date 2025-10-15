@@ -11,7 +11,7 @@ def test_kedro(tmp_path):
     nodes = {get_node(mod.world)}
     pipeline_to_kedro_viz(
         nodes=nodes,
-        datasets={"x": mod.x, "y": mod.y},
+        ios={("...", "x"): mod.x, ("...", "y"): mod.y},
         output_directory=tmp_path / "viz",
     )
 

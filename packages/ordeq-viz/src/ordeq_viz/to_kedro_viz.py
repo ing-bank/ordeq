@@ -160,14 +160,14 @@ def _generate_main(nodes: list[NodeData], datasets: list[IOData]):
 
 def pipeline_to_kedro_viz(
     nodes: set[Node],
-    datasets: dict[str, Input | Output],
+    ios: dict[tuple[str, str], Input | Output],
     output_directory: Path,
 ) -> None:
     """Convert a pipeline to a kedro-viz static pipeline directory
 
     Args:
         nodes: set of `ordeq.Node`
-        datasets: dict of name and `ordeq.IO`
+        ios: dict of name and `ordeq.IO`
         output_directory: path to write the output data to
 
     Raises:
@@ -199,7 +199,7 @@ def pipeline_to_kedro_viz(
     ```pycon
     >>> pipeline_to_kedro_viz(
     ...    nodes,
-    ...    datasets,
+    ...    ios,
     ...    output_directory=Path("kedro-pipeline-example/")
     ... )  # doctest: +SKIP
 
@@ -212,7 +212,7 @@ def pipeline_to_kedro_viz(
     kedro viz run --load-file kedro-pipeline-example
     ```
     """
-    node_data, dataset_data = _gather_graph(nodes, datasets)
+    node_data, dataset_data = _gather_graph(nodes, ios)
 
     # populate attributes for kedro-viz
     for node in node_data:

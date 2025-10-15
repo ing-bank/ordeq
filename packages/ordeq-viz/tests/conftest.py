@@ -47,7 +47,7 @@ def expected_example_nodes() -> set[Callable]:
 
 
 @pytest.fixture
-def expected_example_ios() -> dict[str, IO | Input | Output]:
+def expected_example_ios() -> dict[tuple[str, str], IO | Input | Output]:
     """Expected IOs in the example package.
 
     Returns:
@@ -67,15 +67,19 @@ def expected_example_ios() -> dict[str, IO | Input | Output]:
     )
 
     return {
-        "Hello": Hello,
-        "TestInput": TestInput,
-        "TestOutput": TestOutput,
-        "World": World,
-        "x": x,
-        "y": y,
-        "message": message,
-        "name_generator": name_generator,
-        "name_printer": name_printer,
+        ("example.catalog", "Hello"): Hello,
+        ("example.catalog", "TestInput"): TestInput,
+        ("example.catalog", "TestOutput"): TestOutput,
+        ("example.catalog", "World"): World,
+        ("example.nodes", "x"): x,
+        ("example.nodes", "y"): y,
+        ("example.pipeline", "Hello"): Hello,
+        ("example.pipeline", "TestInput"): TestInput,
+        ("example.pipeline", "TestOutput"): TestOutput,
+        ("example.pipeline", "World"): World,
+        ("example.wrapped_io", "message"): message,
+        ("example.wrapped_io", "name_generator"): name_generator,
+        ("example.wrapped_io", "name_printer"): name_printer,
     }
 
 

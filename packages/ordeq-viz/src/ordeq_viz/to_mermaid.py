@@ -51,7 +51,7 @@ def _hash_to_str(obj_id: int, io_names: dict[int, str]) -> str:
 
 def pipeline_to_mermaid(
     nodes: set[Node],
-    datasets: dict[str, Input | Output],
+    ios: dict[tuple[str, str], Input | Output],
     legend: bool = True,
     use_dataset_styles: bool = True,
     connect_wrapped_datasets: bool = True,
@@ -66,7 +66,7 @@ def pipeline_to_mermaid(
 
     Args:
         nodes: set of `ordeq.Node`
-        datasets: dict of name and `ordeq.IO`
+        ios: dict of name and `ordeq.IO`
         legend: if True, display a legend
         use_dataset_styles: if True, use a distinct color for each dataset type
         connect_wrapped_datasets: if True, connect wrapped datasets with a
@@ -116,7 +116,7 @@ def pipeline_to_mermaid(
     """
     io_names: dict[int, str] = {}
 
-    node_data, dataset_data = _gather_graph(nodes, datasets)
+    node_data, dataset_data = _gather_graph(nodes, ios)
     distinct_dataset_types = sorted({dataset.type for dataset in dataset_data})
     dataset_type_to_id = {
         dataset_type: idx

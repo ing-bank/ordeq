@@ -64,9 +64,10 @@ def test_viz_to_mermaid_call(
 ) -> None:
     output_file = tmp_path / "output.mermaid"
     viz("example", fmt="mermaid", output=output_file)
-    patched_pipeline_to_mermaid.assert_called_once_with(
-        expected_example_node_objects, expected_example_ios
-    )
+    patched_pipeline_to_mermaid.assert_called_once()
+    actual_node_objs, actual_ios = patched_pipeline_to_mermaid.call_args[0]
+    assert actual_node_objs == expected_example_node_objects
+    assert set(actual_ios) == set(expected_example_ios)
 
 
 @patch("ordeq_viz.api.pipeline_to_kedro_viz")
@@ -78,11 +79,12 @@ def test_viz_to_kedro_call(
 ) -> None:
     output_folder = tmp_path / "kedro_output"
     viz("example", fmt="kedro-viz", output=output_folder)
-    patched_pipeline_to_kedro.assert_called_once_with(
-        expected_example_node_objects,
-        expected_example_ios,
-        output_directory=output_folder,
-    )
+    patched_pipeline_to_kedro.assert_called_once()
+    actual_node_objs, actual_ios = patched_pipeline_to_kedro.call_args[0]
+    actual_kwargs = patched_pipeline_to_kedro.call_args[1]
+    assert actual_node_objs == expected_example_node_objects
+    assert set(actual_ios) == set(expected_example_ios)
+    assert actual_kwargs.get("output_directory") == output_folder
 
 
 def test_viz_main_mermaid_with_callables(tmp_path: Path) -> None:

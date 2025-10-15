@@ -87,6 +87,40 @@ class Node(Generic[FuncParams, FuncReturns]):
             tags=self.tags,
         )
 
+    @classmethod
+    def from_func(
+        cls,
+        func: Callable[FuncParams, FuncReturns],
+        *,
+        name: str | None = None,
+        inputs: Sequence[Input] | Input | None = None,
+        outputs: Sequence[Output] | Output | None = None,
+        tags: list[str] | dict[str, Any] | None = None,
+    ) -> "Node[FuncParams, FuncReturns]":
+        """Creates a Node instance.
+
+        Args:
+            func: The function to be executed by the node.
+            name: name for the node. If not provided, inferred from func.
+            inputs: The inputs to the node.
+            outputs: The outputs from the node.
+            tags: Optional tags for the node.
+
+        Returns:
+            A Node instance.
+        """
+
+        resolved_name = (
+            name if name is not None else infer_node_name_from_func(func)
+        )
+        return cls(
+            func=func,
+            name=resolved_name,
+            inputs=_sequence_to_tuple(inputs),
+            outputs=_sequence_to_tuple(outputs),
+            tags=[] if tags is None else tags,
+        )
+
 
 def _raise_for_invalid_inputs(n: Node) -> None:
     """Raises a ValueError if the number of inputs is incompatible with
@@ -182,39 +216,6 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
     if isinstance(obj, Sequence):
         return tuple(obj)
     return (obj,)  # ty: ignore[invalid-return-type]
-
-
-def _create_node(
-    func: Callable[FuncParams, FuncReturns],
-    *,
-    name: str | None = None,
-    inputs: Sequence[Input] | Input | None = None,
-    outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
-) -> Node[FuncParams, FuncReturns]:
-    """Creates a Node instance.
-
-    Args:
-        func: The function to be executed by the node.
-        name: Optional name for the node. If not provided, inferred from func.
-        inputs: The inputs to the node.
-        outputs: The outputs from the node.
-        tags: Optional tags for the node.
-
-    Returns:
-        A Node instance.
-    """
-
-    resolved_name = (
-        name if name is not None else infer_node_name_from_func(func)
-    )
-    return Node(
-        func=func,
-        name=resolved_name,
-        inputs=_sequence_to_tuple(inputs),
-        outputs=_sequence_to_tuple(outputs),
-        tags=[] if tags is None else tags,
-    )
 
 
 @overload
@@ -327,7 +328,7 @@ def node(
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            inner.__ordeq_node__ = _create_node(  # type: ignore[attr-defined]
+            inner.__ordeq_node__ = Node.from_func(  # type: ignore[attr-defined]
                 inner, inputs=inputs, outputs=outputs, tags=tags
             )
             return inner
@@ -341,7 +342,7 @@ def node(
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    wrapper.__ordeq_node__ = _create_node(  # type: ignore[attr-defined]
+    wrapper.__ordeq_node__ = Node.from_func(  # type: ignore[attr-defined]
         wrapper, inputs=inputs, outputs=outputs, tags=tags
     )
     return wrapper

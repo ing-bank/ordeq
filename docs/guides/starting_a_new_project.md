@@ -14,7 +14,7 @@ As the name implies, a single-file project contains only one Python module.
 
 !!! tip "Using notebooks"
 
-    If you are interested in using Ordeq with notebooks, see the [dedicated guide][notebooks].
+    For users interested in using Ordeq with notebooks, we will create a dedicated guide.
 
 To create a single-file project, navigate to the desired project directory and run:
 
@@ -310,7 +310,6 @@ The layout of the created project is similar to the package layout, but:
 [contribution-guide]: ../CONTRIBUTING.md
 [core-concepts]: ../getting-started/concepts/
 [issues]: https://github.com/ing-bank/ordeq/issues
-[notebooks]: ..
 [run-and-viz]: ./run_and_viz.md
 [src-vs-flat]: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/
 [uv]: https://docs.astral.sh/uv/

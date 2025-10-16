@@ -69,7 +69,7 @@ yaml = YAML(path=Path("users.yml"))
 def parse_users(user: dict) -> dict:
     return {
         "id": user["id"],
-        "location": f"{user["lat"]}:{user["long"]}"
+        "address": f"{user["address"]["street"]} {user["address"]["zipcode"]}"
     }
 
 if __name__ == "__main__":
@@ -157,13 +157,12 @@ Click on the tabs below to see how the example pipeline looks in the package lay
     from ordeq import node
 
 
-    @node(inputs=catalog.user, outputs=catalog.yaml)
+    @node(inputs=user, outputs=yaml)
     def parse_users(user: dict) -> dict:
-        return {"id": user["id"], "location": f"{user['lat']}:{user['long']}"}
-    ```
-
-    ```
-
+        return {
+            "id": user["id"],
+            "address": f"{user["address"]["street"]} {user["address"]["zipcode"]}"
+        }
     ```
 
 === "src/example/\_\_init\_\_.py"

@@ -293,24 +293,24 @@ The layout of the created project is similar to the package layout, but:
 
 [uv]: https://docs.astral.sh/uv/
 
-[uv-monorepo]: ..
+[uv-monorepo]: https://docs.astral.sh/uv/concepts/projects/workspaces/
 
-[uv-scripts]: ..
+[uv-scripts]: https://docs.astral.sh/uv/guides/scripts/
 
-[run-and-viz]: ..
+[run-and-viz]: ./run_and_viz.md
 
 [notebooks]: ..
 
-[mermaid]: ..
+[mermaid]: https://mermaid.js.org/intro/
 
-[src-vs-flat]: ..
+[src-vs-flat]: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/
 
-[catalogs]: ..
+[catalogs]: ../getting-started/concepts/catalogs.md
 
-[introduction]: ..
+[introduction]: ../getting-started/introduction.md
 
-[core-concepts]: ..
+[core-concepts]: ../getting-started/concepts/
 
-[contribution-guide]: ..
+[contribution-guide]: ../CONTRIBUTING.md
 
-[issues]: ..
+[issues]: https://github.com/ing-bank/ordeq/issues

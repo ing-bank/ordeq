@@ -1,0 +1,57 @@
+name: Tag
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  pythonVersion: '3.13'
+
+permissions:
+  contents: write
+
+jobs:
+  list_packages:
+    name: List packages
+    runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.list-packages.outputs.packages }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: List packages in repository
+        id: list-packages
+        run: |
+          echo "packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')" >> ${GITHUB_OUTPUT}
+
+  tag:
+    name: Tag packages
+    needs: [ list_packages ]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: ${{ fromJson(needs.list_packages.outputs.packages) }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python ${{ env.pythonVersion }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.pythonVersion }}
+
+      - name: Configure Git user
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Set Git remote URL to use GITHUB_TOKEN
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+
+      - name: Tag package
+        run: python scripts/next_tag.py --bump auto --package ${{ matrix.package }} --push

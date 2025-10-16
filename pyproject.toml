@@ -65,10 +65,7 @@ ordeq-test-utils = { workspace = true }
 required-version = ">=0.8.23"
 
 [tool.uv.workspace]
-members = [
-    "packages/*",
-    "docs/example-projects/starters/single_file",
-]
+members = ["packages/*"]
 
 [tool.coverage.paths]
 source = ["packages/*/src"]

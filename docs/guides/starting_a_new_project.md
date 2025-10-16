@@ -12,7 +12,8 @@ Check out the [uv documentation][uv] for installation and usage instructions.
 Single-file projects are a great option if you want to run a quick test or experiment.
 As the name implies, a single-file project contains only one Python module.
 
-!!!tip "Using notebooks"
+!!! tip "Using notebooks"
+
     If you are interested in using Ordeq with notebooks, see the [dedicated guide][notebooks].
 
 To create a single-file project, navigate to the desired project directory and run:
@@ -40,15 +41,18 @@ uv add ordeq
 
 This will add the `ordeq` package to the `pyproject.toml` , so that you can use Ordeq in your code.
 
-!!!info "Running scripts with uv"
+!!! info "Running scripts with uv"
+
     uv also supports running scripts with without `pyproject.toml`.
     More info can be found [here][uv-scripts].
 
 ### Defining the pipeline
+
 Now you can start editing `main.py` and create your pipeline.
 The following example pipeline loads data from an API endpoint, parses it, and saves the result to a YAML:
 
-!!!info "Install `ordeq-yaml` and `ordeq-requests`"
+!!! info "Install `ordeq-yaml` and `ordeq-requests`"
+
     To run the example below yourself, make sure to install `ordeq-yaml` and `ordeq-packages`.
 
 ```python title="project/main.py"
@@ -80,6 +84,7 @@ uv run main.py
 ```
 
 !!! tip "No need to activate the virtual environment"
+
     uv automatically activates the virtual environment when running commands like `uv run`.
     You do not need to manually activate the virtual environment.
 
@@ -90,7 +95,7 @@ Most pipelines are more complex, and therefore it's better to divide your projec
 This allows you to maintain, test, document, and (re)use parts individually.
 For instance, we recommend defining your IOs in a [catalog][catalogs], separately from the nodes.
 
-In Python, a collection of files  is called a _package_.
+In Python, a collection of files is called a _package_.
 A packaged project may look as follows:
 
 ```text
@@ -113,8 +118,8 @@ In addition:
 - we've added a [catalog][catalogs] at `src/catalog.py`
 - `__main__.py` will be used to run the project
 
+!!! note "src-layout vs flat-layout"
 
-!!!note "src-layout vs flat-layout"
     There are two common setups for multi-file projects: the src-layout and the flat layout.
     The example above uses a src-layout.
     There are pro's and cons to both options.
@@ -127,6 +132,7 @@ Click on the tabs below to see how the example pipeline looks in the package lay
 
     ```python
     import example
+    from ordeq import run
 
     if __name__ == "__main__":
         run(example)
@@ -135,9 +141,10 @@ Click on the tabs below to see how the example pipeline looks in the package lay
 === "src/catalog.py"
 
     ```python
+    from pathlib import Path
+
     from ordeq_requests import ResponseJSON
     from ordeq_yaml import YAML
-    from pathlib import Path
 
     user = ResponseJSON(url="https://jsonplaceholder.typicode.com/users/1")
     yaml = YAML(path=Path("users.yml"))
@@ -147,13 +154,14 @@ Click on the tabs below to see how the example pipeline looks in the package lay
 
     ```python
     import catalog
+    from ordeq import node
+
 
     @node(inputs=catalog.user, outputs=catalog.yaml)
     def parse_users(user: dict) -> dict:
-        return {
-            "id": user["id"],
-            "location": f"{user["lat"]}:{user["long"]}"
-        }
+        return {"id": user["id"], "location": f"{user['lat']}:{user['long']}"}
+    ```
+
     ```
 
     ```
@@ -162,10 +170,10 @@ Click on the tabs below to see how the example pipeline looks in the package lay
 
     ```python
     # This file can be empty: it's only needed to allow imports from other packages
-
     ```
 
 #### Sub-pipelines
+
 As your project grows, it's a good idea to modularize even further.
 A common way to do this is to break up the pipeline into sub-pipelines.
 Each sub-pipeline is represented by its own module or package.
@@ -193,7 +201,8 @@ This makes your project easier to maintain.
 Each module represents a sub-pipeline, which you can run and visualize individually.
 More info can be found [here][run-and-viz].
 
-!!!tip "Global structure, local chaos"
+!!! tip "Global structure, local chaos"
+
     The ideas for project structure discussed in this guide are not new, and are relevant beyond Ordeq and data projects.
     Much has been written about this topic.
     In our experience, it helps to keep in mind "global structure, but local chaos".
@@ -224,12 +233,14 @@ project/
         └── __init__.py
 ```
 
-!!!note "Catalogs and multi-package projects"
+!!! note "Catalogs and multi-package projects"
+
     One reason to use catalogs is to ease reuse of IOs across your project.
     If the IOs are shared by multiple packages, it makes sense to create one `catalog.py` under `src` directly.
     You can also create a catalog in the packages themselves, but this has the downside that it's less easy to import.
 
 #### Nested pipelines
+
 You can also nest packages to reflect nested sub-pipelines:
 
 ```text
@@ -250,13 +261,15 @@ project/
     └── ...
 ```
 
-!!!warning "Pipelines in the same source folder should have shared dependencies"
+!!! warning "Pipelines in the same source folder should have shared dependencies"
+
     Pipelines that reside in the same source folder should have shared dependencies, like the catalog and libraries.
     If the dependencies do not overlap, it makes more sense to create a separate project.
     Projects with different dependencies can still share the same codebase.
     More info [here][uv-monorepo].
 
 ## Best practices
+
 Here are some tips to get you started:
 
 - Start simple, with a single file, or a package with just a catalog and a pipeline
@@ -266,6 +279,7 @@ Here are some tips to get you started:
 If you're unsure how to set up your project with Ordeq, feel free to create an [issue on GitHub][issues].
 
 ## Developing libraries
+
 The examples above concern executable projects that can run one or more pipelines.
 A type of project that we have not covered yet is a library.
 Library projects are typically not directly executed, but are meant to be installed and reused in another project.
@@ -276,7 +290,8 @@ Consider, for example:
 - a catalog library, containing IOs for reuse across different projects and codebases
 - an extension of Ordeq, like `ordeq-pandas` or `ordeq-viz`
 
-!!!question "Interested in extending Ordeq?"
+!!! question "Interested in extending Ordeq?"
+
     If you would like to extend Ordeq, have a look at the [contribution guide][contribution-guide].
 
 Suppose you want to create a library that uses Ordeq.
@@ -291,26 +306,13 @@ The layout of the created project is similar to the package layout, but:
 - the project does not contain a `__main__.py` entrypoint
 - the `pyproject.toml` contains dependencies needed to build and distribute your library
 
-[uv]: https://docs.astral.sh/uv/
-
-[uv-monorepo]: https://docs.astral.sh/uv/concepts/projects/workspaces/
-
-[uv-scripts]: https://docs.astral.sh/uv/guides/scripts/
-
-[run-and-viz]: ./run_and_viz.md
-
-[notebooks]: ..
-
-[mermaid]: https://mermaid.js.org/intro/
-
-[src-vs-flat]: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/
-
 [catalogs]: ../getting-started/concepts/catalogs.md
-
-[introduction]: ../getting-started/introduction.md
-
-[core-concepts]: ../getting-started/concepts/
-
 [contribution-guide]: ../CONTRIBUTING.md
-
+[core-concepts]: ../getting-started/concepts/
 [issues]: https://github.com/ing-bank/ordeq/issues
+[notebooks]: ..
+[run-and-viz]: ./run_and_viz.md
+[src-vs-flat]: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/
+[uv]: https://docs.astral.sh/uv/
+[uv-monorepo]: https://docs.astral.sh/uv/concepts/projects/workspaces/
+[uv-scripts]: https://docs.astral.sh/uv/guides/scripts/

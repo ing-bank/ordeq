@@ -60,6 +60,7 @@ class ProjectModel(BaseModel):
     name: str
     nodes: dict[str, NodeModel] = Field(default_factory=dict)
     ios: dict[str, IOModel] = Field(default_factory=dict)
+    pipelines: list[str] = Field(default_factory=list)
 
     @classmethod
     def from_nodes_and_ios(
@@ -93,4 +94,13 @@ class ProjectModel(BaseModel):
             )
             for node in sorted(nodes, key=lambda obj: obj.name)
         }
-        return cls(name=name, nodes=node_models, ios=io_models)
+        pipelines = set()
+        for node in nodes:
+            pkg, _, _ = node.name.partition(":")
+            parts = pkg.split(".")
+            # Collect all ancestor packages
+            for i in range(1, len(parts) + 1):
+                ancestor = ".".join(parts[:i])
+                pipelines.add(ancestor)
+        return cls(name=name, nodes=node_models, ios=io_models,
+                   pipelines=sorted(list(pipelines)))

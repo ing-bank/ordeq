@@ -32,11 +32,11 @@ Output:
       "id": "nodes.examples.project.nodes_import:func_a",
       "name": "examples.project.nodes_import:func_a",
       "inputs": [
-        "examples.project.nodes_import.a",
-        "examples.project.nodes_import.b"
+        "examples.project.nodes_import_reassign.AA",
+        "examples.project.nodes_import_reassign.BB"
       ],
       "outputs": [
-        "examples.project.nodes_import.f"
+        "examples.project.nodes_import_reassign.f"
       ],
       "tags": []
     },
@@ -44,11 +44,11 @@ Output:
       "id": "nodes.examples.project.nodes_import:func_b",
       "name": "examples.project.nodes_import:func_b",
       "inputs": [
-        "examples.project.nodes_import.a",
-        "examples.project.nodes_import.b"
+        "examples.project.nodes_import_reassign.AA",
+        "examples.project.nodes_import_reassign.BB"
       ],
       "outputs": [
-        "examples.project.nodes_import.f"
+        "examples.project.nodes_import_reassign.f"
       ],
       "tags": {
         "viz": "orange"
@@ -58,11 +58,11 @@ Output:
       "id": "nodes.examples.project.nodes_import_alias:func",
       "name": "examples.project.nodes_import_alias:func",
       "inputs": [
-        "examples.project.nodes_import.a",
-        "examples.project.nodes_import.b"
+        "examples.project.nodes_import_reassign.AA",
+        "examples.project.nodes_import_reassign.BB"
       ],
       "outputs": [
-        "examples.project.nodes_import.f"
+        "examples.project.nodes_import_reassign.f"
       ],
       "tags": {
         "key": "threshold",
@@ -73,11 +73,11 @@ Output:
       "id": "nodes.examples.project.nodes_import_reassign:func_a",
       "name": "examples.project.nodes_import_reassign:func_a",
       "inputs": [
-        "examples.project.nodes_import.a",
-        "examples.project.nodes_import.b"
+        "examples.project.nodes_import_reassign.AA",
+        "examples.project.nodes_import_reassign.BB"
       ],
       "outputs": [
-        "examples.project.nodes_import.f"
+        "examples.project.nodes_import_reassign.f"
       ],
       "tags": []
     },
@@ -85,11 +85,11 @@ Output:
       "id": "nodes.examples.project.nodes_import_reassign:func_b",
       "name": "examples.project.nodes_import_reassign:func_b",
       "inputs": [
-        "examples.project.nodes_import.a",
-        "examples.project.nodes_import.b"
+        "examples.project.nodes_import_reassign.AA",
+        "examples.project.nodes_import_reassign.BB"
       ],
       "outputs": [
-        "examples.project.nodes_import.f"
+        "examples.project.nodes_import_reassign.f"
       ],
       "tags": []
     }

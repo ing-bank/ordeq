@@ -47,7 +47,7 @@ def create_manifest_json(
     if output:
         output.write_text(data=json, encoding="utf-8")
         return None
-    return project_model.model_dump_json(indent=indent, **json_options)
+    return json
 
 
 def create_manifest(package: ModuleType) -> ProjectModel:

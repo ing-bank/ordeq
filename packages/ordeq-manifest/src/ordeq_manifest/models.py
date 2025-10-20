@@ -60,7 +60,6 @@ class ProjectModel(BaseModel):
     name: str
     nodes: dict[str, NodeModel] = Field(default_factory=dict)
     ios: dict[str, IOModel] = Field(default_factory=dict)
-    pipelines: list[str] = Field(default_factory=list)
 
     @classmethod
     def from_nodes_and_ios(

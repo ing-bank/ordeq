@@ -2,8 +2,7 @@ Output:
 {
   "name": "examples.empty",
   "nodes": {},
-  "ios": {},
-  "pipelines": []
+  "ios": {}
 }
 
 Typing:

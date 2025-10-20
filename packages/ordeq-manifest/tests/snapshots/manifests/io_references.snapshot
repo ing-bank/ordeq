@@ -19,8 +19,7 @@ Output:
         "other_io"
       ]
     }
-  },
-  "pipelines": []
+  }
 }
 
 Typing:

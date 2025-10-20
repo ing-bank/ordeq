@@ -2348,7 +2348,7 @@ test = [
 
 [[package]]
 name = "ordeq-docker-example"
-source = { editable = "packages/ordeq-docker-example" }
+source = { virtual = "packages/ordeq-docker-example" }
 dependencies = [
     { name = "ordeq" },
     { name = "ordeq-cli-runner" },

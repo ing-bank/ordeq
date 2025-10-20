@@ -28,7 +28,7 @@ def hello_world() -> None:
     print("Hello, World!")
 ```
 
-The content of `__main__.py` depends on how you want to run your application. O
+The content of `__main__.py` depends on how you want to run your application.
 Ordeq supports two main approaches:
 
 - Using the command line interface (`ordeq-cli-runner` package)
@@ -105,13 +105,12 @@ To run the application in a container:
 docker run app pipeline:hello_world
 ```
 
-This prints:
+This command starts a container from the `app` image and runs the `hello_world` node in the `pipeline` pipeline. You can replace `pipeline:hello_world` with any arguments your entrypoint script accepts.
+The output for our example should be:
 
 ```text
 Hello, World!
 ```
-
-This command starts a container from the `app` image and runs the `hello_world` node in the `pipeline` pipeline. You can replace `pipeline:hello_world` with any arguments your entrypoint script accepts.
 
 !!! info "Docker configuration"
 
@@ -119,5 +118,9 @@ This command starts a container from the `app` image and runs the `hello_world` 
     Most of these are specific to your application, not to Ordeq.
     See the Docker documentation for more details.
 
+!!! question "Questions, issues, or remarks"
+    If you have any questions, issues or remarks on integrating Ordeq with Docker, please reach out by opening an [issue on GitHub][issues].
+
 [run-and-viz]: ../run_and_viz.md
 [uv-docker]: https://docs.astral.sh/uv/guides/integration/docker/
+[issues]: https://github.com/ing-bank/ordeq/issues/new

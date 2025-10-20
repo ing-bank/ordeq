@@ -70,7 +70,8 @@ Output:
       "type": "ordeq_common.io.printer.Print",
       "references": []
     }
-  }
+  },
+  "pipelines": []
 }
 
 Typing:

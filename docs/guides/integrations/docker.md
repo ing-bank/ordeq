@@ -89,6 +89,8 @@ RUN uv sync
 ENTRYPOINT ["uv", "run", "src/app/__main__.py", "run"]
 ```
 
+You can inspect the example project [here][docker-example].
+
 Build the Docker image with:
 
 ```bash
@@ -125,3 +127,4 @@ Hello, World!
 [issues]: https://github.com/ing-bank/ordeq/issues/new
 [run-and-viz]: ../run_and_viz.md
 [uv-docker]: https://docs.astral.sh/uv/guides/integration/docker/
+[docker-example]: https://github.com/ing-bank/ordeq/tree/main/docs/examples/ordeq-docker-example

@@ -18,9 +18,3 @@ dependencies = [
     "ordeq>=1.2.0",
     "ordeq-cli-runner"
 ]
-
-[tool.ordeq]
-group = "examples"
-
-[dependency-groups]
-test = []

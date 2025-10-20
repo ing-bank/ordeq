@@ -119,8 +119,9 @@ Hello, World!
     See the Docker documentation for more details.
 
 !!! question "Questions, issues, or remarks"
+
     If you have any questions, issues or remarks on integrating Ordeq with Docker, please reach out by opening an [issue on GitHub][issues].
 
+[issues]: https://github.com/ing-bank/ordeq/issues/new
 [run-and-viz]: ../run_and_viz.md
 [uv-docker]: https://docs.astral.sh/uv/guides/integration/docker/
-[issues]: https://github.com/ing-bank/ordeq/issues/new

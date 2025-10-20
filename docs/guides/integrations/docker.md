@@ -1,113 +1,123 @@
 # Docker
 
-Docker furthermore obfuscates the intrinsics of the application for the user.
-In essence, this means the user is not bothered [...]
+Docker is a popular tool for packaging applications and their dependencies into containers.
+Containers ensure your application runs consistently across different systems.
+Ordeq applications can be easily packaged and run in Docker containers.
+This guide shows how to package a simple hello-world pipeline in a Docker container and run it.
 
 ## Making your project runnable
 
-First, we need to make your application runnable.
-That means we need to create an entrypoint that users can invoke.
-In Python that entrypoint will be a `__main__.py` script at the source root:
+First, make your project runnable by creating an entrypoint.
+In Python, this is typically a `__main__.py` script at the source root.
+For example, your project structure might look like:
 
 ```text
 src
-└── __main__.py
+├── __init__.py
+├── __main__.py
+└── pipeline.py
 ```
 
-Ordeq provides two ways to run a project out of the box:
+For this guide, `pipeline.py` contains a simple node:
 
-- through the command line interface (see `ordeq-cli-runner`)
-- programmatically (built-in in `ordeq`)
+```python title="src/pipeline.py"
+from ordeq import node
 
-A CLI is a good options if you need to dynamically decide which pipeline to run.
-If your application always runs a single pipeline with the same configuration, it's easier to run that pipeline programmatically:
-Of course, you can also create a custom CLI.
-Click on the tabs below to see some example entrypoints.
+@node
+def hello_world() -> None:
+    print("Hello, World!")
+```
+
+The content of `__main__.py` depends on how you want to run your application. O
+Ordeq supports two main approaches:
+
+- Using the command line interface (`ordeq-cli-runner` package)
+- Running programmatically (using the `ordeq` package)
+
+Use the CLI if you need to choose pipelines dynamically.
+If your application always runs the same pipeline, running programmatically is simpler.
+
+Reference implementations:
 
 === "src/\_\_main\_\_.py (Ordeq CLI)"
+
     ```python
     from ordeq_cli_runner import main
 
-    if __name__ == "__main__"
+    if __name__ == "__main__":
+        # Invoke the CLI of ordeq-cli-runner
         main()
     ```
 
 === "src/\_\_main\_\_.py (Programmatic)"
+
     ```python
     import pipeline
     from ordeq import run
 
-    if __name__ == "__main__"
+    if __name__ == "__main__":
+        # Run the pipeline programmatically
         run(pipeline)
     ```
 
-=== "src/\_\_main\_\_.py (Custom CLI)"
-    ```python
-    from argparse import ArgumentParser
-    from ordeq import run
-
-    if __name__ == "__main__"
-        parser = ArgumentParser()
-        parser.add_argument("--pipeline")
-        args = parser.parse_args()
-        run(args.pipeline)
-    ```
-
-This entrypoint makes the entire project runnable, not just for containers.
+This entrypoint makes your project runnable in any environment, not just containers.
+For more details, see [this guide][run-and-viz].
 
 ## Packaging your application
-Next, we are going to package our application in a Docker container.
-The first step is to determine the base image that your application will run on.
-We recommend following the uv Docker guide to set up your base image and dependencies.
 
-### Example
+Next, package your application in a Docker container.
+Start by choosing a base image.
+We recommend following the [uv Docker guide][uv-docker] for setting up your base image and dependencies.
 
-### Deciding the entrypoint
-If you've opted for the CLI above, you likely want to keep the command with which the application is run dynamic.
-This means the last line of the Dockerfile should contain the entrypoint to the application:
+Here’s an example Dockerfile using a uv base image:
 
 ```Dockerfile
+# Use a Python image with uv pre-installed
+FROM ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 
-ENTRYPOINT ["uv", "run", "src/__main__.py", "run"]
+# Copy the source code into the image
+ADD . /app
+
+# Place executables in the environment at the front of the path
+ENV PATH="/app/.venv/bin:$PATH"
+
+# Sync the project into a new environment
+WORKDIR app
+RUN uv sync
+
+# Set the entrypoint to run the Ordeq application
+ENTRYPOINT ["uv", "run", "src/app/__main__.py", "run"]
 ```
 
-If, on the other hand, your application run does not depend on the command with which it is invoked, you can specify the complete run command:
+Build the Docker image with:
 
-```Dockerfile
-CMD ["uv", "run", "src/__main__.py"]
+```bash
+docker build -t app .
 ```
 
-!!! "Configuration secrets"
-    Docker provides multiple ways to configure application secrets, like API keys, passwords, and tokens.
-    This configuration is not specific to Ordeq.
-    We therefore refer to the Docker documentation.
+This creates a Docker image named `app` containing your Ordeq application. The user only needs the image to run the application; they don’t need to know anything about Ordeq or Python.
 
 ## Running your application
 
-Things to check:
-- if your pipeline connects to external services, like S3 or a database, you need to alter the network configuration
-- logging?
-
-### Development containers
-
-### Docker compose
-Like any Docker container, you can also run the application using Docker compose.
-This is particularly useful if the Ordeq application is part of a larger stack.
-Say, you have a local database that you wish to test the Ordeq application on.
-
-```yaml
-services:
-    db:
-        ...
-    app:
-        ...
-
-networks:
-    - ...
-```
-
-You can run this stack with:
+To run the application in a container:
 
 ```bash
-docker compose up
+docker run app pipeline:hello_world
 ```
+
+This prints:
+
+```text
+Hello, World!
+```
+
+This command starts a container from the `app` image and runs the `hello_world` node in the `pipeline` pipeline. You can replace `pipeline:hello_world` with any arguments your entrypoint script accepts.
+
+!!! info "Docker configuration"
+
+    Real-world applications often require additional configuration when running in Docker containers, such as networking, configuration, and secrets.
+    Most of these are specific to your application, not to Ordeq.
+    See the Docker documentation for more details.
+
+[run-and-viz]: ../run_and_viz.md
+[uv-docker]: https://docs.astral.sh/uv/guides/integration/docker/

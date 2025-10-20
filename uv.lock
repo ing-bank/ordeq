@@ -17,6 +17,7 @@ members = [
     "ordeq-boto3",
     "ordeq-cli-runner",
     "ordeq-common",
+    "ordeq-docker-example",
     "ordeq-duckdb",
     "ordeq-faiss",
     "ordeq-files",
@@ -2344,6 +2345,23 @@ test = [
     { name = "ordeq-spark", editable = "packages/ordeq-spark" },
     { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
 ]
+
+[[package]]
+name = "ordeq-docker-example"
+source = { editable = "packages/ordeq-docker-example" }
+dependencies = [
+    { name = "ordeq" },
+    { name = "ordeq-cli-runner" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "ordeq-cli-runner", editable = "packages/ordeq-cli-runner" },
+]
+
+[package.metadata.requires-dev]
+test = []
 
 [[package]]
 name = "ordeq-duckdb"

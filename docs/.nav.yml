@@ -20,6 +20,8 @@ nav:
           - Coming from Kedro: guides/kedro.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
+      - Integrations:
+          - Docker: guides/docker.md
       # TODO: Add an example project
   - Packages:
     - Overview: packages.md

@@ -102,5 +102,9 @@ class ProjectModel(BaseModel):
             for i in range(1, len(parts) + 1):
                 ancestor = ".".join(parts[:i])
                 pipelines.add(ancestor)
-        return cls(name=name, nodes=node_models, ios=io_models,
-                   pipelines=sorted(list(pipelines)))
+        return cls(
+            name=name,
+            nodes=node_models,
+            ios=io_models,
+            pipelines=sorted(pipelines),
+        )

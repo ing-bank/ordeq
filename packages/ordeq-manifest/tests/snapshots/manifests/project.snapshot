@@ -32,8 +32,8 @@ Output:
       "id": "nodes.examples.project.nodes_import:func_a",
       "name": "examples.project.nodes_import:func_a",
       "inputs": [
-        "examples.project.catalog_1.a",
-        "examples.project.catalog_1.b"
+        "examples.project.nodes_import.a",
+        "examples.project.nodes_import.b"
       ],
       "outputs": [
         "examples.project.nodes_import.f"
@@ -44,8 +44,8 @@ Output:
       "id": "nodes.examples.project.nodes_import:func_b",
       "name": "examples.project.nodes_import:func_b",
       "inputs": [
-        "examples.project.catalog_1.a",
-        "examples.project.catalog_1.b"
+        "examples.project.nodes_import.a",
+        "examples.project.nodes_import.b"
       ],
       "outputs": [
         "examples.project.nodes_import.f"
@@ -58,8 +58,8 @@ Output:
       "id": "nodes.examples.project.nodes_import_alias:func",
       "name": "examples.project.nodes_import_alias:func",
       "inputs": [
-        "examples.project.catalog_1.a",
-        "examples.project.catalog_1.b"
+        "examples.project.nodes_import.a",
+        "examples.project.nodes_import.b"
       ],
       "outputs": [
         "examples.project.nodes_import.f"
@@ -73,8 +73,8 @@ Output:
       "id": "nodes.examples.project.nodes_import_reassign:func_a",
       "name": "examples.project.nodes_import_reassign:func_a",
       "inputs": [
-        "examples.project.catalog_1.a",
-        "examples.project.catalog_1.b"
+        "examples.project.nodes_import.a",
+        "examples.project.nodes_import.b"
       ],
       "outputs": [
         "examples.project.nodes_import.f"
@@ -85,8 +85,8 @@ Output:
       "id": "nodes.examples.project.nodes_import_reassign:func_b",
       "name": "examples.project.nodes_import_reassign:func_b",
       "inputs": [
-        "examples.project.catalog_1.a",
-        "examples.project.catalog_1.b"
+        "examples.project.nodes_import.a",
+        "examples.project.nodes_import.b"
       ],
       "outputs": [
         "examples.project.nodes_import.f"

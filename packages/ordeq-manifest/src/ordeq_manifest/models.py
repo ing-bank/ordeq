@@ -96,9 +96,9 @@ class ProjectModel(BaseModel):
         }
         pipelines = set()
         for node in nodes:
-            pkg, _, _ = node.name.partition(":")
-            parts = pkg.split(".")
-            # Collect all ancestor packages
+            pipeline, _, _ = node.name.partition(":")
+            parts = pipeline.split(".")
+            # Collect all ancestor pipelines
             for i in range(1, len(parts) + 1):
                 ancestor = ".".join(parts[:i])
                 pipelines.add(ancestor)

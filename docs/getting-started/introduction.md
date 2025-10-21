@@ -316,7 +316,7 @@ For example, you might want to filter out inactive clients and transactions with
 
     ```python
     from ordeq_args import EnvironmentVariable
-    from ordeq_spark import SparkIcebergTable, SparkHiveTable
+    from ordeq_spark import SparkHiveTable, SparkIcebergTable
 
     date = EnvironmentVariable("DATE")
     txs = SparkIcebergTable(table="txs")

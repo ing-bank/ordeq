@@ -53,8 +53,3 @@ plugins:
           options:
             show_source: false
             docstring_style: google
-
-validation:
-  omitted_files: warn
-  absolute_links: warn
-  unrecognized_links: warn

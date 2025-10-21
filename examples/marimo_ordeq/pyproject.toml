@@ -1,0 +1,11 @@
+[project]
+name = "marimo-ordeq"
+version = "0.1.0"
+description = "Example project demonstrating Ordeq with Marimo"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "ordeq-polars",
+    "marimo"
+]

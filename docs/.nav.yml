@@ -24,6 +24,7 @@ nav:
           - Coming from Kedro: guides/kedro.md
       - Integrations:
           - Docker: guides/integrations/docker.md
+          - Marimo: guides/integration/ordeq-with-marimo.md
   - Reference:
       - Packages: packages.md
       - API: api

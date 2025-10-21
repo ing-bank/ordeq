@@ -221,5 +221,5 @@ exclude = [
 
 [tool.ty.rules]
 invalid-argument-type = "ignore"
-possibly-unbound-attribute = "ignore"  # faiss issue
+possibly-missing-attribute = "ignore"  # faiss issue
 unresolved-attribute = "ignore"

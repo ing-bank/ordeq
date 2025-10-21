@@ -32,3 +32,4 @@ nav:
       - How to: CONTRIBUTING.md
       - Acknowledgements: contributing/acknowledgements.md
       - Documentation setup: contributing/documentation.md
+      - Integration model: contributing/integration_model.md

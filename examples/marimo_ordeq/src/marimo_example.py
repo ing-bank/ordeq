@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.16.5"
+__generated_with = "0.17.0"
 app = marimo.App(width="medium")
 
 
@@ -81,26 +81,21 @@ def _(clean_users_data, user_data, user_metrics):
     from ordeq import node
 
     @node(inputs=[user_data], outputs=[clean_users_data])
-    def clean_users(user_data_df:DataFrame) -> DataFrame:
-        return (
-            user_data_df.select(
-                pl.col("Name").alias("name"),
-                pl.col("Email").alias("email"),
-                pl.col("Phone").alias("phone"),
-                pl.col("Email").str.split("@").list.get(-1).alias("email_domain")
-            )
+    def clean_users(user_data_df: DataFrame) -> DataFrame:
+        return user_data_df.select(
+            pl.col("Name").alias("name"),
+            pl.col("Email").alias("email"),
+            pl.col("Phone").alias("phone"),
+            pl.col("Email").str.split("@").list.get(-1).alias("email_domain"),
         )
 
-
     @node(inputs=[clean_users_data], outputs=[user_metrics])
-    def extract_user_metrics(clean_users_df:DataFrame) -> DataFrame:
-        return (
-            clean_users_df.select(
-                pl.len().alias("user_cnt"),
-                pl.col("email").n_unique().alias("unique_users"),
-                pl.col("email_domain").n_unique().alias("unique_email_domains"),
-                pl.col("phone").n_unique().alias("unique_phone_numbers")
-            )
+    def extract_user_metrics(clean_users_df: DataFrame) -> DataFrame:
+        return clean_users_df.select(
+            pl.len().alias("user_cnt"),
+            pl.col("email").n_unique().alias("unique_users"),
+            pl.col("email_domain").n_unique().alias("unique_email_domains"),
+            pl.col("phone").n_unique().alias("unique_phone_numbers"),
         )
     return clean_users, extract_user_metrics
 
@@ -130,7 +125,7 @@ def _(mo):
 def _(clean_users, extract_user_metrics):
     from ordeq import run
 
-    run(clean_users, extract_user_metrics);
+    run(clean_users, extract_user_metrics)
     return
 
 

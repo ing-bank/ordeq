@@ -4,7 +4,7 @@
 
 This example demonstrates how to use Ordeq within a Marimo notebook to create an interactive data application.
 
-Even though this examples is written for Marimo, you can run similar code in a Jupyter notebook as well to run Ordeq in the interactive environment of your choice.
+Even though this example is written for Marimo, you can run similar code in a Jupyter notebook as well to run Ordeq in the interactive environment of your choice.
 
 To launch the example notebook, simply run:
 

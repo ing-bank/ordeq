@@ -22,7 +22,7 @@ nav:
           - Coming from Kedro: guides/kedro.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
-          - Ordeq with Marimo: guides/examples/marimo_ordeq.md
+          - Ordeq with Marimo: guides/examples/ordeq-with-marimo.md
       - Integrations:
           - Docker: guides/integrations/docker.md
       # TODO: Add an example project

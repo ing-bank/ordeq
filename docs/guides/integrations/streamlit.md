@@ -149,7 +149,7 @@ Try playing around with the checkbox and slider, and click the button to see how
     If you have any questions or need further assistance, feel free to reach out on [GitHub][issues]
 
 [catalogs]: ../../getting-started/concepts/catalogs.md
-[integration-streamlit]: https://github.com/ing-bank/ordeq/tree/main/examples/integration_streamlit
+[integration-streamlit]: https://github.com/ing-bank/ordeq/tree/main/examples/integration-streamlit
 [issues]: https://github.com/ing-bank/ordeq/issues/new
 [streamlit]: https://docs.streamlit.io/
 [user-io]: ../custom_io.md

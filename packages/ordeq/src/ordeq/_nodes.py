@@ -5,7 +5,6 @@ from dataclasses import dataclass, field
 from functools import wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
-
 from ordeq._io import Input, Output
 
 logger = logging.getLogger("ordeq.nodes")
@@ -214,7 +213,7 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
     if obj is None:
         return ()
     if isinstance(obj, Sequence):
-        return tuple(obj)
+        return tuple(obj)  # ty: ignore[invalid-return-type]
     return (obj,)  # ty: ignore[invalid-return-type]
 
 

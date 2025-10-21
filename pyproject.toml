@@ -53,6 +53,7 @@ ordeq-pymupdf = { workspace = true }
 ordeq-requests = { workspace = true }
 ordeq-sentence-transformers = { workspace = true }
 ordeq-spark = { workspace = true }
+ordeq-streamlit = { workspace = true }
 ordeq-toml = { workspace = true }
 ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }

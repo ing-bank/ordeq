@@ -1,6 +1,7 @@
 from ordeq_spark.hooks import SparkExplainHook, SparkJobGroupHook
 from ordeq_spark.io import (
     SparkCSV,
+    SparkDataFrame,
     SparkGlobalTempView,
     SparkHiveTable,
     SparkIcebergTable,
@@ -8,13 +9,13 @@ from ordeq_spark.io import (
     SparkJDBCTable,
     SparkJSON,
     SparkSession,
-    SparkStatic,
     SparkTable,
     SparkTempView,
 )
 
 __all__ = (
     "SparkCSV",
+    "SparkDataFrame",
     "SparkExplainHook",
     "SparkGlobalTempView",
     "SparkHiveTable",
@@ -24,7 +25,6 @@ __all__ = (
     "SparkJSON",
     "SparkJobGroupHook",
     "SparkSession",
-    "SparkStatic",
     "SparkTable",
     "SparkTempView",
 )

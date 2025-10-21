@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 import numpy as np
-from ordeq.framework.io import IO
+from ordeq import IO
 from ordeq.types import PathLike
 
 

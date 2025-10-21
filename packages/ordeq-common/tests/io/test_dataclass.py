@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 import pytest
-from ordeq.framework.io import IOException
+from ordeq import IOException
 from ordeq_common import Dataclass, Literal
 
 

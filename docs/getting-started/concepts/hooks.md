@@ -11,6 +11,7 @@ To see how hooks can be useful, let's consider the following example:
 
     ```python
     import catalog
+    from ordeq import node
 
 
     @node(inputs=catalog.names, outputs=catalog.greetings)
@@ -25,8 +26,9 @@ To see how hooks can be useful, let's consider the following example:
 === "catalog.py"
 
     ```python
-    from ordeq_files import CSV, Text
     from pathlib import Path
+
+    from ordeq_files import CSV, Text
 
     names = CSV(path=Path("names.csv"))
     greetings = Text(path=Path("greetings.txt"))
@@ -60,10 +62,10 @@ If you want to do this for every input, it quickly becomes tedious and error-pro
 
 Instead, you can use a hook to run this logic automatically around every input loading:
 
-```python
+```python title="time_hook.py"
 import time
 
-from ordeq import InputHook, Node, Input
+from ordeq import Input, InputHook
 
 
 class TimeHook(InputHook):
@@ -80,8 +82,10 @@ To ensure the hook is executed, it needs to be attached to the input:
 === "catalog.py"
 
     ```python
-    from ordeq_files import CSV, Text
     from pathlib import Path
+
+    from ordeq_files import CSV, Text
+    from time_hook import TimeHook
 
     names = CSV(path=Path("names.csv")).with_input_hooks(TimeHook())
     greetings = Text(path=Path("greetings.txt"))

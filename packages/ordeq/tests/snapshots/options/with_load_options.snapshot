@@ -15,10 +15,10 @@ hello.txt@L1: Hi world!
 <class 'with_load_options.ExampleInputLoadArg'>
 
 Logging:
-INFO	ordeq.framework.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.framework.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
+INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')

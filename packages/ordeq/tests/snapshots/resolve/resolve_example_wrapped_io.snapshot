@@ -1,0 +1,5 @@
+Output:
+['example.wrapped_io']
+['example.wrapped_io:hello', 'example.wrapped_io:print_message']
+{('example.wrapped_io', 'message'): SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),)), ('example.wrapped_io', 'name_generator'): NameGenerator(name='John'), ('example.wrapped_io', 'name_printer'): NamePrinter()}
+['example.wrapped_io:hello', 'example.wrapped_io:print_message']

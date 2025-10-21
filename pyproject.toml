@@ -27,7 +27,7 @@ test = [
     "pytest>=8.4.1",
 ]
 types = [
-    "mypy>=1.17",
+    "mypy>=1.18.2",
     "ty>=0.0.1a16",
 ]
 
@@ -48,7 +48,7 @@ ordeq-matplotlib = { workspace = true }
 ordeq-numpy = { workspace = true }
 ordeq-pandas = { workspace = true }
 ordeq-polars = { workspace = true }
-ordeq-project = { workspace = true }
+ordeq-manifest = { workspace = true }
 ordeq-pydantic = { workspace = true }
 ordeq-pymupdf = { workspace = true }
 ordeq-requests = { workspace = true }
@@ -59,14 +59,17 @@ ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }
 ordeq-yaml = { workspace = true }
 
-[[tool.uv.index]]
-url = "https://pkgs.dev.azure.com/INGCDaaS/IngOne/_packaging/P11945-outgoing/pypi/simple/"
+# Development packages
+ordeq-test-utils = { workspace = true }
 
 [tool.uv]
 required-version = ">=0.8.23"
 
 [tool.uv.workspace]
-members = ["packages/*"]
+members = [
+    "packages/*",
+    "examples/*",
+]
 
 [tool.coverage.paths]
 source = ["packages/*/src"]
@@ -82,8 +85,8 @@ fail_under = 85
 [tool.coverage.run]
 omit = [
     "_version.py",
-    "packages/ordeq/tests/resources/*",
-    "packages/ordeq/tests/snapshots/*",
+    "packages/*/tests/resources/*",
+    "packages/*/tests/snapshots/*",
 ]
 
 [tool.pytest.ini_options]
@@ -197,6 +200,13 @@ split-on-trailing-comma = false
 ]
 # Rules not applicable for scripts
 "scripts/*" = ["INP001", "S607", "S603", "S404", "D103"]
+"scripts/generate_package_overview.py" = ["E501"]
+# Rules not applicable in documentation files
+"docs/*" = ["INP001", "D", "DOC", "S", "E501", "PERF", "PLW1514"]
+"doccmd_kedro_md*.py" = [
+    # Allow hardcoded secrets in documentation.
+    "F821",
+]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -211,8 +221,5 @@ exclude = [
 
 [tool.ty.rules]
 invalid-argument-type = "ignore"
-invalid-type-form = "ignore"
-possibly-unbound-attribute = "ignore"
+possibly-missing-attribute = "ignore"  # faiss issue
 unresolved-attribute = "ignore"
-unsupported-operator = "ignore"
-missing-argument = "ignore"  # TODO: enable when `with_load_options` / `with_save_options` is fixed

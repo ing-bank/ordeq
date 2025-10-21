@@ -1,4 +1,4 @@
-from ordeq_common.hooks import SpyHook
+from ordeq_common.hooks import LoggerHook, SpyHook
 from ordeq_common.io import (
     BytesBuffer,
     Dataclass,
@@ -16,6 +16,7 @@ __all__ = (
     "Dataclass",
     "Iterate",
     "Literal",
+    "LoggerHook",
     "Match",
     "MatchOnLoad",
     "MatchOnSave",

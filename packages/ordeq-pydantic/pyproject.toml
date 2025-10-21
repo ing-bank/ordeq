@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_pydantic"
+description = "Pydantic integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -22,8 +23,18 @@ dependencies = [
     "pydantic>=2",
 ]
 
+[tool.ordeq]
+group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://avatars.githubusercontent.com/u/110818415?v=4"
+
 [dependency-groups]
-test = []
+test = [
+    "ordeq-toml",
+    "ordeq-yaml",
+    "ordeq-common",
+]
 
 [tool.setuptools_scm]
 root = "../../"

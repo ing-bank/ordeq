@@ -87,7 +87,7 @@ jobs:
           save-cache: false
 
       - name: Install the package
-        run: uv sync --package ${{ matrix.package }} --group test
+        run: uv sync --package ${{ matrix.package }} --group test --locked
 
       - name: Run unit tests
         run: uv run --group test pytest -v --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"
@@ -97,3 +97,16 @@ jobs:
         with:
           name: coverage-${{ matrix.package }}
           path: '**/coverage.xml'
+
+  complete:
+    name: All checks passed
+    runs-on: ubuntu-latest
+    needs:
+      - test
+      - static_code_analysis
+      - docs
+      - packages
+
+    steps:
+      - name: Complete
+        run: echo "🎉"

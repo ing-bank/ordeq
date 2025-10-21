@@ -23,6 +23,7 @@ The `FaissIndex` class extends the `IO` class and implements the `load` and `sav
 ```python
 from dataclasses import dataclass
 from pathlib import Path
+
 import faiss
 from ordeq import IO
 
@@ -49,6 +50,7 @@ Create a new class that extends the `IO` class and implement the `load` and `sav
 ```python
 from dataclasses import dataclass
 from pathlib import Path
+
 from ordeq import IO
 
 
@@ -92,6 +94,7 @@ For instance, we could let the user control the newline character used by `write
 ```python
 from dataclasses import dataclass
 from pathlib import Path
+
 from ordeq import IO
 
 
@@ -113,6 +116,7 @@ Below is an example of this for a Pandas CSV IO class:
 ```python
 from dataclasses import dataclass
 from pathlib import Path
+
 import pandas as pd
 from ordeq import IO
 
@@ -136,6 +140,7 @@ This type should match the return type of the `load` method and the first parame
 ```python
 from dataclasses import dataclass
 from pathlib import Path
+
 from ordeq import IO
 
 
@@ -171,6 +176,7 @@ The `SensorDataGenerator` class will extend the `Input` class, meaning it will o
 import random
 from dataclasses import dataclass
 from typing import Any
+
 from ordeq import Input
 
 

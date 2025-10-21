@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_matplotlib"
+description = "Matplotlib integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -18,9 +19,15 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "ordeq>=1.0.0",
+    "ordeq>=1.2.0",
     "matplotlib",
 ]
+
+[tool.ordeq]
+group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png"
 
 [dependency-groups]
 test = []

@@ -2,7 +2,7 @@ import os
 from dataclasses import dataclass
 
 import matplotlib.pyplot as plt
-from ordeq.framework.io import Output
+from ordeq import Output
 from ordeq.types import PathLike
 
 

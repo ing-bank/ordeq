@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import faiss
-from ordeq.framework.io import IO
+from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)

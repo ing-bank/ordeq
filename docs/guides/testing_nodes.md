@@ -7,6 +7,7 @@ Let's reconsider the `greet` node from the [node concepts section][concepts-node
 
     ```python
     import catalog
+    from ordeq import node
 
 
     @node(inputs=catalog.names, outputs=catalog.greetings)
@@ -21,8 +22,9 @@ Let's reconsider the `greet` node from the [node concepts section][concepts-node
 === "catalog.py"
 
     ```python
-    from ordeq_files import CSV, Text
     from pathlib import Path
+
+    from ordeq_files import CSV, Text
 
     names = CSV(path=Path("names.csv"))
     greetings = Text(path=Path("greetings.txt"))
@@ -31,6 +33,9 @@ Let's reconsider the `greet` node from the [node concepts section][concepts-node
 This node can be unit-tested as follows:
 
 ```python
+from nodes import greet
+
+
 def test_greet_empty():
     assert greet() == []
 
@@ -58,6 +63,11 @@ This will load the data from the node inputs, and save the returned data to the 
 The result of the run will be a dictionary containing the data for each input and output used in the run:
 
 ```python
+from catalog import greetings
+from nodes import greet
+from ordeq import run
+
+
 def test_run_greet():
     result = run(greet)
     assert result[greetings] == [
@@ -81,11 +91,12 @@ Suppose reading from `greetings` is very expensive, because it is a large file.
 We can use a local file with the same structure to test the node:
 
 ```python
-from ordeq_files import CSV, Text
 from pathlib import Path
-from ordeq import run
 
-from nodes import greet, names, greetings
+from catalog import greetings, names
+from nodes import greet
+from ordeq import run
+from ordeq_files import CSV, Text
 
 
 def test_run_greet():
@@ -108,11 +119,12 @@ You can also use the `io` argument to `run` as a fixture in your tests.
 This allows you to define the IOs once and reuse them multiple times.
 
 ```python
-import pytest
-from ordeq import IO, Input, Output
-from nodes import names, greetings
-from ordeq_files import CSV, Text
 from pathlib import Path
+
+import pytest
+from catalog import greetings, names
+from ordeq import IO, Input, Output
+from ordeq_files import CSV, Text
 
 
 @pytest.fixture(scope="session")
@@ -127,9 +139,14 @@ def io() -> dict[IO | Input | Output, IO | Input | Output]:
 Now we can use the `io` fixture in our tests:
 
 ```python
+from nodes import greet
+from ordeq import run
+
+
 def test_run_greet(io):
     result = run(greet, io=io)
     # do your asserts ...
+    assert result == ...
 ```
 
 For more information on the fixture scope, refer to the `pytest` [documentation](https://docs.pytest.org/en/stable/how-to/fixtures.html#fixture-scopes).

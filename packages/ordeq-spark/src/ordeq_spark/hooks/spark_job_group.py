@@ -1,5 +1,4 @@
-from ordeq import Node
-from ordeq.framework.hook import NodeHook
+from ordeq import Node, NodeHook
 
 from ordeq_spark.utils import get_spark_session
 

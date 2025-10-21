@@ -7,8 +7,9 @@ Nodes can be created by decorating a function with the `@node` decorator:
 === "nodes.py"
 
     ```python
+    from collections.abc import Iterable
+
     from ordeq import node
-    from typing import Iterable
 
 
     @node
@@ -30,8 +31,8 @@ First we define the CSV IO in `catalog.py`. Next, we modify the node in `nodes.p
 === "nodes.py"
 
     ```python
-    from ordeq import node
     import catalog
+    from ordeq import node
 
 
     @node(inputs=catalog.names)
@@ -44,8 +45,9 @@ First we define the CSV IO in `catalog.py`. Next, we modify the node in `nodes.p
 === "catalog.py"
 
     ```python
-    from ordeq_files import CSV
     from pathlib import Path
+
+    from ordeq_files import CSV
 
     names = CSV(path=Path("names.csv"))
     ```
@@ -63,6 +65,7 @@ Similarly, we can add a `greetings` IO and specify it as output to the `greet` n
 
     ```python
     import catalog
+    from ordeq import node
 
 
     @node(inputs=catalog.names, outputs=catalog.greetings)
@@ -77,8 +80,9 @@ Similarly, we can add a `greetings` IO and specify it as output to the `greet` n
 === "catalog.py"
 
     ```python
-    from ordeq_files import CSV, Text
     from pathlib import Path
+
+    from ordeq_files import CSV, Text
 
     names = CSV(path=Path("names.csv"))
     greetings = Text(path=Path("greetings.txt"))
@@ -138,6 +142,7 @@ Let's extend our example with another node that parses the name to greet from a 
 
     ```python hl_lines="3-9"
     import catalog
+    from ordeq import node
 
 
     @node(inputs=catalog.invitees, outputs=catalog.names)
@@ -207,44 +212,12 @@ The result of `run` is a dictionary containing the data that was loaded or saved
 This works much like a cache of the processed data for the duration of the run.
 Of course, you can also load the data directly from the IOs:
 
-```
+```pycon
 >>> greetings.load()
 ["Hello, Abraham!", "Hello, Adam!", "Hello, Azul!", ...]
 ```
 
 This has the overhead of loading the data from storage, but it can be useful if you want to access the data after the run has completed.
-
-### _Advanced_: node tags
-
-Nodes can be tagged to help organize and filter them.
-Tags can be set using the `tags` parameter in the `@node` decorator:
-
-=== "nodes.py"
-
-    ```python
-    import catalog
-
-
-    @node(inputs=catalog.names, outputs=catalog.greetings, tags=["size:large"])
-    def greet(names: Iterable[str]) -> None:
-        """Returns a greeting for each person."""
-        greetings = []
-        for name in names:
-            greetings.append(f"Hello, {name}!")
-        return greetings
-    ```
-
-The tags can be retrieved as follows:
-
-```pycon
->>> from ordeq.framework import get_node
->>> node = get_node(greet)
->>> node.tags
-['size:large']
-```
-
-Tags are currently used by Ordeq extensions such as `ordeq-cli-runner`, or `ordeq-viz`.
-Refer to the documentation of these extensions for more information.
 
 !!! success "Where to go from here?"
 

@@ -58,9 +58,8 @@ Can we do better?
 Let's try to modularize the logic by splitting it into functions:
 
 ```python hl_lines="6 7 10 11 14-17 20-22" title="__main__.py"
-from pyspark.sql import SparkSession
+from pyspark.sql import DataFrame, SparkSession
 from argparse import ArgumentParser
-from pyspark.sql import DataFrame
 
 
 def load_table(spark: SparkSession, table: str) -> DataFrame:
@@ -106,8 +105,9 @@ Lastly, a `__main__.py` module takes care of running the job:
 === "nodes.py"
 
     ```python
-    from ordeq import node
     import catalog
+    from ordeq import node
+    from pyspark.sql import DataFrame
 
 
     @node(
@@ -136,8 +136,8 @@ Lastly, a `__main__.py` module takes care of running the job:
 === "\__main__.py"
 
     ```python
-    from ordeq import run
     from nodes import join_txs_and_clients
+    from ordeq import run
 
     if __name__ == "__main__":
         run(join_txs_and_clients)
@@ -156,8 +156,9 @@ you only need to change `catalog.py`.
 === "nodes.py"
 
     ```python
-    from ordeq import node
     import catalog
+    from ordeq import node
+    from pyspark.sql import DataFrame
 
 
     @node(
@@ -186,8 +187,8 @@ you only need to change `catalog.py`.
 === "\__main__.py"
 
     ```python
-    from ordeq import run
     from nodes import join_txs_and_clients
+    from ordeq import run
 
     if __name__ == "__main__":
         run(join_txs_and_clients)
@@ -198,8 +199,9 @@ Or, maybe the date comes from an environment variable instead of a command line 
 === "nodes.py"
 
     ```python
-    from ordeq import node
     import catalog
+    from ordeq import node
+    from pyspark.sql import DataFrame
 
 
     @node(
@@ -228,8 +230,8 @@ Or, maybe the date comes from an environment variable instead of a command line 
 === "\__main__.py"
 
     ```python
-    from ordeq import run
     from nodes import join_txs_and_clients
+    from ordeq import run
 
     if __name__ == "__main__":
         run(join_txs_and_clients)
@@ -240,8 +242,9 @@ Perhaps you want to append data to the `txs_and_clients` table instead of overwr
 === "nodes.py"
 
     ```python
-    from ordeq import node
     import catalog
+    from ordeq import node
+    from pyspark.sql import DataFrame
 
 
     @node(
@@ -272,8 +275,8 @@ Perhaps you want to append data to the `txs_and_clients` table instead of overwr
 === "\__main__.py"
 
     ```python
-    from ordeq import run
     from nodes import join_txs_and_clients
+    from ordeq import run
 
     if __name__ == "__main__":
         run(join_txs_and_clients)
@@ -326,8 +329,8 @@ For example, you might want to filter out inactive clients and transactions with
 === "\__main__.py"
 
     ```python
-    from ordeq import run
     from nodes import join_txs_and_clients
+    from ordeq import run
 
     if __name__ == "__main__":
         run(join_txs_and_clients)

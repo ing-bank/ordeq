@@ -11,13 +11,12 @@ def test_it_loads():
 
 
 def test_key_doesnt_exist():
-    st.button("test_key_doesnt_exist", key="a")
     with pytest.raises(
         IOException,
-        match=r'st.session_state has no key "b". '
+        match=r'st.session_state has no key "idontexist". '
         r"Did you forget to initialize it?",
     ):
-        _ = StreamlitElement(key="b").load()
+        _ = StreamlitElement(key="idontexist").load()
 
 
 def test_its_hashable():

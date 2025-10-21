@@ -16,7 +16,6 @@ docs = [
     "mkdocs-autoapi",
     "mkdocs-material",
     "mkdocs-material-extensions",
-    "mkdocs-marimo",
     "mkdocstrings[python]",
     "mkdocs-awesome-nav",
     "markdown",

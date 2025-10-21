@@ -48,12 +48,6 @@ markdown_extensions:
 plugins:
   - search
   - awesome-nav
-  - marimo:
-      enabled: true
-      display_code: false
-      display_output: true
-      is_reactive: true
-      marimo_version: '0.16.5' # Specify the version of marimo to use
   - mkdocstrings:
       handlers:
         python:

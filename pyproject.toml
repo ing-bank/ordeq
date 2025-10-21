@@ -206,6 +206,8 @@ split-on-trailing-comma = false
     # Allow hardcoded secrets in documentation.
     "F821",
 ]
+# Rules not applicable for some example projects
+"examples/starter-single-file/*" = ["INP001",]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

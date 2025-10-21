@@ -8,27 +8,26 @@ nav:
           - Catalogs: getting-started/concepts/catalogs.md
           - Hooks: getting-started/concepts/hooks.md
   - Guides & examples:
-      - guides/run_and_viz.md
-      - guides/node_parameters.md
+      - Starting a new project: guides/starting_a_new_project.md
+      - Running & visualising: guides/run_and_viz.md
+      - Nodes:
+          - Node parameters: guides/node_parameters.md
+          - Testing nodes: guides/testing_nodes.md
       - IO:
-        - Custom IO: guides/custom_io.md
-        - Parametrizing IO: guides/parametrized_io.md
-        - Lazy IO: guides/lazy_io.md
-        - Cloud storage: guides/cloud_storage.md
-      - Projects:
-          - guides/starting_a_new_project.md
-      - guides/testing_nodes.md
-      - Other frameworks:
-          - Coming from Kedro: guides/kedro.md
-      - Examples:
+          - Custom IO: guides/custom_io.md
+          - Parametrizing IO: guides/parametrized_io.md
+          - Lazy IO: guides/lazy_io.md
+          - Cloud storage: guides/cloud_storage.md
+      - Hooks:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
+      - Adopting Ordeq:
+          - Coming from Kedro: guides/kedro.md
       - Integrations:
           - Docker: guides/integrations/docker.md
-          - Ordeq with Marimo: guides/integrations/ordeq-with-marimo.md
-      # TODO: Add an example project
-  - Packages:
-    - Overview: packages.md
-    - API: api
+          - Marimo: guides/integrations/marimo.md
+  - Reference:
+      - Packages: packages.md
+      - API: api
   - Contributing:
       - How to: CONTRIBUTING.md
       - Acknowledgements: contributing/acknowledgements.md

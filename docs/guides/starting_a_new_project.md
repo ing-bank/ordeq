@@ -25,7 +25,7 @@ uv init
 This will create the following project structure:
 
 ```text
-project/
+project
 ├── README.md
 ├── main.py
 └── pyproject.toml
@@ -88,6 +88,8 @@ uv run main.py
     uv automatically activates the virtual environment when running commands like `uv run`.
     You do not need to manually activate the virtual environment.
 
+The single file starter project can be downloaded [here][starter-single-file].
+
 ## Multiple files: packaging
 
 Single files are convenient for simple pipelines.
@@ -103,19 +105,18 @@ project
 ├── README.md
 ├── pyproject.toml
 └── src
-    ├── __main__.py
-    ├── catalog.py
-    └── example
-        ├── pipeline.py
-        └── __init__.py
-
+    └── package
+        ├── __init__.py
+        ├── __main__.py
+        ├── catalog.py
+        └── pipeline.py
 ```
 
 As before, we have the `README.md` and `pyproject.toml`.
 In addition:
 
-- the pipeline has been moved to the `example` package
-- we've added a [catalog][catalogs] at `src/catalog.py`
+- the pipeline has been moved to the `pipeline` module
+- we've added a [catalog][catalogs]
 - `__main__.py` will be used to run the project
 
 !!! note "src-layout vs flat-layout"
@@ -128,17 +129,17 @@ In addition:
 
 Click on the tabs below to see how the example pipeline looks in the package layout:
 
-=== "src/\_\_main\_\_.py"
+=== "src/package/\_\_main\_\_.py"
 
     ```python
-    import example
+    import pipeline
     from ordeq import run
 
     if __name__ == "__main__":
-        run(example)
+        run(pipeline)
     ```
 
-=== "src/catalog.py"
+=== "src/package/catalog.py"
 
     ```python
     from pathlib import Path
@@ -150,7 +151,7 @@ Click on the tabs below to see how the example pipeline looks in the package lay
     yaml = YAML(path=Path("users.yml"))
     ```
 
-=== "src/example/pipeline.py"
+=== "src/package/pipeline.py"
 
     ```python
     import catalog
@@ -165,11 +166,13 @@ Click on the tabs below to see how the example pipeline looks in the package lay
         }
     ```
 
-=== "src/example/\_\_init\_\_.py"
+=== "src/package/\_\_init\_\_.py"
 
     ```python
-    # This file can be empty: it's only needed to allow imports from other packages
+    # This file can be empty: it's only needed to allow imports of this package
     ```
+
+The package can be downloaded [here][starter-package].
 
 #### Sub-pipelines
 
@@ -185,14 +188,15 @@ project
 ├── README.md
 ├── pyproject.toml
 └── src
-    ├── __main__.py
-    ├── catalog.py
-    └── ml
-        ├── preprocessing.py
-        ├── inference.py
-        ├── postprocessing.py
-        └── __init__.py
-
+    └── package
+        ├── __init__.py
+        ├── __main__.py
+        ├── catalog.py
+        └── ml
+            ├── __init__.py
+            ├── inference.py
+            ├── postprocessing.py
+            └── preprocessing.py
 ```
 
 The `ml` package contains all nodes of the pipeline, but the nodes are now distributed across modules.
@@ -207,23 +211,27 @@ Suppose these pipelines share the same source data, but require different transf
 This project can be structured with one package for `nl` and one for `usa`:
 
 ```text
-project/
+project
 ├── README.md
 ├── pyproject.toml
 └── src
-    ├── __main__.py
-    ├── catalog.py
-    ├── nl
-    │   ├── preprocessing.py
-    │   ├── inference.py
-    │   ├── postprocessing.py
-    │   └── __init__.py
-    └── usa
-        ├── preprocessing.py
-        ├── inference.py
-        ├── postprocessing.py
-        └── __init__.py
+    └── package
+        ├── __init__.py
+        ├── __main__.py
+        ├── catalog.py
+        ├── nl
+        │   ├── __init__.py
+        │   ├── inference.py
+        │   ├── postprocessing.py
+        │   └── preprocessing.py
+        └── usa
+            ├── __init__.py
+            ├── inference.py
+            ├── postprocessing.py
+            └── preprocessing.py
 ```
+
+You can download the example package above [here][starter-subpipelines].
 
 !!! note "Catalogs and multi-package projects"
 
@@ -240,18 +248,21 @@ project/
 ├── README.md
 ├── pyproject.toml
 └── src
-    ├── __main__.py
-    ├── catalog.py
-    ├── nl
-    │   ├── preprocessing           # sub-pipeline
-    │   │   ├── __init__.py
-    │   │   ├── cleaning.py         # sub-sub-pipeline
-    │   │   └── standardization.py  # sub-sub-pipeline
-    │   ├── inference.py            # sub-pipeline
-    │   ├── postprocessing.py       # sub-pipeline
-    │   └── __init__.py
-    └── ...
+    └── package
+        ├── __init__.py
+        ├── __main__.py
+        ├── catalog.py
+        └── nl                          # pipeline (package)
+            ├── __init__.py
+            ├── inference.py            # sub-pipeline (module)
+            ├── postprocessing.py       # sub-pipeline (module)
+            └── preprocessing           # sub-pipeline (package)
+                ├── __init__.py
+                ├── cleaning.py         # sub-sub-pipeline (module)
+                └── standardization.py  # sub-sub-pipeline (module)
 ```
+
+The complete example can be downloaded [here][starter-nested-subpipelines].
 
 !!! warning "Pipelines in the same source folder should have shared dependencies"
 
@@ -304,6 +315,10 @@ The layout of the created project is similar to the package layout, but:
 [issues]: https://github.com/ing-bank/ordeq/issues
 [run-and-viz]: ./run_and_viz.md
 [src-vs-flat]: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/
+[starter-nested-subpipelines]: https://github.com/ing-bank/ordeq/tree/main/examples/starter_nested_subpipelines
+[starter-package]: https://github.com/ing-bank/ordeq/tree/main/examples/starter_package
+[starter-single-file]: https://github.com/ing-bank/ordeq/tree/main/examples/starter_single_file
+[starter-subpipelines]: https://github.com/ing-bank/ordeq/tree/main/examples/starter_subpipelines
 [uv]: https://docs.astral.sh/uv/
 [uv-monorepo]: https://docs.astral.sh/uv/concepts/projects/workspaces/
 [uv-scripts]: https://docs.astral.sh/uv/guides/scripts/

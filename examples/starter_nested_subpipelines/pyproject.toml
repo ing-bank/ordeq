@@ -1,0 +1,11 @@
+[project]
+name = "starter-nested-subpipelines"
+version = "0.1.0"
+description = "Starter project for Ordeq using a package structure and nested sub-pipelines"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "ordeq-requests",
+    "ordeq-yaml"
+]

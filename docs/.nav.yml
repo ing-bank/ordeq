@@ -24,6 +24,7 @@ nav:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
       - Integrations:
           - Docker: guides/integrations/docker.md
+          - Ordeq with Marimo: guides/integrations/ordeq-with-marimo.md
       # TODO: Add an example project
   - Packages:
     - Overview: packages.md

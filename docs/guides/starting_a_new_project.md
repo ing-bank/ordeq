@@ -73,7 +73,7 @@ def parse_users(user: dict) -> dict:
     }
 
 if __name__ == "__main__":
-    run(__name__)
+    run(parse_users)
 ```
 
 The nodes and IOs are defined in the same file, together with the run script.
@@ -157,11 +157,11 @@ Click on the tabs below to see how the example pipeline looks in the package lay
     from ordeq import node
 
 
-    @node(inputs=user, outputs=yaml)
+    @node(inputs=catalog.user, outputs=catalog.yaml)
     def parse_users(user: dict) -> dict:
         return {
             "id": user["id"],
-            "address": f"{user["address"]["street"]} {user["address"]["zipcode"]}"
+            "address": f"{user['address']['street']} {user['address']['zipcode']}",
         }
     ```
 
@@ -199,13 +199,6 @@ The `ml` package contains all nodes of the pipeline, but the nodes are now distr
 This makes your project easier to maintain.
 Each module represents a sub-pipeline, which you can run and visualize individually.
 More info can be found [here][run-and-viz].
-
-!!! tip "Global structure, local chaos"
-
-    The ideas for project structure discussed in this guide are not new, and are relevant beyond Ordeq and data projects.
-    Much has been written about this topic.
-    In our experience, it helps to keep in mind "global structure, but local chaos".
-    (Add reference)
 
 For more complex projects, it makes sense to bring even more structure.
 For instance, you might work on a project with _two_ pipelines: one which processes data for The Netherlands, and another for data for the UK.

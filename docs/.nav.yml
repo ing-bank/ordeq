@@ -17,6 +17,7 @@ nav:
       - guides/testing_nodes.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
+          - Marimo integration: guides/examples/marimo/marimo.md
       # TODO: Add an example project
   - API: api
   - Contributing:

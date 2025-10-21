@@ -16,6 +16,7 @@ docs = [
     "mkdocs-autoapi",
     "mkdocs-material",
     "mkdocs-material-extensions",
+    "mkdocs-marimo",
     "mkdocstrings[python]",
     "mkdocs-awesome-nav",
     "markdown",
@@ -57,6 +58,9 @@ ordeq-toml = { workspace = true }
 ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }
 ordeq-yaml = { workspace = true }
+
+[[tool.uv.index]]
+url = "https://pkgs.dev.azure.com/INGCDaaS/IngOne/_packaging/P11945-outgoing/pypi/simple/"
 
 [tool.uv]
 required-version = ">=0.8.23"

@@ -207,7 +207,7 @@ split-on-trailing-comma = false
     "F821",
 ]
 # Rules not applicable for some example projects
-"examples/starter-single-file/*" = ["INP001",]
+"examples/starter-single-file/*" = ["INP001", ]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

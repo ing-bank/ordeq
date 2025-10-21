@@ -40,7 +40,7 @@ format-fix:
 
 # Type checking with ty
 ty:
-    uv run --group types ty check packages/ scripts/ examples/
+    uv run --group types ty check packages/ scripts/
 
 # List all packages
 list:

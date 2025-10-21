@@ -5,6 +5,7 @@ from dataclasses import dataclass, field
 from functools import wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, overload
+
 from ordeq._io import Input, Output
 
 logger = logging.getLogger("ordeq.nodes")

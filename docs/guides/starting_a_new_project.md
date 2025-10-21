@@ -311,7 +311,7 @@ The layout of the created project is similar to the package layout, but:
 
 [catalogs]: ../getting-started/concepts/catalogs.md
 [contribution-guide]: ../CONTRIBUTING.md
-[core-concepts]: ../getting-started/concepts/
+[core-concepts]: ../getting-started/concepts/io.md
 [issues]: https://github.com/ing-bank/ordeq/issues
 [run-and-viz]: ./run_and_viz.md
 [src-vs-flat]: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/

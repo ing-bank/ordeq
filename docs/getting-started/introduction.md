@@ -57,7 +57,7 @@ Also, the logic is still tightly coupled, and you cannot easily reuse parts of i
 Can we do better?
 Let's try to modularize the logic by splitting it into functions:
 
-```python hl_lines="6 7 10 11 14-17 20-22" title="__main__.py"
+```python hl_lines="5 6 9 10 13-16 19-21" title="__main__.py"
 from pyspark.sql import DataFrame, SparkSession
 from argparse import ArgumentParser
 
@@ -314,9 +314,9 @@ For example, you might want to filter out inactive clients and transactions with
 
 === "catalog.py"
 
-    ```python hl_lines="7-11"
+    ```python
     from ordeq_args import EnvironmentVariable
-    from ordeq_spark import SparkIcebergTable, SparkHiveTable
+    from ordeq_spark import SparkHiveTable, SparkIcebergTable
 
     date = EnvironmentVariable("DATE")
     txs = SparkIcebergTable(table="txs")

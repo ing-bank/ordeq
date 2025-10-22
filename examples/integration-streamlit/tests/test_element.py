@@ -1,7 +1,7 @@
 import pytest
 import streamlit as st
-from ordeq import IOException
 from example.io import StreamlitElement
+from ordeq import IOException
 
 
 def test_it_loads():
@@ -14,7 +14,7 @@ def test_key_doesnt_exist():
     with pytest.raises(
         IOException,
         match=r'st.session_state has no key "idontexist". '
-              r"Did you forget to initialize it?",
+        r"Did you forget to initialize it?",
     ):
         _ = StreamlitElement(key="idontexist").load()
 

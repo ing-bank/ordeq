@@ -22,7 +22,7 @@ theme:
       primary: black
 
 markdown_extensions:
-  - blocks:MarimoBlocksExtension
+  - ordeq_docs.marimo_blocks:MarimoBlocksExtension
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true

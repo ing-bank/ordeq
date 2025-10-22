@@ -8,6 +8,7 @@ app = marimo.App(width="medium")
 @app.cell
 def _():
     import marimo as mo
+
     return (mo,)
 
 
@@ -56,7 +57,9 @@ def _():
 
 @app.cell
 def _(mo):
-    mo.md(r"""Let's first create a Polars DataFrame containing our user data, then use the `PolarsEagerCSV` IO to write it to a CSV file.""")
+    mo.md(
+        r"""Let's first create a Polars DataFrame containing our user data, then use the `PolarsEagerCSV` IO to write it to a CSV file."""
+    )
 
 
 @app.cell
@@ -66,12 +69,36 @@ def _():
     user_data_df = pl.DataFrame(
         [
             {"Name": "John Doe", "Email": "john@example.com", "Phone": "555-123-4567"},
-            {"Name": "Jane Smith", "Email": "jane@example.com", "Phone": "555-987-6543"},
-            {"Name": "Peter Jones", "Email": "peter@sample.com", "Phone": "555-555-1212"},
-            {"Name": "Rachel Adams", "Email": "rachel.adams@test.com", "Phone": "555-444-3333"},
-            {"Name": "Emily Davis", "Email": "emily.davis@sample.com", "Phone": "555-333-2222"},
-            {"Name": "Michael Brown", "Email": "michael.brown@example2.com", "Phone": "555-222-1111"},
-            {"Name": "Jane L. Smith", "Email": "jane@example.com", "Phone": "555-987-6543"}
+            {
+                "Name": "Jane Smith",
+                "Email": "jane@example.com",
+                "Phone": "555-987-6543",
+            },
+            {
+                "Name": "Peter Jones",
+                "Email": "peter@sample.com",
+                "Phone": "555-555-1212",
+            },
+            {
+                "Name": "Rachel Adams",
+                "Email": "rachel.adams@test.com",
+                "Phone": "555-444-3333",
+            },
+            {
+                "Name": "Emily Davis",
+                "Email": "emily.davis@sample.com",
+                "Phone": "555-333-2222",
+            },
+            {
+                "Name": "Michael Brown",
+                "Email": "michael.brown@example2.com",
+                "Phone": "555-222-1111",
+            },
+            {
+                "Name": "Jane L. Smith",
+                "Email": "jane@example.com",
+                "Phone": "555-987-6543",
+            },
         ]
     )
     user_data_df
@@ -125,12 +152,15 @@ def _(clean_users_data, pl, user_data, user_metrics):
             pl.col("email_domain").n_unique().alias("unique_email_domains"),
             pl.col("phone").n_unique().alias("unique_phone_numbers"),
         )
+
     return clean_users, extract_user_metrics
 
 
 @app.cell
 def _(mo):
-    mo.md(r"""You can visualize the pipeline you've built by using the `ordeq-viz` package""")
+    mo.md(
+        r"""You can visualize the pipeline you've built by using the `ordeq-viz` package"""
+    )
 
 
 @app.cell
@@ -143,7 +173,9 @@ def _(clean_users, extract_user_metrics, mo):
 
 @app.cell
 def _(mo):
-    mo.md(r"""Then run the pipeline by using `ordeq.run`, which takes the same arguments as `viz`""")
+    mo.md(
+        r"""Then run the pipeline by using `ordeq.run`, which takes the same arguments as `viz`"""
+    )
 
 
 @app.cell

@@ -1,13 +1,7 @@
-# Using Ordeq in a Marimo notebook
+# Marimo
 
 [Marimo](https://docs.marimo.io/) is an open-source reactive Python notebook. An improved version of Jupyter notebooks, Marimo allows you to build data applications with interactive widgets and reactive cells.
 
-This example demonstrates how to use Ordeq within a Marimo notebook to create an interactive data application.
+Ordeq integrates seamlessly with Marimo, enabling you to create interactive data applications that leverage Ordeq's capabilities.
 
-Even though this example is written for Marimo, you can run similar code in a Jupyter notebook as well to run Ordeq in the interactive environment of your choice.
-
-/// marimo-embed-file
-    size: medium
-    mode: edit
-    filepath: examples/marimo_ordeq/src/marimo_example.py
-///
+You can find an example of using Ordeq with Marimo in the [repository's examples section](https://github.com/ing-bank/ordeq/tree/main/examples)

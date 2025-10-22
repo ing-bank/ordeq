@@ -26,17 +26,17 @@ doccmd-fix: doccmd-ruff-format doccmd-ruff-lint
 
 # Linting with ruff
 lint:
-    uv run --group lint ruff check packages/ scripts/
+    uv run --group lint ruff check packages/ scripts/ examples/
 
 lint-fix:
-    uv run --group lint ruff check --fix packages/ scripts/
+    uv run --group lint ruff check --fix packages/ scripts/ examples/
 
 # Formatting with ruff
 format:
-    uv run --group lint ruff format --check packages/ scripts/
+    uv run --group lint ruff format --check packages/ scripts/ examples/
 
 format-fix:
-    uv run --group lint ruff format packages/ scripts/
+    uv run --group lint ruff format packages/ scripts/ examples/
 
 # Type checking with ty
 ty:

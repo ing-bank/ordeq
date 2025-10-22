@@ -147,6 +147,6 @@ For a more elaborate guide, including details on how to implement your own hooks
     - See how to create custom hooks in the [guide][custom-hooks]
     - Check out the [guide on testing nodes][testing-nodes]
 
-[custom-hooks]: ../../guides/custom_hooks.md
+[custom-hooks]: ../../guides/examples/benchmark_node_runtime.md
 [running-a-node]: nodes.md#running-a-node
 [testing-nodes]: ../../guides/testing_nodes.md

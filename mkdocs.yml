@@ -3,6 +3,7 @@ site_name: Ordeq
 site_url: https://ing-bank.github.io/ordeq
 site_description: "Ordeq simplifies IO and modularizes pipeline logic."
 repo_url: https://github.com/ing-bank/ordeq
+repo_name: ordeq
 
 # nav:
 # Do not alter this section. We use awesome-nav for automatic navigation generation.
@@ -11,13 +12,11 @@ repo_url: https://github.com/ing-bank/ordeq
 theme:
   name: material
   features:
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.path
+    - navigation.path  # breadcrumbs
+    - navigation.sections
     - content.code.copy
     - content.code.select
     - navigation.footer
-    - navigation.indexes
   palette:
     - scheme: slate
       primary: black

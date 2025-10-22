@@ -66,41 +66,43 @@ def _(mo):
 def _():
     import polars as pl
 
-    user_data_df = pl.DataFrame(
-        [
-            {"Name": "John Doe", "Email": "john@example.com", "Phone": "555-123-4567"},
-            {
-                "Name": "Jane Smith",
-                "Email": "jane@example.com",
-                "Phone": "555-987-6543",
-            },
-            {
-                "Name": "Peter Jones",
-                "Email": "peter@sample.com",
-                "Phone": "555-555-1212",
-            },
-            {
-                "Name": "Rachel Adams",
-                "Email": "rachel.adams@test.com",
-                "Phone": "555-444-3333",
-            },
-            {
-                "Name": "Emily Davis",
-                "Email": "emily.davis@sample.com",
-                "Phone": "555-333-2222",
-            },
-            {
-                "Name": "Michael Brown",
-                "Email": "michael.brown@example2.com",
-                "Phone": "555-222-1111",
-            },
-            {
-                "Name": "Jane L. Smith",
-                "Email": "jane@example.com",
-                "Phone": "555-987-6543",
-            },
-        ]
-    )
+    user_data_df = pl.DataFrame([
+        {
+            "Name": "John Doe",
+            "Email": "john@example.com",
+            "Phone": "555-123-4567",
+        },
+        {
+            "Name": "Jane Smith",
+            "Email": "jane@example.com",
+            "Phone": "555-987-6543",
+        },
+        {
+            "Name": "Peter Jones",
+            "Email": "peter@sample.com",
+            "Phone": "555-555-1212",
+        },
+        {
+            "Name": "Rachel Adams",
+            "Email": "rachel.adams@test.com",
+            "Phone": "555-444-3333",
+        },
+        {
+            "Name": "Emily Davis",
+            "Email": "emily.davis@sample.com",
+            "Phone": "555-333-2222",
+        },
+        {
+            "Name": "Michael Brown",
+            "Email": "michael.brown@example2.com",
+            "Phone": "555-222-1111",
+        },
+        {
+            "Name": "Jane L. Smith",
+            "Email": "jane@example.com",
+            "Phone": "555-987-6543",
+        },
+    ])
     user_data_df
     return pl, user_data_df
 

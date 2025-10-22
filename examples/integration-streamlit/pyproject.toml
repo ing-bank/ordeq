@@ -1,0 +1,10 @@
+[project]
+name = "integration-streamlit"
+version = "0.1.0"
+description = "Example integration of Streamlit with a Ordeq."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "streamlit"
+]

@@ -25,6 +25,7 @@ nav:
       - Integrations:
           - Docker: guides/integrations/docker.md
           - Marimo: guides/integrations/marimo.md
+          - Streamlit: guides/integrations/streamlit.md
   - Reference:
       - Packages: packages.md
       - API: api

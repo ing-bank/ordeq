@@ -25,6 +25,7 @@ nav:
       - Integrations:
           - Docker: guides/integrations/docker.md
           - Ordeq with Marimo: guides/integrations/ordeq-with-marimo.md
+          - Marimo example: guides/integrations/marimo/marimo.md
       # TODO: Add an example project
   - Packages:
     - Overview: packages.md

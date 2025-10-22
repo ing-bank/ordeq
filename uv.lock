@@ -2928,6 +2928,23 @@ test = [
 ]
 
 [[package]]
+name = "ordeq-docs"
+version = "0.1.0"
+source = { editable = "docs" }
+dependencies = [
+    { name = "marimo" },
+    { name = "ordeq" },
+    { name = "ordeq-polars" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "marimo" },
+    { name = "ordeq" },
+    { name = "ordeq-polars" },
+]
+
+[[package]]
 name = "ordeq-duckdb"
 source = { editable = "packages/ordeq-duckdb" }
 dependencies = [
@@ -3148,6 +3165,7 @@ docs = [
     { name = "mkdocs-material" },
     { name = "mkdocs-material-extensions" },
     { name = "mkdocstrings", extra = ["python"] },
+    { name = "ordeq-docs" },
     { name = "pymdown-extensions" },
 ]
 lint = [
@@ -3177,6 +3195,7 @@ docs = [
     { name = "mkdocs-material" },
     { name = "mkdocs-material-extensions" },
     { name = "mkdocstrings", extras = ["python"] },
+    { name = "ordeq-docs", editable = "docs" },
     { name = "pymdown-extensions" },
 ]
 lint = [{ name = "ruff", specifier = ">=0.12.5" }]

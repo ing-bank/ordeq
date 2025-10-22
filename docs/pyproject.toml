@@ -1,0 +1,11 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[project]
+dependencies = ["ordeq", "ordeq-polars", "marimo"]
+name = "ordeq_docs"
+version = "0.1.0"
+
+[tool.hatch.build.targets.wheel]
+include = ["blocks.py"]

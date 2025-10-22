@@ -20,6 +20,7 @@ docs = [
     "mkdocs-awesome-nav",
     "markdown",
     "pymdown-extensions",
+    "ordeq_docs"
 ]
 test = [
     "pytest-cov>=6.2.1",
@@ -59,6 +60,7 @@ ordeq-viz-cli = { workspace = true }
 ordeq-yaml = { workspace = true }
 
 # Development packages
+ordeq_docs = { path = "./docs", editable = true }
 ordeq-test-utils = { workspace = true }
 
 [tool.uv]

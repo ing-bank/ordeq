@@ -38,7 +38,7 @@ class Node(Generic[FuncParams, FuncReturns]):
     name: str
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
-    tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
+    attributes: dict[str, Any] = field(default_factory=dict, hash=False)
 
     def __post_init__(self):
         """Nodes always have to be hashable"""
@@ -66,8 +66,8 @@ class Node(Generic[FuncParams, FuncReturns]):
             output_str = ", ".join(repr(o) for o in outputs)
             attributes["outputs"] = f"[{output_str}]"
 
-        if self.tags:
-            attributes["tags"] = repr(self.tags)
+        if self.attributes:
+            attributes["attributes"] = repr(self.attributes)
 
         attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
         return f"Node({attributes_str})"
@@ -84,7 +84,7 @@ class Node(Generic[FuncParams, FuncReturns]):
             name=name or self.name,
             inputs=_sequence_to_tuple(inputs or self.inputs),
             outputs=_sequence_to_tuple(outputs or self.outputs),
-            tags=self.tags,
+            attributes=self.attributes,
         )
 
     @classmethod
@@ -95,7 +95,7 @@ class Node(Generic[FuncParams, FuncReturns]):
         name: str | None = None,
         inputs: Sequence[Input] | Input | None = None,
         outputs: Sequence[Output] | Output | None = None,
-        tags: list[str] | dict[str, Any] | None = None,
+        attributes: dict[str, Any] | None = None,
     ) -> "Node[FuncParams, FuncReturns]":
         """Creates a Node instance.
 
@@ -104,7 +104,7 @@ class Node(Generic[FuncParams, FuncReturns]):
             name: name for the node. If not provided, inferred from func.
             inputs: The inputs to the node.
             outputs: The outputs from the node.
-            tags: Optional tags for the node.
+            attributes: Optional attributes for the node.
 
         Returns:
             A Node instance.
@@ -118,7 +118,7 @@ class Node(Generic[FuncParams, FuncReturns]):
             name=resolved_name,
             inputs=_sequence_to_tuple(inputs),
             outputs=_sequence_to_tuple(outputs),
-            tags=[] if tags is None else tags,
+            attributes={} if attributes is None else attributes,
         )
 
 
@@ -224,7 +224,7 @@ def node(
     *,
     inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    **attributes: Any,
 ) -> Callable[FuncParams, FuncReturns]: ...
 
 
@@ -233,7 +233,7 @@ def node(
     *,
     inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    **attributes: Any,
 ) -> Callable[
     [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
 ]: ...
@@ -244,7 +244,7 @@ def node(
     *,
     inputs: Sequence[Input] | Input | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    **attributes: Any,
 ) -> (
     Callable[
         [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
@@ -298,11 +298,11 @@ def node(
 
     ```
 
-    You can assign tags to a node, which can be used for filtering or grouping
-    nodes later:
+    You can assign attributes to a node, which can be used for filtering or
+    grouping nodes later:
 
     ```python
-    >>> @node(inputs=..., outputs=..., tags=["tag1", "tag2"])
+    >>> @node(inputs=..., outputs=..., group="group1", retries=3)
     ... def func(...): -> ...
 
     ```
@@ -311,7 +311,7 @@ def node(
         func: function of the node
         inputs: sequence of inputs
         outputs: sequence of outputs
-        tags: tags to assign to the node
+        attributes: additional attributes to assign to the node
 
     Returns:
         a node
@@ -329,7 +329,7 @@ def node(
                 return f(*args, **kwargs)
 
             inner.__ordeq_node__ = Node.from_func(  # type: ignore[attr-defined]
-                inner, inputs=inputs, outputs=outputs, tags=tags
+                inner, inputs=inputs, outputs=outputs, attributes=attributes
             )
             return inner
 
@@ -343,7 +343,7 @@ def node(
         return func(*args, **kwargs)
 
     wrapper.__ordeq_node__ = Node.from_func(  # type: ignore[attr-defined]
-        wrapper, inputs=inputs, outputs=outputs, tags=tags
+        wrapper, inputs=inputs, outputs=outputs, attributes=attributes
     )
     return wrapper
 

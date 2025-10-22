@@ -12,7 +12,7 @@ Output:
       "outputs": [
         "examples.project.nodes_import_reassign.f"
       ],
-      "tags": []
+      "attributes": {}
     },
     "nodes.examples.project.nodes_import_reassign:func_b": {
       "id": "nodes.examples.project.nodes_import_reassign:func_b",
@@ -24,7 +24,7 @@ Output:
       "outputs": [
         "examples.project.nodes_import_reassign.f"
       ],
-      "tags": []
+      "attributes": {}
     }
   },
   "ios": {

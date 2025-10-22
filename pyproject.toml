@@ -208,6 +208,7 @@ split-on-trailing-comma = false
 ]
 # Rules not applicable for some example projects
 "examples/starter-single-file/*" = ["INP001", ]
+"examples/integration-marimo/*" = ["PLC0415", "E501", "INP001"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

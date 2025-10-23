@@ -26,4 +26,4 @@ def parse_users(user: dict) -> dict:
 
 
 if __name__ == "__main__":
-    run(parse_users)
+    run(__name__)

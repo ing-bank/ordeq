@@ -136,4 +136,3 @@ Let's break this down:
 By setting the view as input to the node, Ordeq will pass along the result of `txs_filtered` to `join_txs_with_clients`, without the need for a placeholder IO.
 In addition, it will automatically run `txs_filtered` once `join_txs_with_clients` is run.
 This greatly simplifies the run command.
-

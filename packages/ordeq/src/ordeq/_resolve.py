@@ -228,9 +228,7 @@ def _resolve_runnables_to_nodes_and_modules(
                 f"Expected a module or a node, got {type(runnable)}"
             )
 
-    modules = set(
-        dict(_resolve_runnables_to_modules(*modules_and_strs)).values()
-    )
+    modules = {m for _, m in _resolve_runnables_to_modules(*modules_and_strs)}
     return nodes, modules
 
 

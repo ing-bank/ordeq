@@ -2923,10 +2923,13 @@ dependencies = [
 test = [
     { name = "boto3-stubs", extra = ["s3"] },
     { name = "minio" },
+    { name = "mypy-boto3-s3" },
+    { name = "pytest" },
     { name = "testcontainers" },
 ]
 types = [
     { name = "boto3-stubs", extra = ["s3"] },
+    { name = "mypy-boto3-s3" },
 ]
 
 [package.metadata]
@@ -2939,9 +2942,14 @@ requires-dist = [
 test = [
     { name = "boto3-stubs", extras = ["s3"] },
     { name = "minio", specifier = "==7.2.15" },
+    { name = "mypy-boto3-s3" },
+    { name = "pytest" },
     { name = "testcontainers", specifier = "==4.8.1" },
 ]
-types = [{ name = "boto3-stubs", extras = ["s3"] }]
+types = [
+    { name = "boto3-stubs", extras = ["s3"] },
+    { name = "mypy-boto3-s3" },
+]
 
 [[package]]
 name = "ordeq-cli-runner"

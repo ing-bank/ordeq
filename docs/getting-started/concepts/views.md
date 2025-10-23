@@ -197,4 +197,3 @@ The catalog remains clean, as we no longer need placeholder IOs.
 Lastly, running `join_txs_and_clients` will automatically run the views.
 
 [introduction]: ../introduction.md
-

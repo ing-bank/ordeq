@@ -12,9 +12,11 @@ JSON:
       "outputs": [
         "examples.project.inner.nodes.y"
       ],
-      "tags": [
-        "dummy"
-      ]
+      "attributes": {
+        "tags": [
+          "dummy"
+        ]
+      }
     }
   },
   "ios": {

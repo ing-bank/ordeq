@@ -1,4 +1,6 @@
+from collections import defaultdict
 from collections.abc import Iterable
+from functools import cached_property
 from graphlib import TopologicalSorter
 
 from ordeq._nodes import Node
@@ -23,7 +25,7 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
         ValueError: if an output is defined by more than one node
     """
     output_to_node: dict = {}
-    input_to_nodes: dict = {}
+    input_to_nodes: defaultdict = defaultdict(list)
     edges: dict = {node: [] for node in nodes}
     for node in nodes:
         for output_ in node.outputs:
@@ -32,7 +34,7 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
                 raise ValueError(msg)
             output_to_node[output_] = node
         for input_ in node.inputs:
-            input_to_nodes[input_] = [*input_to_nodes.get(input_, []), node]
+            input_to_nodes[input_].append(node)
     for node_output, node in output_to_node.items():
         if node_output in input_to_nodes:
             edges[node] += input_to_nodes[node_output]
@@ -86,11 +88,11 @@ class NodeGraph:
     def from_nodes(cls, nodes: Iterable[Node]) -> Self:
         return cls(_build_graph(nodes))
 
-    @property
+    @cached_property
     def topological_ordering(self) -> tuple[Node, ...]:
         return _find_topological_ordering(self.sorted_edges)
 
-    @property
+    @cached_property
     def sorted_edges(self) -> EdgesType:
         return dict(
             sorted(

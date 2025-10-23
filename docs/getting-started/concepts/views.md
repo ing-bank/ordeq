@@ -190,9 +190,10 @@ With views, we can easily do so by defining two views that share the same functi
         run(join_txs_and_clients)
     ```
 
-We defined a function `filter_by_date` that encapsulates the filtering logic.
-Then, we created two views `txs_filtered` and `clients_filtered` that both use this function.
+We defined one function for the filtering logic.
+Next, we created two views that both use this function.
 This way, we can easily reuse the filtering logic without duplicating code.
-As before, running `join_txs_and_clients` will automatically run the views.
+The catalog remains clean, as we no longer need placeholder IOs.
+Lastly, running `join_txs_and_clients` will automatically run the views.
 
 [introduction]: ../introduction.md

@@ -4,117 +4,52 @@ NodeGraph:
      standalone_view_df_filter:filter_df -> [standalone_view_df_filter:group_by]
      standalone_view_df_filter:group_by -> []
   Nodes:
-     View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
-0  foo  1    one  2.0
-1  bar  2    one  5.0
-2  foo  3    two  8.0
-3  bar  4  three  1.0
-4  foo  5    two  2.0
-5  bar  6    two  9.0
-6  foo  7    one  3.0
-7  foo  8  three  4.0), Literal(0    False
+     View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0), Literal(0    False
 1    False
 2    False
-3    False
-4     True
-5     True
-6     True
-7     True
 Name: B, dtype: bool)])
-     View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
-0  foo  1    one  2.0
-1  bar  2    one  5.0
-2  foo  3    two  8.0
-3  bar  4  three  1.0
-4  foo  5    two  2.0
-5  bar  6    two  9.0
-6  foo  7    one  3.0
-7  foo  8  three  4.0), Literal(0    False
+     View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0), Literal(0    False
 1    False
 2    False
-3    False
-4     True
-5     True
-6     True
-7     True
 Name: B, dtype: bool)])])
-{View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
-0  foo  1    one  2.0
-1  bar  2    one  5.0
-2  foo  3    two  8.0
-3  bar  4  three  1.0
-4  foo  5    two  2.0
-5  bar  6    two  9.0
-6  foo  7    one  3.0
-7  foo  8  three  4.0), Literal(0    False
+{View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0), Literal(0    False
 1    False
 2    False
-3    False
-4     True
-5     True
-6     True
-7     True
-Name: B, dtype: bool)]):      A    B      C    D
-0  NaN  NaN    NaN  NaN
-1  NaN  NaN    NaN  NaN
-2  NaN  NaN    NaN  NaN
-3  NaN  NaN    NaN  NaN
-4  foo  5.0    two  2.0
-5  bar  6.0    two  9.0
-6  foo  7.0    one  3.0
-7  foo  8.0  three  4.0, View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
-0  foo  1    one  2.0
-1  bar  2    one  5.0
-2  foo  3    two  8.0
-3  bar  4  three  1.0
-4  foo  5    two  2.0
-5  bar  6    two  9.0
-6  foo  7    one  3.0
-7  foo  8  three  4.0), Literal(0    False
+Name: B, dtype: bool)]):      A   B    C   D
+0  NaN NaN  NaN NaN
+1  NaN NaN  NaN NaN
+2  NaN NaN  NaN NaN, View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0), Literal(0    False
 1    False
 2    False
-3    False
-4     True
-5     True
-6     True
-7     True
 Name: B, dtype: bool)])]): None}
 
 Logging:
-INFO	ordeq.io	Loading Literal(     A  B      C    D
-0  foo  1    one  2.0
-1  bar  2    one  5.0
-2  foo  3    two  8.0
-3  bar  4  three  1.0
-4  foo  5    two  2.0
-5  bar  6    two  9.0
-6  foo  7    one  3.0
-7  foo  8  three  4.0)
+INFO	ordeq.io	Loading Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)
 INFO	ordeq.io	Loading Literal(0    False
 1    False
 2    False
-3    False
-4     True
-5     True
-6     True
-7     True
 Name: B, dtype: bool)
-INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
-0  foo  1    one  2.0
-1  bar  2    one  5.0
-2  foo  3    two  8.0
-3  bar  4  three  1.0
-4  foo  5    two  2.0
-5  bar  6    two  9.0
-6  foo  7    one  3.0
-7  foo  8  three  4.0), Literal(0    False
+INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0), Literal(0    False
 1    False
 2    False
-3    False
-4     True
-5     True
-6     True
-7     True
 Name: B, dtype: bool)])
 INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:group_by, inputs=[IO(idx=ID1)])
 

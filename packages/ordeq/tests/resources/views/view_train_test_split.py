@@ -1,29 +1,36 @@
 from ordeq import node, run
 from ordeq_common import Literal
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split
 import pandas as pd
-from sklearn.linear_model import LinearRegression
 
-iris = Literal(load_iris())
-model = Literal(LinearRegression())
-
-Split = tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]
-
-
-@node(inputs=iris)
-def split(df: pd.DataFrame) -> Split:
-    X, y = df['data'], df['target']
-    return train_test_split(
-        X, y, random_state=104, test_size=0.25, shuffle=True
+dataframe = Literal(
+    pd.DataFrame(
+        {
+            "A": ["foo", "bar", "foo"],
+            "B": [1, 2, 3],
+            "C": ["one", "one", "two"],
+            "gt": [2.0, 5.0, 8.0],
+        }
     )
+)
+
+Split = tuple[pd.DataFrame, pd.DataFrame]
+
+
+@node(inputs=dataframe)
+def split(df: pd.DataFrame) -> Split:
+    df = df.sample(frac=1, random_state=1).reset_index(
+        drop=True
+    )
+    n_test = int(len(df) * 0.25)
+    test_df = df.iloc[:n_test]
+    train_df = df.iloc[n_test:]
+    return train_df, test_df
 
 
 @node(inputs=split)
 def train(data: Split) -> None:
-    X_train, y_train, _, _ = data
-    fitted = LinearRegression().fit(X_train, y_train)
-    print(fitted.coef_)
+    # Put your training code here
+    print('Training', data[0].describe())
 
 
 print(run(train, verbose=True))

@@ -4,7 +4,7 @@ import importlib
 import logging
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
-from functools import wraps, cached_property
+from functools import cached_property, wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
@@ -260,14 +260,14 @@ def create_node(
             name=resolved_name,
             inputs=tuple(inputs_),
             outputs=(IO(),),
-            attributes=attributes or {},
+            attributes={} if attributes is None else attributes,
         )
     return Node(
         func=func,
         name=resolved_name,
         inputs=tuple(inputs_),
         outputs=_sequence_to_tuple(outputs),
-        attributes=attributes or {},
+        attributes={} if attributes is None else attributes,
     )
 
 
@@ -277,7 +277,7 @@ class View(Node[FuncParams, FuncReturns]):
     name: str
     inputs: tuple[Input | View, ...]
     outputs: tuple[Output]
-    tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
+    attributes: dict[str, Any] = field(default_factory=dict, hash=False)
 
     def __post_init__(self):
         self.validate()

@@ -1,6 +1,4 @@
 import pytest
-from ordeq import IO, Node, node
-from ordeq._nodes import get_node
 from ordeq import IO, node
 from ordeq._nodes import create_node, get_node
 from ordeq._runner import _run_node

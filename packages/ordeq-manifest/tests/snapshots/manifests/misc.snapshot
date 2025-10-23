@@ -2,7 +2,8 @@ Output:
 {
   "name": "examples.project.misc",
   "nodes": {},
-  "ios": {}
+  "ios": {},
+  "pipelines": []
 }
 
 Typing:

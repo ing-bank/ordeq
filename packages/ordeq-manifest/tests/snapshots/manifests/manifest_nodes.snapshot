@@ -31,7 +31,12 @@ Output:
       "type": "ordeq_common.io.printer.Print",
       "references": []
     }
-  }
+  },
+  "pipelines": [
+    "examples",
+    "examples.project",
+    "examples.project.nodes"
+  ]
 }
 
 Typing:

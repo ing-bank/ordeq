@@ -1,5 +1,6 @@
 from collections import defaultdict
 from collections.abc import Iterable
+from functools import cached_property
 from graphlib import TopologicalSorter
 
 from ordeq._nodes import Node
@@ -87,11 +88,11 @@ class NodeGraph:
     def from_nodes(cls, nodes: Iterable[Node]) -> Self:
         return cls(_build_graph(nodes))
 
-    @property
+    @cached_property
     def topological_ordering(self) -> tuple[Node, ...]:
         return _find_topological_ordering(self.sorted_edges)
 
-    @property
+    @cached_property
     def sorted_edges(self) -> EdgesType:
         return dict(
             sorted(

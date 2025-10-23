@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 import numpy as np
 from ordeq import IO
@@ -24,7 +25,7 @@ class NumpyBinary(IO[np.ndarray]):
 
     path: PathLike
 
-    def load(self, **load_options) -> np.ndarray:
+    def load(self, **load_options: Any) -> np.ndarray:
         """Load numpy array with optional parameters.
 
         Args:

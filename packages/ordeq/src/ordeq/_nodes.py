@@ -96,10 +96,8 @@ class Node(Generic[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
-            # type: ignore[misc,arg-type]
-            outputs=tuple(io.get(op, op) for op in self.outputs),
-            # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
         )
 
 
@@ -324,8 +322,7 @@ class View(Node[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
-            # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
         )
 
 

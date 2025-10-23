@@ -38,6 +38,13 @@ class NumpyBinary(IO[np.ndarray]):
         with self.path.open("rb") as fh:
             return np.load(fh, **load_options)
 
-    def save(self, array: np.ndarray) -> None:
+    def save(self, array: np.ndarray, **save_options: Any) -> None:
+        """Save numpy array with optional parameters.
+
+        Args:
+            array: The array to save
+            **save_options: Arguments passed to np.save()
+                (e.g., allow_pickle, fix_imports)
+        """
         with self.path.open("wb") as fh:
-            np.save(fh, array)
+            np.save(fh, array, **save_options)

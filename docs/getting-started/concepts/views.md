@@ -70,9 +70,9 @@ A first attempt at completing this using Ordeq would look roughly like this:
 
 Here's what we have done:
 
-- in an attempt to modularize the logic, we created two nodes: `filter_by_date` and `join_txs_and_clients`.
+- to keep the transformations modular, we created two nodes: `filter_by_date` and `join_txs_and_clients`.
 - we defined a placeholder IO `txs_filtered` in `catalog.py`.
-    This IO is not associated with any actual data source or sink.
+    This IO is not associated with any actual data source.
     It merely serves to pass the output from one node to the other.
 
 This approach has a couple of downsides:
@@ -197,3 +197,4 @@ The catalog remains clean, as we no longer need placeholder IOs.
 Lastly, running `join_txs_and_clients` will automatically run the views.
 
 [introduction]: ../introduction.md
+

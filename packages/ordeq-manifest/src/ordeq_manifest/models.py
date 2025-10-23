@@ -48,7 +48,7 @@ class NodeModel(BaseModel):
         return cls(
             id=".".join(name),
             name=name[1],
-            inputs=[ios_to_id[i] for i in node.inputs],
+            inputs=[ios_to_id[i] for i in node.inputs],  # type: ignore[index,arg-type]
             outputs=[ios_to_id[o] for o in node.outputs],
             attributes=node.attributes,
         )

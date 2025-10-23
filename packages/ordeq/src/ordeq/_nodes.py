@@ -288,7 +288,19 @@ class View(Node[FuncParams, FuncReturns]):
         _raise_for_invalid_outputs(self)
 
     def __repr__(self):
-        return f"View(name={self.name}, inputs={self.inputs})"
+        attributes = {"name": self.name}
+
+        inputs = getattr(self, "inputs", None)
+        if inputs:
+            input_str = ", ".join(repr(i) for i in inputs)
+            attributes["inputs"] = f"[{input_str}]"
+
+        if self.attributes:
+            attributes["attributes"] = repr(self.attributes)
+
+        attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
+
+        return f"View({attributes_str})"
 
     def _patch_io(
         self, io: dict[Input[T] | Output[T] | View, Input[T] | Output[T]]

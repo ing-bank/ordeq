@@ -4,7 +4,7 @@ NodeGraph:
      standalone_view_df_filter:filter_df -> [standalone_view_df_filter:group_by]
      standalone_view_df_filter:group_by -> []
   Nodes:
-     View(name=standalone_view_df_filter:filter_df, inputs=(Literal(     A  B      C    D
+     View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
 0  foo  1    one  2.0
 1  bar  2    one  5.0
 2  foo  3    two  8.0
@@ -20,8 +20,8 @@ NodeGraph:
 5     True
 6     True
 7     True
-Name: B, dtype: bool)))
-     View(name=standalone_view_df_filter:group_by, inputs=(View(name=standalone_view_df_filter:filter_df, inputs=(Literal(     A  B      C    D
+Name: B, dtype: bool)])
+     View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
 0  foo  1    one  2.0
 1  bar  2    one  5.0
 2  foo  3    two  8.0
@@ -37,8 +37,8 @@ Name: B, dtype: bool)))
 5     True
 6     True
 7     True
-Name: B, dtype: bool))),))
-{View(name=standalone_view_df_filter:filter_df, inputs=(Literal(     A  B      C    D
+Name: B, dtype: bool)])])
+{View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
 0  foo  1    one  2.0
 1  bar  2    one  5.0
 2  foo  3    two  8.0
@@ -54,7 +54,7 @@ Name: B, dtype: bool))),))
 5     True
 6     True
 7     True
-Name: B, dtype: bool))):      A    B      C    D
+Name: B, dtype: bool)]):      A    B      C    D
 0  NaN  NaN    NaN  NaN
 1  NaN  NaN    NaN  NaN
 2  NaN  NaN    NaN  NaN
@@ -62,7 +62,7 @@ Name: B, dtype: bool))):      A    B      C    D
 4  foo  5.0    two  2.0
 5  bar  6.0    two  9.0
 6  foo  7.0    one  3.0
-7  foo  8.0  three  4.0, View(name=standalone_view_df_filter:group_by, inputs=(View(name=standalone_view_df_filter:filter_df, inputs=(Literal(     A  B      C    D
+7  foo  8.0  three  4.0, View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
 0  foo  1    one  2.0
 1  bar  2    one  5.0
 2  foo  3    two  8.0
@@ -78,7 +78,7 @@ Name: B, dtype: bool))):      A    B      C    D
 5     True
 6     True
 7     True
-Name: B, dtype: bool))),)): None}
+Name: B, dtype: bool)])]): None}
 
 Logging:
 INFO	ordeq.io	Loading Literal(     A  B      C    D
@@ -99,7 +99,7 @@ INFO	ordeq.io	Loading Literal(0    False
 6     True
 7     True
 Name: B, dtype: bool)
-INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:filter_df, inputs=(Literal(     A  B      C    D
+INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B      C    D
 0  foo  1    one  2.0
 1  bar  2    one  5.0
 2  foo  3    two  8.0
@@ -115,8 +115,8 @@ INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:filter_df, in
 5     True
 6     True
 7     True
-Name: B, dtype: bool)))
-INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:group_by, inputs=(IO(idx=ID1),))
+Name: B, dtype: bool)])
+INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:group_by, inputs=[IO(idx=ID1)])
 
 Typing:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]

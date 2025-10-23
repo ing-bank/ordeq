@@ -1,7 +1,0 @@
-Exception:
-AttributeError: type object 'Node' has no attribute 'from_func'
-
-Typing:
-packages/ordeq/tests/resources/nodes/nested_nodes.py:23: error: "type[Node[FuncParams, FuncReturns]]" has no attribute "from_func"  [attr-defined]
-packages/ordeq/tests/resources/nodes/nested_nodes.py:25: error: "type[Node[FuncParams, FuncReturns]]" has no attribute "from_func"  [attr-defined]
-Found 2 errors in 1 file (checked 1 source file)

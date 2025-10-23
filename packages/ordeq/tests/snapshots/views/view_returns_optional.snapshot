@@ -4,24 +4,24 @@ NodeGraph:
      view_returns_optional:conditional -> [view_returns_optional:n]
      view_returns_optional:n -> []
   Nodes:
-     View(name=view_returns_optional:conditional, inputs=())
-     Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional, inputs=())], outputs=[Print()])
+     View(name=view_returns_optional:conditional)
+     Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional)], outputs=[Print()])
 Higher value!
-{View(name=view_returns_optional:conditional, inputs=()): 'Higher value!', Print(): 'Higher value!'}
+{View(name=view_returns_optional:conditional): 'Higher value!', Print(): 'Higher value!'}
 NodeGraph:
   Edges:
      view_returns_optional:conditional -> [view_returns_optional:n]
      view_returns_optional:n -> []
   Nodes:
-     View(name=view_returns_optional:conditional, inputs=())
-     Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional, inputs=())], outputs=[Print()])
+     View(name=view_returns_optional:conditional)
+     Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional)], outputs=[Print()])
 None
-{View(name=view_returns_optional:conditional, inputs=()): None, Print(): None}
+{View(name=view_returns_optional:conditional): None, Print(): None}
 
 Logging:
-INFO	ordeq.runner	Running node View(name=view_returns_optional:conditional, inputs=())
+INFO	ordeq.runner	Running node View(name=view_returns_optional:conditional)
 INFO	ordeq.runner	Running node Node(name=view_returns_optional:n, inputs=[IO(idx=ID1)], outputs=[Print()])
 INFO	ordeq.io	Saving Print()
-INFO	ordeq.runner	Running node View(name=view_returns_optional:conditional, inputs=())
+INFO	ordeq.runner	Running node View(name=view_returns_optional:conditional)
 INFO	ordeq.runner	Running node Node(name=view_returns_optional:n, inputs=[IO(idx=ID1)], outputs=[Print()])
 INFO	ordeq.io	Saving Print()

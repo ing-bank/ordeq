@@ -1,17 +1,17 @@
 Output:
-View(name=node_inputs_view_and_io:hello, inputs=())
+View(name=node_inputs_view_and_io:hello)
 NodeGraph:
   Edges:
      node_inputs_view_and_io:hello -> [node_inputs_view_and_io:n]
      node_inputs_view_and_io:n -> []
   Nodes:
-     View(name=node_inputs_view_and_io:hello, inputs=())
-     Node(name=node_inputs_view_and_io:n, inputs=[Literal('Jane'), View(name=node_inputs_view_and_io:hello, inputs=())], outputs=[Print()])
+     View(name=node_inputs_view_and_io:hello)
+     Node(name=node_inputs_view_and_io:n, inputs=[Literal('Jane'), View(name=node_inputs_view_and_io:hello)], outputs=[Print()])
 Jane said 'Hello, World!'
-{View(name=node_inputs_view_and_io:hello, inputs=()): 'Hello, World!', Print(): "Jane said 'Hello, World!'"}
+{View(name=node_inputs_view_and_io:hello): 'Hello, World!', Print(): "Jane said 'Hello, World!'"}
 
 Logging:
-INFO	ordeq.runner	Running node View(name=node_inputs_view_and_io:hello, inputs=())
+INFO	ordeq.runner	Running node View(name=node_inputs_view_and_io:hello)
 INFO	ordeq.io	Loading Literal('Jane')
 INFO	ordeq.runner	Running node Node(name=node_inputs_view_and_io:n, inputs=[Literal('Jane'), IO(idx=ID1)], outputs=[Print()])
 INFO	ordeq.io	Saving Print()

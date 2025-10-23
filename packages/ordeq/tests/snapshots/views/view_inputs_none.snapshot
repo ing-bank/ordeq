@@ -1,5 +1,5 @@
 Output:
-View(name=view_inputs_none:my_view, inputs=())
+View(name=view_inputs_none:my_view)
 
 Typing:
 packages/ordeq/tests/resources/views/view_inputs_none.py:5: error: No overload variant of "node" matches argument type "None"  [call-overload]

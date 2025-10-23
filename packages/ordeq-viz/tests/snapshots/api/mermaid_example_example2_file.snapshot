@@ -9,44 +9,51 @@ graph TB
 			L1[("IO")]:::io
 		end
 		subgraph IO Types
-			L00[("MockInput")]:::io0
-			L01[("MockOutput")]:::io1
-			L02[("NameGenerator")]:::io2
-			L03[("NamePrinter")]:::io3
-			L04[("SayHello")]:::io4
-			L05[("StringBuffer")]:::io5
+			L00[("Input")]:::io0
+			L01[("MockInput")]:::io1
+			L02[("MockOutput")]:::io2
+			L03[("NameGenerator")]:::io3
+			L04[("NamePrinter")]:::io4
+			L05[("Output")]:::io5
+			L06[("SayHello")]:::io6
+			L07[("StringBuffer")]:::io7
 		end
 	end
 
 	IO0 --> hello
 	hello --> IO1
+	IO2 --> transform_input_2
+	transform_input_2 --> IO3
 	IO1 --> print_message
-	print_message --> IO2
-	IO3 --> transform_mock_input
-	transform_mock_input --> IO4
-	IO5 --> transform_input
-	transform_input --> IO6
-	IO7 --> world
-	world --> IO8
+	print_message --> IO4
+	IO5 --> transform_mock_input
+	transform_mock_input --> IO6
+	IO7 --> transform_input
+	transform_input --> IO8
+	IO9 --> world
+	world --> IO10
 
 	IO0 -.->|name| IO1
-	IO2 -.->|writer| IO1
+	IO4 -.->|writer| IO1
 	subgraph pipeline["Pipeline"]
 		direction TB
 		hello(["hello"]):::node
+		transform_input_2(["transform_input_2"]):::node
 		print_message(["print_message"]):::node
 		transform_mock_input(["transform_mock_input"]):::node
 		transform_input(["transform_input"]):::node
 		world(["world"]):::node
-		IO0[("name_generator")]:::io2
-		IO1[("message")]:::io4
-		IO2[("name_printer")]:::io3
-		IO3[("Hello")]:::io5
-		IO4[("World")]:::io5
-		IO5[("TestInput")]:::io0
-		IO6[("TestOutput")]:::io1
-		IO7[("x")]:::io5
-		IO8[("y")]:::io5
+		IO0[("name_generator")]:::io3
+		IO1[("message")]:::io6
+		IO4[("name_printer")]:::io4
+		IO2[("TestInput2")]:::io0
+		IO3[("TestOutput2")]:::io5
+		IO5[("Hello")]:::io7
+		IO6[("World")]:::io7
+		IO7[("TestInput")]:::io1
+		IO8[("TestOutput")]:::io2
+		IO9[("x")]:::io7
+		IO10[("y")]:::io7
 	end
 
 	classDef node fill:#008AD7,color:#FFF
@@ -57,6 +64,8 @@ graph TB
 	classDef io3 fill:#e78ac3
 	classDef io4 fill:#a6d854
 	classDef io5 fill:#ffd92f
+	classDef io6 fill:#e5c494
+	classDef io7 fill:#b3b3b3
 
 Logging:
 INFO	ordeq.io	Loading NameGenerator(name='John')

@@ -1,3 +1,4 @@
+import html
 from itertools import cycle
 from typing import Any
 
@@ -59,8 +60,8 @@ def pipeline_to_mermaid(
     layout: str | None = None,
     theme: str | None = None,
     look: str | None = None,
-    io_shape_template: str = "[({value})]",
-    node_shape_template: str = "([{value}])",
+    io_shape_template: str = '[("{value}")]',
+    node_shape_template: str = '(["{value}"])',
 ) -> str:
     """Convert a pipeline to a mermaid diagram
 
@@ -221,7 +222,7 @@ def pipeline_to_mermaid(
     for node in node_data:
         data += (
             f"{tabs}\t{node.id}"
-            f"{node_shape_template.format(value=node.name)}"
+            f"{node_shape_template.format(value=html.escape(node.name))}"
             f":::node\n"
         )
 
@@ -232,7 +233,7 @@ def pipeline_to_mermaid(
             class_name = "io"
         data += (
             f"{tabs}\t{_hash_to_str(dataset.id, io_names)}"
-            f"{io_shape_template.format(value=dataset.name)}"
+            f"{io_shape_template.format(value=html.escape(dataset.name))}"
             f":::{class_name}\n"
         )
 

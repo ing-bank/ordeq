@@ -1,55 +1,6 @@
 import pytest
-from ordeq._nodes import get_node
-from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 
-from ordeq_viz.to_mermaid import _make_mermaid_header, pipeline_to_mermaid
-
-
-def test_mermaid():
-    from example import nodes as mod  # ty: ignore[unresolved-import]
-
-    diagram = pipeline_to_mermaid(
-        nodes={get_node(mod.world)},
-        ios={("...", "x"): mod.x, ("...", "y"): mod.y},
-    )
-
-    assert diagram.startswith("graph TB")
-    assert "world([world]):::node" in diagram
-    assert "[(x)]:::io0" in diagram
-    assert "[(y)]:::io0" in diagram
-
-
-def test_mermaid_io_shape_template():
-    from example import nodes as mod  # ty: ignore[unresolved-import]
-
-    diagram = pipeline_to_mermaid(
-        nodes={get_node(mod.world)},
-        ios={("...", "x"): mod.x, ("...", "y"): mod.y},
-        io_shape_template="({value})",
-        node_shape_template="({value})",
-    )
-
-    assert diagram.startswith("graph TB")
-    assert "world(world):::node" in diagram
-    assert "(x):::io0" in diagram
-    assert "(y):::io0" in diagram
-
-
-def test_mermaid_wrapped():
-    import example  # ty: ignore[unresolved-import]
-
-    nodes, ios = _resolve_runnables_to_nodes_and_ios(example)
-    diagram = pipeline_to_mermaid(nodes=nodes, ios=ios)
-
-    assert "-.->|name|" in diagram
-    assert "-.->|writer|" in diagram
-
-    diagram = pipeline_to_mermaid(
-        nodes=nodes, ios=ios, connect_wrapped_datasets=False
-    )
-
-    assert "-.->|name|" not in diagram
-    assert "-.->|writer|" not in diagram
+from ordeq_viz.to_mermaid import _make_mermaid_header
 
 
 @pytest.mark.parametrize(

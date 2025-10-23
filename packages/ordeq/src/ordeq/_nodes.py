@@ -4,7 +4,7 @@ import importlib
 import logging
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
-from functools import cached_property, wraps
+from functools import wraps, cached_property
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
@@ -40,13 +40,18 @@ class Node(Generic[FuncParams, FuncReturns]):
     name: str
     inputs: tuple[Input | View, ...]
     outputs: tuple[Output, ...]
-    tags: list[str] | dict[str, Any] = field(default_factory=list, hash=False)
+    attributes: dict[str, Any] = field(default_factory=dict, hash=False)
 
     def __post_init__(self):
-        self.validate()
-
-    def validate(self):
+        """Nodes always have to be hashable"""
         _raise_if_not_hashable(self)
+        if self.inputs:
+            _raise_for_invalid_inputs(self)
+        if self.outputs:
+            _raise_for_invalid_outputs(self)
+
+    def validate(self) -> None:
+        """These checks are performed before the node is run."""
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
 
@@ -70,8 +75,8 @@ class Node(Generic[FuncParams, FuncReturns]):
             output_str = ", ".join(repr(o) for o in outputs)
             attributes["outputs"] = f"[{output_str}]"
 
-        if self.tags:
-            attributes["tags"] = repr(self.tags)
+        if self.attributes:
+            attributes["attributes"] = repr(self.attributes)
 
         attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
         return f"Node({attributes_str})"
@@ -186,7 +191,7 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
     if obj is None:
         return ()
     if isinstance(obj, Sequence):
-        return tuple(obj)
+        return tuple(obj)  # ty: ignore[invalid-return-type]
     return (obj,)  # ty: ignore[invalid-return-type]
 
 
@@ -197,7 +202,7 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    attributes: dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]: ...
 
 
@@ -208,7 +213,7 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    attributes: dict[str, Any] | None = None,
 ) -> View[FuncParams, FuncReturns]: ...
 
 
@@ -218,7 +223,7 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    attributes: dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns] | View[FuncParams, FuncReturns]:
     """Creates a Node instance.
 
@@ -227,7 +232,7 @@ def create_node(
         name: name for the node. If not provided, inferred from func.
         inputs: The inputs to the node.
         outputs: The outputs from the node.
-        tags: Optional tags for the node.
+        attributes: Optional attributes for the node.
 
     Returns:
         A Node instance.
@@ -255,14 +260,14 @@ def create_node(
             name=resolved_name,
             inputs=tuple(inputs_),
             outputs=(IO(),),
-            tags=[] if tags is None else tags,
+            attributes=attributes or {},
         )
     return Node(
         func=func,
         name=resolved_name,
         inputs=tuple(inputs_),
         outputs=_sequence_to_tuple(outputs),
-        tags=[] if tags is None else tags,
+        attributes=attributes or {},
     )
 
 
@@ -309,7 +314,7 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    **attributes: Any,
 ) -> Callable[FuncParams, FuncReturns]: ...
 
 
@@ -318,7 +323,7 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    **attributes: Any,
 ) -> Callable[
     [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
 ]: ...
@@ -329,7 +334,7 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    tags: list[str] | dict[str, Any] | None = None,
+    **attributes: Any,
 ) -> (
     Callable[
         [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
@@ -383,11 +388,11 @@ def node(
 
     ```
 
-    You can assign tags to a node, which can be used for filtering or grouping
-    nodes later:
+    You can assign attributes to a node, which can be used for filtering or
+    grouping nodes later:
 
     ```python
-    >>> @node(inputs=..., outputs=..., tags=["tag1", "tag2"])
+    >>> @node(inputs=..., outputs=..., group="group1", retries=3)
     ... def func(...): -> ...
 
     ```
@@ -396,7 +401,7 @@ def node(
         func: function of the node
         inputs: sequence of inputs
         outputs: sequence of outputs
-        tags: tags to assign to the node
+        attributes: additional attributes to assign to the node
 
     Returns:
         a node
@@ -414,7 +419,7 @@ def node(
                 return f(*args, **kwargs)
 
             inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                inner, inputs=inputs, outputs=outputs, tags=tags
+                inner, inputs=inputs, outputs=outputs, attributes=attributes
             )
             return inner
 
@@ -428,7 +433,7 @@ def node(
         return func(*args, **kwargs)
 
     wrapper.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-        wrapper, inputs=inputs, outputs=outputs, tags=tags
+        wrapper, inputs=inputs, outputs=outputs, attributes=attributes
     )
     return wrapper
 

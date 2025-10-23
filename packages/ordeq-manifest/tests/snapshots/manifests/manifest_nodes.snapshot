@@ -11,9 +11,11 @@ Output:
       "outputs": [
         "examples.project.nodes.y"
       ],
-      "tags": [
-        "dummy"
-      ]
+      "attributes": {
+        "tags": [
+          "dummy"
+        ]
+      }
     }
   },
   "ios": {

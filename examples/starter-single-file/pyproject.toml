@@ -1,0 +1,11 @@
+[project]
+name = "starter-single-file"
+version = "0.1.0"
+description = "Starter project for Ordeq using a single file"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "ordeq-requests",
+    "ordeq-yaml"
+]

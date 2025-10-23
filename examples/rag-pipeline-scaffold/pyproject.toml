@@ -1,0 +1,14 @@
+[project]
+name = "rag-pipeline"
+version = "0.1.0"
+description = "Example pipeline architecture for a RAG pipeline."
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "ordeq-faiss",
+    "ordeq-files",
+    "ordeq-pandas",
+    "ordeq-pymupdf",
+    "ordeq-sentence-transformers",
+    "ordeq-viz",
+]

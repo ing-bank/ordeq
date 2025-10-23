@@ -5,6 +5,7 @@
 [![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)](https://pypi.org/project/ordeq/)
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+![Static Badge](https://img.shields.io/badge/powered_by-Ordeq-darkgreen?style=flat&link=https%3A%2F%2Fing-bank.github.io%2Fordeq%2F)
 
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.

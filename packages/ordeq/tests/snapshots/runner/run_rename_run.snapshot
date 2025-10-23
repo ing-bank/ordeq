@@ -1,0 +1,17 @@
+Output:
+NodeGraph:
+  Edges:
+     run_rename_run:print_message -> []
+  Nodes:
+     View(name=run_rename_run:print_message, inputs=())
+Hello from printer
+NodeGraph:
+  Edges:
+     run_rename_run:print_message -> []
+  Nodes:
+     View(name=run_rename_run:print_message, inputs=())
+Hello from printer
+
+Logging:
+INFO	ordeq.runner	Running node View(name=run_rename_run:print_message, inputs=())
+INFO	ordeq.runner	Running node View(name=run_rename_run:print_message, inputs=())

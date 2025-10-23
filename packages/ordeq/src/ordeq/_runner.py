@@ -2,12 +2,12 @@ import logging
 from collections.abc import Callable, Sequence
 from itertools import chain
 from types import ModuleType
-from typing import Literal, TypeVar
+from typing import Literal, TypeVar, cast
 
 from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import Input, Output, _InputCache
-from ordeq._nodes import Node
+from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
 
 logger = logging.getLogger("ordeq.runner")
@@ -27,7 +27,7 @@ SaveMode = Literal["all", "sinks", "none"]
 
 def _save_outputs(
     node: Node, values: Sequence[T], save: bool = True
-) -> dict[Input[T] | Output[T], T]:
+) -> DataStoreType:
     computed: dict[Input[T] | Output[T], T] = {}
     for output_dataset, data in zip(node.outputs, values, strict=False):
         computed[output_dataset] = data
@@ -47,7 +47,8 @@ def _run_node(
     for node_hook in hooks:
         node_hook.before_node_run(node)
 
-    args = [input_dataset.load() for input_dataset in node.inputs]
+    # TODO: Fix type checking here
+    args = [input_dataset.load() for input_dataset in node.inputs]  # type: ignore[union-attr]
 
     # persisting loaded data
     for node_input, data in zip(node.inputs, args, strict=True):
@@ -105,9 +106,16 @@ def _run_graph(
 
     """
 
+    # Each view will be replaced by its sentinel IO:
+    views = [node for node in graph.nodes if isinstance(node, View)]
+    io_ = cast("dict[Input | Output | View, Input | Output]", io or {})
+    for view in views:
+        io_[view] = view.outputs[0]
+
+    # Apply the patches:
     patched_nodes: dict[Node, Node] = {}
     for node in graph.nodes:
-        patched_nodes[node] = _patch_io(node, io or {})
+        patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
 
     data_store: dict = {}  # For each IO, the loaded data
 
@@ -121,7 +129,7 @@ def _run_graph(
         computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
         data_store.update(computed)
 
-    reverse_io = {v: k for k, v in (io or {}).items()}
+    reverse_io = {v: k for k, v in (io_ or {}).items()}
     patched_data_store = {}
     for k, v in data_store.items():
         patched_data_store[reverse_io.get(k, k)] = v
@@ -133,27 +141,8 @@ def _run_graph(
             if isinstance(io_obj, _InputCache):
                 io_obj.unpersist()
 
+    # remove sentinel IO objects from the data store
     return patched_data_store
-
-
-def _patch_io(
-    node: Node, io: dict[Input[T] | Output[T], Input[T] | Output[T]]
-) -> Node:
-    """Patches the inputs and outputs of a node with the provided IO mapping.
-
-    Args:
-        node: the original node
-        io: mapping of Input/Output objects to their replacements
-
-    Returns:
-        the node with patched inputs and outputs
-
-    """
-
-    return node._replace(
-        inputs=[io.get(ip, ip) for ip in node.inputs],  # type: ignore[misc]
-        outputs=[io.get(op, op) for op in node.outputs],  # type: ignore[misc]
-    )
 
 
 def run(

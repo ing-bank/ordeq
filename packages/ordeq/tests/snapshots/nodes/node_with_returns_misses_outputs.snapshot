@@ -1,2 +1,3 @@
-Exception:
-ValueError: Node outputs invalid for return annotation: Node(name=node_with_returns_misses_outputs:func,...). Node has 0 output(s), but the return type annotation expects 1 value(s).
+Logging:
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node View(name=node_with_returns_misses_outputs:func, inputs=(StringBuffer(_buffer=<_io.StringIO object at HASH1>),))

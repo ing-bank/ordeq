@@ -1,0 +1,17 @@
+Output:
+View(name=node_inputs_view_tuple_and_io:hello, inputs=())
+NodeGraph:
+  Edges:
+     node_inputs_view_tuple_and_io:combine_greeting_with_ending -> []
+     node_inputs_view_tuple_and_io:hello -> [node_inputs_view_tuple_and_io:combine_greeting_with_ending]
+  Nodes:
+     Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[View(name=node_inputs_view_tuple_and_io:hello, inputs=()), Literal('!!!')], outputs=[Print()])
+     View(name=node_inputs_view_tuple_and_io:hello, inputs=())
+Hello world !!!
+{View(name=node_inputs_view_tuple_and_io:hello, inputs=()): ('Hello', 'world'), Print(): 'Hello world !!!'}
+
+Logging:
+INFO	ordeq.runner	Running node View(name=node_inputs_view_tuple_and_io:hello, inputs=())
+INFO	ordeq.io	Loading Literal('!!!')
+INFO	ordeq.runner	Running node Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[IO(idx=ID1), Literal('!!!')], outputs=[Print()])
+INFO	ordeq.io	Saving Print()

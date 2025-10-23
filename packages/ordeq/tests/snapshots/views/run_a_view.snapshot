@@ -1,9 +1,0 @@
-Exception:
-ValueError: Node outputs invalid for return annotation: Node(name=run_a_view:my_view,...). Node has 0 output(s), but the return type annotation expects 1 value(s).
-
-Output:
-NodeGraph:
-  Edges:
-     run_a_view:my_view -> []
-  Nodes:
-     Node(name=run_a_view:my_view)

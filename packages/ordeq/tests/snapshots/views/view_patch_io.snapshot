@@ -1,0 +1,19 @@
+Output:
+NodeGraph:
+  Edges:
+     view_patch_io:hello_world -> [view_patch_io:n]
+     view_patch_io:n -> []
+  Nodes:
+     View(name=view_patch_io:hello_world, inputs=(Literal('Hello'),))
+     View(name=view_patch_io:n, inputs=(View(name=view_patch_io:hello_world, inputs=(Literal('Hello'),)),))
+Node received 'Buenos dias World!'
+{View(name=view_patch_io:hello_world, inputs=(Literal('Hello'),)): ('Buenos dias', 'World!'), View(name=view_patch_io:n, inputs=(View(name=view_patch_io:hello_world, inputs=(Literal('Hello'),)),)): None}
+
+Logging:
+INFO	ordeq.io	Loading Literal('Buenos dias')
+INFO	ordeq.runner	Running node View(name=view_patch_io:hello_world, inputs=(Literal('Buenos dias'),))
+INFO	ordeq.runner	Running node View(name=view_patch_io:n, inputs=(IO(idx=ID1),))
+
+Typing:
+packages/ordeq/tests/resources/views/view_patch_io.py:17: error: Argument "io" to "run" has incompatible type "dict[Literal[str], Literal[str]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+Found 1 error in 1 file (checked 1 source file)

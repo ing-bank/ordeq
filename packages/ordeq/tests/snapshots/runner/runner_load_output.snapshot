@@ -9,5 +9,5 @@ INFO	ordeq.runner	Running node Node(name=runner_load_output:my_node, outputs=[Ou
 INFO	ordeq.io	Saving Output(idx=ID1)
 
 Typing:
-packages/ordeq/tests/resources/runner/runner_load_output.py:16: error: List item 0 has incompatible type "Example"; expected "Input[Any]"  [list-item]
+packages/ordeq/tests/resources/runner/runner_load_output.py:16: error: List item 0 has incompatible type "Example"; expected "Input[Any] | Callable[..., Any]"  [list-item]
 Found 1 error in 1 file (checked 1 source file)

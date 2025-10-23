@@ -1,0 +1,20 @@
+[project]
+name = "ordeq_docker_example"
+description = "Example Docker integration for Ordeq projects"
+dynamic = ["version"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+maintainers = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq>=1.2.0",
+    "ordeq-cli-runner"
+]

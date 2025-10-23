@@ -1,0 +1,2 @@
+Exception:
+ValueError: Node inputs invalid for function arguments: Node(name=node_late_binding:func,...)

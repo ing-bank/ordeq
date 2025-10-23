@@ -1,39 +1,28 @@
-import importlib
-import sys
 from collections.abc import Callable
 from pathlib import Path
 
 import pytest
 from ordeq import IO, Input, Node, Output
 from ordeq._nodes import get_node
-from ordeq._registry import NODE_REGISTRY
+from ordeq_test_utils import append_packages_dir_to_sys_path
 
 
 @pytest.fixture
-def resources_dir() -> Path:
-    """Return the path to the resources directory.
+def packages_dir() -> Path:
+    """Return the path to the packages directory.
 
     Returns:
-        the path to the resources directory
+        the path to the packages directory
     """
 
     PACKAGE_DIR = Path(__file__).resolve().parent
-    return PACKAGE_DIR / "resources"
+    return PACKAGE_DIR / "packages"
 
 
 @pytest.fixture(autouse=True)
-def append_resources_dir_to_sys_path(resources_dir):
-    """Append the resources directory to sys.path."""
-    sys.path.append(str(resources_dir))
-    yield
-    sys.path.remove(str(resources_dir))
-    for n in filter(lambda m: m.startswith("example"), list(sys.modules)):
-        # Remove the example.* and example2.* modules from sys.modules
-        # to ensure a clean state for each test
-        del sys.modules[n]
-    NODE_REGISTRY._data.clear()
-
-    importlib.invalidate_caches()
+def packages(packages_dir):
+    """Append the packages directory to sys.path."""
+    yield from append_packages_dir_to_sys_path(packages_dir)
 
 
 @pytest.fixture
@@ -58,7 +47,7 @@ def expected_example_nodes() -> set[Callable]:
 
 
 @pytest.fixture
-def expected_example_ios() -> dict[str, IO | Input | Output]:
+def expected_example_ios() -> dict[tuple[str, str], IO | Input | Output]:
     """Expected IOs in the example package.
 
     Returns:
@@ -78,15 +67,19 @@ def expected_example_ios() -> dict[str, IO | Input | Output]:
     )
 
     return {
-        "Hello": Hello,
-        "TestInput": TestInput,
-        "TestOutput": TestOutput,
-        "World": World,
-        "x": x,
-        "y": y,
-        "message": message,
-        "name_generator": name_generator,
-        "name_printer": name_printer,
+        ("example.catalog", "Hello"): Hello,
+        ("example.catalog", "TestInput"): TestInput,
+        ("example.catalog", "TestOutput"): TestOutput,
+        ("example.catalog", "World"): World,
+        ("example.nodes", "x"): x,
+        ("example.nodes", "y"): y,
+        ("example.pipeline", "Hello"): Hello,
+        ("example.pipeline", "TestInput"): TestInput,
+        ("example.pipeline", "TestOutput"): TestOutput,
+        ("example.pipeline", "World"): World,
+        ("example.wrapped_io", "message"): message,
+        ("example.wrapped_io", "name_generator"): name_generator,
+        ("example.wrapped_io", "name_printer"): name_printer,
     }
 
 

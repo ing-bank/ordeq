@@ -1,0 +1,68 @@
+Output:
+NodeGraph:
+  Edges:
+     standalone_view_df_cast:cast -> [standalone_view_df_cast:group_by]
+     standalone_view_df_cast:group_by -> []
+  Nodes:
+     View(name=standalone_view_df_cast:cast, inputs=(Literal(     A  B      C    D
+0  foo  1    one  2.0
+1  bar  2    one  5.0
+2  foo  3    two  8.0
+3  bar  4  three  1.0
+4  foo  5    two  2.0
+5  bar  6    two  9.0
+6  foo  7    one  3.0
+7  foo  8  three  4.0),))
+     Node(name=standalone_view_df_cast:group_by, inputs=[View(name=standalone_view_df_cast:cast, inputs=(Literal(     A  B      C    D
+0  foo  1    one  2.0
+1  bar  2    one  5.0
+2  foo  3    two  8.0
+3  bar  4  three  1.0
+4  foo  5    two  2.0
+5  bar  6    two  9.0
+6  foo  7    one  3.0
+7  foo  8  three  4.0),))], outputs=[Output(idx=ID1)])
+     A    B    D
+0  bar  4.0  9.0
+1  foo  4.8  8.0
+{View(name=standalone_view_df_cast:cast, inputs=(Literal(     A  B      C    D
+0  foo  1    one  2.0
+1  bar  2    one  5.0
+2  foo  3    two  8.0
+3  bar  4  three  1.0
+4  foo  5    two  2.0
+5  bar  6    two  9.0
+6  foo  7    one  3.0
+7  foo  8  three  4.0),)):      A  B      C    D
+0  foo  1    one  2.0
+1  bar  2    one  5.0
+2  foo  3    two  8.0
+3  bar  4  three  1.0
+4  foo  5    two  2.0
+5  bar  6    two  9.0
+6  foo  7    one  3.0
+7  foo  8  three  4.0, Output(idx=ID1):      A    B    D
+0  bar  4.0  9.0
+1  foo  4.8  8.0}
+
+Logging:
+INFO	ordeq.io	Loading Literal(     A  B      C    D
+0  foo  1    one  2.0
+1  bar  2    one  5.0
+2  foo  3    two  8.0
+3  bar  4  three  1.0
+4  foo  5    two  2.0
+5  bar  6    two  9.0
+6  foo  7    one  3.0
+7  foo  8  three  4.0)
+INFO	ordeq.runner	Running node View(name=standalone_view_df_cast:cast, inputs=(Literal(     A  B      C    D
+0  foo  1    one  2.0
+1  bar  2    one  5.0
+2  foo  3    two  8.0
+3  bar  4  three  1.0
+4  foo  5    two  2.0
+5  bar  6    two  9.0
+6  foo  7    one  3.0
+7  foo  8  three  4.0),))
+INFO	ordeq.runner	Running node Node(name=standalone_view_df_cast:group_by, inputs=[IO(idx=ID2)], outputs=[Output(idx=ID1)])
+INFO	ordeq.io	Saving Output(idx=ID1)

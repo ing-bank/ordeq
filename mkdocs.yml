@@ -17,6 +17,7 @@ theme:
     - content.code.copy
     - content.code.select
     - navigation.footer
+    - navigation.indexes
   palette:
     - scheme: slate
       primary: black

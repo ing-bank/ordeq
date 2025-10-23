@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_common"
+description = "Frequently used IOs and Hooks for Ordeq projects"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -17,7 +18,10 @@ maintainers = [
     { name = "Simon Brugman" },
 ]
 requires-python = ">=3.10"
-dependencies = ["ordeq>=1.0.0"]
+dependencies = ["ordeq>=1.2.0"]
+
+[tool.ordeq]
+group = "ios"
 
 [dependency-groups]
 test = [

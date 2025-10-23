@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_joblib"
+description = "Joblib integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -18,9 +19,15 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "ordeq>=1.0.0",
+    "ordeq>=1.2.0",
     "joblib",
 ]
+
+[tool.ordeq]
+group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg"
 
 [dependency-groups]
 test = [

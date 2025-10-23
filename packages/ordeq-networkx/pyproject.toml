@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_networkx"
+description = "NetworkX integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"
@@ -22,13 +23,19 @@ dependencies = [
     "networkx"
 ]
 
+[tool.ordeq]
+group = "ios"
+
+[tool.ordeq-dev]
+logo_url = "https://avatars.githubusercontent.com/u/388785?s=200&v=4"
+
 [dependency-groups]
 test = []
 
 [tool.setuptools_scm]
 root = "../../"
 version_file = "src/ordeq_networkx/_version.py"
-tag_regex = "^ordeq-networkx/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){{0,2}}[^\\+]*)(?:\\+.*)?$"
+tag_regex = "^ordeq-networkx/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
 git_describe_command = "git describe --dirty --tags --long --match ordeq-networkx/*"
 
 [tool.setuptools.packages.find]
@@ -43,4 +50,3 @@ addopts = "--doctest-modules"
 omit = [
     "src/ordeq_networkx/_version.py"
 ]
-

@@ -1,0 +1,2 @@
+Exception:
+ValueError: Node outputs invalid for return annotation: Node(name=view_outputs_empty:view,...). Node has 0 output(s), but the return type annotation expects 1 value(s).

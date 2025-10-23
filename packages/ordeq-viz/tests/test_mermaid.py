@@ -9,7 +9,8 @@ def test_mermaid():
     from example import nodes as mod  # ty: ignore[unresolved-import]
 
     diagram = pipeline_to_mermaid(
-        nodes={get_node(mod.world)}, datasets={"x": mod.x, "y": mod.y}
+        nodes={get_node(mod.world)},
+        ios={("...", "x"): mod.x, ("...", "y"): mod.y},
     )
 
     assert diagram.startswith("graph TB")
@@ -23,7 +24,7 @@ def test_mermaid_io_shape_template():
 
     diagram = pipeline_to_mermaid(
         nodes={get_node(mod.world)},
-        datasets={"x": mod.x, "y": mod.y},
+        ios={("...", "x"): mod.x, ("...", "y"): mod.y},
         io_shape_template="({value})",
         node_shape_template="({value})",
     )
@@ -38,13 +39,13 @@ def test_mermaid_wrapped():
     import example  # ty: ignore[unresolved-import]
 
     nodes, ios = _resolve_runnables_to_nodes_and_ios(example)
-    diagram = pipeline_to_mermaid(nodes=nodes, datasets=ios)
+    diagram = pipeline_to_mermaid(nodes=nodes, ios=ios)
 
     assert "-.->|name|" in diagram
     assert "-.->|writer|" in diagram
 
     diagram = pipeline_to_mermaid(
-        nodes=nodes, datasets=ios, connect_wrapped_datasets=False
+        nodes=nodes, ios=ios, connect_wrapped_datasets=False
     )
 
     assert "-.->|name|" not in diagram

@@ -6,6 +6,7 @@ nav:
           - IO: getting-started/concepts/io.md
           - Nodes: getting-started/concepts/nodes.md
           - Catalogs: getting-started/concepts/catalogs.md
+          - Views: getting-started/concepts/views.md
           - Hooks: getting-started/concepts/hooks.md
   - Guides & examples:
       - guides/run_and_viz.md
@@ -16,10 +17,16 @@ nav:
         - Lazy IO: guides/lazy_io.md
         - Cloud storage: guides/cloud_storage.md
       - guides/testing_nodes.md
+      - Other frameworks:
+          - Coming from Kedro: guides/kedro.md
       - Examples:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
+      - Integrations:
+          - Docker: guides/integrations/docker.md
       # TODO: Add an example project
-  - API: api
+  - Packages:
+    - Overview: packages.md
+    - API: api
   - Contributing:
       - How to: CONTRIBUTING.md
       - Acknowledgements: contributing/acknowledgements.md

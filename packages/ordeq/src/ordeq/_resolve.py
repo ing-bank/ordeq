@@ -2,12 +2,13 @@
 
 import importlib
 import pkgutil
-from collections.abc import Callable, Generator, Iterable
+from collections.abc import Callable, Generator, Iterable, Sequence
 from types import ModuleType
+from typing import Any
 
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
-from ordeq._nodes import Node, _get_node_name
+from ordeq._nodes import Node, View, get_node
 
 
 def _is_module(obj: object) -> bool:
@@ -22,17 +23,26 @@ def _is_io(obj: object) -> bool:
     return isinstance(obj, (IO, Input, Output))
 
 
-def _is_node_proxy(obj: object) -> bool:
-    return callable(obj) and hasattr(obj, "__ordeq_node__") and isinstance(
-        obj.__ordeq_node__, Node
+def _get_io_sequence(value: Any) -> list[Input | Output | IO]:
+    if _is_io(value):
+        return [value]
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return [io for v in value for io in _get_io_sequence(v)]
+    if isinstance(value, dict):
+        return [io for v in value.values() for io in _get_io_sequence(v)]
+    return []
+
+
+def _is_io_sequence(value: Any) -> bool:
+    return bool(_get_io_sequence(value))
+
+
+def _is_node(obj: object) -> bool:
+    return (
+        callable(obj)
+        and hasattr(obj, "__ordeq_node__")
+        and isinstance(obj.__ordeq_node__, Node)
     )
-
-
-def _resolve_object_to_node(obj: object) -> Node:
-    if _is_node_proxy(obj):
-        node = getattr(obj, "__ordeq_node__")
-        return node._replace(name=_get_node_name(obj))
-    raise TypeError(f"{obj} is not a node")
 
 
 def _resolve_string_to_module(name: str) -> ModuleType:
@@ -86,22 +96,25 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
     """
 
-    return {_resolve_object_to_node(obj) for obj in vars(module).values() if
-            _is_node_proxy(obj)}
+    return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
 
 
 def _resolve_module_to_ios(
     module: ModuleType,
-) -> dict[str, IO | Input | Output]:
+) -> dict[tuple[str, str], IO | Input | Output]:
     """Find all `IO` objects defined in the provided module
 
     Args:
         module: the Python module object
 
     Returns:
-        a dict of `IO` objects with their variable name as key
+        a dict of `IO` objects with their fully-qualified name as key
     """
-    return {name: obj for name, obj in vars(module).items() if _is_io(obj)}
+    return {
+        (module.__name__, name): obj
+        for name, obj in vars(module).items()
+        if _is_io(obj)
+    }
 
 
 def _resolve_node_reference(ref: str) -> Node:
@@ -122,11 +135,11 @@ def _resolve_node_reference(ref: str) -> Node:
     module_name, _, node_name = ref.partition(":")
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
-    if node_obj is None or not _is_node_proxy(node_obj):
+    if node_obj is None or not _is_node(node_obj):
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )
-    return _resolve_object_to_node(node_obj)
+    return get_node(node_obj)
 
 
 def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
@@ -206,7 +219,7 @@ def _resolve_runnables_to_nodes_and_modules(
         ):
             modules_and_strs.append(runnable)
         elif callable(runnable):
-            nodes.add(_resolve_object_to_node(runnable))
+            nodes.add(get_node(runnable))
         elif isinstance(runnable, str):
             nodes.add(_resolve_node_reference(runnable))
         else:
@@ -243,7 +256,7 @@ def _resolve_runnables_to_nodes(
 def _check_missing_ios(
     nodes: set[Node], ios: dict[str, IO | Input | Output]
 ) -> None:
-    missing_ios: set[IO | Input | Output] = set()
+    missing_ios: set[IO | Input | Output | View] = set()
     for node in nodes:
         for inp in node.inputs:
             if inp not in ios.values():
@@ -262,7 +275,7 @@ def _check_missing_ios(
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: str | ModuleType | Callable,
-) -> tuple[set[Node], dict[str, IO | Input | Output]]:
+) -> tuple[set[Node], dict[tuple[str, str], IO | Input | Output]]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:

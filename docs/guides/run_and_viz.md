@@ -72,6 +72,32 @@ if __name__ == "__main__":
 
 Just as `run`, the `viz` function accepts **functions, modules, or packages** as input and will generate a visual representation of the nodes and their dependencies.
 
+### Notebooks
+
+In notebook environments, you can directly visualize the graph without saving it to a file:
+
+```python title="notebook.ipynb"
+from ordeq_viz import viz
+from IPython.display import display, Markdown
+import nodes
+
+diagram = viz(nodes, fmt="mermaid")
+display(Markdown(diagram))
+```
+
+Jupyter supports this [since version 7.1](https://jupyter-notebook.readthedocs.io/en/stable/changelog.html#diagrams-in-markdown).
+
+Similarly for Marimo notebooks, you can display the diagram directly:
+
+```python title="notebook.py"
+from ordeq_viz import viz
+import nodes
+import marimo as mo
+
+diagram = viz(nodes, fmt="mermaid")
+mo.mermaid(diagram)
+```
+
 ## Combining run and viz
 
 You can also combine both `run` and `viz` in a single script to execute the nodes and visualize the workflow:

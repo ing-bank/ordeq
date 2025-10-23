@@ -29,4 +29,4 @@ def test_it_raises_if_no_client():
     with pytest.raises(
         TypeError, match="missing 1 required positional argument: 'connector'"
     ):
-        S3Connector() # ty: ignore[missing-argument]
+        S3Connector()  # ty: ignore[missing-argument]

@@ -135,7 +135,7 @@ class MarimoEmbedFileBlock(BaseMarimoBlock):
         self._create_iframe(block, url)
 
         # === Start Modification from source: Add "Open in Marimo" link if enabled  ===
-        show_open_in_marimo: str = cast(str, self.options.get("show_open_in_marimo", "false"))
+        show_open_in_marimo: str = cast(str, self.options.get("show_open_in_marimo", "true"))
         if show_open_in_marimo == "true":
             open_in_marimo_container = etree.SubElement(block, "p")
             open_in_marimo_link = etree.SubElement(open_in_marimo_container, "a")

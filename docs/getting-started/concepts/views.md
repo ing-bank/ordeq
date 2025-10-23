@@ -115,7 +115,6 @@ Using views, we can edit the example above to as follows:
 
     date = CommandLineArg("--date", type=str)
     txs = SparkHiveTable(table="txs")
-    txs_filtered = IO()  # Placeholder IO
     clients = SparkHiveTable(table="clients")
     txs_and_clients = SparkHiveTable(table="txs_and_clients")
     ```
@@ -123,11 +122,11 @@ Using views, we can edit the example above to as follows:
 === "\_\_main\_\_.py"
 
     ```python
-    from nodes import filter_by_date, join_txs_and_clients
+    from nodes import join_txs_and_clients
     from ordeq import run
 
     if __name__ == "__main__":
-        run(filter_by_date, join_txs_and_clients)
+        run(join_txs_and_clients)
     ```
 
 Let's break this down:
@@ -137,27 +136,64 @@ Let's break this down:
 
 By setting the view as input to the node, Ordeq will pass along the result of `txs_filtered` to `join_txs_with_clients`, without the need for a placeholder IO.
 In addition, it will automatically run `txs_filtered` once `join_txs_with_clients` is run.
-That means the following script will run _both_ nodes:
+This simplifies the run command.
 
-```python
-from nodes import join_txs_and_clients
-from ordeq import run
+### Reusing logic
 
-if __name__ == "__main__":
-    run(join_txs_and_clients)
-```
+Finally, views ease reuse of common transformation logic.
+For instance, suppose we want to apply the filter logic above to the clients DataFrame as well.
+With views, we can easily do so by defining two views that share the same function:
 
-### Reusing views
+=== "pipeline.py"
 
-Finally, views can be reused easily.
+    ```python
+    import catalog
+    from ordeq import node
+    from pyspark.sql import DataFrame
 
-...
 
-!!! success "Where to go from here?"
+    def filter_by_date(df: DataFrame, date: str) -> DataFrame:
+        return df.filter(df.date == date)
 
-    - See how to create custom hooks in the [guide][custom-hooks]
-    - Check out the [guide on testing nodes][testing-nodes]
 
-[custom-hooks]: ../../guides/custom_hooks.md
+    txs_filtered = node(inputs=[catalog.txs, catalog.date], func=filter_by_date)
+    clients_filtered = node(
+        inputs=[catalog.txs, catalog.date], func=filter_by_date
+    )
+
+
+    @node(inputs=[txs_filtered, clients_filtered], outputs=catalog.txs_and_clients)
+    def join_txs_and_clients(
+        txs: DataFrame, clients: DataFrame, date: str
+    ) -> DataFrame:
+        return txs.join(clients, on="client_id", how="left")
+    ```
+
+=== "catalog.py"
+
+    ```python
+    from ordeq_args import CommandLineArg
+    from ordeq_spark import SparkHiveTable
+
+    date = CommandLineArg("--date", type=str)
+    txs = SparkHiveTable(table="txs")
+    clients = SparkHiveTable(table="clients")
+    txs_and_clients = SparkHiveTable(table="txs_and_clients")
+    ```
+
+=== "\_\_main\_\_.py"
+
+    ```python
+    from nodes import join_txs_and_clients
+    from ordeq import run
+
+    if __name__ == "__main__":
+        run(join_txs_and_clients)
+    ```
+
+We defined a function `filter_by_date` that encapsulates the filtering logic.
+Then, we created two views `txs_filtered` and `clients_filtered` that both use this function.
+This way, we can easily reuse the filtering logic without duplicating code.
+As before, running `join_txs_and_clients` will automatically run the views.
+
 [introduction]: ../introduction.md
-[testing-nodes]: ../../guides/testing_nodes.md

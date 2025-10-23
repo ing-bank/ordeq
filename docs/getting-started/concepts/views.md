@@ -3,8 +3,7 @@
 Views are a special type of node.
 They are ideal to reflect common transformations, such as:
 
-- filtering, parsing, or selecting data
-- casting specific value(s) in the data
+- filtering, parsing, casting or selecting data
 - converting inputs from one type to another (say, from Pandas to Spark DataFrame)
 - selecting a device for model training (say, CPU vs GPU)
 

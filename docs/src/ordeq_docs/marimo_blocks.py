@@ -115,7 +115,6 @@ class MarimoEmbedFileBlock(BaseMarimoBlock):
     }
 
     def on_end(self, block: etree.Element) -> None:
-        print("Creating Marimo embed from file...")
         filepath = cast(str, self.options["filepath"])
         if not filepath:
             raise ValueError("File path must be provided")

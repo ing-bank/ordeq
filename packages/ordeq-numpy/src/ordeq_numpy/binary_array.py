@@ -24,21 +24,18 @@ class NumpyBinary(IO[np.ndarray]):
 
     path: PathLike
 
-    def load(self, mmap_mode: str | None = None) -> np.ndarray:
-        """Load numpy array with optional memory mapping.
+    def load(self, **load_options) -> np.ndarray:
+        """Load numpy array with optional parameters.
 
         Args:
-            mmap_mode: Memory-map mode for large arrays:
-                - None: Load into RAM (default)
-                - 'r': Read-only memory map
-                - 'r+': Read-write memory map
-                - 'c': Copy-on-write
+            **load_options: Arguments passed to np.load()
+                (e.g., mmap_mode, allow_pickle, max_header_size)
 
         Returns:
-            Numpy array (memory-mapped if mmap_mode is set)
+            Numpy array
         """
         with self.path.open("rb") as fh:
-            return np.load(fh, allow_pickle=False, mmap_mode=mmap_mode)
+            return np.load(fh, **load_options)
 
     def save(self, array: np.ndarray) -> None:
         with self.path.open("wb") as fh:

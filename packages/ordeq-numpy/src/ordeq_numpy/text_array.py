@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 import numpy as np
 from ordeq import IO
@@ -24,10 +25,26 @@ class NumpyText(IO[np.ndarray]):
 
     path: PathLike
 
-    def load(self) -> np.ndarray:
-        with self.path.open("r") as fh:
-            return np.loadtxt(fh)
+    def load(self, **load_options: Any) -> np.ndarray:
+        """Load numpy array with optional parameters.
 
-    def save(self, array: np.ndarray) -> None:
+        Args:
+            **load_options: Arguments passed to np.loadtxt()
+                (e.g., dtype, delimiter, skiprows, max_rows)
+
+        Returns:
+            Numpy array
+        """
+        with self.path.open("r") as fh:
+            return np.loadtxt(fh, **load_options)
+
+    def save(self, array: np.ndarray, **save_options: Any) -> None:
+        """Save numpy array with optional parameters.
+
+        Args:
+            array: The array to save
+            **save_options: Arguments passed to np.savetxt()
+                (e.g., fmt, delimiter, header, footer)
+        """
         with self.path.open("w") as fh:
-            np.savetxt(fh, array)
+            np.savetxt(fh, array, **save_options)

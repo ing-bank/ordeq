@@ -12,10 +12,12 @@ license-files = ["LICENSE"]
 authors = [
     { name = "Niels Neerhoff" },
     { name = "Simon Brugman" },
+    { name = "Soheil Moattar"},
 ]
 maintainers = [
     { name = "Niels Neerhoff" },
     { name = "Simon Brugman" },
+    { name = "Soheil Moattar"},
 ]
 requires-python = ">=3.10"
 dependencies = [
@@ -33,10 +35,12 @@ logo_url = "https://boto3typed.gallerycdn.vsassets.io/extensions/boto3typed/boto
 test = [
     { include-group = "types" },
     "minio==7.2.15",
+    "pytest",
     "testcontainers==4.8.1",
 ]
 types = [
     "boto3-stubs[s3]",
+    "mypy-boto3-s3",
 ]
 
 [tool.setuptools_scm]

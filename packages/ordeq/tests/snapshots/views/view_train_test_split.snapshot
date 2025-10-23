@@ -35,6 +35,8 @@ Index: []), View(name=view_train_test_split:train, inputs=[View(name=view_train_
 2  foo  3  two  8.0)])]): None}
 
 Logging:
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_train_test_split:split'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_train_test_split:train'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(     A  B    C   gt
 0  foo  1  one  2.0
 1  bar  2  one  5.0

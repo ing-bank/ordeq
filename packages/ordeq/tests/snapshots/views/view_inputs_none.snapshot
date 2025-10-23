@@ -1,6 +1,9 @@
 Output:
 View(name=view_inputs_none:my_view)
 
+Logging:
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_none:my_view'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node.
+
 Typing:
 packages/ordeq/tests/resources/views/view_inputs_none.py:5: error: No overload variant of "node" matches argument type "None"  [call-overload]
 packages/ordeq/tests/resources/views/view_inputs_none.py:5: note: Possible overload variants:

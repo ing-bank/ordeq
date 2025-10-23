@@ -3,3 +3,6 @@ Output:
 ['nested.subpackage.subsubpackage.hello:world']
 {}
 ['nested.subpackage.subsubpackage.hello:world']
+
+Logging:
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'nested.subpackage.subsubpackage.hello:world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node.

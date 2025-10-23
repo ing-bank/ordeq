@@ -36,6 +36,8 @@ Name: B, dtype: bool)]):      A   B    C   D
 Name: B, dtype: bool)])]): None}
 
 Logging:
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'standalone_view_df_filter:filter_df'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'standalone_view_df_filter:group_by'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0

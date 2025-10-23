@@ -23,6 +23,8 @@ NodeGraph:
      View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
 
 Logging:
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_takes_node_output:what_i_heard'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_takes_node_output:sink'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal('Jane')
 INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running node Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])

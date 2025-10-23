@@ -1,3 +1,6 @@
+Logging:
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_outputs_view:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node.
+
 Typing:
 packages/ordeq/tests/resources/views/node_outputs_view.py:10: error: No overload variant of "node" matches argument type "Callable[[], str]"  [call-overload]
 packages/ordeq/tests/resources/views/node_outputs_view.py:10: note: Possible overload variants:

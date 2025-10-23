@@ -32,6 +32,8 @@ b'}'
 {View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)]): <generator object Response.iter_lines at HASH1>, View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])]): None}
 
 Logging:
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:users_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:concatenate'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<Response [200]>)
 INFO	ordeq.runner	Running node View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
 INFO	ordeq.runner	Running node View(name=view_response_iter:concatenate, inputs=[IO(idx=ID1)])

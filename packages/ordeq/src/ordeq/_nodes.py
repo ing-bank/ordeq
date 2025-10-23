@@ -96,8 +96,10 @@ class Node(Generic[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
+            outputs=tuple(io.get(op, op) for op in self.outputs),
+            # type: ignore[misc,arg-type]
         )
 
 
@@ -255,6 +257,12 @@ def create_node(
         name if name is not None else infer_node_name_from_func(func)
     )
     if outputs is None:
+        logger.warning(
+            "Creating a view, as no outputs were provided for node '%s'. "
+            "Views are in pre-release, functionality may break without notice."
+            " Use @node(outputs=...) to create a regular node. ",
+            resolved_name,
+        )
         return View(
             func=func,
             name=resolved_name,
@@ -316,7 +324,8 @@ class View(Node[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
         )
 
 

@@ -1,4 +1,4 @@
-from ordeq import node, IO
+from ordeq import IO, node
 from ordeq_common import StringBuffer
 
 x = StringBuffer("x")

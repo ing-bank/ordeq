@@ -1,0 +1,4 @@
+
+exclude = [
+    "docs/guides/integrations/marimo.md",
+]

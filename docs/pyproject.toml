@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 dependencies = ["ordeq", "ordeq-polars", "marimo"]
-name = "ordeq_docs"
+name = "ordeq-docs"
 version = "0.1.0"
 
 [tool.setuptools.packages.find]

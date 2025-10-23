@@ -20,6 +20,7 @@ members = [
     "ordeq-cli-runner",
     "ordeq-common",
     "ordeq-docker-example",
+    "ordeq-docs",
     "ordeq-duckdb",
     "ordeq-faiss",
     "ordeq-files",

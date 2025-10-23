@@ -1,6 +1,27 @@
+# ruff: noqa
+#
 # Copied from
 # https://github.com/marimo-team/marimo/blob/665a683bfa40c9133d1a2698926af615418e332e/docs/blocks.py#L172
-# ruff: noqa
+#
+# Temporary solution until the mkdocs-marimo plugin is stable.
+# See: https://github.com/marimo-team/mkdocs-marimo
+#
+# License:
+#
+#    Copyright 2025 Marimo
+#
+#    Licensed under the Apache License, Version 2.0 (the "License");
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        http://www.apache.org/licenses/LICENSE-2.0
+#
+#    Unless required by applicable law or agreed to in writing, software
+#    distributed under the License is distributed on an "AS IS" BASIS,
+#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#    See the License for the specific language governing permissions and
+#    limitations under the License.
+#
 
 import textwrap
 import xml.etree.ElementTree as etree

@@ -1,4 +1,4 @@
-# Using Ordeq in a Marimo notebook
+# Marimo
 
 [Marimo](https://docs.marimo.io/) is an open-source reactive Python notebook. An improved version of Jupyter notebooks, Marimo allows you to build data applications with interactive widgets and reactive cells.
 
@@ -9,7 +9,7 @@ Even though this example is written for Marimo, you can run similar code in a Ju
 Try out the example below directly in an embedded Marimo notebook:
 
 /// marimo-embed-file
-    size: medium
+    size: large
     mode: edit
     filepath: examples/integration-marimo/src/marimo_example.py
 ///

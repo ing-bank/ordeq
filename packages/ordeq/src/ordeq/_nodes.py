@@ -57,7 +57,7 @@ class Node(Generic[FuncParams, FuncReturns]):
 
     @cached_property
     def views(self) -> tuple[View, ...]:
-        """Returns the views associated with the node inputs."""
+        """Returns the views used as input to this node."""
         return tuple(
             input_ for input_ in self.inputs if isinstance(input_, View)
         )

@@ -315,10 +315,10 @@ The layout of the created project is similar to the package layout, but:
 [issues]: https://github.com/ing-bank/ordeq/issues
 [run-and-viz]: ./run_and_viz.md
 [src-vs-flat]: https://packaging.python.org/en/latest/discussions/src-layout-vs-flat-layout/
-[starter-nested-subpipelines]: https://github.com/ing-bank/ordeq/tree/main/examples/starter_nested_subpipelines
-[starter-package]: https://github.com/ing-bank/ordeq/tree/main/examples/starter_package
-[starter-single-file]: https://github.com/ing-bank/ordeq/tree/main/examples/starter_single_file
-[starter-subpipelines]: https://github.com/ing-bank/ordeq/tree/main/examples/starter_subpipelines
+[starter-nested-subpipelines]: https://github.com/ing-bank/ordeq/tree/main/examples/starter-nested-subpipelines
+[starter-package]: https://github.com/ing-bank/ordeq/tree/main/examples/starter-package
+[starter-single-file]: https://github.com/ing-bank/ordeq/tree/main/examples/starter-single-file
+[starter-subpipelines]: https://github.com/ing-bank/ordeq/tree/main/examples/starter-subpipelines
 [uv]: https://docs.astral.sh/uv/
 [uv-monorepo]: https://docs.astral.sh/uv/concepts/projects/workspaces/
 [uv-scripts]: https://docs.astral.sh/uv/guides/scripts/

@@ -36,7 +36,7 @@ class NodeModel(BaseModel):
     name: str
     inputs: list[str] = Field(default_factory=list)
     outputs: list[str] = Field(default_factory=list)
-    tags: list[str] | dict[str, Any] = Field(default_factory=list)
+    attributes: dict[str, Any] = Field(default_factory=dict)
 
     @classmethod
     def from_node(
@@ -50,7 +50,7 @@ class NodeModel(BaseModel):
             name=name[1],
             inputs=[ios_to_id[i] for i in node.inputs],
             outputs=[ios_to_id[o] for o in node.outputs],
-            tags=node.tags,
+            attributes=node.attributes,
         )
 
 

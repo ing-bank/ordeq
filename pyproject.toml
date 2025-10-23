@@ -175,8 +175,22 @@ ignore = [
 split-on-trailing-comma = false
 
 [tool.ruff.lint.per-file-ignores]
-# Rules not applicable for tests
+# Rules not applicable for package tests
 "packages/*/tests/*" = [
+    "ANN201",
+    "D",
+    "DOC",
+    "INP",
+    "PLC2701",
+    # `import` should be at the top-level of a file
+    "PLC0415",
+    "PLR6301",
+    "S101",
+    "S608",
+    "SLF",
+]
+# Rules not applicable for example tests
+"examples/*/tests/*" = [
     "ANN201",
     "D",
     "DOC",
@@ -206,6 +220,9 @@ split-on-trailing-comma = false
     # Allow hardcoded secrets in documentation.
     "F821",
 ]
+# Rules not applicable for some example projects
+"examples/starter-single-file/*" = ["INP001", ]
+"examples/integration-marimo/*" = ["PLC0415", "E501", "INP001"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

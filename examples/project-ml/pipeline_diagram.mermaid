@@ -1,0 +1,113 @@
+graph TB
+	subgraph legend["Legend"]
+		direction TB
+		subgraph Objects
+			L0([Node]):::node
+			L1[(IO)]:::io
+		end
+		subgraph IO Types
+			L00[(IO)]:::io0
+			L01[(Literal)]:::io1
+			L02[(MatplotlibFigure)]:::io2
+			L03[(Pickle)]:::io3
+		end
+	end
+
+	IO0 --> raw_mnist_data
+	IO1 --> raw_mnist_data
+	IO2 --> raw_mnist_data
+	raw_mnist_data --> IO3
+	IO3 --> processed_mnist_data
+	IO4 --> processed_mnist_data
+	IO5 --> processed_mnist_data
+	processed_mnist_data --> IO6
+	processed_mnist_data --> IO7
+	get_training_device --> IO8
+	IO6 --> create_data_loaders
+	IO9 --> create_data_loaders
+	create_data_loaders --> IO10
+	create_data_loaders --> IO11
+	IO3 --> create_test_loader
+	IO12 --> create_test_loader
+	create_test_loader --> IO13
+	IO10 --> digit_classifier
+	IO11 --> digit_classifier
+	IO9 --> digit_classifier
+	IO8 --> digit_classifier
+	digit_classifier --> IO14
+	digit_classifier --> IO15
+	IO16 --> select_inference_device
+	select_inference_device --> IO17
+	IO18 --> generate_dummy_batch
+	generate_dummy_batch --> IO19
+	IO16 --> generate_dummy_images
+	generate_dummy_images --> IO20
+	IO14 --> model_evaluation
+	IO13 --> model_evaluation
+	IO8 --> model_evaluation
+	model_evaluation --> IO21
+	model_evaluation --> IO22
+	model_evaluation --> IO23
+	IO19 --> digit_predictions
+	IO14 --> digit_predictions
+	IO18 --> digit_predictions
+	IO17 --> digit_predictions
+	digit_predictions --> IO24
+	digit_predictions --> IO25
+	IO20 --> batch_digit_predictions
+	IO14 --> batch_digit_predictions
+	IO16 --> batch_digit_predictions
+	IO17 --> batch_digit_predictions
+	batch_digit_predictions --> IO26
+	batch_digit_predictions --> IO27
+
+	subgraph pipeline["Pipeline"]
+		direction TB
+		raw_mnist_data([raw_mnist_data]):::node
+		processed_mnist_data([processed_mnist_data]):::node
+		get_training_device([get_training_device]):::node
+		create_data_loaders([create_data_loaders]):::node
+		create_test_loader([create_test_loader]):::node
+		digit_classifier([digit_classifier]):::node
+		select_inference_device([select_inference_device]):::node
+		generate_dummy_batch([generate_dummy_batch]):::node
+		generate_dummy_images([generate_dummy_images]):::node
+		model_evaluation([model_evaluation]):::node
+		digit_predictions([digit_predictions]):::node
+		batch_digit_predictions([batch_digit_predictions]):::node
+		IO0[(train_dataset)]:::io1
+		IO1[(test_dataset)]:::io1
+		IO2[(mnist_moments)]:::io1
+		IO3[(raw_data)]:::io0
+		IO4[(validation_split)]:::io1
+		IO5[(random_seed)]:::io1
+		IO6[(processed_data)]:::io0
+		IO7[(data_metadata)]:::io0
+		IO8[(training_device)]:::io0
+		IO9[(model_config)]:::io1
+		IO10[(train_loader)]:::io0
+		IO11[(val_loader)]:::io0
+		IO12[(model_evaluation_config)]:::io1
+		IO13[(test_loader)]:::io0
+		IO14[(production_model)]:::io3
+		IO15[(training_metadata)]:::io0
+		IO16[(batch_prediction_config)]:::io1
+		IO17[(inference_device)]:::io0
+		IO18[(real_time_prediction_config)]:::io1
+		IO19[(dummy_batch)]:::io0
+		IO20[(dummy_images)]:::io0
+		IO21[(model_evaluation_result)]:::io0
+		IO22[(confusion_matrix)]:::io2
+		IO23[(model_evaluation_metadata)]:::io0
+		IO24[(real_time_predictions)]:::io0
+		IO25[(real_time_prediction_metadata)]:::io0
+		IO26[(batch_predictions)]:::io0
+		IO27[(batch_prediction_metadata)]:::io0
+	end
+
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62
+	classDef io2 fill:#8da0cb
+	classDef io3 fill:#e78ac3

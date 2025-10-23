@@ -1,6 +1,6 @@
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, cast
 
 import pyspark.sql.functions as F
 from ordeq import IO
@@ -157,9 +157,9 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
         except CapturedException as exc:
             # compatibility spark 3 and 4
             if hasattr(exc, "desc"):
-                desc = exc.desc
+                desc = cast("str", exc.desc)
             elif hasattr(exc, "_desc"):
-                desc = exc._desc  # noqa: SLF001
+                desc = cast("str", exc._desc)  # noqa: SLF001
             else:
                 raise RuntimeError(
                     "Expecting CapturedException to have a `desc` or `_desc` "

@@ -33,7 +33,7 @@ group = "ios"
 test = [
     "pymssql==2.3.7",
     "testcontainers==4.8.1",
-    "pyspark==3.3.1",  # 3.3.1 is the oldest version we support
+    "pyspark>=3.3.1,<4.0.0",  # no iceberg spark runtime for spark>=4.0.0 yet to use in the tests
     "ordeq-common",
 ]
 

@@ -157,7 +157,7 @@ With views, we can easily do so by defining two views that share the same functi
 
     txs_filtered = node(inputs=[catalog.txs, catalog.date], func=filter_by_date)
     clients_filtered = node(
-        inputs=[catalog.txs, catalog.date], func=filter_by_date
+        inputs=[catalog.clients, catalog.date], func=filter_by_date
     )
 
 

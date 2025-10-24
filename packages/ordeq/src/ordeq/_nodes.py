@@ -249,7 +249,7 @@ def create_node(
         ValueError: if any of the inputs is a callable that is not a view
     """
 
-    from ordeq._resolve import _is_node  # noqa: PLC0415 (imported here to avoid circular imports)
+    from ordeq._resolve import _is_node  # noqa: PLC0415
 
     resolved_name = (
         name if name is not None else infer_node_name_from_func(func)

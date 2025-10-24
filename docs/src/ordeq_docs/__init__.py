@@ -1,0 +1,1 @@
+"""ordeq documentation package."""

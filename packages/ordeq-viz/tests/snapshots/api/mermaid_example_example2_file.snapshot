@@ -10,49 +10,56 @@ graph TB
 		end
 		subgraph IO Types
 			L00[("IO")]:::io0
-			L01[("MockInput")]:::io1
-			L02[("MockOutput")]:::io2
-			L03[("NameGenerator")]:::io3
-			L04[("NamePrinter")]:::io4
-			L05[("SayHello")]:::io5
-			L06[("StringBuffer")]:::io6
+			L01[("Input")]:::io1
+			L02[("MockInput")]:::io2
+			L03[("MockOutput")]:::io3
+			L04[("NameGenerator")]:::io4
+			L05[("NamePrinter")]:::io5
+			L06[("Output")]:::io6
+			L07[("SayHello")]:::io7
+			L08[("StringBuffer")]:::io8
 		end
 	end
 
 	IO0 --> hello
 	hello --> IO1
+	IO2 --> transform_input_2
+	transform_input_2 --> IO3
 	IO1 --> print_message
-	print_message --> IO2
-	IO3 --> transform_mock_input
-	transform_mock_input --> IO4
-	IO5 --> transform_input
-	transform_input --> IO6
-	IO7 --> world
-	world --> IO8
-	IO9 --> node_with_inline_io
-	node_with_inline_io --> IO10
+	print_message --> IO4
+	IO5 --> transform_mock_input
+	transform_mock_input --> IO6
+	IO7 --> transform_input
+	transform_input --> IO8
+	IO9 --> world
+	world --> IO10
+	IO11 --> node_with_inline_io
+	node_with_inline_io --> IO12
 
 	IO0 -.->|name| IO1
-	IO2 -.->|writer| IO1
+	IO4 -.->|writer| IO1
 	subgraph pipeline["Pipeline"]
 		direction TB
 		hello(["hello"]):::node
+		transform_input_2(["transform_input_2"]):::node
 		print_message(["print_message"]):::node
 		transform_mock_input(["transform_mock_input"]):::node
 		transform_input(["transform_input"]):::node
 		world(["world"]):::node
 		node_with_inline_io(["node_with_inline_io"]):::node
-		IO0[("name_generator")]:::io3
-		IO1[("message")]:::io5
-		IO2[("name_printer")]:::io4
-		IO3[("Hello")]:::io6
-		IO4[("World")]:::io6
-		IO5[("TestInput")]:::io1
-		IO6[("TestOutput")]:::io2
-		IO7[("x")]:::io6
-		IO8[("y")]:::io6
-		IO9[("&lt;anonymous&gt;")]:::io0
-		IO10[("&lt;anonymous&gt;")]:::io0
+		IO0[("name_generator")]:::io4
+		IO1[("message")]:::io7
+		IO4[("name_printer")]:::io5
+		IO2[("TestInput2")]:::io1
+		IO3[("TestOutput2")]:::io6
+		IO5[("Hello")]:::io8
+		IO6[("World")]:::io8
+		IO7[("TestInput")]:::io2
+		IO8[("TestOutput")]:::io3
+		IO9[("x")]:::io8
+		IO10[("y")]:::io8
+		IO11[("&lt;anonymous&gt;")]:::io0
+		IO12[("&lt;anonymous&gt;")]:::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF
@@ -64,6 +71,8 @@ graph TB
 	classDef io4 fill:#a6d854
 	classDef io5 fill:#ffd92f
 	classDef io6 fill:#e5c494
+	classDef io7 fill:#b3b3b3
+	classDef io8 fill:#ff69b4
 
 Logging:
 INFO	ordeq.io	Loading NameGenerator(name='John')

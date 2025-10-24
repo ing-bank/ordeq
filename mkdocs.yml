@@ -22,6 +22,7 @@ theme:
       primary: black
 
 markdown_extensions:
+  - ordeq_docs.marimo_blocks:MarimoBlocksExtension
   - def_list
   - pymdownx.tasklist:
       custom_checkbox: true
@@ -53,3 +54,6 @@ plugins:
           options:
             show_source: false
             docstring_style: google
+
+hooks:
+  - docs/hooks.py

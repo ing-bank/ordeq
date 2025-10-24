@@ -20,6 +20,7 @@ docs = [
     "mkdocs-awesome-nav",
     "markdown",
     "pymdown-extensions",
+    "ordeq_docs"
 ]
 test = [
     "pytest-cov>=6.2.1",
@@ -59,6 +60,7 @@ ordeq-viz-cli = { workspace = true }
 ordeq-yaml = { workspace = true }
 
 # Development packages
+ordeq-docs = { workspace = true }
 ordeq-test-utils = { workspace = true }
 
 [tool.uv]
@@ -68,6 +70,7 @@ required-version = ">=0.8.23"
 members = [
     "packages/*",
     "examples/*",
+    "docs/"
 ]
 
 [tool.coverage.paths]

@@ -47,8 +47,15 @@ list:
     ls -1 packages/
 
 # Type checking with mypy
-mypy:
+mypy: mypy-packages mypy-examples
+
+mypy-packages:
     for dir in `find packages -maxdepth 1 -type d -name "ordeq*"`; do \
+            uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
+    done
+
+mypy-examples:
+    for dir in `find examples/ -mindepth 1 -maxdepth 1 -type d`; do \
         uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
     done
 

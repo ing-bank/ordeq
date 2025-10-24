@@ -21,11 +21,11 @@ def df_selected(df: pd.DataFrame) -> pd.DataFrame:
 
 @node(inputs=df_selected)
 def group_by(df: pd.DataFrame) -> None:
-    df.groupby(
+    print(df.groupby(
         by=["A"],
         as_index=False,
         dropna=False,
-    ).agg("mean").head()
+    ).agg("mean").head())
 
 
 print(run(group_by, verbose=True))

@@ -35,6 +35,3 @@ test = []
 namespaces = true
 where = ["src"]
 
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"

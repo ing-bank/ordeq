@@ -1,3 +1,6 @@
+Exception:
+ValueError: Outputs of node node_unexpected_output_type:func must be of type Output, found <class 'ordeq_common.io.literal.Literal'>
+
 Typing:
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: error: No overload variant of "node" matches argument types "Literal[str]", "Literal[str]"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note: Possible overload variants:

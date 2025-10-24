@@ -96,8 +96,10 @@ class Node(Generic[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
+            outputs=tuple(io.get(op, op) for op in self.outputs),
+            # type: ignore[misc,arg-type]
         )
 
 
@@ -135,6 +137,15 @@ def _raise_for_invalid_outputs(n: Node) -> None:
         ValueError: if the number of outputs is incompatible with the number of
             node arguments.
     """
+
+    are_outputs = [isinstance(o, Output) for o in n.outputs]
+    if not all(are_outputs):
+        not_an_output = n.outputs[are_outputs.index(False)]
+        raise ValueError(
+            f"Outputs of node {n.name} must be of type Output, "
+            f"found {type(not_an_output)} "
+        )
+
     func = n.func
     sign = signature(func)
     returns = sign.return_annotation
@@ -322,7 +333,8 @@ class View(Node[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
         )
 
 

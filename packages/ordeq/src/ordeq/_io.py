@@ -119,7 +119,8 @@ class _InputMeta(type):
                     continue
                 if (
                     param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                    and param.kind != inspect._ParameterKind.VAR_KEYWORD
+                    # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -241,12 +242,18 @@ class _InputException(_BaseInput[Tin]):
             raise IOException(msg) from exc
 
 
+class _WithResources:
+    def __resources__(self) -> list[str]:
+        return [str(hash(self))]
+
+
 class Input(
     _InputOptions[Tin],
     _InputHooks[Tin],
     _InputReferences[Tin],
     _InputCache[Tin],
     _InputException[Tin],
+    _WithResources,
     Generic[Tin],
     metaclass=_InputMeta,
 ):
@@ -366,7 +373,8 @@ class _OutputMeta(type):
                     continue
                 if (
                     param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                    and param.kind != inspect._ParameterKind.VAR_KEYWORD
+                    # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -482,6 +490,7 @@ class Output(
     _OutputHooks[Tout],
     _OutputReferences[Tout],
     _OutputException[Tout],
+    _WithResources,
     Generic[Tout],
     metaclass=_OutputMeta,
 ):

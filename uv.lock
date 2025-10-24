@@ -2859,6 +2859,7 @@ test = [
     { name = "pandas" },
     { name = "pandas-stubs" },
     { name = "requests" },
+    { name = "types-requests" },
 ]
 
 [package.metadata]
@@ -2872,6 +2873,7 @@ test = [
     { name = "pandas" },
     { name = "pandas-stubs" },
     { name = "requests" },
+    { name = "types-requests" },
 ]
 
 [[package]]

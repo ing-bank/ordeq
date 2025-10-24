@@ -36,7 +36,7 @@ def _save_outputs(
         if save:
             output_dataset.save(data)
 
-    return computed  # type: ignore[invalid-return-type]
+    return computed
 
 
 def _run_node(

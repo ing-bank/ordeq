@@ -112,6 +112,9 @@ class MarimoEmbedFileBlock(BaseMarimoBlock):
         **BaseMarimoBlock.OPTIONS,
         "filepath": ["", type_string],
         "show_source": ["true", type_string_in(["true", "false"])],
+        # === Start Modification from source: Add "Open in Marimo" link if enabled  ===
+        "show_open_in_marimo": ["true", type_string_in(["true", "false"])],
+        # === End Modification from source ===
     }
 
     def on_end(self, block: etree.Element) -> None:
@@ -130,6 +133,19 @@ class MarimoEmbedFileBlock(BaseMarimoBlock):
         show_chrome: bool = cast(bool, self.options["show-chrome"])
         url = create_marimo_app_url(code=code, mode=mode, show_chrome=show_chrome)
         self._create_iframe(block, url)
+
+        # === Start Modification from source: Add "Open in Marimo" link if enabled  ===
+        show_open_in_marimo: str = cast(str, self.options.get("show_open_in_marimo", "true"))
+        if show_open_in_marimo == "true":
+            open_in_marimo_container = etree.SubElement(block, "p")
+            open_in_marimo_link = etree.SubElement(open_in_marimo_container, "a")
+            open_in_marimo_link.set("target", "_blank")
+            open_in_marimo_link.set("href", url)
+            open_in_marimo_shield = etree.SubElement(open_in_marimo_link, "img")
+            open_in_marimo_shield.set("src", "https://marimo.io/shield.svg")
+            open_in_marimo_shield.set("alt", "Open in Marimo")
+
+        # === End Modification from source ===
 
         # Add source code section if enabled
         show_source: str = cast(str, self.options.get("show_source", "true"))

@@ -5,16 +5,16 @@ graph TB
 	subgraph legend["Legend"]
 		direction TB
 		subgraph Objects
-			L0([Node]):::node
-			L1[(IO)]:::io
+			L0(["Node"]):::node
+			L1[("IO")]:::io
 		end
 		subgraph IO Types
-			L00[(MockInput)]:::io0
-			L01[(MockOutput)]:::io1
-			L02[(NameGenerator)]:::io2
-			L03[(NamePrinter)]:::io3
-			L04[(SayHello)]:::io4
-			L05[(StringBuffer)]:::io5
+			L00[("MockInput")]:::io0
+			L01[("MockOutput")]:::io1
+			L02[("NameGenerator")]:::io2
+			L03[("NamePrinter")]:::io3
+			L04[("SayHello")]:::io4
+			L05[("StringBuffer")]:::io5
 		end
 	end
 
@@ -31,20 +31,20 @@ graph TB
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		hello([hello]):::node
-		print_message([print_message]):::node
-		transform_mock_input([transform_mock_input]):::node
-		transform_input([transform_input]):::node
-		world([world]):::node
-		IO0[(name_generator)]:::io2
-		IO1[(message)]:::io4
-		IO2[(name_printer)]:::io3
-		IO3[(Hello)]:::io5
-		IO4[(World)]:::io5
-		IO5[(TestInput)]:::io0
-		IO6[(TestOutput)]:::io1
-		IO7[(x)]:::io5
-		IO8[(y)]:::io5
+		hello(["hello"]):::node
+		print_message(["print_message"]):::node
+		transform_mock_input(["transform_mock_input"]):::node
+		transform_input(["transform_input"]):::node
+		world(["world"]):::node
+		IO0[("name_generator")]:::io2
+		IO1[("message")]:::io4
+		IO2[("name_printer")]:::io3
+		IO3[("Hello")]:::io5
+		IO4[("World")]:::io5
+		IO5[("TestInput")]:::io0
+		IO6[("TestOutput")]:::io1
+		IO7[("x")]:::io5
+		IO8[("y")]:::io5
 	end
 
 	classDef node fill:#008AD7,color:#FFF

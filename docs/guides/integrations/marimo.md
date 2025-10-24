@@ -6,10 +6,10 @@ This example demonstrates how to use Ordeq within a Marimo notebook to create an
 
 Even though this example is written for Marimo, you can run similar code in a Jupyter notebook as well to run Ordeq in the interactive environment of your choice.
 
-Try out the example below directly in an embedded Marimo notebook:
+Try it out directly in the embedded Marimo notebook below:
 
 /// marimo-embed-file
-    size: large
+    size: xlarge
     mode: edit
     filepath: examples/integration-marimo/src/marimo_example.py
 ///

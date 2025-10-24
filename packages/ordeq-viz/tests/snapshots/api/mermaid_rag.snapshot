@@ -7,15 +7,15 @@ graph TB
 		direction TB
 		subgraph Objects
 			L0(["Node"]):::node
-			L1("IO"):::io
+			L1(IO):::io
 		end
 		subgraph IO Types
-			L00("FaissIndex"):::io0
-			L01("IO"):::io1
-			L02("PandasExcel"):::io2
-			L03("Pickle"):::io3
-			L04("PymupdfFile"):::io4
-			L05("SentenceTransformer"):::io5
+			L00(FaissIndex):::io0
+			L01(IO):::io1
+			L02(PandasExcel):::io2
+			L03(Pickle):::io3
+			L04(PymupdfFile):::io4
+			L05(SentenceTransformer):::io5
 		end
 	end
 
@@ -51,17 +51,17 @@ graph TB
 		question_answering(["question_answering"]):::node
 		evaluate_answers(["evaluate_answers"]):::node
 		annotate_documents(["annotate_documents"]):::node
-		IO0("policies"):::io2
-		IO1("questions"):::io1
-		IO2("pdf_documents"):::io4
-		IO3("llm_vision_retrieval_model"):::io5
-		IO4("index"):::io0
-		IO5("retrieved_pages"):::io1
-		IO6("llm_model"):::io5
-		IO7("relevant_pages"):::io1
-		IO8("llm_answers"):::io1
-		IO9("metrics"):::io3
-		IO10("pdfs_documents_annotated"):::io4
+		IO0(policies):::io2
+		IO1(questions):::io1
+		IO2(pdf_documents):::io4
+		IO3(llm_vision_retrieval_model):::io5
+		IO4(index):::io0
+		IO5(retrieved_pages):::io1
+		IO6(llm_model):::io5
+		IO7(relevant_pages):::io1
+		IO8(llm_answers):::io1
+		IO9(metrics):::io3
+		IO10(pdfs_documents_annotated):::io4
 	end
 
 	classDef node fill:#008AD7,color:#FFF
@@ -74,6 +74,6 @@ graph TB
 	classDef io5 fill:#ffd92f
 
 Typing:
-packages/ordeq-viz/tests/resources/mermaid/viz_pipeline_rag.py:1: error: Skipping analyzing "rag_pipeline": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/mermaid/viz_pipeline_rag.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-viz/tests/resources/api/mermaid_rag.py:4: error: Skipping analyzing "rag_pipeline": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_rag.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)

@@ -182,6 +182,6 @@ def run(
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
     for run_hook in run_hooks:
-        run_hook.after_run(graph, result)
+        run_hook.after_run(graph, result)  # type: ignore[arg-type]
 
     return result

@@ -48,7 +48,7 @@ INFO	ordeq.io	Saving Print()
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/views/view_index_run_result.py:17: error: Invalid index type "Callable[[], str]" for "dict[Input[Any] | Output[Any], Any]"; expected type "Input[Any] | Output[Any]"  [index]
+packages/ordeq/tests/resources/views/view_index_run_result.py:17: error: Invalid index type "Callable[[], str]" for "dict[Input[Any] | Output[Any] | View[Any, Any], Any]"; expected type "Input[Any] | Output[Any] | View[Any, Any]"  [index]
 Found 1 error in 1 file (checked 1 source file)
 
 ```

@@ -44,14 +44,11 @@ class Node(Generic[FuncParams, FuncReturns]):
 
     def __post_init__(self):
         """Nodes always have to be hashable"""
-        _raise_if_not_hashable(self)
-        if self.inputs:
-            _raise_for_invalid_inputs(self)
-        if self.outputs:
-            _raise_for_invalid_outputs(self)
+        self.validate()
 
     def validate(self) -> None:
         """These checks are performed before the node is run."""
+        _raise_if_not_hashable(self)
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
 
@@ -96,8 +93,10 @@ class Node(Generic[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
+            outputs=tuple(io.get(op, op) for op in self.outputs),
+            # type: ignore[misc,arg-type]
         )
 
 
@@ -271,11 +270,11 @@ def create_node(
             resolved_name,
         )
         return View(
-            func=func,
-            name=resolved_name,
-            inputs=tuple(inputs_),
-            outputs=(IO(),),
-            attributes={} if attributes is None else attributes,
+            func=func,  # type: ignore[arg-type]
+            name=resolved_name,  # type: ignore[arg-type]
+            inputs=tuple(inputs_),  # type: ignore[arg-type]
+            outputs=(IO(),),  # type: ignore[arg-type]
+            attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
         )
     return Node(
         func=func,
@@ -288,19 +287,8 @@ def create_node(
 
 @dataclass(frozen=True, kw_only=True)
 class View(Node[FuncParams, FuncReturns]):
-    func: Callable[FuncParams, FuncReturns]
-    name: str
-    inputs: tuple[Input | View, ...]
-    outputs: tuple[Output]
-    attributes: dict[str, Any] = field(default_factory=dict, hash=False)
-
     def __post_init__(self):
         self.validate()
-
-    def validate(self):
-        _raise_if_not_hashable(self)
-        _raise_for_invalid_inputs(self)
-        _raise_for_invalid_outputs(self)
 
     def __repr__(self):
         attributes = {"name": self.name}
@@ -331,7 +319,8 @@ class View(Node[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
         )
 
 

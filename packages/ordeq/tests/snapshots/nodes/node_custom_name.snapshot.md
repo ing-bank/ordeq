@@ -19,7 +19,15 @@ print('Renamed:', node_renamed)
 ## Output
 
 ```text
-Original: Node(name=node_custom_name:func)
-Renamed: Node(name=custom-name)
+Original: View(name=node_custom_name:func)
+Renamed: View(name=custom-name)
+
+```
+
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_custom_name:func'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'custom-name'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

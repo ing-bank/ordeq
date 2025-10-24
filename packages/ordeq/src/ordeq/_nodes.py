@@ -263,7 +263,7 @@ def create_node(
     resolved_name = (
         name if name is not None else infer_node_name_from_func(func)
     )
-    if outputs is None:
+    if not outputs:
         logger.warning(
             "Creating a view, as no outputs were provided for node '%s'. "
             "Views are in pre-release, functionality may break without notice."

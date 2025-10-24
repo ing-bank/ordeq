@@ -20,24 +20,11 @@ def test_run_regular_node():
     assert computed[Bp] == "AA"
 
 
-def test_run_node_returns_none():
-    node = create_node(inputs=(A,), outputs=(), func=lambda _: None)
-    computed = _run_node(node, hooks=())
-    assert computed == {}
-
-
 def test_run_node_with_zero_inputs():
     Bp = copy.copy(B)
     Bp.unpersist()
     node = create_node(inputs=(), outputs=(Bp,), func=lambda: "something")
     loaded = {Bp: "something"}
-    computed = _run_node(node, hooks=())
-    assert loaded == computed
-
-
-def test_run_node_with_zero_inputs_and_outputs():
-    node = create_node(inputs=(), outputs=(), func=lambda: print("Hello!"))
-    loaded = {}
     computed = _run_node(node, hooks=())
     assert loaded == computed
 

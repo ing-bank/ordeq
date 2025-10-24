@@ -1,5 +1,0 @@
-Output:
-['function_reuse.nodes']
-['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']
-{('function_reuse.nodes', 'A'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('function_reuse.nodes', 'B'): StringBuffer(_buffer=<_io.StringIO object at HASH2>)}
-['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']

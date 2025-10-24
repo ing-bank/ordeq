@@ -1,6 +1,0 @@
-Exception:
-IOException: Failed to load Input(idx=ID1).
-Some load exception
-
-Logging:
-INFO	ordeq.io	Loading Input(idx=ID1)

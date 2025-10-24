@@ -1,5 +1,0 @@
-Output:
-['nested', 'nested.subpackage', 'nested.subpackage.subsubpackage', 'nested.subpackage.subsubpackage.hello']
-['nested.subpackage.subsubpackage.hello:world']
-{}
-['nested.subpackage.subsubpackage.hello:world']

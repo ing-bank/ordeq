@@ -1,4 +1,0 @@
-Output:
-saving data `hello` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
-running node Node(name=my_hook:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-saving data `world` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`

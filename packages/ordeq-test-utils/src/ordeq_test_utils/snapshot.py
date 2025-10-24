@@ -3,6 +3,7 @@ import importlib.util
 import logging
 import re
 import sys
+import traceback
 from pathlib import Path
 
 from _pytest.capture import CaptureFixture
@@ -82,7 +83,11 @@ def run_module(file_path: Path) -> str | None:
     try:
         spec.loader.exec_module(module)
     except Exception as e:
-        return f"{type(e).__name__}: {e}"
+        exception = f"{type(e).__name__}: {e}"
+        traceback_str = "\n".join(
+            reversed(traceback.format_tb(e.__traceback__))
+        )
+        return exception + "\n" + traceback_str
     return None
 
 
@@ -100,8 +105,17 @@ def make_output_invariant(output: str) -> str:
     captured = replace_uuid4(replace_object_hashes(output))
 
     # Normalize platform-specific paths
+
+    # /Users/.../uv/python/cpython-3.13.7-macos-aarch64-none/lib/python3.13/
+    stdlib_path = str(Path(traceback.__file__).parent)
+
+    # /Users/.../Documents/code/ordeq-oss/... => "..."
+    root_path = str(Path(__file__).parent.parent.parent.parent.parent)
+
     return (
-        captured.replace("PosixPath", "Path")
+        captured.replace(root_path, "")
+        .replace(stdlib_path, "")
+        .replace("PosixPath", "Path")
         .replace("WindowsPath", "Path")
         .replace("\\", "/")
     )

@@ -22,11 +22,11 @@ def df_casted(df: pd.DataFrame) -> pd.DataFrame:
 
 @node(inputs=df_casted)
 def group_by(df: pd.DataFrame) -> None:
-    df.groupby(
+    print(df.groupby(
         by=["A", ],
         as_index=False,
         dropna=False,
-    ).agg({"B": "mean", "D": "max"}).head()
+    ).agg({"B": "mean", "D": "max"}).head())
 
 
 print(run(group_by, verbose=True))

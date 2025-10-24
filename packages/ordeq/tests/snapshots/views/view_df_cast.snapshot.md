@@ -25,11 +25,11 @@ def df_casted(df: pd.DataFrame) -> pd.DataFrame:
 
 @node(inputs=df_casted)
 def group_by(df: pd.DataFrame) -> None:
-    df.groupby(
+    print(df.groupby(
         by=["A", ],
         as_index=False,
         dropna=False,
-    ).agg({"B": "mean", "D": "max"}).head()
+    ).agg({"B": "mean", "D": "max"}).head())
 
 
 print(run(group_by, verbose=True))
@@ -52,6 +52,9 @@ NodeGraph:
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)])])
+     A    B    D
+0  bar  2.0  5.0
+1  foo  2.0  8.0
 {View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0

@@ -33,7 +33,8 @@ test = [
     "pandas",
     "pandas-stubs",
     "requests",
-    "duckdb"
+    "duckdb",
+    "types-requests",
 ]
 
 [tool.setuptools_scm]

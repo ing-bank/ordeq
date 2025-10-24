@@ -21,6 +21,7 @@ def csv_as_df(data: MockDuckDbValues) -> pd.DataFrame:
 
 @node(inputs=csv_as_df)
 def aggregate(df: pd.DataFrame) -> None:
+    print("Executing 'aggregate'")
     df.aggregate("sum").head()
 
 

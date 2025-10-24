@@ -29,15 +29,15 @@ with NamedTemporaryFile(delete=False, mode='wt') as tmp:
 
     @node(outputs=first_file)
     def first() -> str:
-        return "Hello, world!"
+        return '1st'
 
 
-    @node(inputs=second_file)
-    def second(value: str) -> None:
-        print(value)
+    @node(outputs=second_file)
+    def second() -> str:
+        return '2nd'
 
 
-    # The run needs to recognize that 'first_file' and 'second_file'
-    # share the same resource.
-    # It should plan first -> second.
-    run(second, first, verbose=True)
+    # This should not be allowed: both nodes write to the same resource.
+    # Expecting an error message like:
+    # "Node 'first' and 'second' both output to the same resource '{path}'."
+    run(first, second, verbose=True)

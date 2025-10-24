@@ -80,7 +80,7 @@ INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/runner/runner_io.py:29: error: Argument "io" to "run" has incompatible type "dict[object, object]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+packages/ordeq/tests/resources/runner/runner_io.py:29: error: Argument "io" to "run" has incompatible type "dict[_WithResources, object]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
 Found 1 error in 1 file (checked 1 source file)
 
 ```

@@ -590,3 +590,20 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
     def __repr__(self):
         return f"IO(idx={self._idx})"
+
+
+def _get_resources_of(io: Input | Output | IO) -> list:
+    """Get all resources from the given io object and its base classes.
+
+    Args:
+        io: The io object to retrieve resources from.
+
+    Returns:
+        A list of resources from the io object and all its base classes.
+    """
+
+    resources = []
+    for cls in io.__class__.__mro__:
+        if hasattr(cls, "__resources__"):
+            resources += getattr(cls, "__resources__")()
+    return resources

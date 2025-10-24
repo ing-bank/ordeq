@@ -19,5 +19,5 @@ def say_hello(value: str) -> str:
 ## Exception
 
 ```text
-ValueError: Input '<function hello at HASH1>' is not a view
+ValueError: Input '<function hello at HASH1>' to node 'view_with_output:say_hello' is not a view
 ```

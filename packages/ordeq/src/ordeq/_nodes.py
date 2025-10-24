@@ -93,8 +93,10 @@ class Node(Generic[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
+            outputs=tuple(io.get(op, op) for op in self.outputs),
+            # type: ignore[misc,arg-type]
         )
 
 
@@ -247,19 +249,25 @@ def create_node(
         ValueError: if any of the inputs is a callable that is not a view
     """
 
-    inputs_: list[Input | View] = []
-    for input_ in _sequence_to_tuple(inputs):
-        if callable(input_):
-            view = get_node(input_)
-            if not isinstance(view, View):
-                raise ValueError(f"Input '{input_}' is not a view")
-            inputs_.append(view)
-        else:
-            inputs_.append(cast("Input", input_))
+    from ordeq._resolve import _is_node
 
     resolved_name = (
         name if name is not None else infer_node_name_from_func(func)
     )
+    inputs_: list[Input | View] = []
+    for input_ in _sequence_to_tuple(inputs):
+        if callable(input_):
+            if not _is_node(input_):
+                raise ValueError(
+                    f"Input '{input_}' to node '{resolved_name}' is not a view")
+            view = get_node(input_)
+            if not isinstance(view, View):
+                raise ValueError(
+                    f"Input '{input_}' to node '{resolved_name}' is not a view")
+            inputs_.append(view)
+        else:
+            inputs_.append(cast("Input", input_))
+
     if not outputs:
         logger.warning(
             "Creating a view, as no outputs were provided for node '%s'. "
@@ -272,7 +280,8 @@ def create_node(
             name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
-            attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
+            attributes={} if attributes is None else attributes,
+            # type: ignore[arg-type]
         )
     return Node(
         func=func,
@@ -317,7 +326,8 @@ class View(Node[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
         )
 
 

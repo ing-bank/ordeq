@@ -27,5 +27,5 @@ print(repr(get_node(hello)))
 ## Exception
 
 ```text
-ValueError: 'string' is not a node
+ValueError: Input '<function string at HASH1>' to node 'view_inputs_regular_func:func' is not a view
 ```

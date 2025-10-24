@@ -1,0 +1,14 @@
+Output:
+NodeGraph:
+  Edges:
+     shared_resource_deterministic:first -> []
+     shared_resource_deterministic:second -> []
+  Nodes:
+     Node(name=shared_resource_deterministic:first, outputs=[File])
+     Node(name=shared_resource_deterministic:second, inputs=[File])
+
+Logging:
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running node Node(name=shared_resource_deterministic:second, inputs=[File])
+INFO	ordeq.runner	Running node Node(name=shared_resource_deterministic:first, outputs=[File])
+INFO	ordeq.io	Saving File

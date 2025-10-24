@@ -280,8 +280,7 @@ def create_node(
             name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
-            attributes={} if attributes is None else attributes,
-            # type: ignore[arg-type]
+            attributes={} if attributes is None else attributes,# type: ignore[arg-type]
         )
     return Node(
         func=func,

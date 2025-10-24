@@ -1,4 +1,4 @@
-from package import nl
+import package.nl
 from ordeq import run
 
 if __name__ == "__main__":

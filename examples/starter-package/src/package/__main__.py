@@ -1,4 +1,4 @@
-import pipeline
+from package import pipeline
 from ordeq import run
 
 if __name__ == "__main__":

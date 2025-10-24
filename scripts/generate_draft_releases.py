@@ -12,7 +12,7 @@
 """Automated release script
 
 Usage:
-    uv run check_package_changes.py
+    uv run scripts/generate_draft_releases.py
 
 """
 

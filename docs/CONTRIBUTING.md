@@ -93,6 +93,7 @@ uv run pre-commit install
     - Go to the "Releases" section of the GitHub repository.
     - Find the draft release for the package you want to publish.
     - Review the release notes and make any necessary edits.
+    - Untick the "Set as the latest release" checkbox if you are not releasing the `ordeq` package.
     - Click "Publish release"
     - The CI will automatically build the package and upload it to Pypi.
 

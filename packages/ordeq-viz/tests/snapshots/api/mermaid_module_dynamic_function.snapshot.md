@@ -17,7 +17,7 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     # we would prefer to see f1 and f2, but since they are dynamically created
     # with the same name, mermaid shows them both as "hello" for now.
     print(output_file_content)
-    print('Run output:', run(example3.nodes))
+    print(run(example3.nodes))
 
 ```
 
@@ -53,7 +53,7 @@ graph TB
 
 Hello, world!
 Hello, world!
-Run output: {View(name=example3.func_defs:hello): None, View(name=example3.func_defs:hello): None}
+{View(name=example3.func_defs:hello): None, View(name=example3.func_defs:hello): None}
 
 ```
 

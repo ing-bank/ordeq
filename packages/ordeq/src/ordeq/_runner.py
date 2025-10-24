@@ -14,7 +14,7 @@ logger = logging.getLogger("ordeq.runner")
 
 T = TypeVar("T")
 
-DataStoreType = dict[Input[T] | Output[T], T]
+DataStoreType = dict[Input[T] | Output[T] | View, T]
 # The save mode determines which outputs are saved. When set to:
 # - 'all', all outputs are saved, including those of intermediate nodes.
 # - 'sinks', only outputs of sink nodes are saved, i.e. those w/o successors.
@@ -28,7 +28,7 @@ SaveMode = Literal["all", "sinks", "none"]
 def _save_outputs(
     node: Node, values: Sequence[T], save: bool = True
 ) -> DataStoreType:
-    computed: dict[Input[T] | Output[T], T] = {}
+    computed: DataStoreType = {}
     for output_dataset, data in zip(node.outputs, values, strict=False):
         computed[output_dataset] = data
 
@@ -47,8 +47,11 @@ def _run_node(
     for node_hook in hooks:
         node_hook.before_node_run(node)
 
-    # TODO: Fix type checking here
-    args = [input_dataset.load() for input_dataset in node.inputs]  # type: ignore[union-attr]
+    # We know at this point that all view inputs are patched by sentinel IOs,
+    # so we can safely cast here.
+    args = [
+        cast("Input", input_dataset).load() for input_dataset in node.inputs
+    ]
 
     # persisting loaded data
     for node_input, data in zip(node.inputs, args, strict=True):

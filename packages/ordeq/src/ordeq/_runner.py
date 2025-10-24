@@ -141,7 +141,6 @@ def _run_graph(
             if isinstance(io_obj, _InputCache):
                 io_obj.unpersist()
 
-    # remove sentinel IO objects from the data store
     return patched_data_store
 
 

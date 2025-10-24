@@ -14,7 +14,7 @@ SNAPSHOT_DIR = TESTS_DIR / "snapshots"
         pytest.param(
             file_path,
             SNAPSHOT_DIR
-            / file_path.relative_to(RESOURCE_DIR).with_suffix(".snapshot"),
+            / file_path.relative_to(RESOURCE_DIR).with_suffix(".snapshot.md"),
             id=str(file_path.relative_to(RESOURCE_DIR)),
         )
         for file_path in RESOURCE_DIR.rglob("*.py")

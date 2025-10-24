@@ -1,2 +1,0 @@
-Exception:
-TypeError: Can't instantiate abstract class ExampleInputNoLoad with abstract method load

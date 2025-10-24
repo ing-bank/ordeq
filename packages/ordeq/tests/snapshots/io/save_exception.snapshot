@@ -1,6 +1,0 @@
-Exception:
-IOException: Failed to save Output(idx=ID1).
-Some save exception
-
-Logging:
-INFO	ordeq.io	Saving Output(idx=ID1)

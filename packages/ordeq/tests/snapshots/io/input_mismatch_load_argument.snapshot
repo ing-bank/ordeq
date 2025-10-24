@@ -1,5 +1,0 @@
-Output:
-3
-
-Logging:
-INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')

@@ -1,8 +1,0 @@
-Output:
-!dlrow ,olleH
-
-Logging:
-INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node Node(name=shared_resource_on_input_and_output:reverse, inputs=[File], outputs=[File])
-INFO	ordeq.io	Saving File
-INFO	ordeq.io	Loading File

@@ -1,2 +1,0 @@
-Exception:
-ValueError: Hook 'other_obj' not found in module 'packages.example.hooks'

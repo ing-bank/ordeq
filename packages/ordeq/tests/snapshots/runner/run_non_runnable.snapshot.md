@@ -1,0 +1,22 @@
+## Resource
+
+```python
+from ordeq import run
+
+run(0.23)
+
+```
+
+## Exception
+
+```text
+TypeError: 0.23 is not something we can run. Expected a module or a node, got <class 'float'>
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Callable[..., Any] | str  [arg-type]
+Found 1 error in 1 file (checked 1 source file)
+
+```

@@ -1,5 +1,0 @@
-Output:
-['function_reuse', 'function_reuse.catalog', 'function_reuse.func_defs', 'function_reuse.nodes']
-['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']
-{('function_reuse.catalog', 'A'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('function_reuse.catalog', 'B'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('function_reuse.catalog', 'C'): StringBuffer(_buffer=<_io.StringIO object at HASH3>), ('function_reuse.catalog', 'D'): StringBuffer(_buffer=<_io.StringIO object at HASH4>), ('function_reuse.catalog', 'another_name'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('function_reuse.nodes', 'A'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('function_reuse.nodes', 'B'): StringBuffer(_buffer=<_io.StringIO object at HASH2>)}
-['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']

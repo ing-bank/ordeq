@@ -107,6 +107,32 @@ def make_output_invariant(output: str) -> str:
     )
 
 
+def _as_md_python_block(text: str) -> str:
+    """Format a block of text as a Python code block in Markdown.
+
+    Args:
+        text: The text to format.
+
+    Returns:
+        the formatted text block.
+    """
+
+    return "```python\n" + text + "\n```"
+
+
+def _as_md_text_block(text: str) -> str:
+    """Format a block of text as a text code block in Markdown.
+
+    Args:
+        text: The text to format.
+
+    Returns:
+        the formatted text block.
+    """
+
+    return "```text\n" + text + "\n```"
+
+
 def capture_module(
     file_path: Path, caplog: LogCaptureFixture, capsys: CaptureFixture
 ) -> str:
@@ -126,27 +152,30 @@ def capture_module(
         logging.Formatter(fmt="%(levelname)s\t%(name)s\t%(message)s")
     )
 
-    sections = {}
+    sections = {
+        "Resource": _as_md_python_block(file_path.read_text(encoding="utf-8"))
+    }
+
     exception = run_module(file_path)
 
     if exception is not None:
-        sections["Exception"] = exception
+        sections["Exception"] = _as_md_text_block(exception)
 
     captured_out_err = capsys.readouterr()
     if captured_out_err.out:
-        sections["Output"] = captured_out_err.out
+        sections["Output"] = _as_md_text_block(captured_out_err.out)
     if captured_out_err.err:
-        sections["Error"] = captured_out_err.err
+        sections["Error"] = _as_md_text_block(captured_out_err.err)
     if caplog.text:
-        sections["Logging"] = caplog.text
+        sections["Logging"] = _as_md_text_block(caplog.text)
 
     # Add typing feedback
     type_out, _, exit_code = mypy_api.run([str(file_path)])
     if exit_code != 0:
-        sections["Typing"] = type_out
+        sections["Typing"] = _as_md_text_block(type_out)
 
     output = "\n\n".join(
-        f"{key}:\n{value.rstrip()}" for key, value in sections.items()
+        f"## {key}\n\n{value.rstrip()}" for key, value in sections.items()
     )
 
     return make_output_invariant(output)

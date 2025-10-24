@@ -43,17 +43,16 @@ def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
     dataset_id = hash(dataset)
     if dataset_id not in io_data:
         try:
-            io_data[dataset_id] = IOData(
-                id=dataset_id,
-                dataset=dataset,
-                name=reverse_lookup[dataset_id],
-                type=dataset.__class__.__name__,
-            )
+            name = reverse_lookup[dataset_id]
         except KeyError:
-            raise IOException(
-                f"{kind} dataset was not provided. Missing catalog entry "
-                f"for {dataset}."
-            ) from None
+            # No name found in the catalog for this IO. Use a placeholder name.
+            name = "<anonymous>"
+        io_data[dataset_id] = IOData(
+            id=dataset_id,
+            dataset=dataset,
+            name=name,
+            type=dataset.__class__.__name__,
+        )
 
     # Handle wrapped datasets
     for wrapped_attribute in dataset.references.values():

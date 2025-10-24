@@ -1,4 +1,4 @@
-import catalog
+import example.catalog as catalog
 from ordeq import node
 
 

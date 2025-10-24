@@ -126,7 +126,12 @@ def capture_module(
         logging.Formatter(fmt="%(levelname)s\t%(name)s\t%(message)s")
     )
 
-    sections = {}
+    sections = {"Resource": ""}
+
+    with file_path.open(mode="r", encoding="utf-8") as f:
+        for line in f.readlines():
+            sections["Resource"] += f'{line}'
+
     exception = run_module(file_path)
 
     if exception is not None:

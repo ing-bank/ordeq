@@ -249,7 +249,7 @@ def create_node(
         ValueError: if any of the inputs is a callable that is not a view
     """
 
-    from ordeq._resolve import _is_node
+    from ordeq._resolve import _is_node  # noqa: PLC0415 (imported here to avoid circular imports)
 
     resolved_name = (
         name if name is not None else infer_node_name_from_func(func)
@@ -259,11 +259,13 @@ def create_node(
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input '{input_}' to node '{resolved_name}' is not a view")
+                    f"Input '{input_}' to node '{resolved_name}' is not a view"
+                )
             view = get_node(input_)
             if not isinstance(view, View):
                 raise ValueError(
-                    f"Input '{input_}' to node '{resolved_name}' is not a view")
+                    f"Input '{input_}' to node '{resolved_name}' is not a view"
+                )
             inputs_.append(view)
         else:
             inputs_.append(cast("Input", input_))
@@ -280,7 +282,7 @@ def create_node(
             name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
-            attributes={} if attributes is None else attributes,# type: ignore[arg-type]
+            attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
         )
     return Node(
         func=func,

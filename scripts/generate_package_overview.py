@@ -1,3 +1,9 @@
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "ordeq-toml",
+# ]
+# ///
 """Generate a markdown table overview of all packages in the packages/
 directory.
 
@@ -10,13 +16,9 @@ Each row contains:
 The resulting markdown is written to docs/packages.md.
 """
 
-import sys
 from pathlib import Path
 
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    import tomli as tomllib  # ty: ignore[unresolved-import]
+from ordeq_toml import TOML
 
 
 def get_package_dirs(packages_dir: Path) -> list[Path]:
@@ -28,11 +30,7 @@ def get_package_dirs(packages_dir: Path) -> list[Path]:
     Returns:
         A list of package directory paths.
     """
-    return [
-        d
-        for d in packages_dir.iterdir()
-        if d.is_dir() and not d.name.startswith(".")
-    ]
+    return [d for d in packages_dir.iterdir() if d.is_dir()]
 
 
 def get_pypi_name_and_description(pyproject_path: Path) -> tuple[str, str]:
@@ -44,8 +42,7 @@ def get_pypi_name_and_description(pyproject_path: Path) -> tuple[str, str]:
     Returns:
         A tuple containing the package name and description.
     """
-    with pyproject_path.open("rb") as f:
-        data = tomllib.load(f)
+    data = TOML(path=pyproject_path).load()
     name = data["project"]["name"]
     description = data["project"].get("description", "")
     return name, description
@@ -62,8 +59,7 @@ def get_pypi_name_description_group(
     Returns:
         A tuple containing the package name, description, and group (or None).
     """
-    with pyproject_path.open("rb") as f:
-        data = tomllib.load(f)
+    data = TOML(path=pyproject_path).load()
     name = data["project"]["name"]
     description = data["project"].get("description", "")
     group = None
@@ -85,8 +81,7 @@ def get_pypi_name_description_group_logo(
     Returns:
         A tuple containing the package name, description, group (or None), and logo_url (or None).
     """
-    with pyproject_path.open("rb") as f:
-        data = tomllib.load(f)
+    data = TOML(path=pyproject_path).load()
     name = data["project"]["name"]
     description = data["project"].get("description", "")
     logo_url = None

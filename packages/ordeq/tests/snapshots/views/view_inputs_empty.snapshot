@@ -1,5 +1,0 @@
-Output:
-View(name=view_inputs_empty:my_view)
-
-Logging:
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_empty:my_view'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node.

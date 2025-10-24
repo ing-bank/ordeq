@@ -1,2 +1,0 @@
-Exception:
-TypeError: Example.save() missing 1 required positional argument: 'data'

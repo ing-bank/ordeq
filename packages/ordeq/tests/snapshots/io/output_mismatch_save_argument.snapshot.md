@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 from pathlib import Path
@@ -20,7 +21,8 @@ example_output.save("hello.txt@L1: Hello world!")
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Saving ExampleOutputsaveArg(path=Path('hello.txt'), attribute='L1')
 

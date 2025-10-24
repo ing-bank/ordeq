@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Output
 
@@ -15,7 +16,8 @@ example.save(df=data)  # should give an error
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 TypeError: Example.save() missing 1 required positional argument: 'data'
 ```

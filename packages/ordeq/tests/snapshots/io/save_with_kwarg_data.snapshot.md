@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Output
 
@@ -16,24 +17,28 @@ example.save(data=data)  # should give an error
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 TypeError: Example.save() missing 1 required positional argument: 'data'
 ```
 
-## Output:
+## Output
+
 ```text
 saving! ...
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/io/save_with_kwarg_data.py:5: note: "save" of "Example" defined here
 packages/ordeq/tests/resources/io/save_with_kwarg_data.py:13: error: Unexpected keyword argument "data" for "save" of "Example"  [call-arg]

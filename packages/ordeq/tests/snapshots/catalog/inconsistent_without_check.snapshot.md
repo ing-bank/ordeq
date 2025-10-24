@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 
@@ -13,12 +14,14 @@ def func(hello: str) -> str:
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 AttributeError: module 'resources.catalog.catalogs.inconsistent' has no attribute 'result'
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:8: error: Module has no attribute "result"  [attr-defined]
 Found 1 error in 1 file (checked 1 source file)

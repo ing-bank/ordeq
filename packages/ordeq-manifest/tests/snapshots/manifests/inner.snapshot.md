@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq_manifest import create_manifest_json
 from examples.project import inner
@@ -7,7 +8,8 @@ print(create_manifest_json(inner))
 
 ```
 
-## Output:
+## Output
+
 ```text
 {
   "name": "examples.project.inner",
@@ -46,7 +48,8 @@ print(create_manifest_json(inner))
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq-manifest/tests/resources/manifests/inner.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-manifest/tests/resources/manifests/inner.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports

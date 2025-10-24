@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Input, InputHook, Node, Output, OutputHook, node, run
 from ordeq_common import StringBuffer
@@ -40,7 +41,8 @@ print(hooked_output.load())
 
 ```
 
-## Output:
+## Output
+
 ```text
 Before loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 After loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
@@ -51,7 +53,8 @@ dlrow olleh
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node Node(name=io_hooks:hello_world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])

@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq._resolve import (
     _resolve_runnables_to_modules,
@@ -22,7 +23,8 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 
 ```
 
-## Output:
+## Output
+
 ```text
 ['duplicates', 'duplicates.file1', 'duplicates.file2']
 ['duplicates.file1:foo', 'duplicates.file2:foo']

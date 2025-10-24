@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 import tempfile
 from pathlib import Path
@@ -21,7 +22,8 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 
 ```
 
-## Output:
+## Output
+
 ```text
 graph TB
 	subgraph legend["Legend"]
@@ -47,7 +49,8 @@ graph TB
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: error: Skipping analyzing "example3.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports

@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 """A node that returns a tuple to a single output."""
 from ordeq import node, run, IO

@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node, run
 from ordeq_common import StringBuffer
@@ -20,7 +21,8 @@ run(func1, func2, verbose=True)
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node
 ```

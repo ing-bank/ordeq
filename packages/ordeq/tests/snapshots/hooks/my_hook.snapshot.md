@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Node, NodeHook, Output, OutputHook, node
 from ordeq._nodes import get_node
@@ -32,7 +33,8 @@ fixed_output_hook.before_output_save(StringBuffer("B"), "world")
 
 ```
 
-## Output:
+## Output
+
 ```text
 saving data `hello` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
 running node Node(name=my_hook:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])

@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 import os
 
@@ -36,14 +37,16 @@ print(run(func2))
 
 ```
 
-## Output:
+## Output
+
 ```text
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): 'HELLO FROM LOCAL!'}
 {StringBuffer(_buffer=<_io.StringIO object at HASH2>): 'HELLO FROM REMOTE!'}
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node Node(name=dynamic:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])

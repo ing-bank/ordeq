@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 from ordeq_common import StringBuffer
@@ -20,7 +21,8 @@ print(func("x", y="y"))
 
 ```
 
-## Output:
+## Output
+
 ```text
 xy
 xY

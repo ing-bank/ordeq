@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from random import shuffle
 
@@ -44,7 +45,8 @@ run(*pipeline, verbose=True)
 
 ```
 
-## Output:
+## Output
+
 ```text
 NodeGraph:
   Edges:
@@ -64,7 +66,8 @@ NodeGraph:
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.runner	Running node Node(name=deterministic_graph:f4, outputs=[IO(idx=ID4)])
 INFO	ordeq.runner	Running node Node(name=deterministic_graph:f3, outputs=[IO(idx=ID3)])
@@ -75,7 +78,8 @@ INFO	ordeq.runner	Running node Node(name=deterministic_graph:a, inputs=[IO(idx=I
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/runner/deterministic_graph.py:5: error: Need type annotation for "o1"  [var-annotated]
 packages/ordeq/tests/resources/runner/deterministic_graph.py:6: error: Need type annotation for "o2"  [var-annotated]

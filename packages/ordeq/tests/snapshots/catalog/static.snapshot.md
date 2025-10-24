@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from types import ModuleType
 
@@ -28,14 +29,16 @@ print(run(func2))
 
 ```
 
-## Output:
+## Output
+
 ```text
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): 'HELLO FROM LOCAL!'}
 {StringBuffer(_buffer=<_io.StringIO object at HASH2>): 'HELLO FROM REMOTE!'}
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node Node(name=static:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
@@ -46,7 +49,8 @@ INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 7  [no-redef]
 Found 1 error in 1 file (checked 1 source file)

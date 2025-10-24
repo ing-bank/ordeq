@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 from ordeq._runner import run
@@ -36,7 +37,8 @@ print(patched)
 
 ```
 
-## Output:
+## Output
+
 ```text
 NodeGraph:
   Edges:
@@ -57,7 +59,8 @@ NodeGraph:
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading Literal(1)
 INFO	ordeq.runner	Running node Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
@@ -74,7 +77,8 @@ INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/runner/runner_io.py:29: error: Argument "io" to "run" has incompatible type "dict[object, object]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
 Found 1 error in 1 file (checked 1 source file)

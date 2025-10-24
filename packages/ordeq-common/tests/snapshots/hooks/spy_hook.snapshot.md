@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node, IO, run
 from ordeq_common import SpyHook, Literal
@@ -24,18 +25,21 @@ print(spy.called_with)
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 ValueError: Intentional failure for testing.
 ```
 
-## Output:
+## Output
+
 ```text
 [('before_node_run', Node(name=spy_hook:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)])), ('after_node_run', Node(name=spy_hook:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]))]
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading Literal('name')
 INFO	ordeq.runner	Running node Node(name=spy_hook:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)])

@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import run
 
@@ -9,7 +10,8 @@ run(
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 ValueError: Hook 'other_obj' not found in module 'packages.example.hooks'
 ```

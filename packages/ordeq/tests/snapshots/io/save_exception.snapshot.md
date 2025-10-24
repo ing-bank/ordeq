@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Output
 
@@ -13,13 +14,15 @@ mock.save(None)
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 IOException: Failed to save Output(idx=ID1).
 Some save exception
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Saving Output(idx=ID1)
 

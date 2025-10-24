@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 # Imported by ./run_modules.py
 from ordeq import node

@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 import tempfile
 from pathlib import Path
@@ -19,7 +20,8 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 
 ```
 
-## Output:
+## Output
+
 ```text
 Name: John
 Name: John
@@ -90,7 +92,8 @@ graph TB
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading NameGenerator(name='John')
 INFO	ordeq.runner	Running node Node(name=example.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])
@@ -101,7 +104,8 @@ INFO	ordeq.io	Saving NamePrinter()
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: error: Skipping analyzing "example.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports

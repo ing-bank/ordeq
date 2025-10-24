@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 from pathlib import Path
@@ -24,7 +25,8 @@ print(example_io.save("saved"))
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 TypeError: Save method requires a data parameter.
 ```

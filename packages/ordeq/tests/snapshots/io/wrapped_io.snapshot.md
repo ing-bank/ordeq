@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 
@@ -47,7 +48,8 @@ assert name_generator != message
 
 ```
 
-## Output:
+## Output
+
 ```text
 NameGenerator(name='John')
 {}

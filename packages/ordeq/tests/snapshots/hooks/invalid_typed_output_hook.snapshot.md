@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Output, OutputHook
 
@@ -14,7 +15,8 @@ _ = MyInvalidTypedOutputHook()
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:6: error: Argument 1 of "before_output_save" is incompatible with supertype "ordeq._hook.OutputHook"; supertype defines the argument type as "Output[str]"  [override]
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:6: note: This violates the Liskov substitution principle

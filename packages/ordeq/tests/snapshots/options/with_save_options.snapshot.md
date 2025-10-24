@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 from pathlib import Path
@@ -55,12 +56,14 @@ example_input_arg.with_save_options(unknown_kwarg="Hello")  # should error
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 TypeError: got an unexpected keyword argument 'unknown_kwarg'
 ```
 
-## Output:
+## Output
+
 ```text
 <class 'with_save_options.ExampleOutputSaveKwarg'>
 <class 'with_save_options.ExampleOutputSaveKwarg'>
@@ -69,7 +72,8 @@ TypeError: got an unexpected keyword argument 'unknown_kwarg'
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
 INFO	ordeq.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')

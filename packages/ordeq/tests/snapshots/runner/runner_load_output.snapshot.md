@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Output, node, run
 
@@ -24,25 +25,29 @@ run(my_node, load_node)
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 AttributeError: 'Example' object has no attribute 'load'
 ```
 
-## Output:
+## Output
+
 ```text
 saving! Hello, World!
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.runner	Running node Node(name=runner_load_output:my_node, outputs=[Output(idx=ID1)])
 INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/runner/runner_load_output.py:16: error: List item 0 has incompatible type "Example"; expected "Input[Any]"  [list-item]
 Found 1 error in 1 file (checked 1 source file)

@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq._resolve import (
     _resolve_runnables_to_modules,
@@ -22,7 +23,8 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 
 ```
 
-## Output:
+## Output
+
 ```text
 ['example3', 'example3.func_defs', 'example3.nodes']
 ['example3.func_defs:hello', 'example3.func_defs:hello']

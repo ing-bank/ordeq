@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass, field
 from typing import Generator, Iterable
@@ -50,7 +51,8 @@ run(increment, multiply, verbose=True, save="sinks")
 
 ```
 
-## Output:
+## Output
+
 ```text
 NodeGraph:
   Edges:
@@ -69,7 +71,8 @@ NodeGraph:
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
 INFO	ordeq.runner	Running node Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])])
@@ -85,7 +88,8 @@ INFO	ordeq.io	Saving Stream(data=[])
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/runner/runner_exhausted_stream.py:19: error: Unsupported left operand type for + ("Iterable[str]")  [operator]
 Found 1 error in 1 file (checked 1 source file)

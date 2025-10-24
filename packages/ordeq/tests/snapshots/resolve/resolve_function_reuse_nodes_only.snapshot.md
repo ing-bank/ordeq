@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq._resolve import (
     _resolve_runnables_to_modules,
@@ -22,7 +23,8 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 
 ```
 
-## Output:
+## Output
+
 ```text
 ['function_reuse.nodes']
 ['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']

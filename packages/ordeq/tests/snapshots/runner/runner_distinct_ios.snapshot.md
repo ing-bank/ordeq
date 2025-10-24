@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node, run
 from ordeq_common import StringBuffer
@@ -18,7 +19,8 @@ run(func1, func2, verbose=True)
 
 ```
 
-## Output:
+## Output
+
 ```text
 NodeGraph:
   Edges:
@@ -30,7 +32,8 @@ NodeGraph:
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.runner	Running node Node(name=runner_distinct_ios:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)

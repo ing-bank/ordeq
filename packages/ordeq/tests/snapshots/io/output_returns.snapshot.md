@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 
@@ -15,7 +16,8 @@ _ = ExampleOutputNosave()
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 TypeError: Save method must have return type None.
 ```

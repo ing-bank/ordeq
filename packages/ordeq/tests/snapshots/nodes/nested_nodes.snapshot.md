@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from collections.abc import Callable
 

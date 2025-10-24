@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import run
 from ordeq import NodeHook
@@ -19,7 +20,8 @@ run(
 
 ```
 
-## Output:
+## Output
+
 ```text
 Starting the run
 Before running node: packages.example.wrapped_io:hello
@@ -39,7 +41,8 @@ Finished the run
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading NameGenerator(name='John')
 INFO	ordeq.runner	Running node Node(name=packages.example.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])

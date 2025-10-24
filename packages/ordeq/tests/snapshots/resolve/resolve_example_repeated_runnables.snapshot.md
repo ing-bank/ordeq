@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq._resolve import (
     _resolve_runnables_to_modules,
@@ -28,7 +29,8 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 
 ```
 
-## Output:
+## Output
+
 ```text
 ['example', 'example.catalog', 'example.hooks', 'example.nodes', 'example.pipeline', 'example.wrapped_io']
 ['example.nodes:world', 'example.pipeline:transform_input', 'example.pipeline:transform_mock_input', 'example.wrapped_io:hello', 'example.wrapped_io:print_message']

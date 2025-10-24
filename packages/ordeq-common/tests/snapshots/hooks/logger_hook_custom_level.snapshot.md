@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 import logging
 
@@ -24,12 +25,14 @@ run(fail, hooks=[logger])
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 ValueError: Intentional failure for testing.
 ```
 
-## Logging:
+## Logging
+
 ```text
 CRITICAL	LoggerHook	Called 'before_node_run' with args: (Node(name=logger_hook_custom_level:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]),)
 INFO	ordeq.io	Loading Literal('name')

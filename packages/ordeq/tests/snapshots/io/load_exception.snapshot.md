@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Input
 
@@ -13,13 +14,15 @@ mock.load()
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 IOException: Failed to load Input(idx=ID1).
 Some load exception
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading Input(idx=ID1)
 

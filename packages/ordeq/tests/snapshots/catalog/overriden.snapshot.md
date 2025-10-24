@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node, run
 
@@ -16,14 +17,16 @@ print(run(func1))
 
 ```
 
-## Output:
+## Output
+
 ```text
 HELLO FROM REMOTE!
 {Print(): 'HELLO FROM REMOTE!'}
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node Node(name=overriden:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])

@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 from ordeq._runner import run
@@ -45,7 +46,8 @@ print(output[R4])
 
 ```
 
-## Output:
+## Output
+
 ```text
 NodeGraph:
   Edges:
@@ -86,7 +88,8 @@ Hello + world! / world! - Hello + world! + Hello + world! * 2
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
@@ -114,7 +117,8 @@ INFO	ordeq.runner	Running node Node(name=graph:f4, inputs=[StringBuffer(_buffer=
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]

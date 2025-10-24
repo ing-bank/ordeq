@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from tempfile import NamedTemporaryFile
 
@@ -29,9 +30,9 @@ with NamedTemporaryFile(delete=False, mode='wt') as tmp:
     second_file = File(path=path)
 
 
-    @node(outputs=first_file)
-    def first() -> str:
-        return "Hello, world!"
+    @node(inputs=first_file)
+    def first(value: str) -> None:
+        print(value)
 
 
     @node(inputs=second_file)
@@ -39,31 +40,34 @@ with NamedTemporaryFile(delete=False, mode='wt') as tmp:
         print(value)
 
 
-    # The run needs to recognize that 'first_file' and 'second_file'
-    # share the same resource.
-    # It should plan first -> second.
-    run(second, first, verbose=True)
+    # The run can schedule 'first' and 'second' in any order,
+    # since both only read from the shared resource.
+    # (The graph is still deterministic.)
+    run(first, second, verbose=True)
 
 ```
 
-## Output:
+## Output
+
 ```text
 NodeGraph:
   Edges:
-     run_shared_resource:first -> []
-     run_shared_resource:second -> []
+     shared_resource_read_only:first -> []
+     shared_resource_read_only:second -> []
   Nodes:
-     Node(name=run_shared_resource:first, outputs=[File])
-     Node(name=run_shared_resource:second, inputs=[File])
+     Node(name=shared_resource_read_only:first, inputs=[File])
+     Node(name=shared_resource_read_only:second, inputs=[File])
+
 
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node Node(name=run_shared_resource:second, inputs=[File])
-INFO	ordeq.runner	Running node Node(name=run_shared_resource:first, outputs=[File])
-INFO	ordeq.io	Saving File
+INFO	ordeq.runner	Running node Node(name=shared_resource_read_only:second, inputs=[File])
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running node Node(name=shared_resource_read_only:first, inputs=[File])
 
 ```

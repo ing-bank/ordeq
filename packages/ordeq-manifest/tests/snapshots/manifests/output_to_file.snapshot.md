@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from tempfile import NamedTemporaryFile
 
@@ -13,7 +14,8 @@ with NamedTemporaryFile() as file:
 
 ```
 
-## Output:
+## Output
+
 ```text
 JSON:
  {
@@ -53,7 +55,8 @@ JSON:
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports

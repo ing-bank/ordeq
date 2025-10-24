@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Node
 
@@ -15,7 +16,8 @@ print('Renamed:', node_renamed)
 
 ```
 
-## Output:
+## Output
+
 ```text
 Original: Node(name=node_custom_name:func)
 Renamed: Node(name=custom-name)

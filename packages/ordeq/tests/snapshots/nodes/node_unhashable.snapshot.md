@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 
@@ -21,7 +22,8 @@ def func(x: str) -> str:
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 ValueError: Node is not hashable: Node(name=node_unhashable:func, ...)
 ```

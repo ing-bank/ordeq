@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq_viz import pipeline_to_mermaid
@@ -19,7 +20,8 @@ print(diagram)
 
 ```
 
-## Output:
+## Output
+
 ```text
 Name: John
 Name: John
@@ -153,7 +155,8 @@ graph TB
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading NameGenerator(name='John')
 INFO	ordeq.runner	Running node Node(name=example.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])
@@ -164,7 +167,8 @@ INFO	ordeq.io	Saving NamePrinter()
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq-viz/tests/resources/mermaid/viz_wrapped.py:4: error: Skipping analyzing "example": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/mermaid/viz_wrapped.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports

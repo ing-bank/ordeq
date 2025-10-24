@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 from ordeq_common import StringBuffer, Literal
@@ -12,7 +13,8 @@ def func(data: str) -> str:
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: error: No overload variant of "node" matches argument types "Literal[str]", "Literal[str]"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note: Possible overload variants:

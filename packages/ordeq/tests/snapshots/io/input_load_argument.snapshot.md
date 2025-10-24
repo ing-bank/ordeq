@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 from pathlib import Path
@@ -21,13 +22,15 @@ print(example_input.load("Hello"))
 
 ```
 
-## Output:
+## Output
+
 ```text
 hello.txt@L1: Hello world!
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
 

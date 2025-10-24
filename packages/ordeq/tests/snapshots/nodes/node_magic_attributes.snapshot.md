@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 from ordeq_common import StringBuffer
@@ -21,7 +22,8 @@ print(func.__module__)
 
 ```
 
-## Output:
+## Output
+
 ```text
 A really nice node
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}

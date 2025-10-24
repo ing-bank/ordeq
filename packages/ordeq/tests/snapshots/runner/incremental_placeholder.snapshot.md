@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import IO, Input, Output, node
 from ordeq._runner import run
@@ -24,13 +25,15 @@ print(run(f, g, verbose=True))  # raises NotImplementedError
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 IOException: Failed to load Input(idx=ID1).
 
 ```
 
-## Output:
+## Output
+
 ```text
 NodeGraph:
   Edges:
@@ -42,7 +45,8 @@ NodeGraph:
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading Input(idx=ID1)
 

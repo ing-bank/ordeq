@@ -175,7 +175,7 @@ def capture_module(
         sections["Typing"] = _as_md_text_block(type_out)
 
     output = "\n\n".join(
-        f"## {key}:\n{value.rstrip()}" for key, value in sections.items()
+        f"## {key}\n\n{value.rstrip()}" for key, value in sections.items()
     )
 
     return make_output_invariant(output)

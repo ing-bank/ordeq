@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from pathlib import Path
 import tempfile
@@ -14,7 +15,8 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 
 ```
 
-## Output:
+## Output
+
 ```text
 Name: John
 Name: John
@@ -85,7 +87,8 @@ graph TB
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading NameGenerator(name='John')
 INFO	ordeq.runner	Running node Node(name=example.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])

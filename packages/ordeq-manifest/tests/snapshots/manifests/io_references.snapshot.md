@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq_manifest import create_manifest_json
 import example2
@@ -7,7 +8,8 @@ print(create_manifest_json(example2))
 
 ```
 
-## Output:
+## Output
+
 ```text
 {
   "name": "example2",
@@ -34,7 +36,8 @@ print(create_manifest_json(example2))
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq-manifest/tests/resources/manifests/io_references.py:2: error: Skipping analyzing "example2": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-manifest/tests/resources/manifests/io_references.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports

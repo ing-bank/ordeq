@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 
@@ -13,7 +14,8 @@ _ = ExampleInputNoLoad()
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 TypeError: Can't instantiate abstract class ExampleInputNoLoad with abstract method load
 ```

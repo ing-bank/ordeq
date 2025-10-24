@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node, IO, run
 from ordeq_common import SpyHook, Literal, LoggerHook
@@ -22,12 +23,14 @@ run(fail, hooks=[logger])
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 ValueError: Intentional failure for testing.
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	LoggerHook	Called 'before_node_run' with args: (Node(name=logger_hook:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]),)
 INFO	ordeq.io	Loading Literal('name')

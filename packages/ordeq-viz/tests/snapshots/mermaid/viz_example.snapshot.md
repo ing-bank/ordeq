@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq._nodes import get_node
 
@@ -14,7 +15,8 @@ print(diagram)
 
 ```
 
-## Output:
+## Output
+
 ```text
 graph TB
 	subgraph legend["Legend"]
@@ -45,7 +47,8 @@ graph TB
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq-viz/tests/resources/mermaid/viz_example.py:5: error: Skipping analyzing "example": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/mermaid/viz_example.py:5: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports

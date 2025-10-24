@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 from pathlib import Path
@@ -48,7 +49,8 @@ print(type(with_save_options))
 
 ```
 
-## Output:
+## Output
+
 ```text
 hello.txt@L1: Hello world!
 hello.txt@L1: Hello there world!
@@ -59,7 +61,8 @@ hello.txt@L1: Hi world!
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading ExampleIO(path=Path('hello.txt'), attribute='L1')
 INFO	ordeq.io	Loading ExampleIO(path=Path('hello.txt'), attribute='L1')

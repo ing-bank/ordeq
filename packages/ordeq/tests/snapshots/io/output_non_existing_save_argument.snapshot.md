@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 
@@ -15,7 +16,8 @@ _ = ExampleOutputsaveArg().with_save_options(world="hello world")
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 TypeError: got an unexpected keyword argument 'world'
 ```

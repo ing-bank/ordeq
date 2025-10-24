@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 from ordeq._runner import run
@@ -27,7 +28,8 @@ print(run(node(c, outputs=output))[output])
 
 ```
 
-## Output:
+## Output
+
 ```text
 Hello world!
 Hello world!
@@ -35,7 +37,8 @@ Hello world!
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)

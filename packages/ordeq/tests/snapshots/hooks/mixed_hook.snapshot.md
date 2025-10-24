@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import Output, NodeHook, OutputHook, Node, node, run
 
@@ -31,14 +32,16 @@ run(my_node, hooks=[hook])
 
 ```
 
-## Output:
+## Output
+
 ```text
 Hook: before saving output of node mixed_hook:my_node with data: Hello, World!
 saving! Hello, World!
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.runner	Running node Node(name=mixed_hook:my_node, outputs=[Output(idx=ID1)])
 INFO	ordeq.io	Saving Output(idx=ID1)

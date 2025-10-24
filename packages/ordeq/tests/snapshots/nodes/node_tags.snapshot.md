@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 from ordeq._nodes import get_node
@@ -48,7 +49,8 @@ print(node4.attributes)
 
 ```
 
-## Output:
+## Output
+
 ```text
 {}
 Node(name=node_tags:func2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)], attributes={'tags': ['tag1', 'tag2']})

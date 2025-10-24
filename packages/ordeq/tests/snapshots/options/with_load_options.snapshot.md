@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from dataclasses import dataclass
 from pathlib import Path
@@ -56,12 +57,14 @@ example_input_arg.with_load_options(unknown_kwarg="Hello")  # should error
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 TypeError: got an unexpected keyword argument 'unknown_kwarg'
 ```
 
-## Output:
+## Output
+
 ```text
 hello.txt@L1: Hi world!
 hello.txt@L1: Hello world!
@@ -77,7 +80,8 @@ hello.txt@L1: Hi world!
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
 INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')

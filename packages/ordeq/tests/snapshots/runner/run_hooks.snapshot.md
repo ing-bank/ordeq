@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from time import time, sleep
 from ordeq import RunHook
@@ -36,13 +37,15 @@ run(func1, func2, hooks=[RunTimer()])
 
 ```
 
-## Output:
+## Output
+
 ```text
 Total run time: 0.0 seconds
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.runner	Running node Node(name=run_hooks:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)

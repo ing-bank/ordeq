@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 import resources.runner.example_module_a as example_module_a
 import resources.runner.example_module_b as example_module_b
@@ -8,7 +9,8 @@ run(example_module_a, example_module_b, verbose=True)
 
 ```
 
-## Output:
+## Output
+
 ```text
 NodeGraph:
   Edges:
@@ -24,7 +26,8 @@ NodeGraph:
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading Literal(12345)
 INFO	ordeq.runner	Running node Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])

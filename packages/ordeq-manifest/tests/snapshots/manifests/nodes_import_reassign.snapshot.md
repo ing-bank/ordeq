@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq_manifest import create_manifest_json
 from examples.project import nodes_import_reassign
@@ -7,7 +8,8 @@ print(create_manifest_json(nodes_import_reassign))
 
 ```
 
-## Output:
+## Output
+
 ```text
 {
   "name": "examples.project.nodes_import_reassign",
@@ -85,7 +87,8 @@ print(create_manifest_json(nodes_import_reassign))
 
 ```
 
-## Typing:
+## Typing
+
 ```text
 packages/ordeq-manifest/tests/resources/manifests/nodes_import_reassign.py:2: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-manifest/tests/resources/manifests/nodes_import_reassign.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports

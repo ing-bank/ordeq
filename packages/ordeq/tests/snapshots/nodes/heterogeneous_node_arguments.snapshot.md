@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import node
 from ordeq_common import Literal, StringBuffer
@@ -13,7 +14,8 @@ print(func("a", 4))
 
 ```
 
-## Output:
+## Output
+
 ```text
 a4
 

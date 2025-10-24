@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from resources.catalog.catalogs.remote import *  # 'remote' is the catalog that is extended
 

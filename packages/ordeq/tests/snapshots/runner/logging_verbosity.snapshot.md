@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 import logging
 
@@ -20,7 +21,8 @@ _run_graph(NodeGraph.from_nodes(nodes))
 
 ```
 
-## Logging:
+## Logging
+
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)

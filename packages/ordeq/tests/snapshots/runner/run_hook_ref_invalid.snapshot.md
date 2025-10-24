@@ -1,4 +1,5 @@
-## Resource:
+## Resource
+
 ```python
 from ordeq import run
 
@@ -9,7 +10,8 @@ run(
 
 ```
 
-## Exception:
+## Exception
+
 ```text
 ValueError: Invalid hook reference: 'invalid'.
 ```

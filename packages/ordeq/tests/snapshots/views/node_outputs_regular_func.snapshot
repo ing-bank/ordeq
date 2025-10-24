@@ -1,5 +1,5 @@
 Exception:
-ValueError: Outputs of node node_outputs_regular_func:say_hello must be of type Output, found <class 'function'>
+ValueError: Outputs of node 'node_outputs_regular_func:say_hello' must be of type Output, got <class 'function'>
 
 Typing:
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:9: error: No overload variant of "node" matches argument type "Callable[[], str]"  [call-overload]

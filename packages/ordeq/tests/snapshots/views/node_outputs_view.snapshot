@@ -1,5 +1,5 @@
 Exception:
-ValueError: Outputs of node node_outputs_view:say_hello must be of type Output, found <class 'function'>
+ValueError: Outputs of node 'node_outputs_view:say_hello' must be of type Output, got <class 'function'>
 
 Logging:
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_outputs_view:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node.

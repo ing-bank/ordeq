@@ -143,7 +143,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
             f"Outputs of node '{n.name}' must be of type Output, "
-            f"found {type(not_an_output)} "
+            f"got {type(not_an_output)} "
         )
 
     func = n.func

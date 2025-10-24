@@ -24,8 +24,7 @@ def csv_as_df(data: MockDuckDbValues) -> pd.DataFrame:
 
 @node(inputs=csv_as_df)
 def aggregate(df: pd.DataFrame) -> None:
-    print("Executing 'aggregate'")
-    df.aggregate("sum").head()
+    print(df.aggregate("sum").head())
 
 
 print(run(aggregate, verbose=True))
@@ -42,7 +41,8 @@ NodeGraph:
   Nodes:
      View(name=view_to_pandas:aggregate, inputs=[View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])])
      View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])
-Executing 'aggregate'
+value    6
+dtype: int64
 {View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)]):    value
 0      1
 1      2

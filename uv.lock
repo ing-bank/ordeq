@@ -2856,6 +2856,7 @@ test = [
     { name = "ordeq-common" },
     { name = "ordeq-test-utils" },
     { name = "pandas" },
+    { name = "requests" },
 ]
 
 [package.metadata]
@@ -2866,6 +2867,7 @@ test = [
     { name = "ordeq-common", editable = "packages/ordeq-common" },
     { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
     { name = "pandas" },
+    { name = "requests" },
 ]
 
 [[package]]

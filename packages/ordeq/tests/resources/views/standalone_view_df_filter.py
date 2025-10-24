@@ -31,13 +31,13 @@ class PandasHead(Output[pd.DataFrame]):
 
 @node(inputs=df_filtered)
 def group_by(df: pd.DataFrame) -> None:
-    df.groupby(
+    print(df.groupby(
         by=["A", ],
         as_index=False,
         dropna=False,
     ).agg(
         {"B": "mean", "D": "max"}
-    ).head()
+    ).head())
 
 
 print(run(group_by, verbose=True))

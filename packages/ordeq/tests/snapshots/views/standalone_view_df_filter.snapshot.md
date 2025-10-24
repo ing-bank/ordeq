@@ -34,13 +34,13 @@ class PandasHead(Output[pd.DataFrame]):
 
 @node(inputs=df_filtered)
 def group_by(df: pd.DataFrame) -> None:
-    df.groupby(
+    print(df.groupby(
         by=["A", ],
         as_index=False,
         dropna=False,
     ).agg(
         {"B": "mean", "D": "max"}
-    ).head()
+    ).head())
 
 
 print(run(group_by, verbose=True))
@@ -69,6 +69,8 @@ Name: B, dtype: bool)])
 1    False
 2    False
 Name: B, dtype: bool)])])
+     A   B   D
+0  NaN NaN NaN
 {View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0

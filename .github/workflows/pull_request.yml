@@ -1,5 +1,5 @@
 ---
-name: Pull Request Label Checker
+name: Pull Request Checker
 on:
   pull_request:
     types:
@@ -10,12 +10,17 @@ on:
       - unlabeled
 
 jobs:
-
-  check_labels:
-    name: Check labels
+  check_pull_request:
+    name: Check pull request
     runs-on: ubuntu-latest
     steps:
       - uses: docker://agilepathway/pull-request-label-checker:latest
         with:
           one_of: fix,change,breaking,internal,docs
           repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: deepakputhraya/action-pr-title@master
+        with:
+          regex: '^(`ordeq-?.+`|(?!ordeq.*).+): '
+          verbal_description: 'Pull request title should start with "`[package]`:" or `docs:`, `ci:` etc.'
+          github_token: ${{ github.token }}

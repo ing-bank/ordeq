@@ -136,3 +136,7 @@ lock:
 # Bump version
 bump *ARGS:
     uv run scripts/next_tag.py {{ ARGS }}
+
+# Delete all .snapshot.md files anywhere in the repository
+delete-snapshots:
+    find . -type f -name "*.snapshot.md" -delete

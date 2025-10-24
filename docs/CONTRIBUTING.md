@@ -20,21 +20,38 @@ After installing it, you can run `just` to see the available commands:
 
 ```text
 Available recipes:
-    localsetup        # Local installation
-    lint              # Linting with ruff
-    ty                # Type checking with ty
-    mypy              # Type checking with mypy
-    sa                # Static analysis (lint + type checking)
-    fix               # Format code and apply lint fixes with ruff
-    test              # Run tests per package
-    test_all          # Run tests for all packages with coverage
-    docs              # Build the documentation
-    precommit         # Run pre-commit hooks
-    precommit_install # Install pre-commit hooks
-    install           # Install development dependencies
-    upgrade           # Upgrade (pre-commit only)
-    lock              # Lock dependencies
-    bump *ARGS        # Bump version
+    localsetup                # Local installation
+    ruff                      # Linting and formatting with ruff
+    mdformat                  # Formatting with mdformat
+    mdformat-fix
+    doccmd-ruff-format
+    doccmd-ruff-lint
+    doccmd-fix
+    lint                      # Linting with ruff
+    lint-fix
+    format                    # Formatting with ruff
+    format-fix
+    ty                        # Type checking with ty
+    list                      # List all packages
+    mypy                      # Type checking with mypy
+    sa                        # Static analysis (lint + type checking)
+    fix                       # Format code and apply lint fixes with ruff and mdformat
+    test *PACKAGES            # or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
+    test_package PACKAGE      # Test a single package
+    test_all                  # Run tests for all packages with coverage
+    generate-api-docs
+    generate-package-overview
+    docs-build                # Build the documentation
+    docs-serve                # Build and serve the documentation locally
+    docs-publish              # Publish the documentation to GitHub Pages
+    precommit                 # Run pre-commit hooks
+    precommit_install         # Install pre-commit hooks
+    install                   # Install development dependencies
+    upgrade                   # Upgrade (pre-commit only)
+    build PACKAGE
+    publish PACKAGE           # You need an API token from PyPI to run this command.
+    lock                      # Lock dependencies
+    bump *ARGS                # Bump version
 ```
 
 Tip: install support for `just` in your IDE, e.g. [just for PyCharm](https://plugins.jetbrains.com/plugin/18658-just).
@@ -53,11 +70,12 @@ Install the pre-commit hooks:
 uv run pre-commit install
 ```
 
-- When you start on a work item, create a new branch `feature/*`.
+- When you start on a work item, create a new branch.
 - The CI pipeline will be triggered when you create a pull request.
 - Pull requests should merge your branch into `main`.
 - You are encouraged to open and share draft PRs for work that is pending.
-- The merge type can be squash commit or merge, provided the commit messages are descriptive enough.
+- The merge type must be squash commit.
+- The pull request title and labels will be used to generate the release notes.
 - There is a policy check on the PR which ensures that, before merge:
     - the build has succeeded (formatting, linters & tests pass)
     - open comments are resolved
@@ -65,16 +83,17 @@ uv run pre-commit install
 
 ### Releases
 
-- Releases are currently done via GitHub releases.
 - We use [semantic versioning](http://semver.org/) for the release tags.
 - Releases should be done for each package individually, e.g. `ordeq`,`ordeq-spark`
-- To create a release:
-    - Go to the GitHub Releases page: https://github.com/ing-bank/ordeq/releases
-    - Click "Draft a new release"
-    - As tag, bump the current tag according to semantic versioning, e.g. `ordeq-yaml/v1.0.1`
-    - Use the tag as title
-    - Generate release notes, only keep relevant PRs.
-    - Uncheck "Set as the latest release" unless the package is `ordeq`
+- Releases are managed via GitHub releases.
+- To create releases:
+    - Ensure you are on the `main` branch and have pulled the latest changes.
+    - Run the release script `uv run scripts/generate_draft_releases.py`.
+    - This will create draft releases for all packages that have changes since the last release.
+    - Go to the "Releases" section of the GitHub repository.
+    - Find the draft release for the package you want to publish.
+    - Review the release notes and make any necessary edits.
+    - Untick the "Set as the latest release" checkbox if you are not releasing the `ordeq` package.
     - Click "Publish release"
     - The CI will automatically build the package and upload it to Pypi.
 

@@ -64,7 +64,7 @@ def get_pypi_name_description_group(
     description = data["project"].get("description", "")
     group = None
     tool_section = data.get("tool", {})
-    ordeq_section = tool_section.get("ordeq", {})
+    ordeq_section = tool_section.get("ordeq-dev", {})
     if isinstance(ordeq_section, dict):
         group = ordeq_section.get("group")
     return name, description, group
@@ -84,15 +84,10 @@ def get_pypi_name_description_group_logo(
     data = TOML(path=pyproject_path).load()
     name = data["project"]["name"]
     description = data["project"].get("description", "")
-    logo_url = None
     tool_section = data.get("tool", {})
-    ordeq_section = tool_section.get("ordeq", {})
     ordeq_dev_section = tool_section.get("ordeq-dev", {})
-    if isinstance(ordeq_dev_section, dict):
-        logo_url = ordeq_dev_section.get("logo_url")
-    group = None
-    if isinstance(ordeq_section, dict):
-        group = ordeq_section.get("group")
+    logo_url = ordeq_dev_section.get("logo_url", None)
+    group = ordeq_dev_section.get("group", None)
     return name, description, group, logo_url
 
 

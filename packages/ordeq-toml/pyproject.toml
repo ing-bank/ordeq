@@ -25,10 +25,8 @@ dependencies = [
     "tomli-w",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://avatars.githubusercontent.com/u/7966854?v=4"
 
 [dependency-groups]

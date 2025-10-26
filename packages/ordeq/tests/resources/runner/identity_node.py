@@ -1,6 +1,6 @@
-# Checks the behaviour when running an identity node:
-# a node that inputs the same IO as it outputs.
-# Running this node should be allowed: the runner should not detect a cycle.
+# Checks the behaviour when running an identity node: a node that inputs the
+# same IO as it outputs. We expect this to run without issues. More
+# specifically, the runner should not detect cycles.
 from ordeq_common import StringBuffer
 from ordeq import node, run
 

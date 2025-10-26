@@ -15,7 +15,8 @@ def identity(value: str) -> str:
     return value
 
 
-print(run(identity, verbose=True))
+run(identity, verbose=True)
+print(io.load())  # Prints the value after running the node
 
 ```
 
@@ -27,7 +28,7 @@ NodeGraph:
      identity_node:identity -> []
   Nodes:
      Node(name=identity_node:identity, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-{StringBuffer(_buffer=<_io.StringIO object at HASH1>): 'Hello, Ordeq!'}
+Hello, Ordeq!Hello, Ordeq!
 
 ```
 
@@ -37,5 +38,6 @@ NodeGraph:
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node Node(name=identity_node:identity, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

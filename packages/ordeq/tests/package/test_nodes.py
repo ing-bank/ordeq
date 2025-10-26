@@ -1,6 +1,6 @@
 import pytest
-from ordeq import IO, Node, node
-from ordeq._nodes import get_node
+from ordeq import IO, node
+from ordeq._nodes import create_node, get_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 
@@ -53,7 +53,7 @@ def test_it_raises_for_invalid_inputs(inputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
         ValueError, match="Node inputs invalid for function arguments"
     ):
-        n = Node.from_func(
+        n = create_node(
             func=lambda _: _, inputs=inputs, outputs=(StringBuffer("c"),)
         )
         _run_node(n, hooks=())
@@ -79,13 +79,11 @@ def method_w_2_ret(a: str) -> tuple[str, str]:
             method_w_0_ret,
             (StringBuffer("a"), StringBuffer("b"), StringBuffer("c")),
         ),  # 2 too many
-        (method_w_1_ret, ()),  # too few
         (method_w_1_ret, (StringBuffer("a"), StringBuffer("b"))),  # 1 too many
         (
             method_w_1_ret,
             (StringBuffer("a"), StringBuffer("b"), StringBuffer("c")),
         ),  # 2 too many
-        (method_w_2_ret, ()),  # too few
         (
             method_w_2_ret,
             (StringBuffer("a"), StringBuffer("b"), StringBuffer("c")),
@@ -96,7 +94,7 @@ def test_it_raises_for_invalid_outputs(func, outputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
         ValueError, match="Node outputs invalid for return annotation"
     ):
-        n = Node.from_func(
+        n = create_node(
             func=func, inputs=(StringBuffer("a"),), outputs=outputs
         )
         _run_node(n, hooks=())

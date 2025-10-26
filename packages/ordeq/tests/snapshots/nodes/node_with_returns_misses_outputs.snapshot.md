@@ -14,8 +14,11 @@ run(func)
 
 ```
 
-## Exception
+## Logging
 
 ```text
-ValueError: Node outputs invalid for return annotation: Node(name=node_with_returns_misses_outputs:func,...). Node has 0 output(s), but the return type annotation expects 1 value(s).
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_with_returns_misses_outputs:func'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node View(name=node_with_returns_misses_outputs:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+
 ```

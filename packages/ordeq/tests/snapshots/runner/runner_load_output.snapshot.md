@@ -41,6 +41,7 @@ saving! Hello, World!
 ## Logging
 
 ```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'runner_load_output:load_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running node Node(name=runner_load_output:my_node, outputs=[Output(idx=ID1)])
 INFO	ordeq.io	Saving Output(idx=ID1)
 
@@ -49,7 +50,7 @@ INFO	ordeq.io	Saving Output(idx=ID1)
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/runner/runner_load_output.py:16: error: List item 0 has incompatible type "Example"; expected "Input[Any]"  [list-item]
+packages/ordeq/tests/resources/runner/runner_load_output.py:16: error: List item 0 has incompatible type "Example"; expected "Input[Any] | Callable[..., Any]"  [list-item]
 Found 1 error in 1 file (checked 1 source file)
 
 ```

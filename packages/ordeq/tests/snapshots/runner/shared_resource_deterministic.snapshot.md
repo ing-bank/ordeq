@@ -55,7 +55,7 @@ NodeGraph:
      shared_resource_deterministic:second -> []
   Nodes:
      Node(name=shared_resource_deterministic:first, outputs=[File])
-     Node(name=shared_resource_deterministic:second, inputs=[File])
+     View(name=shared_resource_deterministic:second, inputs=[File])
 
 
 ```
@@ -63,8 +63,9 @@ NodeGraph:
 ## Logging
 
 ```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_deterministic:second'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node Node(name=shared_resource_deterministic:second, inputs=[File])
+INFO	ordeq.runner	Running node View(name=shared_resource_deterministic:second, inputs=[File])
 INFO	ordeq.runner	Running node Node(name=shared_resource_deterministic:first, outputs=[File])
 INFO	ordeq.io	Saving File
 

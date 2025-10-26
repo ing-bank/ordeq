@@ -30,6 +30,11 @@ test = [
     "cloudpathlib[s3]>=0.20.0",
     "ordeq-common",
     "ordeq_test_utils",
+    "pandas",
+    "pandas-stubs",
+    "requests",
+    "duckdb",
+    "types-requests",
 ]
 
 [tool.setuptools_scm]

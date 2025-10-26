@@ -1,6 +1,6 @@
 import pytest
 import streamlit as st
-from example.io import StreamlitElement
+from example.element import StreamlitElement
 from ordeq import IOException
 
 

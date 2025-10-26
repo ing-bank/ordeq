@@ -22,3 +22,10 @@ if __name__ == "__main__":
     run(node_return_tuple, node_consume_tuple)
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_return_tuple:node_consume_tuple'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+
+```

@@ -25,5 +25,5 @@ def func(x: str) -> str:
 ## Exception
 
 ```text
-ValueError: Node is not hashable: Node(name=node_unhashable:func, ...)
+ValueError: Node is not hashable: Node(name=node_unhashable:func, inputs=[Unhashable(data=['y', 'z'])], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 ```

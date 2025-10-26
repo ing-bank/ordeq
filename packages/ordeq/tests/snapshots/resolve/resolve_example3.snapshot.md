@@ -32,3 +32,11 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 ['example3.func_defs:hello', 'example3.func_defs:hello']
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+
+```

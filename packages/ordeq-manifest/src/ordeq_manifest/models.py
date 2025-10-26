@@ -3,7 +3,7 @@
 import operator
 from typing import Any
 
-from ordeq import IO, Input, Node, Output
+from ordeq import IO, Input, Node, Output, View
 from pydantic import BaseModel, Field
 
 
@@ -48,7 +48,7 @@ class NodeModel(BaseModel):
         return cls(
             id=".".join(name),
             name=name[1],
-            inputs=[ios_to_id[i] for i in node.inputs],
+            inputs=[ios_to_id[i] for i in node.inputs],  # type: ignore[index,arg-type]
             outputs=[ios_to_id[o] for o in node.outputs],
             attributes=node.attributes,
         )
@@ -78,6 +78,10 @@ class ProjectModel(BaseModel):
         Returns:
             A ProjectModel instance.
         """
+
+        # Manifests don't accurately display views yet, so we filter them out
+        nodes_ = [node for node in nodes if not isinstance(node, View)]
+
         io_models = {
             ".".join(name): IOModel.from_io(name, io)
             for name, io in sorted(ios.items(), key=operator.itemgetter(0))
@@ -91,6 +95,6 @@ class ProjectModel(BaseModel):
             f"nodes.{node.name}": NodeModel.from_node(
                 ("nodes", node.name), node, ios_to_id
             )
-            for node in sorted(nodes, key=lambda obj: obj.name)
+            for node in sorted(nodes_, key=lambda obj: obj.name)
         }
         return cls(name=name, nodes=node_models, ios=io_models)

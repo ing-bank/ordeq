@@ -24,13 +24,13 @@ NodeGraph:
   Edges:
      run_rename_run:print_message -> []
   Nodes:
-     Node(name=run_rename_run:print_message)
+     View(name=run_rename_run:print_message)
 Hello from printer
 NodeGraph:
   Edges:
      run_rename_run:print_message -> []
   Nodes:
-     Node(name=run_rename_run:print_message)
+     View(name=run_rename_run:print_message)
 Hello from printer
 
 ```
@@ -38,7 +38,8 @@ Hello from printer
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node Node(name=run_rename_run:print_message)
-INFO	ordeq.runner	Running node Node(name=run_rename_run:print_message)
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'run_rename_run:print_message'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running node View(name=run_rename_run:print_message)
+INFO	ordeq.runner	Running node View(name=run_rename_run:print_message)
 
 ```

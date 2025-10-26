@@ -8,3 +8,6 @@ dependencies = [
     "ordeq",
     "streamlit"
 ]
+
+[tool.ordeq]
+group = "examples"

@@ -61,7 +61,13 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
             input_to_nodes[input_].append(node)
     for node_output, node in output_to_node.items():
         if node_output in input_to_nodes:
-            edges[node] += input_to_nodes[node_output]
+            next_nodes = input_to_nodes[node_output]
+            edges[node] += [
+                # Ensure we don't create self-loops
+                next_node
+                for next_node in next_nodes
+                if next_node != node
+            ]
     return edges
 
 

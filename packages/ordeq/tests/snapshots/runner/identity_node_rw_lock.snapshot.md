@@ -2,8 +2,8 @@
 
 ```python
 # Checks the behaviour when running an identity node with IO that has a
-# read-write lock (of some sorts). We expect running this node to raise an
-# error in the IO, not when building the graph.
+# read-write lock of some sorts. We expect this to raise an error when
+# saving to the locked IO (not when building the graph).
 from tempfile import NamedTemporaryFile
 
 from ordeq import node, run, IO

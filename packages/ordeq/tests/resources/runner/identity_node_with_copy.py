@@ -9,9 +9,9 @@ copy = StringBuffer()
 
 
 @node(inputs=io, outputs=[io, copy])
-def identity(value: str) -> tuple[str, str]:
+def identity_and_copy(value: str) -> tuple[str, str]:
     return value, value
 
 
-run(identity, verbose=True)
+run(identity_and_copy, verbose=True)
 print(copy.load())

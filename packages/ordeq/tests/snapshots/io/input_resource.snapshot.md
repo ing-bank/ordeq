@@ -1,3 +1,6 @@
+## Resource
+
+```python
 # This resource reflects how __resources__ behaves in inheritance scenarios.
 # The resources of the child class should be concatenated with those of the
 # parent class.
@@ -38,3 +41,14 @@ class Child(Base):
 f = Child(path=Path('my.file'), attr="child_value")
 print(f.__resources__())
 print(_get_resources(f))
+
+```
+
+## Output
+
+```text
+['base_value']
+['my.file']
+['my.file', 'child_value']
+
+```

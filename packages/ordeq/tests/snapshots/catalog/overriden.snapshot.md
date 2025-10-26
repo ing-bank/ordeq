@@ -17,19 +17,8 @@ print(run(func1))
 
 ```
 
-## Output
+## Exception
 
 ```text
-HELLO FROM REMOTE!
-{Print(): 'HELLO FROM REMOTE!'}
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node Node(name=overriden:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])
-INFO	ordeq.io	Saving Print()
-
+CycleError: ('nodes are in a cycle', [Node(name=overriden:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]), Node(name=overriden:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])])
 ```

@@ -21,18 +21,23 @@ print(run(n, verbose=True, io={hello_io: Literal("Buenos dias")}))
 
 ```
 
+## Exception
+
+```text
+IOException: Failed to load IO(idx=ID1).
+
+```
+
 ## Output
 
 ```text
 NodeGraph:
   Edges:
-     view_patch_io:hello_world -> [view_patch_io:n]
-     view_patch_io:n -> []
+     view_patch_io:hello_world -> []
+     view_patch_io:n -> [view_patch_io:hello_world]
   Nodes:
      View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])
      View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])])
-Node received 'Buenos dias World!'
-{View(name=view_patch_io:hello_world, inputs=[Literal('Hello')]): ('Buenos dias', 'World!'), View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])]): None}
 
 ```
 
@@ -41,9 +46,7 @@ Node received 'Buenos dias World!'
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_patch_io:hello_world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_patch_io:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal('Buenos dias')
-INFO	ordeq.runner	Running node View(name=view_patch_io:hello_world, inputs=[Literal('Buenos dias')])
-INFO	ordeq.runner	Running node View(name=view_patch_io:n, inputs=[IO(idx=ID1)])
+INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```
 

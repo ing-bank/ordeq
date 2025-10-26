@@ -20,6 +20,9 @@ class File(IO[str]):
         # To clean the output
         return "File"
 
+    def __resources__(self) -> list[str]:
+        return [self.path.__fspath__()]
+
 
 with NamedTemporaryFile(delete=False, mode='wt') as tmp:
     path = Path(tmp.name)

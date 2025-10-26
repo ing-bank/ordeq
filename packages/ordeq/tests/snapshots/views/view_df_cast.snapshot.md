@@ -36,13 +36,20 @@ print(run(group_by, verbose=True))
 
 ```
 
+## Exception
+
+```text
+IOException: Failed to load IO(idx=ID1).
+
+```
+
 ## Output
 
 ```text
 NodeGraph:
   Edges:
-     view_df_cast:df_casted -> [view_df_cast:group_by]
-     view_df_cast:group_by -> []
+     view_df_cast:df_casted -> []
+     view_df_cast:group_by -> [view_df_cast:df_casted]
   Nodes:
      View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
 0  foo  1  one  2.0
@@ -52,19 +59,6 @@ NodeGraph:
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)])])
-     A    B    D
-0  bar  2.0  5.0
-1  foo  2.0  8.0
-{View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)]):      A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0, View(name=view_df_cast:group_by, inputs=[View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])]): None}
 
 ```
 
@@ -73,14 +67,6 @@ NodeGraph:
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_df_cast:df_casted'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_df_cast:group_by'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)
-INFO	ordeq.runner	Running node View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])
-INFO	ordeq.runner	Running node View(name=view_df_cast:group_by, inputs=[IO(idx=ID1)])
+INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```

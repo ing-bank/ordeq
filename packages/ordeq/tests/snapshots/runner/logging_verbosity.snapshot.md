@@ -21,17 +21,8 @@ _run_graph(NodeGraph.from_nodes(nodes))
 
 ```
 
-## Logging
+## Exception
 
 ```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node Node(name=logging_verbosity:<lambda>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.runner	Running node Node(name=logging_verbosity:<lambda>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)])
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-INFO	ordeq.runner	Running node Node(name=logging_verbosity:<lambda>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-
+CycleError: ('nodes are in a cycle', [Node(name=logging_verbosity:<lambda>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]), Node(name=logging_verbosity:<lambda>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])])
 ```

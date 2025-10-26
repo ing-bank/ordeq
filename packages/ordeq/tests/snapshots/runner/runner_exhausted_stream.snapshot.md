@@ -51,40 +51,22 @@ run(increment, multiply, verbose=True, save="sinks")
 
 ```
 
+## Exception
+
+```text
+CycleError: ('nodes are in a cycle', [Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])]), Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])])])
+```
+
 ## Output
 
 ```text
 NodeGraph:
   Edges:
-     runner_exhausted_stream:increment -> [runner_exhausted_stream:multiply]
+     runner_exhausted_stream:increment -> [runner_exhausted_stream:increment, runner_exhausted_stream:multiply, runner_exhausted_stream:multiply]
      runner_exhausted_stream:multiply -> []
   Nodes:
      Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])])
      Node(name=runner_exhausted_stream:multiply, inputs=[Stream(data=[]), Literal('2')], outputs=[Stream(data=[])])
-NodeGraph:
-  Edges:
-     runner_exhausted_stream:increment -> [runner_exhausted_stream:multiply]
-     runner_exhausted_stream:multiply -> []
-  Nodes:
-     Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=['2', '3', '4'])])
-     Node(name=runner_exhausted_stream:multiply, inputs=[Stream(data=['2', '3', '4']), Literal('2')], outputs=[Stream(data=[])])
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-INFO	ordeq.runner	Running node Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])])
-INFO	ordeq.io	Saving Stream(data=[])
-INFO	ordeq.io	Loading Literal('2')
-INFO	ordeq.runner	Running node Node(name=runner_exhausted_stream:multiply, inputs=[Stream(data=['2', '3', '4']), Literal('2')], outputs=[Stream(data=[])])
-INFO	ordeq.io	Saving Stream(data=[])
-INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-INFO	ordeq.runner	Running node Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=['2', '3', '4'])])
-INFO	ordeq.io	Loading Literal('2')
-INFO	ordeq.runner	Running node Node(name=runner_exhausted_stream:multiply, inputs=[Stream(data=['2', '3', '4']), Literal('2')], outputs=[Stream(data=[])])
-INFO	ordeq.io	Saving Stream(data=[])
 
 ```
 

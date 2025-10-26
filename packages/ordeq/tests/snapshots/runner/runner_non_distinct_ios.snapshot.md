@@ -21,8 +21,25 @@ run(func1, func2, verbose=True)
 
 ```
 
-## Exception
+## Output
 
 ```text
-ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node
+NodeGraph:
+  Edges:
+     runner_non_distinct_ios:func1 -> []
+     runner_non_distinct_ios:func2 -> []
+  Nodes:
+     Node(name=runner_non_distinct_ios:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     Node(name=runner_non_distinct_ios:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+
+```
+
+## Logging
+
+```text
+INFO	ordeq.runner	Running node Node(name=runner_non_distinct_ios:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node Node(name=runner_non_distinct_ios:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+
 ```

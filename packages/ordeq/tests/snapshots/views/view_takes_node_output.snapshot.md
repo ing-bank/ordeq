@@ -35,8 +35,7 @@ print(run(sink, verbose=True))
 ## Exception
 
 ```text
-IOException: Failed to load IO(idx=ID1).
-
+CycleError: ('nodes are in a cycle', [Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)]), Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])])
 ```
 
 ## Output
@@ -44,21 +43,11 @@ IOException: Failed to load IO(idx=ID1).
 ```text
 NodeGraph:
   Edges:
-     view_takes_node_output:hello_from_someone -> [view_takes_node_output:what_i_heard]
+     view_takes_node_output:hello_from_someone -> [view_takes_node_output:hello_from_someone, view_takes_node_output:hello_from_someone, view_takes_node_output:what_i_heard]
      view_takes_node_output:sink -> []
-     view_takes_node_output:what_i_heard -> [view_takes_node_output:sink]
+     view_takes_node_output:what_i_heard -> []
   Nodes:
      Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])
-     View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
-     View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
-I heard that Jane said 'Hello'
-None
-{IO(idx=ID1): "Jane said 'Hello'", View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)]): None, View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])]): None}
-NodeGraph:
-  Edges:
-     view_takes_node_output:sink -> []
-     view_takes_node_output:what_i_heard -> [view_takes_node_output:sink]
-  Nodes:
      View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
      View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
 
@@ -69,12 +58,6 @@ NodeGraph:
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_takes_node_output:what_i_heard'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_takes_node_output:sink'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal('Jane')
-INFO	ordeq.io	Loading Literal('Hello')
-INFO	ordeq.runner	Running node Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])
-INFO	ordeq.runner	Running node View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
-INFO	ordeq.runner	Running node View(name=view_takes_node_output:sink, inputs=[IO(idx=ID2)])
-INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```
 

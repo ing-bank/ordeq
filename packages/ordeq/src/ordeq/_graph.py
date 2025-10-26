@@ -2,8 +2,9 @@ from collections import defaultdict
 from collections.abc import Iterable
 from functools import cached_property
 from graphlib import TopologicalSorter
-
+from ordeq._io import _get_resources
 from ordeq._nodes import Node, View
+from typing import NamedTuple
 
 try:
     from typing import Self  # type: ignore[attr-defined]
@@ -25,8 +26,33 @@ def _collect_views(nodes: set[Node]) -> set[View]:
     views: set[View] = set()
     for node in nodes:
         node_views = set(node.views)
-        views |= node_views | _collect_views(node_views)  # type: ignore[arg-type]
+        views |= node_views | _collect_views(
+            node_views)  # type: ignore[arg-type]
     return views
+
+
+def _node_to_resources(node: Node) -> tuple[
+    list[tuple[str]], list[tuple[str]]]:
+    """Collects all input and output resources from the given nodes.
+
+    Args:
+        node: `Node` object
+
+    Returns:
+        a set of input and output resource names
+    """
+
+    input_resources = []
+    output_resources = []
+    for io in node.inputs:
+        if not isinstance(io, View):
+            resources = _get_resources(io)
+            input_resources.append(tuple(resources))
+    for io in node.outputs:
+        resources = _get_resources(io)
+        output_resources.append(tuple(resources))
+
+    return input_resources, output_resources
 
 
 def _build_graph(nodes: Iterable[Node]) -> EdgesType:
@@ -42,26 +68,29 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
         ValueError: if an output is defined by more than one node
     """
 
-    output_to_node: dict = {
+    node_resources = {
+        node: _node_to_resources(node) for node in nodes
+    }
+    output_resource_to_node: dict = {
         view: view for view in nodes if isinstance(view, View)
     }
-    input_to_nodes: defaultdict = defaultdict(list)
+    input_resource_to_nodes: defaultdict = defaultdict(list)
     edges: dict = {node: [] for node in nodes}
-    for node in nodes:
+    for (node, (input_resources, output_resources)) in node_resources.items():
         if isinstance(node, Node):
-            for output_ in node.outputs:
-                if output_ in output_to_node:
-                    msg = (
-                        f"IO {output_} cannot be outputted "
-                        f"by more than one node"
-                    )
-                    raise ValueError(msg)
-                output_to_node[output_] = node
-        for input_ in node.inputs:
-            input_to_nodes[input_].append(node)
-    for node_output, node in output_to_node.items():
-        if node_output in input_to_nodes:
-            edges[node] += input_to_nodes[node_output]
+            for output_resource in output_resources:
+                # if output_resource in output_resource_to_node:
+                #     msg = (
+                #         f"IO {output_resource} cannot be outputted "
+                #         f"by more than one node"
+                #     )
+                #     raise ValueError(msg)
+                output_resource_to_node[output_resource] = node
+        for input_resource in input_resources:
+            input_resource_to_nodes[input_resource].append(node)
+    for node_output, node in output_resource_to_node.items():
+        if node_output in input_resource_to_nodes:
+            edges[node] += input_resource_to_nodes[node_output]
     return edges
 
 

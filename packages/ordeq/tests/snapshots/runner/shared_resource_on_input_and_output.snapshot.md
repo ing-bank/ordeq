@@ -19,6 +19,9 @@ class File(IO[str]):
         with self.path.open(mode='wt') as file:
             file.write(data)
 
+    def __resources__(self) -> list[str]:
+        return [self.path.__fspath__()]
+
     def __repr__(self):
         # To clean the output
         return "File"
@@ -44,19 +47,8 @@ with NamedTemporaryFile(delete=False, mode='wt') as tmp:
 
 ```
 
-## Output
+## Exception
 
 ```text
-!dlrow ,olleH
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node Node(name=shared_resource_on_input_and_output:reverse, inputs=[File], outputs=[File])
-INFO	ordeq.io	Saving File
-INFO	ordeq.io	Loading File
-
+CycleError: ('nodes are in a cycle', [Node(name=shared_resource_on_input_and_output:reverse, inputs=[File], outputs=[File]), Node(name=shared_resource_on_input_and_output:reverse, inputs=[File], outputs=[File])])
 ```

@@ -16,6 +16,9 @@ class File(IO[str]):
         with self.path.open(mode='wt') as file:
             file.write(data)
 
+    def __resources__(self) -> list[str]:
+        return [self.path.__fspath__()]
+
     def __repr__(self):
         # To clean the output
         return "File"

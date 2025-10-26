@@ -26,20 +26,23 @@ print(run(print_buckets, verbose=True))
 
 ```
 
+## Exception
+
+```text
+IOException: Failed to load IO(idx=ID1).
+
+```
+
 ## Output
 
 ```text
 NodeGraph:
   Edges:
-     view_client_list_buckets:buckets -> [view_client_list_buckets:print_buckets]
-     view_client_list_buckets:print_buckets -> []
+     view_client_list_buckets:buckets -> []
+     view_client_list_buckets:print_buckets -> [view_client_list_buckets:buckets]
   Nodes:
      View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])
      View(name=view_client_list_buckets:print_buckets, inputs=[View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])])
-bucket1
-bucket2
-bucket3
-{View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)]): ['bucket1', 'bucket2', 'bucket3'], View(name=view_client_list_buckets:print_buckets, inputs=[View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])]): None}
 
 ```
 
@@ -48,8 +51,6 @@ bucket3
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_client_list_buckets:buckets'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_client_list_buckets:print_buckets'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal(<view_client_list_buckets.Client object at HASH1>)
-INFO	ordeq.runner	Running node View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])
-INFO	ordeq.runner	Running node View(name=view_client_list_buckets:print_buckets, inputs=[IO(idx=ID1)])
+INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```

@@ -23,6 +23,9 @@ class File(IO[str]):
         # To clean the output
         return "File"
 
+    def __resources__(self) -> list[str]:
+        return [self.path.__fspath__()]
+
 
 with NamedTemporaryFile(delete=False, mode='wt') as tmp:
     path = Path(tmp.name)
@@ -51,12 +54,12 @@ with NamedTemporaryFile(delete=False, mode='wt') as tmp:
 ```text
 NodeGraph:
   Edges:
-     shared_resource_deterministic:first -> []
+     shared_resource_deterministic:first -> [shared_resource_deterministic:second]
      shared_resource_deterministic:second -> []
   Nodes:
      Node(name=shared_resource_deterministic:first, outputs=[File])
      View(name=shared_resource_deterministic:second, inputs=[File])
-
+Hello, world!
 
 ```
 
@@ -64,9 +67,9 @@ NodeGraph:
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_deterministic:second'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node View(name=shared_resource_deterministic:second, inputs=[File])
 INFO	ordeq.runner	Running node Node(name=shared_resource_deterministic:first, outputs=[File])
 INFO	ordeq.io	Saving File
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running node View(name=shared_resource_deterministic:second, inputs=[File])
 
 ```

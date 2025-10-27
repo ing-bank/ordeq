@@ -7,6 +7,7 @@ TESTS_DIR = Path(__file__).resolve().parent
 RESOURCE_DIR = TESTS_DIR / "resources"
 SNAPSHOT_DIR = TESTS_DIR / "snapshots"
 
+
 @pytest.mark.snapshot
 @pytest.mark.parametrize(
     ("file_path", "snapshot_path"),

@@ -1,8 +1,11 @@
+import logging
 from pathlib import Path
 
 from ordeq import node, run
 from ordeq_requests import ResponseJSON
 from ordeq_yaml import YAML
+
+logging.basicConfig(level=logging.INFO)
 
 user = ResponseJSON(url="https://jsonplaceholder.typicode.com/users/1")
 yaml = YAML(path=Path("users.yml"))

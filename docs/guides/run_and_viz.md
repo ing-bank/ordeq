@@ -57,6 +57,22 @@ def my_node():
     print("Hello, Ordeq!")
 ```
 
+### Logging
+
+By default, Ordeq logs execution progress using the `INFO` level.
+The default Python logging level is `WARNING`, so to see Ordeq logs, you need to set the logging level to `INFO` or lower:
+
+```python title="main.py"
+import logging
+from ordeq import run
+import nodes
+
+logging.basicConfig(level=logging.INFO)
+
+if __name__ == "__main__":
+    run(nodes)
+```
+
 ## Viz
 
 The `viz` function from the `ordeq_viz` package allows you to visualize the nodes and their dependencies in a graph format:

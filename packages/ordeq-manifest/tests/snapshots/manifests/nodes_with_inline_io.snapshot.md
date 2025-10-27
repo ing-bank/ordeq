@@ -17,7 +17,7 @@ KeyError: Literal('Buenos dias')
             ~~~~~~~~~^^^
 
   File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 92, in from_nodes_and_ios
-    ".".join(name): NodeModel.from_node(name, node, ios_to_id)
+    ":".join(name): NodeModel.from_node(name, node, ios_to_id)
                     ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq-manifest/src/ordeq_manifest/manifest.py", line 65, in create_manifest

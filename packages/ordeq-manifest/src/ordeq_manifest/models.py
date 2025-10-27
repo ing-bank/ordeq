@@ -18,12 +18,12 @@ class IOModel(BaseModel):
 
     @classmethod
     def from_io(cls, name: FQN, io: AnyIO) -> "IOModel":
-        idx = ".".join(name)
+        idx = ":".join(name)
         t = type(io)
         return cls(
             id=idx,
             name=name[1],
-            type=f"{t.__module__}.{t.__name__}",
+            type=f"{t.__module__}:{t.__name__}",
             references=list(io.references.keys()),
         )
 
@@ -42,7 +42,7 @@ class NodeModel(BaseModel):
         cls, name: FQN, node: Node, ios_to_id: dict[AnyIO, str]
     ) -> "NodeModel":
         return cls(
-            id=".".join(name),
+            id=f"{name[0]}:{name[1]}",
             name=name[1],
             inputs=[ios_to_id[i] for i in node.inputs],  # type: ignore[index,arg-type]
             outputs=[ios_to_id[o] for o in node.outputs],
@@ -80,16 +80,16 @@ class ProjectModel(BaseModel):
         }
 
         io_models = {
-            ".".join(name): IOModel.from_io(name, io)
+            ":".join(name): IOModel.from_io(name, io)
             for name, io in sorted(ios.items(), key=operator.itemgetter(0))
         }
         ios_to_id = {
             io: io_model.id
             for name, io in ios.items()
-            if (io_model := io_models.get(".".join(name)))
+            if (io_model := io_models.get(":".join(name)))
         }
         node_models = {
-            ".".join(name): NodeModel.from_node(name, node, ios_to_id)
+            ":".join(name): NodeModel.from_node(name, node, ios_to_id)
             for name, node in sorted(
                 nodes_.items(), key=operator.itemgetter(0)
             )

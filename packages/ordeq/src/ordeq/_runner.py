@@ -8,7 +8,7 @@ from ordeq._graph import NamedNode, NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node, View
-from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes, FQN
+from ordeq._resolve import FQN, _resolve_hooks, _resolve_runnables_to_nodes
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -60,7 +60,7 @@ def _run_node(
         if isinstance(node_input, _InputCache):
             node_input.persist(data)
 
-    logger.info("Running node \"%s\" in \"%s\"", name[1], name[0])
+    logger.info('Running node "%s" in "%s"', name[1], name[0])
 
     try:
         values = node.func(*args)
@@ -131,7 +131,9 @@ def _run_graph(
         else:
             save_node = False
 
-        computed = _run_node(name, patched_nodes[name, node], hooks=hooks, save=save_node)
+        computed = _run_node(
+            name, patched_nodes[name, node], hooks=hooks, save=save_node
+        )
         data_store.update(computed)
 
     reverse_io = {v: k for k, v in (io_ or {}).items()}

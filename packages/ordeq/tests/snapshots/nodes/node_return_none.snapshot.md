@@ -21,3 +21,10 @@ if __name__ == "__main__":
     run(node_return_none, node_consume_none)
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_return_none:node_consume_none'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+
+```

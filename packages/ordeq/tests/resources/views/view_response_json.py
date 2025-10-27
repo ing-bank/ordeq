@@ -1,0 +1,20 @@
+import requests
+
+from ordeq import node, run
+from ordeq_common import Literal
+
+response = requests.get("https://jsonplaceholder.typicode.com/users/1")
+users_response = Literal(response)
+
+
+@node(inputs=users_response)
+def users_json(r: requests.Response) -> dict:
+    return r.json()
+
+
+@node(inputs=users_json)
+def to_yaml(d: dict) -> None:
+    print('Data:', d)
+
+
+print(run(to_yaml, verbose=True))

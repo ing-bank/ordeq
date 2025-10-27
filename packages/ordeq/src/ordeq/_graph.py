@@ -3,13 +3,30 @@ from collections.abc import Iterable
 from functools import cached_property
 from graphlib import TopologicalSorter
 
-from ordeq._nodes import Node
+from ordeq._nodes import Node, View
 
 try:
     from typing import Self  # type: ignore[attr-defined]
 except ImportError:
     from typing_extensions import Self
 EdgesType = dict[Node, list[Node]]
+
+
+def _collect_views(nodes: set[Node]) -> set[View]:
+    """Recursively collects all views from the given nodes.
+
+    Args:
+        nodes: set of `Node` objects
+
+    Returns:
+        a set of `View` objects
+    """
+
+    views: set[View] = set()
+    for node in nodes:
+        node_views = set(node.views)
+        views |= node_views | _collect_views(node_views)  # type: ignore[arg-type]
+    return views
 
 
 def _build_graph(nodes: Iterable[Node]) -> EdgesType:
@@ -24,15 +41,22 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
     Raises:
         ValueError: if an output is defined by more than one node
     """
-    output_to_node: dict = {}
+
+    output_to_node: dict = {
+        view: view for view in nodes if isinstance(view, View)
+    }
     input_to_nodes: defaultdict = defaultdict(list)
     edges: dict = {node: [] for node in nodes}
     for node in nodes:
-        for output_ in node.outputs:
-            if output_ in output_to_node:
-                msg = f"IO {output_} cannot be outputted by more than one node"
-                raise ValueError(msg)
-            output_to_node[output_] = node
+        if isinstance(node, Node):
+            for output_ in node.outputs:
+                if output_ in output_to_node:
+                    msg = (
+                        f"IO {output_} cannot be outputted "
+                        f"by more than one node"
+                    )
+                    raise ValueError(msg)
+                output_to_node[output_] = node
         for input_ in node.inputs:
             input_to_nodes[input_].append(node)
     for node_output, node in output_to_node.items():
@@ -86,7 +110,9 @@ class NodeGraph:
 
     @classmethod
     def from_nodes(cls, nodes: Iterable[Node]) -> Self:
-        return cls(_build_graph(nodes))
+        nodes = set(nodes)
+        views = _collect_views(nodes)
+        return cls(_build_graph(nodes | views))
 
     @cached_property
     def topological_ordering(self) -> tuple[Node, ...]:

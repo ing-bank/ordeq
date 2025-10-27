@@ -32,3 +32,10 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 ['nested.subpackage.subsubpackage.hello:world']
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'nested.subpackage.subsubpackage.hello:world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+
+```

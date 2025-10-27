@@ -147,7 +147,6 @@ def Match(
     ... )
     >>> @node(
     ...     inputs=TestOrTrain,
-    ...     outputs=...,
     ... )
     ... def evaluate(data: dict) -> dict:
     ...     ...

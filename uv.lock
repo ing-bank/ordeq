@@ -2853,8 +2853,13 @@ source = { editable = "packages/ordeq" }
 [package.dev-dependencies]
 test = [
     { name = "cloudpathlib", extra = ["s3"] },
+    { name = "duckdb" },
     { name = "ordeq-common" },
     { name = "ordeq-test-utils" },
+    { name = "pandas" },
+    { name = "pandas-stubs" },
+    { name = "requests" },
+    { name = "types-requests" },
 ]
 
 [package.metadata]
@@ -2862,8 +2867,13 @@ test = [
 [package.metadata.requires-dev]
 test = [
     { name = "cloudpathlib", extras = ["s3"], specifier = ">=0.20.0" },
+    { name = "duckdb" },
     { name = "ordeq-common", editable = "packages/ordeq-common" },
     { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
+    { name = "pandas" },
+    { name = "pandas-stubs" },
+    { name = "requests" },
+    { name = "types-requests" },
 ]
 
 [[package]]

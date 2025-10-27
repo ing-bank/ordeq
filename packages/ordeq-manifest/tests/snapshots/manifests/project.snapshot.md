@@ -14,6 +14,13 @@ print(create_manifest_json(examples.project))
 KeyError: Literal('Buenos dias')
 ```
 
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'examples.project.nodes_with_view:greet'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+
+```
+
 ## Typing
 
 ```text

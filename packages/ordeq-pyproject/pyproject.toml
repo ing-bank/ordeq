@@ -23,10 +23,8 @@ dependencies = [
     "ordeq-toml",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"
 
 [dependency-groups]
@@ -41,10 +39,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-pyproje
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

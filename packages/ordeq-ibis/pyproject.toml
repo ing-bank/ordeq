@@ -23,10 +23,8 @@ dependencies = [
     "ibis-framework",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://ibis-project.org/logo.svg"
 
 [dependency-groups]

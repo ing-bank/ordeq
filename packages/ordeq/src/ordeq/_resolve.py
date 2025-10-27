@@ -8,7 +8,7 @@ from typing import Any
 
 from ordeq._hook import NodeHook, RunHook
 from ordeq._io import IO, Input, Output
-from ordeq._nodes import Node, get_node
+from ordeq._nodes import Node, View, get_node
 
 
 def _is_module(obj: object) -> bool:
@@ -254,7 +254,7 @@ def _resolve_runnables_to_nodes(
 def _check_missing_ios(
     nodes: set[Node], ios: dict[str, IO | Input | Output]
 ) -> None:
-    missing_ios: set[IO | Input | Output] = set()
+    missing_ios: set[IO | Input | Output | View] = set()
     for node in nodes:
         for inp in node.inputs:
             if inp not in ios.values():

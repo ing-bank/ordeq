@@ -1,5 +1,6 @@
-import catalog
 from ordeq import node
+
+from example import catalog
 
 
 @node(inputs=[catalog.checkbox, catalog.slider])

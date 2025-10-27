@@ -24,10 +24,8 @@ dependencies = [
 ]
 
 [tool.ordeq-dev]
-logo_url = "https://avatars.githubusercontent.com/u/22396732?s=200&v=4"
-
-[tool.ordeq]
 group = "ios"
+logo_url = "https://avatars.githubusercontent.com/u/22396732?s=200&v=4"
 
 [dependency-groups]
 test = [
@@ -43,10 +41,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-altair/
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

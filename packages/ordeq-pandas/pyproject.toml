@@ -23,10 +23,8 @@ dependencies = [
     "pandas",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://raw.githubusercontent.com/pandas-dev/pandas/main/web/pandas/static/img/pandas_mark.svg"
 
 [dependency-groups]
@@ -45,10 +43,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-pandas/
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules --import-mode=importlib"
 
 [tool.coverage.run]
 omit = [

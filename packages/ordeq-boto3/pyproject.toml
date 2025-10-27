@@ -25,10 +25,8 @@ dependencies = [
     "boto3",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://boto3typed.gallerycdn.vsassets.io/extensions/boto3typed/boto3-ide/0.5.4/1680224848596/Microsoft.VisualStudio.Services.Icons.Default"
 
 [dependency-groups]
@@ -52,10 +50,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-boto3/*
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

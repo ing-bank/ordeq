@@ -1,6 +1,6 @@
 import tempfile
 from pathlib import Path
-
+from ordeq import run
 import example3.nodes  # ty: ignore[unresolved-import]
 
 from ordeq_viz import viz
@@ -14,3 +14,4 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     # we would prefer to see f1 and f2, but since they are dynamically created
     # with the same name, mermaid shows them both as "hello" for now.
     print(output_file_content)
+    print(run(example3.nodes))

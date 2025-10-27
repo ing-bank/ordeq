@@ -33,19 +33,33 @@ graph TB
 			L1[("IO")]:::io
 		end
 		subgraph IO Types
+			L00[("IO")]:::io0
 		end
 	end
 
+	hello --> IO0
+	hello --> IO1
 
 	subgraph pipeline["Pipeline"]
 		direction TB
 		hello(["hello"]):::node
 		hello(["hello"]):::node
+		IO0[("&lt;anonymous&gt;")]:::io0
+		IO1[("&lt;anonymous&gt;")]:::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
 
+
+```
+
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```
 

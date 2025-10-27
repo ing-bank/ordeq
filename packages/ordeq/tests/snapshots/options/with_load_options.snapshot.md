@@ -61,6 +61,31 @@ example_input_arg.with_load_options(unknown_kwarg="Hello")  # should error
 
 ```text
 TypeError: got an unexpected keyword argument 'unknown_kwarg'
+  File "/inspect.py", line 3284, in _bind
+    raise TypeError(
+        'got an unexpected keyword argument {arg!r}'.format(
+            arg=next(iter(kwargs))))
+
+  File "/inspect.py", line 3302, in bind_partial
+    return self._bind(args, kwargs, partial=True)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 158, in with_load_options
+    inspect.signature(new_instance.load).bind_partial(**load_options)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/options/with_load_options.py", line 53, in <module>
+    example_input_arg.with_load_options(unknown_kwarg="Hello")  # should error
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```
 
 ## Output

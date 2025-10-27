@@ -27,6 +27,18 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 
 ```text
 NameError: name 'oprint' is not defined
+  File "/packages/ordeq/tests/resources/resolve/resolve_rag_pipeline.py", line 17, in <module>
+    oprint(dict(sorted(ios.items())))
+    ^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```
 
 ## Output

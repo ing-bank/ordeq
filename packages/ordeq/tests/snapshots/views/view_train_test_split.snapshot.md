@@ -36,7 +36,7 @@ def train(data: Split) -> None:
     print('Training', data[0].describe())
 
 
-print(run(train, verbose=True))
+run(train, verbose=True)
 
 ```
 
@@ -65,7 +65,6 @@ min    1.0  2.0
 50%    2.0  5.0
 75%    2.5  6.5
 max    3.0  8.0
-None
 
 ```
 

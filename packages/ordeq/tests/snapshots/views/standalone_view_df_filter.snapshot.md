@@ -43,7 +43,7 @@ def group_by(df: pd.DataFrame) -> None:
     ).head())
 
 
-print(run(group_by, verbose=True))
+run(group_by, verbose=True)
 
 ```
 
@@ -71,7 +71,6 @@ Name: B, dtype: bool)])
 Name: B, dtype: bool)])])
      A   B   D
 0  NaN NaN NaN
-None
 
 ```
 
@@ -100,7 +99,6 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: error: No 
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:43: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
-Found 2 errors in 1 file (checked 1 source file)
+Found 1 error in 1 file (checked 1 source file)
 
 ```

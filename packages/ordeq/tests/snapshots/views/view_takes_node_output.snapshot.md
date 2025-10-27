@@ -25,10 +25,10 @@ def sink(s: str) -> None:
 
 
 # This should succeed, as it produces the placeholder IO's value
-print(run(hello_from_someone, sink, verbose=True))
+run(hello_from_someone, sink, verbose=True)
 
 # This should fail: it attempts to load placeholder IO
-print(run(sink, verbose=True))
+run(sink, verbose=True)
 
 ```
 
@@ -110,17 +110,17 @@ IOException: Failed to load IO(idx=ID1).
     cast("Input", input_dataset).load() for input_dataset in node.inputs
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 131, in _run_graph
     _run_node(patched_nodes[node], hooks=hooks, save=save_node)
     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 177, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 170, in run
     _run_graph(graph, hooks=node_hooks, save=save, io=io)
     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line 28, in <module>
-    print(run(sink, verbose=True))
-          ~~~^^^^^^^^^^^^^^^^^^^^
+    run(sink, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
 
@@ -145,7 +145,6 @@ NodeGraph:
      View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
      View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
 I heard that Jane said 'Hello'
-None
 None
 NodeGraph:
   Edges:
@@ -175,8 +174,6 @@ INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```text
 packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
-packages/ordeq/tests/resources/views/view_takes_node_output.py:25: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
-packages/ordeq/tests/resources/views/view_takes_node_output.py:28: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
-Found 3 errors in 1 file (checked 1 source file)
+Found 1 error in 1 file (checked 1 source file)
 
 ```

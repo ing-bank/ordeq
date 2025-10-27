@@ -40,4 +40,4 @@ def group_by(df: pd.DataFrame) -> None:
     ).head())
 
 
-print(run(group_by, verbose=True))
+run(group_by, verbose=True)

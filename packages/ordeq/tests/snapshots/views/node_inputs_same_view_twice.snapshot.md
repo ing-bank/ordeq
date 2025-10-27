@@ -19,7 +19,7 @@ def n(fst: str, snd: str) -> str:
     return f"{fst} == {snd}'"
 
 
-print(run(n, verbose=True))
+run(n, verbose=True)
 
 ```
 
@@ -35,7 +35,6 @@ NodeGraph:
      View(name=node_inputs_same_view_twice:hello)
      Node(name=node_inputs_same_view_twice:n, inputs=[View(name=node_inputs_same_view_twice:hello), View(name=node_inputs_same_view_twice:hello)], outputs=[Print()])
 Hello, World! == Hello, World!'
-None
 
 ```
 

@@ -39,11 +39,11 @@ ValueError: Intentional failure for testing.
   File "/packages/ordeq/src/ordeq/_runner.py", line 74, in _run_node
     raise exc
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 131, in _run_graph
     _run_node(patched_nodes[node], hooks=hooks, save=save_node)
     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 177, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 170, in run
     _run_graph(graph, hooks=node_hooks, save=save, io=io)
     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

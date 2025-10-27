@@ -23,7 +23,7 @@ def concatenate(lines: Iterator[Any]) -> None:
         print(line)
 
 
-print(run(concatenate, verbose=True))
+run(concatenate, verbose=True)
 
 ```
 
@@ -60,7 +60,6 @@ b'    "catchPhrase": "Multi-layered client-server neural-net",'
 b'    "bs": "harness real-time e-markets"'
 b'  }'
 b'}'
-None
 
 ```
 

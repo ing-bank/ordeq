@@ -17,7 +17,7 @@ def n(v: tuple[str, ...]):
     print(f"Node received '{' '.join(v)}'")
 
 
-print(run(n, verbose=True, io={hello_io: Literal("Buenos dias")}))
+run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
 
 ```
 
@@ -32,7 +32,6 @@ NodeGraph:
      View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])
      View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])])
 Node received 'Buenos dias World!'
-None
 
 ```
 
@@ -50,8 +49,7 @@ INFO	ordeq.runner	Running view "n" in module "view_patch_io"
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/views/view_patch_io.py:17: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
 packages/ordeq/tests/resources/views/view_patch_io.py:17: error: Argument "io" to "run" has incompatible type "dict[Literal[str], Literal[str]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
-Found 2 errors in 1 file (checked 1 source file)
+Found 1 error in 1 file (checked 1 source file)
 
 ```

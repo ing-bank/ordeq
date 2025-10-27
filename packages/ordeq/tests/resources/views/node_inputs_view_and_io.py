@@ -16,4 +16,4 @@ def n(name: str, greeting: str) -> str:
     return f"{name} said '{greeting}'"
 
 
-print(run(n, verbose=True))
+run(n, verbose=True)

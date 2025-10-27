@@ -27,7 +27,7 @@ def n(v: str) -> None:
     print(f"I heard that {v}")
 
 
-print(run(n, verbose=True))
+run(n, verbose=True)
 
 ```
 
@@ -46,7 +46,6 @@ NodeGraph:
      View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])
      View(name=view_inputs_view_and_io:n, inputs=[View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])])
 I heard that Jane said 'Hello, World!'
-None
 
 ```
 

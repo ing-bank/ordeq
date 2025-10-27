@@ -17,4 +17,4 @@ def to_yaml(d: dict) -> None:
     print('Data:', d)
 
 
-print(run(to_yaml, verbose=True))
+run(to_yaml, verbose=True)

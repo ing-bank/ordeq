@@ -2,7 +2,7 @@ from ordeq import node, run
 import pandas as pd
 from ordeq_common import Literal
 
-dataframe= Literal(
+dataframe = Literal(
     pd.DataFrame(
         {
             "A": ["foo", "bar", "foo"],
@@ -28,4 +28,4 @@ def group_by(df: pd.DataFrame) -> None:
     ).agg("mean").head())
 
 
-print(run(group_by, verbose=True))
+run(group_by, verbose=True)

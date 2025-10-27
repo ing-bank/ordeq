@@ -17,7 +17,7 @@ def n(v: None | str):
 
 
 glob = 3
-print(run(n, verbose=True))
+run(n, verbose=True)
 
 glob = 1
-print(run(n, verbose=True))
+run(n, verbose=True)

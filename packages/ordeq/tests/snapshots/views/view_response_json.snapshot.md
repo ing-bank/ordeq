@@ -20,7 +20,7 @@ def to_yaml(d: dict) -> None:
     print('Data:', d)
 
 
-print(run(to_yaml, verbose=True))
+run(to_yaml, verbose=True)
 
 ```
 
@@ -35,7 +35,6 @@ NodeGraph:
      View(name=view_response_json:to_yaml, inputs=[View(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)])])
      View(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)])
 Data: {'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}}
-None
 
 ```
 
@@ -47,13 +46,5 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_
 INFO	ordeq.io	Loading Literal(<Response [200]>)
 INFO	ordeq.runner	Running view "users_json" in module "view_response_json"
 INFO	ordeq.runner	Running view "to_yaml" in module "view_response_json"
-
-```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/views/view_response_json.py:20: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
-Found 1 error in 1 file (checked 1 source file)
 
 ```

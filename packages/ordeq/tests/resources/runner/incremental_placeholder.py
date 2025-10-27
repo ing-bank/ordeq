@@ -18,4 +18,4 @@ def g(a: str) -> str:
     return f(a, a)
 
 
-print(run(f, g, verbose=True))  # raises NotImplementedError
+run(f, g, verbose=True)  # raises NotImplementedError

@@ -19,7 +19,7 @@ def n(greeting: str) -> str:
     return f"She said '{greeting}'"
 
 
-print(run(n, verbose=True))
+run(n, verbose=True)
 
 ```
 
@@ -35,7 +35,6 @@ NodeGraph:
      View(name=node_inputs_view:hello)
      Node(name=node_inputs_view:n, inputs=[View(name=node_inputs_view:hello)], outputs=[Print()])
 She said 'Hello, World!'
-None
 
 ```
 

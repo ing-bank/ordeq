@@ -20,10 +20,10 @@ def n(v: None | str):
 
 
 glob = 3
-print(run(n, verbose=True))
+run(n, verbose=True)
 
 glob = 1
-print(run(n, verbose=True))
+run(n, verbose=True)
 
 ```
 
@@ -38,7 +38,6 @@ NodeGraph:
      View(name=view_returns_optional:conditional)
      Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional)], outputs=[Print()])
 Higher value!
-None
 NodeGraph:
   Edges:
      view_returns_optional:conditional -> [view_returns_optional:n]
@@ -46,7 +45,6 @@ NodeGraph:
   Nodes:
      View(name=view_returns_optional:conditional)
      Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional)], outputs=[Print()])
-None
 None
 
 ```

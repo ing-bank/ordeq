@@ -32,7 +32,7 @@ def group_by(df: pd.DataFrame) -> None:
     ).agg({"B": "mean", "D": "max"}).head())
 
 
-print(run(group_by, verbose=True))
+run(group_by, verbose=True)
 
 ```
 
@@ -55,7 +55,6 @@ NodeGraph:
      A    B    D
 0  bar  2.0  5.0
 1  foo  2.0  8.0
-None
 
 ```
 

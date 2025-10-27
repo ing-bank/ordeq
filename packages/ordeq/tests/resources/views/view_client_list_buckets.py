@@ -19,4 +19,4 @@ def print_buckets(buckets: list[str]) -> None:
         print(bucket)
 
 
-print(run(print_buckets, verbose=True))
+run(print_buckets, verbose=True)

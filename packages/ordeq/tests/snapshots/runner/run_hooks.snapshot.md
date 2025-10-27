@@ -41,7 +41,7 @@ run(func1, func2, hooks=[RunTimer()])
 
 ```text
 TypeError: RunTimer.after_run() missing 1 required positional argument: 'data'
-  File "/packages/ordeq/src/ordeq/_runner.py", line 180, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 173, in run
     run_hook.after_run(graph)
     ~~~~~~~~~~~~~~~~~~^^^^^^^
 

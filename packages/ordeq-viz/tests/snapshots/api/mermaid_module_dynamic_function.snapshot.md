@@ -5,7 +5,6 @@ import tempfile
 from pathlib import Path
 from ordeq import run
 import example3.nodes  # ty: ignore[unresolved-import]
-
 from ordeq_viz import viz
 
 with tempfile.TemporaryDirectory() as tmpdirname:
@@ -17,7 +16,7 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     # we would prefer to see f1 and f2, but since they are dynamically created
     # with the same name, mermaid shows them both as "hello" for now.
     print(output_file_content)
-    print(run(example3.nodes))
+    run(example3.nodes)
 
 ```
 
@@ -53,7 +52,6 @@ graph TB
 
 Hello, world!
 Hello, world!
-None
 
 ```
 
@@ -73,7 +71,6 @@ INFO	ordeq.runner	Running view "hello" in module "example3.func_defs"
 packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: error: Skipping analyzing "example3.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: error: Skipping analyzing "example3": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:17: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
-Found 3 errors in 1 file (checked 1 source file)
+Found 2 errors in 1 file (checked 1 source file)
 
 ```

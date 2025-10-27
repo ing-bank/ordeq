@@ -33,4 +33,4 @@ def train(data: Split) -> None:
     print('Training', data[0].describe())
 
 
-print(run(train, verbose=True))
+run(train, verbose=True)

@@ -12,6 +12,37 @@ print(create_manifest_json(examples.project))
 
 ```text
 KeyError: Literal('Buenos dias')
+  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 51, in from_node
+    inputs=[ios_to_id[i] for i in node.inputs],  # type: ignore[index,arg-type]
+            ~~~~~~~~~^^^
+
+  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 95, in from_nodes_and_ios
+    f"nodes.{node.name}": NodeModel.from_node(
+                          ~~~~~~~~~~~~~~~~~~~^
+        ("nodes", node.name), node, ios_to_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+
+  File "/packages/ordeq-manifest/src/ordeq_manifest/manifest.py", line 65, in create_manifest
+    return ProjectModel.from_nodes_and_ios(name=name, nodes=nodes, ios=ios)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq-manifest/src/ordeq_manifest/manifest.py", line 45, in create_manifest_json
+    project_model = create_manifest(package)
+
+  File "/packages/ordeq-manifest/tests/resources/manifests/project.py", line 4, in <module>
+    print(create_manifest_json(examples.project))
+          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```
 
 ## Logging

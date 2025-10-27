@@ -31,6 +31,36 @@ run(fail, hooks=[logger])
 
 ```text
 ValueError: Intentional failure for testing.
+  File "/packages/ordeq-common/tests/resources/hooks/logger_hook_custom_logger.py", line 18, in fail
+    raise ValueError("Intentional failure for testing.")
+
+  File "/packages/ordeq/src/ordeq/_nodes.py", line 454, in wrapper
+    return func(*args, **kwargs)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 64, in _run_node
+    values = node.func(*args)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 68, in _run_node
+    raise exc
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 132, in _run_graph
+    computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 182, in run
+    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+
+  File "/packages/ordeq-common/tests/resources/hooks/logger_hook_custom_logger.py", line 23, in <module>
+    run(fail, hooks=[logger])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```
 
 ## Logging

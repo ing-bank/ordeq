@@ -20,7 +20,7 @@ def func(hello: str) -> str:
 
 ```text
 CatalogError: Catalogs are inconsistent.
-  File "/packages/ordeq/src/ordeq/_catalog.py", line 34, in check_catalogs_are_consistent
+  File "/packages/ordeq/src/ordeq/_catalog.py", line 32, in check_catalogs_are_consistent
     raise CatalogError("Catalogs are inconsistent.")
 
   File "/packages/ordeq/tests/resources/catalog/inconsistent_with_check.py", line 6, in <module>

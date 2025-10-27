@@ -1,6 +1,6 @@
 from types import ModuleType
 
-from ordeq._io import IO, Input, Output
+from ordeq._resolve import _resolve_module_to_ios
 
 
 class CatalogError(Exception): ...
@@ -22,13 +22,11 @@ def check_catalogs_are_consistent(
             i.e. if they define different keys.
     """
 
-    ios = []  # for each catalog, the names (keys) of the IOs it defines
-    for catalog in [a, b, *others]:
-        catalog_ios = set()
-        for key, value in vars(catalog).items():
-            if isinstance(value, (IO, Input, Output)):
-                catalog_ios.add(key)
-        ios.append(catalog_ios)
+    # for each catalog, the names (keys) of the IOs it defines
+    ios = [
+        {name for _, name in _resolve_module_to_ios(catalog)}
+        for catalog in [a, b, *others]
+    ]
 
     if not all(s == ios[0] for s in ios[1:]):
         raise CatalogError("Catalogs are inconsistent.")

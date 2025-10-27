@@ -6,8 +6,9 @@ import importlib
 import pkgutil
 from collections.abc import Generator, Iterable, Sequence
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, TypeAlias
+from typing import TYPE_CHECKING, Any
 
+from ordeq._fqn import FQN, str_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node
@@ -296,39 +297,3 @@ def _resolve_runnables_to_nodes_and_ios(
         ios.update(_resolve_module_to_ios(module))
 
     return nodes, ios
-
-
-def fqn_to_str(name: FQN) -> str:
-    """Convert a fully qualified name (FQN) to a string representation.
-
-    Args:
-        name: A tuple representing the fully qualified name (module, name).
-
-    Returns:
-        A string in the format "module:name".
-    """
-    return f"{name[0]}:{name[1]}"
-
-
-def str_to_fqn(name: str) -> FQN:
-    """Convert a string representation to a fully qualified name (FQN).
-
-    Args:
-        name: A string in the format "module:name".
-
-    Returns:
-        A tuple representing the fully qualified name (module, name).
-
-    Raises:
-        ValueError: If the input string is not in the expected format.
-    """
-    if ":" not in name:
-        raise ValueError(
-            f"Invalid object reference: '{name}'. Expected format 'module:name'."
-        )
-    module_name, _, obj_name = name.partition(":")
-    return module_name, obj_name
-
-
-# Type aliases
-FQN: TypeAlias = tuple[str, str]

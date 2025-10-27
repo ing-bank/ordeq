@@ -4,8 +4,8 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from ordeq import Node
+from ordeq._fqn import FQN
 from ordeq._io import AnyIO
-from ordeq._resolve import FQN
 
 from ordeq_viz.graph import IOData, NodeData, _gather_graph
 

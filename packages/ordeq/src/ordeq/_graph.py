@@ -4,8 +4,8 @@ from functools import cached_property
 from graphlib import TopologicalSorter
 from typing import TypeAlias
 
+from ordeq._fqn import FQN, fqn_to_str
 from ordeq._nodes import Node, View
-from ordeq._resolve import FQN, fqn_to_str
 
 try:
     from typing import Self  # type: ignore[attr-defined]

@@ -2,9 +2,9 @@ from collections.abc import Callable
 
 import pytest
 from ordeq import Node, node
+from ordeq._fqn import FQN
 from ordeq._nodes import get_node
 from ordeq._resolve import (
-    FQN,
     _is_node,
     _resolve_node_reference,
     _resolve_runnables_to_nodes,

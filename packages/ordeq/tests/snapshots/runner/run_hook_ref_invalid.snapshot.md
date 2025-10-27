@@ -14,13 +14,13 @@ run(
 
 ```text
 ValueError: Invalid hook reference: 'invalid'.
-  File "/packages/ordeq/src/ordeq/_resolve.py", line 159, in _resolve_hook_reference
+  File "/packages/ordeq/src/ordeq/_resolve.py", line 162, in _resolve_hook_reference
     raise ValueError(f"Invalid hook reference: '{ref}'.")
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line 191, in _resolve_hooks
+  File "/packages/ordeq/src/ordeq/_resolve.py", line 194, in _resolve_hooks
     resolved_hook = _resolve_hook_reference(hook)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 177, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 179, in run
     run_hooks, node_hooks = _resolve_hooks(*hooks)
                             ~~~~~~~~~~~~~~^^^^^^^^
 

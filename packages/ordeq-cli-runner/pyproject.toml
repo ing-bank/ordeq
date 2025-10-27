@@ -20,10 +20,8 @@ maintainers = [
 requires-python = ">=3.10"
 dependencies = ["ordeq>=1.2.0"]
 
-[tool.ordeq]
-group = "CLI"
-
 [tool.ordeq-dev]
+group = "CLI"
 logo_url = ""
 
 [dependency-groups]

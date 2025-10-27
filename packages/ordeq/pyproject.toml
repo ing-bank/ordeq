@@ -19,10 +19,8 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 
-[tool.ordeq]
-group = "framework"
-
 [tool.ordeq-dev]
+group = "framework"
 logo_url = ""
 
 [dependency-groups]

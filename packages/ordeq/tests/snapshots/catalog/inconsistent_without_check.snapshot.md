@@ -18,6 +18,18 @@ def func(hello: str) -> str:
 
 ```text
 AttributeError: module 'resources.catalog.catalogs.inconsistent' has no attribute 'result'
+  File "/packages/ordeq/tests/resources/catalog/inconsistent_without_check.py", line 8, in <module>
+    @node(inputs=catalog.hello, outputs=catalog.result)
+                                        ^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```
 
 ## Typing

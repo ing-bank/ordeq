@@ -1,8 +1,10 @@
 from dataclasses import dataclass, field
 from typing import Any
 
-from ordeq import Input, IOException, Node, Output
+from ordeq import IOException, Node
 from ordeq._graph import NodeGraph  # noqa: PLC2701 private import
+from ordeq._io import AnyIO
+from ordeq._resolve import FQN
 
 
 @dataclass
@@ -18,7 +20,7 @@ class NodeData:
 @dataclass
 class IOData:
     id: int
-    dataset: Input | Output
+    dataset: AnyIO
     name: str
     type: str
     attributes: dict[str, Any] = field(default_factory=dict)
@@ -75,13 +77,13 @@ def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
 
 
 def _gather_graph(
-    pipeline: set[Node], ios: dict[tuple[str, str], Input | Output]
+    nodes: set[Node], ios: dict[FQN, AnyIO]
 ) -> tuple[list[NodeData], list[IOData]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 
     Args:
-        pipeline: set of nodes
-        ios: dictionary from name to datasets
+        nodes: nodes
+        ios: ios
 
     Returns:
         metadata for nodes (NodeData)
@@ -89,10 +91,10 @@ def _gather_graph(
     """
     reverse_lookup = {hash(io): name for (_, name), io in ios.items()}
 
-    nodes = []
+    nodes_ = []
     io_data: dict[int, IOData] = {}
 
-    ordering = NodeGraph.from_nodes(pipeline).topological_ordering
+    ordering = NodeGraph.from_nodes(nodes).topological_ordering
 
     for line in ordering:
         inputs = [
@@ -103,7 +105,7 @@ def _gather_graph(
             _add_io_data(output_dataset, reverse_lookup, io_data, "Output")
             for output_dataset in line.outputs
         ]
-        nodes.append(
+        nodes_.append(
             NodeData(
                 id=line.func.__name__,
                 node=line,
@@ -113,4 +115,4 @@ def _gather_graph(
             )
         )
 
-    return nodes, list(io_data.values())
+    return nodes_, list(io_data.values())

@@ -11,7 +11,7 @@ from typing import (
 
 if TYPE_CHECKING:
     from ordeq._graph import NodeGraph
-    from ordeq._io import IO, Input, Output
+    from ordeq._io import AnyIO, Input, Output
     from ordeq._nodes import Node
 
 T = TypeVar("T")
@@ -104,9 +104,7 @@ class RunHook(Protocol):
 
         return
 
-    def after_run(
-        self, graph: NodeGraph, data: dict[Input | Output | IO, Any]
-    ) -> None:
+    def after_run(self, graph: NodeGraph, data: dict[AnyIO, Any]) -> None:
         """Triggered after the graph is run.
 
         Args:
@@ -116,4 +114,6 @@ class RunHook(Protocol):
         return
 
 
-Hook: TypeAlias = InputHook | OutputHook | NodeHook | RunHook
+# Type aliases
+RunnerHook: TypeAlias = RunHook | NodeHook
+Hook: TypeAlias = InputHook | OutputHook | RunnerHook

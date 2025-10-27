@@ -5,6 +5,7 @@ import example.pipeline
 
 
 def on_click() -> None:
+    """Callback function to run the pipeline when the button is clicked."""
     run(example.pipeline)
 
 

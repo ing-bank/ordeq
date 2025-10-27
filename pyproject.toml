@@ -99,6 +99,13 @@ markers = [
 norecursedirs = ["build", "resources"]
 pythonpath = ["src", "tests"]
 
+[tool.mypy]
+exclude = [
+    "examples/.*/tests/",
+    # The scaffolded catalog has no types:
+    "examples/rag-pipeline-scaffold/src/rag_pipeline/catalog.*"
+]
+
 [tool.ruff]
 exclude = [
     "packages/*/src/*/_version.py",

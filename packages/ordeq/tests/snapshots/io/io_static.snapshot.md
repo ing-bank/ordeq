@@ -29,4 +29,24 @@ print(example_io.save("saved"))
 
 ```text
 TypeError: Save method requires a data parameter.
+  File "/packages/ordeq/src/ordeq/_io.py", line 359, in __new__
+    raise TypeError("Save method requires a data parameter.")
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 131, in __new__
+    return super().__new__(cls, name, bases, class_dict)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/io/io_static.py", line 7, in <module>
+    class ExampleStaticIO(IO[str]):
+    ...<6 lines>...
+            print(data)
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```

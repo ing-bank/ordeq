@@ -20,6 +20,21 @@ def func(hello: str) -> str:
 
 ```text
 CatalogError: Catalogs are inconsistent.
+  File "/packages/ordeq/src/ordeq/_catalog.py", line 34, in check_catalogs_are_consistent
+    raise CatalogError("Catalogs are inconsistent.")
+
+  File "/packages/ordeq/tests/resources/catalog/inconsistent_with_check.py", line 6, in <module>
+    check_catalogs_are_consistent(local, inconsistent)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```
 
 ## Typing

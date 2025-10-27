@@ -29,6 +29,28 @@ run(my_node, load_node)
 
 ```text
 AttributeError: 'Example' object has no attribute 'load'
+  File "/packages/ordeq/src/ordeq/_runner.py", line 53, in _run_node
+    cast("Input", input_dataset).load() for input_dataset in node.inputs
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 132, in _run_graph
+    computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 182, in run
+    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+
+  File "/packages/ordeq/tests/resources/runner/runner_load_output.py", line 21, in <module>
+    run(my_node, load_node)
+    ~~~^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```
 
 ## Output

@@ -22,10 +22,8 @@ dependencies = [
     "ordeq>=1.2.0",
 ]
 
-[tool.ordeq]
-group = "framework"
-
 [tool.ordeq-dev]
+group = "framework"
 logo_url = ""
 
 [dependency-groups]

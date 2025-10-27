@@ -5,15 +5,7 @@
 # ]
 # ///
 """Generate a markdown table overview of all packages in the packages/
-directory.
-
-Each row contains:
-- Package name
-- PyPI badge+link
-- API docs link
-- Package description
-
-The resulting markdown is written to docs/packages.md.
+directory. The resulting markdown is written to docs/packages.md.
 """
 
 from pathlib import Path
@@ -31,43 +23,6 @@ def get_package_dirs(packages_dir: Path) -> list[Path]:
         A list of package directory paths.
     """
     return [d for d in packages_dir.iterdir() if d.is_dir()]
-
-
-def get_pypi_name_and_description(pyproject_path: Path) -> tuple[str, str]:
-    """Extract the canonical name and description from a pyproject.toml file.
-
-    Args:
-        pyproject_path: The path to the pyproject.toml file.
-
-    Returns:
-        A tuple containing the package name and description.
-    """
-    data = TOML(path=pyproject_path).load()
-    name = data["project"]["name"]
-    description = data["project"].get("description", "")
-    return name, description
-
-
-def get_pypi_name_description_group(
-    pyproject_path: Path,
-) -> tuple[str, str, str | None]:
-    """Extract the relevant attributes for the package pyproject.tomls.
-
-    Args:
-        pyproject_path: The path to the pyproject.toml file.
-
-    Returns:
-        A tuple containing the package name, description, and group (or None).
-    """
-    data = TOML(path=pyproject_path).load()
-    name = data["project"]["name"]
-    description = data["project"].get("description", "")
-    group = None
-    tool_section = data.get("tool", {})
-    ordeq_section = tool_section.get("ordeq-dev", {})
-    if isinstance(ordeq_section, dict):
-        group = ordeq_section.get("group")
-    return name, description, group
 
 
 def get_pypi_name_description_group_logo(
@@ -89,63 +44,6 @@ def get_pypi_name_description_group_logo(
     logo_url = ordeq_dev_section.get("logo_url", None)
     group = ordeq_dev_section.get("group", None)
     return name, description, group, logo_url
-
-
-def generate_table_rows_by_group(
-    package_dirs: list[Path],
-) -> dict[str, list[str]]:
-    """Generate Markdown table rows for each package directory, including
-    logo (if present).
-
-    Args:
-        package_dirs: A list of package directory paths.
-
-    Returns:
-        A mapping group names to lists of markdown table row strings.
-    """
-    groups: dict[str, list[str]] = {}
-    for pkg_dir in sorted(package_dirs, key=lambda d: d.name):
-        pyproject = pkg_dir / "pyproject.toml"
-        if not pyproject.exists():
-            continue
-        pypi_name, description, group, logo_url = (
-            get_pypi_name_description_group_logo(pyproject)
-        )
-        logo_col = (
-            f'<img src="{logo_url}" alt="logo" height="60"/>'
-            if logo_url
-            else ""
-        )
-        name_col = (
-            f"[![PyPI](https://img.shields.io/pypi/v/{pypi_name}?label={pkg_dir.name})]"
-            f"(https://pypi.org/project/{pypi_name}/)"
-        )
-        src_name = pkg_dir.name.replace("-", "_")
-        docs = f"[API Docs](https://ing-bank.github.io/ordeq/api/{src_name}/)"
-        row = f"| {logo_col} | {name_col} | {description} | {docs} |"
-        group_key = group or "Other"
-        groups.setdefault(group_key, []).append(row)
-    return groups
-
-
-def write_markdown_table(rows: list[str], output_path: Path) -> None:
-    """Write the markdown table to the given output_path.
-
-    Args:
-        rows: A list of markdown table row strings.
-        output_path: The path to the output markdown file.
-    """
-    header = (
-        "# Package Overview\n\n"
-        "This page lists all packages in the `ordeq` project, with links to "
-        "their PyPI pages and API documentation.\n\n"
-        "| Name | Description | API Docs |\n"
-        "|------|-------------|----------|\n"
-    )
-    with output_path.open("w", encoding="utf-8") as f:
-        f.write(header)
-        for row in rows:
-            f.write(row + "\n")
 
 
 def write_html_table_by_group(

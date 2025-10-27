@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import (
     TYPE_CHECKING,
-    Any,
     Protocol,
     TypeAlias,
     TypeVar,
@@ -11,7 +10,7 @@ from typing import (
 
 if TYPE_CHECKING:
     from ordeq._graph import NodeGraph
-    from ordeq._io import AnyIO, Input, Output
+    from ordeq._io import Input, Output
     from ordeq._nodes import Node
 
 T = TypeVar("T")

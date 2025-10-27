@@ -110,12 +110,13 @@ IOException: Failed to load IO(idx=ID1).
     cast("Input", input_dataset).load() for input_dataset in node.inputs
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 138, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
     _run_node(patched_nodes[node], hooks=hooks, save=save_node)
     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 182, in run
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+  File "/packages/ordeq/src/ordeq/_runner.py", line 177, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line 28, in <module>
     print(run(sink, verbose=True))
@@ -174,6 +175,8 @@ INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```text
 packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
-Found 1 error in 1 file (checked 1 source file)
+packages/ordeq/tests/resources/views/view_takes_node_output.py:25: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
+packages/ordeq/tests/resources/views/view_takes_node_output.py:28: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
+Found 3 errors in 1 file (checked 1 source file)
 
 ```

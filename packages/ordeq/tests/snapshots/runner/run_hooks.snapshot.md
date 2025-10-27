@@ -37,10 +37,25 @@ run(func1, func2, hooks=[RunTimer()])
 
 ```
 
-## Output
+## Exception
 
 ```text
-Total run time: 0.0 seconds
+TypeError: RunTimer.after_run() missing 1 required positional argument: 'data'
+  File "/packages/ordeq/src/ordeq/_runner.py", line 180, in run
+    run_hook.after_run(graph)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^
+
+  File "/packages/ordeq/tests/resources/runner/run_hooks.py", line 33, in <module>
+    run(func1, func2, hooks=[RunTimer()])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 85, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
 

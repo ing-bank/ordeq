@@ -53,7 +53,7 @@ graph TB
 
 Hello, world!
 Hello, world!
-{View(name=example3.func_defs:hello): None, View(name=example3.func_defs:hello): None}
+None
 
 ```
 
@@ -73,6 +73,7 @@ INFO	ordeq.runner	Running view "hello" in module "example3.func_defs"
 packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: error: Skipping analyzing "example3.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: error: Skipping analyzing "example3": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-Found 2 errors in 1 file (checked 1 source file)
+packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:17: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
+Found 3 errors in 1 file (checked 1 source file)
 
 ```

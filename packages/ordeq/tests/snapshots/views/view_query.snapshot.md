@@ -56,3 +56,11 @@ INFO	ordeq.runner	Running view "selected_range" in module "view_query"
 INFO	ordeq.runner	Running view "range_to_csv" in module "view_query"
 
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/views/view_query.py:19: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
+Found 1 error in 1 file (checked 1 source file)
+
+```

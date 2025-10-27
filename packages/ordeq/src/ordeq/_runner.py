@@ -43,7 +43,7 @@ def _save_outputs(
 
 def _run_node(
     node: Node, *, hooks: Sequence[NodeHook] = (), save: bool = True
-) -> DataStoreType:
+) -> None:
     node.validate()
 
     for node_hook in hooks:
@@ -85,12 +85,13 @@ def _run_node(
     # persisting computed data only if outputs are loaded again later
     for node_output in node.outputs:
         if isinstance(node_output, _InputCache):
-            node_output.persist(computed[node_output])  # ty: ignore[call-non-callable]
+            node_output.persist(
+                computed[node_output])  # ty: ignore[call-non-callable]
 
     for node_hook in hooks:
         node_hook.after_node_run(node)
 
-    return computed
+    return
 
 
 def _run_graph(
@@ -121,7 +122,8 @@ def _run_graph(
     # Apply the patches:
     patched_nodes: dict[Node, Node] = {}
     for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
+        patched_nodes[node] = node._patch_io(
+            io_ or {})  # noqa: SLF001 (private access)
 
     # TODO: Create _Patch wrapper for IO?
     for node in graph.topological_ordering:
@@ -172,9 +174,7 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
     for run_hook in run_hooks:
-        run_hook.after_run(graph, result)  # type: ignore[arg-type]
-
-    return result
+        run_hook.after_run(graph)

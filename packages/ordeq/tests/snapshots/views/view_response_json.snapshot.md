@@ -49,3 +49,11 @@ INFO	ordeq.runner	Running view "users_json" in module "view_response_json"
 INFO	ordeq.runner	Running view "to_yaml" in module "view_response_json"
 
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/views/view_response_json.py:20: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
+Found 1 error in 1 file (checked 1 source file)
+
+```

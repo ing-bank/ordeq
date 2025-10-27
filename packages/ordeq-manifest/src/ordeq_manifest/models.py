@@ -8,6 +8,18 @@ from ordeq._resolve import FQN, AnyIO
 from pydantic import BaseModel, Field
 
 
+def fqn_to_str(name: FQN) -> str:
+    """Convert a fully qualified name (FQN) to a string representation.
+
+    Args:
+        name: A tuple representing the fully qualified name (module, name).
+
+    Returns:
+        A string in the format "module:name".
+    """
+    return f"{name[0]}:{name[1]}"
+
+
 class IOModel(BaseModel):
     """Model representing an IO in a project."""
 
@@ -18,12 +30,13 @@ class IOModel(BaseModel):
 
     @classmethod
     def from_io(cls, name: FQN, io: AnyIO) -> "IOModel":
-        idx = ":".join(name)
-        t = type(io)
+        idx = fqn_to_str(name)
+        io_type = type(io)
+        io_type_fqn = (io_type.__module__, io_type.__name__)
         return cls(
             id=idx,
             name=name[1],
-            type=f"{t.__module__}:{t.__name__}",
+            type=fqn_to_str(io_type_fqn),
             references=list(io.references.keys()),
         )
 
@@ -42,7 +55,7 @@ class NodeModel(BaseModel):
         cls, name: FQN, node: Node, ios_to_id: dict[AnyIO, str]
     ) -> "NodeModel":
         return cls(
-            id=f"{name[0]}:{name[1]}",
+            id=fqn_to_str(name),
             name=name[1],
             inputs=[ios_to_id[i] for i in node.inputs],  # type: ignore[index,arg-type]
             outputs=[ios_to_id[o] for o in node.outputs],
@@ -80,16 +93,16 @@ class ProjectModel(BaseModel):
         }
 
         io_models = {
-            ":".join(name): IOModel.from_io(name, io)
+            fqn_to_str(name): IOModel.from_io(name, io)
             for name, io in sorted(ios.items(), key=operator.itemgetter(0))
         }
         ios_to_id = {
             io: io_model.id
             for name, io in ios.items()
-            if (io_model := io_models.get(":".join(name)))
+            if (io_model := io_models.get(fqn_to_str(name)))
         }
         node_models = {
-            ":".join(name): NodeModel.from_node(name, node, ios_to_id)
+            fqn_to_str(name): NodeModel.from_node(name, node, ios_to_id)
             for name, node in sorted(
                 nodes_.items(), key=operator.itemgetter(0)
             )

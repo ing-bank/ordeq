@@ -12,13 +12,13 @@ print(create_manifest_json(examples.project))
 
 ```text
 KeyError: Literal('Buenos dias')
-  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 47, in from_node
+  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 60, in from_node
     inputs=[ios_to_id[i] for i in node.inputs],  # type: ignore[index,arg-type]
             ~~~~~~~~~^^^
 
-  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 92, in from_nodes_and_ios
-    ":".join(name): NodeModel.from_node(name, node, ios_to_id)
-                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 105, in from_nodes_and_ios
+    fqn_to_str(name): NodeModel.from_node(name, node, ios_to_id)
+                      ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq-manifest/src/ordeq_manifest/manifest.py", line 65, in create_manifest
     return ProjectModel.from_nodes_and_ios(name=name, nodes=nodes, ios=ios)

@@ -30,7 +30,7 @@ print(run(to_yaml, verbose=True))
 NodeGraph:
   Edges:
      view_response_json:to_yaml -> []
-     view_response_json:users_json -> [view_response_json:to_yaml]
+     view_response_json:users_json -> []
   Nodes:
      View(name=view_response_json:to_yaml, inputs=[View(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)])])
      View(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)])

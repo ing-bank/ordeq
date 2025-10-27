@@ -31,7 +31,7 @@ print(run(printer, verbose=True))
 NodeGraph:
   Edges:
      view_response_stream:printer -> []
-     view_response_stream:users_stream -> [view_response_stream:printer]
+     view_response_stream:users_stream -> []
   Nodes:
      Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])], outputs=[Print()])
      View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])

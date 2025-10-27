@@ -30,7 +30,7 @@ View(name=node_inputs_view_tuple_and_io:hello)
 NodeGraph:
   Edges:
      node_inputs_view_tuple_and_io:combine_greeting_with_ending -> []
-     node_inputs_view_tuple_and_io:hello -> [node_inputs_view_tuple_and_io:combine_greeting_with_ending]
+     node_inputs_view_tuple_and_io:hello -> []
   Nodes:
      Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[View(name=node_inputs_view_tuple_and_io:hello), Literal('!!!')], outputs=[Print()])
      View(name=node_inputs_view_tuple_and_io:hello)

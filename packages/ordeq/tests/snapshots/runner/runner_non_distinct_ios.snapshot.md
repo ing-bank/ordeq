@@ -24,5 +24,5 @@ run(func1, func2, verbose=True)
 ## Exception
 
 ```text
-ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node
+ValueError: IO (4452607920,) cannot be outputted by more than one node
 ```

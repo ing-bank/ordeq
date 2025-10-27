@@ -81,6 +81,28 @@ def _load_decorator(load_func):
     return wrapper
 
 
+def _get_resources(io: Input | Output | IO) -> list:
+    """Get all resources from the given object and its base classes.
+
+    Args:
+        io: The IO object to retrieve resources from.
+
+    Returns:
+        A list of resources from the io object and all its base classes.
+    """
+
+    resources = []
+    for cls in io.__class__.__mro__:
+        if hasattr(cls, "__resources__"):
+            resources += cls.__resources__(io)
+        if cls in {_InputReferences, _OutputReferences}:
+            references = io.references
+            for ref_list in references.values():
+                for ref in ref_list:
+                    resources += _get_resources(ref)
+    return resources
+
+
 class _InputMeta(type):
     def __new__(cls, name, bases, class_dict):
         # Retrieve the closest load method
@@ -128,6 +150,7 @@ class _InputMeta(type):
 
         if not hasattr(load_method, "__wrapped__"):
             class_dict["load"] = _load_decorator(load_method)
+
         return super().__new__(cls, name, bases, class_dict)
 
 
@@ -241,12 +264,18 @@ class _InputException(_BaseInput[Tin]):
             raise IOException(msg) from exc
 
 
+class _WithResources:
+    def __resources__(self) -> list[str]:  # noqa: PLW3201
+        return []
+
+
 class Input(
     _InputOptions[Tin],
     _InputHooks[Tin],
     _InputReferences[Tin],
     _InputCache[Tin],
     _InputException[Tin],
+    _WithResources,
     Generic[Tin],
     metaclass=_InputMeta,
 ):
@@ -482,6 +511,7 @@ class Output(
     _OutputHooks[Tout],
     _OutputReferences[Tout],
     _OutputException[Tout],
+    _WithResources,
     Generic[Tout],
     metaclass=_OutputMeta,
 ):

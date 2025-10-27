@@ -33,7 +33,7 @@ print(run(concatenate, verbose=True))
 NodeGraph:
   Edges:
      view_response_iter:concatenate -> []
-     view_response_iter:users_lines -> [view_response_iter:concatenate]
+     view_response_iter:users_lines -> []
   Nodes:
      View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])])
      View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])

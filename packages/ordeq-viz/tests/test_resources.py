@@ -21,10 +21,10 @@ SNAPSHOT_DIR = TESTS_DIR / "snapshots"
     ],
 )
 def test_resource(
-    file_path: Path, snapshot_path: Path, capsys, caplog
+    file_path: Path, snapshot_path: Path, capsys, caplog, recwarn
 ) -> None:
     diff = compare_resources_against_snapshots(
-        file_path, snapshot_path, caplog, capsys
+        file_path, snapshot_path, caplog, capsys, recwarn
     )
     if diff:
         pytest.fail(f"Output does not match snapshot:\n{diff}")

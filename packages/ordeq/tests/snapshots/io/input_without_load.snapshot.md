@@ -28,7 +28,7 @@ TypeError: Can't instantiate abstract class ExampleInputNoLoad with abstract met
 
   File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
 
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 85, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 

@@ -36,13 +36,13 @@ graph TB
 		end
 	end
 
-	hello --> IO0
-	hello --> IO1
+	example3.nodes.f2 --> IO0
+	example3.nodes.f1 --> IO1
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		hello(["hello"]):::node
-		hello(["hello"]):::node
+		example3.nodes.f2(["f2"]):::node
+		example3.nodes.f1(["f1"]):::node
 		IO0[("&lt;anonymous&gt;")]:::io0
 		IO1[("&lt;anonymous&gt;")]:::io0
 	end
@@ -53,7 +53,7 @@ graph TB
 
 Hello, world!
 Hello, world!
-{View(name=example3.func_defs:hello): None, View(name=example3.func_defs:hello): None}
+{IO(idx=ID1): None, IO(idx=ID2): None}
 
 ```
 

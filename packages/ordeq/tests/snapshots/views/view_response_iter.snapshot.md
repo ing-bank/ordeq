@@ -27,40 +27,42 @@ print(run(concatenate, verbose=True))
 
 ```
 
+## Exception
+
+```text
+AttributeError: 'View' object has no attribute 'load'
+  File "/packages/ordeq/src/ordeq/_runner.py", line 55, in _run_node
+    cast("Input", input_dataset).load() for input_dataset in node.inputs
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
+    computed = _run_node(name, patched_nodes[name, node], hooks=hooks, save=save_node)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 184, in run
+    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+
+  File "/packages/ordeq/tests/resources/views/view_response_iter.py", line 23, in <module>
+    print(run(concatenate, verbose=True))
+          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
 NodeGraph:
   Edges:
      view_response_iter:concatenate -> []
-     view_response_iter:users_lines -> [view_response_iter:concatenate]
   Nodes:
-     View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])])
-     View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
-b'{'
-b'  "id": 1,'
-b'  "name": "Leanne Graham",'
-b'  "username": "Bret",'
-b'  "email": "Sincere@april.biz",'
-b'  "address": {'
-b'    "street": "Kulas Light",'
-b'    "suite": "Apt. 556",'
-b'    "city": "Gwenborough",'
-b'    "zipcode": "92998-3874",'
-b'    "geo": {'
-b'      "lat": "-37.3159",'
-b'      "lng": "81.1496"'
-b'    }'
-b'  },'
-b'  "phone": "1-770-736-8031 x56442",'
-b'  "website": "hildegard.org",'
-b'  "company": {'
-b'    "name": "Romaguera-Crona",'
-b'    "catchPhrase": "Multi-layered client-server neural-net",'
-b'    "bs": "harness real-time e-markets"'
-b'  }'
-b'}'
-{View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)]): <generator object Response.iter_lines at HASH1>, View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])]): None}
+     view_response_iter:concatenate: View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])])
 
 ```
 
@@ -69,8 +71,5 @@ b'}'
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:users_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:concatenate'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal(<Response [200]>)
-INFO	ordeq.runner	Running node View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
-INFO	ordeq.runner	Running node View(name=view_response_iter:concatenate, inputs=[IO(idx=ID1)])
 
 ```

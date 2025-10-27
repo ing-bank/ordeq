@@ -33,7 +33,11 @@ def test_run_graph_all():
     plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
     minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
     square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
-    nodes = [get_node(plus), get_node(minus), get_node(square)]
+    nodes = {
+        ("test_runner", "plus"): get_node(plus),
+        ("test_runner", "minus"): get_node(minus),
+        ("test_runner", "square"): get_node(square),
+    }
     expected_data_store = {
         C: "A + BAAsomething",
         E: "A + BAAsomething - D",
@@ -46,7 +50,10 @@ def test_run_graph_all():
 def test_run_graph_two():
     plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
     minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
-    nodes = [get_node(plus), get_node(minus)]
+    nodes = {
+        ("test_runner", "plus"): get_node(plus),
+        ("test_runner", "minus"): get_node(minus),
+    }
     expected_data_store = {C: "A + BAAsomething", E: "A + BAAsomething - D"}
     data_store = _run_graph(NodeGraph.from_nodes(nodes))
     assert data_store == expected_data_store
@@ -54,7 +61,7 @@ def test_run_graph_two():
 
 def test_run_graph_one():
     plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
-    nodes = [get_node(plus)]
+    nodes = {("test_runner", "plus"): get_node(plus)}
     expected_data_store = {C: "A + BAAsomething"}
     data_store = _run_graph(NodeGraph.from_nodes(nodes))
     assert data_store == expected_data_store

@@ -14,9 +14,9 @@ print(create_manifest_json(nodes_with_view))
 {
   "name": "examples.project.nodes_with_view",
   "nodes": {
-    "nodes.examples.project.nodes_with_view:farewell": {
-      "id": "nodes.examples.project.nodes_with_view:farewell",
-      "name": "examples.project.nodes_with_view:farewell",
+    "examples.project.nodes_with_view.farewell": {
+      "id": "examples.project.nodes_with_view.farewell",
+      "name": "farewell",
       "inputs": [
         "examples.project.nodes_with_view.greeting"
       ],

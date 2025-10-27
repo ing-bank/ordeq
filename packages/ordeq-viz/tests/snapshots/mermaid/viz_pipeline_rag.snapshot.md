@@ -41,38 +41,38 @@ graph TB
 		end
 	end
 
-	IO0 --> generate_questions
-	generate_questions --> IO1
-	IO2 --> create_vector_index
-	IO3 --> create_vector_index
-	create_vector_index --> IO4
-	IO4 --> retrieve
-	IO1 --> retrieve
-	IO3 --> retrieve
-	retrieve --> IO5
-	IO5 --> filter_relevant
-	IO6 --> filter_relevant
-	filter_relevant --> IO7
-	IO1 --> question_answering
-	IO7 --> question_answering
-	IO6 --> question_answering
-	question_answering --> IO8
-	IO8 --> evaluate_answers
-	IO6 --> evaluate_answers
-	evaluate_answers --> IO9
-	IO8 --> annotate_documents
-	IO2 --> annotate_documents
-	annotate_documents --> IO10
+	IO0 --> rag_pipeline.rag.policies.generate_questions
+	rag_pipeline.rag.policies.generate_questions --> IO1
+	IO2 --> rag_pipeline.rag.indexer.create_vector_index
+	IO3 --> rag_pipeline.rag.indexer.create_vector_index
+	rag_pipeline.rag.indexer.create_vector_index --> IO4
+	IO4 --> rag_pipeline.rag.retrieval.retrieve
+	IO1 --> rag_pipeline.rag.retrieval.retrieve
+	IO3 --> rag_pipeline.rag.retrieval.retrieve
+	rag_pipeline.rag.retrieval.retrieve --> IO5
+	IO5 --> rag_pipeline.rag.retrieval.filter_relevant
+	IO6 --> rag_pipeline.rag.retrieval.filter_relevant
+	rag_pipeline.rag.retrieval.filter_relevant --> IO7
+	IO1 --> rag_pipeline.rag.question_answering.question_answering
+	IO7 --> rag_pipeline.rag.question_answering.question_answering
+	IO6 --> rag_pipeline.rag.question_answering.question_answering
+	rag_pipeline.rag.question_answering.question_answering --> IO8
+	IO8 --> rag_pipeline.rag.evaluation.evaluate_answers
+	IO6 --> rag_pipeline.rag.evaluation.evaluate_answers
+	rag_pipeline.rag.evaluation.evaluate_answers --> IO9
+	IO8 --> rag_pipeline.rag.annotation.annotate_documents
+	IO2 --> rag_pipeline.rag.annotation.annotate_documents
+	rag_pipeline.rag.annotation.annotate_documents --> IO10
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		generate_questions(["generate_questions"]):::node
-		create_vector_index(["create_vector_index"]):::node
-		retrieve(["retrieve"]):::node
-		filter_relevant(["filter_relevant"]):::node
-		question_answering(["question_answering"]):::node
-		evaluate_answers(["evaluate_answers"]):::node
-		annotate_documents(["annotate_documents"]):::node
+		rag_pipeline.rag.policies.generate_questions(["generate_questions"]):::node
+		rag_pipeline.rag.indexer.create_vector_index(["create_vector_index"]):::node
+		rag_pipeline.rag.retrieval.retrieve(["retrieve"]):::node
+		rag_pipeline.rag.retrieval.filter_relevant(["filter_relevant"]):::node
+		rag_pipeline.rag.question_answering.question_answering(["question_answering"]):::node
+		rag_pipeline.rag.evaluation.evaluate_answers(["evaluate_answers"]):::node
+		rag_pipeline.rag.annotation.annotate_documents(["annotate_documents"]):::node
 		IO0("policies"):::io2
 		IO1("questions"):::io1
 		IO2("pdf_documents"):::io4

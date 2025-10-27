@@ -94,10 +94,9 @@ def _gather_graph(
     nodes_ = []
     io_data: dict[int, IOData] = {}
 
-    # TODO: use FQN instead
-    ordering = NodeGraph.from_nodes(nodes.values()).topological_ordering
+    ordering = NodeGraph.from_nodes(nodes).topological_ordering
 
-    for line in ordering:
+    for name, line in ordering:
         inputs = [
             _add_io_data(input_dataset, reverse_lookup, io_data, "Input")
             for input_dataset in line.inputs
@@ -108,10 +107,9 @@ def _gather_graph(
         ]
         nodes_.append(
             NodeData(
-                # TODO: use FQN
-                id=line.func.__name__,
+                id=f"{name[0]}.{name[1]}",
                 node=line,
-                name=line.func.__name__,
+                name=name[1],
                 inputs=inputs,
                 outputs=outputs,
             )

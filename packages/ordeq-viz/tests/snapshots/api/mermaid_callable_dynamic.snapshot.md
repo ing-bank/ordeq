@@ -37,15 +37,12 @@ graph TB
 		end
 	end
 
-	hello --> IO0
-	hello --> IO1
+	example3.func_defs.hello --> IO0
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		hello(["hello"]):::node
-		hello(["hello"]):::node
+		example3.func_defs.hello(["hello"]):::node
 		IO0[("&lt;anonymous&gt;")]:::io0
-		IO1[("&lt;anonymous&gt;")]:::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF

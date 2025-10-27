@@ -55,8 +55,8 @@ NodeGraph:
      shared_resource_read_only:first -> []
      shared_resource_read_only:second -> []
   Nodes:
-     View(name=shared_resource_read_only:first, inputs=[File])
-     View(name=shared_resource_read_only:second, inputs=[File])
+     shared_resource_read_only:first: View(name=shared_resource_read_only:first, inputs=[File])
+     shared_resource_read_only:second: View(name=shared_resource_read_only:second, inputs=[File])
 
 
 
@@ -68,8 +68,8 @@ NodeGraph:
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_read_only:first'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_read_only:second'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node View(name=shared_resource_read_only:second, inputs=[File])
+INFO	ordeq.runner	Running node "second" in "shared_resource_read_only"
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node View(name=shared_resource_read_only:first, inputs=[File])
+INFO	ordeq.runner	Running node "first" in "shared_resource_read_only"
 
 ```

@@ -47,46 +47,48 @@ print(run(group_by, verbose=True))
 
 ```
 
+## Exception
+
+```text
+AttributeError: 'View' object has no attribute 'load'
+  File "/packages/ordeq/src/ordeq/_runner.py", line 55, in _run_node
+    cast("Input", input_dataset).load() for input_dataset in node.inputs
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
+    computed = _run_node(name, patched_nodes[name, node], hooks=hooks, save=save_node)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line 184, in run
+    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+
+  File "/packages/ordeq/tests/resources/views/standalone_view_df_filter.py", line 43, in <module>
+    print(run(group_by, verbose=True))
+          ~~~^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
 NodeGraph:
   Edges:
-     standalone_view_df_filter:filter_df -> [standalone_view_df_filter:group_by]
      standalone_view_df_filter:group_by -> []
   Nodes:
-     View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])
-     View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
+     standalone_view_df_filter:group_by: View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0), Literal(0    False
 1    False
 2    False
 Name: B, dtype: bool)])])
-     A   B   D
-0  NaN NaN NaN
-{View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)]):      A   B    C   D
-0  NaN NaN  NaN NaN
-1  NaN NaN  NaN NaN
-2  NaN NaN  NaN NaN, View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])]): None}
 
 ```
 
@@ -95,22 +97,6 @@ Name: B, dtype: bool)])]): None}
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'standalone_view_df_filter:filter_df'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'standalone_view_df_filter:group_by'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)
-INFO	ordeq.io	Loading Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)
-INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])
-INFO	ordeq.runner	Running node View(name=standalone_view_df_filter:group_by, inputs=[IO(idx=ID1)])
 
 ```
 

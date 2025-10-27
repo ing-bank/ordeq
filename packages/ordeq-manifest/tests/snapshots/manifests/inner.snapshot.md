@@ -14,9 +14,9 @@ print(create_manifest_json(inner))
 {
   "name": "examples.project.inner",
   "nodes": {
-    "nodes.examples.project.inner.nodes:func": {
-      "id": "nodes.examples.project.inner.nodes:func",
-      "name": "examples.project.inner.nodes:func",
+    "examples.project.inner.nodes.func": {
+      "id": "examples.project.inner.nodes.func",
+      "name": "func",
       "inputs": [
         "examples.project.inner.nodes.x"
       ],

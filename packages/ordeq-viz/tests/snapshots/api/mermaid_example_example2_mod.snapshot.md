@@ -37,18 +37,18 @@ graph TB
 		end
 	end
 
-	IO0 --> transform_input_2
-	transform_input_2 --> IO1
-	IO2 --> world
-	world --> IO3
-	IO4 --> node_with_inline_io
-	node_with_inline_io --> IO5
+	IO0 --> example2.nodes.transform_input_2
+	example2.nodes.transform_input_2 --> IO1
+	IO2 --> example.nodes.world
+	example.nodes.world --> IO3
+	IO4 --> example.nodes.node_with_inline_io
+	example.nodes.node_with_inline_io --> IO5
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		transform_input_2(["transform_input_2"]):::node
-		world(["world"]):::node
-		node_with_inline_io(["node_with_inline_io"]):::node
+		example2.nodes.transform_input_2(["transform_input_2"]):::node
+		example.nodes.world(["world"]):::node
+		example.nodes.node_with_inline_io(["node_with_inline_io"]):::node
 		IO0[("TestInput2")]:::io1
 		IO1[("TestOutput2")]:::io2
 		IO2[("x")]:::io3

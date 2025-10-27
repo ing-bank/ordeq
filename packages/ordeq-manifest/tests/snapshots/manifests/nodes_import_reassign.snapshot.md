@@ -14,9 +14,9 @@ print(create_manifest_json(nodes_import_reassign))
 {
   "name": "examples.project.nodes_import_reassign",
   "nodes": {
-    "nodes.examples.project.nodes_import_reassign:func_a": {
-      "id": "nodes.examples.project.nodes_import_reassign:func_a",
-      "name": "examples.project.nodes_import_reassign:func_a",
+    "examples.project.nodes_import_reassign.func_a": {
+      "id": "examples.project.nodes_import_reassign.func_a",
+      "name": "func_a",
       "inputs": [
         "examples.project.nodes_import_reassign.AA",
         "examples.project.nodes_import_reassign.BB"
@@ -26,9 +26,9 @@ print(create_manifest_json(nodes_import_reassign))
       ],
       "attributes": {}
     },
-    "nodes.examples.project.nodes_import_reassign:func_b": {
-      "id": "nodes.examples.project.nodes_import_reassign:func_b",
-      "name": "examples.project.nodes_import_reassign:func_b",
+    "examples.project.nodes_import_reassign.func_b": {
+      "id": "examples.project.nodes_import_reassign.func_b",
+      "name": "func_b",
       "inputs": [
         "examples.project.nodes_import_reassign.AA",
         "examples.project.nodes_import_reassign.BB"

@@ -55,17 +55,17 @@ NodeGraph:
      shared_resource_nondeterministic:first -> []
      shared_resource_nondeterministic:second -> []
   Nodes:
-     Node(name=shared_resource_nondeterministic:first, outputs=[File])
-     Node(name=shared_resource_nondeterministic:second, outputs=[File])
+     shared_resource_nondeterministic:first: Node(name=shared_resource_nondeterministic:first, outputs=[File])
+     shared_resource_nondeterministic:second: Node(name=shared_resource_nondeterministic:second, outputs=[File])
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node Node(name=shared_resource_nondeterministic:second, outputs=[File])
+INFO	ordeq.runner	Running node "second" in "shared_resource_nondeterministic"
 INFO	ordeq.io	Saving File
-INFO	ordeq.runner	Running node Node(name=shared_resource_nondeterministic:first, outputs=[File])
+INFO	ordeq.runner	Running node "first" in "shared_resource_nondeterministic"
 INFO	ordeq.io	Saving File
 
 ```

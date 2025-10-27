@@ -20,5 +20,6 @@ print(c())
 
 print(node(c, outputs=StringBuffer("result"))())
 
-output = StringBuffer("result")
-print(run(node(c, outputs=output))[output])
+output = StringBuffer("Result: ")
+run(node(c, outputs=output))
+print(output.load())

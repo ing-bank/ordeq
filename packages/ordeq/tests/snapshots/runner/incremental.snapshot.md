@@ -23,8 +23,9 @@ print(c())
 
 print(node(c, outputs=StringBuffer("result"))())
 
-output = StringBuffer("result")
-print(run(node(c, outputs=output))[output])
+output = StringBuffer("Result: ")
+run(node(c, outputs=output))
+print(output.load())
 
 ```
 
@@ -33,7 +34,7 @@ print(run(node(c, outputs=output))[output])
 ```text
 Hello world!
 Hello world!
-Hello world!
+Result: Hello world!
 
 ```
 
@@ -48,5 +49,6 @@ INFO	ordeq.runner	Running node "c" in module "incremental"
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 
 ```

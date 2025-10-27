@@ -63,15 +63,7 @@ NodeGraph:
      A    B    D
 0  bar  2.0  5.0
 1  foo  2.0  8.0
-{View(name=standalone_view_df_cast:cast, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)]):      A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0, Output(idx=ID1):      A    B    D
-0  bar  2.0  5.0
-1  foo  2.0  8.0}
+None
 
 ```
 

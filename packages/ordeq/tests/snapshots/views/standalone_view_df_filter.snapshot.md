@@ -71,22 +71,7 @@ Name: B, dtype: bool)])
 Name: B, dtype: bool)])])
      A   B   D
 0  NaN NaN NaN
-{View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)]):      A   B    C   D
-0  NaN NaN  NaN NaN
-1  NaN NaN  NaN NaN
-2  NaN NaN  NaN NaN, View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])]): None}
+None
 
 ```
 

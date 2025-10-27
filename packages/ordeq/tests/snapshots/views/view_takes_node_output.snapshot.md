@@ -111,9 +111,10 @@ IOException: Failed to load IO(idx=ID1).
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line 138, in _run_graph
-    computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 188, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 182, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line 28, in <module>
@@ -144,7 +145,7 @@ NodeGraph:
      View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
 I heard that Jane said 'Hello'
 None
-{IO(idx=ID1): "Jane said 'Hello'", View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)]): None, View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])]): None}
+None
 NodeGraph:
   Edges:
      view_takes_node_output:sink -> []

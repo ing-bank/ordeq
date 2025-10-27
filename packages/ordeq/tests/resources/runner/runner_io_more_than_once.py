@@ -17,11 +17,12 @@ def decrement(x: str, y: str) -> str:
     return f"{int(x) - int(y)}"
 
 
-regular = run(increment, decrement, verbose=True)
+run(increment, decrement, verbose=True)
 
-print(regular)
+print(x3.load())
 
 # provide alternative IO when running the pipeline
-patched = run(increment, decrement, io={x1: Literal(200)}, verbose=True)
+p1 = Literal(200)
+run(increment, decrement, io={x1: p1}, verbose=True)
 
-print(patched)
+print(x3.load())

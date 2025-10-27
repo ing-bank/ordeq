@@ -60,7 +60,7 @@ b'    "catchPhrase": "Multi-layered client-server neural-net",'
 b'    "bs": "harness real-time e-markets"'
 b'  }'
 b'}'
-{View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)]): <generator object Response.iter_lines at HASH1>, View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])]): None}
+None
 
 ```
 

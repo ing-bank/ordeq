@@ -18,16 +18,19 @@ def decrement(x: str, y: str) -> str:
     return f"{int(x) - int(y)}"
 
 
-regular = run(increment, decrement, verbose=True)
+run(increment, decrement, verbose=True)
 
-print(regular)
+print(x4.load())
 
 # provide alternative IO when running the pipeline
-patched = run(
+p1 = Literal(2)
+p3 = Literal("33")
+p4 = StringBuffer()
+run(
     increment,
     decrement,
-    io={x1: Literal(2), x3: Literal("33"), x4: StringBuffer()},
+    io={x1: p1, x3: p3, x4: p4},
     verbose=True,
 )
 
-print(patched)
+print(p4.load())

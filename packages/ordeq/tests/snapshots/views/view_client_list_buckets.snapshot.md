@@ -39,7 +39,7 @@ NodeGraph:
 bucket1
 bucket2
 bucket3
-{View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)]): ['bucket1', 'bucket2', 'bucket3'], View(name=view_client_list_buckets:print_buckets, inputs=[View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])]): None}
+None
 
 ```
 

@@ -32,7 +32,7 @@ NodeGraph:
      View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])
      View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])])
 Node received 'Buenos dias World!'
-{View(name=view_patch_io:hello_world, inputs=[Literal('Hello')]): ('Buenos dias', 'World!'), View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])]): None}
+None
 
 ```
 

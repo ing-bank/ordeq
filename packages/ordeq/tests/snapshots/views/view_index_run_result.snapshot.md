@@ -24,7 +24,7 @@ print(view, 'computed', result[view])
 ## Exception
 
 ```text
-KeyError: <function view at HASH1>
+TypeError: 'NoneType' object is not subscriptable
   File "/packages/ordeq/tests/resources/views/view_index_run_result.py", line 17, in <module>
     print(view, 'computed', result[view])
                             ~~~~~~^^^^^^

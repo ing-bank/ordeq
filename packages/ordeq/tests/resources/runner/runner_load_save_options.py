@@ -38,5 +38,5 @@ def decrement(x: str, y: str) -> str:
     return f"x says '{x}' but y says '{y}'"
 
 
-result = run(increment, decrement, verbose=True)
-print(result)
+run(increment, decrement, verbose=True)
+print(x4.load())

@@ -13,7 +13,7 @@ def func1(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func1))
+run(func1)  # 'catalog.another_io' prints the output to stdout
 
 ```
 
@@ -21,7 +21,6 @@ print(run(func1))
 
 ```text
 HELLO FROM REMOTE!
-{Print(): 'HELLO FROM REMOTE!'}
 
 ```
 

@@ -38,7 +38,7 @@ NodeGraph:
      View(name=view_returns_optional:conditional)
      Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional)], outputs=[Print()])
 Higher value!
-{View(name=view_returns_optional:conditional): 'Higher value!', Print(): 'Higher value!'}
+None
 NodeGraph:
   Edges:
      view_returns_optional:conditional -> [view_returns_optional:n]
@@ -47,7 +47,7 @@ NodeGraph:
      View(name=view_returns_optional:conditional)
      Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional)], outputs=[Print()])
 None
-{View(name=view_returns_optional:conditional): None, Print(): None}
+None
 
 ```
 

@@ -54,16 +54,7 @@ NodeGraph:
      A
 0  bar
 1  foo
-{View(name=view_df_select:df_selected, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)]):      A
-0  foo
-1  bar
-2  foo, View(name=view_df_select:group_by, inputs=[View(name=view_df_select:df_selected, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])]): None}
+None
 
 ```
 

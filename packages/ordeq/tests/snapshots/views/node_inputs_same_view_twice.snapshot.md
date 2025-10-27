@@ -35,7 +35,7 @@ NodeGraph:
      View(name=node_inputs_same_view_twice:hello)
      Node(name=node_inputs_same_view_twice:n, inputs=[View(name=node_inputs_same_view_twice:hello), View(name=node_inputs_same_view_twice:hello)], outputs=[Print()])
 Hello, World! == Hello, World!'
-{View(name=node_inputs_same_view_twice:hello): 'Hello, World!', Print(): "Hello, World! == Hello, World!'"}
+None
 
 ```
 

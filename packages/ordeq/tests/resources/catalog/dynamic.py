@@ -19,7 +19,8 @@ def func1(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func1))
+run(func1)
+print(catalog.result.output())
 
 os.environ["ENV"] = "acceptance"
 catalog = get_catalog()
@@ -30,4 +31,5 @@ def func2(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func2))
+run(func2)
+print(catalog.result.output())

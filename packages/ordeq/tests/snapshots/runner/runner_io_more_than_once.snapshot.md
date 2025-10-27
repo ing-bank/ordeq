@@ -20,14 +20,15 @@ def decrement(x: str, y: str) -> str:
     return f"{int(x) - int(y)}"
 
 
-regular = run(increment, decrement, verbose=True)
+run(increment, decrement, verbose=True)
 
-print(regular)
+print(x3.load())
 
 # provide alternative IO when running the pipeline
-patched = run(increment, decrement, io={x1: Literal(200)}, verbose=True)
+p1 = Literal(200)
+run(increment, decrement, io={x1: p1}, verbose=True)
 
-print(patched)
+print(x3.load())
 
 ```
 
@@ -41,7 +42,7 @@ NodeGraph:
   Nodes:
      Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
      Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-{StringBuffer(_buffer=<_io.StringIO object at HASH1>): '2', StringBuffer(_buffer=<_io.StringIO object at HASH2>): '1'}
+1
 NodeGraph:
   Edges:
      runner_io_more_than_once:decrement -> []
@@ -49,7 +50,7 @@ NodeGraph:
   Nodes:
      Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
      Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-{StringBuffer(_buffer=<_io.StringIO object at HASH1>): '201', StringBuffer(_buffer=<_io.StringIO object at HASH2>): '1'}
+11
 
 ```
 
@@ -61,18 +62,20 @@ INFO	ordeq.runner	Running node "increment" in module "runner_io_more_than_once"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node "decrement" in module "runner_io_more_than_once"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading Literal(200)
 INFO	ordeq.runner	Running node "increment" in module "runner_io_more_than_once"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node "decrement" in module "runner_io_more_than_once"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```
 
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/runner/runner_io_more_than_once.py:25: error: Argument "io" to "run" has incompatible type "dict[Literal[int], Literal[int]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+packages/ordeq/tests/resources/runner/runner_io_more_than_once.py:26: error: Argument "io" to "run" has incompatible type "dict[Literal[int], Literal[int]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
 Found 1 error in 1 file (checked 1 source file)
 
 ```

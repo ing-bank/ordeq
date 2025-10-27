@@ -22,7 +22,8 @@ def func1(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func1))
+run(func1)
+print(catalog.result.output())
 
 os.environ["ENV"] = "acceptance"
 catalog = get_catalog()
@@ -33,26 +34,34 @@ def func2(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func2))
+run(func2)
+print(catalog.result.output())
 
 ```
 
-## Output
+## Exception
 
 ```text
-{StringBuffer(_buffer=<_io.StringIO object at HASH1>): 'HELLO FROM LOCAL!'}
-{StringBuffer(_buffer=<_io.StringIO object at HASH2>): 'HELLO FROM REMOTE!'}
+AttributeError: 'StringBuffer' object has no attribute 'output'
+  File "/packages/ordeq/tests/resources/catalog/dynamic.py", line 23, in <module>
+    print(catalog.result.output())
+          ^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 85, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node "func1" in module "dynamic"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.runner	Running node "func2" in module "dynamic"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

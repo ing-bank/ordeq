@@ -8,7 +8,7 @@ from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 def test_kedro(tmp_path):
     from example import nodes as mod  # ty: ignore[unresolved-import]
 
-    nodes = {get_node(mod.world)}
+    nodes = {("example", "world"): get_node(mod.world)}
     pipeline_to_kedro_viz(
         nodes=nodes,
         ios={("...", "x"): mod.x, ("...", "y"): mod.y},

@@ -77,7 +77,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
 
 
 def _gather_graph(
-    nodes: set[Node], ios: dict[FQN, AnyIO]
+    nodes: dict[FQN, Node], ios: dict[FQN, AnyIO]
 ) -> tuple[list[NodeData], list[IOData]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 
@@ -94,7 +94,8 @@ def _gather_graph(
     nodes_ = []
     io_data: dict[int, IOData] = {}
 
-    ordering = NodeGraph.from_nodes(nodes).topological_ordering
+    # TODO: use FQN instead
+    ordering = NodeGraph.from_nodes(nodes.values()).topological_ordering
 
     for line in ordering:
         inputs = [
@@ -107,6 +108,7 @@ def _gather_graph(
         ]
         nodes_.append(
             NodeData(
+                # TODO: use FQN
                 id=line.func.__name__,
                 node=line,
                 name=line.func.__name__,

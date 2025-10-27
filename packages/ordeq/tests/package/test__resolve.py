@@ -4,6 +4,7 @@ import pytest
 from ordeq import Node, node
 from ordeq._nodes import get_node
 from ordeq._resolve import (
+    FQN,
     _is_node,
     _resolve_node_reference,
     _resolve_runnables_to_nodes,
@@ -11,7 +12,7 @@ from ordeq._resolve import (
 
 
 @pytest.fixture
-def expected_example_nodes(packages) -> set[Callable]:
+def expected_example_nodes(packages) -> dict[FQN, Callable]:
     """Expected nodes in the example package.
 
     Returns:
@@ -28,17 +29,23 @@ def expected_example_nodes(packages) -> set[Callable]:
     )
 
     """Expected nodes in the example package."""
-    return {transform_input, transform_mock_input, world, hello, print_message}
+    return {
+        ("example.pipeline", "transform_input"): transform_input,
+        ("example.pipeline", "transform_mock_input"): transform_mock_input,
+        ("example.nodes", "world"): world,
+        ("example.wrapped_io", "hello"): hello,
+        ("example.wrapped_io", "print_message"): print_message,
+    }
 
 
 @pytest.fixture
-def expected_example_node_objects(expected_example_nodes) -> set[Node]:
+def expected_example_node_objects(expected_example_nodes) -> dict[FQN, Node]:
     """Expected node objects in the example package.
 
     Returns:
         a set of expected node objects
     """
-    return {get_node(f) for f in expected_example_nodes}
+    return {key: get_node(f) for key, f in expected_example_nodes.items()}
 
 
 def test_gather_nodes_from_module(packages):
@@ -54,7 +61,7 @@ def test_resolve_node_by_reference(
     from example.nodes import world  # ty: ignore[unresolved-import]
 
     nodes = _resolve_runnables_to_nodes("example.nodes:world")
-    assert nodes == {get_node(world)}
+    assert nodes == {("example.nodes", "world"): get_node(world)}
 
 
 def test_resolve_node_by_reference_not_a_node(packages) -> None:

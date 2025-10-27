@@ -59,7 +59,7 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls, name: str, nodes: set[Node], ios: dict[FQN, AnyIO]
+        cls, name: str, nodes: dict[FQN, Node], ios: dict[FQN, AnyIO]
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 
@@ -73,7 +73,11 @@ class ProjectModel(BaseModel):
         """
 
         # Manifests don't accurately display views yet, so we filter them out
-        nodes_ = [node for node in nodes if not isinstance(node, View)]
+        nodes_ = {
+            name: node
+            for name, node in nodes.items()
+            if not isinstance(node, View)
+        }
 
         io_models = {
             ".".join(name): IOModel.from_io(name, io)
@@ -85,9 +89,9 @@ class ProjectModel(BaseModel):
             if (io_model := io_models.get(".".join(name)))
         }
         node_models = {
-            f"nodes.{node.name}": NodeModel.from_node(
-                ("nodes", node.name), node, ios_to_id
+            ".".join(name): NodeModel.from_node(name, node, ios_to_id)
+            for name, node in sorted(
+                nodes_.items(), key=operator.itemgetter(0)
             )
-            for node in sorted(nodes_, key=lambda obj: obj.name)
         }
         return cls(name=name, nodes=node_models, ios=io_models)

@@ -16,10 +16,10 @@ modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
 
 nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
-print(list(sorted(node.name for node in nodes)))
+print(dict(sorted(nodes.items())))
 print(dict(sorted(ios.items())))
 
-print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))))
+print(dict(sorted(_resolve_runnables_to_nodes(*runnables).items())))
 
 ```
 
@@ -27,9 +27,9 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 
 ```text
 ['function_reuse', 'function_reuse.catalog', 'function_reuse.func_defs', 'function_reuse.nodes']
-['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']
+{('function_reuse.nodes', 'a'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), ('function_reuse.nodes', 'another_name'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), ('function_reuse.nodes', 'b'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]), ('function_reuse.nodes', 'c'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]), ('function_reuse.nodes', 'd'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]), ('function_reuse.nodes', 'pi'): View(name=function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])}
 {('function_reuse.catalog', 'A'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('function_reuse.catalog', 'B'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('function_reuse.catalog', 'C'): StringBuffer(_buffer=<_io.StringIO object at HASH3>), ('function_reuse.catalog', 'D'): StringBuffer(_buffer=<_io.StringIO object at HASH4>), ('function_reuse.catalog', 'another_name'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('function_reuse.nodes', 'A'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('function_reuse.nodes', 'B'): StringBuffer(_buffer=<_io.StringIO object at HASH2>)}
-['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']
+{('function_reuse.nodes', 'a'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), ('function_reuse.nodes', 'another_name'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), ('function_reuse.nodes', 'b'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]), ('function_reuse.nodes', 'c'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]), ('function_reuse.nodes', 'd'): View(name=function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]), ('function_reuse.nodes', 'pi'): View(name=function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])}
 
 ```
 

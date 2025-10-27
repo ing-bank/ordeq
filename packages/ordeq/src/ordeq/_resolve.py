@@ -90,7 +90,7 @@ def _resolve_runnables_to_modules(
     return _resolve_packages_to_modules(modules.items())
 
 
-def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
+def _resolve_module_to_nodes(module: ModuleType) -> dict[FQN, Node]:
     """Gathers all nodes defined in a module.
 
     Args:
@@ -100,8 +100,11 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
         the nodes defined in the module
 
     """
-
-    return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
+    return {
+        (module.__name__, name): get_node(obj)
+        for name, obj in vars(module).items()
+        if _is_node(obj)
+    }
 
 
 def _resolve_module_to_ios(module: ModuleType) -> dict[FQN, AnyIO]:
@@ -120,7 +123,7 @@ def _resolve_module_to_ios(module: ModuleType) -> dict[FQN, AnyIO]:
     }
 
 
-def _resolve_node_reference(ref: str) -> Node:
+def _resolve_node_reference(ref: str) -> tuple[FQN, Node]:
     """Resolves a node reference string of the form 'module:node_name'.
 
     Args:
@@ -142,7 +145,7 @@ def _resolve_node_reference(ref: str) -> Node:
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_name}'"
         )
-    return get_node(node_obj)
+    return (module_name, node_name), get_node(node_obj)
 
 
 def _resolve_hook_reference(ref: str) -> RunnerHook:
@@ -201,7 +204,7 @@ def _resolve_hooks(
 
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: Runnable,
-) -> tuple[set[Node], set[ModuleType]]:
+) -> tuple[dict[FQN, Node], set[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -215,16 +218,18 @@ def _resolve_runnables_to_nodes_and_modules(
         TypeError: if a runnable is not a module and not a node
     """
     modules_and_strs: list[ModuleType | str] = []
-    nodes = set()
+    nodes: dict[FQN, Node] = {}
     for runnable in runnables:
         if isinstance(runnable, ModuleType) or (
             isinstance(runnable, str) and ":" not in runnable
         ):
             modules_and_strs.append(runnable)
         elif callable(runnable):
-            nodes.add(get_node(runnable))
+            # TODO: here we should search the module
+            nodes[runnable.__module__, runnable.__name__] = get_node(runnable)
         elif isinstance(runnable, str):
-            nodes.add(_resolve_node_reference(runnable))
+            fqn, node = _resolve_node_reference(runnable)
+            nodes[fqn] = node
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "
@@ -235,7 +240,7 @@ def _resolve_runnables_to_nodes_and_modules(
     return nodes, modules
 
 
-def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
+def _resolve_runnables_to_nodes(*runnables: Runnable) -> dict[FQN, Node]:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -252,9 +257,9 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
     return nodes
 
 
-def _check_missing_ios(nodes: set[Node], ios: dict[FQN, AnyIO]) -> None:
+def _check_missing_ios(nodes: dict[FQN, Node], ios: dict[FQN, AnyIO]) -> None:
     missing_ios: set[AnyIO | View] = set()
-    for node in nodes:
+    for node in nodes.values():
         for inp in node.inputs:
             if inp not in ios.values():
                 missing_ios.add(inp)
@@ -272,7 +277,7 @@ def _check_missing_ios(nodes: set[Node], ios: dict[FQN, AnyIO]) -> None:
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: Runnable,
-) -> tuple[set[Node], dict[FQN, AnyIO]]:
+) -> tuple[dict[FQN, Node], dict[FQN, AnyIO]]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:
@@ -286,8 +291,8 @@ def _resolve_runnables_to_nodes_and_ios(
     ios = {}
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
-    for node in nodes:
-        mod = _resolve_string_to_module(node.func.__module__)
+    for mod_name, _ in nodes:
+        mod = _resolve_string_to_module(mod_name)
         ios.update(_resolve_module_to_ios(mod))
 
     for module in modules:

@@ -171,7 +171,8 @@ def run(
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
-    graph = NodeGraph.from_nodes(nodes)
+    # TODO: use the names for logging
+    graph = NodeGraph.from_nodes(nodes.values())
 
     if verbose:
         print(graph)

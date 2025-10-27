@@ -4,7 +4,7 @@ from typing import Any
 from ordeq import IOException, Node
 from ordeq._graph import NodeGraph  # noqa: PLC2701 private import
 from ordeq._io import AnyIO
-from ordeq._resolve import FQN
+from ordeq._resolve import Catalog
 
 
 @dataclass
@@ -77,7 +77,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
 
 
 def _gather_graph(
-    nodes: set[Node], ios: dict[FQN, AnyIO]
+    nodes: set[Node], ios: Catalog
 ) -> tuple[list[NodeData], list[IOData]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 

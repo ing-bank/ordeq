@@ -14,19 +14,19 @@ run(
 
 ```text
 ValueError: Invalid object reference: 'invalid'. Expected format 'module:name'.
-  File "/packages/ordeq/src/ordeq/_resolve.py", line 326, in str_to_fqn
+  File "/packages/ordeq/src/ordeq/_fqn.py", line 21, in str_to_fqn
     raise ValueError(
-        f"Invalid object reference: '{name}'. Expected format 'module:name'."
+    ...<2 lines>...
     )
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line 162, in _resolve_hook_reference
+  File "/packages/ordeq/src/ordeq/_resolve.py", line 163, in _resolve_hook_reference
     module_name, hook_name = str_to_fqn(ref)
                              ~~~~~~~~~~^^^^^
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line 193, in _resolve_hooks
+  File "/packages/ordeq/src/ordeq/_resolve.py", line 194, in _resolve_hooks
     resolved_hook = _resolve_hook_reference(hook)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 181, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 182, in run
     run_hooks, node_hooks = _resolve_hooks(*hooks)
                             ~~~~~~~~~~~~~~^^^^^^^^
 

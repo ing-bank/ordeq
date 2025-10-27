@@ -4,7 +4,8 @@ from functools import cached_property
 from graphlib import TopologicalSorter
 from typing import TypeAlias
 
-from ordeq._fqn import FQN, fqn_to_str
+from ordeq._fqn import FQN, fqn_to_str, str_to_fqn
+from ordeq._io import AnyIO
 from ordeq._nodes import Node, View
 
 try:
@@ -28,8 +29,8 @@ def _collect_views(nodes: dict[FQN, Node]) -> dict[FQN, View]:
     """
 
     views: dict[FQN, View] = {}
-    for name, node in nodes.items():
-        node_views = set(node.views)
+    for node in nodes.values():
+        node_views = {str_to_fqn(view.name): view for view in node.views}
         views |= node_views | _collect_views(node_views)  # type: ignore[arg-type]
     return views
 
@@ -47,9 +48,8 @@ def _build_graph(nodes: dict[FQN, Node]) -> EdgesType:
         ValueError: if an output is defined by more than one node
     """
 
-    output_to_node: dict = {
-        # TODO: fix
-        view: view
+    output_to_node: dict[View | AnyIO, tuple[FQN, View | Node]] = {
+        view: (str_to_fqn(view.name), view)
         for view in nodes.values()
         if isinstance(view, View)
     }
@@ -118,9 +118,8 @@ class NodeGraph:
 
     @classmethod
     def from_nodes(cls, nodes: dict[FQN, Node]) -> Self:
-        # views = _collect_views(nodes)
-        # return cls(_build_graph(nodes | views))
-        return cls(_build_graph(nodes))
+        views = _collect_views(nodes)
+        return cls(_build_graph(nodes | views))
 
     @cached_property
     def topological_ordering(self) -> tuple[NamedNode, ...]:

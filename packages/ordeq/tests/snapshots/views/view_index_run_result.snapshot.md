@@ -25,16 +25,16 @@ print(view, 'computed', result[view])
 
 ```text
 AttributeError: 'View' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line 55, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line 56, in _run_node
     cast("Input", input_dataset).load() for input_dataset in node.inputs
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
     computed = _run_node(
         name, patched_nodes[name, node], hooks=hooks, save=save_node
     )
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 186, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 187, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq/tests/resources/views/view_index_run_result.py", line 15, in <module>
@@ -54,6 +54,7 @@ AttributeError: 'View' object has no attribute 'load'
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_index_run_result:view'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running node "view" in "view_index_run_result"
 
 ```
 

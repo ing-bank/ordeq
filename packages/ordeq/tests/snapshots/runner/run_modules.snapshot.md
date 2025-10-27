@@ -16,11 +16,11 @@ ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be ou
   File "/packages/ordeq/src/ordeq/_graph.py", line 66, in _build_graph
     raise ValueError(msg)
 
-  File "/packages/ordeq/src/ordeq/_graph.py", line 123, in from_nodes
-    return cls(_build_graph(nodes))
-               ~~~~~~~~~~~~^^^^^^^
+  File "/packages/ordeq/src/ordeq/_graph.py", line 122, in from_nodes
+    return cls(_build_graph(nodes | views))
+               ~~~~~~~~~~~~^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 176, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 177, in run
     graph = NodeGraph.from_nodes(nodes)
 
   File "/packages/ordeq/tests/resources/runner/run_modules.py", line 5, in <module>

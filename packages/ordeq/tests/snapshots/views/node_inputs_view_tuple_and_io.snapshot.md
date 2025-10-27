@@ -27,16 +27,16 @@ print(run(combine_greeting_with_ending, verbose=True))
 
 ```text
 AttributeError: 'View' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line 55, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line 56, in _run_node
     cast("Input", input_dataset).load() for input_dataset in node.inputs
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
     computed = _run_node(
         name, patched_nodes[name, node], hooks=hooks, save=save_node
     )
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 186, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 187, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq/tests/resources/views/node_inputs_view_tuple_and_io.py", line 19, in <module>
@@ -60,8 +60,10 @@ View(name=node_inputs_view_tuple_and_io:hello)
 NodeGraph:
   Edges:
      node_inputs_view_tuple_and_io:combine_greeting_with_ending -> []
+     node_inputs_view_tuple_and_io:hello -> [node_inputs_view_tuple_and_io:combine_greeting_with_ending]
   Nodes:
      node_inputs_view_tuple_and_io:combine_greeting_with_ending: Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[View(name=node_inputs_view_tuple_and_io:hello), Literal('!!!')], outputs=[Print()])
+     node_inputs_view_tuple_and_io:hello: View(name=node_inputs_view_tuple_and_io:hello)
 
 ```
 
@@ -69,5 +71,6 @@ NodeGraph:
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_inputs_view_tuple_and_io:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running node "hello" in "node_inputs_view_tuple_and_io"
 
 ```

@@ -40,16 +40,16 @@ print(run(group_by, verbose=True))
 
 ```text
 AttributeError: 'View' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line 55, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line 56, in _run_node
     cast("Input", input_dataset).load() for input_dataset in node.inputs
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
     computed = _run_node(
         name, patched_nodes[name, node], hooks=hooks, save=save_node
     )
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 186, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 187, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq/tests/resources/views/view_df_cast.py", line 32, in <module>
@@ -71,8 +71,13 @@ AttributeError: 'View' object has no attribute 'load'
 ```text
 NodeGraph:
   Edges:
+     view_df_cast:df_casted -> [view_df_cast:group_by]
      view_df_cast:group_by -> []
   Nodes:
+     view_df_cast:df_casted: View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)])
      view_df_cast:group_by: View(name=view_df_cast:group_by, inputs=[View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
@@ -85,5 +90,10 @@ NodeGraph:
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_df_cast:df_casted'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_df_cast:group_by'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.io	Loading Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)
+INFO	ordeq.runner	Running node "df_casted" in "view_df_cast"
 
 ```

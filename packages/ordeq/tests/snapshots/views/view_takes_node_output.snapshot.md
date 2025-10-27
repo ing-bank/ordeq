@@ -106,14 +106,14 @@ IOException: Failed to load IO(idx=ID1).
   File "/packages/ordeq/src/ordeq/_io.py", line 79, in wrapper
     return composed(*args, **kwargs)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 53, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line 55, in _run_node
     cast("Input", input_dataset).load() for input_dataset in node.inputs
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 132, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
     computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 182, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 184, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line 28, in <module>

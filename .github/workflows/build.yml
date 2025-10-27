@@ -101,6 +101,7 @@ jobs:
   complete:
     name: All checks passed
     runs-on: ubuntu-latest
+    if: always()
     needs:
       - test
       - static_code_analysis
@@ -108,5 +109,7 @@ jobs:
       - packages
 
     steps:
-      - name: Complete
-        run: echo "🎉"
+    - name: Decide whether the needed jobs succeeded or failed
+      uses: re-actors/alls-green@release/v1
+      with:
+        jobs: ${{ toJSON(needs) }}

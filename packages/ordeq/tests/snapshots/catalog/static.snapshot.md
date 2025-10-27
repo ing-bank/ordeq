@@ -41,10 +41,10 @@ print(run(func2))
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "func1" in "static"
+INFO	ordeq.runner	Running node "func1" in module "static"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.runner	Running node "func2" in "static"
+INFO	ordeq.runner	Running node "func2" in module "static"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

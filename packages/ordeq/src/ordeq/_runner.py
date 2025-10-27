@@ -61,7 +61,10 @@ def _run_node(
             node_input.persist(data)
 
     module_name, _, node_name = node.name.partition(":")
-    logger.info('Running node "%s" in "%s"', node_name, module_name)
+    node_type = "view" if isinstance(node, View) else "node"
+    logger.info(
+        'Running %s "%s" in module "%s"', node_type, node_name, module_name
+    )
 
     try:
         values = node.func(*args)

@@ -28,7 +28,7 @@ print(run(func1))
 
 ```text
 INFO	ordeq.io	Loading Literal('Hey I am overriding the hello IO')
-INFO	ordeq.runner	Running node "func1" in "extended"
+INFO	ordeq.runner	Running node "func1" in module "extended"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

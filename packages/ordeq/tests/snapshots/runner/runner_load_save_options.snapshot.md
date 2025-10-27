@@ -64,10 +64,10 @@ NodeGraph:
 
 ```text
 INFO	ordeq.io	Loading CustomIO(attr=y did it)
-INFO	ordeq.runner	Running node "increment" in "runner_load_save_options"
+INFO	ordeq.runner	Running node "increment" in module "runner_load_save_options"
 INFO	ordeq.io	Saving CustomIO(attr=)
 INFO	ordeq.io	Loading CustomIO(attr=x did it)
-INFO	ordeq.runner	Running node "decrement" in "runner_load_save_options"
+INFO	ordeq.runner	Running node "decrement" in module "runner_load_save_options"
 INFO	ordeq.io	Saving CustomIO(attr=)
 
 ```

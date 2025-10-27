@@ -56,9 +56,9 @@ I heard that Jane said 'Hello, World!'
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:hello_from_someone'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "hello" in "view_inputs_view_and_io"
+INFO	ordeq.runner	Running view "hello" in module "view_inputs_view_and_io"
 INFO	ordeq.io	Loading Literal('Jane')
-INFO	ordeq.runner	Running node "hello_from_someone" in "view_inputs_view_and_io"
-INFO	ordeq.runner	Running node "n" in "view_inputs_view_and_io"
+INFO	ordeq.runner	Running view "hello_from_someone" in module "view_inputs_view_and_io"
+INFO	ordeq.runner	Running view "n" in module "view_inputs_view_and_io"
 
 ```

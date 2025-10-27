@@ -57,14 +57,14 @@ NodeGraph:
 
 ```text
 INFO	ordeq.io	Loading Literal(1)
-INFO	ordeq.runner	Running node "increment" in "runner_io_more_than_once"
+INFO	ordeq.runner	Running node "increment" in module "runner_io_more_than_once"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "decrement" in "runner_io_more_than_once"
+INFO	ordeq.runner	Running node "decrement" in module "runner_io_more_than_once"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading Literal(200)
-INFO	ordeq.runner	Running node "increment" in "runner_io_more_than_once"
+INFO	ordeq.runner	Running node "increment" in module "runner_io_more_than_once"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "decrement" in "runner_io_more_than_once"
+INFO	ordeq.runner	Running node "decrement" in module "runner_io_more_than_once"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

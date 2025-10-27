@@ -26,12 +26,12 @@ _run_graph(NodeGraph.from_nodes(nodes))
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "<lambda>" in "logging_verbosity"
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.runner	Running node "<lambda>" in "logging_verbosity"
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-INFO	ordeq.runner	Running node "<lambda>" in "logging_verbosity"
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```

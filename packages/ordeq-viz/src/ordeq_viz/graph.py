@@ -4,7 +4,7 @@ from typing import Any
 from ordeq import IOException, Node
 from ordeq._graph import NodeGraph  # noqa: PLC2701 private import
 from ordeq._io import AnyIO
-from ordeq._resolve import FQN
+from ordeq._resolve import FQN, fqn_to_str
 
 
 @dataclass
@@ -107,7 +107,7 @@ def _gather_graph(
         ]
         nodes_.append(
             NodeData(
-                id=f"{name[0]}.{name[1]}",
+                id=fqn_to_str(name),
                 node=line,
                 name=name[1],
                 inputs=inputs,

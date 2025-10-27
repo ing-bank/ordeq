@@ -32,9 +32,11 @@ AttributeError: 'View' object has no attribute 'load'
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
-    computed = _run_node(name, patched_nodes[name, node], hooks=hooks, save=save_node)
+    computed = _run_node(
+        name, patched_nodes[name, node], hooks=hooks, save=save_node
+    )
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 184, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 186, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq/tests/resources/views/node_inputs_view.py", line 19, in <module>

@@ -133,12 +133,10 @@ def _resolve_node_reference(ref: str) -> tuple[FQN, Node]:
         The resolved Node object
 
     Raises:
-        ValueError: if the node cannot be found in the module
+        ValueError: if the node cannot be found.
     """
 
-    if ":" not in ref:
-        raise ValueError(f"Invalid node reference: '{ref}'.")
-    module_name, _, node_name = ref.partition(":")
+    module_name, node_name = str_to_fqn(ref)
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
     if node_obj is None or not _is_node(node_obj):
@@ -158,12 +156,10 @@ def _resolve_hook_reference(ref: str) -> RunnerHook:
         The resolved Hook object.
 
     Raises:
-        ValueError: if the hook cannot be found or is not a valid Hook object.
+        ValueError: if the hook cannot be found.
     """
 
-    if ":" not in ref:
-        raise ValueError(f"Invalid hook reference: '{ref}'.")
-    module_name, _, hook_name = ref.partition(":")
+    module_name, hook_name = str_to_fqn(ref)
     module = _resolve_string_to_module(module_name)
     hook_obj = getattr(module, hook_name, None)
     if hook_obj is None or not isinstance(hook_obj, (NodeHook, RunHook)):
@@ -300,6 +296,38 @@ def _resolve_runnables_to_nodes_and_ios(
         ios.update(_resolve_module_to_ios(module))
 
     return nodes, ios
+
+
+def fqn_to_str(name: FQN) -> str:
+    """Convert a fully qualified name (FQN) to a string representation.
+
+    Args:
+        name: A tuple representing the fully qualified name (module, name).
+
+    Returns:
+        A string in the format "module:name".
+    """
+    return f"{name[0]}:{name[1]}"
+
+
+def str_to_fqn(name: str) -> FQN:
+    """Convert a string representation to a fully qualified name (FQN).
+
+    Args:
+        name: A string in the format "module:name".
+
+    Returns:
+        A tuple representing the fully qualified name (module, name).
+
+    Raises:
+        ValueError: If the input string is not in the expected format.
+    """
+    if ":" not in name:
+        raise ValueError(
+            f"Invalid object reference: '{name}'. Expected format 'module:name'."
+        )
+    module_name, _, obj_name = name.partition(":")
+    return module_name, obj_name
 
 
 # Type aliases

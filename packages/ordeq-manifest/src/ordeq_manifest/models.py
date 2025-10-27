@@ -4,20 +4,8 @@ import operator
 from typing import Any
 
 from ordeq import Node, View
-from ordeq._resolve import FQN, AnyIO
+from ordeq._resolve import FQN, AnyIO, fqn_to_str  # noqa: PLC2701
 from pydantic import BaseModel, Field
-
-
-def fqn_to_str(name: FQN) -> str:
-    """Convert a fully qualified name (FQN) to a string representation.
-
-    Args:
-        name: A tuple representing the fully qualified name (module, name).
-
-    Returns:
-        A string in the format "module:name".
-    """
-    return f"{name[0]}:{name[1]}"
 
 
 class IOModel(BaseModel):

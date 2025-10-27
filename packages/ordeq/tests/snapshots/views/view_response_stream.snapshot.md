@@ -33,8 +33,8 @@ NodeGraph:
      view_response_stream:printer -> []
      view_response_stream:users_stream -> [view_response_stream:printer]
   Nodes:
-     Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])], outputs=[Print()])
-     View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
+     view_response_stream:printer: Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])], outputs=[Print()])
+     view_response_stream:users_stream: View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
 <generator object HTTPResponse.stream at HASH1>
 {View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)]): <generator object HTTPResponse.stream at HASH1>, Print(): '<generator object HTTPResponse.stream at HASH1>'}
 

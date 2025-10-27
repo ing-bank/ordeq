@@ -27,8 +27,8 @@ NodeGraph:
      runner_distinct_ios:func1 -> []
      runner_distinct_ios:func2 -> []
   Nodes:
-     Node(name=runner_distinct_ios:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-     Node(name=runner_distinct_ios:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+     runner_distinct_ios:func1: Node(name=runner_distinct_ios:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     runner_distinct_ios:func2: Node(name=runner_distinct_ios:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
 
 ```
 

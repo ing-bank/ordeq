@@ -6,8 +6,9 @@ import importlib
 import pkgutil
 from collections.abc import Generator, Iterable, Sequence
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, TypeAlias
+from typing import TYPE_CHECKING, Any
 
+from ordeq._fqn import FQN, str_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node
@@ -130,12 +131,10 @@ def _resolve_node_reference(ref: str) -> Node:
         The resolved Node object
 
     Raises:
-        ValueError: if the node cannot be found in the module
+        ValueError: if the node cannot be found.
     """
 
-    if ":" not in ref:
-        raise ValueError(f"Invalid node reference: '{ref}'.")
-    module_name, _, node_name = ref.partition(":")
+    module_name, node_name = str_to_fqn(ref)
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
     if node_obj is None or not _is_node(node_obj):
@@ -155,12 +154,10 @@ def _resolve_hook_reference(ref: str) -> RunnerHook:
         The resolved Hook object.
 
     Raises:
-        ValueError: if the hook cannot be found or is not a valid Hook object.
+        ValueError: if the hook cannot be found.
     """
 
-    if ":" not in ref:
-        raise ValueError(f"Invalid hook reference: '{ref}'.")
-    module_name, _, hook_name = ref.partition(":")
+    module_name, hook_name = str_to_fqn(ref)
     module = _resolve_string_to_module(module_name)
     hook_obj = getattr(module, hook_name, None)
     if hook_obj is None or not isinstance(hook_obj, (NodeHook, RunHook)):
@@ -295,7 +292,3 @@ def _resolve_runnables_to_nodes_and_ios(
         ios.update(_resolve_module_to_ios(module))
 
     return nodes, ios
-
-
-# Type aliases
-FQN: TypeAlias = tuple[str, str]

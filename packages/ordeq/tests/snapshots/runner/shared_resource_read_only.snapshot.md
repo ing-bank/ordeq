@@ -55,8 +55,8 @@ NodeGraph:
      shared_resource_read_only:first -> []
      shared_resource_read_only:second -> []
   Nodes:
-     View(name=shared_resource_read_only:first, inputs=[File])
-     View(name=shared_resource_read_only:second, inputs=[File])
+     shared_resource_read_only:first: View(name=shared_resource_read_only:first, inputs=[File])
+     shared_resource_read_only:second: View(name=shared_resource_read_only:second, inputs=[File])
 
 
 

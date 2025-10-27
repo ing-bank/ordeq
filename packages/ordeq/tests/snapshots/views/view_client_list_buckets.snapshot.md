@@ -34,8 +34,8 @@ NodeGraph:
      view_client_list_buckets:buckets -> [view_client_list_buckets:print_buckets]
      view_client_list_buckets:print_buckets -> []
   Nodes:
-     View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])
-     View(name=view_client_list_buckets:print_buckets, inputs=[View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])])
+     view_client_list_buckets:buckets: View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])
+     view_client_list_buckets:print_buckets: View(name=view_client_list_buckets:print_buckets, inputs=[View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])])
 bucket1
 bucket2
 bucket3

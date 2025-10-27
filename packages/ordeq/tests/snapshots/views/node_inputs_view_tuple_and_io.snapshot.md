@@ -32,8 +32,8 @@ NodeGraph:
      node_inputs_view_tuple_and_io:combine_greeting_with_ending -> []
      node_inputs_view_tuple_and_io:hello -> [node_inputs_view_tuple_and_io:combine_greeting_with_ending]
   Nodes:
-     Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[View(name=node_inputs_view_tuple_and_io:hello), Literal('!!!')], outputs=[Print()])
-     View(name=node_inputs_view_tuple_and_io:hello)
+     node_inputs_view_tuple_and_io:combine_greeting_with_ending: Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[View(name=node_inputs_view_tuple_and_io:hello), Literal('!!!')], outputs=[Print()])
+     node_inputs_view_tuple_and_io:hello: View(name=node_inputs_view_tuple_and_io:hello)
 Hello world !!!
 {View(name=node_inputs_view_tuple_and_io:hello): ('Hello', 'world'), Print(): 'Hello world !!!'}
 

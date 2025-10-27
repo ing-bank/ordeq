@@ -54,8 +54,8 @@ NodeGraph:
      runner_load_save_options:decrement -> []
      runner_load_save_options:increment -> [runner_load_save_options:decrement]
   Nodes:
-     Node(name=runner_load_save_options:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])
-     Node(name=runner_load_save_options:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)])
+     runner_load_save_options:decrement: Node(name=runner_load_save_options:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])
+     runner_load_save_options:increment: Node(name=runner_load_save_options:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)])
 {CustomIO(attr=x says y did it  !): 'x says y did it ', CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' ): "x says 'x says y did it ' but y says 'x did it and I know the murder weapon'"}
 
 ```

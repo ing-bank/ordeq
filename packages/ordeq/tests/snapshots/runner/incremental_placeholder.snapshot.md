@@ -120,8 +120,8 @@ NodeGraph:
      incremental_placeholder:f -> [incremental_placeholder:g]
      incremental_placeholder:g -> []
   Nodes:
-     Node(name=incremental_placeholder:f, inputs=[Input(idx=ID1), Input(idx=ID2)], outputs=[IO(idx=ID3)])
-     Node(name=incremental_placeholder:g, inputs=[IO(idx=ID3)], outputs=[Output(idx=ID4)])
+     incremental_placeholder:f: Node(name=incremental_placeholder:f, inputs=[Input(idx=ID1), Input(idx=ID2)], outputs=[IO(idx=ID3)])
+     incremental_placeholder:g: Node(name=incremental_placeholder:g, inputs=[IO(idx=ID3)], outputs=[Output(idx=ID4)])
 
 ```
 

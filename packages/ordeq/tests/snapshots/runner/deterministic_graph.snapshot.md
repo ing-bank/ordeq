@@ -57,12 +57,12 @@ NodeGraph:
      deterministic_graph:f4 -> [deterministic_graph:a, deterministic_graph:z]
      deterministic_graph:z -> []
   Nodes:
-     View(name=deterministic_graph:a, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
-     Node(name=deterministic_graph:f1, outputs=[IO(idx=ID1)])
-     Node(name=deterministic_graph:f2, outputs=[IO(idx=ID2)])
-     Node(name=deterministic_graph:f3, outputs=[IO(idx=ID3)])
-     Node(name=deterministic_graph:f4, outputs=[IO(idx=ID4)])
-     View(name=deterministic_graph:z, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
+     deterministic_graph:a: View(name=deterministic_graph:a, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
+     deterministic_graph:f1: Node(name=deterministic_graph:f1, outputs=[IO(idx=ID1)])
+     deterministic_graph:f2: Node(name=deterministic_graph:f2, outputs=[IO(idx=ID2)])
+     deterministic_graph:f3: Node(name=deterministic_graph:f3, outputs=[IO(idx=ID3)])
+     deterministic_graph:f4: Node(name=deterministic_graph:f4, outputs=[IO(idx=ID4)])
+     deterministic_graph:z: View(name=deterministic_graph:z, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
 
 ```
 

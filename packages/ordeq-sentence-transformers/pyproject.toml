@@ -23,10 +23,8 @@ dependencies = [
     "sentence-transformers",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://www.sbert.net/_static/logo.png"
 
 [dependency-groups]

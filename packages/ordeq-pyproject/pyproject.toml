@@ -23,10 +23,8 @@ dependencies = [
     "ordeq-toml",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1200px-Python-logo-notext.svg.png"
 
 [dependency-groups]

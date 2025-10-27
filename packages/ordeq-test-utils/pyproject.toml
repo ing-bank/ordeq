@@ -22,11 +22,9 @@ dependencies = [
     "mypy>=0.18.2",  # for snapshot testing
 ]
 
-[tool.ordeq]
-group = "developer-tools"
-
 [tool.ordeq-dev]
 logo_url = ""
+group = "developer-tools"
 
 [dependency-groups]
 test = []

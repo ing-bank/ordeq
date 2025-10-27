@@ -5,7 +5,7 @@ from graphlib import TopologicalSorter
 from typing import TypeAlias
 
 from ordeq._nodes import Node, View
-from ordeq._resolve import FQN
+from ordeq._resolve import FQN, fqn_to_str
 
 try:
     from typing import Self  # type: ignore[attr-defined]
@@ -160,11 +160,11 @@ class NodeGraph:
     def __repr__(self) -> str:
         lines = ["NodeGraph:", "  Edges:"]
         for (name, _), targets in self.sorted_edges.items():
-            targets_str = ", ".join(n[0] + ":" + n[1] for n, _ in targets)
-            lines.append(f"     {name[0]}:{name[1]} -> [{targets_str}]")
+            targets_str = ", ".join(fqn_to_str(n) for n, _ in targets)
+            lines.append(f"     {fqn_to_str(name)} -> [{targets_str}]")
         lines.append("  Nodes:")
         lines.extend(
-            f"     {name[0]}:{name[1]}: {node!r}"
+            f"     {fqn_to_str(name)}: {node!r}"
             for name, node in self.sorted_edges
         )
         return "\n".join(lines)

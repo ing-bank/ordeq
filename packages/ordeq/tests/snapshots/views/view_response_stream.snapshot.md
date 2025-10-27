@@ -25,22 +25,18 @@ print(run(printer, verbose=True))
 
 ```
 
-## Exception
-
-```text
-CycleError: ('nodes are in a cycle', [View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)]), View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])])
-```
-
 ## Output
 
 ```text
 NodeGraph:
   Edges:
      view_response_stream:printer -> []
-     view_response_stream:users_stream -> [view_response_stream:users_stream]
+     view_response_stream:users_stream -> []
   Nodes:
      Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])], outputs=[Print()])
      View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
+<generator object HTTPResponse.stream at HASH1>
+{View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)]): <generator object HTTPResponse.stream at HASH1>, Print(): '<generator object HTTPResponse.stream at HASH1>'}
 
 ```
 
@@ -48,5 +44,9 @@ NodeGraph:
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_stream:users_stream'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.io	Loading Literal(<Response [200]>)
+INFO	ordeq.runner	Running node View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
+INFO	ordeq.runner	Running node Node(name=view_response_stream:printer, inputs=[IO(idx=ID1)], outputs=[Print()])
+INFO	ordeq.io	Saving Print()
 
 ```

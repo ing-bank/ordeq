@@ -60,7 +60,7 @@ IOException: Failed to load IO(idx=ID1).
 NodeGraph:
   Edges:
      standalone_view_df_filter:filter_df -> []
-     standalone_view_df_filter:group_by -> [standalone_view_df_filter:filter_df, standalone_view_df_filter:filter_df]
+     standalone_view_df_filter:group_by -> []
   Nodes:
      View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
 0  foo  1  one  2.0

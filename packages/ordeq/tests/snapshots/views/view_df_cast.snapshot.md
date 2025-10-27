@@ -49,7 +49,7 @@ IOException: Failed to load IO(idx=ID1).
 NodeGraph:
   Edges:
      view_df_cast:df_casted -> []
-     view_df_cast:group_by -> [view_df_cast:df_casted]
+     view_df_cast:group_by -> []
   Nodes:
      View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
 0  foo  1  one  2.0

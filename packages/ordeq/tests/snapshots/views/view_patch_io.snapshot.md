@@ -34,7 +34,7 @@ IOException: Failed to load IO(idx=ID1).
 NodeGraph:
   Edges:
      view_patch_io:hello_world -> []
-     view_patch_io:n -> [view_patch_io:hello_world]
+     view_patch_io:n -> []
   Nodes:
      View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])
      View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])])

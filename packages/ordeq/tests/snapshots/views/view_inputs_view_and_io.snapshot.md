@@ -47,7 +47,7 @@ NodeGraph:
   Edges:
      view_inputs_view_and_io:hello -> []
      view_inputs_view_and_io:hello_from_someone -> []
-     view_inputs_view_and_io:n -> [view_inputs_view_and_io:hello_from_someone]
+     view_inputs_view_and_io:n -> []
   Nodes:
      View(name=view_inputs_view_and_io:hello)
      View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])

@@ -31,22 +31,41 @@ print(patched)
 
 ```
 
-## Exception
-
-```text
-CycleError: ('nodes are in a cycle', [Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])])
-```
-
 ## Output
 
 ```text
 NodeGraph:
   Edges:
      runner_io_more_than_once:decrement -> []
-     runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement, runner_io_more_than_once:decrement, runner_io_more_than_once:increment]
+     runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
   Nodes:
      Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
      Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): '2', StringBuffer(_buffer=<_io.StringIO object at HASH2>): '1'}
+NodeGraph:
+  Edges:
+     runner_io_more_than_once:decrement -> []
+     runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
+  Nodes:
+     Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+     Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): '201', StringBuffer(_buffer=<_io.StringIO object at HASH2>): '1'}
+
+```
+
+## Logging
+
+```text
+INFO	ordeq.io	Loading Literal(1)
+INFO	ordeq.runner	Running node Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading Literal(200)
+INFO	ordeq.runner	Running node Node(name=runner_io_more_than_once:increment, inputs=[Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```
 

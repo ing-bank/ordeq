@@ -17,8 +17,18 @@ print(run(func1))
 
 ```
 
-## Exception
+## Output
 
 ```text
-CycleError: ('nodes are in a cycle', [Node(name=extended:func1, inputs=[Literal('Hey I am overriding the hello IO')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Node(name=extended:func1, inputs=[Literal('Hey I am overriding the hello IO')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])])
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): 'HEY I AM OVERRIDING THE HELLO IO!'}
+
+```
+
+## Logging
+
+```text
+INFO	ordeq.io	Loading Literal('Hey I am overriding the hello IO')
+INFO	ordeq.runner	Running node Node(name=extended:func1, inputs=[Literal('Hey I am overriding the hello IO')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+
 ```

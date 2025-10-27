@@ -39,7 +39,7 @@ IOException: Failed to load IO(idx=ID1).
 NodeGraph:
   Edges:
      view_client_list_buckets:buckets -> []
-     view_client_list_buckets:print_buckets -> [view_client_list_buckets:buckets]
+     view_client_list_buckets:print_buckets -> []
   Nodes:
      View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])
      View(name=view_client_list_buckets:print_buckets, inputs=[View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])])

@@ -28,7 +28,8 @@ print(run(f, g, verbose=True))  # raises NotImplementedError
 ## Exception
 
 ```text
-CycleError: ('nodes are in a cycle', [Node(name=incremental_placeholder:f, inputs=[Input(idx=ID1), Input(idx=ID2)], outputs=[IO(idx=ID3)]), Node(name=incremental_placeholder:f, inputs=[Input(idx=ID1), Input(idx=ID2)], outputs=[IO(idx=ID3)])])
+IOException: Failed to load Input(idx=ID1).
+
 ```
 
 ## Output
@@ -36,10 +37,17 @@ CycleError: ('nodes are in a cycle', [Node(name=incremental_placeholder:f, input
 ```text
 NodeGraph:
   Edges:
-     incremental_placeholder:f -> [incremental_placeholder:f, incremental_placeholder:f, incremental_placeholder:g]
+     incremental_placeholder:f -> [incremental_placeholder:g]
      incremental_placeholder:g -> []
   Nodes:
      Node(name=incremental_placeholder:f, inputs=[Input(idx=ID1), Input(idx=ID2)], outputs=[IO(idx=ID3)])
      Node(name=incremental_placeholder:g, inputs=[IO(idx=ID3)], outputs=[Output(idx=ID4)])
+
+```
+
+## Logging
+
+```text
+INFO	ordeq.io	Loading Input(idx=ID1)
 
 ```

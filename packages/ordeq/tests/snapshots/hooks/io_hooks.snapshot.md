@@ -41,8 +41,24 @@ print(hooked_output.load())
 
 ```
 
-## Exception
+## Output
 
 ```text
-CycleError: ('nodes are in a cycle', [Node(name=io_hooks:hello_world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]), Node(name=io_hooks:hello_world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])])
+Before loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+After loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+HELLO WORLD
+Before saving data to: StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+After saving data to: StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+dlrow olleh
+
+```
+
+## Logging
+
+```text
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node Node(name=io_hooks:hello_world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+
 ```

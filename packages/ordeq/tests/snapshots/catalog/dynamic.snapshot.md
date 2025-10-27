@@ -37,8 +37,22 @@ print(run(func2))
 
 ```
 
-## Exception
+## Output
 
 ```text
-CycleError: ('nodes are in a cycle', [Node(name=dynamic:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]), Node(name=dynamic:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])])
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): 'HELLO FROM LOCAL!'}
+{StringBuffer(_buffer=<_io.StringIO object at HASH2>): 'HELLO FROM REMOTE!'}
+
+```
+
+## Logging
+
+```text
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.runner	Running node Node(name=dynamic:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.runner	Running node Node(name=dynamic:func2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+
 ```

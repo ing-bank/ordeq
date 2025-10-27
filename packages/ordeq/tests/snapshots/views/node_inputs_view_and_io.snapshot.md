@@ -26,7 +26,8 @@ print(run(n, verbose=True))
 ## Exception
 
 ```text
-CycleError: ('nodes are in a cycle', [Node(name=node_inputs_view_and_io:n, inputs=[Literal('Jane'), View(name=node_inputs_view_and_io:hello)], outputs=[Print()]), Node(name=node_inputs_view_and_io:n, inputs=[Literal('Jane'), View(name=node_inputs_view_and_io:hello)], outputs=[Print()])])
+IOException: Failed to load IO(idx=ID1).
+
 ```
 
 ## Output
@@ -36,7 +37,7 @@ View(name=node_inputs_view_and_io:hello)
 NodeGraph:
   Edges:
      node_inputs_view_and_io:hello -> []
-     node_inputs_view_and_io:n -> [node_inputs_view_and_io:n]
+     node_inputs_view_and_io:n -> []
   Nodes:
      View(name=node_inputs_view_and_io:hello)
      Node(name=node_inputs_view_and_io:n, inputs=[Literal('Jane'), View(name=node_inputs_view_and_io:hello)], outputs=[Print()])
@@ -47,5 +48,7 @@ NodeGraph:
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_inputs_view_and_io:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.io	Loading Literal('Jane')
+INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```

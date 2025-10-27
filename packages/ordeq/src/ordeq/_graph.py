@@ -47,9 +47,13 @@ def _node_to_resources(node: Node) -> tuple[
     for io in node.inputs:
         if not isinstance(io, View):
             resources = _get_resources(io)
+            if not resources:
+                resources = [id(io)]
             input_resources.append(tuple(resources))
     for io in node.outputs:
         resources = _get_resources(io)
+        if not resources:
+            resources = [id(io)]
         output_resources.append(tuple(resources))
 
     return input_resources, output_resources

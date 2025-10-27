@@ -140,3 +140,8 @@ bump *ARGS:
 # Delete all .snapshot.md files anywhere in the repository
 delete-snapshots:
     find . -type f -name "*.snapshot.md" -delete
+
+capture-snapshots:
+    for dir in `find packages -type d -name "ordeq*" -maxdepth 1`; do \
+        uv run --group test pytest $dir -v -m snapshot || [ $? -eq 5 ]; \
+    done \

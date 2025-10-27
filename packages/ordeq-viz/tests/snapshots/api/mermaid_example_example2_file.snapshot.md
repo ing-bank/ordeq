@@ -19,8 +19,6 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 ## Output
 
 ```text
-Name: John
-Name: John
 graph TB
 	subgraph legend["Legend"]
 		direction TB
@@ -94,17 +92,5 @@ graph TB
 	classDef io7 fill:#b3b3b3
 	classDef io8 fill:#ff69b4
 
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading NameGenerator(name='John')
-INFO	ordeq.runner	Running node Node(name=example.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])
-INFO	ordeq.io	Saving SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))
-INFO	ordeq.io	Saving NamePrinter()
-INFO	ordeq.runner	Running node Node(name=example.wrapped_io:print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()])
-INFO	ordeq.io	Saving NamePrinter()
 
 ```

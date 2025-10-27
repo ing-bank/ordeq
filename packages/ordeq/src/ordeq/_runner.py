@@ -85,8 +85,7 @@ def _run_node(
     # persisting computed data only if outputs are loaded again later
     for node_output in node.outputs:
         if isinstance(node_output, _InputCache):
-            node_output.persist(
-                computed[node_output])  # ty: ignore[call-non-callable]
+            node_output.persist(computed[node_output])  # ty: ignore[call-non-callable]
 
     for node_hook in hooks:
         node_hook.after_node_run(node)
@@ -111,9 +110,6 @@ def _run_graph(
             If 'sinks', only saves the outputs of sink nodes in the graph.
         io: mapping of IO objects to their replacements
 
-    Returns:
-        a dict mapping each IO to the computed data
-
     """
 
     # Each view will be replaced by its sentinel IO:
@@ -125,8 +121,7 @@ def _run_graph(
     # Apply the patches:
     patched_nodes: dict[Node, Node] = {}
     for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(
-            io_ or {})  # noqa: SLF001 (private access)
+        patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
 
     # TODO: Create _Patch wrapper for IO?
     for node in graph.topological_ordering:
@@ -144,8 +139,6 @@ def _run_graph(
             if isinstance(io_obj, _InputCache):
                 io_obj.unpersist()
 
-    return
-
 
 def run(
     *runnables: Runnable,
@@ -153,7 +146,7 @@ def run(
     save: SaveMode = "all",
     verbose: bool = False,
     io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
-) -> DataStoreType:
+) -> None:
     """Runs nodes in topological order.
 
     Args:

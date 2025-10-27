@@ -50,25 +50,8 @@ with NamedTemporaryFile(delete=False, mode='wt') as tmp:
 
 ```
 
-## Output
+## Exception
 
 ```text
-NodeGraph:
-  Edges:
-     shared_resource_nondeterministic:first -> []
-     shared_resource_nondeterministic:second -> []
-  Nodes:
-     Node(name=shared_resource_nondeterministic:first, outputs=[File])
-     Node(name=shared_resource_nondeterministic:second, outputs=[File])
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.runner	Running node Node(name=shared_resource_nondeterministic:second, outputs=[File])
-INFO	ordeq.io	Saving File
-INFO	ordeq.runner	Running node Node(name=shared_resource_nondeterministic:first, outputs=[File])
-INFO	ordeq.io	Saving File
-
+ValueError: IO ('/var/folders/l6/gbqhjz110fn3_rnbt5nrcw0c0000gp/T/tmpnlehno54',) cannot be outputted by more than one node
 ```

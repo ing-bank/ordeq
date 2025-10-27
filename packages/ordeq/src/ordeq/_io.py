@@ -94,8 +94,8 @@ def _get_resources(io: Input | Output | IO) -> list:
     resources = []
     for cls in io.__class__.__mro__:
         if hasattr(cls, "__resources__"):
-            resources += getattr(cls, "__resources__")(io)
-        if cls in (_InputReferences, _OutputReferences):
+            resources += cls.__resources__(io)
+        if cls in {_InputReferences, _OutputReferences}:
             references = io.references
             for ref_list in references.values():
                 for ref in ref_list:
@@ -141,8 +141,7 @@ class _InputMeta(type):
                     continue
                 if (
                     param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD
-                    # noqa: SLF001
+                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -266,7 +265,7 @@ class _InputException(_BaseInput[Tin]):
 
 
 class _WithResources:
-    def __resources__(self) -> list[str]:
+    def __resources__(self) -> list[str]:  # noqa: PLW3201
         return []
 
 
@@ -396,8 +395,7 @@ class _OutputMeta(type):
                     continue
                 if (
                     param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD
-                    # noqa: SLF001
+                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "

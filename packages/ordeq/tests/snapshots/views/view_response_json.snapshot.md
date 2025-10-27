@@ -45,7 +45,7 @@ Data: {'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@a
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_json:users_json'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_json:to_yaml'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<Response [200]>)
-INFO	ordeq.runner	Running node View(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)])
-INFO	ordeq.runner	Running node View(name=view_response_json:to_yaml, inputs=[IO(idx=ID1)])
+INFO	ordeq.runner	Running view "users_json" in module "view_response_json"
+INFO	ordeq.runner	Running view "to_yaml" in module "view_response_json"
 
 ```

@@ -43,9 +43,9 @@ Hello world !!!
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_inputs_view_tuple_and_io:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node View(name=node_inputs_view_tuple_and_io:hello)
+INFO	ordeq.runner	Running view "hello" in module "node_inputs_view_tuple_and_io"
 INFO	ordeq.io	Loading Literal('!!!')
-INFO	ordeq.runner	Running node Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[IO(idx=ID1), Literal('!!!')], outputs=[Print()])
+INFO	ordeq.runner	Running node "combine_greeting_with_ending" in module "node_inputs_view_tuple_and_io"
 INFO	ordeq.io	Saving Print()
 
 ```

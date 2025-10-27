@@ -68,8 +68,8 @@ NodeGraph:
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_read_only:first'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_read_only:second'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node View(name=shared_resource_read_only:second, inputs=[File])
+INFO	ordeq.runner	Running view "second" in module "shared_resource_read_only"
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node View(name=shared_resource_read_only:first, inputs=[File])
+INFO	ordeq.runner	Running view "first" in module "shared_resource_read_only"
 
 ```

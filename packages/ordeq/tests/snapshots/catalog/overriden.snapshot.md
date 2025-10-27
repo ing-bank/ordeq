@@ -29,7 +29,7 @@ HELLO FROM REMOTE!
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node Node(name=overriden:func1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])
+INFO	ordeq.runner	Running node "func1" in module "overriden"
 INFO	ordeq.io	Saving Print()
 
 ```

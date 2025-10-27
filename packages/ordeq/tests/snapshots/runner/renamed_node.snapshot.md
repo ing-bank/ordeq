@@ -27,7 +27,7 @@ NodeGraph:
 
 ```text
 INFO	ordeq.io	Loading Literal(12345)
-INFO	ordeq.runner	Running node Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_b"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

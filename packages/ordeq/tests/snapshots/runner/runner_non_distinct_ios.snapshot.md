@@ -32,7 +32,7 @@ ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be ou
     return cls(_build_graph(nodes | views))
                ~~~~~~~~~~~~^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 174, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 178, in run
     graph = NodeGraph.from_nodes(nodes)
 
   File "/packages/ordeq/tests/resources/runner/runner_non_distinct_ios.py", line 17, in <module>

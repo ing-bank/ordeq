@@ -45,8 +45,8 @@ NodeGraph:
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_stream:users_stream'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<Response [200]>)
-INFO	ordeq.runner	Running node View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
-INFO	ordeq.runner	Running node Node(name=view_response_stream:printer, inputs=[IO(idx=ID1)], outputs=[Print()])
+INFO	ordeq.runner	Running view "users_stream" in module "view_response_stream"
+INFO	ordeq.runner	Running node "printer" in module "view_response_stream"
 INFO	ordeq.io	Saving Print()
 
 ```

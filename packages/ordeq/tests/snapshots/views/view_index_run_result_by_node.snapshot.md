@@ -34,8 +34,8 @@ None
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_index_run_result_by_node:view'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node View(name=view_index_run_result_by_node:view)
-INFO	ordeq.runner	Running node Node(name=view_index_run_result_by_node:hello, inputs=[IO(idx=ID1)], outputs=[Print()])
+INFO	ordeq.runner	Running view "view" in module "view_index_run_result_by_node"
+INFO	ordeq.runner	Running node "hello" in module "view_index_run_result_by_node"
 INFO	ordeq.io	Saving Print()
 
 ```

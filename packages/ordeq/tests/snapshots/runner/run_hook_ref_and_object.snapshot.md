@@ -45,19 +45,19 @@ Finished the run
 
 ```text
 INFO	ordeq.io	Loading NameGenerator(name='John')
-INFO	ordeq.runner	Running node Node(name=packages.example.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])
+INFO	ordeq.runner	Running node "hello" in module "packages.example.wrapped_io"
 INFO	ordeq.io	Saving SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))
 INFO	ordeq.io	Saving NamePrinter()
-INFO	ordeq.runner	Running node Node(name=packages.example.wrapped_io:print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()])
+INFO	ordeq.runner	Running node "print_message" in module "packages.example.wrapped_io"
 INFO	ordeq.io	Saving NamePrinter()
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node Node(name=packages.example.pipeline:transform_mock_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.runner	Running node "transform_mock_input" in module "packages.example.pipeline"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading Input(idx=ID1)
-INFO	ordeq.runner	Running node Node(name=packages.example.pipeline:transform_input, inputs=[Input(idx=ID1)], outputs=[Output(idx=ID2)])
+INFO	ordeq.runner	Running node "transform_input" in module "packages.example.pipeline"
 INFO	ordeq.io	Saving Output(idx=ID2)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node Node(name=packages.example.nodes:world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
+INFO	ordeq.runner	Running node "world" in module "packages.example.nodes"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```

@@ -63,9 +63,9 @@ NodeGraph:
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node Node(name=shared_resource_nondeterministic:second, outputs=[File])
+INFO	ordeq.runner	Running node "second" in module "shared_resource_nondeterministic"
 INFO	ordeq.io	Saving File
-INFO	ordeq.runner	Running node Node(name=shared_resource_nondeterministic:first, outputs=[File])
+INFO	ordeq.runner	Running node "first" in module "shared_resource_nondeterministic"
 INFO	ordeq.io	Saving File
 
 ```

@@ -110,10 +110,10 @@ IOException: Failed to load IO(idx=ID1).
     cast("Input", input_dataset).load() for input_dataset in node.inputs
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 138, in _run_graph
     computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 184, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 188, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line 28, in <module>
@@ -162,9 +162,9 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_takes_node_output:sink'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal('Jane')
 INFO	ordeq.io	Loading Literal('Hello')
-INFO	ordeq.runner	Running node Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])
-INFO	ordeq.runner	Running node View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
-INFO	ordeq.runner	Running node View(name=view_takes_node_output:sink, inputs=[IO(idx=ID2)])
+INFO	ordeq.runner	Running node "hello_from_someone" in module "view_takes_node_output"
+INFO	ordeq.runner	Running view "what_i_heard" in module "view_takes_node_output"
+INFO	ordeq.runner	Running view "sink" in module "view_takes_node_output"
 INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```

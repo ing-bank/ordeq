@@ -35,16 +35,16 @@ ValueError: Intentional failure for testing.
   File "/packages/ordeq/src/ordeq/_nodes.py", line 454, in wrapper
     return func(*args, **kwargs)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 66, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line 70, in _run_node
     values = node.func(*args)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 70, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line 74, in _run_node
     raise exc
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 134, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line 138, in _run_graph
     computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 184, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 188, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq-common/tests/resources/hooks/spy_hook.py", line 20, in <module>
@@ -73,7 +73,7 @@ ValueError: Intentional failure for testing.
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'spy_hook:fail'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal('name')
-INFO	ordeq.runner	Running node Node(name=spy_hook:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)])
-INFO	ordeq.runner	Running node View(name=spy_hook:fail)
+INFO	ordeq.runner	Running node "hello" in module "spy_hook"
+INFO	ordeq.runner	Running view "fail" in module "spy_hook"
 
 ```

@@ -20,7 +20,7 @@ TypeError: 0.23 is not something we can run. Expected a module or a node, got <c
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 173, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 177, in run
     nodes = _resolve_runnables_to_nodes(*runnables)
 
   File "/packages/ordeq/tests/resources/runner/run_non_runnable.py", line 3, in <module>

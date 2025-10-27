@@ -42,8 +42,8 @@ Node received 'Buenos dias World!'
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_patch_io:hello_world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_patch_io:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal('Buenos dias')
-INFO	ordeq.runner	Running node View(name=view_patch_io:hello_world, inputs=[Literal('Buenos dias')])
-INFO	ordeq.runner	Running node View(name=view_patch_io:n, inputs=[IO(idx=ID1)])
+INFO	ordeq.runner	Running view "hello_world" in module "view_patch_io"
+INFO	ordeq.runner	Running view "n" in module "view_patch_io"
 
 ```
 

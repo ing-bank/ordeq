@@ -39,7 +39,7 @@ Hello from printer
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'run_rename_run:print_message'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node View(name=run_rename_run:print_message)
-INFO	ordeq.runner	Running node View(name=run_rename_run:print_message)
+INFO	ordeq.runner	Running view "print_message" in module "run_rename_run"
+INFO	ordeq.runner	Running view "print_message" in module "run_rename_run"
 
 ```

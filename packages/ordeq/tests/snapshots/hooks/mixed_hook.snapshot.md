@@ -43,7 +43,7 @@ saving! Hello, World!
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node Node(name=mixed_hook:my_node, outputs=[Output(idx=ID1)])
+INFO	ordeq.runner	Running node "my_node" in module "mixed_hook"
 INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```

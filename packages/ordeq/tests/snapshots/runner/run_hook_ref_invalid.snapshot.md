@@ -20,7 +20,7 @@ ValueError: Invalid hook reference: 'invalid'.
   File "/packages/ordeq/src/ordeq/_resolve.py", line 194, in _resolve_hooks
     resolved_hook = _resolve_hook_reference(hook)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 179, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line 183, in run
     run_hooks, node_hooks = _resolve_hooks(*hooks)
                             ~~~~~~~~~~~~~~^^^^^^^^
 

@@ -60,7 +60,8 @@ def _run_node(
         if isinstance(node_input, _InputCache):
             node_input.persist(data)
 
-    logger.info("Running node %s", node)
+    module_name, _, node_name = node.name.partition(":")
+    logger.info('Running node "%s" in "%s"', node_name, module_name)
 
     try:
         values = node.func(*args)

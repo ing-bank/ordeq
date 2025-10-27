@@ -76,10 +76,7 @@ INFO	ordeq.io	Loading Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)
-INFO	ordeq.runner	Running node View(name=view_df_select:df_selected, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])
-INFO	ordeq.runner	Running node View(name=view_df_select:group_by, inputs=[IO(idx=ID1)])
+INFO	ordeq.runner	Running node "df_selected" in "view_df_select"
+INFO	ordeq.runner	Running node "group_by" in "view_df_select"
 
 ```

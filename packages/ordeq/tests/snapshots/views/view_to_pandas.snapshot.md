@@ -31,36 +31,6 @@ print(run(aggregate, verbose=True))
 
 ```
 
-## Exception
-
-```text
-AttributeError: 'View' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line 56, in _run_node
-    cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
-    computed = _run_node(
-        name, patched_nodes[name, node], hooks=hooks, save=save_node
-    )
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line 187, in run
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
-
-  File "/packages/ordeq/tests/resources/views/view_to_pandas.py", line 27, in <module>
-    print(run(aggregate, verbose=True))
-          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-```
-
 ## Output
 
 ```text
@@ -71,6 +41,12 @@ NodeGraph:
   Nodes:
      view_to_pandas:aggregate: View(name=view_to_pandas:aggregate, inputs=[View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])])
      view_to_pandas:csv_as_df: View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])
+value    6
+dtype: int64
+{View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)]):    value
+0      1
+1      2
+2      3, View(name=view_to_pandas:aggregate, inputs=[View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])]): None}
 
 ```
 
@@ -81,5 +57,6 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_to_pandas:aggregate'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)
 INFO	ordeq.runner	Running node "csv_as_df" in "view_to_pandas"
+INFO	ordeq.runner	Running node "aggregate" in "view_to_pandas"
 
 ```

@@ -35,10 +35,80 @@ print(run(sink, verbose=True))
 ## Exception
 
 ```text
-AttributeError: 'View' object has no attribute 'load'
+IOException: Failed to load IO(idx=ID1).
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 241, in load_wrapper
+    raise IOException(msg) from exc
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 73, in <lambda>
+    lambda prev_func, wrap: lambda *a, **k: wrap(
+                                            ~~~~^
+        self, prev_func, *a, **k
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 224, in load_wrapper
+    return load_func(*args, **kwargs)
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 73, in <lambda>
+    lambda prev_func, wrap: lambda *a, **k: wrap(
+                                            ~~~~^
+        self, prev_func, *a, **k
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 194, in load_wrapper
+    result = load_func(*args, **kwargs)
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 73, in <lambda>
+    lambda prev_func, wrap: lambda *a, **k: wrap(
+                                            ~~~~^
+        self, prev_func, *a, **k
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 170, in load_wrapper
+    return load_func(*args, **load_options)
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 73, in <lambda>
+    lambda prev_func, wrap: lambda *a, **k: wrap(
+                                            ~~~~^
+        self, prev_func, *a, **k
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 170, in load_wrapper
+    return load_func(*args, **load_options)
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 73, in <lambda>
+    lambda prev_func, wrap: lambda *a, **k: wrap(
+                                            ~~~~^
+        self, prev_func, *a, **k
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 170, in load_wrapper
+    return load_func(*args, **load_options)
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 73, in <lambda>
+    lambda prev_func, wrap: lambda *a, **k: wrap(
+                                            ~~~~^
+        self, prev_func, *a, **k
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ),
+    ^
+
+  File "/packages/ordeq/src/ordeq/_io.py", line 79, in wrapper
+    return composed(*args, **kwargs)
+
   File "/packages/ordeq/src/ordeq/_runner.py", line 56, in _run_node
     cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
     computed = _run_node(
@@ -48,9 +118,9 @@ AttributeError: 'View' object has no attribute 'load'
   File "/packages/ordeq/src/ordeq/_runner.py", line 187, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
-  File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line 25, in <module>
-    print(run(hello_from_someone, sink, verbose=True))
-          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line 28, in <module>
+    print(run(sink, verbose=True))
+          ~~~^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
 
@@ -75,6 +145,15 @@ NodeGraph:
      view_takes_node_output:sink: View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
      view_takes_node_output:what_i_heard: View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
 I heard that Jane said 'Hello'
+None
+{IO(idx=ID1): "Jane said 'Hello'", View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)]): None, View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])]): None}
+NodeGraph:
+  Edges:
+     view_takes_node_output:sink -> []
+     view_takes_node_output:what_i_heard -> [view_takes_node_output:sink]
+  Nodes:
+     view_takes_node_output:sink: View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
+     view_takes_node_output:what_i_heard: View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
 
 ```
 
@@ -87,6 +166,8 @@ INFO	ordeq.io	Loading Literal('Jane')
 INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running node "hello_from_someone" in "view_takes_node_output"
 INFO	ordeq.runner	Running node "what_i_heard" in "view_takes_node_output"
+INFO	ordeq.runner	Running node "sink" in "view_takes_node_output"
+INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```
 

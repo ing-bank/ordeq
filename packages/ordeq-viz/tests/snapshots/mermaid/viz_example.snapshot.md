@@ -30,12 +30,12 @@ graph TB
 		end
 	end
 
-	IO0 --> example.world
-	example.world --> IO1
+	IO0 --> example:world
+	example:world --> IO1
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		example.world(["world"]):::node
+		example:world(["world"]):::node
 		IO0[("x")]:::io0
 		IO1[("y")]:::io0
 	end

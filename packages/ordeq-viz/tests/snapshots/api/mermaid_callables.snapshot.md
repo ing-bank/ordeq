@@ -43,15 +43,15 @@ graph TB
 		end
 	end
 
-	IO0 --> example2.nodes.transform_input_2
-	example2.nodes.transform_input_2 --> IO1
-	IO2 --> example.nodes.world
-	example.nodes.world --> IO3
+	IO0 --> example2.nodes:transform_input_2
+	example2.nodes:transform_input_2 --> IO1
+	IO2 --> example.nodes:world
+	example.nodes:world --> IO3
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		example2.nodes.transform_input_2(["transform_input_2"]):::node
-		example.nodes.world(["world"]):::node
+		example2.nodes:transform_input_2(["transform_input_2"]):::node
+		example.nodes:world(["world"]):::node
 		IO0[("TestInput2")]:::io0
 		IO1[("TestOutput2")]:::io1
 		IO2[("x")]:::io2

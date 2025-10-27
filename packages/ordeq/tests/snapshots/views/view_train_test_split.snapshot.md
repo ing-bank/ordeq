@@ -40,36 +40,6 @@ print(run(train, verbose=True))
 
 ```
 
-## Exception
-
-```text
-AttributeError: 'View' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line 56, in _run_node
-    cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
-    computed = _run_node(
-        name, patched_nodes[name, node], hooks=hooks, save=save_node
-    )
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line 187, in run
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
-
-  File "/packages/ordeq/tests/resources/views/view_train_test_split.py", line 36, in <module>
-    print(run(train, verbose=True))
-          ~~~^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-```
-
 ## Output
 
 ```text
@@ -86,6 +56,27 @@ NodeGraph:
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)])])
+Training          B   gt
+count  3.0  3.0
+mean   2.0  5.0
+std    1.0  3.0
+min    1.0  2.0
+25%    1.5  3.5
+50%    2.0  5.0
+75%    2.5  6.5
+max    3.0  8.0
+{View(name=view_train_test_split:split, inputs=[Literal(     A  B    C   gt
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)]): (     A  B    C   gt
+0  foo  1  one  2.0
+1  foo  3  two  8.0
+2  bar  2  one  5.0, Empty DataFrame
+Columns: [A, B, C, gt]
+Index: []), View(name=view_train_test_split:train, inputs=[View(name=view_train_test_split:split, inputs=[Literal(     A  B    C   gt
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)])]): None}
 
 ```
 
@@ -99,5 +90,6 @@ INFO	ordeq.io	Loading Literal(     A  B    C   gt
 1  bar  2  one  5.0
 2  foo  3  two  8.0)
 INFO	ordeq.runner	Running node "split" in "view_train_test_split"
+INFO	ordeq.runner	Running node "train" in "view_train_test_split"
 
 ```

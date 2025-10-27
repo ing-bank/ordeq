@@ -25,36 +25,6 @@ print(run(printer, verbose=True))
 
 ```
 
-## Exception
-
-```text
-AttributeError: 'View' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line 56, in _run_node
-    cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line 135, in _run_graph
-    computed = _run_node(
-        name, patched_nodes[name, node], hooks=hooks, save=save_node
-    )
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line 187, in run
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
-
-  File "/packages/ordeq/tests/resources/views/view_response_stream.py", line 21, in <module>
-    print(run(printer, verbose=True))
-          ~~~^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-```
-
 ## Output
 
 ```text
@@ -65,6 +35,8 @@ NodeGraph:
   Nodes:
      view_response_stream:printer: Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])], outputs=[Print()])
      view_response_stream:users_stream: View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
+<generator object HTTPResponse.stream at HASH1>
+{View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)]): <generator object HTTPResponse.stream at HASH1>, Print(): '<generator object HTTPResponse.stream at HASH1>'}
 
 ```
 
@@ -74,5 +46,7 @@ NodeGraph:
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_stream:users_stream'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<Response [200]>)
 INFO	ordeq.runner	Running node "users_stream" in "view_response_stream"
+INFO	ordeq.runner	Running node "printer" in "view_response_stream"
+INFO	ordeq.io	Saving Print()
 
 ```

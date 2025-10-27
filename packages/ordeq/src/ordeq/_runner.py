@@ -113,7 +113,7 @@ def _run_graph(
     """
 
     # Each view will be replaced by its sentinel IO:
-    views = [node for node in graph.nodes if isinstance(node, View)]
+    views = [node for node in graph.nodes.values() if isinstance(node, View)]
     io_ = cast("dict[Input | Output | View, Input | Output]", io or {})
     for view in views:
         io_[view] = view.outputs[0]

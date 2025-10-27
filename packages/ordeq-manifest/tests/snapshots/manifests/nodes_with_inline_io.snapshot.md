@@ -12,11 +12,11 @@ print(create_manifest_json(nodes_with_inline_io))
 
 ```text
 KeyError: Literal('Buenos dias')
-  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 60, in from_node
+  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 49, in from_node
     inputs=[ios_to_id[i] for i in node.inputs],  # type: ignore[index,arg-type]
             ~~~~~~~~~^^^
 
-  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 105, in from_nodes_and_ios
+  File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line 94, in from_nodes_and_ios
     fqn_to_str(name): NodeModel.from_node(name, node, ios_to_id)
                       ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 

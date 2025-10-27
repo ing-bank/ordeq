@@ -29,7 +29,7 @@ Tin = TypeVar("Tin")
 Tout = TypeVar("Tout")
 
 
-def _find_references(attributes) -> dict[str, list[IOT]]:
+def _find_references(attributes) -> dict[str, list[AnyIO]]:
     """Find all attributes of type Input, Output, or IO.
 
     Args:
@@ -204,7 +204,7 @@ class _InputReferences(_BaseInput[Tin]):
     Used for compartmentalizing reference tracking, no reuse."""
 
     @cached_property
-    def references(self) -> dict[str, list[IOT]]:
+    def references(self) -> dict[str, list[AnyIO]]:
         """Find all attributes of type Input, Output, or IO on the object.
 
         Returns:
@@ -458,7 +458,7 @@ class _OutputReferences(_BaseOutput[Tout], Generic[Tout]):
     Used for compartmentalizing reference tracking, no reuse."""
 
     @cached_property
-    def references(self) -> dict[str, list[IOT]]:
+    def references(self) -> dict[str, list[AnyIO]]:
         """Find all attributes of type Input, Output, or IO on the object.
 
         Returns:
@@ -584,4 +584,4 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
 
 # Type aliases
-IOT: TypeAlias = Input | Output | IO
+AnyIO: TypeAlias = Input | Output | IO

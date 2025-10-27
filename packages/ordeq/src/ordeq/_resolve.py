@@ -9,7 +9,7 @@ from types import ModuleType
 from typing import TYPE_CHECKING, Any, TypeAlias
 
 from ordeq._hook import NodeHook, RunHook, RunnerHook
-from ordeq._io import IO, IOT, Input, Output
+from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node
 
 if TYPE_CHECKING:
@@ -28,7 +28,7 @@ def _is_io(obj: object) -> bool:
     return isinstance(obj, (IO, Input, Output))
 
 
-def _get_io_sequence(value: Any) -> list[IOT]:
+def _get_io_sequence(value: Any) -> list[AnyIO]:
     if _is_io(value):
         return [value]
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
@@ -104,7 +104,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
     return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
 
 
-def _resolve_module_to_ios(module: ModuleType) -> dict[FQN, IOT]:
+def _resolve_module_to_ios(module: ModuleType) -> dict[FQN, AnyIO]:
     """Find all `IO` objects defined in the provided module
 
     Args:
@@ -252,8 +252,8 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
     return nodes
 
 
-def _check_missing_ios(nodes: set[Node], ios: dict[FQN, IOT]) -> None:
-    missing_ios: set[IOT | View] = set()
+def _check_missing_ios(nodes: set[Node], ios: dict[FQN, AnyIO]) -> None:
+    missing_ios: set[AnyIO | View] = set()
     for node in nodes:
         for inp in node.inputs:
             if inp not in ios.values():
@@ -272,7 +272,7 @@ def _check_missing_ios(nodes: set[Node], ios: dict[FQN, IOT]) -> None:
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: Runnable,
-) -> tuple[set[Node], dict[FQN, IOT]]:
+) -> tuple[set[Node], dict[FQN, AnyIO]]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:

@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 from ordeq import Node
-from ordeq._io import IOT
+from ordeq._io import AnyIO
 from ordeq._nodes import get_node
 from ordeq._resolve import FQN
 from ordeq_test_utils import append_packages_dir_to_sys_path
@@ -59,7 +59,7 @@ def expected_example_nodes() -> set[Callable]:
 
 
 @pytest.fixture
-def expected_example_ios() -> dict[FQN, IOT]:
+def expected_example_ios() -> dict[FQN, AnyIO]:
     """Expected IOs in the example package.
 
     Returns:

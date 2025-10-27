@@ -1,8 +1,9 @@
 from dataclasses import dataclass, field
 from typing import Any
 
-from ordeq import Input, IOException, Node, Output
+from ordeq import IOException, Node
 from ordeq._graph import NodeGraph  # noqa: PLC2701 private import
+from ordeq._io import IOT
 from ordeq._resolve import FQN
 
 
@@ -19,7 +20,7 @@ class NodeData:
 @dataclass
 class IOData:
     id: int
-    dataset: Input | Output
+    dataset: IOT
     name: str
     type: str
     attributes: dict[str, Any] = field(default_factory=dict)
@@ -76,7 +77,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
 
 
 def _gather_graph(
-    nodes: set[Node], ios: dict[FQN, Input | Output]
+    nodes: set[Node], ios: dict[FQN, IOT]
 ) -> tuple[list[NodeData], list[IOData]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 

@@ -3,7 +3,8 @@ import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from ordeq import Input, Node, Output
+from ordeq import Node
+from ordeq._io import IOT
 from ordeq._resolve import FQN
 
 from ordeq_viz.graph import IOData, NodeData, _gather_graph
@@ -160,7 +161,7 @@ def _generate_main(nodes: list[NodeData], datasets: list[IOData]):
 
 
 def pipeline_to_kedro_viz(
-    nodes: set[Node], ios: dict[FQN, Input | Output], output_directory: Path
+    nodes: set[Node], ios: dict[FQN, IOT], output_directory: Path
 ) -> None:
     """Convert a pipeline to a kedro-viz static pipeline directory
 

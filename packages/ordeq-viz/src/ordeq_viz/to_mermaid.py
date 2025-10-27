@@ -2,7 +2,8 @@ import html
 from itertools import cycle
 from typing import Any
 
-from ordeq import Input, Node, Output
+from ordeq import Node
+from ordeq._io import IOT
 from ordeq._resolve import FQN
 
 from ordeq_viz.graph import _gather_graph
@@ -53,7 +54,7 @@ def _hash_to_str(obj_id: int, io_names: dict[int, str]) -> str:
 
 def pipeline_to_mermaid(
     nodes: set[Node],
-    ios: dict[FQN, Input | Output],
+    ios: dict[FQN, IOT],
     legend: bool = True,
     use_dataset_styles: bool = True,
     connect_wrapped_datasets: bool = True,

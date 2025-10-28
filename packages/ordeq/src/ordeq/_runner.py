@@ -123,9 +123,9 @@ def _run_graph(
         io_[view] = view.outputs[0]
 
     # Apply the patches:
-    patched_nodes: dict[NamedNode, Node] = {}
+    patched_nodes: dict[NamedNode, NamedNode] = {}
     for name, node in graph.nodes.items():
-        patched_nodes[name, node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
+        patched_nodes[name, node] = name, node._patch_io(io_ or {})  # noqa: SLF001 (private access)
 
     data_store: dict = {}  # For each IO, the loaded data
 
@@ -137,7 +137,7 @@ def _run_graph(
             save_node = False
 
         computed = _run_node(
-            (name, patched_nodes[name, node]), hooks=hooks, save=save_node
+            patched_nodes[name, node], hooks=hooks, save=save_node
         )
         data_store.update(computed)
 

@@ -28,7 +28,7 @@ NodeGraph:
   Edges:
      identity_node_with_copy:identity_and_copy -> []
   Nodes:
-     Node(name=identity_node_with_copy:identity_and_copy, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+     identity_node_with_copy:identity_and_copy: Node(name=identity_node_with_copy:identity_and_copy, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
 Hello, Ordeq!
 
 ```
@@ -37,7 +37,7 @@ Hello, Ordeq!
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node Node(name=identity_node_with_copy:identity_and_copy, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.runner	Running node "identity_and_copy" in module "identity_node_with_copy"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)

@@ -27,7 +27,7 @@ NodeGraph:
   Edges:
      identity_node:identity -> []
   Nodes:
-     Node(name=identity_node:identity, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     identity_node:identity: Node(name=identity_node:identity, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 Hello, Ordeq!Hello, Ordeq!
 
 ```
@@ -36,7 +36,7 @@ Hello, Ordeq!Hello, Ordeq!
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node Node(name=identity_node:identity, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.runner	Running node "identity" in module "identity_node"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 

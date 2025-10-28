@@ -85,36 +85,6 @@ def pipeline_to_mermaid(
     Returns:
         the pipeline rendered as mermaid diagram syntax
 
-    Examples:
-
-    ```pycon
-    >>> from pathlib import Path
-    >>> from ordeq_viz import (
-    ...    pipeline_to_mermaid
-    ... )
-
-    >>> import catalog as catalog_module  # doctest: +SKIP
-    >>> import pipeline as pipeline_module  # doctest: +SKIP
-
-    ```
-
-    Gather all nodes and ios in your project:
-    ```pycon
-    >>> from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
-    >>> nodes, ios = _resolve_runnables_to_nodes_and_ios(  # doctest: +SKIP
-    ...     catalog_module,
-    ...     pipeline_module
-    ... )
-
-
-    ```
-
-    Generate the pipeline visualization and write to file:
-    ```pycon
-    >>> mermaid = pipeline_to_mermaid(nodes, ios)  # doctest: +SKIP
-    >>> Path("pipeline.mermaid").write_text(mermaid)  # doctest: +SKIP
-
-    ```
     """
     io_names: dict[int, str] = {}
 

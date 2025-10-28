@@ -54,6 +54,8 @@ jobs:
           relevant_pkgs="changed-packages=$(cat data/dev_tools/relevant_packages.json)"
           echo "$relevant_pkgs"
           echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
+        env:
+          UV_SYSTEM_PYTHON: 1
 
       - name: List packages
         id: list-packages

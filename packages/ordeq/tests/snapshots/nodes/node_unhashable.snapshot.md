@@ -26,27 +26,27 @@ def func(x: str) -> str:
 
 ```text
 ValueError: Node is not hashable: Node(name=node_unhashable:func, inputs=[Unhashable(data=['y', 'z'])], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-  File "/packages/ordeq/src/ordeq/_nodes.py", line 193, in _raise_if_not_hashable
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_if_not_hashable
     raise ValueError(f"Node is not hashable: {n}") from e
 
-  File "/packages/ordeq/src/ordeq/_nodes.py", line 51, in validate
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
     _raise_if_not_hashable(self)
     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_nodes.py", line 47, in __post_init__
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __post_init__
     self.validate()
     ~~~~~~~~~~~~~^^
 
-  File "<string>", line 8, in __init__
+  File "<string>", line LINO, in __init__
 
-  File "/packages/ordeq/src/ordeq/_nodes.py", line 285, in create_node
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     return Node(
         func=func,
     ...<3 lines>...
         attributes={} if attributes is None else attributes,
     )
 
-  File "/packages/ordeq/src/ordeq/_nodes.py", line 442, in wrapped
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
     inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
                            ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         inner, inputs=inputs, outputs=outputs, attributes=attributes
@@ -54,15 +54,15 @@ ValueError: Node is not hashable: Node(name=node_unhashable:func, inputs=[Unhash
     )
     ^
 
-  File "/packages/ordeq/tests/resources/nodes/node_unhashable.py", line 16, in <module>
+  File "/packages/ordeq/tests/resources/nodes/node_unhashable.py", line LINO, in <module>
     @node(inputs=[Unhashable(["y", "z"])], outputs=StringBuffer("y"))
      ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
 
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 85, in run_module
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 

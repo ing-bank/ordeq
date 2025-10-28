@@ -45,16 +45,16 @@ NodeGraph:
      runner_io:decrement -> []
      runner_io:increment -> [runner_io:decrement]
   Nodes:
-     Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     runner_io:decrement: Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
+     runner_io:increment: Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): '2', StringBuffer(_buffer=<_io.StringIO object at HASH3>): '0'}
 NodeGraph:
   Edges:
      runner_io:decrement -> []
      runner_io:increment -> [runner_io:decrement]
   Nodes:
-     Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     runner_io:decrement: Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
+     runner_io:increment: Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): '3', StringBuffer(_buffer=<_io.StringIO object at HASH3>): '-30'}
 
 ```

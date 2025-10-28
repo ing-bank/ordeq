@@ -39,16 +39,16 @@ NodeGraph:
      runner_io_more_than_once:decrement -> []
      runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
   Nodes:
-     Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
-     Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     runner_io_more_than_once:decrement: Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+     runner_io_more_than_once:increment: Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): '2', StringBuffer(_buffer=<_io.StringIO object at HASH2>): '1'}
 NodeGraph:
   Edges:
      runner_io_more_than_once:decrement -> []
      runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
   Nodes:
-     Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
-     Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     runner_io_more_than_once:decrement: Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+     runner_io_more_than_once:increment: Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): '201', StringBuffer(_buffer=<_io.StringIO object at HASH2>): '1'}
 
 ```

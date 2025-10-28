@@ -29,8 +29,8 @@ NodeGraph:
      view_patch_io:hello_world -> [view_patch_io:n]
      view_patch_io:n -> []
   Nodes:
-     View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])
-     View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])])
+     view_patch_io:hello_world: View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])
+     view_patch_io:n: View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])])
 Node received 'Buenos dias World!'
 {View(name=view_patch_io:hello_world, inputs=[Literal('Hello')]): ('Buenos dias', 'World!'), View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])]): None}
 

@@ -26,14 +26,13 @@ class IOData:
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
-def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
+def _add_io_data(dataset, reverse_lookup, io_data) -> int:
     """Add IOData for a dataset to the io_data dictionary.
 
     Args:
         dataset: the dataset (Input or Output)
         reverse_lookup: a dictionary mapping dataset IDs to names
         io_data: a dictionary to store IOData objects
-        kind: a string indicating whether the dataset is an Input or Output
 
     Returns:
         The ID of the dataset in the io_data dictionary.
@@ -98,11 +97,11 @@ def _gather_graph(
 
     for line in ordering:
         inputs = [
-            _add_io_data(input_dataset, reverse_lookup, io_data, "Input")
+            _add_io_data(input_dataset, reverse_lookup, io_data)
             for input_dataset in line.inputs
         ]
         outputs = [
-            _add_io_data(output_dataset, reverse_lookup, io_data, "Output")
+            _add_io_data(output_dataset, reverse_lookup, io_data)
             for output_dataset in line.outputs
         ]
         nodes_.append(

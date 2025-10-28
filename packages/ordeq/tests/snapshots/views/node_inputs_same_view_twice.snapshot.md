@@ -32,8 +32,8 @@ NodeGraph:
      node_inputs_same_view_twice:hello -> [node_inputs_same_view_twice:n, node_inputs_same_view_twice:n]
      node_inputs_same_view_twice:n -> []
   Nodes:
-     View(name=node_inputs_same_view_twice:hello)
-     Node(name=node_inputs_same_view_twice:n, inputs=[View(name=node_inputs_same_view_twice:hello), View(name=node_inputs_same_view_twice:hello)], outputs=[Print()])
+     node_inputs_same_view_twice:hello: View(name=node_inputs_same_view_twice:hello)
+     node_inputs_same_view_twice:n: Node(name=node_inputs_same_view_twice:n, inputs=[View(name=node_inputs_same_view_twice:hello), View(name=node_inputs_same_view_twice:hello)], outputs=[Print()])
 Hello, World! == Hello, World!'
 {View(name=node_inputs_same_view_twice:hello): 'Hello, World!', Print(): "Hello, World! == Hello, World!'"}
 

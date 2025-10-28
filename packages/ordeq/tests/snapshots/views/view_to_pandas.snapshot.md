@@ -39,8 +39,8 @@ NodeGraph:
      view_to_pandas:aggregate -> []
      view_to_pandas:csv_as_df -> [view_to_pandas:aggregate]
   Nodes:
-     View(name=view_to_pandas:aggregate, inputs=[View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])])
-     View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])
+     view_to_pandas:aggregate: View(name=view_to_pandas:aggregate, inputs=[View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])])
+     view_to_pandas:csv_as_df: View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)])
 value    6
 dtype: int64
 {View(name=view_to_pandas:csv_as_df, inputs=[Literal(<view_to_pandas.MockDuckDbValues object at HASH1>)]):    value

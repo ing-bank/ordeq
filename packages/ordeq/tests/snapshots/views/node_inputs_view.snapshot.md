@@ -32,8 +32,8 @@ NodeGraph:
      node_inputs_view:hello -> [node_inputs_view:n]
      node_inputs_view:n -> []
   Nodes:
-     View(name=node_inputs_view:hello)
-     Node(name=node_inputs_view:n, inputs=[View(name=node_inputs_view:hello)], outputs=[Print()])
+     node_inputs_view:hello: View(name=node_inputs_view:hello)
+     node_inputs_view:n: Node(name=node_inputs_view:n, inputs=[View(name=node_inputs_view:hello)], outputs=[Print()])
 She said 'Hello, World!'
 {View(name=node_inputs_view:hello): 'Hello, World!', Print(): "She said 'Hello, World!'"}
 

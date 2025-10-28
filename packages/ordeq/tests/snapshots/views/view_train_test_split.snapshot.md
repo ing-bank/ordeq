@@ -48,11 +48,11 @@ NodeGraph:
      view_train_test_split:split -> [view_train_test_split:train]
      view_train_test_split:train -> []
   Nodes:
-     View(name=view_train_test_split:split, inputs=[Literal(     A  B    C   gt
+     view_train_test_split:split: View(name=view_train_test_split:split, inputs=[Literal(     A  B    C   gt
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)])
-     View(name=view_train_test_split:train, inputs=[View(name=view_train_test_split:split, inputs=[Literal(     A  B    C   gt
+     view_train_test_split:train: View(name=view_train_test_split:train, inputs=[View(name=view_train_test_split:split, inputs=[Literal(     A  B    C   gt
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)])])

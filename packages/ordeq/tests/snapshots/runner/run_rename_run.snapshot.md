@@ -24,13 +24,13 @@ NodeGraph:
   Edges:
      run_rename_run:print_message -> []
   Nodes:
-     View(name=run_rename_run:print_message)
+     run_rename_run:print_message: View(name=run_rename_run:print_message)
 Hello from printer
 NodeGraph:
   Edges:
      run_rename_run:print_message -> []
   Nodes:
-     View(name=run_rename_run:print_message)
+     run_rename_run:print_message: View(name=run_rename_run:print_message)
 Hello from printer
 
 ```

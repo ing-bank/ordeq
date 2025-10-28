@@ -42,10 +42,12 @@ ValueError: Intentional failure for testing.
     raise exc
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq-common/tests/resources/hooks/spy_hook.py", line LINO, in <module>
     run(fail, hooks=[spy])

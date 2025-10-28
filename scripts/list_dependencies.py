@@ -19,17 +19,16 @@ from ordeq_toml import TOML
 
 logging.basicConfig(level=logging.INFO)
 
-
 ROOT_PATH = Path(__file__).parent.parent
 
 lock_file = TOML(path=ROOT_PATH / "uv.lock")
 dependencies = JSON(
     path=ROOT_PATH / "scripts" / "dependencies.json"
-).with_save_options(indent=4)
+)
 diagram = Text(path=ROOT_PATH / "scripts" / "dependencies_diagram.mmd")
 affected_dependencies = JSON(
     path=ROOT_PATH / "scripts" / "affected_dependencies.json"
-).with_save_options(indent=4)
+)
 
 
 def _extract_package_name(pkg_entry: dict[str, Any]) -> str | None:

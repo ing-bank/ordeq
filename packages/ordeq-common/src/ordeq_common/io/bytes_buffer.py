@@ -48,10 +48,10 @@ class BytesBuffer(IO[bytes]):
     ...     inputs=[BytesBuffer(b"Hello"), Literal(b"you")], outputs=result
     ... )
     ... def greet(greeting: bytes, name: bytes) -> bytes:
-    ...     return greeting + b", " + name + b"!"
-    >>> run(greet)
+    ...     return greeting + b" to " + name + b"!"
+    >>> _ = run(greet)
     >>> result.load()
-    b'Hello, you!'
+    b'Hello to you!'
 
     ```
 

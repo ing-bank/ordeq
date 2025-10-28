@@ -49,10 +49,10 @@ class StringBuffer(IO[str]):
     ...     outputs=result
     ... )
     ... def greet(greeting: str, name: str) -> str:
-    ...     return f"{greeting} {name}!"
-    >>> run(greet)
+    ...     return f"{greeting} to {name}!"
+    >>> _ = run(greet)
     >>> result.load()
-    'Hello you!'
+    'Hello to you!'
 
     ```
 

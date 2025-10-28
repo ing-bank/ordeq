@@ -4,7 +4,6 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
-from ordeq._fqn import FQN
 from ordeq._graph import NamedNode, NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import Input, Output, _InputCache
@@ -43,8 +42,9 @@ def _save_outputs(
 
 
 def _run_node(
-    name: FQN, node: Node, *, hooks: Sequence[NodeHook] = (), save: bool = True
+    node: NamedNode, *, hooks: Sequence[NodeHook] = (), save: bool = True
 ) -> DataStoreType:
+    name, node = node
     node.validate()
 
     for node_hook in hooks:
@@ -137,7 +137,7 @@ def _run_graph(
             save_node = False
 
         computed = _run_node(
-            name, patched_nodes[name, node], hooks=hooks, save=save_node
+            (name, patched_nodes[name, node]), hooks=hooks, save=save_node
         )
         data_store.update(computed)
 

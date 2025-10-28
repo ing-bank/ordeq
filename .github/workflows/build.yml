@@ -40,22 +40,17 @@ jobs:
         with:
           enable-cache: false
 
-      - name: Install ordeq_dev_tools
-        run: uv pip install --system -e packages/ordeq-dev-tools
-
       - name: List changed packages
         id: list-changed-packages
         run: |
-          uv run -m ordeq_dev_tools changed_packages
+          uv run --with ordeq_dev_tools -m ordeq_dev_tools changed_packages
           changed_pkgs="changed-packages=$(cat data/dev_tools/changed_packages.json)"
           echo "$changed_pkgs"
-          uv run -m ordeq_dev_tools list_dependencies
-          uv run -m ordeq_dev_tools compute_relevant_packages
+          uv run --with ordeq_dev_tools -m ordeq_dev_tools list_dependencies
+          uv run --with ordeq_dev_tools -m ordeq_dev_tools compute_relevant_packages
           relevant_pkgs="changed-packages=$(cat data/dev_tools/relevant_packages.json)"
           echo "$relevant_pkgs"
           echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
-        env:
-          UV_SYSTEM_PYTHON: 1
 
       - name: List packages
         id: list-packages

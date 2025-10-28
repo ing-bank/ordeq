@@ -16,9 +16,7 @@ from ordeq import IO, node, run
 from ordeq_files import JSON
 from utils import run_command  # ty: ignore[unresolved-import]
 
-packages = JSON(
-    path=Path(__file__).parent / "changed_packages.json"
-).with_save_options(indent=4)
+packages = JSON(path=Path(__file__).parent / "changed_packages.json")
 # TODO: replace with view once ordeq/v1.3.0 is released
 cf = IO()
 

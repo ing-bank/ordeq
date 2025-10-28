@@ -3,6 +3,8 @@
 import argparse
 import importlib
 import logging
+import os
+from pathlib import Path
 from typing import Final
 
 from ordeq import run
@@ -34,6 +36,7 @@ def create_parser() -> argparse.ArgumentParser:
         choices=list(COMMAND_TO_MODULE.keys()),
         help="Sub-command to run",
     )
+    parser.add_argument("repo_path", type=Path, help="Path to the ordeq repository")
 
     return parser
 
@@ -45,6 +48,7 @@ def main() -> None:
 
     # Construct full module path with prefix
     module_path = f"ordeq_dev_tools.pipelines.{COMMAND_TO_MODULE[args.command]}"
+    os.environ["REPOSITORY_ROOT"] = str(args.repo_path.resolve())
     mod = importlib.import_module(module_path)
     run(mod)
 

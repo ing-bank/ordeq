@@ -14,7 +14,7 @@ from pathlib import Path
 
 from ordeq import IO, node, run
 from ordeq_files import JSON
-from utils import run_command
+from utils import run_command  # ty: ignore[unresolved-import]
 
 packages = JSON(
     path=Path(__file__).parent / "changed_packages.json"

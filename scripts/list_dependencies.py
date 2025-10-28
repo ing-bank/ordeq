@@ -27,6 +27,9 @@ dependencies = JSON(
     path=ROOT_PATH / "scripts" / "dependencies.json"
 ).with_save_options(indent=4)
 diagram = Text(path=ROOT_PATH / "scripts" / "dependencies_diagram.mmd")
+affected_dependencies = JSON(
+    path=ROOT_PATH / "scripts" / "affected_dependencies.json"
+).with_save_options(indent=4)
 
 
 def _extract_package_name(pkg_entry: dict[str, Any]) -> str | None:
@@ -133,8 +136,46 @@ def generate_mermaid_diagram(deps_by_package: dict[str, list[str]]) -> str:
     """
     lines = ["graph TD"]
     for pkg, deps in deps_by_package.items():
-        lines.extend(f"    {pkg} --> {dep}" for dep in deps)
+        lines.extend(f"    {dep} --> {pkg}" for dep in deps)
     return "\n".join(lines)
+
+
+@node(inputs=dependencies, outputs=affected_dependencies)
+def compute_affected_dependencies(
+    deps_by_package: dict[str, list[str]],
+) -> dict[str, list[str]]:
+    """Compute which packages are (recursively) affected by changes in a given
+    package. This can be used to determine which packages need to be retested.
+
+    Args:
+        deps_by_package: mapping of package names to their dependencies
+
+    Returns:
+        A dictionary mapping package names to the list of packages affected by
+        changes in that package.
+    """
+    affected: dict[str, set[str]] = {pkg: set() for pkg in deps_by_package}
+
+    # Build reverse dependency graph
+    reverse_deps: dict[str, set[str]] = {}
+    for pkg, deps in deps_by_package.items():
+        for dep in deps:
+            reverse_deps.setdefault(dep, set()).add(pkg)
+
+    # Recursive function to find all affected packages
+    def _find_affected(pkg: str, visited: set[str]) -> None:
+        for dependent in reverse_deps.get(pkg, []):
+            if dependent not in visited:
+                visited.add(dependent)
+                affected[pkg].add(dependent)
+                _find_affected(dependent, visited)
+
+    # Compute affected packages for each package
+    for pkg in deps_by_package:
+        _find_affected(pkg, set())
+
+    # Convert sets to sorted lists
+    return {pkg: sorted(affects) for pkg, affects in affected.items()}
 
 
 if __name__ == "__main__":

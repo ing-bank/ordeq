@@ -48,9 +48,10 @@ jobs:
           echo "$changed_pkgs"
           uv run scripts/list_dependencies.py
           uv run scripts/relevant_packages.py
-          relevant_pkgs="changed-packages=$(cat scripts/relevant_packages.json)"
-          echo "$relevant_pkgs"
-          echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
+          # TODO: Fix script
+#          relevant_pkgs="changed-packages=$(cat scripts/relevant_packages.json)"
+#          echo "$relevant_pkgs"
+#          echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
 
       - name: List packages
         id: list-packages

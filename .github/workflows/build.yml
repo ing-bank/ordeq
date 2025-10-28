@@ -96,7 +96,7 @@ jobs:
 
   test:
     name: Test
-    needs: [ packages, docs ]
+    needs: [ packages ]
     runs-on: ubuntu-latest
     strategy:
       matrix:

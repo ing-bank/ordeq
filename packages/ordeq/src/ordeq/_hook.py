@@ -104,12 +104,11 @@ class RunHook(Protocol):
 
         return
 
-    def after_run(self, graph: NodeGraph, data: dict[AnyIO, Any]) -> None:
+    def after_run(self, graph: NodeGraph) -> None:
         """Triggered after the graph is run.
 
         Args:
             graph: the graph object
-            data: mapping of all inputs and outputs to their loaded/saved data
         """
         return
 

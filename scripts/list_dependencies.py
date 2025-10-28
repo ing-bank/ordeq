@@ -22,9 +22,7 @@ logging.basicConfig(level=logging.INFO)
 ROOT_PATH = Path(__file__).parent.parent
 
 lock_file = TOML(path=ROOT_PATH / "uv.lock")
-dependencies = JSON(
-    path=ROOT_PATH / "scripts" / "dependencies.json"
-)
+dependencies = JSON(path=ROOT_PATH / "scripts" / "dependencies.json")
 diagram = Text(path=ROOT_PATH / "scripts" / "dependencies_diagram.mmd")
 affected_dependencies = JSON(
     path=ROOT_PATH / "scripts" / "affected_dependencies.json"

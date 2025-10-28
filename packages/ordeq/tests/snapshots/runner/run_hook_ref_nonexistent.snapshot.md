@@ -14,12 +14,12 @@ run(
 
 ```text
 ValueError: Hook 'idontexist' not found in module 'packages.example.hooks'
-  File "/packages/ordeq/src/ordeq/_resolve.py", line 168, in _resolve_hook_reference
+  File "/packages/ordeq/src/ordeq/_resolve.py", line 165, in _resolve_hook_reference
     raise ValueError(
         f"Hook '{hook_name}' not found in module '{module_name}'"
     )
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line 195, in _resolve_hooks
+  File "/packages/ordeq/src/ordeq/_resolve.py", line 192, in _resolve_hooks
     resolved_hook = _resolve_hook_reference(hook)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line 183, in run

@@ -2,7 +2,6 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from ordeq import IOException, Node
-from ordeq._fqn import FQN
 from ordeq._graph import NodeGraph  # noqa: PLC2701 private import
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog

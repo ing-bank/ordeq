@@ -1,63 +1,31 @@
-#!/usr/bin/env python3
-# /// script
-# requires-python = ">=3.12"
-# dependencies = [
-#     "ordeq",
-#     "ordeq-files",
-#     "ordeq-common",
-#     "ordeq-viz",
-#     "packaging",
-# ]
-# ///
-"""Automated release script
-
-Usage:
-    uv run scripts/generate_draft_releases.py
-
-"""
+"""Automated release pipeline"""
 
 import json
-import logging
 import operator
 import typing
-from pathlib import Path
 from typing import Any
 
-from ordeq import IO, node, run
+from ordeq import IO, node
 from ordeq_common import Literal
 from ordeq_files import JSON
-from ordeq_viz import viz
 from packaging.version import Version
-from utils import run_command  # ty: ignore[unresolved-import]
 
-REPO_ROOT: Path = Path(__file__).resolve().parent.parent
+from ordeq_dev_tools.pipelines.shared import packages
+from ordeq_dev_tools.paths import DATA_PATH, ROOT_PATH
+from ordeq_dev_tools.utils import run_command
 
-
-packages_dir = Literal(REPO_ROOT / "packages")
-packages = IO()
-package_tags = IO()
+packages_dir = Literal(ROOT_PATH / "packages")
+# TODO: use views
 package_latest_tags = IO()
 package_commits = IO()
 commit_messages = IO()
 commit_changes = IO()
 package_relevant_commits = IO()
 package_relevant_prs = IO()
-changes = JSON(path=Path("change_report.json")).with_save_options(
+changes = JSON(path=DATA_PATH / "change_report.json").with_save_options(
     default=str, indent=4
 )
-
-
-@node(inputs=packages_dir, outputs=packages)
-def get_packages(packages_dir: Path) -> list[str]:
-    """Gets a list of package names from the packages directory.
-
-    Args:
-        packages_dir: Path to the packages directory
-
-    Returns:
-        Package names
-    """
-    return sorted([d.name for d in packages_dir.iterdir() if d.is_dir()])
+# TODO: ordeqify GH release creation
 
 
 def get_tags(package: str) -> list[str] | None:
@@ -75,14 +43,22 @@ def get_tags(package: str) -> list[str] | None:
     return result.splitlines()
 
 
-@node(inputs=packages, outputs=package_tags)
-def get_package_tags(packages: list[str]) -> dict[str, str]:
-    package_tags = {}
+@node(inputs=packages)
+def package_tags(packages: list[str]) -> dict[str, str]:
+    """Gets all git tags for all packages.
+
+    Args:
+        packages: Package names
+
+    Returns:
+        Mapping package names to their tags
+    """
+    ptags = {}
     for package in sorted(packages):
         tags = get_tags(package)
         if tags is not None:
-            package_tags[package] = tags
-    return package_tags
+            ptags[package] = tags
+    return ptags
 
 
 def get_version_from_tag(tag: str, package: str) -> Version:
@@ -119,6 +95,14 @@ def get_latest_tag(package: str, tags: list[str]) -> str | None:
 
 @node(inputs=package_tags, outputs=package_latest_tags)
 def get_all_latest_tags(package_tags: dict[str, list[str]]) -> dict[str, str]:
+    """Gets the latest tag for all packages.
+
+    Args:
+        package_tags: Mapping of package names to their tags
+
+    Returns:
+        Mapping of package names to their latest tag
+    """
     package_latest_tags = {}
     for package, tags in package_tags.items():
         latest_tag = get_latest_tag(package, tags)
@@ -136,13 +120,15 @@ def get_commits_since_tag(tag: str) -> list[dict[str, str]]:
     Returns:
         Commits with hash
     """
-    commits_output = run_command([
-        "git",
-        "log",
-        f"{tag}..HEAD",
-        "--pretty=format:%h|%s",
-        "--date=short",
-    ])
+    commits_output = run_command(
+        [
+            "git",
+            "log",
+            f"{tag}..HEAD",
+            "--pretty=format:%h|%s",
+            "--date=short",
+        ]
+    )
 
     if not commits_output:
         return []
@@ -160,6 +146,14 @@ def get_commits_since_tag(tag: str) -> list[dict[str, str]]:
 def get_all_commits(
     tags: dict[str, str],
 ) -> tuple[dict[str, list[str]], dict[str, list[str]]]:
+    """Gets all commits since the latest tag for all packages.
+
+    Args:
+        tags: Mapping of package names to their latest tag
+
+    Returns:
+        Mapping of package names to their commits and commit messages
+    """
     package_commits = {}
     messages = {}
     for package, tag in tags.items():
@@ -175,19 +169,29 @@ def get_all_commits(
 def get_commit_changed_files(
     commits_per_package: dict[str, list[str]],
 ) -> dict[str, list[str]]:
+    """Gets the list of changed files for each commit.
+
+    Args:
+        commits_per_package: Mapping of package names to their commits
+
+    Returns:
+        Mapping of commit hashes to their changed files
+    """
     changes = {}
     for commits in commits_per_package.values():
         for commit in commits:
             # Check if this commit modified files in the package directory
             # Get list of files changed in this commit
-            changed_files = run_command([
-                "git",
-                "diff-tree",
-                "--no-commit-id",
-                "--name-only",
-                "-r",
-                commit,
-            ])
+            changed_files = run_command(
+                [
+                    "git",
+                    "diff-tree",
+                    "--no-commit-id",
+                    "--name-only",
+                    "-r",
+                    commit,
+                ]
+            )
 
             changes[commit] = [
                 file for file in changed_files.split("\n") if file.strip()
@@ -232,13 +236,20 @@ def filter_commits_by_package(
     return filtered_commits
 
 
-@node(
-    inputs=[package_commits, commit_changes], outputs=package_relevant_commits
-)
+@node(inputs=[package_commits, commit_changes], outputs=package_relevant_commits)
 def filter_commits_by_package_node(
     commit_per_package: dict[str, list[str]],
     changes_per_commit: dict[str, list[str]],
 ) -> dict[str, list[dict[str, str]]]:
+    """Filters commits for each package to only include those that have changes
+
+    Args:
+        commit_per_package: Mapping of package names to their commits
+        changes_per_commit: Mapping of commit hashes to their changed files
+
+    Returns:
+        Mapping of package names to their filtered commits
+    """
     package_filtered_commits = {}
     for package, commit_hashes in commit_per_package.items():
         filtered_commits = filter_commits_by_package(
@@ -258,19 +269,21 @@ def get_github_pr_by_sha(commit: str) -> dict[str, Any] | None:
     Returns:
         PR URL if found, else None
     """
-    linked_pr = run_command([
-        "gh",
-        "pr",
-        "list",
-        "--search",
-        commit,
-        "--state",
-        "merged",
-        "--json",
-        "number,labels,author",
-        "--limit",
-        "1",
-    ])
+    linked_pr = run_command(
+        [
+            "gh",
+            "pr",
+            "list",
+            "--search",
+            commit,
+            "--state",
+            "merged",
+            "--json",
+            "number,labels,author",
+            "--limit",
+            "1",
+        ]
+    )
     if linked_pr:
         pr_data = json.loads(linked_pr)[0]
         return {
@@ -285,6 +298,14 @@ def get_github_pr_by_sha(commit: str) -> dict[str, Any] | None:
 def get_relevant_prs(
     commits: dict[str, list[dict[str, str]]],
 ) -> dict[str, list[dict[str, Any]]]:
+    """Gets relevant PRs for each package based on filtered commits.
+
+    Args:
+        commits: Mapping of package names to their filtered commits
+
+    Returns:
+        Mapping of package names to their relevant PRs
+    """
     package_prs = {}
     for package, filtered_commits in commits.items():
         prs = {}
@@ -330,19 +351,19 @@ def compute_package_changes(
         # Convert the set back to a sorted list for the JSON output
         distinct_files = sorted(all_changed_files)
 
-        distinct_labels = sorted({
-            label
-            for pr in relevant_prs[package].values()
-            for label in pr.get("labels", [])
-        })
+        distinct_labels = sorted(
+            {
+                label
+                for pr in relevant_prs[package].values()
+                for label in pr.get("labels", [])
+            }
+        )
 
         bump = compute_bump(distinct_labels)
 
         if bump:
             tag = tags[package]
-            new_tag = bump_tag(
-                package, get_version_from_tag(tag, package), bump
-            )
+            new_tag = bump_tag(package, get_version_from_tag(tag, package), bump)
 
             changes = {
                 commit: {
@@ -363,10 +384,7 @@ def compute_package_changes(
                 "changed_files": distinct_files,
             }
 
-            print(
-                f"Creating draft release for package: {package}, "
-                f"new tag: {new_tag}"
-            )
+            print(f"Creating draft release for package: {package}, new tag: {new_tag}")
             create_draft_github_release(
                 package, new_tag=new_tag, release_notes=release_notes
             )
@@ -448,7 +466,7 @@ def generate_release_notes(changes):
             Stripped commit message
 
         Examples:
-            "ordeq: Aadd new feature" -> "Add new feature"
+            "ordeq: Add new feature" -> "Add new feature"
             "Fix bug in module" -> "Fix bug in module"
             "`ordeq-manifest: Update docs" -> "Update docs"
         """
@@ -491,23 +509,23 @@ def get_draft_releases() -> list[str]:
     Returns:
         List of tag names for draft releases
     """
-    drafts_output = run_command([
-        "gh",
-        "release",
-        "list",
-        "--json",
-        "tagName,isDraft",
-        "--jq",
-        "[.[] | select(.isDraft == true) | .tagName]",
-    ])
+    drafts_output = run_command(
+        [
+            "gh",
+            "release",
+            "list",
+            "--json",
+            "tagName,isDraft",
+            "--jq",
+            "[.[] | select(.isDraft == true) | .tagName]",
+        ]
+    )
     if drafts_output:
         return json.loads(drafts_output)
     return []
 
 
-def create_draft_github_release(
-    package: str, new_tag: str, release_notes: str
-) -> None:
+def create_draft_github_release(package: str, new_tag: str, release_notes: str) -> None:
     """Create a draft GitHub release for the new tag.
 
     Args:
@@ -515,18 +533,20 @@ def create_draft_github_release(
         new_tag: New tag name
         release_notes: Changes dictionary
     """
-    run_command([
-        "gh",
-        "release",
-        "create",
-        new_tag,
-        "--draft",
-        "--title",
-        new_tag,
-        "--notes",
-        release_notes,
-        "--latest=false" if package != "ordeq" else "--latest",
-    ])
+    run_command(
+        [
+            "gh",
+            "release",
+            "create",
+            new_tag,
+            "--draft",
+            "--title",
+            new_tag,
+            "--notes",
+            release_notes,
+            "--latest=false" if package != "ordeq" else "--latest",
+        ]
+    )
     print(f"Created draft GitHub release for tag: {new_tag}")
 
 
@@ -538,17 +558,3 @@ def delete_draft_github_release(tag: str) -> None:
     """
     run_command(["gh", "release", "delete", tag, "--yes"])
     print(f"Deleted draft GitHub release for tag: {tag}")
-
-
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
-
-    # visualize the DAG
-    viz(
-        __name__,
-        fmt="mermaid",
-        output=REPO_ROOT / "scripts" / "automated_release.mermaid",
-    )
-
-    # run all nodes
-    run(__name__)

@@ -93,8 +93,8 @@ print(create_manifest_json(examples.project))
       "id": "examples.project.nodes_import_reassign:func_a",
       "name": "func_a",
       "inputs": [
-        "examples.project.nodes_import_reassign:A+3 more",
-        "examples.project.nodes_import_reassign:B+3 more"
+        "examples.project.nodes_import_reassign:A|AA|a",
+        "examples.project.nodes_import_reassign:B|BB|b"
       ],
       "outputs": [
         "examples.project.nodes_import_reassign:f"
@@ -105,8 +105,8 @@ print(create_manifest_json(examples.project))
       "id": "examples.project.nodes_import_reassign:func_b",
       "name": "func_b",
       "inputs": [
-        "examples.project.nodes_import_reassign:A+3 more",
-        "examples.project.nodes_import_reassign:B+3 more"
+        "examples.project.nodes_import_reassign:A|AA|a",
+        "examples.project.nodes_import_reassign:B|BB|b"
       ],
       "outputs": [
         "examples.project.nodes_import_reassign:f"

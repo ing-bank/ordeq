@@ -53,12 +53,14 @@ class NodeModel(BaseModel):
                 ins.append(candidates[0])
             else:
                 candidates = [
-                    c for c in candidates if c.startswith(name[0] + ":")
+                    c.removeprefix(name[0] + ":")
+                    for c in candidates
+                    if c.startswith(name[0] + ":")
                 ]
                 if len(candidates) == 1:
-                    ins.append(candidates[0])
+                    ins.append(name[0] + ":" + candidates[0])
                 else:
-                    ins.append(candidates[0] + f"+{len(candidates)} more")
+                    ins.append(name[0] + ":" + "|".join(candidates))
         outs = []
         for o in node.outputs:
             candidates = sorted(ios_to_id[o])
@@ -66,12 +68,14 @@ class NodeModel(BaseModel):
                 outs.append(candidates[0])
             else:
                 candidates = [
-                    c for c in candidates if c.startswith(name[0] + ":")
+                    c.removeprefix(name[0] + ":")
+                    for c in candidates
+                    if c.startswith(name[0] + ":")
                 ]
                 if len(candidates) == 1:
-                    outs.append(candidates[0])
+                    outs.append(name[0] + ":" + candidates[0])
                 else:
-                    outs.append(candidates[0] + f"+{len(candidates)} more")
+                    outs.append(name[0] + ":" + "|".join(candidates))
 
         return cls(
             id=fqn_to_str(name),

@@ -19,7 +19,7 @@ modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
 
 nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
-print(list(sorted(node.name for node in nodes)))
-print(list(ios.keys()))
+print(dict(sorted(nodes.items())))
+print(dict(sorted(ios.items())))
 
-print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))))
+print(dict(sorted(_resolve_runnables_to_nodes(*runnables).items())))

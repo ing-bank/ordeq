@@ -1,10 +1,12 @@
+import operator
 from collections import defaultdict
-from collections.abc import Iterable
 from functools import cached_property
 from graphlib import TopologicalSorter
 from typing import TYPE_CHECKING, TypeAlias
 
+from ordeq._fqn import FQN, fqn_to_str, str_to_fqn
 from ordeq._nodes import Node, View
+from ordeq._resolve import NamedNode, Pipeline
 
 if TYPE_CHECKING:
     from ordeq._io import AnyIO
@@ -15,10 +17,10 @@ except ImportError:
     from typing_extensions import Self
 
 
-EdgesType: TypeAlias = dict[Node, list[Node]]
+EdgesType: TypeAlias = dict[NamedNode, list[NamedNode]]
 
 
-def _collect_views(nodes: set[Node]) -> set[View]:
+def _collect_views(nodes: Pipeline) -> dict[FQN, View]:
     """Recursively collects all views from the given nodes.
 
     Args:
@@ -28,14 +30,14 @@ def _collect_views(nodes: set[Node]) -> set[View]:
         a set of `View` objects
     """
 
-    views: set[View] = set()
-    for node in nodes:
-        node_views = set(node.views)
+    views: dict[FQN, View] = {}
+    for node in nodes.values():
+        node_views = {str_to_fqn(view.name): view for view in node.views}
         views |= node_views | _collect_views(node_views)  # type: ignore[arg-type]
     return views
 
 
-def _build_graph(nodes: Iterable[Node]) -> EdgesType:
+def _build_graph(nodes: Pipeline) -> EdgesType:
     """Builds a mapping of node to node(s), i.e., the edge map of a graph.
 
     Args:
@@ -48,12 +50,14 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
         ValueError: if an output is defined by more than one node
     """
 
-    output_to_node: dict[View | AnyIO, View | Node] = {
-        view: view for view in nodes if isinstance(view, View)
+    output_to_node: dict[View | AnyIO, tuple[FQN, View | Node]] = {
+        view: (str_to_fqn(view.name), view)
+        for view in nodes.values()
+        if isinstance(view, View)
     }
     input_to_nodes: defaultdict = defaultdict(list)
-    edges: EdgesType = {node: [] for node in nodes}
-    for node in nodes:
+    edges: EdgesType = {named_node: [] for named_node in nodes.items()}
+    for name, node in nodes.items():
         if isinstance(node, Node):
             for output_ in node.outputs:
                 if output_ in output_to_node:
@@ -62,16 +66,16 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
                         f"by more than one node"
                     )
                     raise ValueError(msg)
-                output_to_node[output_] = node
+                output_to_node[output_] = name, node
         for input_ in node.inputs:
-            input_to_nodes[input_].append(node)
-    for node_output, node in output_to_node.items():
+            input_to_nodes[input_].append((name, node))
+    for node_output, named_node in output_to_node.items():
         if node_output in input_to_nodes:
-            edges[node] += input_to_nodes[node_output]
+            edges[named_node] += input_to_nodes[node_output]
     return edges
 
 
-def _find_topological_ordering(edges: EdgesType) -> tuple[Node, ...]:
+def _find_topological_ordering(edges: EdgesType) -> tuple[NamedNode, ...]:
     """Topological sort.
 
     Args:
@@ -83,7 +87,7 @@ def _find_topological_ordering(edges: EdgesType) -> tuple[Node, ...]:
     return tuple(reversed(tuple(TopologicalSorter(edges).static_order())))
 
 
-def _find_sink_nodes(edges: EdgesType) -> set[Node]:
+def _find_sink_nodes(edges: EdgesType) -> set[NamedNode]:
     """Finds the sinks nodes, i.e. nodes without successors.
 
     Args:
@@ -97,7 +101,7 @@ def _find_sink_nodes(edges: EdgesType) -> set[Node]:
     return {s for s, targets in edges.items() if len(targets) == 0}
 
 
-def _nodes(edges: EdgesType) -> set[Node]:
+def _nodes(edges: EdgesType) -> Pipeline:
     """Returns the set of all nodes.
 
     Args:
@@ -107,7 +111,7 @@ def _nodes(edges: EdgesType) -> set[Node]:
         set of all nodes
     """
 
-    return set(edges.keys())
+    return dict(edges.keys())
 
 
 class NodeGraph:
@@ -115,13 +119,12 @@ class NodeGraph:
         self.edges = edges
 
     @classmethod
-    def from_nodes(cls, nodes: Iterable[Node]) -> Self:
-        nodes = set(nodes)
+    def from_nodes(cls, nodes: Pipeline) -> Self:
         views = _collect_views(nodes)
         return cls(_build_graph(nodes | views))
 
     @cached_property
-    def topological_ordering(self) -> tuple[Node, ...]:
+    def topological_ordering(self) -> tuple[NamedNode, ...]:
         return _find_topological_ordering(self.sorted_edges)
 
     @cached_property
@@ -129,15 +132,15 @@ class NodeGraph:
         return dict(
             sorted(
                 [
-                    (node, sorted(targets, key=lambda n: n.name))
+                    (node, sorted(targets, key=operator.itemgetter(0)))
                     for node, targets in self.edges.items()
                 ],
-                key=lambda x: x[0].name,
+                key=lambda x: x[0][0],
             )
         )
 
     @property
-    def sink_nodes(self) -> set[Node]:
+    def sink_nodes(self) -> set[NamedNode]:
         """Finds the sink nodes, i.e., nodes without successors.
 
         Returns:
@@ -146,7 +149,7 @@ class NodeGraph:
         return _find_sink_nodes(self.edges)
 
     @property
-    def nodes(self) -> set[Node]:
+    def nodes(self) -> Pipeline:
         """Returns the set of all nodes in this graph.
 
         Returns:
@@ -157,11 +160,12 @@ class NodeGraph:
 
     def __repr__(self) -> str:
         lines = ["NodeGraph:", "  Edges:"]
-        for node, targets in self.sorted_edges.items():
-            targets_str = ", ".join(t.name for t in targets)
-            lines.append(f"     {node.name} -> [{targets_str}]")
+        for (name, _), targets in self.sorted_edges.items():
+            targets_str = ", ".join(fqn_to_str(n) for n, _ in targets)
+            lines.append(f"     {fqn_to_str(name)} -> [{targets_str}]")
         lines.append("  Nodes:")
         lines.extend(
-            f"     {node.name}: {node!r}" for node in self.sorted_edges
+            f"     {fqn_to_str(name)}: {node!r}"
+            for name, node in self.sorted_edges
         )
         return "\n".join(lines)

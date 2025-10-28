@@ -38,6 +38,12 @@ print(create_manifest_json(nodes_with_view))
       "name": "printer",
       "type": "ordeq_common.io.printer:Print",
       "references": []
+    },
+    "examples.project.nodes_with_view:<anonymous0>": {
+      "id": "examples.project.nodes_with_view:<anonymous0>",
+      "name": "<anonymous0>",
+      "type": "ordeq._io:IO",
+      "references": []
     }
   }
 }

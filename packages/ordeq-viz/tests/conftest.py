@@ -2,9 +2,9 @@ from collections.abc import Callable
 from pathlib import Path
 
 import pytest
-from ordeq import Node
+from ordeq._fqn import FQN
 from ordeq._nodes import get_node
-from ordeq._resolve import Catalog
+from ordeq._resolve import Catalog, Pipeline
 from ordeq_test_utils import append_packages_dir_to_sys_path
 
 
@@ -27,7 +27,7 @@ def packages(packages_dir):
 
 
 @pytest.fixture
-def expected_example_nodes() -> set[Callable]:
+def expected_example_nodes() -> dict[FQN, Callable]:
     """Expected nodes in the example package.
 
     Returns:
@@ -48,12 +48,12 @@ def expected_example_nodes() -> set[Callable]:
 
     """Expected nodes in the example package."""
     return {
-        transform_input,
-        transform_mock_input,
-        world,
-        hello,
-        print_message,
-        node_with_inline_io,
+        ("example.pipeline", "transform_input"): transform_input,
+        ("example.pipeline", "transform_mock_input"): transform_mock_input,
+        ("example.nodes", "world"): world,
+        ("example.wrapped_io", "hello"): hello,
+        ("example.wrapped_io", "print_message"): print_message,
+        ("example.nodes", "node_with_inline_io"): node_with_inline_io,
     }
 
 
@@ -95,10 +95,10 @@ def expected_example_ios() -> Catalog:
 
 
 @pytest.fixture
-def expected_example_node_objects(expected_example_nodes) -> set[Node]:
+def expected_example_node_objects(expected_example_nodes) -> Pipeline:
     """Expected node objects in the example package.
 
     Returns:
         a set of expected node objects
     """
-    return {get_node(f) for f in expected_example_nodes}
+    return {key: get_node(f) for key, f in expected_example_nodes.items()}

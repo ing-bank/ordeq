@@ -27,24 +27,20 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
+		subgraph objects["Objects"]
 			L0(["Node"]):::node
 			L1[("IO")]:::io
 		end
-		subgraph IO Types
-			L00[("IO")]:::io0
+		subgraph io_types["IO Types"]
+			ordeq._io:IO[("IO")]:::io0
 		end
 	end
 
-	hello --> IO0
-	hello --> IO1
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		hello(["hello"]):::node
-		hello(["hello"]):::node
-		IO0[("&lt;anonymous&gt;")]:::io0
-		IO1[("&lt;anonymous&gt;")]:::io0
+		example3.nodes:<anonymous0>[("&lt;anonymous0&gt;")]:::io0
+		example3.nodes:<anonymous1>[("&lt;anonymous1&gt;")]:::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF
@@ -62,8 +58,8 @@ Hello, world!
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running view "hello" in module "example3.func_defs"
-INFO	ordeq.runner	Running view "hello" in module "example3.func_defs"
+INFO	ordeq.runner	Running view "f2" in module "example3.nodes"
+INFO	ordeq.runner	Running view "f1" in module "example3.nodes"
 
 ```
 

@@ -47,9 +47,23 @@ def test_it_builds_a_graph():
     third.inputs = [B, D]
     third.outputs = [F]
 
-    edges = _build_graph([third, second, first])
-    assert edges == {first: [third, second], second: [third], third: []}
-    assert _nodes(edges) == {first, second, third}
+    nodes = {
+        ("test_graph", node.name): node for node in (first, second, third)
+    }
+    edges = _build_graph(nodes)
+    assert edges == {
+        (("test_graph", "first"), first): [
+            (("test_graph", "second"), second),
+            (("test_graph", "third"), third),
+        ],
+        (("test_graph", "second"), second): [(("test_graph", "third"), third)],
+        (("test_graph", "third"), third): [],
+    }
+    assert _nodes(edges) == {
+        ("test_graph", "first"): first,
+        ("test_graph", "second"): second,
+        ("test_graph", "third"): third,
+    }
 
 
 def test_it_builds_graph_with_single_node():
@@ -59,9 +73,9 @@ def test_it_builds_graph_with_single_node():
     first.outputs = [B]
     first.views = []
 
-    edges = _build_graph([first])
-    assert edges == {first: []}
-    assert _nodes(edges) == {first}
+    edges = _build_graph({("test_graph", "first"): first})
+    assert edges == {(("test_graph", "first"), first): []}
+    assert _nodes(edges) == {("test_graph", "first"): first}
 
 
 def test_it_raises_error_on_duplicated_outputs():
@@ -78,7 +92,10 @@ def test_it_raises_error_on_duplicated_outputs():
     with pytest.raises(
         ValueError, match="cannot be outputted by more than one node"
     ):
-        _build_graph([first, second])
+        _build_graph({
+            ("test_graph", "first"): first,
+            ("test_graph", "second"): second,
+        })
 
 
 @pytest.mark.parametrize(

@@ -16,10 +16,10 @@ modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
 
 nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
-print(list(sorted(node.name for node in nodes)))
+print(dict(sorted(nodes.items())))
 print(dict(sorted(ios.items())))
 
-print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))))
+print(dict(sorted(_resolve_runnables_to_nodes(*runnables).items())))
 
 ```
 
@@ -27,9 +27,9 @@ print(list(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables))
 
 ```text
 ['example3', 'example3.func_defs', 'example3.nodes']
-['example3.func_defs:hello', 'example3.func_defs:hello']
+{('example3.nodes', 'f1'): View(name=example3.func_defs:hello), ('example3.nodes', 'f2'): View(name=example3.func_defs:hello)}
 {}
-['example3.func_defs:hello', 'example3.func_defs:hello']
+{('example3.nodes', 'f1'): View(name=example3.func_defs:hello), ('example3.nodes', 'f2'): View(name=example3.func_defs:hello)}
 
 ```
 

@@ -4,7 +4,7 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
-from ordeq._graph import NodeGraph
+from ordeq._graph import NamedNode, NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node, View
@@ -42,8 +42,9 @@ def _save_outputs(
 
 
 def _run_node(
-    node: Node, *, hooks: Sequence[NodeHook] = (), save: bool = True
+    node: NamedNode, *, hooks: Sequence[NodeHook] = (), save: bool = True
 ) -> DataStoreType:
+    name, node = node
     node.validate()
 
     for node_hook in hooks:
@@ -60,7 +61,7 @@ def _run_node(
         if isinstance(node_input, _InputCache):
             node_input.persist(data)
 
-    module_name, _, node_name = node.name.partition(":")
+    module_name, node_name = name
     node_type = "view" if isinstance(node, View) else "node"
     logger.info(
         'Running %s "%s" in module "%s"', node_type, node_name, module_name
@@ -116,26 +117,28 @@ def _run_graph(
     """
 
     # Each view will be replaced by its sentinel IO:
-    views = [node for node in graph.nodes if isinstance(node, View)]
+    views = [node for node in graph.nodes.values() if isinstance(node, View)]
     io_ = cast("dict[Input | Output | View, Input | Output]", io or {})
     for view in views:
         io_[view] = view.outputs[0]
 
     # Apply the patches:
-    patched_nodes: dict[Node, Node] = {}
-    for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
+    patched_nodes: dict[NamedNode, NamedNode] = {}
+    for name, node in graph.nodes.items():
+        patched_nodes[name, node] = name, node._patch_io(io_ or {})  # noqa: SLF001 (private access)
 
     data_store: dict = {}  # For each IO, the loaded data
 
     # TODO: Create _Patch wrapper for IO?
-    for node in graph.topological_ordering:
+    for name, node in graph.topological_ordering:
         if (save == "sinks" and node in graph.sink_nodes) or save == "all":
             save_node = True
         else:
             save_node = False
 
-        computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+        computed = _run_node(
+            patched_nodes[name, node], hooks=hooks, save=save_node
+        )
         data_store.update(computed)
 
     reverse_io = {v: k for k, v in (io_ or {}).items()}
@@ -144,7 +147,7 @@ def _run_graph(
         patched_data_store[reverse_io.get(k, k)] = v
 
     # unpersist IO objects
-    for gnode in graph.nodes:
+    for gnode in graph.nodes.values():
         io_objs = chain(gnode.inputs, gnode.outputs)
         for io_obj in io_objs:
             if isinstance(io_obj, _InputCache):

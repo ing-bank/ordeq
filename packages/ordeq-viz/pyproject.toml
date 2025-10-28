@@ -20,6 +20,7 @@ maintainers = [
 requires-python = ">=3.10"
 dependencies = [
     "ordeq>=1.2.0",
+    "ordeq-manifest",
 ]
 
 [tool.ordeq-dev]

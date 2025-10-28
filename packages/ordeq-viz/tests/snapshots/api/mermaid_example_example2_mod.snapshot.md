@@ -25,36 +25,36 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
+		subgraph objects["Objects"]
 			L0(["Node"]):::node
 			L1[("IO")]:::io
 		end
-		subgraph IO Types
-			L00[("IO")]:::io0
-			L01[("Input")]:::io1
-			L02[("Output")]:::io2
-			L03[("StringBuffer")]:::io3
+		subgraph io_types["IO Types"]
+			ordeq._io:IO[("IO")]:::io0
+			ordeq._io:Input[("Input")]:::io1
+			ordeq._io:Output[("Output")]:::io2
+			ordeq_common.io.string_buffer:StringBuffer[("StringBuffer")]:::io3
 		end
 	end
 
-	IO0 --> example2.nodes:transform_input_2
-	example2.nodes:transform_input_2 --> IO1
-	IO2 --> example.nodes:world
-	example.nodes:world --> IO3
-	IO4 --> example.nodes:node_with_inline_io
-	example.nodes:node_with_inline_io --> IO5
+	example.nodes:<anonymous0> --> example.nodes:node_with_inline_io
+	example.nodes:node_with_inline_io --> example.nodes:<anonymous1>
+	example.nodes:x --> example.nodes:world
+	example.nodes:world --> example.nodes:y
+	example2.nodes:TestInput2 --> example2.nodes:transform_input_2
+	example2.nodes:transform_input_2 --> example2.nodes:TestOutput2
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		example2.nodes:transform_input_2(["transform_input_2"]):::node
-		example.nodes:world(["world"]):::node
 		example.nodes:node_with_inline_io(["node_with_inline_io"]):::node
-		IO0[("TestInput2")]:::io1
-		IO1[("TestOutput2")]:::io2
-		IO2[("x")]:::io3
-		IO3[("y")]:::io3
-		IO4[("&lt;anonymous&gt;")]:::io0
-		IO5[("&lt;anonymous&gt;")]:::io0
+		example.nodes:world(["world"]):::node
+		example2.nodes:transform_input_2(["transform_input_2"]):::node
+		example.nodes:x[("x")]:::io3
+		example.nodes:y[("y")]:::io3
+		example2.nodes:TestInput2[("TestInput2")]:::io1
+		example2.nodes:TestOutput2[("TestOutput2")]:::io2
+		example.nodes:<anonymous0>[("&lt;anonymous0&gt;")]:::io0
+		example.nodes:<anonymous1>[("&lt;anonymous1&gt;")]:::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF

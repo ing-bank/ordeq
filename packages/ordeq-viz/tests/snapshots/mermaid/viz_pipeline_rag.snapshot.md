@@ -27,63 +27,63 @@ title: "RAG Pipeline"
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
+		subgraph objects["Objects"]
 			L0(["Node"]):::node
 			L1("IO"):::io
 		end
-		subgraph IO Types
-			L00("FaissIndex"):::io0
-			L01("IO"):::io1
-			L02("PandasExcel"):::io2
-			L03("Pickle"):::io3
-			L04("PymupdfFile"):::io4
-			L05("SentenceTransformer"):::io5
+		subgraph io_types["IO Types"]
+			ordeq._io:IO("IO"):::io0
+			ordeq_faiss.index:FaissIndex("FaissIndex"):::io1
+			ordeq_files.pickle:Pickle("Pickle"):::io2
+			ordeq_pandas.excel:PandasExcel("PandasExcel"):::io3
+			ordeq_pymupdf.pdf_file:PymupdfFile("PymupdfFile"):::io4
+			ordeq_sentence_transformers.sentence_transformer:SentenceTransformer("SentenceTransformer"):::io5
 		end
 	end
 
-	IO0 --> rag_pipeline.rag.policies:generate_questions
-	rag_pipeline.rag.policies:generate_questions --> IO1
-	IO2 --> rag_pipeline.rag.indexer:create_vector_index
-	IO3 --> rag_pipeline.rag.indexer:create_vector_index
-	rag_pipeline.rag.indexer:create_vector_index --> IO4
-	IO4 --> rag_pipeline.rag.retrieval:retrieve
-	IO1 --> rag_pipeline.rag.retrieval:retrieve
-	IO3 --> rag_pipeline.rag.retrieval:retrieve
-	rag_pipeline.rag.retrieval:retrieve --> IO5
-	IO5 --> rag_pipeline.rag.retrieval:filter_relevant
-	IO6 --> rag_pipeline.rag.retrieval:filter_relevant
-	rag_pipeline.rag.retrieval:filter_relevant --> IO7
-	IO1 --> rag_pipeline.rag.question_answering:question_answering
-	IO7 --> rag_pipeline.rag.question_answering:question_answering
-	IO6 --> rag_pipeline.rag.question_answering:question_answering
-	rag_pipeline.rag.question_answering:question_answering --> IO8
-	IO8 --> rag_pipeline.rag.evaluation:evaluate_answers
-	IO6 --> rag_pipeline.rag.evaluation:evaluate_answers
-	rag_pipeline.rag.evaluation:evaluate_answers --> IO9
-	IO8 --> rag_pipeline.rag.annotation:annotate_documents
-	IO2 --> rag_pipeline.rag.annotation:annotate_documents
-	rag_pipeline.rag.annotation:annotate_documents --> IO10
+	rag_pipeline.catalog:llm_answers --> rag_pipeline.rag.annotation:annotate_documents
+	rag_pipeline.catalog:pdf_documents --> rag_pipeline.rag.annotation:annotate_documents
+	rag_pipeline.rag.annotation:annotate_documents --> rag_pipeline.catalog:pdfs_documents_annotated
+	rag_pipeline.catalog:llm_answers --> rag_pipeline.rag.evaluation:evaluate_answers
+	rag_pipeline.catalog:llm_model --> rag_pipeline.rag.evaluation:evaluate_answers
+	rag_pipeline.rag.evaluation:evaluate_answers --> rag_pipeline.catalog:metrics
+	rag_pipeline.catalog:pdf_documents --> rag_pipeline.rag.indexer:create_vector_index
+	rag_pipeline.catalog:llm_vision_retrieval_model --> rag_pipeline.rag.indexer:create_vector_index
+	rag_pipeline.rag.indexer:create_vector_index --> rag_pipeline.catalog:index
+	rag_pipeline.catalog:policies --> rag_pipeline.rag.policies:generate_questions
+	rag_pipeline.rag.policies:generate_questions --> rag_pipeline.catalog:questions
+	rag_pipeline.catalog:questions --> rag_pipeline.rag.question_answering:question_answering
+	rag_pipeline.catalog:relevant_pages --> rag_pipeline.rag.question_answering:question_answering
+	rag_pipeline.catalog:llm_model --> rag_pipeline.rag.question_answering:question_answering
+	rag_pipeline.rag.question_answering:question_answering --> rag_pipeline.catalog:llm_answers
+	rag_pipeline.catalog:retrieved_pages --> rag_pipeline.rag.retrieval:filter_relevant
+	rag_pipeline.catalog:llm_model --> rag_pipeline.rag.retrieval:filter_relevant
+	rag_pipeline.rag.retrieval:filter_relevant --> rag_pipeline.catalog:relevant_pages
+	rag_pipeline.catalog:index --> rag_pipeline.rag.retrieval:retrieve
+	rag_pipeline.catalog:questions --> rag_pipeline.rag.retrieval:retrieve
+	rag_pipeline.catalog:llm_vision_retrieval_model --> rag_pipeline.rag.retrieval:retrieve
+	rag_pipeline.rag.retrieval:retrieve --> rag_pipeline.catalog:retrieved_pages
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		rag_pipeline.rag.policies:generate_questions(["generate_questions"]):::node
-		rag_pipeline.rag.indexer:create_vector_index(["create_vector_index"]):::node
-		rag_pipeline.rag.retrieval:retrieve(["retrieve"]):::node
-		rag_pipeline.rag.retrieval:filter_relevant(["filter_relevant"]):::node
-		rag_pipeline.rag.question_answering:question_answering(["question_answering"]):::node
-		rag_pipeline.rag.evaluation:evaluate_answers(["evaluate_answers"]):::node
 		rag_pipeline.rag.annotation:annotate_documents(["annotate_documents"]):::node
-		IO0("policies"):::io2
-		IO1("questions"):::io1
-		IO2("pdf_documents"):::io4
-		IO3("llm_vision_retrieval_model"):::io5
-		IO4("index"):::io0
-		IO5("retrieved_pages"):::io1
-		IO6("llm_model"):::io5
-		IO7("relevant_pages"):::io1
-		IO8("llm_answers"):::io1
-		IO9("metrics"):::io3
-		IO10("pdfs_documents_annotated"):::io4
+		rag_pipeline.rag.evaluation:evaluate_answers(["evaluate_answers"]):::node
+		rag_pipeline.rag.indexer:create_vector_index(["create_vector_index"]):::node
+		rag_pipeline.rag.policies:generate_questions(["generate_questions"]):::node
+		rag_pipeline.rag.question_answering:question_answering(["question_answering"]):::node
+		rag_pipeline.rag.retrieval:filter_relevant(["filter_relevant"]):::node
+		rag_pipeline.rag.retrieval:retrieve(["retrieve"]):::node
+		rag_pipeline.catalog:index("index"):::io1
+		rag_pipeline.catalog:llm_answers("llm_answers"):::io0
+		rag_pipeline.catalog:llm_model("llm_model"):::io5
+		rag_pipeline.catalog:llm_vision_retrieval_model("llm_vision_retrieval_model"):::io5
+		rag_pipeline.catalog:metrics("metrics"):::io2
+		rag_pipeline.catalog:pdf_documents("pdf_documents"):::io4
+		rag_pipeline.catalog:pdfs_documents_annotated("pdfs_documents_annotated"):::io4
+		rag_pipeline.catalog:policies("policies"):::io3
+		rag_pipeline.catalog:questions("questions"):::io0
+		rag_pipeline.catalog:relevant_pages("relevant_pages"):::io0
+		rag_pipeline.catalog:retrieved_pages("retrieved_pages"):::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF

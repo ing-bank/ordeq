@@ -6,7 +6,7 @@ from ordeq._resolve import (
 )
 from ordeq._runner import Runnable
 
-from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
+# from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 
@@ -54,14 +54,14 @@ def viz(
     nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
 
     match fmt:
-        case "kedro-viz":
-            if not output:
-                raise ValueError(
-                    "`output` is required when `fmt` is 'kedro-viz'"
-                )
-            pipeline_to_kedro_viz(
-                nodes, ios, output_directory=output, **options
-            )
+        # case "kedro-viz":
+        #     if not output:
+        #         raise ValueError(
+        #             "`output` is required when `fmt` is 'kedro-viz'"
+        #         )
+        #     pipeline_to_kedro_viz(
+        #         nodes, ios, output_directory=output, **options
+        #     )
         case "mermaid":
             result = pipeline_to_mermaid(nodes, ios, **options)
             if output:

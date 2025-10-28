@@ -21,23 +21,23 @@ print(diagram)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
+		subgraph objects["Objects"]
 			L0(["Node"]):::node
 			L1[("IO")]:::io
 		end
-		subgraph IO Types
-			L00[("StringBuffer")]:::io0
+		subgraph io_types["IO Types"]
+			ordeq_common.io.string_buffer:StringBuffer[("StringBuffer")]:::io0
 		end
 	end
 
-	IO0 --> example:world
-	example:world --> IO1
+	...:x --> example:world
+	example:world --> ...:y
 
 	subgraph pipeline["Pipeline"]
 		direction TB
 		example:world(["world"]):::node
-		IO0[("x")]:::io0
-		IO1[("y")]:::io0
+		...:x[("x")]:::io0
+		...:y[("y")]:::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF

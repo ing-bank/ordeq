@@ -27,24 +27,20 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
+		subgraph objects["Objects"]
 			L0(["Node"]):::node
 			L1[("IO")]:::io
 		end
-		subgraph IO Types
-			L00[("IO")]:::io0
+		subgraph io_types["IO Types"]
+			ordeq._io:IO[("IO")]:::io0
 		end
 	end
 
-	example3.nodes:f2 --> IO0
-	example3.nodes:f1 --> IO1
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		example3.nodes:f2(["f2"]):::node
-		example3.nodes:f1(["f1"]):::node
-		IO0[("&lt;anonymous&gt;")]:::io0
-		IO1[("&lt;anonymous&gt;")]:::io0
+		example3.nodes:<anonymous0>[("&lt;anonymous0&gt;")]:::io0
+		example3.nodes:<anonymous1>[("&lt;anonymous1&gt;")]:::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF

@@ -49,7 +49,7 @@ ValueError: Intentional failure for testing.
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     computed = _run_node(
-        name, patched_nodes[name, node], hooks=hooks, save=save_node
+        patched_nodes[name, node], hooks=hooks, save=save_node
     )
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run

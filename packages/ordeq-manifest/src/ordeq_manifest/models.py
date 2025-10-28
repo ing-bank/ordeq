@@ -1,6 +1,7 @@
 """Ordeq project data models"""
 
 import operator
+from itertools import chain
 from typing import Any
 
 from ordeq import View
@@ -26,6 +27,7 @@ class IOModel(BaseModel):
             id=fqn_to_str(name),
             name=name[1],
             type=fqn_to_str(io_type_fqn),
+            # TODO: this should be the ID of the IO, not the attribute
             references=list(io.references.keys()),
         )
 
@@ -94,6 +96,20 @@ class ProjectModel(BaseModel):
             for name, io in ios.items()
             if (io_model := io_models.get(fqn_to_str(name)))
         }
+
+        # Anonymous IOs
+        idx = 0
+        for (mod, _), node in nodes.items():
+            for obj in chain(node.inputs, node.outputs):
+                if obj not in ios_to_id:
+                    # same module as node
+                    ios_to_id[obj] = f"{mod}:<anonymous{idx}>"
+                    model = IOModel.from_io(((mod, f"<anonymous{idx}>"), obj))
+                    io_models[model.id] = model
+                    idx += 1
+
+        # TODO: update IO references
+
         node_models = {
             node_model.id: node_model
             for node_model in [

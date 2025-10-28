@@ -3531,6 +3531,7 @@ name = "ordeq-viz"
 source = { editable = "packages/ordeq-viz" }
 dependencies = [
     { name = "ordeq" },
+    { name = "ordeq-manifest" },
 ]
 
 [package.dev-dependencies]
@@ -3545,7 +3546,10 @@ test = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "ordeq", editable = "packages/ordeq" }]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "ordeq-manifest", editable = "packages/ordeq-manifest" },
+]
 
 [package.metadata.requires-dev]
 test = [

@@ -21,55 +21,57 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
+		subgraph objects["Objects"]
 			L0(["Node"]):::node
 			L1[("IO")]:::io
 		end
-		subgraph IO Types
-			L00[("IO")]:::io0
-			L01[("MockInput")]:::io1
-			L02[("MockOutput")]:::io2
-			L03[("NameGenerator")]:::io3
-			L04[("NamePrinter")]:::io4
-			L05[("SayHello")]:::io5
-			L06[("StringBuffer")]:::io6
+		subgraph io_types["IO Types"]
+			example.catalog:MockInput[("MockInput")]:::io0
+			example.catalog:MockOutput[("MockOutput")]:::io1
+			example.wrapped_io:NameGenerator[("NameGenerator")]:::io2
+			example.wrapped_io:NamePrinter[("NamePrinter")]:::io3
+			example.wrapped_io:SayHello[("SayHello")]:::io4
+			ordeq._io:IO[("IO")]:::io5
+			ordeq_common.io.string_buffer:StringBuffer[("StringBuffer")]:::io6
 		end
 	end
 
-	IO0 --> example.wrapped_io:hello
-	example.wrapped_io:hello --> IO1
-	IO1 --> example.wrapped_io:print_message
-	example.wrapped_io:print_message --> IO2
-	IO3 --> example.pipeline:transform_mock_input
-	example.pipeline:transform_mock_input --> IO4
-	IO5 --> example.pipeline:transform_input
-	example.pipeline:transform_input --> IO6
-	IO7 --> example.nodes:world
-	example.nodes:world --> IO8
-	IO9 --> example.nodes:node_with_inline_io
-	example.nodes:node_with_inline_io --> IO10
+	example.nodes:<anonymous0> --> example.nodes:node_with_inline_io
+	example.nodes:node_with_inline_io --> example.nodes:<anonymous1>
+	example.nodes:x --> example.nodes:world
+	example.nodes:world --> example.nodes:y
+	example.catalog:TestInput --> example.pipeline:transform_input
+	example.pipeline:transform_input --> example.catalog:TestOutput
+	example.catalog:Hello --> example.pipeline:transform_mock_input
+	example.pipeline:transform_mock_input --> example.catalog:World
+	example.wrapped_io:name_generator --> example.wrapped_io:hello
+	example.wrapped_io:hello --> example.wrapped_io:message
+	example.wrapped_io:message --> example.wrapped_io:print_message
+	example.wrapped_io:print_message --> example.wrapped_io:name_printer
 
-	IO0 -.->|name| IO1
-	IO2 -.->|writer| IO1
 	subgraph pipeline["Pipeline"]
 		direction TB
+		example.nodes:node_with_inline_io(["node_with_inline_io"]):::node
+		example.nodes:world(["world"]):::node
+		example.pipeline:transform_input(["transform_input"]):::node
+		example.pipeline:transform_mock_input(["transform_mock_input"]):::node
 		example.wrapped_io:hello(["hello"]):::node
 		example.wrapped_io:print_message(["print_message"]):::node
-		example.pipeline:transform_mock_input(["transform_mock_input"]):::node
-		example.pipeline:transform_input(["transform_input"]):::node
-		example.nodes:world(["world"]):::node
-		example.nodes:node_with_inline_io(["node_with_inline_io"]):::node
-		IO0[("name_generator")]:::io3
-		IO1[("message")]:::io5
-		IO2[("name_printer")]:::io4
-		IO3[("Hello")]:::io6
-		IO4[("World")]:::io6
-		IO5[("TestInput")]:::io1
-		IO6[("TestOutput")]:::io2
-		IO7[("x")]:::io6
-		IO8[("y")]:::io6
-		IO9[("&lt;anonymous&gt;")]:::io0
-		IO10[("&lt;anonymous&gt;")]:::io0
+		example.catalog:Hello[("Hello")]:::io6
+		example.catalog:TestInput[("TestInput")]:::io0
+		example.catalog:TestOutput[("TestOutput")]:::io1
+		example.catalog:World[("World")]:::io6
+		example.nodes:x[("x")]:::io6
+		example.nodes:y[("y")]:::io6
+		example.pipeline:Hello[("Hello")]:::io6
+		example.pipeline:TestInput[("TestInput")]:::io0
+		example.pipeline:TestOutput[("TestOutput")]:::io1
+		example.pipeline:World[("World")]:::io6
+		example.wrapped_io:message[("message")]:::io4
+		example.wrapped_io:name_generator[("name_generator")]:::io2
+		example.wrapped_io:name_printer[("name_printer")]:::io3
+		example.nodes:<anonymous0>[("&lt;anonymous0&gt;")]:::io5
+		example.nodes:<anonymous1>[("&lt;anonymous1&gt;")]:::io5
 	end
 
 	classDef node fill:#008AD7,color:#FFF

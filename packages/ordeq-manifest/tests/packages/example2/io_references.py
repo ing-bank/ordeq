@@ -11,5 +11,11 @@ class MyIO(Input[str]):
         return "Hello" + self.other_io.load()
 
 
+# unnamed
 test_io = MyIO(other_io=Literal("World!"))
 nested_test_io = MyIO(other_io=MyIO(other_io=Literal("World!")))
+
+# named
+world = Literal("World!")
+named_test_io = MyIO(other_io=world)
+named_nested_test_io = MyIO(other_io=MyIO(other_io=world))

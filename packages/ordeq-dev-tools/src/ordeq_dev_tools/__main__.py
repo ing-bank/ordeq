@@ -1,7 +1,6 @@
 """CLI tools for ordeq development."""
 
 import argparse
-import importlib
 import logging
 import os
 from pathlib import Path
@@ -49,8 +48,7 @@ def main() -> None:
     # Construct full module path with prefix
     module_path = f"ordeq_dev_tools.pipelines.{COMMAND_TO_MODULE[args.command]}"
     os.environ["REPOSITORY_ROOT"] = str(args.repo_path.resolve())
-    mod = importlib.import_module(module_path)
-    run(mod)
+    run(module_path)
 
 
 if __name__ == "__main__":

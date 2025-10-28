@@ -1,7 +1,8 @@
 import logging
 
-import nl
 from ordeq import run
+
+from package import nl
 
 logging.basicConfig(level=logging.INFO)
 

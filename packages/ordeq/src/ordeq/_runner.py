@@ -61,7 +61,11 @@ def _run_node(
         if isinstance(node_input, _InputCache):
             node_input.persist(data)
 
-    logger.info('Running node "%s" in "%s"', name[1], name[0])
+    module_name, node_name = name
+    node_type = "view" if isinstance(node, View) else "node"
+    logger.info(
+        'Running %s "%s" in module "%s"', node_type, node_name, module_name
+    )
 
     try:
         values = node.func(*args)
@@ -187,6 +191,6 @@ def run(
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
     for run_hook in run_hooks:
-        run_hook.after_run(graph, result)  # type: ignore[arg-type]
+        run_hook.after_run(graph)
 
     return result

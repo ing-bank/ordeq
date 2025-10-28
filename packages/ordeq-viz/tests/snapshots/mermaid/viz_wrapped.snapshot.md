@@ -23,8 +23,6 @@ print(diagram)
 ## Output
 
 ```text
-Name: John
-Name: John
 graph TB
 	subgraph legend["Legend"]
 		direction TB
@@ -43,29 +41,29 @@ graph TB
 		end
 	end
 
-	IO0 --> example.wrapped_io:hello
-	example.wrapped_io:hello --> IO1
-	IO1 --> example.wrapped_io:print_message
-	example.wrapped_io:print_message --> IO2
-	IO3 --> example.pipeline:transform_mock_input
-	example.pipeline:transform_mock_input --> IO4
-	IO5 --> example.pipeline:transform_input
-	example.pipeline:transform_input --> IO6
-	IO7 --> example.nodes:world
-	example.nodes:world --> IO8
-	IO9 --> example.nodes:node_with_inline_io
-	example.nodes:node_with_inline_io --> IO10
+	IO0 --> hello
+	hello --> IO1
+	IO1 --> print_message
+	print_message --> IO2
+	IO3 --> transform_mock_input
+	transform_mock_input --> IO4
+	IO5 --> transform_input
+	transform_input --> IO6
+	IO7 --> world
+	world --> IO8
+	IO9 --> node_with_inline_io
+	node_with_inline_io --> IO10
 
 	IO0 -.->|name| IO1
 	IO2 -.->|writer| IO1
 	subgraph pipeline["Pipeline"]
 		direction TB
-		example.wrapped_io:hello(["hello"]):::node
-		example.wrapped_io:print_message(["print_message"]):::node
-		example.pipeline:transform_mock_input(["transform_mock_input"]):::node
-		example.pipeline:transform_input(["transform_input"]):::node
-		example.nodes:world(["world"]):::node
-		example.nodes:node_with_inline_io(["node_with_inline_io"]):::node
+		hello(["hello"]):::node
+		print_message(["print_message"]):::node
+		transform_mock_input(["transform_mock_input"]):::node
+		transform_input(["transform_input"]):::node
+		world(["world"]):::node
+		node_with_inline_io(["node_with_inline_io"]):::node
 		IO0[("name_generator")]:::io3
 		IO1[("message")]:::io5
 		IO2[("name_printer")]:::io4
@@ -108,27 +106,27 @@ graph TB
 		end
 	end
 
-	IO0 --> example.wrapped_io:hello
-	example.wrapped_io:hello --> IO1
-	IO1 --> example.wrapped_io:print_message
-	example.wrapped_io:print_message --> IO2
-	IO3 --> example.pipeline:transform_mock_input
-	example.pipeline:transform_mock_input --> IO4
-	IO5 --> example.pipeline:transform_input
-	example.pipeline:transform_input --> IO6
-	IO7 --> example.nodes:world
-	example.nodes:world --> IO8
-	IO9 --> example.nodes:node_with_inline_io
-	example.nodes:node_with_inline_io --> IO10
+	IO0 --> hello
+	hello --> IO1
+	IO1 --> print_message
+	print_message --> IO2
+	IO3 --> transform_mock_input
+	transform_mock_input --> IO4
+	IO5 --> transform_input
+	transform_input --> IO6
+	IO7 --> world
+	world --> IO8
+	IO9 --> node_with_inline_io
+	node_with_inline_io --> IO10
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		example.wrapped_io:hello(["hello"]):::node
-		example.wrapped_io:print_message(["print_message"]):::node
-		example.pipeline:transform_mock_input(["transform_mock_input"]):::node
-		example.pipeline:transform_input(["transform_input"]):::node
-		example.nodes:world(["world"]):::node
-		example.nodes:node_with_inline_io(["node_with_inline_io"]):::node
+		hello(["hello"]):::node
+		print_message(["print_message"]):::node
+		transform_mock_input(["transform_mock_input"]):::node
+		transform_input(["transform_input"]):::node
+		world(["world"]):::node
+		node_with_inline_io(["node_with_inline_io"]):::node
 		IO0[("name_generator")]:::io3
 		IO1[("message")]:::io5
 		IO2[("name_printer")]:::io4
@@ -152,18 +150,6 @@ graph TB
 	classDef io5 fill:#ffd92f
 	classDef io6 fill:#e5c494
 
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading NameGenerator(name='John')
-INFO	ordeq.runner	Running node "hello" in "example.wrapped_io"
-INFO	ordeq.io	Saving SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))
-INFO	ordeq.io	Saving NamePrinter()
-INFO	ordeq.runner	Running node "print_message" in "example.wrapped_io"
-INFO	ordeq.io	Saving NamePrinter()
 
 ```
 

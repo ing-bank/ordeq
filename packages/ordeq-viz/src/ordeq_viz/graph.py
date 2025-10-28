@@ -5,6 +5,7 @@ from ordeq import IOException, Node
 from ordeq._fqn import FQN, fqn_to_str
 from ordeq._graph import NodeGraph  # noqa: PLC2701 private import
 from ordeq._io import AnyIO
+from ordeq._resolve import Catalog
 
 
 @dataclass
@@ -26,14 +27,13 @@ class IOData:
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
-def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
+def _add_io_data(dataset, reverse_lookup, io_data) -> int:
     """Add IOData for a dataset to the io_data dictionary.
 
     Args:
         dataset: the dataset (Input or Output)
         reverse_lookup: a dictionary mapping dataset IDs to names
         io_data: a dictionary to store IOData objects
-        kind: a string indicating whether the dataset is an Input or Output
 
     Returns:
         The ID of the dataset in the io_data dictionary.
@@ -77,7 +77,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, kind) -> int:
 
 
 def _gather_graph(
-    nodes: dict[FQN, Node], ios: dict[FQN, AnyIO]
+    nodes: dict[FQN, Node], ios: Catalog
 ) -> tuple[list[NodeData], list[IOData]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 
@@ -98,11 +98,11 @@ def _gather_graph(
 
     for name, line in ordering:
         inputs = [
-            _add_io_data(input_dataset, reverse_lookup, io_data, "Input")
+            _add_io_data(input_dataset, reverse_lookup, io_data)
             for input_dataset in line.inputs
         ]
         outputs = [
-            _add_io_data(output_dataset, reverse_lookup, io_data, "Output")
+            _add_io_data(output_dataset, reverse_lookup, io_data)
             for output_dataset in line.outputs
         ]
         nodes_.append(

@@ -4,9 +4,10 @@ from functools import cached_property
 from graphlib import TopologicalSorter
 from typing import TypeAlias
 
-from ordeq._fqn import FQN, fqn_to_str, str_to_fqn
 from ordeq._io import AnyIO
+from ordeq._fqn import FQN, fqn_to_str, str_to_fqn
 from ordeq._nodes import Node, View
+
 
 try:
     from typing import Self  # type: ignore[attr-defined]

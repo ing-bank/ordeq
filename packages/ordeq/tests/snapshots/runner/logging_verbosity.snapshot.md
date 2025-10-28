@@ -16,7 +16,7 @@ plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
 minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
 square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
 
-nodes = {(n.__module__, n.__name__): get_node(n) for n in (plus, minus, square)}
+nodes = [get_node(n) for n in (plus, minus, square)]
 _run_graph(NodeGraph.from_nodes(nodes))
 
 ```
@@ -25,7 +25,13 @@ _run_graph(NodeGraph.from_nodes(nodes))
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "<lambda>" in "logging_verbosity"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```

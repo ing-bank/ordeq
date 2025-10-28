@@ -75,15 +75,16 @@ NodeGraph:
 
 ```text
 INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-INFO	ordeq.runner	Running node "increment" in "runner_exhausted_stream"
+INFO	ordeq.runner	Running node "increment" in module "runner_exhausted_stream"
 INFO	ordeq.io	Saving Stream(data=[])
 INFO	ordeq.io	Loading Literal('2')
-INFO	ordeq.runner	Running node "multiply" in "runner_exhausted_stream"
+INFO	ordeq.runner	Running node "multiply" in module "runner_exhausted_stream"
 INFO	ordeq.io	Saving Stream(data=[])
 INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-INFO	ordeq.runner	Running node "increment" in "runner_exhausted_stream"
+INFO	ordeq.runner	Running node "increment" in module "runner_exhausted_stream"
 INFO	ordeq.io	Loading Literal('2')
-INFO	ordeq.runner	Running node "multiply" in "runner_exhausted_stream"
+INFO	ordeq.runner	Running node "multiply" in module "runner_exhausted_stream"
+INFO	ordeq.io	Saving Stream(data=[])
 
 ```
 

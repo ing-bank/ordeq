@@ -43,8 +43,8 @@ Hello, World! == Hello, World!'
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_inputs_same_view_twice:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "hello" in "node_inputs_same_view_twice"
-INFO	ordeq.runner	Running node "n" in "node_inputs_same_view_twice"
+INFO	ordeq.runner	Running view "hello" in module "node_inputs_same_view_twice"
+INFO	ordeq.runner	Running node "n" in module "node_inputs_same_view_twice"
 INFO	ordeq.io	Saving Print()
 
 ```

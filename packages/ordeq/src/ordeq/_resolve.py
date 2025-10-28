@@ -73,10 +73,11 @@ def _resolve_packages_to_modules(
 def _resolve_runnables_to_modules(
     *runnables: str | ModuleType,
 ) -> Generator[tuple[str, ModuleType]]:
-    modules = {}
+    modules: dict[str, ModuleType] = {}
     for runnable in runnables:
-        if isinstance(runnable, ModuleType):
-            modules[runnable.__name__] = runnable
+        if _is_module(runnable):
+            # mypy false positive
+            modules[runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
         elif isinstance(runnable, str):
             mod = _resolve_string_to_module(runnable)
             modules[mod.__name__] = mod
@@ -108,7 +109,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> dict[FQN, Node]:
     }
 
 
-def _resolve_module_to_ios(module: ModuleType) -> dict[FQN, AnyIO]:
+def _resolve_module_to_ios(module: ModuleType) -> Catalog:
     """Find all `IO` objects defined in the provided module
 
     Args:
@@ -217,10 +218,11 @@ def _resolve_runnables_to_nodes_and_modules(
     modules_and_strs: list[ModuleType | str] = []
     nodes: dict[FQN, Node] = {}
     for runnable in runnables:
-        if isinstance(runnable, ModuleType) or (
+        if _is_module(runnable) or (
             isinstance(runnable, str) and ":" not in runnable
         ):
-            modules_and_strs.append(runnable)
+            # mypy false positive
+            modules_and_strs.append(runnable)  # type: ignore[arg-type]
         elif callable(runnable):
             # TODO: here we should search the module
             nodes[runnable.__module__, runnable.__name__] = get_node(runnable)
@@ -254,7 +256,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> dict[FQN, Node]:
     return nodes
 
 
-def _check_missing_ios(nodes: dict[FQN, Node], ios: dict[FQN, AnyIO]) -> None:
+def _check_missing_ios(nodes: dict[FQN, Node], ios: Catalog) -> None:
     missing_ios: set[AnyIO | View] = set()
     for node in nodes.values():
         for inp in node.inputs:
@@ -274,7 +276,7 @@ def _check_missing_ios(nodes: dict[FQN, Node], ios: dict[FQN, AnyIO]) -> None:
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: Runnable,
-) -> tuple[dict[FQN, Node], dict[FQN, AnyIO]]:
+) -> tuple[dict[FQN, Node], Catalog]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:
@@ -297,3 +299,7 @@ def _resolve_runnables_to_nodes_and_ios(
         ios.update(_resolve_module_to_ios(module))
 
     return nodes, ios
+
+
+# Type aliases
+Catalog: TypeAlias = dict[FQN, AnyIO]

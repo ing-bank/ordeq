@@ -103,8 +103,8 @@ INFO	ordeq.io	Loading Literal(0    False
 1    False
 2    False
 Name: B, dtype: bool)
-INFO	ordeq.runner	Running node "filter_df" in "standalone_view_df_filter"
-INFO	ordeq.runner	Running node "group_by" in "standalone_view_df_filter"
+INFO	ordeq.runner	Running view "filter_df" in module "standalone_view_df_filter"
+INFO	ordeq.runner	Running view "group_by" in module "standalone_view_df_filter"
 
 ```
 

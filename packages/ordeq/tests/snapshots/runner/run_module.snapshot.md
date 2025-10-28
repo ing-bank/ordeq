@@ -25,10 +25,10 @@ NodeGraph:
 
 ```text
 INFO	ordeq.io	Loading Literal(12345)
-INFO	ordeq.runner	Running node "increment" in "resources.runner.example_module_a"
+INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_a"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "decrement" in "resources.runner.example_module_a"
+INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_module_a"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 
 ```

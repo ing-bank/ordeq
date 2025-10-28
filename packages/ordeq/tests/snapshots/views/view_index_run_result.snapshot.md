@@ -25,15 +25,15 @@ print(view, 'computed', result[view])
 
 ```text
 KeyError: <function view at HASH1>
-  File "/packages/ordeq/tests/resources/views/view_index_run_result.py", line 17, in <module>
+  File "/packages/ordeq/tests/resources/views/view_index_run_result.py", line LINO, in <module>
     print(view, 'computed', result[view])
                             ~~~~~~^^^^^^
 
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
 
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 84, in run_module
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
@@ -51,8 +51,8 @@ None
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_index_run_result:view'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "view" in "view_index_run_result"
-INFO	ordeq.runner	Running node "hello" in "view_index_run_result"
+INFO	ordeq.runner	Running view "view" in module "view_index_run_result"
+INFO	ordeq.runner	Running node "hello" in module "view_index_run_result"
 INFO	ordeq.io	Saving Print()
 
 ```

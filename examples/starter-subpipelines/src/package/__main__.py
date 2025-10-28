@@ -1,7 +1,8 @@
 import logging
 
-import nl  # or, import usa, or import your_subpipeline_name
 from ordeq import run
+
+from package import nl
 
 logging.basicConfig(level=logging.INFO)
 

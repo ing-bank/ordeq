@@ -1,3 +1,10 @@
+"""Object references to fully qualified names (FQNs) conversion utilities.
+
+Object references are represented as strings in the format "module:name",
+while fully qualified names (FQNs) are represented as tuples of the form
+(module, name).
+"""
+
 from __future__ import annotations
 
 from typing import TypeAlias

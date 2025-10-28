@@ -63,16 +63,16 @@ NodeGraph:
 
 ```text
 INFO	ordeq.io	Loading Literal(1)
-INFO	ordeq.runner	Running node "increment" in "runner_io"
+INFO	ordeq.runner	Running node "increment" in module "runner_io"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "decrement" in "runner_io"
+INFO	ordeq.runner	Running node "decrement" in module "runner_io"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.io	Loading Literal(2)
-INFO	ordeq.runner	Running node "increment" in "runner_io"
+INFO	ordeq.runner	Running node "increment" in module "runner_io"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading Literal('33')
-INFO	ordeq.runner	Running node "decrement" in "runner_io"
+INFO	ordeq.runner	Running node "decrement" in module "runner_io"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```

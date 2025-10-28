@@ -34,11 +34,11 @@ NodeGraph:
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'run_module_and_node:noop'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(12345)
-INFO	ordeq.runner	Running node "increment" in "resources.runner.example_module_a"
+INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_a"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "noop" in "run_module_and_node"
+INFO	ordeq.runner	Running view "noop" in module "run_module_and_node"
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "decrement" in "resources.runner.example_module_a"
+INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_module_a"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 
 ```

@@ -4,6 +4,7 @@ import operator
 from typing import Any
 
 from ordeq import Node, View
+from ordeq._resolve import Catalog
 from ordeq._fqn import FQN, fqn_to_str
 from ordeq._resolve import AnyIO
 from pydantic import BaseModel, Field
@@ -19,11 +20,10 @@ class IOModel(BaseModel):
 
     @classmethod
     def from_io(cls, name: FQN, io: AnyIO) -> "IOModel":
-        idx = fqn_to_str(name)
         io_type = type(io)
         io_type_fqn = (io_type.__module__, io_type.__name__)
         return cls(
-            id=idx,
+            id=fqn_to_str(name),
             name=name[1],
             type=fqn_to_str(io_type_fqn),
             references=list(io.references.keys()),
@@ -61,7 +61,7 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls, name: str, nodes: dict[FQN, Node], ios: dict[FQN, AnyIO]
+        cls, name: str, nodes: dict[FQN, Node], ios: Catalog
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 

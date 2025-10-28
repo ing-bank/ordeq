@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import (
     TYPE_CHECKING,
-    Any,
     Protocol,
     TypeAlias,
     TypeVar,
@@ -11,7 +10,7 @@ from typing import (
 
 if TYPE_CHECKING:
     from ordeq._graph import NodeGraph
-    from ordeq._io import AnyIO, Input, Output
+    from ordeq._io import Input, Output
     from ordeq._nodes import Node
 
 T = TypeVar("T")
@@ -104,12 +103,11 @@ class RunHook(Protocol):
 
         return
 
-    def after_run(self, graph: NodeGraph, data: dict[AnyIO, Any]) -> None:
+    def after_run(self, graph: NodeGraph) -> None:
         """Triggered after the graph is run.
 
         Args:
             graph: the graph object
-            data: mapping of all inputs and outputs to their loaded/saved data
         """
         return
 

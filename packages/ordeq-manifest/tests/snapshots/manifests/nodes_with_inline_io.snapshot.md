@@ -17,12 +17,8 @@ KeyError: Literal('Buenos dias')
             ~~~~~~~~~^^^
 
   File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line LINO, in from_nodes_and_ios
-    node.name: NodeModel.from_node(
-               ~~~~~~~~~~~~~~~~~~~^
-        str_to_fqn(node.name), node, ios_to_id
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
+    fqn_to_str(name): NodeModel.from_node(name, node, ios_to_id)
+                      ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq-manifest/src/ordeq_manifest/manifest.py", line LINO, in create_manifest
     return ProjectModel.from_nodes_and_ios(name=name, nodes=nodes, ios=ios)

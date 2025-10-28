@@ -2,12 +2,13 @@ import operator
 from collections import defaultdict
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import TypeAlias
+from typing import TYPE_CHECKING, TypeAlias
 
-from ordeq._io import AnyIO
 from ordeq._fqn import FQN, fqn_to_str, str_to_fqn
 from ordeq._nodes import Node, View
 
+if TYPE_CHECKING:
+    from ordeq._io import AnyIO
 
 try:
     from typing import Self  # type: ignore[attr-defined]

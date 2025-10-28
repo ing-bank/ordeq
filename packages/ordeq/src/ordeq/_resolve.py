@@ -6,7 +6,7 @@ import importlib
 import pkgutil
 from collections.abc import Generator, Iterable, Sequence
 from types import ModuleType
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from ordeq._fqn import FQN, str_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook

@@ -3,8 +3,8 @@ from itertools import cycle
 from typing import Any
 
 from ordeq import Node
-from ordeq._resolve import Catalog
 from ordeq._fqn import FQN
+from ordeq._resolve import Catalog
 
 from ordeq_viz.graph import _gather_graph
 

@@ -36,13 +36,13 @@ graph TB
 		end
 	end
 
-	hello --> IO0
-	hello --> IO1
+	example3.nodes:f2 --> IO0
+	example3.nodes:f1 --> IO1
 
 	subgraph pipeline["Pipeline"]
 		direction TB
-		hello(["hello"]):::node
-		hello(["hello"]):::node
+		example3.nodes:f2(["f2"]):::node
+		example3.nodes:f1(["f1"]):::node
 		IO0[("&lt;anonymous&gt;")]:::io0
 		IO1[("&lt;anonymous&gt;")]:::io0
 	end
@@ -62,8 +62,8 @@ Hello, world!
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running view "hello" in module "example3.func_defs"
-INFO	ordeq.runner	Running view "hello" in module "example3.func_defs"
+INFO	ordeq.runner	Running view "f2" in module "example3.nodes"
+INFO	ordeq.runner	Running view "f1" in module "example3.nodes"
 
 ```
 

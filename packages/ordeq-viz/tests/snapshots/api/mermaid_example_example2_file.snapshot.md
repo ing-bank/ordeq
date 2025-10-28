@@ -39,32 +39,32 @@ graph TB
 		end
 	end
 
-	IO0 --> hello
-	hello --> IO1
-	IO2 --> transform_input_2
-	transform_input_2 --> IO3
-	IO1 --> print_message
-	print_message --> IO4
-	IO5 --> transform_mock_input
-	transform_mock_input --> IO6
-	IO7 --> transform_input
-	transform_input --> IO8
-	IO9 --> world
-	world --> IO10
-	IO11 --> node_with_inline_io
-	node_with_inline_io --> IO12
+	IO0 --> example.wrapped_io:hello
+	example.wrapped_io:hello --> IO1
+	IO2 --> example2.nodes:transform_input_2
+	example2.nodes:transform_input_2 --> IO3
+	IO1 --> example.wrapped_io:print_message
+	example.wrapped_io:print_message --> IO4
+	IO5 --> example.pipeline:transform_mock_input
+	example.pipeline:transform_mock_input --> IO6
+	IO7 --> example.pipeline:transform_input
+	example.pipeline:transform_input --> IO8
+	IO9 --> example.nodes:world
+	example.nodes:world --> IO10
+	IO11 --> example.nodes:node_with_inline_io
+	example.nodes:node_with_inline_io --> IO12
 
 	IO0 -.->|name| IO1
 	IO4 -.->|writer| IO1
 	subgraph pipeline["Pipeline"]
 		direction TB
-		hello(["hello"]):::node
-		transform_input_2(["transform_input_2"]):::node
-		print_message(["print_message"]):::node
-		transform_mock_input(["transform_mock_input"]):::node
-		transform_input(["transform_input"]):::node
-		world(["world"]):::node
-		node_with_inline_io(["node_with_inline_io"]):::node
+		example.wrapped_io:hello(["hello"]):::node
+		example2.nodes:transform_input_2(["transform_input_2"]):::node
+		example.wrapped_io:print_message(["print_message"]):::node
+		example.pipeline:transform_mock_input(["transform_mock_input"]):::node
+		example.pipeline:transform_input(["transform_input"]):::node
+		example.nodes:world(["world"]):::node
+		example.nodes:node_with_inline_io(["node_with_inline_io"]):::node
 		IO0[("name_generator")]:::io4
 		IO1[("message")]:::io7
 		IO4[("name_printer")]:::io5

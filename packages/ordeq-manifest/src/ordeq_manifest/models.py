@@ -4,9 +4,8 @@ import operator
 from typing import Any
 
 from ordeq import Node, View
-from ordeq._resolve import Catalog
-from ordeq._fqn import FQN, fqn_to_str
-from ordeq._resolve import AnyIO
+from ordeq._fqn import FQN, fqn_to_str  # noqa: PLC2701
+from ordeq._resolve import AnyIO, Catalog
 from pydantic import BaseModel, Field
 
 

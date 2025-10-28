@@ -14,7 +14,7 @@ COMMAND_TO_MODULE: Final[dict[str, str]] = {
     "changed_packages": "list_changed_packages",
     "list_dependencies": "list_dependencies",
     "viz_tools": "viz_self",
-    "compute_relevant_packages": "compute_relevant_packages",
+    "compute_relevant_packages": "relevant_packages",
     "generate_draft_releases": "generate_draft_releases",
     "docs_contributing_just": "docs_update_just",
     "docs_package_overview": "docs_package_overview",

@@ -18,7 +18,7 @@ def just_output() -> str:
     Returns:
             Output of `just --list` command.
     """
-    return run_command(["just"])
+    return run_command(["just"]) or ""
 
 
 @node(inputs=just_output)

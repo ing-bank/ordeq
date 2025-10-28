@@ -11,7 +11,7 @@ ordeq_dev_tools_diagram = Text(path=DATA_PATH / "ordeq_dev_tools_diagram.mmd")
 
 
 @node(outputs=ordeq_dev_tools_diagram)
-def vizualize_ordeq_dev_tools() -> str:
+def visualize_ordeq_dev_tools() -> str:
     """Visualize the development tools using a mermaid diagram.
 
     Returns:

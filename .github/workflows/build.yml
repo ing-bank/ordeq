@@ -47,11 +47,11 @@ jobs:
         id: list-changed-packages
         run: |
           uv run -m ordeq_dev_tools changed_packages
-          changed_pkgs="changed-packages=$(cat scripts/changed_packages.json)"
+          changed_pkgs="changed-packages=$(cat data/dev_tools/changed_packages.json)"
           echo "$changed_pkgs"
           uv run -m ordeq_dev_tools list_dependencies
           uv run -m ordeq_dev_tools compute_relevant_packages
-          relevant_pkgs="changed-packages=$(cat scripts/relevant_packages.json)"
+          relevant_pkgs="changed-packages=$(cat data/dev_tools/relevant_packages.json)"
           echo "$relevant_pkgs"
           echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
 

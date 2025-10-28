@@ -8,6 +8,7 @@ RESOURCE_DIR = TESTS_DIR / "resources"
 SNAPSHOT_DIR = TESTS_DIR / "snapshots"
 
 
+@pytest.mark.snapshot
 @pytest.mark.parametrize(
     ("file_path", "snapshot_path"),
     [
@@ -21,10 +22,10 @@ SNAPSHOT_DIR = TESTS_DIR / "snapshots"
     ],
 )
 def test_resource(
-    file_path: Path, snapshot_path: Path, capsys, caplog, packages
+    file_path: Path, snapshot_path: Path, capsys, caplog, recwarn, packages
 ) -> None:
     diff = compare_resources_against_snapshots(
-        file_path, snapshot_path, caplog, capsys
+        file_path, snapshot_path, caplog, capsys, recwarn
     )
     if diff:
         pytest.fail(f"Output does not match snapshot:\n{diff}")

@@ -3,10 +3,12 @@ import importlib.util
 import logging
 import re
 import sys
+import traceback
 from pathlib import Path
 
 from _pytest.capture import CaptureFixture
 from _pytest.logging import LogCaptureFixture
+from _pytest.recwarn import WarningsRecorder
 from mypy import api as mypy_api
 
 
@@ -82,7 +84,11 @@ def run_module(file_path: Path) -> str | None:
     try:
         spec.loader.exec_module(module)
     except Exception as e:
-        return f"{type(e).__name__}: {e}"
+        exception = f"{type(e).__name__}: {e}"
+        traceback_str = "\n".join(
+            reversed(traceback.format_tb(e.__traceback__))
+        )
+        return exception + "\n" + traceback_str
     return None
 
 
@@ -100,8 +106,20 @@ def make_output_invariant(output: str) -> str:
     captured = replace_uuid4(replace_object_hashes(output))
 
     # Normalize platform-specific paths
+
+    # /Users/.../uv/python/cpython-3.13.7-macos-aarch64-none/lib/python3.13/
+    stdlib_path = str(Path(traceback.__file__).parent)
+
+    # /Users/.../Documents/code/ordeq-oss/... => "..."
+    root_path = str(Path(__file__).parent.parent.parent.parent.parent)
+
+    # File ".../_runner.py", line 140  => "File ".../_runner.py", line LINO
+    captured = re.sub(r"(line )\d+", r"\1LINO", captured)
+
     return (
-        captured.replace("PosixPath", "Path")
+        captured.replace(root_path, "")
+        .replace(stdlib_path, "")
+        .replace("PosixPath", "Path")
         .replace("WindowsPath", "Path")
         .replace("\\", "/")
     )
@@ -134,7 +152,10 @@ def _as_md_text_block(text: str) -> str:
 
 
 def capture_module(
-    file_path: Path, caplog: LogCaptureFixture, capsys: CaptureFixture
+    file_path: Path,
+    caplog: LogCaptureFixture,
+    capsys: CaptureFixture,
+    recwarn: WarningsRecorder,
 ) -> str:
     """Capture the output, logging, errors, and typing feedback from running
     a Python module.
@@ -143,6 +164,7 @@ def capture_module(
         file_path: The path to the Python file to run.
         caplog: The pytest caplog fixture for capturing logs.
         capsys: The pytest capsys fixture for capturing stdout/stderr.
+        recwarn: The pytest recwarn fixture for capturing warnings.
 
     Returns:
         The normalized captured output as a string.
@@ -166,6 +188,11 @@ def capture_module(
         sections["Output"] = _as_md_text_block(captured_out_err.out)
     if captured_out_err.err:
         sections["Error"] = _as_md_text_block(captured_out_err.err)
+    if len(recwarn) > 0:
+        warnings_text = "\n".join(
+            f"{w.category.__name__}: {w.message}" for w in recwarn
+        )
+        sections["Warnings"] = _as_md_text_block(warnings_text)
     if caplog.text:
         sections["Logging"] = _as_md_text_block(caplog.text)
 
@@ -208,6 +235,7 @@ def compare_resources_against_snapshots(
     snapshot_path: Path,
     caplog: LogCaptureFixture,
     capsys: CaptureFixture,
+    recwarn: WarningsRecorder,
 ) -> str | None:
     """Compare the output of a resource file against its snapshot, updating
     the snapshot if different.
@@ -217,12 +245,13 @@ def compare_resources_against_snapshots(
         snapshot_path: The path to the snapshot file to compare against.
         caplog: The pytest caplog fixture for capturing logs.
         capsys: The pytest capsys fixture for capturing stdout/stderr.
+        recwarn: The pytest recwarn fixture for capturing warnings.
 
     Returns:
         A unified diff string if the outputs differ, otherwise None.
     """
     # Capture module output
-    captured = capture_module(file_path, caplog, capsys)
+    captured = capture_module(file_path, caplog, capsys, recwarn)
 
     # Read expected content
     expected = (

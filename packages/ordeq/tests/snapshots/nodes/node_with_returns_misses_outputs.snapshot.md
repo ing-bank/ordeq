@@ -19,6 +19,6 @@ run(func)
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_with_returns_misses_outputs:func'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node View(name=node_with_returns_misses_outputs:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.runner	Running view "func" in module "node_with_returns_misses_outputs"
 
 ```

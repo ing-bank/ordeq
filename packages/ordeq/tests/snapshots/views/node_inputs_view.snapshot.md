@@ -32,8 +32,8 @@ NodeGraph:
      node_inputs_view:hello -> [node_inputs_view:n]
      node_inputs_view:n -> []
   Nodes:
-     View(name=node_inputs_view:hello)
-     Node(name=node_inputs_view:n, inputs=[View(name=node_inputs_view:hello)], outputs=[Print()])
+     node_inputs_view:hello: View(name=node_inputs_view:hello)
+     node_inputs_view:n: Node(name=node_inputs_view:n, inputs=[View(name=node_inputs_view:hello)], outputs=[Print()])
 She said 'Hello, World!'
 {View(name=node_inputs_view:hello): 'Hello, World!', Print(): "She said 'Hello, World!'"}
 
@@ -43,8 +43,8 @@ She said 'Hello, World!'
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_inputs_view:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node View(name=node_inputs_view:hello)
-INFO	ordeq.runner	Running node Node(name=node_inputs_view:n, inputs=[IO(idx=ID1)], outputs=[Print()])
+INFO	ordeq.runner	Running view "hello" in module "node_inputs_view"
+INFO	ordeq.runner	Running node "n" in module "node_inputs_view"
 INFO	ordeq.io	Saving Print()
 
 ```

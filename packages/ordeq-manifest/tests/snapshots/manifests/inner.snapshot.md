@@ -14,14 +14,14 @@ print(create_manifest_json(inner))
 {
   "name": "examples.project.inner",
   "nodes": {
-    "nodes.examples.project.inner.nodes:func": {
-      "id": "nodes.examples.project.inner.nodes:func",
-      "name": "examples.project.inner.nodes:func",
+    "examples.project.inner.nodes:func": {
+      "id": "examples.project.inner.nodes:func",
+      "name": "func",
       "inputs": [
-        "examples.project.inner.nodes.x"
+        "examples.project.inner.nodes:x"
       ],
       "outputs": [
-        "examples.project.inner.nodes.y"
+        "examples.project.inner.nodes:y"
       ],
       "attributes": {
         "tags": [
@@ -31,16 +31,16 @@ print(create_manifest_json(inner))
     }
   },
   "ios": {
-    "examples.project.inner.nodes.x": {
-      "id": "examples.project.inner.nodes.x",
+    "examples.project.inner.nodes:x": {
+      "id": "examples.project.inner.nodes:x",
       "name": "x",
-      "type": "ordeq._io.IO",
+      "type": "ordeq._io:IO",
       "references": []
     },
-    "examples.project.inner.nodes.y": {
-      "id": "examples.project.inner.nodes.y",
+    "examples.project.inner.nodes:y": {
+      "id": "examples.project.inner.nodes:y",
       "name": "y",
-      "type": "ordeq_common.io.printer.Print",
+      "type": "ordeq_common.io.printer:Print",
       "references": []
     }
   }

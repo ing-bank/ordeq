@@ -1,5 +1,6 @@
-import catalog
 from ordeq import node
+
+from package import catalog
 
 
 @node(inputs=catalog.user, outputs=catalog.yaml)

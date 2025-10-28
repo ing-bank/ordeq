@@ -11,8 +11,6 @@ print(result)
 ## Output
 
 ```text
-Name: John
-Name: John
 graph TB
 	subgraph legend["Legend"]
 		direction TB
@@ -77,17 +75,5 @@ graph TB
 	classDef io5 fill:#ffd92f
 	classDef io6 fill:#e5c494
 
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading NameGenerator(name='John')
-INFO	ordeq.runner	Running node Node(name=example.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])
-INFO	ordeq.io	Saving SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))
-INFO	ordeq.io	Saving NamePrinter()
-INFO	ordeq.runner	Running node Node(name=example.wrapped_io:print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()])
-INFO	ordeq.io	Saving NamePrinter()
 
 ```

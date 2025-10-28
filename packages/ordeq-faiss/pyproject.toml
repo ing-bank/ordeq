@@ -23,10 +23,8 @@ dependencies = [
     "faiss-cpu",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = ""
 
 [dependency-groups]

@@ -14,14 +14,14 @@ print(create_manifest_json(nodes))
 {
   "name": "examples.project.nodes",
   "nodes": {
-    "nodes.examples.project.nodes:func": {
-      "id": "nodes.examples.project.nodes:func",
-      "name": "examples.project.nodes:func",
+    "examples.project.nodes:func": {
+      "id": "examples.project.nodes:func",
+      "name": "func",
       "inputs": [
-        "examples.project.nodes.x"
+        "examples.project.nodes:x"
       ],
       "outputs": [
-        "examples.project.nodes.y"
+        "examples.project.nodes:y"
       ],
       "attributes": {
         "tags": [
@@ -31,16 +31,16 @@ print(create_manifest_json(nodes))
     }
   },
   "ios": {
-    "examples.project.nodes.x": {
-      "id": "examples.project.nodes.x",
+    "examples.project.nodes:x": {
+      "id": "examples.project.nodes:x",
       "name": "x",
-      "type": "ordeq._io.IO",
+      "type": "ordeq._io:IO",
       "references": []
     },
-    "examples.project.nodes.y": {
-      "id": "examples.project.nodes.y",
+    "examples.project.nodes:y": {
+      "id": "examples.project.nodes:y",
       "name": "y",
-      "type": "ordeq_common.io.printer.Print",
+      "type": "ordeq_common.io.printer:Print",
       "references": []
     }
   }

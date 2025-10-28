@@ -14,72 +14,72 @@ print(create_manifest_json(nodes_import_reassign))
 {
   "name": "examples.project.nodes_import_reassign",
   "nodes": {
-    "nodes.examples.project.nodes_import_reassign:func_a": {
-      "id": "nodes.examples.project.nodes_import_reassign:func_a",
-      "name": "examples.project.nodes_import_reassign:func_a",
+    "examples.project.nodes_import_reassign:func_a": {
+      "id": "examples.project.nodes_import_reassign:func_a",
+      "name": "func_a",
       "inputs": [
-        "examples.project.nodes_import_reassign.AA",
-        "examples.project.nodes_import_reassign.BB"
+        "examples.project.nodes_import_reassign:AA",
+        "examples.project.nodes_import_reassign:BB"
       ],
       "outputs": [
-        "examples.project.nodes_import_reassign.f"
+        "examples.project.nodes_import_reassign:f"
       ],
       "attributes": {}
     },
-    "nodes.examples.project.nodes_import_reassign:func_b": {
-      "id": "nodes.examples.project.nodes_import_reassign:func_b",
-      "name": "examples.project.nodes_import_reassign:func_b",
+    "examples.project.nodes_import_reassign:func_b": {
+      "id": "examples.project.nodes_import_reassign:func_b",
+      "name": "func_b",
       "inputs": [
-        "examples.project.nodes_import_reassign.AA",
-        "examples.project.nodes_import_reassign.BB"
+        "examples.project.nodes_import_reassign:AA",
+        "examples.project.nodes_import_reassign:BB"
       ],
       "outputs": [
-        "examples.project.nodes_import_reassign.f"
+        "examples.project.nodes_import_reassign:f"
       ],
       "attributes": {}
     }
   },
   "ios": {
-    "examples.project.nodes_import_reassign.A": {
-      "id": "examples.project.nodes_import_reassign.A",
+    "examples.project.nodes_import_reassign:A": {
+      "id": "examples.project.nodes_import_reassign:A",
       "name": "A",
-      "type": "ordeq_common.io.literal.Literal",
+      "type": "ordeq_common.io.literal:Literal",
       "references": []
     },
-    "examples.project.nodes_import_reassign.AA": {
-      "id": "examples.project.nodes_import_reassign.AA",
+    "examples.project.nodes_import_reassign:AA": {
+      "id": "examples.project.nodes_import_reassign:AA",
       "name": "AA",
-      "type": "ordeq_common.io.literal.Literal",
+      "type": "ordeq_common.io.literal:Literal",
       "references": []
     },
-    "examples.project.nodes_import_reassign.B": {
-      "id": "examples.project.nodes_import_reassign.B",
+    "examples.project.nodes_import_reassign:B": {
+      "id": "examples.project.nodes_import_reassign:B",
       "name": "B",
-      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "type": "ordeq_common.io.string_buffer:StringBuffer",
       "references": []
     },
-    "examples.project.nodes_import_reassign.BB": {
-      "id": "examples.project.nodes_import_reassign.BB",
+    "examples.project.nodes_import_reassign:BB": {
+      "id": "examples.project.nodes_import_reassign:BB",
       "name": "BB",
-      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "type": "ordeq_common.io.string_buffer:StringBuffer",
       "references": []
     },
-    "examples.project.nodes_import_reassign.a": {
-      "id": "examples.project.nodes_import_reassign.a",
+    "examples.project.nodes_import_reassign:a": {
+      "id": "examples.project.nodes_import_reassign:a",
       "name": "a",
-      "type": "ordeq_common.io.literal.Literal",
+      "type": "ordeq_common.io.literal:Literal",
       "references": []
     },
-    "examples.project.nodes_import_reassign.b": {
-      "id": "examples.project.nodes_import_reassign.b",
+    "examples.project.nodes_import_reassign:b": {
+      "id": "examples.project.nodes_import_reassign:b",
       "name": "b",
-      "type": "ordeq_common.io.string_buffer.StringBuffer",
+      "type": "ordeq_common.io.string_buffer:StringBuffer",
       "references": []
     },
-    "examples.project.nodes_import_reassign.f": {
-      "id": "examples.project.nodes_import_reassign.f",
+    "examples.project.nodes_import_reassign:f": {
+      "id": "examples.project.nodes_import_reassign:f",
       "name": "f",
-      "type": "ordeq_common.io.printer.Print",
+      "type": "ordeq_common.io.printer:Print",
       "references": []
     }
   }

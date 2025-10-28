@@ -1,14 +1,20 @@
 """Resolve packages and modules to nodes and IOs."""
 
+from __future__ import annotations
+
 import importlib
 import pkgutil
-from collections.abc import Callable, Generator, Iterable, Sequence
+from collections.abc import Generator, Iterable, Sequence
 from types import ModuleType
-from typing import Any
+from typing import TYPE_CHECKING, Any, TypeAlias
 
-from ordeq._hook import NodeHook, RunHook
-from ordeq._io import IO, Input, Output
+from ordeq._fqn import FQN, str_to_fqn
+from ordeq._hook import NodeHook, RunHook, RunnerHook
+from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node
+
+if TYPE_CHECKING:
+    from ordeq._runner import Runnable
 
 
 def _is_module(obj: object) -> bool:
@@ -23,7 +29,7 @@ def _is_io(obj: object) -> bool:
     return isinstance(obj, (IO, Input, Output))
 
 
-def _get_io_sequence(value: Any) -> list[Input | Output | IO]:
+def _get_io_sequence(value: Any) -> list[AnyIO]:
     if _is_io(value):
         return [value]
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
@@ -51,7 +57,7 @@ def _resolve_string_to_module(name: str) -> ModuleType:
 
 def _resolve_packages_to_modules(
     modules: Iterable[tuple[str, ModuleType]],
-) -> Generator[tuple[str, ModuleType], None, None]:
+) -> Generator[tuple[str, ModuleType]]:
     for name, module in modules:
         yield name, module
         if _is_package(module):
@@ -66,11 +72,12 @@ def _resolve_packages_to_modules(
 
 def _resolve_runnables_to_modules(
     *runnables: str | ModuleType,
-) -> Generator[tuple[str, ModuleType], None, None]:
-    modules = {}
+) -> Generator[tuple[str, ModuleType]]:
+    modules: dict[str, ModuleType] = {}
     for runnable in runnables:
-        if isinstance(runnable, ModuleType):
-            modules[runnable.__name__] = runnable
+        if _is_module(runnable):
+            # mypy false positive
+            modules[runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
         elif isinstance(runnable, str):
             mod = _resolve_string_to_module(runnable)
             modules[mod.__name__] = mod
@@ -99,9 +106,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
     return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
 
 
-def _resolve_module_to_ios(
-    module: ModuleType,
-) -> dict[tuple[str, str], IO | Input | Output]:
+def _resolve_module_to_ios(module: ModuleType) -> Catalog:
     """Find all `IO` objects defined in the provided module
 
     Args:
@@ -127,12 +132,10 @@ def _resolve_node_reference(ref: str) -> Node:
         The resolved Node object
 
     Raises:
-        ValueError: if the node cannot be found in the module
+        ValueError: if the node cannot be found.
     """
 
-    if ":" not in ref:
-        raise ValueError(f"Invalid node reference: '{ref}'.")
-    module_name, _, node_name = ref.partition(":")
+    module_name, node_name = str_to_fqn(ref)
     module = _resolve_string_to_module(module_name)
     node_obj = getattr(module, node_name, None)
     if node_obj is None or not _is_node(node_obj):
@@ -142,7 +145,7 @@ def _resolve_node_reference(ref: str) -> Node:
     return get_node(node_obj)
 
 
-def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
+def _resolve_hook_reference(ref: str) -> RunnerHook:
     """Resolves a hook reference string of the form 'package.module:hook_name'.
 
     Args:
@@ -152,12 +155,10 @@ def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
         The resolved Hook object.
 
     Raises:
-        ValueError: if the hook cannot be found or is not a valid Hook object.
+        ValueError: if the hook cannot be found.
     """
 
-    if ":" not in ref:
-        raise ValueError(f"Invalid hook reference: '{ref}'.")
-    module_name, _, hook_name = ref.partition(":")
+    module_name, hook_name = str_to_fqn(ref)
     module = _resolve_string_to_module(module_name)
     hook_obj = getattr(module, hook_name, None)
     if hook_obj is None or not isinstance(hook_obj, (NodeHook, RunHook)):
@@ -168,7 +169,7 @@ def _resolve_hook_reference(ref: str) -> NodeHook | RunHook:
 
 
 def _resolve_hooks(
-    *hooks: str | NodeHook | RunHook,
+    *hooks: str | RunnerHook,
 ) -> tuple[list[RunHook], list[NodeHook]]:
     """Resolves a hook which can be a reference string or a Hook object.
 
@@ -197,7 +198,7 @@ def _resolve_hooks(
 
 
 def _resolve_runnables_to_nodes_and_modules(
-    *runnables: str | ModuleType | Callable,
+    *runnables: Runnable,
 ) -> tuple[set[Node], set[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
@@ -214,10 +215,11 @@ def _resolve_runnables_to_nodes_and_modules(
     modules_and_strs: list[ModuleType | str] = []
     nodes = set()
     for runnable in runnables:
-        if isinstance(runnable, ModuleType) or (
+        if _is_module(runnable) or (
             isinstance(runnable, str) and ":" not in runnable
         ):
-            modules_and_strs.append(runnable)
+            # mypy false positive
+            modules_and_strs.append(runnable)  # type: ignore[arg-type]
         elif callable(runnable):
             nodes.add(get_node(runnable))
         elif isinstance(runnable, str):
@@ -232,9 +234,7 @@ def _resolve_runnables_to_nodes_and_modules(
     return nodes, modules
 
 
-def _resolve_runnables_to_nodes(
-    *runnables: ModuleType | Callable | str,
-) -> set[Node]:
+def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -251,10 +251,8 @@ def _resolve_runnables_to_nodes(
     return nodes
 
 
-def _check_missing_ios(
-    nodes: set[Node], ios: dict[str, IO | Input | Output]
-) -> None:
-    missing_ios: set[IO | Input | Output | View] = set()
+def _check_missing_ios(nodes: set[Node], ios: Catalog) -> None:
+    missing_ios: set[AnyIO | View] = set()
     for node in nodes:
         for inp in node.inputs:
             if inp not in ios.values():
@@ -272,8 +270,8 @@ def _check_missing_ios(
 
 
 def _resolve_runnables_to_nodes_and_ios(
-    *runnables: str | ModuleType | Callable,
-) -> tuple[set[Node], dict[tuple[str, str], IO | Input | Output]]:
+    *runnables: Runnable,
+) -> tuple[set[Node], Catalog]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:
@@ -286,6 +284,7 @@ def _resolve_runnables_to_nodes_and_ios(
 
     ios = {}
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
+
     for node in nodes:
         mod = _resolve_string_to_module(node.func.__module__)
         ios.update(_resolve_module_to_ios(mod))
@@ -295,3 +294,7 @@ def _resolve_runnables_to_nodes_and_ios(
         ios.update(_resolve_module_to_ios(module))
 
     return nodes, ios
+
+
+# Type aliases
+Catalog: TypeAlias = dict[FQN, AnyIO]

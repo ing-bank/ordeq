@@ -35,8 +35,8 @@ NodeGraph:
      view_response_iter:concatenate -> []
      view_response_iter:users_lines -> [view_response_iter:concatenate]
   Nodes:
-     View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])])
-     View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
+     view_response_iter:concatenate: View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])])
+     view_response_iter:users_lines: View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
 b'{'
 b'  "id": 1,'
 b'  "name": "Leanne Graham",'
@@ -70,7 +70,7 @@ b'}'
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:users_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:concatenate'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<Response [200]>)
-INFO	ordeq.runner	Running node View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
-INFO	ordeq.runner	Running node View(name=view_response_iter:concatenate, inputs=[IO(idx=ID1)])
+INFO	ordeq.runner	Running view "users_lines" in module "view_response_iter"
+INFO	ordeq.runner	Running view "concatenate" in module "view_response_iter"
 
 ```

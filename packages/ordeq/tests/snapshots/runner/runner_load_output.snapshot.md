@@ -29,6 +29,28 @@ run(my_node, load_node)
 
 ```text
 AttributeError: 'Example' object has no attribute 'load'
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    cast("Input", input_dataset).load() for input_dataset in node.inputs
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
+    computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+
+  File "/packages/ordeq/tests/resources/runner/runner_load_output.py", line LINO, in <module>
+    run(my_node, load_node)
+    ~~~^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
 ```
 
 ## Output
@@ -42,7 +64,7 @@ saving! Hello, World!
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'runner_load_output:load_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node Node(name=runner_load_output:my_node, outputs=[Output(idx=ID1)])
+INFO	ordeq.runner	Running node "my_node" in module "runner_load_output"
 INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```

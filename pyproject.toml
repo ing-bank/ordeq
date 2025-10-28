@@ -95,6 +95,7 @@ omit = [
 addopts = "--doctest-modules --import-mode=importlib"
 markers = [
     "docker: marks tests that require (deselect with '-m \"not docker\"')",
+    "snapshot: marks tests that use snapshot testing (deselect with '-m \"not snapshot\"')",
 ]
 norecursedirs = ["build", "resources"]
 pythonpath = ["src", "tests"]

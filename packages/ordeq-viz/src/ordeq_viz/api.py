@@ -1,11 +1,10 @@
-from collections.abc import Callable
 from pathlib import Path
-from types import ModuleType
 from typing import Any, Literal, overload
 
 from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
 )
+from ordeq._runner import Runnable
 
 from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
@@ -13,7 +12,7 @@ from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 @overload
 def viz(
-    *runnables: str | ModuleType | Callable,
+    *runnables: Runnable,
     fmt: Literal["kedro-viz", "mermaid"],
     output: Path,
     **options: Any,
@@ -22,7 +21,7 @@ def viz(
 
 @overload
 def viz(
-    *runnables: str | ModuleType | Callable,
+    *runnables: Runnable,
     fmt: Literal["mermaid"],
     output: None = None,
     **options: Any,
@@ -30,7 +29,7 @@ def viz(
 
 
 def viz(
-    *runnables: str | ModuleType | Callable,
+    *runnables: Runnable,
     fmt: Literal["kedro-viz", "mermaid"],
     output: Path | None = None,
     **options: Any,

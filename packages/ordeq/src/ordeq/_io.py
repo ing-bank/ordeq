@@ -5,7 +5,7 @@ import inspect
 import logging
 from collections.abc import Callable
 from functools import cached_property, reduce, wraps
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, TypeAlias, TypeVar
 from uuid import uuid4
 
 try:
@@ -29,7 +29,7 @@ Tin = TypeVar("Tin")
 Tout = TypeVar("Tout")
 
 
-def _find_references(attributes) -> dict[str, list[Input | Output | IO]]:
+def _find_references(attributes) -> dict[str, list[AnyIO]]:
     """Find all attributes of type Input, Output, or IO.
 
     Args:
@@ -204,7 +204,7 @@ class _InputReferences(_BaseInput[Tin]):
     Used for compartmentalizing reference tracking, no reuse."""
 
     @cached_property
-    def references(self) -> dict[str, list[Input | Output | IO]]:
+    def references(self) -> dict[str, list[AnyIO]]:
         """Find all attributes of type Input, Output, or IO on the object.
 
         Returns:
@@ -458,7 +458,7 @@ class _OutputReferences(_BaseOutput[Tout], Generic[Tout]):
     Used for compartmentalizing reference tracking, no reuse."""
 
     @cached_property
-    def references(self) -> dict[str, list[Input | Output | IO]]:
+    def references(self) -> dict[str, list[AnyIO]]:
         """Find all attributes of type Input, Output, or IO on the object.
 
         Returns:
@@ -581,3 +581,7 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
     def __repr__(self):
         return f"IO(idx={self._idx})"
+
+
+# Type aliases
+AnyIO: TypeAlias = Input | Output | IO

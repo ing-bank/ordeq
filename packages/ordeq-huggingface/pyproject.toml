@@ -23,10 +23,8 @@ dependencies = [
     "datasets",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://cdn.worldvectorlogo.com/logos/huggingface-2.svg"
 
 [dependency-groups]

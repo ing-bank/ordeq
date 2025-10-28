@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+# Cancel in-progress runs on the same PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 env:
   pythonVersion: '3.13'
 
@@ -14,27 +19,52 @@ jobs:
     uses: ./.github/workflows/docs.yml
 
   packages:
-    name: List packages
+    name: List changed packages
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.list-packages.outputs.packages }}
+      changed-packages: ${{ steps.list-changed-packages.outputs.changed-packages }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: List packages in repository
+      - name: Set up Python ${{ env.pythonVersion }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.pythonVersion }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: false
+
+      - name: List changed packages
+        id: list-changed-packages
+        run: |
+          uv run scripts/list_changed_packages.py
+          changed_pkgs="changed-packages=$(cat scripts/changed_packages.json)"
+          echo "$changed_pkgs"
+          uv run scripts/list_dependencies.py
+          uv run scripts/relevant_packages.py
+          relevant_pkgs="changed-packages=$(cat scripts/relevant_packages.json)"
+          echo "$relevant_pkgs"
+          echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
+
+      - name: List packages
         id: list-packages
         run: |
-          echo "packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')" >> ${GITHUB_OUTPUT}
+          all_pkgs="packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')"
+          echo "$all_pkgs"
+          echo "$all_pkgs" >> ${GITHUB_OUTPUT}
 
   static_code_analysis:
     name: Check formatting, linting and typing
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python ${{ env.pythonVersion }}
         uses: actions/setup-python@v5
@@ -73,7 +103,7 @@ jobs:
         package: ${{ fromJson(needs.packages.outputs.packages) }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python ${{ env.pythonVersion }}
         uses: actions/setup-python@v5
@@ -101,6 +131,7 @@ jobs:
   complete:
     name: All checks passed
     runs-on: ubuntu-latest
+    if: always()
     needs:
       - test
       - static_code_analysis
@@ -108,5 +139,7 @@ jobs:
       - packages
 
     steps:
-      - name: Complete
-        run: echo "🎉"
+    - name: Decide whether the needed jobs succeeded or failed
+      uses: re-actors/alls-green@release/v1
+      with:
+        jobs: ${{ toJSON(needs) }}

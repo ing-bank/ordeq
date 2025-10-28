@@ -10,7 +10,7 @@ class RunTimer(RunHook):
     def before_run(self, graph):
         self.start_time = time()
 
-    def after_run(self, graph, data):
+    def after_run(self, graph):
         end_time = time()
         elapsed_time = end_time - self.start_time
         print(f"Total run time: {elapsed_time:.1f} seconds")

@@ -14,29 +14,29 @@ print(create_manifest_json(nodes_with_view))
 {
   "name": "examples.project.nodes_with_view",
   "nodes": {
-    "nodes.examples.project.nodes_with_view:farewell": {
-      "id": "nodes.examples.project.nodes_with_view:farewell",
-      "name": "examples.project.nodes_with_view:farewell",
+    "examples.project.nodes_with_view:farewell": {
+      "id": "examples.project.nodes_with_view:farewell",
+      "name": "farewell",
       "inputs": [
-        "examples.project.nodes_with_view.greeting"
+        "examples.project.nodes_with_view:greeting"
       ],
       "outputs": [
-        "examples.project.nodes_with_view.printer"
+        "examples.project.nodes_with_view:printer"
       ],
       "attributes": {}
     }
   },
   "ios": {
-    "examples.project.nodes_with_view.greeting": {
-      "id": "examples.project.nodes_with_view.greeting",
+    "examples.project.nodes_with_view:greeting": {
+      "id": "examples.project.nodes_with_view:greeting",
       "name": "greeting",
-      "type": "ordeq_common.io.literal.Literal",
+      "type": "ordeq_common.io.literal:Literal",
       "references": []
     },
-    "examples.project.nodes_with_view.printer": {
-      "id": "examples.project.nodes_with_view.printer",
+    "examples.project.nodes_with_view:printer": {
+      "id": "examples.project.nodes_with_view:printer",
       "name": "printer",
-      "type": "ordeq_common.io.printer.Print",
+      "type": "ordeq_common.io.printer:Print",
       "references": []
     }
   }

@@ -2,10 +2,10 @@ import logging
 from collections.abc import Callable, Sequence
 from itertools import chain
 from types import ModuleType
-from typing import Literal, TypeVar, cast
+from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._graph import NodeGraph
-from ordeq._hook import NodeHook, RunHook
+from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
@@ -14,7 +14,9 @@ logger = logging.getLogger("ordeq.runner")
 
 T = TypeVar("T")
 
-DataStoreType = dict[Input[T] | Output[T] | View, T]
+DataStoreType: TypeAlias = dict[Input[T] | Output[T] | View, T]
+
+Runnable: TypeAlias = ModuleType | Callable | str
 # The save mode determines which outputs are saved. When set to:
 # - 'all', all outputs are saved, including those of intermediate nodes.
 # - 'sinks', only outputs of sink nodes are saved, i.e. those w/o successors.
@@ -22,7 +24,7 @@ DataStoreType = dict[Input[T] | Output[T] | View, T]
 # Future extension:
 # - 'last', which saves the output of the last node for which no error
 # occurred. This can be useful for debugging.
-SaveMode = Literal["all", "sinks", "none"]
+SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 
 def _save_outputs(
@@ -58,7 +60,11 @@ def _run_node(
         if isinstance(node_input, _InputCache):
             node_input.persist(data)
 
-    logger.info("Running node %s", node)
+    module_name, _, node_name = node.name.partition(":")
+    node_type = "view" if isinstance(node, View) else "node"
+    logger.info(
+        'Running %s "%s" in module "%s"', node_type, node_name, module_name
+    )
 
     try:
         values = node.func(*args)
@@ -148,8 +154,8 @@ def _run_graph(
 
 
 def run(
-    *runnables: ModuleType | Callable | str,
-    hooks: Sequence[NodeHook | RunHook | str] = (),
+    *runnables: Runnable,
+    hooks: Sequence[RunnerHook | str] = (),
     save: SaveMode = "all",
     verbose: bool = False,
     io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
@@ -182,6 +188,6 @@ def run(
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
     for run_hook in run_hooks:
-        run_hook.after_run(graph, result)  # type: ignore[arg-type]
+        run_hook.after_run(graph)
 
     return result

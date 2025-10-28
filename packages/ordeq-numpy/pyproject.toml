@@ -23,10 +23,8 @@ dependencies = [
     "numpy",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://numpy.org/images/logo.svg"
 
 [dependency-groups]

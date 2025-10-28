@@ -13,7 +13,7 @@ class RunTimer(RunHook):
     def before_run(self, graph):
         self.start_time = time()
 
-    def after_run(self, graph, data):
+    def after_run(self, graph):
         end_time = time()
         elapsed_time = end_time - self.start_time
         print(f"Total run time: {elapsed_time:.1f} seconds")
@@ -47,9 +47,9 @@ Total run time: 0.0 seconds
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node Node(name=run_hooks:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+INFO	ordeq.runner	Running node "func2" in module "run_hooks"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node Node(name=run_hooks:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+INFO	ordeq.runner	Running node "func1" in module "run_hooks"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

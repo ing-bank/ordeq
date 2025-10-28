@@ -2,7 +2,7 @@
 
 ```python
 from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
-from ordeq_viz import pipeline_to_mermaid
+from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 import example  # ty: ignore[unresolved-import]
 

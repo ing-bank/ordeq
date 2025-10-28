@@ -25,10 +25,10 @@ def sink(s: str) -> None:
 
 
 # This should succeed, as it produces the placeholder IO's value
-run(hello_from_someone, sink, verbose=True)
+print(run(hello_from_someone, sink, verbose=True))
 
 # This should fail: it attempts to load placeholder IO
-run(sink, verbose=True)
+print(run(sink, verbose=True))
 
 ```
 
@@ -111,16 +111,14 @@ IOException: Failed to load IO(idx=ID1).
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save, io=io)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
   File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line LINO, in <module>
-    run(sink, verbose=True)
-    ~~~^^^^^^^^^^^^^^^^^^^^
+    print(run(sink, verbose=True))
+          ~~~^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
@@ -141,18 +139,19 @@ NodeGraph:
      view_takes_node_output:sink -> []
      view_takes_node_output:what_i_heard -> [view_takes_node_output:sink]
   Nodes:
-     Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])
-     View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
-     View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
+     view_takes_node_output:hello_from_someone: Node(name=view_takes_node_output:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(idx=ID1)])
+     view_takes_node_output:sink: View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
+     view_takes_node_output:what_i_heard: View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
 I heard that Jane said 'Hello'
 None
+{IO(idx=ID1): "Jane said 'Hello'", View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)]): None, View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])]): None}
 NodeGraph:
   Edges:
      view_takes_node_output:sink -> []
      view_takes_node_output:what_i_heard -> [view_takes_node_output:sink]
   Nodes:
-     View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
-     View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
+     view_takes_node_output:sink: View(name=view_takes_node_output:sink, inputs=[View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])])
+     view_takes_node_output:what_i_heard: View(name=view_takes_node_output:what_i_heard, inputs=[IO(idx=ID1)])
 
 ```
 

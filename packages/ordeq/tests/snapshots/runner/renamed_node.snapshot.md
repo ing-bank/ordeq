@@ -19,7 +19,7 @@ NodeGraph:
   Edges:
      resources.runner.example_module_b:increment -> []
   Nodes:
-     Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+     resources.runner.example_module_b:increment: Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
 
 ```
 

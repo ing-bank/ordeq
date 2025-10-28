@@ -54,8 +54,8 @@ NodeGraph:
      shared_resource_deterministic:first -> []
      shared_resource_deterministic:second -> []
   Nodes:
-     Node(name=shared_resource_deterministic:first, outputs=[File])
-     View(name=shared_resource_deterministic:second, inputs=[File])
+     shared_resource_deterministic:first: Node(name=shared_resource_deterministic:first, outputs=[File])
+     shared_resource_deterministic:second: View(name=shared_resource_deterministic:second, inputs=[File])
 
 
 ```

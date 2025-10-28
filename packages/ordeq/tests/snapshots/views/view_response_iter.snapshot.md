@@ -35,8 +35,8 @@ NodeGraph:
      view_response_iter:concatenate -> []
      view_response_iter:users_lines -> [view_response_iter:concatenate]
   Nodes:
-     View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])])
-     View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
+     view_response_iter:concatenate: View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])])
+     view_response_iter:users_lines: View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
 b'{'
 b'  "id": 1,'
 b'  "name": "Leanne Graham",'

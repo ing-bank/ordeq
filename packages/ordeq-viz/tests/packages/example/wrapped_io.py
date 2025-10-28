@@ -45,4 +45,5 @@ def print_message(message: str) -> str:
     return message
 
 
-run(hello, print_message)
+if __name__ == "__main__":
+    run(hello, print_message)

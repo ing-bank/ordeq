@@ -28,8 +28,7 @@ from ordeq_common import Literal
 from ordeq_files import JSON
 from ordeq_viz import viz
 from packaging.version import Version
-
-from .utils import run_command
+from utils import run_command  # ty: ignore[unresolved-import]
 
 REPO_ROOT: Path = Path(__file__).resolve().parent.parent
 

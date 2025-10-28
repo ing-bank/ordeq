@@ -55,8 +55,8 @@ NodeGraph:
      shared_resource_nondeterministic:first -> []
      shared_resource_nondeterministic:second -> []
   Nodes:
-     Node(name=shared_resource_nondeterministic:first, outputs=[File])
-     Node(name=shared_resource_nondeterministic:second, outputs=[File])
+     shared_resource_nondeterministic:first: Node(name=shared_resource_nondeterministic:first, outputs=[File])
+     shared_resource_nondeterministic:second: Node(name=shared_resource_nondeterministic:second, outputs=[File])
 
 ```
 

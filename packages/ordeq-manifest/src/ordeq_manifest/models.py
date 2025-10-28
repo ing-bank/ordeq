@@ -4,7 +4,8 @@ import operator
 from typing import Any
 
 from ordeq import Node, View
-from ordeq._resolve import FQN, AnyIO, Catalog
+from ordeq._fqn import FQN, fqn_to_str, str_to_fqn  # noqa: PLC2701
+from ordeq._resolve import AnyIO, Catalog
 from pydantic import BaseModel, Field
 
 
@@ -18,12 +19,12 @@ class IOModel(BaseModel):
 
     @classmethod
     def from_io(cls, name: FQN, io: AnyIO) -> "IOModel":
-        idx = ".".join(name)
-        t = type(io)
+        io_type = type(io)
+        io_type_fqn = (io_type.__module__, io_type.__name__)
         return cls(
-            id=idx,
+            id=fqn_to_str(name),
             name=name[1],
-            type=f"{t.__module__}.{t.__name__}",
+            type=fqn_to_str(io_type_fqn),
             references=list(io.references.keys()),
         )
 
@@ -42,7 +43,7 @@ class NodeModel(BaseModel):
         cls, name: FQN, node: Node, ios_to_id: dict[AnyIO, str]
     ) -> "NodeModel":
         return cls(
-            id=".".join(name),
+            id=fqn_to_str(name),
             name=name[1],
             inputs=[ios_to_id[i] for i in node.inputs],  # type: ignore[index,arg-type]
             outputs=[ios_to_id[o] for o in node.outputs],
@@ -76,17 +77,17 @@ class ProjectModel(BaseModel):
         nodes_ = [node for node in nodes if not isinstance(node, View)]
 
         io_models = {
-            ".".join(name): IOModel.from_io(name, io)
+            fqn_to_str(name): IOModel.from_io(name, io)
             for name, io in sorted(ios.items(), key=operator.itemgetter(0))
         }
         ios_to_id = {
             io: io_model.id
             for name, io in ios.items()
-            if (io_model := io_models.get(".".join(name)))
+            if (io_model := io_models.get(fqn_to_str(name)))
         }
         node_models = {
-            f"nodes.{node.name}": NodeModel.from_node(
-                ("nodes", node.name), node, ios_to_id
+            node.name: NodeModel.from_node(
+                str_to_fqn(node.name), node, ios_to_id
             )
             for node in sorted(nodes_, key=lambda obj: obj.name)
         }

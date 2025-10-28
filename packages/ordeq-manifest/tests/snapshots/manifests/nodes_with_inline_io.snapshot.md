@@ -17,10 +17,10 @@ KeyError: Literal('Buenos dias')
             ~~~~~~~~~^^^
 
   File "/packages/ordeq-manifest/src/ordeq_manifest/models.py", line LINO, in from_nodes_and_ios
-    f"nodes.{node.name}": NodeModel.from_node(
-                          ~~~~~~~~~~~~~~~~~~~^
-        ("nodes", node.name), node, ios_to_id
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    node.name: NodeModel.from_node(
+               ~~~~~~~~~~~~~~~~~~~^
+        str_to_fqn(node.name), node, ios_to_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
 

@@ -2,14 +2,20 @@ from collections import defaultdict
 from collections.abc import Iterable
 from functools import cached_property
 from graphlib import TopologicalSorter
+from typing import TYPE_CHECKING, TypeAlias
 
 from ordeq._nodes import Node, View
+
+if TYPE_CHECKING:
+    from ordeq._io import AnyIO
 
 try:
     from typing import Self  # type: ignore[attr-defined]
 except ImportError:
     from typing_extensions import Self
-EdgesType = dict[Node, list[Node]]
+
+
+EdgesType: TypeAlias = dict[Node, list[Node]]
 
 
 def _collect_views(nodes: set[Node]) -> set[View]:
@@ -42,11 +48,11 @@ def _build_graph(nodes: Iterable[Node]) -> EdgesType:
         ValueError: if an output is defined by more than one node
     """
 
-    output_to_node: dict = {
+    output_to_node: dict[View | AnyIO, View | Node] = {
         view: view for view in nodes if isinstance(view, View)
     }
     input_to_nodes: defaultdict = defaultdict(list)
-    edges: dict = {node: [] for node in nodes}
+    edges: EdgesType = {node: [] for node in nodes}
     for node in nodes:
         if isinstance(node, Node):
             for output_ in node.outputs:
@@ -155,5 +161,7 @@ class NodeGraph:
             targets_str = ", ".join(t.name for t in targets)
             lines.append(f"     {node.name} -> [{targets_str}]")
         lines.append("  Nodes:")
-        lines.extend(f"     {node!r}" for node in self.sorted_edges)
+        lines.extend(
+            f"     {node.name}: {node!r}" for node in self.sorted_edges
+        )
         return "\n".join(lines)

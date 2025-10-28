@@ -13,9 +13,15 @@ run(
 ## Exception
 
 ```text
-ValueError: Invalid hook reference: 'invalid'.
+ValueError: Invalid object reference: 'invalid'. Expected format 'module:name'.
+  File "/packages/ordeq/src/ordeq/_fqn.py", line LINO, in str_to_fqn
+    raise ValueError(
+    ...<2 lines>...
+    )
+
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_hook_reference
-    raise ValueError(f"Invalid hook reference: '{ref}'.")
+    module_name, hook_name = str_to_fqn(ref)
+                             ~~~~~~~~~~^^^^^
 
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_hooks
     resolved_hook = _resolve_hook_reference(hook)

@@ -15,18 +15,18 @@ print(create_manifest_json(example2))
   "name": "example2",
   "nodes": {},
   "ios": {
-    "example2.io_references.nested_test_io": {
-      "id": "example2.io_references.nested_test_io",
+    "example2.io_references:nested_test_io": {
+      "id": "example2.io_references:nested_test_io",
       "name": "nested_test_io",
-      "type": "example2.io_references.MyIO",
+      "type": "example2.io_references:MyIO",
       "references": [
         "other_io"
       ]
     },
-    "example2.io_references.test_io": {
-      "id": "example2.io_references.test_io",
+    "example2.io_references:test_io": {
+      "id": "example2.io_references:test_io",
       "name": "test_io",
-      "type": "example2.io_references.MyIO",
+      "type": "example2.io_references:MyIO",
       "references": [
         "other_io"
       ]

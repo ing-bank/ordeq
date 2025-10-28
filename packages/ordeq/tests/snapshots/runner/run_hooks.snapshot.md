@@ -13,7 +13,7 @@ class RunTimer(RunHook):
     def before_run(self, graph):
         self.start_time = time()
 
-    def after_run(self, graph, data):
+    def after_run(self, graph):
         end_time = time()
         elapsed_time = end_time - self.start_time
         print(f"Total run time: {elapsed_time:.1f} seconds")
@@ -37,25 +37,10 @@ run(func1, func2, hooks=[RunTimer()])
 
 ```
 
-## Exception
+## Output
 
 ```text
-TypeError: RunTimer.after_run() missing 1 required positional argument: 'data'
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    run_hook.after_run(graph)
-    ~~~~~~~~~~~~~~~~~~^^^^^^^
-
-  File "/packages/ordeq/tests/resources/runner/run_hooks.py", line LINO, in <module>
-    run(func1, func2, hooks=[RunTimer()])
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+Total run time: 0.0 seconds
 
 ```
 

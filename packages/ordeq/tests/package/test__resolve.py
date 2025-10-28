@@ -69,7 +69,7 @@ def test_resolve_node_by_reference_not_a_node(packages) -> None:
 
 def test_resolve_node_by_reference_no_module() -> None:
     with pytest.raises(
-        ValueError, match="Invalid node reference: 'invalidformat'"
+        ValueError, match="Invalid object reference: 'invalidformat'"
     ):
         _resolve_node_reference("invalidformat")
 

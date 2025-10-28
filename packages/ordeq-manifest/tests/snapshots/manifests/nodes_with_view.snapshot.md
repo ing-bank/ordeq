@@ -27,6 +27,12 @@ print(create_manifest_json(nodes_with_view))
     }
   },
   "ios": {
+    "examples.project.nodes_with_view:<anonymous0>": {
+      "id": "examples.project.nodes_with_view:<anonymous0>",
+      "name": "<anonymous0>",
+      "type": "ordeq._io:IO",
+      "references": []
+    },
     "examples.project.nodes_with_view:greeting": {
       "id": "examples.project.nodes_with_view:greeting",
       "name": "greeting",

@@ -19,7 +19,7 @@ jobs:
     uses: ./.github/workflows/docs.yml
 
   packages:
-    name: List packages
+    name: List changed packages
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.list-packages.outputs.packages }}
@@ -29,7 +29,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: List packages in repository
+      - name: Set up Python ${{ env.pythonVersion }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.pythonVersion }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: false
+
+      - name: List changed packages
+        id: list-changed-packages
+        run: |
+          uv run scripts/list_changed_packages.py
+          echo "packages=$(cat scripts/changed_packages.json)"
+
+#      - name: No changed packages check
+#        if: fromJson(steps.list-packages.outputs.packages) == '[]'
+#        run: |
+#          echo "No packages were changed, skipping tests"
+
+      - name: List packages
         id: list-packages
         run: |
           echo "packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')" >> ${GITHUB_OUTPUT}
@@ -39,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python ${{ env.pythonVersion }}
         uses: actions/setup-python@v5
@@ -78,7 +99,7 @@ jobs:
         package: ${{ fromJson(needs.packages.outputs.packages) }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python ${{ env.pythonVersion }}
         uses: actions/setup-python@v5

@@ -14,8 +14,6 @@ logger = logging.getLogger("ordeq.runner")
 
 T = TypeVar("T")
 
-DataStoreType: TypeAlias = dict[Input[T] | Output[T] | View, T]
-
 Runnable: TypeAlias = ModuleType | Callable | str
 # The save mode determines which outputs are saved. When set to:
 # - 'all', all outputs are saved, including those of intermediate nodes.
@@ -29,16 +27,11 @@ SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 def _save_outputs(
     node: Node, values: Sequence[T], save: bool = True
-) -> DataStoreType:
-    computed: DataStoreType = {}
+) -> None:
     for output_dataset, data in zip(node.outputs, values, strict=False):
-        computed[output_dataset] = data
-
         # TODO: this can be handled in the `save_wrapper`
         if save:
             output_dataset.save(data)
-
-    return computed
 
 
 def _run_node(
@@ -80,12 +73,12 @@ def _run_node(
     else:
         values = tuple(values)
 
-    computed = _save_outputs(node, values, save=save)
+    _save_outputs(node, values, save=save)
 
     # persisting computed data only if outputs are loaded again later
-    for node_output in node.outputs:
-        if isinstance(node_output, _InputCache):
-            node_output.persist(computed[node_output])  # ty: ignore[call-non-callable]
+    for output, data in zip(node.outputs, values, strict=True):
+        if isinstance(output, _InputCache):
+            output.persist(data)
 
     for node_hook in hooks:
         node_hook.after_node_run(node)
@@ -119,7 +112,8 @@ def _run_graph(
     # Apply the patches:
     patched_nodes: dict[Node, Node] = {}
     for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
+        patched_nodes[node] = node._patch_io(
+            io_ or {})  # noqa: SLF001 (private access)
 
     # TODO: Create _Patch wrapper for IO?
     for node in graph.topological_ordering:

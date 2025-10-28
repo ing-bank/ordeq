@@ -25,9 +25,7 @@ Runnable: TypeAlias = ModuleType | Callable | str
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 
-def _save_outputs(
-    node: Node, values: Sequence[T], save: bool = True
-) -> None:
+def _save_outputs(node: Node, values: Sequence[T], save: bool = True) -> None:
     for output_dataset, data in zip(node.outputs, values, strict=False):
         # TODO: this can be handled in the `save_wrapper`
         if save:
@@ -112,8 +110,7 @@ def _run_graph(
     # Apply the patches:
     patched_nodes: dict[Node, Node] = {}
     for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(
-            io_ or {})  # noqa: SLF001 (private access)
+        patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
 
     # TODO: Create _Patch wrapper for IO?
     for node in graph.topological_ordering:

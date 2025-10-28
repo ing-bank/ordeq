@@ -3013,6 +3013,7 @@ version = "0.1.0"
 source = { editable = "packages/ordeq-dev-tools" }
 dependencies = [
     { name = "ordeq" },
+    { name = "ordeq-args" },
     { name = "ordeq-common" },
     { name = "ordeq-files" },
     { name = "ordeq-toml" },
@@ -3023,6 +3024,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
+    { name = "ordeq-args", editable = "packages/ordeq-args" },
     { name = "ordeq-common", editable = "packages/ordeq-common" },
     { name = "ordeq-files", editable = "packages/ordeq-files" },
     { name = "ordeq-toml", editable = "packages/ordeq-toml" },

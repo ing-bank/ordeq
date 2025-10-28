@@ -23,13 +23,13 @@ ROOT_PATH = Path(__file__).parent.parent
 
 affected_dependencies = JSON(
     path=ROOT_PATH / "scripts" / "affected_dependencies.json"
-).with_save_options(indent=4)
+)
 packages = JSON(
     path=Path(__file__).parent / "changed_packages.json"
-).with_save_options(indent=4)
+)
 relevant_packages = JSON(
     path=Path(__file__).parent / "relevant_packages.json"
-).with_save_options(indent=4)
+)
 
 
 @node(inputs=[packages, affected_dependencies], outputs=relevant_packages)

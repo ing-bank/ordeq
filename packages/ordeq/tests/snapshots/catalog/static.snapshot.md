@@ -15,8 +15,7 @@ def func1(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-run(func1)
-print(catalog.result.load())
+print(run(func1))
 
 catalog: ModuleType = remote
 
@@ -26,37 +25,34 @@ def func2(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-run(func2)
-print(catalog.result.load())
+print(run(func2))
 
 ```
 
 ## Output
 
 ```text
-HELLO FROM LOCAL!HELLO FROM LOCAL!
-HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): 'HELLO FROM LOCAL!'}
+{StringBuffer(_buffer=<_io.StringIO object at HASH2>): 'HELLO FROM REMOTE!'}
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "func1" in module "static"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "func2" in module "static"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.runner	Running node "func1" in module "static"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.runner	Running node "func2" in module "static"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```
 
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/catalog/static.py:18: error: Name "catalog" already defined on line 7  [no-redef]
+packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line LINO  [no-redef]
 Found 1 error in 1 file (checked 1 source file)
 
 ```

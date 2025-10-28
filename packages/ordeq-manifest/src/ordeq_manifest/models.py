@@ -4,7 +4,7 @@ import operator
 from typing import Any
 
 from ordeq import Node, View
-from ordeq._resolve import FQN, AnyIO
+from ordeq._resolve import FQN, AnyIO, Catalog
 from pydantic import BaseModel, Field
 
 
@@ -59,7 +59,7 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls, name: str, nodes: set[Node], ios: dict[FQN, AnyIO]
+        cls, name: str, nodes: set[Node], ios: Catalog
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 

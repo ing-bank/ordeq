@@ -21,15 +21,15 @@ example.save(data=data)  # should give an error
 
 ```text
 TypeError: Example.save() missing 1 required positional argument: 'data'
-  File "/packages/ordeq/tests/resources/io/save_with_kwarg_data.py", line 13, in <module>
+  File "/packages/ordeq/tests/resources/io/save_with_kwarg_data.py", line LINO, in <module>
     example.save(data=data)  # should give an error
     ~~~~~~~~~~~~^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
 
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 85, in run_module
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 

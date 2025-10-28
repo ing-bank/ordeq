@@ -3,8 +3,7 @@ from itertools import cycle
 from typing import Any
 
 from ordeq import Node
-from ordeq._io import AnyIO
-from ordeq._resolve import FQN
+from ordeq._resolve import Catalog
 
 from ordeq_viz.graph import _gather_graph
 
@@ -54,7 +53,7 @@ def _hash_to_str(obj_id: int, io_names: dict[int, str]) -> str:
 
 def pipeline_to_mermaid(
     nodes: set[Node],
-    ios: dict[FQN, AnyIO],
+    ios: Catalog,
     legend: bool = True,
     use_dataset_styles: bool = True,
     connect_wrapped_datasets: bool = True,

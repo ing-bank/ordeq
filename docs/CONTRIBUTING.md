@@ -23,24 +23,26 @@ Available recipes:
     localsetup                # Local installation
     ruff                      # Linting and formatting with ruff
     mdformat                  # Formatting with mdformat
-    mdformat-fix
-    doccmd-ruff-format
-    doccmd-ruff-lint
-    doccmd-fix
+    mdformat-fix              # Fix formatting with mdformat
+    doccmd-ruff-format        # Formatting with ruff via doccmd
+    doccmd-ruff-lint          # Linting with ruff via doccmd
+    doccmd-fix                # Combine doccmd with ruff for linting and formatting
     lint                      # Linting with ruff
-    lint-fix
+    lint-fix                  # Fix linting issues with ruff
     format                    # Formatting with ruff
-    format-fix
+    format-fix                # Fix formatting with ruff
     ty                        # Type checking with ty
     list                      # List all packages
     mypy                      # Type checking with mypy
+    mypy-packages             # Mypy check all package directories
+    mypy-examples             # Mypy check all example directories
     sa                        # Static analysis (lint + type checking)
     fix                       # Format code and apply lint fixes with ruff and mdformat
     test *PACKAGES            # or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
     test_package PACKAGE      # Test a single package
     test_all                  # Run tests for all packages with coverage
-    generate-api-docs
-    generate-package-overview
+    generate-api-docs         # Generate API documentation pages
+    generate-package-overview # Generate package overview documentation page
     docs-build                # Build the documentation
     docs-serve                # Build and serve the documentation locally
     docs-publish              # Publish the documentation to GitHub Pages
@@ -48,10 +50,12 @@ Available recipes:
     precommit_install         # Install pre-commit hooks
     install                   # Install development dependencies
     upgrade                   # Upgrade (pre-commit only)
-    build PACKAGE
+    build PACKAGE             # Build a package
     publish PACKAGE           # You need an API token from PyPI to run this command.
     lock                      # Lock dependencies
     bump *ARGS                # Bump version
+    delete-snapshots          # Delete all .snapshot.md files anywhere in the repository
+    capture-snapshots         # Recompute snapshots by running only those tests for all packages
 ```
 
 Tip: install support for `just` in your IDE, e.g. [just for PyCharm](https://plugins.jetbrains.com/plugin/18658-just).

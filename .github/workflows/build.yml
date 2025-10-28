@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       packages: ${{ steps.list-packages.outputs.packages }}
+      changed-packages: ${{ steps.list-changed-packages.outputs.changed-packages }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -43,17 +44,20 @@ jobs:
         id: list-changed-packages
         run: |
           uv run scripts/list_changed_packages.py
-          echo "packages=$(cat scripts/changed_packages.json)"
-
-#      - name: No changed packages check
-#        if: fromJson(steps.list-packages.outputs.packages) == '[]'
-#        run: |
-#          echo "No packages were changed, skipping tests"
+          changed_pkgs="changed-packages=$(cat scripts/changed_packages.json)"
+          echo "$changed_pkgs"
+          uv run scripts/list_dependencies.py
+          uv run scripts/relevant_packages.py
+          relevant_pkgs="changed-packages=$(cat scripts/relevant_packages.json)"
+          echo "$relevant_pkgs"
+          echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
 
       - name: List packages
         id: list-packages
         run: |
-          echo "packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')" >> ${GITHUB_OUTPUT}
+          all_pkgs="packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')"
+          echo "$all_pkgs"
+          echo "$all_pkgs" >> ${GITHUB_OUTPUT}
 
   static_code_analysis:
     name: Check formatting, linting and typing

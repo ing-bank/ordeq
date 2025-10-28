@@ -26,6 +26,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Set up Python ${{ env.pythonVersion }}
         uses: actions/setup-python@v5
@@ -97,7 +99,7 @@ jobs:
         package: ${{ fromJson(needs.packages.outputs.packages) }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python ${{ env.pythonVersion }}
         uses: actions/setup-python@v5

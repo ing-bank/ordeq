@@ -5,7 +5,7 @@ from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import FQN, fqn_to_str  # noqa: PLC2701
-from ordeq._resolve import AnyIO, Catalog
+from ordeq._resolve import AnyIO, Catalog, Pipeline
 from pydantic import BaseModel, Field
 
 
@@ -60,7 +60,7 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls, name: str, nodes: dict[FQN, Node], ios: Catalog
+        cls, name: str, nodes: Pipeline, ios: Catalog
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 

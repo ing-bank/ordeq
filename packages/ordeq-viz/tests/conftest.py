@@ -2,10 +2,9 @@ from collections.abc import Callable
 from pathlib import Path
 
 import pytest
-from ordeq import Node
 from ordeq._fqn import FQN
 from ordeq._nodes import get_node
-from ordeq._resolve import Catalog
+from ordeq._resolve import Catalog, Pipeline
 from ordeq_test_utils import append_packages_dir_to_sys_path
 
 
@@ -96,7 +95,7 @@ def expected_example_ios() -> Catalog:
 
 
 @pytest.fixture
-def expected_example_node_objects(expected_example_nodes) -> dict[FQN, Node]:
+def expected_example_node_objects(expected_example_nodes) -> Pipeline:
     """Expected node objects in the example package.
 
     Returns:

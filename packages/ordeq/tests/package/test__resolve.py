@@ -1,10 +1,11 @@
 from collections.abc import Callable
 
 import pytest
-from ordeq import Node, node
+from ordeq import node
 from ordeq._fqn import FQN
 from ordeq._nodes import get_node
 from ordeq._resolve import (
+    Pipeline,
     _is_node,
     _resolve_node_reference,
     _resolve_runnables_to_nodes,
@@ -39,7 +40,7 @@ def expected_example_nodes(packages) -> dict[FQN, Callable]:
 
 
 @pytest.fixture
-def expected_example_node_objects(expected_example_nodes) -> dict[FQN, Node]:
+def expected_example_node_objects(expected_example_nodes) -> Pipeline:
     """Expected node objects in the example package.
 
     Returns:

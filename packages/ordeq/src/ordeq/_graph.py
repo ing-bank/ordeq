@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, TypeAlias
 
 from ordeq._fqn import FQN, fqn_to_str, str_to_fqn
 from ordeq._nodes import Node, View
+from ordeq._resolve import NamedNode, Pipeline
 
 if TYPE_CHECKING:
     from ordeq._io import AnyIO
@@ -16,11 +17,10 @@ except ImportError:
     from typing_extensions import Self
 
 
-NamedNode: TypeAlias = tuple[FQN, Node]
 EdgesType: TypeAlias = dict[NamedNode, list[NamedNode]]
 
 
-def _collect_views(nodes: dict[FQN, Node]) -> dict[FQN, View]:
+def _collect_views(nodes: Pipeline) -> dict[FQN, View]:
     """Recursively collects all views from the given nodes.
 
     Args:
@@ -37,7 +37,7 @@ def _collect_views(nodes: dict[FQN, Node]) -> dict[FQN, View]:
     return views
 
 
-def _build_graph(nodes: dict[FQN, Node]) -> EdgesType:
+def _build_graph(nodes: Pipeline) -> EdgesType:
     """Builds a mapping of node to node(s), i.e., the edge map of a graph.
 
     Args:
@@ -101,7 +101,7 @@ def _find_sink_nodes(edges: EdgesType) -> set[NamedNode]:
     return {s for s, targets in edges.items() if len(targets) == 0}
 
 
-def _nodes(edges: EdgesType) -> dict[FQN, Node]:
+def _nodes(edges: EdgesType) -> Pipeline:
     """Returns the set of all nodes.
 
     Args:
@@ -119,7 +119,7 @@ class NodeGraph:
         self.edges = edges
 
     @classmethod
-    def from_nodes(cls, nodes: dict[FQN, Node]) -> Self:
+    def from_nodes(cls, nodes: Pipeline) -> Self:
         views = _collect_views(nodes)
         return cls(_build_graph(nodes | views))
 
@@ -149,7 +149,7 @@ class NodeGraph:
         return _find_sink_nodes(self.edges)
 
     @property
-    def nodes(self) -> dict[FQN, Node]:
+    def nodes(self) -> Pipeline:
         """Returns the set of all nodes in this graph.
 
         Returns:

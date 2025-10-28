@@ -92,7 +92,7 @@ def _resolve_runnables_to_modules(
     return _resolve_packages_to_modules(modules.items())
 
 
-def _resolve_module_to_nodes(module: ModuleType) -> dict[FQN, Node]:
+def _resolve_module_to_nodes(module: ModuleType) -> Pipeline:
     """Gathers all nodes defined in a module.
 
     Args:
@@ -125,7 +125,7 @@ def _resolve_module_to_ios(module: ModuleType) -> Catalog:
     }
 
 
-def _resolve_node_reference(ref: str) -> tuple[FQN, Node]:
+def _resolve_node_reference(ref: str) -> NamedNode:
     """Resolves a node reference string of the form 'module:node_name'.
 
     Args:
@@ -202,7 +202,7 @@ def _resolve_hooks(
 
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: Runnable,
-) -> tuple[dict[FQN, Node], set[ModuleType]]:
+) -> tuple[Pipeline, set[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -216,7 +216,7 @@ def _resolve_runnables_to_nodes_and_modules(
         TypeError: if a runnable is not a module and not a node
     """
     modules_and_strs: list[ModuleType | str] = []
-    nodes: dict[FQN, Node] = {}
+    nodes: Pipeline = {}
     for runnable in runnables:
         if _is_module(runnable) or (
             isinstance(runnable, str) and ":" not in runnable
@@ -239,7 +239,7 @@ def _resolve_runnables_to_nodes_and_modules(
     return nodes, modules
 
 
-def _resolve_runnables_to_nodes(*runnables: Runnable) -> dict[FQN, Node]:
+def _resolve_runnables_to_nodes(*runnables: Runnable) -> Pipeline:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -256,7 +256,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> dict[FQN, Node]:
     return nodes
 
 
-def _check_missing_ios(nodes: dict[FQN, Node], ios: Catalog) -> None:
+def _check_missing_ios(nodes: Pipeline, ios: Catalog) -> None:
     missing_ios: set[AnyIO | View] = set()
     for node in nodes.values():
         for inp in node.inputs:
@@ -276,7 +276,7 @@ def _check_missing_ios(nodes: dict[FQN, Node], ios: Catalog) -> None:
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: Runnable,
-) -> tuple[dict[FQN, Node], Catalog]:
+) -> tuple[Pipeline, Catalog]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:
@@ -303,3 +303,6 @@ def _resolve_runnables_to_nodes_and_ios(
 
 # Type aliases
 Catalog: TypeAlias = dict[FQN, AnyIO]
+NamedIO: TypeAlias = tuple[FQN, AnyIO]
+Pipeline: TypeAlias = dict[FQN, Node]
+NamedNode: TypeAlias = tuple[FQN, Node]

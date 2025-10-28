@@ -35,33 +35,33 @@ run(fail, hooks=[logger])
 
 ```text
 ValueError: Intentional failure for testing.
-  File "/packages/ordeq-common/tests/resources/hooks/logger_hook_custom_level_and_logger.py", line 22, in fail
+  File "/packages/ordeq-common/tests/resources/hooks/logger_hook_custom_level_and_logger.py", line LINO, in fail
     raise ValueError("Intentional failure for testing.")
 
-  File "/packages/ordeq/src/ordeq/_nodes.py", line 454, in wrapper
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapper
     return func(*args, **kwargs)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 70, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     values = node.func(*args)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 74, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     raise exc
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 138, in _run_graph
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line 188, in run
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
-  File "/packages/ordeq-common/tests/resources/hooks/logger_hook_custom_level_and_logger.py", line 27, in <module>
+  File "/packages/ordeq-common/tests/resources/hooks/logger_hook_custom_level_and_logger.py", line LINO, in <module>
     run(fail, hooks=[logger])
     ~~~^^^^^^^^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-  File "<frozen importlib._bootstrap_external>", line 1026, in exec_module
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
 
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line 85, in run_module
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 

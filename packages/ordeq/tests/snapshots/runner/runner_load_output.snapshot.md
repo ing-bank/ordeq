@@ -34,10 +34,12 @@ AttributeError: 'Example' object has no attribute 'load'
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/runner_load_output.py", line LINO, in <module>
     run(my_node, load_node)

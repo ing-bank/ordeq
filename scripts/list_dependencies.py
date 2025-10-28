@@ -29,30 +29,6 @@ dependencies = JSON(
 diagram = Text(path=ROOT_PATH / "scripts" / "dependencies_diagram.mmd")
 
 
-def clean_dependency(dep: str) -> str | None:
-    """Clean dependency name by removing version specifier and markers.
-    Returns None if dependency should be excluded.
-
-    Args:
-        dep: Raw dependency string from uv.lock
-
-    Returns:
-        Cleaned dependency name or None if dependency should be excluded
-    """
-    # Early return if not an ordeq package
-    if not dep.startswith("ordeq"):
-        return None
-
-    # Find first occurrence of any version/platform specifier
-    for char in ("[", ";", ">", "<", "=", "~"):
-        pos = dep.find(char)
-        if pos != -1:
-            dep = dep[:pos]
-            break
-
-    return dep.strip()
-
-
 def _extract_package_name(pkg_entry: dict[str, Any]) -> str | None:
     """Extract ordeq package name from package entry.
 

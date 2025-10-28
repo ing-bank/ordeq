@@ -25,6 +25,7 @@ dependencies = [
     "ordeq-viz",
     "packaging",
     "ordeq-common",
+    "ordeq-args",
 ]
 
 [tool.ordeq-dev]

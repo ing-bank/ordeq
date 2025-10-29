@@ -99,6 +99,7 @@ jobs:
     needs: [ packages ]
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
         package: ${{ fromJson(needs.packages.outputs.packages) }}
     steps:

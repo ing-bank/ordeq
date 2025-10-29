@@ -78,7 +78,6 @@ def test_run_greet():
 ```
 
 In contrast to the unit tests, this test depends on the content of the CSV file used as input to `greet`.
-As shown above, the result of `greet` can be retrieved by accessing the `result` dictionary with the `Output` of `greet` as the key:
 
 ### Running nodes with alternative IO
 

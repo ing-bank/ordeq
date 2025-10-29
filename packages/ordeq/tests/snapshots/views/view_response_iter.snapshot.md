@@ -8,27 +8,8 @@ import requests
 from ordeq import node, run
 from ordeq_common import Literal
 
-# Data retrieved from https://jsonplaceholder.typicode.com/users/1
-users_response = Literal({
-    "id": 1,
-    "name": "Leanne Graham",
-    "username": "Bret",
-    "email": "Sincere@april.biz",
-    "address": {
-        "street": "Kulas Light",
-        "suite": "Apt. 556",
-        "city": "Gwenborough",
-        "zipcode": "92998-3874",
-        "geo": {"lat": "-37.3159", "lng": "81.1496"},
-    },
-    "phone": "1-770-736-8031 x56442",
-    "website": "hildegard.org",
-    "company": {
-        "name": "Romaguera-Crona",
-        "catchPhrase": "Multi-layered client-server neural-net",
-        "bs": "harness real-time e-markets",
-    },
-})
+response = requests.get("https://jsonplaceholder.typicode.com/users/1")  # noqa: S113 (call without timeout)
+users_response = Literal(response)
 
 
 # View that returns an iterable from a regular/non-iterable IO:
@@ -47,45 +28,6 @@ run(concatenate, verbose=True)
 
 ```
 
-## Exception
-
-```text
-AttributeError: 'dict' object has no attribute 'iter_lines'
-  File "/packages/ordeq/tests/resources/views/view_response_iter.py", line LINO, in users_lines
-    return r.iter_lines()
-           ^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in inner
-    return f(*args, **kwargs)
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    values = node.func(*args)
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    raise exc
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save, io=io)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/tests/resources/views/view_response_iter.py", line LINO, in <module>
-    run(concatenate, verbose=True)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-```
-
 ## Output
 
 ```text
@@ -94,8 +36,31 @@ NodeGraph:
      view_response_iter:concatenate -> []
      view_response_iter:users_lines -> [view_response_iter:concatenate]
   Nodes:
-     view_response_iter:concatenate: View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal({'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}})])])
-     view_response_iter:users_lines: View(name=view_response_iter:users_lines, inputs=[Literal({'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}})])
+     view_response_iter:concatenate: View(name=view_response_iter:concatenate, inputs=[View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])])
+     view_response_iter:users_lines: View(name=view_response_iter:users_lines, inputs=[Literal(<Response [200]>)])
+b'{'
+b'  "id": 1,'
+b'  "name": "Leanne Graham",'
+b'  "username": "Bret",'
+b'  "email": "Sincere@april.biz",'
+b'  "address": {'
+b'    "street": "Kulas Light",'
+b'    "suite": "Apt. 556",'
+b'    "city": "Gwenborough",'
+b'    "zipcode": "92998-3874",'
+b'    "geo": {'
+b'      "lat": "-37.3159",'
+b'      "lng": "81.1496"'
+b'    }'
+b'  },'
+b'  "phone": "1-770-736-8031 x56442",'
+b'  "website": "hildegard.org",'
+b'  "company": {'
+b'    "name": "Romaguera-Crona",'
+b'    "catchPhrase": "Multi-layered client-server neural-net",'
+b'    "bs": "harness real-time e-markets"'
+b'  }'
+b'}'
 
 ```
 
@@ -104,7 +69,8 @@ NodeGraph:
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:users_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:concatenate'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal({'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}})
+INFO	ordeq.io	Loading Literal(<Response [200]>)
 INFO	ordeq.runner	Running view "users_lines" in module "view_response_iter"
+INFO	ordeq.runner	Running view "concatenate" in module "view_response_iter"
 
 ```

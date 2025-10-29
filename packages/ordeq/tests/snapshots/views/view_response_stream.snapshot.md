@@ -7,27 +7,8 @@ import requests
 from ordeq import node, run
 from ordeq_common import Literal, Print
 
-# Data retrieved from https://jsonplaceholder.typicode.com/users/1
-users_response = Literal({
-    "id": 1,
-    "name": "Leanne Graham",
-    "username": "Bret",
-    "email": "Sincere@april.biz",
-    "address": {
-        "street": "Kulas Light",
-        "suite": "Apt. 556",
-        "city": "Gwenborough",
-        "zipcode": "92998-3874",
-        "geo": {"lat": "-37.3159", "lng": "81.1496"},
-    },
-    "phone": "1-770-736-8031 x56442",
-    "website": "hildegard.org",
-    "company": {
-        "name": "Romaguera-Crona",
-        "catchPhrase": "Multi-layered client-server neural-net",
-        "bs": "harness real-time e-markets",
-    },
-})
+response = requests.get("https://jsonplaceholder.typicode.com/users/1")  # noqa: S113 (call without timeout)
+users_response = Literal(response)
 
 
 @node(inputs=users_response)
@@ -44,45 +25,6 @@ run(printer, verbose=True)
 
 ```
 
-## Exception
-
-```text
-AttributeError: 'dict' object has no attribute 'raw'
-  File "/packages/ordeq/tests/resources/views/view_response_stream.py", line LINO, in users_stream
-    return r.raw.stream()
-           ^^^^^
-
-  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in inner
-    return f(*args, **kwargs)
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    values = node.func(*args)
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    raise exc
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save, io=io)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/tests/resources/views/view_response_stream.py", line LINO, in <module>
-    run(printer, verbose=True)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-```
-
 ## Output
 
 ```text
@@ -91,8 +33,9 @@ NodeGraph:
      view_response_stream:printer -> []
      view_response_stream:users_stream -> [view_response_stream:printer]
   Nodes:
-     view_response_stream:printer: Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal({'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}})])], outputs=[Print()])
-     view_response_stream:users_stream: View(name=view_response_stream:users_stream, inputs=[Literal({'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}})])
+     view_response_stream:printer: Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])], outputs=[Print()])
+     view_response_stream:users_stream: View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
+<generator object HTTPResponse.stream at HASH1>
 
 ```
 
@@ -100,7 +43,9 @@ NodeGraph:
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_stream:users_stream'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal({'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}})
+INFO	ordeq.io	Loading Literal(<Response [200]>)
 INFO	ordeq.runner	Running view "users_stream" in module "view_response_stream"
+INFO	ordeq.runner	Running node "printer" in module "view_response_stream"
+INFO	ordeq.io	Saving Print()
 
 ```

@@ -1,20 +1,17 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq import Output
 import pandas as pd
+from ordeq import Output, node, run
 from ordeq_common import Literal
 
 dataframe = Literal(
-    pd.DataFrame(
-        {
-            "A": ["foo", "bar", "foo"],
-            "B": [1, 2, 3],
-            "C": ["one", "one", "two"],
-            "D": [2.0, 5.0, 8.0],
-        }
-    )
+    pd.DataFrame({
+        "A": ["foo", "bar", "foo"],
+        "B": [1, 2, 3],
+        "C": ["one", "one", "two"],
+        "D": [2.0, 5.0, 8.0],
+    })
 )
 
 
@@ -33,11 +30,10 @@ class PandasHead(Output[pd.DataFrame]):
 
 @node(inputs=df_casted, outputs=PandasHead())
 def group_by(df: pd.DataFrame) -> pd.DataFrame:
-    return df.groupby(
-        by=["A", ],
-        as_index=False,
-        dropna=False,
-    ).agg({"B": "mean", "D": "max"})
+    return df.groupby(by=["A"], as_index=False, dropna=False).agg({
+        "B": "mean",
+        "D": "max",
+    })
 
 
 run(group_by, verbose=True)

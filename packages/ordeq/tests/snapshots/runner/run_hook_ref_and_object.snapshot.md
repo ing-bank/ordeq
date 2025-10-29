@@ -1,8 +1,7 @@
 ## Resource
 
 ```python
-from ordeq import run
-from ordeq import NodeHook
+from ordeq import NodeHook, run
 
 
 class MyHook(NodeHook):
@@ -13,10 +12,7 @@ class MyHook(NodeHook):
         print(f"After running node: {node.name}")
 
 
-run(
-    "packages.example",
-    hooks=["packages.example.hooks:MyHook", MyHook()]
-)
+run("packages.example", hooks=["packages.example.hooks:MyHook", MyHook()])
 
 ```
 

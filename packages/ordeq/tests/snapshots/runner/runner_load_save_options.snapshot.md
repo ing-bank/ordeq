@@ -1,9 +1,8 @@
 ## Resource
 
 ```python
-from ordeq import node, IO
+from ordeq import IO, node
 from ordeq._runner import run
-from ordeq_common import Literal, StringBuffer
 
 
 class CustomIO(IO[str]):
@@ -22,9 +21,7 @@ class CustomIO(IO[str]):
 
 
 x1 = CustomIO("y did it")
-x2 = CustomIO().with_save_options(
-    suffix="!"
-)
+x2 = CustomIO().with_save_options(suffix="!")
 x3 = CustomIO("x did it").with_load_options(
     suffix="and I know the murder weapon"
 )

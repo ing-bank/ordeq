@@ -1,4 +1,4 @@
-import resources.runner.example_module_a as example_module_a
 from ordeq import run
+from resources.runner import example_module_a
 
 run(example_module_a, verbose=True)

@@ -1,5 +1,5 @@
-from ordeq import node, run
 import duckdb
+from ordeq import node, run
 from ordeq_common import Literal
 
 db = duckdb.connect(":memory:")

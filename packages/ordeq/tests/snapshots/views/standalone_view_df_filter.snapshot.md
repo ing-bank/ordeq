@@ -1,19 +1,16 @@
 ## Resource
 
 ```python
-from ordeq import node, run
 import pandas as pd
-from ordeq import Output
+from ordeq import Output, node, run
 from ordeq_common import Literal
 
-df = pd.DataFrame(
-    {
-        "A": ["foo", "bar", "foo"],
-        "B": [1, 2, 3],
-        "C": ["one", "one", "two"],
-        "D": [2.0, 5.0, 8.0],
-    }
-)
+df = pd.DataFrame({
+    "A": ["foo", "bar", "foo"],
+    "B": [1, 2, 3],
+    "C": ["one", "one", "two"],
+    "D": [2.0, 5.0, 8.0],
+})
 
 dataframe = Literal(df)
 
@@ -34,13 +31,11 @@ class PandasHead(Output[pd.DataFrame]):
 
 @node(inputs=df_filtered)
 def group_by(df: pd.DataFrame) -> None:
-    print(df.groupby(
-        by=["A", ],
-        as_index=False,
-        dropna=False,
-    ).agg(
-        {"B": "mean", "D": "max"}
-    ).head())
+    print(
+        df.groupby(by=["A"], as_index=False, dropna=False)
+        .agg({"B": "mean", "D": "max"})
+        .head()
+    )
 
 
 run(group_by, verbose=True)
@@ -95,10 +90,10 @@ INFO	ordeq.runner	Running view "group_by" in module "standalone_view_df_filter"
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: note: Possible overload variants:
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:21: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
 Found 1 error in 1 file (checked 1 source file)
 
 ```

@@ -26,11 +26,6 @@ print(x4.load())
 p1 = Literal(2)
 p3 = Literal("33")
 p4 = StringBuffer()
-run(
-    increment,
-    decrement,
-    io={x1: p1, x3: p3, x4: p4},
-    verbose=True,
-)
+run(increment, decrement, io={x1: p1, x3: p3, x4: p4}, verbose=True)
 
 print(p4.load())

@@ -14,4 +14,4 @@ def hello(data: str) -> None:
 
 
 result = run(hello)
-print(view, 'computed', result[get_node(view)])
+print(view, "computed", result[get_node(view)])

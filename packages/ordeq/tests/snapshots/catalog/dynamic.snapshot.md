@@ -1,8 +1,6 @@
 ## Resource
 
 ```python
-import os
-
 from ordeq import node, run
 
 from resources.catalog.catalogs import local, remote

@@ -1,6 +1,6 @@
-from time import time, sleep
-from ordeq import RunHook
-from ordeq import node, run
+from time import time
+
+from ordeq import RunHook, node, run
 from ordeq_common import StringBuffer
 
 

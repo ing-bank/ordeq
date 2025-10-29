@@ -9,8 +9,6 @@ import example2.nodes  # ty: ignore[unresolved-import]
 
 from ordeq_viz import viz
 
-
-
 with tempfile.TemporaryDirectory() as tmpdirname:
     temp_dir = Path(tmpdirname)
     output_file = temp_dir / "output.mermaid"

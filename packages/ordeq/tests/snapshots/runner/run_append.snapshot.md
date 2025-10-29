@@ -2,7 +2,7 @@
 
 ```python
 from ordeq import node, run
-from ordeq_common import StringBuffer, Print
+from ordeq_common import Print, StringBuffer
 
 io = StringBuffer("a")
 

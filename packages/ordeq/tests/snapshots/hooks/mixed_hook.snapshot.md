@@ -1,7 +1,7 @@
 ## Resource
 
 ```python
-from ordeq import Output, NodeHook, OutputHook, Node, node, run
+from ordeq import Node, NodeHook, Output, OutputHook, node, run
 
 
 class Example(Output[str]):
@@ -17,11 +17,15 @@ class MixedHook(NodeHook, OutputHook):
 
     def before_output_save(self, output: Output, data) -> None:
         if self.node is not None:
-            print(f"Hook: before saving output of node {self.node.name} with data: {data}")
+            print(
+                f"Hook: before saving output of node {self.node.name} "
+                f"with data: {data}"
+            )
 
 
 hook = MixedHook()
 example = Example().with_output_hooks(hook)
+
 
 @node(outputs=[example])
 def my_node() -> str:

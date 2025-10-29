@@ -1,7 +1,7 @@
+from collections.abc import Generator, Iterable
 from dataclasses import dataclass, field
-from typing import Generator, Iterable
 
-from ordeq import node, IO
+from ordeq import IO, node
 from ordeq._runner import run
 from ordeq_common import Literal
 
@@ -12,7 +12,7 @@ class Stream(IO[Generator[str, None, None]]):
 
     def load(self) -> Generator[str, None, None]:
         for item in self.data:
-            yield item
+            yield from item
 
     def save(self, data: Generator[str, None, None]) -> None:
         for item in data:
@@ -32,9 +32,9 @@ def increment(items: Generator[str, None, None]) -> Generator[str, None, None]:
 
 
 @node(inputs=[x2, x3], outputs=x4)
-def multiply(items: Generator[str, None, None], y: str) -> Generator[
-    str, None, None
-]:
+def multiply(
+    items: Generator[str, None, None], y: str
+) -> Generator[str, None, None]:
     for item in items:
         yield str(int(item) * int(y))
 

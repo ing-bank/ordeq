@@ -1,11 +1,10 @@
 ## Resource
 
 ```python
-from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
-from ordeq_viz.to_mermaid import pipeline_to_mermaid
-
 import example  # ty: ignore[unresolved-import]
+from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 
+from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 nodes, ios = _resolve_runnables_to_nodes_and_ios(example)
 diagram = pipeline_to_mermaid(nodes=nodes, ios=ios)
@@ -142,8 +141,8 @@ graph TB
 ## Typing
 
 ```text
-packages/ordeq-viz/tests/resources/mermaid/viz_wrapped.py:4: error: Skipping analyzing "example": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/mermaid/viz_wrapped.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-viz/tests/resources/mermaid/viz_wrapped.py:1: error: Skipping analyzing "example": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/mermaid/viz_wrapped.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

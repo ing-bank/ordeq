@@ -2,7 +2,7 @@
 
 ```python
 from ordeq import node
-from ordeq_common import StringBuffer, Literal
+from ordeq_common import Literal
 
 x = Literal("X")
 

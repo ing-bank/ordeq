@@ -1,4 +1,4 @@
-from ordeq import RunHook, NodeHook
+from ordeq import NodeHook, RunHook
 
 
 class _MyNodeHook(NodeHook):

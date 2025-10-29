@@ -3,7 +3,6 @@
 ```python
 from ordeq import IO, Input, Output, node
 from ordeq._runner import run
-from ordeq_common import StringBuffer
 
 I1 = Input[str]()
 I2 = Input[str]()

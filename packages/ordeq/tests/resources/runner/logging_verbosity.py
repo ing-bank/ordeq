@@ -1,8 +1,8 @@
 import logging
 
 from ordeq import node
-from ordeq._nodes import get_node
 from ordeq._graph import NodeGraph
+from ordeq._nodes import get_node
 from ordeq._runner import _run_graph
 from ordeq_common import StringBuffer
 

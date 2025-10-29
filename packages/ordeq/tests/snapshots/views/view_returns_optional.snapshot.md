@@ -8,14 +8,14 @@ glob = 2
 
 
 @node
-def conditional() -> None | str:
+def conditional() -> str | None:
     if glob > 2:
         return "Higher value!"
     return None
 
 
 @node(inputs=conditional, outputs=Print())
-def n(v: None | str):
+def n(v: str | None):
     return v
 
 

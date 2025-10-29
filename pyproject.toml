@@ -104,7 +104,6 @@ pythonpath = ["src", "tests"]
 [tool.ruff]
 exclude = [
     "packages/*/src/*/_version.py",
-    "packages/*/tests/resources/*",
 ]
 force-exclude = true
 line-length = 79

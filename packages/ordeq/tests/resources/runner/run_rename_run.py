@@ -1,4 +1,4 @@
-from ordeq import run, node
+from ordeq import node, run
 
 
 @node

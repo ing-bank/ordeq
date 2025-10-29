@@ -3,8 +3,10 @@
 ```python
 import tempfile
 from pathlib import Path
-from ordeq import run
+
 import example3.nodes  # ty: ignore[unresolved-import]
+from ordeq import run
+
 from ordeq_viz import viz
 
 with tempfile.TemporaryDirectory() as tmpdirname:

@@ -16,6 +16,7 @@ example = Example()
 def my_node() -> str:
     return "Hello, World!"
 
+
 @node(inputs=[example])
 def load_node(data: str) -> None:
     print("loading!", data)
@@ -74,7 +75,7 @@ INFO	ordeq.io	Saving Output(idx=ID1)
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/runner/runner_load_output.py:16: error: List item 0 has incompatible type "Example"; expected "Input[Any] | Callable[..., Any]"  [list-item]
+packages/ordeq/tests/resources/runner/runner_load_output.py:17: error: List item 0 has incompatible type "Example"; expected "Input[Any] | Callable[..., Any]"  [list-item]
 Found 1 error in 1 file (checked 1 source file)
 
 ```

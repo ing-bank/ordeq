@@ -3,10 +3,7 @@
 ```python
 from ordeq import run
 
-run(
-    "packages.example",
-    hooks=["packages.example.hooks:other_obj"]
-)
+run("packages.example", hooks=["packages.example.hooks:other_obj"])
 
 ```
 
@@ -27,14 +24,8 @@ ValueError: Hook 'other_obj' not found in module 'packages.example.hooks'
                             ~~~~~~~~~~~~~~^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/run_hook_ref_not_a_hook.py", line LINO, in <module>
-    run(
-    ~~~^
-        "packages.example",
-        ^^^^^^^^^^^^^^^^^^^
-        hooks=["packages.example.hooks:other_obj"]
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
+    run("packages.example", hooks=["packages.example.hooks:other_obj"])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 

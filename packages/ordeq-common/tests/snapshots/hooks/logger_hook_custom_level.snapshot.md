@@ -3,7 +3,7 @@
 ```python
 import logging
 
-from ordeq import node, IO, run
+from ordeq import IO, node, run
 from ordeq_common import Literal, LoggerHook
 
 logger = LoggerHook(level=logging.CRITICAL)

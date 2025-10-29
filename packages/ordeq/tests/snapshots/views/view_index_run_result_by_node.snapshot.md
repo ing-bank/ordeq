@@ -17,7 +17,7 @@ def hello(data: str) -> None:
 
 
 result = run(hello)
-print(view, 'computed', result[get_node(view)])
+print(view, "computed", result[get_node(view)])
 
 ```
 
@@ -26,7 +26,7 @@ print(view, 'computed', result[get_node(view)])
 ```text
 TypeError: 'NoneType' object is not subscriptable
   File "/packages/ordeq/tests/resources/views/view_index_run_result_by_node.py", line LINO, in <module>
-    print(view, 'computed', result[get_node(view)])
+    print(view, "computed", result[get_node(view)])
                             ~~~~~~^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed

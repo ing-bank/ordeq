@@ -1,5 +1,5 @@
-import resources.runner.example_module_a as example_module_a
-from ordeq import run, node
+from ordeq import node, run
+from resources.runner import example_module_a
 
 
 @node

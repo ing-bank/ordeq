@@ -1,7 +1,7 @@
 ## Resource
 
 ```python
-from ordeq import node, run, IO
+from ordeq import IO, node, run
 from ordeq_common import Literal
 
 placeholder = IO()

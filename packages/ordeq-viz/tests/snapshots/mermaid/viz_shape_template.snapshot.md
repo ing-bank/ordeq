@@ -1,17 +1,16 @@
 ## Resource
 
 ```python
-
-from ordeq._nodes import get_node
-from ordeq_viz.to_mermaid import pipeline_to_mermaid
-
 from example import nodes as mod  # ty: ignore[unresolved-import]
+from ordeq._nodes import get_node
+
+from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 diagram = pipeline_to_mermaid(
     nodes={get_node(mod.world)},
     ios={("...", "x"): mod.x, ("...", "y"): mod.y},
-    io_shape_template="(/"{value}/")",
-    node_shape_template="(/"{value}/")",
+    io_shape_template='("{value}")',
+    node_shape_template='("{value}")',
 )
 print(diagram)
 
@@ -52,8 +51,8 @@ graph TB
 ## Typing
 
 ```text
-packages/ordeq-viz/tests/resources/mermaid/viz_shape_template.py:5: error: Skipping analyzing "example": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/mermaid/viz_shape_template.py:5: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-viz/tests/resources/mermaid/viz_shape_template.py:1: error: Skipping analyzing "example": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/mermaid/viz_shape_template.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

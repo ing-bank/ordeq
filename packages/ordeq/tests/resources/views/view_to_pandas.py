@@ -1,6 +1,6 @@
+import pandas as pd
 from ordeq import node, run
 from ordeq_common import Literal
-import pandas as pd
 
 
 class MockDuckDbValues:

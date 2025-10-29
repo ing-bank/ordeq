@@ -1,10 +1,10 @@
 ## Resource
 
 ```python
-from pathlib import Path
 import tempfile
-from ordeq_viz import viz
+from pathlib import Path
 
+from ordeq_viz import viz
 
 with tempfile.TemporaryDirectory() as tmpdirname:
     temp_dir = Path(tmpdirname)

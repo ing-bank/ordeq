@@ -2,8 +2,8 @@ import tempfile
 from pathlib import Path
 
 import rag_pipeline  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-from ordeq_viz import viz
 
+from ordeq_viz import viz
 
 with tempfile.TemporaryDirectory() as tmpdirname:
     tmp_path = Path(tmpdirname)

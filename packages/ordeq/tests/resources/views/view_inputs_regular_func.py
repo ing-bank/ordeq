@@ -9,7 +9,7 @@ def string():
 
 @node(inputs=string)
 def func(data: str) -> str:
-    return str(data.__reversed__())
+    return str(reversed(data))
 
 
 @node(inputs=func, outputs=Print())

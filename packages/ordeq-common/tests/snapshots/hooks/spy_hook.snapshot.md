@@ -1,9 +1,8 @@
 ## Resource
 
 ```python
-from ordeq import node, IO, run
-from ordeq_common import SpyHook, Literal
-
+from ordeq import IO, node, run
+from ordeq_common import Literal, SpyHook
 
 spy = SpyHook()
 
@@ -11,6 +10,7 @@ spy = SpyHook()
 @node(inputs=Literal("name"), outputs=IO())
 def hello(name: str) -> str:
     return f"Hello, {name}!"
+
 
 @node
 def fail() -> None:

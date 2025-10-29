@@ -12,7 +12,9 @@ affected_dependencies = JSON(
     path=DATA_PATH / "affected_dependencies.json"
 ).with_save_options(indent=4)
 packages = JSON(path=DATA_PATH / "changed_packages.json").with_save_options(indent=4)
-relevant_packages = JSON(path=DATA_PATH / "relevant_packages.json")
+relevant_packages = JSON(path=DATA_PATH / "relevant_packages.json").with_save_options(
+    separators=(",", ":")
+)
 
 
 @node(inputs=[packages, affected_dependencies], outputs=relevant_packages)

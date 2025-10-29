@@ -144,7 +144,7 @@ from ordeq import run
 
 def test_run_greet(io):
     run(greet, io=io)
-    assert io[catalog.greetings].load() == [
+    assert catalog.greetings.load() == [
         "Hello, Abraham!",
         "Hello, Adam!",
         "Hello, Azul!",

@@ -102,8 +102,8 @@ from ordeq_files import CSV, Text
 def test_run_greet():
     local_names = CSV(path=Path("to/local/names.csv"))
     local_greetings = Text(path=Path("to/local/greetings.txt"))
-    result = run(greet, io={names: local_names, greetings: local_greetings})
-    assert result[greetings] == [
+    run(greet, io={names: local_names, greetings: local_greetings})
+    assert local_greetings.load() == [
         "Hello, Abraham!",
         "Hello, Adam!",
         "Hello, Azul!",
@@ -139,14 +139,19 @@ def io() -> dict[IO | Input | Output, IO | Input | Output]:
 Now we can use the `io` fixture in our tests:
 
 ```python
+import catalog
 from nodes import greet
 from ordeq import run
 
 
 def test_run_greet(io):
-    result = run(greet, io=io)
-    # do your asserts ...
-    assert result == ...
+    run(greet, io=io)
+    assert io[catalog.greetings].load() == [
+        "Hello, Abraham!",
+        "Hello, Adam!",
+        "Hello, Azul!",
+        ...,
+    ]
 ```
 
 For more information on the fixture scope, refer to the `pytest` [documentation](https://docs.pytest.org/en/stable/how-to/fixtures.html#fixture-scopes).

@@ -21,12 +21,29 @@ print(view, 'computed', result[get_node(view)])
 
 ```
 
+## Exception
+
+```text
+TypeError: 'NoneType' object is not subscriptable
+  File "/packages/ordeq/tests/resources/views/view_index_run_result_by_node.py", line LINO, in <module>
+    print(view, 'computed', result[get_node(view)])
+                            ~~~~~~^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
 Hello!
 None
-<function view at HASH1> computed Hello!
 
 ```
 
@@ -43,7 +60,7 @@ INFO	ordeq.io	Saving Print()
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/views/view_index_run_result_by_node.py:17: error: Invalid index type "Node[Any, Any]" for "dict[Input[Any] | Output[Any] | View[Any, Any], Any]"; expected type "Input[Any] | Output[Any] | View[Any, Any]"  [index]
+packages/ordeq/tests/resources/views/view_index_run_result_by_node.py:16: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
 Found 1 error in 1 file (checked 1 source file)
 
 ```

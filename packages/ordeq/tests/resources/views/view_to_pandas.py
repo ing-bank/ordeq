@@ -24,4 +24,4 @@ def aggregate(df: pd.DataFrame) -> None:
     print(df.aggregate("sum").head())
 
 
-print(run(aggregate, verbose=True))
+run(aggregate, verbose=True)

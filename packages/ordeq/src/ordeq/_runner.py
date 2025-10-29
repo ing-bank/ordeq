@@ -14,8 +14,6 @@ logger = logging.getLogger("ordeq.runner")
 
 T = TypeVar("T")
 
-DataStoreType: TypeAlias = dict[Input[T] | Output[T] | View, T]
-
 Runnable: TypeAlias = ModuleType | Callable | str
 # The save mode determines which outputs are saved. When set to:
 # - 'all', all outputs are saved, including those of intermediate nodes.
@@ -27,23 +25,16 @@ Runnable: TypeAlias = ModuleType | Callable | str
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 
-def _save_outputs(
-    node: Node, values: Sequence[T], save: bool = True
-) -> DataStoreType:
-    computed: DataStoreType = {}
+def _save_outputs(node: Node, values: Sequence[T], save: bool = True) -> None:
     for output_dataset, data in zip(node.outputs, values, strict=False):
-        computed[output_dataset] = data
-
         # TODO: this can be handled in the `save_wrapper`
         if save:
             output_dataset.save(data)
 
-    return computed
-
 
 def _run_node(
     node: Node, *, hooks: Sequence[NodeHook] = (), save: bool = True
-) -> DataStoreType:
+) -> None:
     node.validate()
 
     for node_hook in hooks:
@@ -80,17 +71,15 @@ def _run_node(
     else:
         values = tuple(values)
 
-    computed = _save_outputs(node, values, save=save)
+    _save_outputs(node, values, save=save)
 
     # persisting computed data only if outputs are loaded again later
-    for node_output in node.outputs:
-        if isinstance(node_output, _InputCache):
-            node_output.persist(computed[node_output])  # ty: ignore[call-non-callable]
+    for output, data in zip(node.outputs, values, strict=True):
+        if isinstance(output, _InputCache):
+            output.persist(data)
 
     for node_hook in hooks:
         node_hook.after_node_run(node)
-
-    return computed
 
 
 def _run_graph(
@@ -99,7 +88,7 @@ def _run_graph(
     hooks: Sequence[NodeHook] = (),
     save: SaveMode = "all",
     io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
-) -> DataStoreType:
+) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
     Args:
@@ -109,9 +98,6 @@ def _run_graph(
         save: 'all' | 'sinks' | 'none'.
             If 'sinks', only saves the outputs of sink nodes in the graph.
         io: mapping of IO objects to their replacements
-
-    Returns:
-        a dict mapping each IO to the computed data
 
     """
 
@@ -126,8 +112,6 @@ def _run_graph(
     for node in graph.nodes:
         patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
 
-    data_store: dict = {}  # For each IO, the loaded data
-
     # TODO: Create _Patch wrapper for IO?
     for node in graph.topological_ordering:
         if (save == "sinks" and node in graph.sink_nodes) or save == "all":
@@ -135,13 +119,7 @@ def _run_graph(
         else:
             save_node = False
 
-        computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
-        data_store.update(computed)
-
-    reverse_io = {v: k for k, v in (io_ or {}).items()}
-    patched_data_store = {}
-    for k, v in data_store.items():
-        patched_data_store[reverse_io.get(k, k)] = v
+        _run_node(patched_nodes[node], hooks=hooks, save=save_node)
 
     # unpersist IO objects
     for gnode in graph.nodes:
@@ -150,8 +128,6 @@ def _run_graph(
             if isinstance(io_obj, _InputCache):
                 io_obj.unpersist()
 
-    return patched_data_store
-
 
 def run(
     *runnables: Runnable,
@@ -159,7 +135,7 @@ def run(
     save: SaveMode = "all",
     verbose: bool = False,
     io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
-) -> DataStoreType:
+) -> None:
     """Runs nodes in topological order.
 
     Args:
@@ -168,9 +144,6 @@ def run(
         save: 'all' | 'sinks'. If 'sinks', only saves the sink outputs
         verbose: whether to print the node graph
         io: mapping of IO objects to their replacements
-
-    Returns:
-        a dict mapping each IO to the computed data
 
     """
 
@@ -185,9 +158,7 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=io)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)
-
-    return result

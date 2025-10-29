@@ -21,7 +21,7 @@ def printer(stream: bytes) -> str:
     return str(stream)
 
 
-print(run(printer, verbose=True))
+run(printer, verbose=True)
 
 ```
 
@@ -36,7 +36,6 @@ NodeGraph:
      view_response_stream:printer: Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])], outputs=[Print()])
      view_response_stream:users_stream: View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
 <generator object HTTPResponse.stream at HASH1>
-{View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)]): <generator object HTTPResponse.stream at HASH1>, Print(): '<generator object HTTPResponse.stream at HASH1>'}
 
 ```
 

@@ -21,7 +21,7 @@ def g(a: str) -> str:
     return f(a, a)
 
 
-print(run(f, g, verbose=True))  # raises NotImplementedError
+run(f, g, verbose=True)  # raises NotImplementedError
 
 ```
 
@@ -93,14 +93,16 @@ IOException: Failed to load Input(idx=ID1).
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    computed = _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    result = _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/incremental_placeholder.py", line LINO, in <module>
-    print(run(f, g, verbose=True))  # raises NotImplementedError
-          ~~~^^^^^^^^^^^^^^^^^^^^
+    run(f, g, verbose=True)  # raises NotImplementedError
+    ~~~^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 

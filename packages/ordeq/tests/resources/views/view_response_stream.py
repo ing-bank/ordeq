@@ -18,4 +18,4 @@ def printer(stream: bytes) -> str:
     return str(stream)
 
 
-print(run(printer, verbose=True))
+run(printer, verbose=True)

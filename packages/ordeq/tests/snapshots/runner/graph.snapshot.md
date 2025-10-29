@@ -35,14 +35,14 @@ def f4(i: str, j: str, k: str) -> str:
 
 pipeline = {f1, f2, f3, f4}
 
-output = run(*pipeline, save="all", verbose=True)
-print(output[R4])
+run(*pipeline, save="all", verbose=True)
+print(R4.load())
 
-output = run(*pipeline, save="sinks", verbose=True)
-print(output[R4])
+run(*pipeline, save="sinks", verbose=True)
+print(R4.load())
 
-output = run(*pipeline, save="none", verbose=True)
-print(output[R4])
+run(*pipeline, save="none", verbose=True)
+print(R4.load())
 
 ```
 
@@ -72,7 +72,7 @@ NodeGraph:
      graph:f2: Node(name=graph:f2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
      graph:f3: Node(name=graph:f3, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)])
      graph:f4: Node(name=graph:f4, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>), StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])
-Hello + world! / world! - Hello + world! + Hello + world! * 2
+Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / world! - Hello + world! + Hello + world! * 2
 NodeGraph:
   Edges:
      graph:f1 -> [graph:f2, graph:f3, graph:f4]
@@ -84,7 +84,7 @@ NodeGraph:
      graph:f2: Node(name=graph:f2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
      graph:f3: Node(name=graph:f3, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)])
      graph:f4: Node(name=graph:f4, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>), StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])
-Hello + world! / world! - Hello + world! + Hello + world! * 2
+Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / world! - Hello + world! + Hello + world! * 2
 
 ```
 
@@ -101,6 +101,7 @@ INFO	ordeq.runner	Running node "f2" in module "graph"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 INFO	ordeq.runner	Running node "f4" in module "graph"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "f1" in module "graph"
@@ -108,12 +109,14 @@ INFO	ordeq.runner	Running node "f3" in module "graph"
 INFO	ordeq.runner	Running node "f2" in module "graph"
 INFO	ordeq.runner	Running node "f4" in module "graph"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "f1" in module "graph"
 INFO	ordeq.runner	Running node "f3" in module "graph"
 INFO	ordeq.runner	Running node "f2" in module "graph"
 INFO	ordeq.runner	Running node "f4" in module "graph"
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```
 

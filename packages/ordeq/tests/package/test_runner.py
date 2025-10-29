@@ -1,88 +1,79 @@
-import copy
-
 from ordeq import node
 from ordeq._graph import NodeGraph
 from ordeq._nodes import create_node, get_node
 from ordeq._runner import _run_graph, _run_node, run
 from ordeq_common import StringBuffer
 
-A, B, D = [StringBuffer(c) for c in "ABD"]
-C = StringBuffer()
-E = StringBuffer()
-F = StringBuffer()
-
 
 def test_run_regular_node():
-    Bp = copy.copy(B)
-    Bp.unpersist()
-    node = create_node(inputs=(A,), outputs=(Bp,), func=lambda x: x + x)
-    computed = _run_node(node, hooks=())
-    assert computed[Bp] == "AA"
+    a = StringBuffer("a")
+    b = StringBuffer("b")
+    node = create_node(inputs=(a,), outputs=(b,), func=lambda x: x + x)
+    _run_node(node, hooks=())
+    assert b.load() == "aa"
 
 
 def test_run_node_with_zero_inputs():
-    Bp = copy.copy(B)
-    Bp.unpersist()
-    node = create_node(inputs=(), outputs=(Bp,), func=lambda: "something")
-    loaded = {Bp: "something"}
-    computed = _run_node(node, hooks=())
-    assert loaded == computed
+    b = StringBuffer("b")
+    node = create_node(inputs=(), outputs=(b,), func=lambda: "something")
+    _run_node(node, hooks=())
+    assert b.load() == "something"
 
 
 def test_run_graph_all():
-    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
-    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
-    square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
+    a, b, c, d, e, f = [StringBuffer(x) for x in "abcdef"]
+
+    plus = node(func=lambda x, y: f"({x} + {y})", inputs=(a, b), outputs=(c,))
+    minus = node(func=lambda x, y: f"({x} - {y})", inputs=(c, d), outputs=(e,))
+    square = node(func=lambda x: f"({x})^2", inputs=(e,), outputs=(f,))
+
     nodes = [get_node(plus), get_node(minus), get_node(square)]
-    expected_data_store = {
-        C: "A + BAAsomething",
-        E: "A + BAAsomething - D",
-        F: "(A + BAAsomething - D)^2",
-    }
-    data_store = _run_graph(NodeGraph.from_nodes(nodes))
-    assert data_store == expected_data_store
+    _run_graph(NodeGraph.from_nodes(nodes))
+    assert c.load() == "c(a + b)"
+    assert e.load() == "e((a + b) - d)"
+    assert f.load() == "f(((a + b) - d))^2"
 
 
 def test_run_graph_two():
-    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
-    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
+    a, b, c, d, e = [StringBuffer(x) for x in "abcde"]
+    plus = node(func=lambda x, y: f"({x} + {y})", inputs=(a, b), outputs=(c,))
+    minus = node(func=lambda x, y: f"({x} - {y})", inputs=(c, d), outputs=(e,))
     nodes = [get_node(plus), get_node(minus)]
-    expected_data_store = {C: "A + BAAsomething", E: "A + BAAsomething - D"}
-    data_store = _run_graph(NodeGraph.from_nodes(nodes))
-    assert data_store == expected_data_store
+    _run_graph(NodeGraph.from_nodes(nodes))
+    assert c.load() == "c(a + b)"
+    assert e.load() == "e((a + b) - d)"
 
 
 def test_run_graph_one():
-    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
+    a, b, c = [StringBuffer(x) for x in "abc"]
+    plus = node(func=lambda x, y: f"({x} + {y})", inputs=(a, b), outputs=(c,))
     nodes = [get_node(plus)]
-    expected_data_store = {C: "A + BAAsomething"}
-    data_store = _run_graph(NodeGraph.from_nodes(nodes))
-    assert data_store == expected_data_store
+    _run_graph(NodeGraph.from_nodes(nodes))
+    assert c.load() == "c(a + b)"
 
 
 def test_run_parametrized_all():
-    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
-    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
-    square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
-    data_store = run(plus, minus, square)
-    expected_data_store = {
-        C: "A + BAAsomething",
-        E: "A + BAAsomething - D",
-        F: "(A + BAAsomething - D)^2",
-    }
-    assert data_store == expected_data_store
+    a, b, c, d, e, f = [StringBuffer(x) for x in "abcdef"]
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(a, b), outputs=(c,))
+    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(c, d), outputs=(e,))
+    square = node(func=lambda x: f"({x})^2", inputs=(e,), outputs=(f,))
+    run(plus, minus, square)
+    assert c.load() == "ca + b"
+    assert e.load() == "ea + b - d"
+    assert f.load() == "f(a + b - d)^2"
 
 
 def test_run_parametrized_two():
-    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
-    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
-    data_store = run(plus, minus)
-    expected_data_store = {C: "A + BAAsomething", E: "A + BAAsomething - D"}
-    assert data_store == expected_data_store
+    a, b, c, d, e = [StringBuffer(x) for x in "abcde"]
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(a, b), outputs=(c,))
+    minus = node(func=lambda x, y: f"{x} - {y}", inputs=(c, d), outputs=(e,))
+    run(plus, minus)
+    assert c.load() == "ca + b"
+    assert e.load() == "ea + b - d"
 
 
 def test_run_parametrized_one():
-    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
-    data_store = run(plus)
-    expected_data_store = {C: "A + BAAsomething"}
-    assert data_store == expected_data_store
+    a, b, c = [StringBuffer(x) for x in "abc"]
+    plus = node(func=lambda x, y: f"{x} + {y}", inputs=(a, b), outputs=(c,))
+    run(plus)
+    assert c.load() == "ca + b"

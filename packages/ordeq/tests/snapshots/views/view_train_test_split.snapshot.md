@@ -36,7 +36,7 @@ def train(data: Split) -> None:
     print('Training', data[0].describe())
 
 
-print(run(train, verbose=True))
+run(train, verbose=True)
 
 ```
 
@@ -65,18 +65,6 @@ min    1.0  2.0
 50%    2.0  5.0
 75%    2.5  6.5
 max    3.0  8.0
-{View(name=view_train_test_split:split, inputs=[Literal(     A  B    C   gt
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)]): (     A  B    C   gt
-0  foo  1  one  2.0
-1  foo  3  two  8.0
-2  bar  2  one  5.0, Empty DataFrame
-Columns: [A, B, C, gt]
-Index: []), View(name=view_train_test_split:train, inputs=[View(name=view_train_test_split:split, inputs=[Literal(     A  B    C   gt
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])]): None}
 
 ```
 

@@ -13,14 +13,15 @@ def func1(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func1))
+run(func1)
+print(catalog.result.load())
 
 ```
 
 ## Output
 
 ```text
-{StringBuffer(_buffer=<_io.StringIO object at HASH1>): 'HEY I AM OVERRIDING THE HELLO IO!'}
+HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!
 
 ```
 
@@ -30,5 +31,6 @@ print(run(func1))
 INFO	ordeq.io	Loading Literal('Hey I am overriding the hello IO')
 INFO	ordeq.runner	Running node "func1" in module "extended"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

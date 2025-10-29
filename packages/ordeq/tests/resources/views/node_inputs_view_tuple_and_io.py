@@ -16,4 +16,4 @@ def combine_greeting_with_ending(greeting: tuple[str, str], e: str):
     return f"{' '.join(greeting)} {e}"
 
 
-print(run(combine_greeting_with_ending, verbose=True))
+run(combine_greeting_with_ending, verbose=True)

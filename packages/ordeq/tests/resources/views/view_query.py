@@ -16,4 +16,4 @@ def range_to_csv(r: duckdb.DuckDBPyRelation) -> None:
     r.show()
 
 
-print(run(range_to_csv, verbose=True))
+run(range_to_csv, verbose=True)

@@ -22,7 +22,7 @@ def print_buckets(buckets: list[str]) -> None:
         print(bucket)
 
 
-print(run(print_buckets, verbose=True))
+run(print_buckets, verbose=True)
 
 ```
 
@@ -39,7 +39,6 @@ NodeGraph:
 bucket1
 bucket2
 bucket3
-{View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)]): ['bucket1', 'bucket2', 'bucket3'], View(name=view_client_list_buckets:print_buckets, inputs=[View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])]): None}
 
 ```
 

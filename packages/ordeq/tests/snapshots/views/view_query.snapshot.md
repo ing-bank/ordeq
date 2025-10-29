@@ -19,7 +19,7 @@ def range_to_csv(r: duckdb.DuckDBPyRelation) -> None:
     r.show()
 
 
-print(run(range_to_csv, verbose=True))
+run(range_to_csv, verbose=True)
 
 ```
 
@@ -42,15 +42,6 @@ NodeGraph:
 │     2 │
 └───────┘
 
-{View(name=view_query:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)]): ┌───────┐
-│ range │
-│ int64 │
-├───────┤
-│     0 │
-│     1 │
-│     2 │
-└───────┘
-, View(name=view_query:range_to_csv, inputs=[View(name=view_query:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)])]): None}
 
 ```
 

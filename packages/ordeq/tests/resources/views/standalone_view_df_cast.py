@@ -37,4 +37,4 @@ def group_by(df: pd.DataFrame) -> pd.DataFrame:
     ).agg({"B": "mean", "D": "max"})
 
 
-print(run(group_by, verbose=True))
+run(group_by, verbose=True)

@@ -29,4 +29,4 @@ def group_by(df: pd.DataFrame) -> None:
     ).agg({"B": "mean", "D": "max"}).head())
 
 
-print(run(group_by, verbose=True))
+run(group_by, verbose=True)

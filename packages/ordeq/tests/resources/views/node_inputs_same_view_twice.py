@@ -16,4 +16,4 @@ def n(fst: str, snd: str) -> str:
     return f"{fst} == {snd}'"
 
 
-print(run(n, verbose=True))
+run(n, verbose=True)

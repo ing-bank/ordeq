@@ -14,4 +14,4 @@ def n(v: tuple[str, ...]):
     print(f"Node received '{' '.join(v)}'")
 
 
-print(run(n, verbose=True, io={hello_io: Literal("Buenos dias")}))
+run(n, verbose=True, io={hello_io: Literal("Buenos dias")})

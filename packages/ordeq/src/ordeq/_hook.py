@@ -109,6 +109,7 @@ class RunHook(Protocol):
         Args:
             graph: the graph object
         """
+
         return
 
 

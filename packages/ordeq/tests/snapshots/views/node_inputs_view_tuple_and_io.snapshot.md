@@ -19,7 +19,7 @@ def combine_greeting_with_ending(greeting: tuple[str, str], e: str):
     return f"{' '.join(greeting)} {e}"
 
 
-print(run(combine_greeting_with_ending, verbose=True))
+run(combine_greeting_with_ending, verbose=True)
 
 ```
 
@@ -35,7 +35,6 @@ NodeGraph:
      node_inputs_view_tuple_and_io:combine_greeting_with_ending: Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[View(name=node_inputs_view_tuple_and_io:hello), Literal('!!!')], outputs=[Print()])
      node_inputs_view_tuple_and_io:hello: View(name=node_inputs_view_tuple_and_io:hello)
 Hello world !!!
-{View(name=node_inputs_view_tuple_and_io:hello): ('Hello', 'world'), Print(): 'Hello world !!!'}
 
 ```
 

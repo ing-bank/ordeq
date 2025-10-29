@@ -22,7 +22,7 @@ def sink(s: str) -> None:
 
 
 # This should succeed, as it produces the placeholder IO's value
-print(run(hello_from_someone, sink, verbose=True))
+run(hello_from_someone, sink, verbose=True)
 
 # This should fail: it attempts to load placeholder IO
-print(run(sink, verbose=True))
+run(sink, verbose=True)

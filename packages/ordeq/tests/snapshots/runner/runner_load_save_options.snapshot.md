@@ -41,8 +41,8 @@ def decrement(x: str, y: str) -> str:
     return f"x says '{x}' but y says '{y}'"
 
 
-result = run(increment, decrement, verbose=True)
-print(result)
+run(increment, decrement, verbose=True)
+print(x4.load())
 
 ```
 
@@ -56,7 +56,7 @@ NodeGraph:
   Nodes:
      runner_load_save_options:decrement: Node(name=runner_load_save_options:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])
      runner_load_save_options:increment: Node(name=runner_load_save_options:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)])
-{CustomIO(attr=x says y did it  !): 'x says y did it ', CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' ): "x says 'x says y did it ' but y says 'x did it and I know the murder weapon'"}
+x says 'x says y did it ' but y says 'x did it and I know the murder weapon'  
 
 ```
 
@@ -69,5 +69,6 @@ INFO	ordeq.io	Saving CustomIO(attr=)
 INFO	ordeq.io	Loading CustomIO(attr=x did it)
 INFO	ordeq.runner	Running node "decrement" in module "runner_load_save_options"
 INFO	ordeq.io	Saving CustomIO(attr=)
+INFO	ordeq.io	Loading CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
 
 ```

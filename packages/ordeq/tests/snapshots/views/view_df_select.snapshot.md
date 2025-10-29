@@ -5,7 +5,7 @@ from ordeq import node, run
 import pandas as pd
 from ordeq_common import Literal
 
-dataframe= Literal(
+dataframe = Literal(
     pd.DataFrame(
         {
             "A": ["foo", "bar", "foo"],
@@ -31,7 +31,7 @@ def group_by(df: pd.DataFrame) -> None:
     ).agg("mean").head())
 
 
-print(run(group_by, verbose=True))
+run(group_by, verbose=True)
 
 ```
 
@@ -54,16 +54,6 @@ NodeGraph:
      A
 0  bar
 1  foo
-{View(name=view_df_select:df_selected, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)]):      A
-0  foo
-1  bar
-2  foo, View(name=view_df_select:group_by, inputs=[View(name=view_df_select:df_selected, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])]): None}
 
 ```
 

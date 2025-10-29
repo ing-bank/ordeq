@@ -4,11 +4,11 @@ from ordeq import node, run
 
 from resources.catalog.catalogs import local, remote
 
-os.environ["ENV"] = "local"
+env = "test-local"
 
 
 def get_catalog():
-    return local if os.environ["ENV"] == "local" else remote
+    return local if env == "test-local" else remote
 
 
 catalog = get_catalog()
@@ -19,9 +19,10 @@ def func1(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func1))
+run(func1)
+print(catalog.result.load())
 
-os.environ["ENV"] = "acceptance"
+env = "test-acceptance"
 catalog = get_catalog()
 
 
@@ -30,4 +31,5 @@ def func2(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func2))
+run(func2)
+print(catalog.result.load())

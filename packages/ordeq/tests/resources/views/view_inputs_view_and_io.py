@@ -24,4 +24,4 @@ def n(v: str) -> None:
     print(f"I heard that {v}")
 
 
-print(run(n, verbose=True))
+run(n, verbose=True)

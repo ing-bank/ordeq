@@ -20,4 +20,4 @@ def concatenate(lines: Iterator[Any]) -> None:
         print(line)
 
 
-print(run(concatenate, verbose=True))
+run(concatenate, verbose=True)

@@ -43,7 +43,7 @@ print(catalog.result.load())
 
 ```text
 HELLO FROM LOCAL!
-HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!
+HELLO FROM REMOTE!
 
 ```
 

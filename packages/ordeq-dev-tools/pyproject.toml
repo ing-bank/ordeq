@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ordeq_dev_tools"
+description = "Dev utilities for Ordeq packages - not distributed on PyPI"
+version = "0.1.0"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+maintainers = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "ordeq-files",
+    "ordeq-toml",
+    "ordeq-viz",
+    "packaging",
+    "ordeq-common",
+    "ordeq-args",
+]
+
+[tool.ordeq-dev]
+logo_url = ""
+group = "developer-tools"
+
+[dependency-groups]
+test = []
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]
+
+[tool.ruff.lint]
+extend-ignore = ["D103"]

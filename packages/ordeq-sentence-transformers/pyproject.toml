@@ -28,7 +28,19 @@ group = "ios"
 logo_url = "https://www.sbert.net/_static/logo.png"
 
 [dependency-groups]
-test = []
+test = [
+    "torch"
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [tool.setuptools_scm]
 root = "../../"

@@ -164,6 +164,13 @@ def pipeline_to_kedro_viz(
 ) -> None:
     """Convert a pipeline to a kedro-viz static pipeline directory
 
+    Run with:
+
+    ```shell
+    export KEDRO_DISABLE_TELEMETRY=true
+    kedro viz run --load-file kedro-pipeline-example
+    ```
+
     Args:
         nodes: set of `ordeq.Node`
         ios: dict of name and `ordeq.IO`
@@ -172,44 +179,6 @@ def pipeline_to_kedro_viz(
     Raises:
         FileExistsError: if the output directory already exists
 
-    Examples:
-
-    ```pycon
-    >>> from pathlib import Path
-    >>> from ordeq_viz import (
-    ...     pipeline_to_kedro_viz
-    ... )
-
-    >>> import catalog as catalog_module  # doctest: +SKIP
-    >>> import nodes as nodes_module  # doctest: +SKIP
-    ```
-
-    Gather all nodes and ios in your project:
-    ```pycon
-    >>> from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
-    >>> nodes, ios = _resolve_runnables_to_nodes_and_ios(  # doctest: +SKIP
-    ...     catalog_module,
-    ...     pipeline_module
-    ... )
-    ```
-
-    Create the kedro-viz output directory:
-
-    ```pycon
-    >>> pipeline_to_kedro_viz(
-    ...    nodes,
-    ...    ios,
-    ...    output_directory=Path("kedro-pipeline-example/")
-    ... )  # doctest: +SKIP
-
-    ```
-
-    Run with:
-
-    ```shell
-    export KEDRO_DISABLE_TELEMETRY=true
-    kedro viz run --load-file kedro-pipeline-example
-    ```
     """
     node_data, dataset_data = _gather_graph(nodes, ios)
 

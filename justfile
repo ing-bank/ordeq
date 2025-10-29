@@ -57,7 +57,7 @@ mypy: mypy-packages mypy-examples
 
 # Mypy check all package directories
 mypy-packages:
-    for dir in `find packages -maxdepth 1 -type d -name "ordeq*"`; do \
+    for dir in `find packages -maxdepth 1 -type d -name "ordeq*" -not -path "packages/ordeq-dev-tools"`; do \
             uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
     done
 

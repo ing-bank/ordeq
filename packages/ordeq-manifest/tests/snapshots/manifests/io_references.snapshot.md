@@ -15,6 +15,22 @@ print(create_manifest_json(example2))
   "name": "example2",
   "nodes": {},
   "ios": {
+    "example2.io_references:named_nested_test_io": {
+      "id": "example2.io_references:named_nested_test_io",
+      "name": "named_nested_test_io",
+      "type": "example2.io_references:MyIO",
+      "references": [
+        "other_io"
+      ]
+    },
+    "example2.io_references:named_test_io": {
+      "id": "example2.io_references:named_test_io",
+      "name": "named_test_io",
+      "type": "example2.io_references:MyIO",
+      "references": [
+        "other_io"
+      ]
+    },
     "example2.io_references:nested_test_io": {
       "id": "example2.io_references:nested_test_io",
       "name": "nested_test_io",
@@ -30,6 +46,12 @@ print(create_manifest_json(example2))
       "references": [
         "other_io"
       ]
+    },
+    "example2.io_references:world": {
+      "id": "example2.io_references:world",
+      "name": "world",
+      "type": "ordeq_common.io.literal:Literal",
+      "references": []
     }
   }
 }

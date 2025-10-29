@@ -2745,6 +2745,7 @@ test = [
     { name = "ordeq-test-utils" },
     { name = "pandas" },
     { name = "pandas-stubs" },
+    { name = "requests" },
     { name = "types-requests" },
 ]
 
@@ -2758,6 +2759,7 @@ test = [
     { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
     { name = "pandas" },
     { name = "pandas-stubs" },
+    { name = "requests" },
     { name = "types-requests" },
 ]
 

@@ -30,7 +30,9 @@ test = [
     "ordeq_test_utils",
     "pandas",
     "pandas-stubs",
+    "requests",
     "duckdb",
+    "types-requests",
 ]
 
 [tool.setuptools_scm]

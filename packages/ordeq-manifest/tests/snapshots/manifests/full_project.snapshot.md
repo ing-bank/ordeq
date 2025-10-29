@@ -1,8 +1,8 @@
 ## Resource
 
 ```python
-from ordeq_manifest import create_manifest_json
 import project
+from ordeq_manifest import create_manifest_json
 
 print(create_manifest_json(project))
 
@@ -320,8 +320,8 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'proje
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/full_project.py:2: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/manifests/full_project.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/full_project.py:1: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/full_project.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

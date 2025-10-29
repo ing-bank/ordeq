@@ -1,8 +1,8 @@
 ## Resource
 
 ```python
-from ordeq_manifest import create_manifest_json
 import references
+from ordeq_manifest import create_manifest_json
 
 print(create_manifest_json(references))
 
@@ -61,8 +61,8 @@ print(create_manifest_json(references))
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/io_references.py:2: error: Skipping analyzing "references": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/manifests/io_references.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/io_references.py:1: error: Skipping analyzing "references": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/io_references.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

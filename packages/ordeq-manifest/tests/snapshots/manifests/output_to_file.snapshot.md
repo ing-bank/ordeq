@@ -1,24 +1,23 @@
 ## Resource
 
 ```python
+from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 from ordeq_manifest import create_manifest_json
 from project import inner
-from pathlib import Path
 
 with NamedTemporaryFile() as file:
     path = Path(file.name)
     create_manifest_json(inner, output=path)
-    print('JSON:/n', path.read_text())
+    print(path.read_text(encoding="utf8"))
 
 ```
 
 ## Output
 
 ```text
-JSON:
- {
+{
   "name": "project.inner",
   "nodes": {
     "project.inner.nodes:func": {
@@ -58,8 +57,8 @@ JSON:
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:5: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:5: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

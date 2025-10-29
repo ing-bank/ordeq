@@ -18,6 +18,8 @@ We are young project and still figuring out how we can collaborate best.
 The `just` command runner tool is used for common tasks in the project.
 After installing it, you can run `just` to see the available commands:
 
+<!-- auto-generated justfile commands start -->
+
 ```text
 Available recipes:
     localsetup                # Local installation
@@ -57,6 +59,8 @@ Available recipes:
     delete-snapshots          # Delete all .snapshot.md files anywhere in the repository
     capture-snapshots         # Recompute snapshots by running only those tests for all packages
 ```
+
+<!-- auto-generated justfile commands end -->
 
 Tip: install support for `just` in your IDE, e.g. [just for PyCharm](https://plugins.jetbrains.com/plugin/18658-just).
 

@@ -18,8 +18,8 @@ print(create_manifest_json(nodes_import_reassign))
       "id": "examples.project.nodes_import_reassign:func_a",
       "name": "func_a",
       "inputs": [
-        "examples.project.nodes_import_reassign:AA",
-        "examples.project.nodes_import_reassign:BB"
+        "examples.project.nodes_import_reassign:A|AA|a",
+        "examples.project.nodes_import_reassign:B|BB|b"
       ],
       "outputs": [
         "examples.project.nodes_import_reassign:f"
@@ -30,8 +30,8 @@ print(create_manifest_json(nodes_import_reassign))
       "id": "examples.project.nodes_import_reassign:func_b",
       "name": "func_b",
       "inputs": [
-        "examples.project.nodes_import_reassign:AA",
-        "examples.project.nodes_import_reassign:BB"
+        "examples.project.nodes_import_reassign:A|AA|a",
+        "examples.project.nodes_import_reassign:B|BB|b"
       ],
       "outputs": [
         "examples.project.nodes_import_reassign:f"

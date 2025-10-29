@@ -1,7 +1,6 @@
-import subprocess
-from pathlib import Path
+import subprocess  # noqa: S404
 
-REPO_ROOT: Path = Path(__file__).resolve().parent.parent
+from ordeq_dev_tools.paths import ROOT_PATH
 
 
 def run_command(command: list[str]) -> str | None:
@@ -14,8 +13,8 @@ def run_command(command: list[str]) -> str | None:
         Output of the command as a string
     """
     try:
-        result = subprocess.run(
-            command, capture_output=True, text=True, check=True, cwd=REPO_ROOT
+        result = subprocess.run(  # noqa: S603
+            command, capture_output=True, text=True, check=True, cwd=ROOT_PATH
         )
         return result.stdout.strip()
     except subprocess.CalledProcessError:

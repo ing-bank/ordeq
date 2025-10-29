@@ -43,12 +43,12 @@ jobs:
       - name: List changed packages
         id: list-changed-packages
         run: |
-          uv run scripts/list_changed_packages.py
-          changed_pkgs="changed-packages=$(cat scripts/changed_packages.json)"
+          uv run --with packages/ordeq-dev-tools -m ordeq_dev_tools changed_packages .
+          changed_pkgs="changed-packages=$(cat data/dev_tools/changed_packages.json)"
           echo "$changed_pkgs"
-          uv run scripts/list_dependencies.py
-          uv run scripts/relevant_packages.py
-          relevant_pkgs="changed-packages=$(cat scripts/relevant_packages.json)"
+          uv run --with packages/ordeq-dev-tools -m ordeq_dev_tools list_dependencies .
+          uv run --with packages/ordeq-dev-tools -m ordeq_dev_tools compute_relevant_packages .
+          relevant_pkgs="changed-packages=$(cat data/dev_tools/relevant_packages.json)"
           echo "$relevant_pkgs"
           echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
 
@@ -96,9 +96,10 @@ jobs:
 
   test:
     name: Test
-    needs: [ packages, static_code_analysis, docs ]
+    needs: [ packages ]
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
         package: ${{ fromJson(needs.packages.outputs.packages) }}
     steps:
@@ -120,7 +121,7 @@ jobs:
         run: uv sync --package ${{ matrix.package }} --group test --locked
 
       - name: Run unit tests
-        run: uv run --group test pytest -v --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"
+        run: uv run --group test pytest -xv --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4

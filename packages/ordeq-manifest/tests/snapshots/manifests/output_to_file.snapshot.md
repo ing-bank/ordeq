@@ -4,7 +4,7 @@
 from tempfile import NamedTemporaryFile
 
 from ordeq_manifest import create_manifest_json
-from examples.project import inner
+from project import inner
 from pathlib import Path
 
 with NamedTemporaryFile() as file:
@@ -19,16 +19,16 @@ with NamedTemporaryFile() as file:
 ```text
 JSON:
  {
-  "name": "examples.project.inner",
+  "name": "project.inner",
   "nodes": {
-    "examples.project.inner.nodes:func": {
-      "id": "examples.project.inner.nodes:func",
+    "project.inner.nodes:func": {
+      "id": "project.inner.nodes:func",
       "name": "func",
       "inputs": [
-        "examples.project.inner.nodes:x"
+        "project.inner.nodes:x"
       ],
       "outputs": [
-        "examples.project.inner.nodes:y"
+        "project.inner.nodes:y"
       ],
       "attributes": {
         "tags": [
@@ -38,14 +38,14 @@ JSON:
     }
   },
   "ios": {
-    "examples.project.inner.nodes:x": {
-      "id": "examples.project.inner.nodes:x",
+    "project.inner.nodes:x": {
+      "id": "project.inner.nodes:x",
       "name": "x",
       "type": "ordeq._io:IO",
       "references": []
     },
-    "examples.project.inner.nodes:y": {
-      "id": "examples.project.inner.nodes:y",
+    "project.inner.nodes:y": {
+      "id": "project.inner.nodes:y",
       "name": "y",
       "type": "ordeq_common.io.printer:Print",
       "references": []
@@ -58,7 +58,7 @@ JSON:
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: error: Skipping analyzing "examples.project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 

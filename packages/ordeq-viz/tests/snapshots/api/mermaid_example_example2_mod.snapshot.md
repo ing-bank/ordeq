@@ -30,10 +30,9 @@ graph TB
 			L1[("IO")]:::io
 		end
 		subgraph IO Types
-			L00[("IO")]:::io0
-			L01[("Input")]:::io1
-			L02[("Output")]:::io2
-			L03[("StringBuffer")]:::io3
+			L00[("Input")]:::io0
+			L01[("Output")]:::io1
+			L02[("StringBuffer")]:::io2
 		end
 	end
 
@@ -41,20 +40,15 @@ graph TB
 	transform_input_2 --> IO1
 	IO2 --> world
 	world --> IO3
-	IO4 --> node_with_inline_io
-	node_with_inline_io --> IO5
 
 	subgraph pipeline["Pipeline"]
 		direction TB
 		transform_input_2(["transform_input_2"]):::node
 		world(["world"]):::node
-		node_with_inline_io(["node_with_inline_io"]):::node
-		IO0[("TestInput2")]:::io1
-		IO1[("TestOutput2")]:::io2
-		IO2[("x")]:::io3
-		IO3[("y")]:::io3
-		IO4[("&lt;anonymous&gt;")]:::io0
-		IO5[("&lt;anonymous&gt;")]:::io0
+		IO0[("TestInput2")]:::io0
+		IO1[("TestOutput2")]:::io1
+		IO2[("x")]:::io2
+		IO3[("y")]:::io2
 	end
 
 	classDef node fill:#008AD7,color:#FFF
@@ -62,7 +56,6 @@ graph TB
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
 	classDef io2 fill:#8da0cb
-	classDef io3 fill:#e78ac3
 
 
 ```

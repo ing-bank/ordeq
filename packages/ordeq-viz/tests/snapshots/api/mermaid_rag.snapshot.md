@@ -41,12 +41,7 @@ graph TB
 			L1(IO):::io
 		end
 		subgraph IO Types
-			L00(FaissIndex):::io0
-			L01(IO):::io1
-			L02(PandasExcel):::io2
-			L03(Pickle):::io3
-			L04(PymupdfFile):::io4
-			L05(SentenceTransformer):::io5
+			L00(IO):::io0
 		end
 	end
 
@@ -82,27 +77,22 @@ graph TB
 		question_answering(["question_answering"]):::node
 		evaluate_answers(["evaluate_answers"]):::node
 		annotate_documents(["annotate_documents"]):::node
-		IO0(policies):::io2
-		IO1(questions):::io1
-		IO2(pdf_documents):::io4
-		IO3(llm_vision_retrieval_model):::io5
+		IO0(policies):::io0
+		IO1(questions):::io0
+		IO2(pdf_documents):::io0
+		IO3(llm_vision_retrieval_model):::io0
 		IO4(index):::io0
-		IO5(retrieved_pages):::io1
-		IO6(llm_model):::io5
-		IO7(relevant_pages):::io1
-		IO8(llm_answers):::io1
-		IO9(metrics):::io3
-		IO10(pdfs_documents_annotated):::io4
+		IO5(retrieved_pages):::io0
+		IO6(llm_model):::io0
+		IO7(relevant_pages):::io0
+		IO8(llm_answers):::io0
+		IO9(metrics):::io0
+		IO10(pdfs_documents_annotated):::io0
 	end
 
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
-	classDef io1 fill:#fc8d62
-	classDef io2 fill:#8da0cb
-	classDef io3 fill:#e78ac3
-	classDef io4 fill:#a6d854
-	classDef io5 fill:#ffd92f
 
 
 ```

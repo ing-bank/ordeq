@@ -21,6 +21,6 @@ jobs:
 
       - uses: deepakputhraya/action-pr-title@master
         with:
-          regex: '^(`ordeq-?.+`|(?!ordeq.*).+): '
-          verbal_description: 'Pull request title should start with "`[package]`:" or `docs:`, `ci:` etc.'
+          regex: '^(`ordeq-?.*`|(?!ordeq)(?!`).+): '
+          verbal_description: 'Pull request title should start with "`[package]`:" or "docs:", "ci:" etc.'
           github_token: ${{ github.token }}

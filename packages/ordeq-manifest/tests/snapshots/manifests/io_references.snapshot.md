@@ -2,9 +2,9 @@
 
 ```python
 from ordeq_manifest import create_manifest_json
-import example2
+import references
 
-print(create_manifest_json(example2))
+print(create_manifest_json(references))
 
 ```
 
@@ -12,43 +12,43 @@ print(create_manifest_json(example2))
 
 ```text
 {
-  "name": "example2",
+  "name": "references",
   "nodes": {},
   "ios": {
-    "example2.io_references:named_nested_test_io": {
-      "id": "example2.io_references:named_nested_test_io",
+    "references.io_references:named_nested_test_io": {
+      "id": "references.io_references:named_nested_test_io",
       "name": "named_nested_test_io",
-      "type": "example2.io_references:MyIO",
+      "type": "references.io_references:MyIO",
       "references": [
         "other_io"
       ]
     },
-    "example2.io_references:named_test_io": {
-      "id": "example2.io_references:named_test_io",
+    "references.io_references:named_test_io": {
+      "id": "references.io_references:named_test_io",
       "name": "named_test_io",
-      "type": "example2.io_references:MyIO",
+      "type": "references.io_references:MyIO",
       "references": [
         "other_io"
       ]
     },
-    "example2.io_references:nested_test_io": {
-      "id": "example2.io_references:nested_test_io",
+    "references.io_references:nested_test_io": {
+      "id": "references.io_references:nested_test_io",
       "name": "nested_test_io",
-      "type": "example2.io_references:MyIO",
+      "type": "references.io_references:MyIO",
       "references": [
         "other_io"
       ]
     },
-    "example2.io_references:test_io": {
-      "id": "example2.io_references:test_io",
+    "references.io_references:test_io": {
+      "id": "references.io_references:test_io",
       "name": "test_io",
-      "type": "example2.io_references:MyIO",
+      "type": "references.io_references:MyIO",
       "references": [
         "other_io"
       ]
     },
-    "example2.io_references:world": {
-      "id": "example2.io_references:world",
+    "references.io_references:world": {
+      "id": "references.io_references:world",
       "name": "world",
       "type": "ordeq_common.io.literal:Literal",
       "references": []
@@ -61,7 +61,7 @@ print(create_manifest_json(example2))
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/io_references.py:2: error: Skipping analyzing "example2": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/io_references.py:2: error: Skipping analyzing "references": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-manifest/tests/resources/manifests/io_references.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 

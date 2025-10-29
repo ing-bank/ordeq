@@ -69,3 +69,6 @@ class BytesBuffer(IO[bytes]):
 
     def save(self, data: bytes) -> None:
         self._buffer.write(data)
+
+    def persist(self, _) -> None:
+        return super().persist(self._buffer.getvalue())

@@ -26,7 +26,7 @@ run(add_suffix, print_value)
 ## Output
 
 ```text
-suffix
+asuffix
 
 ```
 

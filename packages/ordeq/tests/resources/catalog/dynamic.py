@@ -20,7 +20,7 @@ def func1(hello: str) -> str:
 
 
 run(func1)
-print(catalog.result.output())
+print(catalog.result.load())
 
 env = "test-acceptance"
 catalog = get_catalog()
@@ -32,4 +32,4 @@ def func2(hello: str) -> str:
 
 
 run(func2)
-print(catalog.result.output())
+print(catalog.result.load())

@@ -16,7 +16,7 @@ def packages_dir() -> Path:
         the path to the packages directory
     """
 
-    PACKAGE_DIR = Path(__file__).resolve().parent
+    PACKAGE_DIR = Path(__file__).resolve().parents[2] / "ordeq" / "tests"
     return PACKAGE_DIR / "packages"
 
 
@@ -33,10 +33,7 @@ def expected_example_nodes() -> set[Callable]:
     Returns:
         a set of expected nodes
     """
-    from example.nodes import (  # ty: ignore[unresolved-import]
-        node_with_inline_io,
-        world,
-    )
+    from example.nodes import world  # ty: ignore[unresolved-import]
     from example.pipeline import (  # ty: ignore[unresolved-import]
         transform_input,
         transform_mock_input,
@@ -47,14 +44,7 @@ def expected_example_nodes() -> set[Callable]:
     )
 
     """Expected nodes in the example package."""
-    return {
-        transform_input,
-        transform_mock_input,
-        world,
-        hello,
-        print_message,
-        node_with_inline_io,
-    }
+    return {transform_input, transform_mock_input, world, hello, print_message}
 
 
 @pytest.fixture

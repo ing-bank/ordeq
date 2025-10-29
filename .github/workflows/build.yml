@@ -134,4 +134,4 @@ jobs:
       uses: re-actors/alls-green@release/v1
       with:
         jobs: ${{ toJSON(needs) }}
-        skipped-is-successful: true
+        allowed-skips: true

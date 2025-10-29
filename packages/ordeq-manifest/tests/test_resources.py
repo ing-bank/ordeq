@@ -18,7 +18,7 @@ SNAPSHOT_DIR = TESTS_DIR / "snapshots"
             / file_path.relative_to(RESOURCE_DIR).with_suffix(".snapshot.md"),
             id=str(file_path.relative_to(RESOURCE_DIR)),
         )
-        for file_path in RESOURCE_DIR.rglob("*.py")
+        for file_path in sorted(RESOURCE_DIR.rglob("*.py"))
     ],
 )
 def test_resource(

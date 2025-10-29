@@ -59,8 +59,7 @@ This is a good practice for unit tests, as it keeps them fast and isolated.
 ### Running nodes in tests
 
 Alternatively, you can test nodes by running them.
-This will load the data from the node inputs, and save the returned data to the node outputs.
-The result of the run will be a dictionary containing the data for each input and output used in the run:
+This will load the data from the node inputs, and save the returned data to the node outputs:
 
 ```python
 from catalog import greetings
@@ -69,8 +68,8 @@ from ordeq import run
 
 
 def test_run_greet():
-    result = run(greet)
-    assert result[greetings] == [
+    run(greet)
+    assert greetings.load() == [
         "Hello, Abraham!",
         "Hello, Adam!",
         "Hello, Azul!",

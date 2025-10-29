@@ -144,9 +144,8 @@ from ordeq import run
 
 
 def test_run_greet(io):
-    result = run(greet, io=io)
+    run(greet, io=io)
     # do your asserts ...
-    assert result == ...
 ```
 
 For more information on the fixture scope, refer to the `pytest` [documentation](https://docs.pytest.org/en/stable/how-to/fixtures.html#fixture-scopes).

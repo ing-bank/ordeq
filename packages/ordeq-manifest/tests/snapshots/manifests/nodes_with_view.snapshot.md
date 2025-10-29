@@ -54,7 +54,8 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'proje
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/nodes_with_view.py:2: error: Module "project" has no attribute "nodes_with_view"  [attr-defined]
+packages/ordeq-manifest/tests/resources/manifests/nodes_with_view.py:2: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/nodes_with_view.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

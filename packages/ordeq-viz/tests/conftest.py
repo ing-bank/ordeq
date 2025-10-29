@@ -17,7 +17,7 @@ def packages_dir() -> Path:
     """
 
     PACKAGE_DIR = (
-        Path(__file__).resolve().parent.parent.parent / "ordeq" / "tests"
+        Path(__file__).resolve().parents[2] / "ordeq" / "tests"
     )
     return PACKAGE_DIR / "packages"
 
@@ -36,7 +36,6 @@ def expected_example_nodes() -> set[Callable]:
         a set of expected nodes
     """
     from example.nodes import (  # ty: ignore[unresolved-import]
-        node_with_inline_io,
         world,
     )
     from example.pipeline import (  # ty: ignore[unresolved-import]
@@ -55,7 +54,6 @@ def expected_example_nodes() -> set[Callable]:
         world,
         hello,
         print_message,
-        node_with_inline_io,
     }
 
 

@@ -111,7 +111,7 @@ def make_output_invariant(output: str) -> str:
     stdlib_path = str(Path(traceback.__file__).parent)
 
     # /Users/.../Documents/code/ordeq-oss/... => "..."
-    root_path = str(Path(__file__).parent.parent.parent.parent.parent)
+    root_path = str(Path(__file__).parents[4])
 
     # File ".../_runner.py", line 140  => "File ".../_runner.py", line LINO
     captured = re.sub(r"(line )\d+", r"\1LINO", captured)

@@ -2,9 +2,9 @@
 
 ```python
 from ordeq_manifest import create_manifest_json
-from project import nodes_with_inline_io
+import project
 
-print(create_manifest_json(nodes_with_inline_io))
+print(create_manifest_json(project))
 
 ```
 
@@ -31,9 +31,9 @@ KeyError: Literal('Buenos dias')
   File "/packages/ordeq-manifest/src/ordeq_manifest/manifest.py", line LINO, in create_manifest_json
     project_model = create_manifest(package)
 
-  File "/packages/ordeq-manifest/tests/resources/manifests/nodes_with_inline_io.py", line LINO, in <module>
-    print(create_manifest_json(nodes_with_inline_io))
-          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/packages/ordeq-manifest/tests/resources/manifests/full_project.py", line LINO, in <module>
+    print(create_manifest_json(project))
+          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
@@ -45,11 +45,18 @@ KeyError: Literal('Buenos dias')
 
 ```
 
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'project.nodes_with_view:greet'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+
+```
+
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/nodes_with_inline_io.py:2: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/manifests/nodes_with_inline_io.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/full_project.py:2: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/full_project.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

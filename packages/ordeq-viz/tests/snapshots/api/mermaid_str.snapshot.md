@@ -19,13 +19,12 @@ graph TB
 			L1[("IO")]:::io
 		end
 		subgraph IO Types
-			L00[("IO")]:::io0
-			L01[("MockInput")]:::io1
-			L02[("MockOutput")]:::io2
-			L03[("NameGenerator")]:::io3
-			L04[("NamePrinter")]:::io4
-			L05[("SayHello")]:::io5
-			L06[("StringBuffer")]:::io6
+			L00[("MockInput")]:::io0
+			L01[("MockOutput")]:::io1
+			L02[("NameGenerator")]:::io2
+			L03[("NamePrinter")]:::io3
+			L04[("SayHello")]:::io4
+			L05[("StringBuffer")]:::io5
 		end
 	end
 
@@ -39,8 +38,6 @@ graph TB
 	transform_input --> IO6
 	IO7 --> world
 	world --> IO8
-	IO9 --> node_with_inline_io
-	node_with_inline_io --> IO10
 
 	IO0 -.->|name| IO1
 	IO2 -.->|writer| IO1
@@ -51,18 +48,15 @@ graph TB
 		transform_mock_input(["transform_mock_input"]):::node
 		transform_input(["transform_input"]):::node
 		world(["world"]):::node
-		node_with_inline_io(["node_with_inline_io"]):::node
-		IO0[("name_generator")]:::io3
-		IO1[("message")]:::io5
-		IO2[("name_printer")]:::io4
-		IO3[("Hello")]:::io6
-		IO4[("World")]:::io6
-		IO5[("TestInput")]:::io1
-		IO6[("TestOutput")]:::io2
-		IO7[("x")]:::io6
-		IO8[("y")]:::io6
-		IO9[("&lt;anonymous&gt;")]:::io0
-		IO10[("&lt;anonymous&gt;")]:::io0
+		IO0[("name_generator")]:::io2
+		IO1[("message")]:::io4
+		IO2[("name_printer")]:::io3
+		IO3[("Hello")]:::io5
+		IO4[("World")]:::io5
+		IO5[("TestInput")]:::io0
+		IO6[("TestOutput")]:::io1
+		IO7[("x")]:::io5
+		IO8[("y")]:::io5
 	end
 
 	classDef node fill:#008AD7,color:#FFF
@@ -73,7 +67,6 @@ graph TB
 	classDef io3 fill:#e78ac3
 	classDef io4 fill:#a6d854
 	classDef io5 fill:#ffd92f
-	classDef io6 fill:#e5c494
 
 
 ```

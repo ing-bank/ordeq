@@ -10,14 +10,14 @@ def test_run_regular_node():
     b = StringBuffer("b")
     node = create_node(inputs=(a,), outputs=(b,), func=lambda x: x + x)
     _run_node(node, hooks=())
-    assert b.load() == "aa"
+    assert b.load() == "baa"
 
 
 def test_run_node_with_zero_inputs():
     b = StringBuffer("b")
     node = create_node(inputs=(), outputs=(b,), func=lambda: "something")
     _run_node(node, hooks=())
-    assert b.load() == "something"
+    assert b.load() == "bsomething"
 
 
 def test_run_graph_all():
@@ -30,8 +30,8 @@ def test_run_graph_all():
     nodes = [get_node(plus), get_node(minus), get_node(square)]
     _run_graph(NodeGraph.from_nodes(nodes))
     assert c.load() == "c(a + b)"
-    assert e.load() == "e((a + b) - d)"
-    assert f.load() == "f(((a + b) - d))^2"
+    assert e.load() == "e(c(a + b) - d)"
+    assert f.load() == "f(e(c(a + b) - d))^2"
 
 
 def test_run_graph_two():
@@ -41,7 +41,7 @@ def test_run_graph_two():
     nodes = [get_node(plus), get_node(minus)]
     _run_graph(NodeGraph.from_nodes(nodes))
     assert c.load() == "c(a + b)"
-    assert e.load() == "e((a + b) - d)"
+    assert e.load() == "e(c(a + b) - d)"
 
 
 def test_run_graph_one():
@@ -59,8 +59,8 @@ def test_run_parametrized_all():
     square = node(func=lambda x: f"({x})^2", inputs=(e,), outputs=(f,))
     run(plus, minus, square)
     assert c.load() == "ca + b"
-    assert e.load() == "ea + b - d"
-    assert f.load() == "f(a + b - d)^2"
+    assert e.load() == "eca + b - d"
+    assert f.load() == "f(eca + b - d)^2"
 
 
 def test_run_parametrized_two():
@@ -69,7 +69,7 @@ def test_run_parametrized_two():
     minus = node(func=lambda x, y: f"{x} - {y}", inputs=(c, d), outputs=(e,))
     run(plus, minus)
     assert c.load() == "ca + b"
-    assert e.load() == "ea + b - d"
+    assert e.load() == "eca + b - d"
 
 
 def test_run_parametrized_one():

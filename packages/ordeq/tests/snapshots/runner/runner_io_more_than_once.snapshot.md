@@ -50,7 +50,7 @@ NodeGraph:
   Nodes:
      runner_io_more_than_once:decrement: Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
      runner_io_more_than_once:increment: Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-11
+12001
 
 ```
 

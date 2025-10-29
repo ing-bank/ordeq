@@ -12,9 +12,7 @@ def packages_dir() -> Path:
         the path to the packages directory
     """
 
-    PACKAGE_DIR = (
-        Path(__file__).resolve().parents[2] / "ordeq" / "tests"
-    )
+    PACKAGE_DIR = Path(__file__).resolve().parents[2] / "ordeq" / "tests"
     return PACKAGE_DIR / "packages"
 
 

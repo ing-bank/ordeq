@@ -1,7 +1,6 @@
 from ordeq import node
-
-from examples.project.catalog_1 import a, b
-from examples.project.catalog_2 import f
+from project.catalog_1 import a, b
+from project.catalog_2 import f
 
 A = a
 B = b

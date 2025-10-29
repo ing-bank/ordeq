@@ -1,4 +1,4 @@
 from ordeq_manifest import create_manifest_json
-import examples.project
+import project
 
-print(create_manifest_json(examples.project))
+print(create_manifest_json(project))

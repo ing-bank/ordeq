@@ -147,16 +147,18 @@ def compute_affected_dependencies(
             reverse_deps.setdefault(dep, set()).add(pkg)
 
     # Recursive function to find all affected packages
-    def _find_affected(pkg: str, visited: set[str]) -> None:
-        for dependent in reverse_deps.get(pkg, []):
-            if dependent not in visited:
-                visited.add(dependent)
-                affected[pkg].add(dependent)
-                _find_affected(dependent, visited)
+    def _find_affected(pkg: str, start_pkg: str, visited: set[str]) -> None:
+        if pkg in visited:
+            return
+        visited.add(pkg)
+
+        for dependent in sorted(reverse_deps.get(pkg, [])):
+            affected[start_pkg].add(dependent)
+            _find_affected(dependent, start_pkg, visited)
 
     # Compute affected packages for each package
     for pkg in deps_by_package:
-        _find_affected(pkg, set())
+        _find_affected(pkg, pkg, set())
 
     # Convert sets to sorted lists
     return {pkg: sorted(affects) for pkg, affects in affected.items()}

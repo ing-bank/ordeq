@@ -40,7 +40,7 @@ jobs:
         run: uv run python scripts/generate_api_docs.py
 
       - name: Generate package overview
-        run: uv run python scripts/generate_package_overview.py
+        run: uv run -m ordeq_dev_tools docs_package_overview .
 
       - name: Build site
         run: uv run mkdocs build --strict

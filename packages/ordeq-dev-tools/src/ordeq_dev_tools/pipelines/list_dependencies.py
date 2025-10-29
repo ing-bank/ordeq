@@ -1,32 +1,19 @@
-#!/usr/bin/env python3
-# /// script
-# requires-python = ">=3.13"
-# dependencies = [
-#     "ordeq-files",
-#     "ordeq-toml",
-# ]
-# ///
+"""Pipeline to list dependencies between packages."""
 
-"""Script to parse uv.lock and find dependencies of all ordeq packages."""
-
-import logging
-from pathlib import Path
 from typing import Any
 
-from ordeq import node, run
+from ordeq import node
 from ordeq_files import JSON, Text
 from ordeq_toml import TOML
 
-logging.basicConfig(level=logging.INFO)
-
-ROOT_PATH = Path(__file__).parent.parent
+from ordeq_dev_tools.paths import DATA_PATH, ROOT_PATH
 
 lock_file = TOML(path=ROOT_PATH / "uv.lock")
-dependencies = JSON(path=ROOT_PATH / "scripts" / "dependencies.json")
-diagram = Text(path=ROOT_PATH / "scripts" / "dependencies_diagram.mmd")
+dependencies = JSON(path=DATA_PATH / "dependencies.json").with_save_options(indent=4)
+diagram = Text(path=DATA_PATH / "dependencies_diagram.mmd")
 affected_dependencies = JSON(
-    path=ROOT_PATH / "scripts" / "affected_dependencies.json"
-)
+    path=DATA_PATH / "affected_dependencies.json"
+).with_save_options(indent=4)
 
 
 def _extract_package_name(pkg_entry: dict[str, Any]) -> str | None:
@@ -173,7 +160,3 @@ def compute_affected_dependencies(
 
     # Convert sets to sorted lists
     return {pkg: sorted(affects) for pkg, affects in affected.items()}
-
-
-if __name__ == "__main__":
-    run(__name__)

@@ -96,7 +96,7 @@ uv run pre-commit install
 - Releases are managed via GitHub releases.
 - To create releases:
     - Ensure you are on the `main` branch and have pulled the latest changes.
-    - Run the release script `uv run scripts/generate_draft_releases.py`.
+    - Run the release script `just generate-draft-releases`.
     - This will create draft releases for all packages that have changes since the last release.
     - Go to the "Releases" section of the GitHub repository.
     - Find the draft release for the package you want to publish.

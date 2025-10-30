@@ -1,12 +1,11 @@
 name: Merge to main
 
 on:
-  push:
-    branches:
-      - main
+#  push:
+#    branches:
+#      - main
   workflow_dispatch:
   workflow_call:
-
 
 jobs:
   docs:

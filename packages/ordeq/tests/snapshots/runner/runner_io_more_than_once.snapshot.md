@@ -71,11 +71,3 @@ INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/runner/runner_io_more_than_once.py:26: error: Argument "io" to "run" has incompatible type "dict[Literal[int], Literal[int]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
-Found 1 error in 1 file (checked 1 source file)
-
-```

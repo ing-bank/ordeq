@@ -52,11 +52,3 @@ INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/catalog/static.py:18: error: Name "catalog" already defined on line LINO  [no-redef]
-Found 1 error in 1 file (checked 1 source file)
-
-```

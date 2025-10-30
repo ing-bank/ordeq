@@ -58,11 +58,3 @@ AttributeError: module 'resources.catalog.catalogs.remote' has no attribute 'get
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:21: error: Argument "io" to "run" has incompatible type Module; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
-Found 1 error in 1 file (checked 1 source file)
-
-```

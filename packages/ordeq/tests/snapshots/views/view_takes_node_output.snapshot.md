@@ -169,11 +169,3 @@ INFO	ordeq.runner	Running view "sink" in module "view_takes_node_output"
 INFO	ordeq.io	Loading IO(idx=ID1)
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
-Found 1 error in 1 file (checked 1 source file)
-
-```

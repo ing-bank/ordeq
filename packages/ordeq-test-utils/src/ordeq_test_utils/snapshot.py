@@ -9,7 +9,6 @@ from pathlib import Path
 from _pytest.capture import CaptureFixture
 from _pytest.logging import LogCaptureFixture
 from _pytest.recwarn import WarningsRecorder
-from mypy import api as mypy_api
 
 
 def _replace_pattern_with_seq(text: str, pattern: str, prefix: str) -> str:
@@ -195,11 +194,6 @@ def capture_module(
         sections["Warnings"] = _as_md_text_block(warnings_text)
     if caplog.text:
         sections["Logging"] = _as_md_text_block(caplog.text)
-
-    # Add typing feedback
-    type_out, _, exit_code = mypy_api.run([str(file_path)])
-    if exit_code != 0:
-        sections["Typing"] = _as_md_text_block(type_out)
 
     output = "\n\n".join(
         f"## {key}\n\n{value.rstrip()}" for key, value in sections.items()

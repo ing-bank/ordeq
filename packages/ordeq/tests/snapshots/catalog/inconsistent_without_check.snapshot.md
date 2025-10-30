@@ -31,11 +31,3 @@ AttributeError: module 'resources.catalog.catalogs.inconsistent' has no attribut
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:8: error: Module has no attribute "result"  [attr-defined]
-Found 1 error in 1 file (checked 1 source file)
-
-```

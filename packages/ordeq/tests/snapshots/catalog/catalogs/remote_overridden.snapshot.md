@@ -12,11 +12,3 @@ hello: Input[str] = Literal(
 )  # this overrides the base catalog
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/catalog/catalogs/remote_overridden.py:7: error: Name "hello" already defined (possibly by an import)  [no-redef]
-Found 1 error in 1 file (checked 1 source file)
-
-```

@@ -36,11 +36,3 @@ CatalogError: Catalogs are inconsistent.
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:10: error: Module has no attribute "result"  [attr-defined]
-Found 1 error in 1 file (checked 1 source file)
-
-```

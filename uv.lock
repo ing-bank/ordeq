@@ -3447,8 +3447,16 @@ test = [
 name = "ordeq-test-examples"
 version = "0.1.0"
 source = { editable = "packages/ordeq-test-examples" }
+dependencies = [
+    { name = "ordeq" },
+    { name = "ordeq-common" },
+]
 
 [package.metadata]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "ordeq-common", editable = "packages/ordeq-common" },
+]
 
 [package.metadata.requires-dev]
 test = []

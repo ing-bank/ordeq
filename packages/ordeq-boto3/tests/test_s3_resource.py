@@ -51,7 +51,7 @@ def test_s3_resource_with_load_options():
 
         # Should use the options when calling load()
         mock_resource.assert_called_once_with(
-            "s3",
+            service_name="s3",
             endpoint_url="https://custom-endpoint-2",
             region_name="eu-east-1",
             aws_access_key_id="test-key",

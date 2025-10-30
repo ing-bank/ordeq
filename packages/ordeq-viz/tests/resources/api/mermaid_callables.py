@@ -1,8 +1,8 @@
 import tempfile
 from pathlib import Path
 
-import example_1.nodes  # ty: ignore[unresolved-import]
-import example_2.nodes  # ty: ignore[unresolved-import]
+import example_1.nodes
+import example_2.nodes
 
 from ordeq_viz import viz
 

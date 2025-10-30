@@ -3,7 +3,7 @@ requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "examples"
+name = "ordeq-test-examples"
 description = "Example packages for snapshot testing - not distributed on PyPi"
 version = "0.1.0"
 readme = "README.md"

@@ -17,12 +17,12 @@ def expected_example_nodes() -> set[Callable]:
     Returns:
         a set of expected nodes
     """
-    from examples.example.nodes import world  # ty: ignore[unresolved-import]
-    from examples.example.pipeline import (  # ty: ignore[unresolved-import]
+    from example_1.nodes import world
+    from example_1.pipeline import (
         transform_input,
         transform_mock_input,
     )
-    from examples.example.wrapped_io import (  # ty: ignore[unresolved-import]
+    from example_1.wrapped_io import (
         hello,
         print_message,
     )
@@ -42,16 +42,16 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
 
 
 def test_gather_nodes_from_module():
-    from examples.example import nodes as mod  # ty: ignore[unresolved-import]
+    from example_1 import nodes as mod
 
     assert get_node(mod.world) is not None
 
 
 def test_resolve_node_by_reference(expected_example_node_objects) -> None:
     """Test resolving nodes by reference."""
-    from examples.example.nodes import world  # ty: ignore[unresolved-import]
+    from example_1.nodes import world  # ty: ignore[unresolved-import]
 
-    nodes = _resolve_runnables_to_nodes("examples.example.nodes:world")
+    nodes = _resolve_runnables_to_nodes("example_1.nodes:world")
     assert nodes == {get_node(world)}
 
 
@@ -61,9 +61,9 @@ def test_resolve_node_by_reference_not_a_node() -> None:
     with pytest.raises(
         ValueError,
         match=r"Node 'i_do_not_exist' not found "
-        r"in module 'examples.example.nodes'",
+              r"in module 'example_1.nodes'",
     ):
-        _resolve_runnables_to_nodes("examples.example.nodes:i_do_not_exist")
+        _resolve_runnables_to_nodes("example_1.nodes:i_do_not_exist")
 
 
 def test_resolve_node_by_reference_no_module() -> None:

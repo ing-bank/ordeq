@@ -3,7 +3,7 @@
 ```python
 from ordeq import run
 
-run("examples.example", hooks=["invalid"])
+run("example_1", hooks=["invalid"])
 
 ```
 
@@ -28,8 +28,8 @@ ValueError: Invalid object reference: 'invalid'. Expected format 'module:name'.
                             ~~~~~~~~~~~~~~^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/run_hook_ref_invalid.py", line LINO, in <module>
-    run("examples.example", hooks=["invalid"])
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    run("example_1", hooks=["invalid"])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 

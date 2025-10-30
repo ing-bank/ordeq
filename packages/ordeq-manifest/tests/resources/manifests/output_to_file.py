@@ -2,7 +2,7 @@ from pathlib import Path
 from tempfile import NamedTemporaryFile
 
 from ordeq_manifest import create_manifest_json
-from project import inner
+from example_project import inner
 
 with NamedTemporaryFile() as file:
     path = Path(file.name)

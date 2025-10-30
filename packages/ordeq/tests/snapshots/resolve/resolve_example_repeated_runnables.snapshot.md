@@ -10,11 +10,11 @@ from ordeq._resolve import (
 )
 
 runnables = [
-    importlib.import_module("examples.example"),
-    importlib.import_module("examples.example"),
-    importlib.import_module("examples.example"),
-    importlib.import_module("examples.example.wrapped_io"),
-    importlib.import_module("examples.example.nodes"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1.wrapped_io"),
+    importlib.import_module("example_1.example.nodes"),
 ]
 
 
@@ -29,12 +29,38 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 
 ```
 
-## Output
+## Exception
 
 ```text
-['examples.example', 'examples.example.catalog', 'examples.example.hooks', 'examples.example.nodes', 'examples.example.pipeline', 'examples.example.wrapped_io']
-['examples.example.nodes:world', 'examples.example.pipeline:transform_input', 'examples.example.pipeline:transform_mock_input', 'examples.example.wrapped_io:hello', 'examples.example.wrapped_io:print_message']
-{('examples.example.catalog', 'Hello'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('examples.example.catalog', 'TestInput'): Input(idx=ID1), ('examples.example.catalog', 'TestOutput'): Output(idx=ID2), ('examples.example.catalog', 'World'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('examples.example.nodes', 'x'): StringBuffer(_buffer=<_io.StringIO object at HASH3>), ('examples.example.nodes', 'y'): StringBuffer(_buffer=<_io.StringIO object at HASH4>), ('examples.example.pipeline', 'Hello'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('examples.example.pipeline', 'TestInput'): Input(idx=ID1), ('examples.example.pipeline', 'TestOutput'): Output(idx=ID2), ('examples.example.pipeline', 'World'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('examples.example.wrapped_io', 'message'): SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),)), ('examples.example.wrapped_io', 'name_generator'): NameGenerator(name='John'), ('examples.example.wrapped_io', 'name_printer'): NamePrinter()}
-['examples.example.nodes:world', 'examples.example.pipeline:transform_input', 'examples.example.pipeline:transform_mock_input', 'examples.example.wrapped_io:hello', 'examples.example.wrapped_io:print_message']
+ModuleNotFoundError: No module named 'example_1.example'
+  File "<frozen importlib._bootstrap>", line LINO, in _find_and_load_unlocked
+
+  File "<frozen importlib._bootstrap>", line LINO, in _find_and_load
+
+  File "<frozen importlib._bootstrap>", line LINO, in _gcd_import
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap>", line LINO, in _find_and_load_unlocked
+
+  File "<frozen importlib._bootstrap>", line LINO, in _find_and_load
+
+  File "<frozen importlib._bootstrap>", line LINO, in _gcd_import
+
+  File "/importlib/__init__.py", line LINO, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/resolve/resolve_example_repeated_runnables.py", line LINO, in <module>
+    importlib.import_module("example_1.example.nodes"),
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```

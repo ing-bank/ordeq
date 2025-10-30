@@ -1,4 +1,4 @@
-from examples.rag_pipeline import catalog
+from example_rag_pipeline import catalog
 from ordeq import node
 
 

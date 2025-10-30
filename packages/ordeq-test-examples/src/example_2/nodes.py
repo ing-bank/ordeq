@@ -1,4 +1,4 @@
-from examples.example2.catalog import TestInput2, TestOutput2
+from example_2.catalog import TestInput2, TestOutput2
 from ordeq import node
 
 

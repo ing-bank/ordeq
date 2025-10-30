@@ -1,8 +1,8 @@
 import tempfile
 from pathlib import Path
 
-import example.nodes  # ty: ignore[unresolved-import]
-import example2.nodes  # ty: ignore[unresolved-import]
+import example_1.nodes  # ty: ignore[unresolved-import]
+import example_2.nodes  # ty: ignore[unresolved-import]
 
 from ordeq_viz import viz
 
@@ -10,8 +10,8 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     temp_dir = Path(tmpdirname)
     output_file = temp_dir / "output.mermaid"
     viz(
-        example.nodes.world,
-        example2.nodes.transform_input_2,
+        example_1.nodes.world,
+        example_2.nodes.transform_input_2,
         fmt="mermaid",
         output=output_file,
     )

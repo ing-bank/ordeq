@@ -228,7 +228,7 @@ split-on-trailing-comma = false
 "examples/starter-single-file/*" = ["INP001", ]
 "examples/integration-marimo/*" = ["PLC0415", "E501", "INP001"]
 # Rules not applicable for private examples
-"packages/examples/*" = ["D103", "INP001"]
+"packages/ordeq-test-examples/*" = ["D103", "INP001"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -238,7 +238,7 @@ exclude = [
     "packages/*/src/*/_version.py",
     # type checking on resources is conducted by snapshot tests
     "packages/*/tests/resources/*",
-    "packages/examples/"
+    "packages/ordeq-test-examples",
 ]
 
 [tool.ty.rules]

@@ -9,7 +9,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("examples.example3")]
+runnables = [importlib.import_module("example_3")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
@@ -25,17 +25,17 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['examples.example3', 'examples.example3.func_defs', 'examples.example3.nodes']
-['examples.example3.func_defs:hello', 'examples.example3.func_defs:hello']
+['example_3', 'example_3.func_defs', 'example_3.nodes']
+['example_3.func_defs:hello', 'example_3.func_defs:hello']
 {}
-['examples.example3.func_defs:hello', 'examples.example3.func_defs:hello']
+['example_3.func_defs:hello', 'example_3.func_defs:hello']
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'examples.example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'examples.example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

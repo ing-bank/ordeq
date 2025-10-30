@@ -6,7 +6,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("examples.rag_pipeline")]
+runnables = [importlib.import_module("example_rag_pipeline")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)

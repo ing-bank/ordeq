@@ -7,8 +7,8 @@ from ordeq._resolve import (
 )
 
 runnables = [
-    importlib.import_module("examples.rag_pipeline.rag"),
-    importlib.import_module("examples.rag_pipeline.catalog"),
+    importlib.import_module("example_rag_pipeline.rag"),
+    importlib.import_module("example_rag_pipeline.catalog"),
 ]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())

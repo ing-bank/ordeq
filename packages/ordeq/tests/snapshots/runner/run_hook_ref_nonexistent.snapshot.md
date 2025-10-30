@@ -3,14 +3,14 @@
 ```python
 from ordeq import run
 
-run("examples.example", hooks=["examples.example.hooks:idontexist"])
+run("example_1", hooks=["example_1.hooks:idontexist"])
 
 ```
 
 ## Exception
 
 ```text
-ValueError: Hook 'idontexist' not found in module 'examples.example.hooks'
+ValueError: Hook 'idontexist' not found in module 'example_1.hooks'
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_hook_reference
     raise ValueError(
         f"Hook '{hook_name}' not found in module '{module_name}'"
@@ -24,8 +24,8 @@ ValueError: Hook 'idontexist' not found in module 'examples.example.hooks'
                             ~~~~~~~~~~~~~~^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/run_hook_ref_nonexistent.py", line LINO, in <module>
-    run("examples.example", hooks=["examples.example.hooks:idontexist"])
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    run("example_1", hooks=["example_1.hooks:idontexist"])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 

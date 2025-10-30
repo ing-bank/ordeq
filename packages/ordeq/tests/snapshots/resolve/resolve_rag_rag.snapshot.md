@@ -9,7 +9,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("examples.rag_pipeline.rag")]
+runnables = [importlib.import_module("example_rag_pipeline.rag")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
@@ -25,9 +25,9 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['examples.rag_pipeline.rag', 'examples.rag_pipeline.rag.annotation', 'examples.rag_pipeline.rag.evaluation', 'examples.rag_pipeline.rag.indexer', 'examples.rag_pipeline.rag.policies', 'examples.rag_pipeline.rag.question_answering', 'examples.rag_pipeline.rag.retrieval']
-['examples.rag_pipeline.rag.annotation:annotate_documents', 'examples.rag_pipeline.rag.evaluation:evaluate_answers', 'examples.rag_pipeline.rag.indexer:create_vector_index', 'examples.rag_pipeline.rag.policies:generate_questions', 'examples.rag_pipeline.rag.question_answering:question_answering', 'examples.rag_pipeline.rag.retrieval:filter_relevant', 'examples.rag_pipeline.rag.retrieval:retrieve']
+['example_rag_pipeline.rag', 'example_rag_pipeline.rag.annotation', 'example_rag_pipeline.rag.evaluation', 'example_rag_pipeline.rag.indexer', 'example_rag_pipeline.rag.policies', 'example_rag_pipeline.rag.question_answering', 'example_rag_pipeline.rag.retrieval']
+['example_rag_pipeline.rag.annotation:annotate_documents', 'example_rag_pipeline.rag.evaluation:evaluate_answers', 'example_rag_pipeline.rag.indexer:create_vector_index', 'example_rag_pipeline.rag.policies:generate_questions', 'example_rag_pipeline.rag.question_answering:question_answering', 'example_rag_pipeline.rag.retrieval:filter_relevant', 'example_rag_pipeline.rag.retrieval:retrieve']
 {}
-['examples.rag_pipeline.rag.annotation:annotate_documents', 'examples.rag_pipeline.rag.evaluation:evaluate_answers', 'examples.rag_pipeline.rag.indexer:create_vector_index', 'examples.rag_pipeline.rag.policies:generate_questions', 'examples.rag_pipeline.rag.question_answering:question_answering', 'examples.rag_pipeline.rag.retrieval:filter_relevant', 'examples.rag_pipeline.rag.retrieval:retrieve']
+['example_rag_pipeline.rag.annotation:annotate_documents', 'example_rag_pipeline.rag.evaluation:evaluate_answers', 'example_rag_pipeline.rag.indexer:create_vector_index', 'example_rag_pipeline.rag.policies:generate_questions', 'example_rag_pipeline.rag.question_answering:question_answering', 'example_rag_pipeline.rag.retrieval:filter_relevant', 'example_rag_pipeline.rag.retrieval:retrieve']
 
 ```

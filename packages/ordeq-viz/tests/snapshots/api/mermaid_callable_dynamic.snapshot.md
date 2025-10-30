@@ -4,7 +4,7 @@
 import tempfile
 from pathlib import Path
 
-import example3.nodes  # ty: ignore[unresolved-import]
+import example_3.nodes  # ty: ignore[unresolved-import]
 
 from ordeq_viz import viz
 
@@ -12,7 +12,7 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     tmp_path = Path(tmpdirname)
     output_file = tmp_path / "output.mermaid"
     viz(
-        example3.nodes.f1, example3.nodes.f2, fmt="mermaid", output=output_file
+        example_3.nodes.f1, example_3.nodes.f2, fmt="mermaid", output=output_file
     )
     assert output_file.exists()
     output_file_content = output_file.read_text("utf8")
@@ -58,17 +58,17 @@ graph TB
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```
 
 ## Typing
 
 ```text
-packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: error: Skipping analyzing "example3.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: error: Skipping analyzing "example_3.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: error: Skipping analyzing "example3": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: error: Skipping analyzing "example_3": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 Found 2 errors in 1 file (checked 1 source file)
 
 ```

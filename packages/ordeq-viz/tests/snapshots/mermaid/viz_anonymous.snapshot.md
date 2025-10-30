@@ -1,12 +1,12 @@
 ## Resource
 
 ```python
-import anonymous  # ty: ignore[unresolved-import]
+import example_anonymous
 from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
-nodes, ios = _resolve_runnables_to_nodes_and_ios(anonymous)
+nodes, ios = _resolve_runnables_to_nodes_and_ios(example_anonymous)
 diagram = pipeline_to_mermaid(
     nodes=nodes, ios=ios, connect_wrapped_datasets=False
 )
@@ -49,7 +49,7 @@ graph TB
 ## Typing
 
 ```text
-packages/ordeq-viz/tests/resources/mermaid/viz_anonymous.py:1: error: Skipping analyzing "anonymous": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/mermaid/viz_anonymous.py:1: error: Skipping analyzing "example_anonymous": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/mermaid/viz_anonymous.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 

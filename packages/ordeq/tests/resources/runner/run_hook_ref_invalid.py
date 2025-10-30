@@ -1,3 +1,3 @@
 from ordeq import run
 
-run("examples.example", hooks=["invalid"])
+run("example_1", hooks=["invalid"])

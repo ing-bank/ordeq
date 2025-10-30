@@ -1,17 +1,12 @@
 name: Docs
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-  workflow_call:
+on: workflow_dispatch
 
 permissions:
   contents: write
 
 jobs:
-  deploy:
+  build_docs:
     name: Build docs
     runs-on: ubuntu-latest
     steps:

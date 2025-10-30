@@ -238,7 +238,7 @@ exclude = [
     "packages/*/src/*/_version.py",
     # type checking on resources is conducted by snapshot tests
     "packages/*/tests/resources/*",
-    "packages/*/tests/packages/*"
+    "packages/examples/"
 ]
 
 [tool.ty.rules]

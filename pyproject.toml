@@ -9,7 +9,7 @@ dev = [
     "rust-just>=1.42.4",
 ]
 lint = [
-    "ruff>=0.12.5",
+    "ruff>=0.14.2",
 ]
 docs = [
     "mkdocs",
@@ -63,6 +63,7 @@ ordeq-yaml = { workspace = true }
 ordeq-docs = { workspace = true }
 ordeq-test-utils = { workspace = true }
 ordeq-dev-tools = { workspace = true }
+ordeq-test-examples = { workspace = true }
 
 [tool.uv]
 required-version = ">=0.8.23"
@@ -227,6 +228,8 @@ split-on-trailing-comma = false
 # Rules not applicable for some example projects
 "examples/starter-single-file/*" = ["INP001", ]
 "examples/integration-marimo/*" = ["PLC0415", "E501", "INP001"]
+# Rules not applicable for private examples
+"packages/ordeq-test-examples/*" = ["D103", "INP001"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -236,7 +239,7 @@ exclude = [
     "packages/*/src/*/_version.py",
     # type checking on resources is conducted by snapshot tests
     "packages/*/tests/resources/*",
-    "packages/*/tests/packages/*"
+    "packages/ordeq-test-examples",
 ]
 
 [tool.ty.rules]

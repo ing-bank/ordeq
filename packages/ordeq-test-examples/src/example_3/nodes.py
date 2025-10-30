@@ -1,4 +1,5 @@
-from example3.func_defs import hello
+# type: ignore
+from example_3.func_defs import hello
 from ordeq import node
 
 f1 = node(hello)

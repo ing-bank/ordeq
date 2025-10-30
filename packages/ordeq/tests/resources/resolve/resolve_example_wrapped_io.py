@@ -6,7 +6,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("example.wrapped_io")]
+runnables = [importlib.import_module("example_1.wrapped_io")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)

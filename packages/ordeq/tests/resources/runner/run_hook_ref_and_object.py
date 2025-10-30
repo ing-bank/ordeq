@@ -9,4 +9,4 @@ class MyHook(NodeHook):
         print(f"After running node: {node.name}")
 
 
-run("packages.example", hooks=["packages.example.hooks:MyHook", MyHook()])
+run("example_1", hooks=["example_1.hooks:MyHook", MyHook()])

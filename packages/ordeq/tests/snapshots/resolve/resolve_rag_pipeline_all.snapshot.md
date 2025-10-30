@@ -10,12 +10,12 @@ from ordeq._resolve import (
 )
 
 runnables = [
-    importlib.import_module("rag_pipeline.rag.annotation"),
-    importlib.import_module("rag_pipeline.rag.evaluation"),
-    importlib.import_module("rag_pipeline.rag.indexer"),
-    importlib.import_module("rag_pipeline.rag.policies"),
-    importlib.import_module("rag_pipeline.rag.question_answering"),
-    importlib.import_module("rag_pipeline.rag.retrieval"),
+    importlib.import_module("example_rag_pipeline.rag.annotation"),
+    importlib.import_module("example_rag_pipeline.rag.evaluation"),
+    importlib.import_module("example_rag_pipeline.rag.indexer"),
+    importlib.import_module("example_rag_pipeline.rag.policies"),
+    importlib.import_module("example_rag_pipeline.rag.question_answering"),
+    importlib.import_module("example_rag_pipeline.rag.retrieval"),
 ]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
@@ -32,9 +32,9 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['rag_pipeline.rag.annotation', 'rag_pipeline.rag.evaluation', 'rag_pipeline.rag.indexer', 'rag_pipeline.rag.policies', 'rag_pipeline.rag.question_answering', 'rag_pipeline.rag.retrieval']
-['rag_pipeline.rag.annotation:annotate_documents', 'rag_pipeline.rag.evaluation:evaluate_answers', 'rag_pipeline.rag.indexer:create_vector_index', 'rag_pipeline.rag.policies:generate_questions', 'rag_pipeline.rag.question_answering:question_answering', 'rag_pipeline.rag.retrieval:filter_relevant', 'rag_pipeline.rag.retrieval:retrieve']
+['example_rag_pipeline.rag.annotation', 'example_rag_pipeline.rag.evaluation', 'example_rag_pipeline.rag.indexer', 'example_rag_pipeline.rag.policies', 'example_rag_pipeline.rag.question_answering', 'example_rag_pipeline.rag.retrieval']
+['example_rag_pipeline.rag.annotation:annotate_documents', 'example_rag_pipeline.rag.evaluation:evaluate_answers', 'example_rag_pipeline.rag.indexer:create_vector_index', 'example_rag_pipeline.rag.policies:generate_questions', 'example_rag_pipeline.rag.question_answering:question_answering', 'example_rag_pipeline.rag.retrieval:filter_relevant', 'example_rag_pipeline.rag.retrieval:retrieve']
 {}
-['rag_pipeline.rag.annotation:annotate_documents', 'rag_pipeline.rag.evaluation:evaluate_answers', 'rag_pipeline.rag.indexer:create_vector_index', 'rag_pipeline.rag.policies:generate_questions', 'rag_pipeline.rag.question_answering:question_answering', 'rag_pipeline.rag.retrieval:filter_relevant', 'rag_pipeline.rag.retrieval:retrieve']
+['example_rag_pipeline.rag.annotation:annotate_documents', 'example_rag_pipeline.rag.evaluation:evaluate_answers', 'example_rag_pipeline.rag.indexer:create_vector_index', 'example_rag_pipeline.rag.policies:generate_questions', 'example_rag_pipeline.rag.question_answering:question_answering', 'example_rag_pipeline.rag.retrieval:filter_relevant', 'example_rag_pipeline.rag.retrieval:retrieve']
 
 ```

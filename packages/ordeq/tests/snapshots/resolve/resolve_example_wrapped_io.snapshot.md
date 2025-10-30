@@ -9,7 +9,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("example.wrapped_io")]
+runnables = [importlib.import_module("example_1.wrapped_io")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
@@ -25,9 +25,9 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['example.wrapped_io']
-['example.wrapped_io:hello', 'example.wrapped_io:print_message']
-{('example.wrapped_io', 'message'): SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),)), ('example.wrapped_io', 'name_generator'): NameGenerator(name='John'), ('example.wrapped_io', 'name_printer'): NamePrinter()}
-['example.wrapped_io:hello', 'example.wrapped_io:print_message']
+['example_1.wrapped_io']
+['example_1.wrapped_io:hello', 'example_1.wrapped_io:print_message']
+{('example_1.wrapped_io', 'message'): SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),)), ('example_1.wrapped_io', 'name_generator'): NameGenerator(name='John'), ('example_1.wrapped_io', 'name_printer'): NamePrinter()}
+['example_1.wrapped_io:hello', 'example_1.wrapped_io:print_message']
 
 ```

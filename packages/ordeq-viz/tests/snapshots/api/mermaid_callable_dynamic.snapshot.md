@@ -65,13 +65,3 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'examp
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```
-
-## Typing
-
-```text
-packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: error: Skipping analyzing "example_3.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-packages/ordeq-viz/tests/resources/api/mermaid_callable_dynamic.py:4: error: Skipping analyzing "example_3": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-Found 2 errors in 1 file (checked 1 source file)
-
-```

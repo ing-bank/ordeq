@@ -64,13 +64,3 @@ INFO	ordeq.runner	Running view "hello" in module "example_3.func_defs"
 INFO	ordeq.runner	Running view "hello" in module "example_3.func_defs"
 
 ```
-
-## Typing
-
-```text
-packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: error: Skipping analyzing "example_3.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-packages/ordeq-viz/tests/resources/api/mermaid_module_dynamic_function.py:4: error: Skipping analyzing "example_3": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-Found 2 errors in 1 file (checked 1 source file)
-
-```

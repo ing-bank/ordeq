@@ -45,12 +45,3 @@ graph TB
 
 
 ```
-
-## Typing
-
-```text
-packages/ordeq-viz/tests/resources/mermaid/viz_anonymous.py:1: error: Skipping analyzing "example_anonymous": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/mermaid/viz_anonymous.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 1 error in 1 file (checked 1 source file)
-
-```

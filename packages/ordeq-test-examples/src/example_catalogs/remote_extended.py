@@ -1,3 +1,4 @@
+# type: ignore
 from ordeq_common import Print
 
 # This inherits from the base catalog:

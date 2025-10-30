@@ -1,3 +1,4 @@
+# type: ignore
 from ordeq import Input
 from ordeq_common import Literal
 

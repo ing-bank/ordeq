@@ -2,15 +2,13 @@ name: Merge to main
 
 on:
   push:
-#    branches:
-#      - main
-#  workflow_dispatch:
-#  workflow_call:
+    branches:
+      - main
 
 jobs:
-  #docs:
-  #  name: Deploy docs
-  #  uses: ./.github/workflows/docs.yml
+  docs:
+    name: Deploy docs
+    uses: ./.github/workflows/docs.yml
 
   draft_releases:
     name: Draft releases
@@ -34,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: uv sync --all-packages --all-groups --all-extras
 
-      - name: Generate package overview
+      - name: Generate draft releases
         run: uv run -m ordeq_dev_tools generate_draft_releases .
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

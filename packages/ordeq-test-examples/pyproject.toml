@@ -18,6 +18,10 @@ maintainers = [
     { name = "Simon Brugman" }
 ]
 requires-python = ">=3.10"
+depencies = [
+    "ordeq",
+    "ordeq-common",
+]
 
 [dependency-groups]
 test = []

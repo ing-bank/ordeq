@@ -34,3 +34,5 @@ jobs:
 
       - name: Generate package overview
         run: uv run -m ordeq_dev_tools generate_draft_releases .
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

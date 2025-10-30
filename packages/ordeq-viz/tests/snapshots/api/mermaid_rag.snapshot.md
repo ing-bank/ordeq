@@ -4,8 +4,6 @@
 import tempfile
 from pathlib import Path
 
-import rag_pipeline  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-
 from ordeq_viz import viz
 
 with tempfile.TemporaryDirectory() as tmpdirname:
@@ -13,7 +11,7 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     output_file = tmp_path / "output.mermaid"
 
     viz(
-        "rag_pipeline",
+        "example_rag_pipeline",
         fmt="mermaid",
         output=output_file,
         io_shape_template="({value})",
@@ -94,14 +92,5 @@ graph TB
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
-
-```
-
-## Typing
-
-```text
-packages/ordeq-viz/tests/resources/api/mermaid_rag.py:4: error: Skipping analyzing "rag_pipeline": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/api/mermaid_rag.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 1 error in 1 file (checked 1 source file)
 
 ```

@@ -4,8 +4,8 @@
 import tempfile
 from pathlib import Path
 
-import example.nodes  # ty: ignore[unresolved-import]
-import example2.nodes  # ty: ignore[unresolved-import]
+import example_1.nodes
+import example_2.nodes
 
 from ordeq_viz import viz
 
@@ -13,8 +13,8 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     temp_dir = Path(tmpdirname)
     output_file = temp_dir / "output.mermaid"
     viz(
-        example.nodes.world,
-        example2.nodes.transform_input_2,
+        example_1.nodes.world,
+        example_2.nodes.transform_input_2,
         fmt="mermaid",
         output=output_file,
     )
@@ -68,11 +68,11 @@ graph TB
 ## Typing
 
 ```text
-packages/ordeq-viz/tests/resources/api/mermaid_callables.py:4: error: Skipping analyzing "example.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_callables.py:4: error: Skipping analyzing "example_1.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/api/mermaid_callables.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-packages/ordeq-viz/tests/resources/api/mermaid_callables.py:4: error: Skipping analyzing "example": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/api/mermaid_callables.py:5: error: Skipping analyzing "example2.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/api/mermaid_callables.py:5: error: Skipping analyzing "example2": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_callables.py:4: error: Skipping analyzing "example_1": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_callables.py:5: error: Skipping analyzing "example_2.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_callables.py:5: error: Skipping analyzing "example_2": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 Found 4 errors in 1 file (checked 1 source file)
 
 ```

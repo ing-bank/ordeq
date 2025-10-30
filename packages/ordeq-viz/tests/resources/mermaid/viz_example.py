@@ -1,4 +1,4 @@
-from example import nodes as mod  # ty: ignore[unresolved-import]
+from example_1 import nodes as mod
 from ordeq._nodes import get_node
 
 from ordeq_viz.to_mermaid import pipeline_to_mermaid

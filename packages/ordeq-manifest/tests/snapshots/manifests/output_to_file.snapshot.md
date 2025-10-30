@@ -4,8 +4,8 @@
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
+from example_project import inner
 from ordeq_manifest import create_manifest_json
-from project import inner
 
 with NamedTemporaryFile() as file:
     path = Path(file.name)
@@ -18,16 +18,16 @@ with NamedTemporaryFile() as file:
 
 ```text
 {
-  "name": "project.inner",
+  "name": "example_project.inner",
   "nodes": {
-    "project.inner.nodes:func": {
-      "id": "project.inner.nodes:func",
+    "example_project.inner.nodes:func": {
+      "id": "example_project.inner.nodes:func",
       "name": "func",
       "inputs": [
-        "project.inner.nodes:x"
+        "example_project.inner.nodes:x"
       ],
       "outputs": [
-        "project.inner.nodes:y"
+        "example_project.inner.nodes:y"
       ],
       "attributes": {
         "tags": [
@@ -37,14 +37,14 @@ with NamedTemporaryFile() as file:
     }
   },
   "ios": {
-    "project.inner.nodes:x": {
-      "id": "project.inner.nodes:x",
+    "example_project.inner.nodes:x": {
+      "id": "example_project.inner.nodes:x",
       "name": "x",
       "type": "ordeq._io:IO",
       "references": []
     },
-    "project.inner.nodes:y": {
-      "id": "project.inner.nodes:y",
+    "example_project.inner.nodes:y": {
+      "id": "example_project.inner.nodes:y",
       "name": "y",
       "type": "ordeq_common.io.printer:Print",
       "references": []
@@ -57,8 +57,8 @@ with NamedTemporaryFile() as file:
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:5: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:5: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: error: Skipping analyzing "example_project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

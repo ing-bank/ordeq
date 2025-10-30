@@ -1,8 +1,6 @@
-from example2.catalog import (  # ty: ignore[unresolved-import]
-    TestInput2,
-    TestOutput2,
-)
 from ordeq import node
+
+from example_2.catalog import TestInput2, TestOutput2
 
 
 @node(inputs=[TestInput2], outputs=[TestOutput2])

@@ -1,3 +1,3 @@
 from ordeq import run
 
-run("packages.example", hooks=["invalid"])
+run("example_1", hooks=["invalid"])

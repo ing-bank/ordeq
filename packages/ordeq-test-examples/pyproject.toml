@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ordeq-test-examples"
+description = "Example packages for snapshot testing - not distributed on PyPi"
+version = "0.1.0"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+maintainers = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "ordeq-common",
+]
+
+[dependency-groups]
+test = []
+
+[tool.ordeq-dev]
+group = "developer-tools"
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]

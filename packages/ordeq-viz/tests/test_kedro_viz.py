@@ -6,7 +6,7 @@ from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 
 
 def test_kedro(tmp_path):
-    from example import nodes as mod  # ty: ignore[unresolved-import]
+    from example_1 import nodes as mod
 
     nodes = {get_node(mod.world)}
     pipeline_to_kedro_viz(

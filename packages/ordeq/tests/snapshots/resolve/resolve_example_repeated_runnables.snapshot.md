@@ -10,11 +10,11 @@ from ordeq._resolve import (
 )
 
 runnables = [
-    importlib.import_module("example"),
-    importlib.import_module("example"),
-    importlib.import_module("example"),
-    importlib.import_module("example.wrapped_io"),
-    importlib.import_module("example.nodes"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1.wrapped_io"),
+    importlib.import_module("example_1.nodes"),
 ]
 
 
@@ -32,9 +32,9 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['example', 'example.catalog', 'example.hooks', 'example.nodes', 'example.pipeline', 'example.wrapped_io']
-['example.nodes:world', 'example.pipeline:transform_input', 'example.pipeline:transform_mock_input', 'example.wrapped_io:hello', 'example.wrapped_io:print_message']
-{('example.catalog', 'Hello'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('example.catalog', 'TestInput'): Input(idx=ID1), ('example.catalog', 'TestOutput'): Output(idx=ID2), ('example.catalog', 'World'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('example.nodes', 'x'): StringBuffer(_buffer=<_io.StringIO object at HASH3>), ('example.nodes', 'y'): StringBuffer(_buffer=<_io.StringIO object at HASH4>), ('example.pipeline', 'Hello'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('example.pipeline', 'TestInput'): Input(idx=ID1), ('example.pipeline', 'TestOutput'): Output(idx=ID2), ('example.pipeline', 'World'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('example.wrapped_io', 'message'): SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),)), ('example.wrapped_io', 'name_generator'): NameGenerator(name='John'), ('example.wrapped_io', 'name_printer'): NamePrinter()}
-['example.nodes:world', 'example.pipeline:transform_input', 'example.pipeline:transform_mock_input', 'example.wrapped_io:hello', 'example.wrapped_io:print_message']
+['example_1', 'example_1.catalog', 'example_1.hooks', 'example_1.nodes', 'example_1.pipeline', 'example_1.wrapped_io']
+['example_1.nodes:world', 'example_1.pipeline:transform_input', 'example_1.pipeline:transform_mock_input', 'example_1.wrapped_io:hello', 'example_1.wrapped_io:print_message']
+{('example_1.catalog', 'Hello'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('example_1.catalog', 'TestInput'): Input(idx=ID1), ('example_1.catalog', 'TestOutput'): Output(idx=ID2), ('example_1.catalog', 'World'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('example_1.nodes', 'x'): StringBuffer(_buffer=<_io.StringIO object at HASH3>), ('example_1.nodes', 'y'): StringBuffer(_buffer=<_io.StringIO object at HASH4>), ('example_1.pipeline', 'Hello'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('example_1.pipeline', 'TestInput'): Input(idx=ID1), ('example_1.pipeline', 'TestOutput'): Output(idx=ID2), ('example_1.pipeline', 'World'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('example_1.wrapped_io', 'message'): SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),)), ('example_1.wrapped_io', 'name_generator'): NameGenerator(name='John'), ('example_1.wrapped_io', 'name_printer'): NamePrinter()}
+['example_1.nodes:world', 'example_1.pipeline:transform_input', 'example_1.pipeline:transform_mock_input', 'example_1.wrapped_io:hello', 'example_1.wrapped_io:print_message']
 
 ```

@@ -1,8 +1,6 @@
 import tempfile
 from pathlib import Path
 
-import rag_pipeline  # ty: ignore[unresolved-import]  # noqa: F401,RUF100
-
 from ordeq_viz import viz
 
 with tempfile.TemporaryDirectory() as tmpdirname:
@@ -10,7 +8,7 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     output_file = tmp_path / "output.mermaid"
 
     viz(
-        "rag_pipeline",
+        "example_rag_pipeline",
         fmt="mermaid",
         output=output_file,
         io_shape_template="({value})",

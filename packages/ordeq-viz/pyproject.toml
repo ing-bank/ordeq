@@ -35,6 +35,7 @@ test = [
     "ordeq-pymupdf",
     "ordeq-sentence-transformers",
     "ordeq-test-utils",
+    "ordeq-test-examples",
 ]
 
 [tool.setuptools_scm]

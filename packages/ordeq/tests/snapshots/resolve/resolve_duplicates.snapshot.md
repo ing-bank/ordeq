@@ -9,7 +9,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("duplicates")]
+runnables = [importlib.import_module("example_duplicates")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
@@ -25,9 +25,9 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['duplicates', 'duplicates.file1', 'duplicates.file2']
-['duplicates.file1:foo', 'duplicates.file2:foo']
-{('duplicates.file1', 'x_value'): Literal(3), ('duplicates.file1', 'y_value'): IO(idx=ID1), ('duplicates.file2', 'x_value'): Literal(3), ('duplicates.file2', 'y_value'): IO(idx=ID2)}
-['duplicates.file1:foo', 'duplicates.file2:foo']
+['example_duplicates', 'example_duplicates.file1', 'example_duplicates.file2']
+['example_duplicates.file1:foo', 'example_duplicates.file2:foo']
+{('example_duplicates.file1', 'x_value'): Literal(3), ('example_duplicates.file1', 'y_value'): IO(idx=ID1), ('example_duplicates.file2', 'x_value'): Literal(3), ('example_duplicates.file2', 'y_value'): IO(idx=ID2)}
+['example_duplicates.file1:foo', 'example_duplicates.file2:foo']
 
 ```

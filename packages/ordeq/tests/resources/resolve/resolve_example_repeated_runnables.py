@@ -7,11 +7,11 @@ from ordeq._resolve import (
 )
 
 runnables = [
-    importlib.import_module("example"),
-    importlib.import_module("example"),
-    importlib.import_module("example"),
-    importlib.import_module("example.wrapped_io"),
-    importlib.import_module("example.nodes"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1"),
+    importlib.import_module("example_1.wrapped_io"),
+    importlib.import_module("example_1.nodes"),
 ]
 
 

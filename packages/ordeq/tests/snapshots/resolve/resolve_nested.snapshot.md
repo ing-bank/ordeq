@@ -9,7 +9,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("nested")]
+runnables = [importlib.import_module("example_nested")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
@@ -25,16 +25,16 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['nested', 'nested.subpackage', 'nested.subpackage.subsubpackage', 'nested.subpackage.subsubpackage.hello']
-['nested.subpackage.subsubpackage.hello:world']
+['example_nested', 'example_nested.subpackage', 'example_nested.subpackage.subsubpackage', 'example_nested.subpackage.subsubpackage.hello']
+['example_nested.subpackage.subsubpackage.hello:world']
 {}
-['nested.subpackage.subsubpackage.hello:world']
+['example_nested.subpackage.subsubpackage.hello:world']
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'nested.subpackage.subsubpackage.hello:world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_nested.subpackage.subsubpackage.hello:world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

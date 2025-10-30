@@ -4,14 +4,14 @@
 import tempfile
 from pathlib import Path
 
-import example.nodes  # ty: ignore[unresolved-import]
+import example_1.nodes
 
 from ordeq_viz import viz
 
 with tempfile.TemporaryDirectory() as tmpdirname:
     temp_dir = Path(tmpdirname)
     output_file = temp_dir / "output.mermaid"
-    viz("example", example.nodes, fmt="mermaid", output=output_file)
+    viz("example_1", example_1.nodes, fmt="mermaid", output=output_file)
     assert output_file.exists()
     output_file_content = output_file.read_text("utf8")
     print(output_file_content)
@@ -84,9 +84,9 @@ graph TB
 ## Typing
 
 ```text
-packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: error: Skipping analyzing "example.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: error: Skipping analyzing "example_1.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: error: Skipping analyzing "example": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: error: Skipping analyzing "example_1": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 Found 2 errors in 1 file (checked 1 source file)
 
 ```

@@ -33,6 +33,7 @@ test = [
     "requests",
     "duckdb",
     "types-requests",
+    "ordeq-test-examples",
 ]
 
 [tool.setuptools_scm]

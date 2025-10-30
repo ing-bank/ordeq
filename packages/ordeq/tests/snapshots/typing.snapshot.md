@@ -1,4 +1,4 @@
-packages/ordeq/tests/resources/resolve/resolve_module_example_catalog.py:1: error: Cannot find implementation or library stub for module named "example"  [import-not-found]
+packages/ordeq/tests/resources/resolve/resolve_module_example_catalog.py:1: error: Skipping analyzing "example_1": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/resolve/resolve_module_example_catalog.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 packages/ordeq/tests/resources/views/view_inputs_none.py:5: error: No overload variant of "node" matches argument type "None"  [call-overload]
 packages/ordeq/tests/resources/views/view_inputs_none.py:5: note: Possible overload variants:
@@ -40,7 +40,7 @@ packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note: Pos
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
 packages/ordeq/tests/resources/catalog/static.py:18: error: Name "catalog" already defined on line 7  [no-redef]
-packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:21: error: Argument "io" to "run" has incompatible type Module; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:22: error: Argument "io" to "run" has incompatible type Module; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
 packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:8: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:10: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/catalog/catalogs/remote_overridden.py:7: error: Name "hello" already defined (possibly by an import)  [no-redef]

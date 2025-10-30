@@ -34,6 +34,7 @@ def test_resource(
         pytest.fail(f"Output does not match snapshot:\n{diff}")
 
 
+@pytest.mark.snapshot
 def test_typing():
     diff = capture_type_check_and_compare(
         RESOURCE_DIR, SNAPSHOT_DIR / "typing.snapshot.md"

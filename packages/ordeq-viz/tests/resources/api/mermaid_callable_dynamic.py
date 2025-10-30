@@ -9,7 +9,10 @@ with tempfile.TemporaryDirectory() as tmpdirname:
     tmp_path = Path(tmpdirname)
     output_file = tmp_path / "output.mermaid"
     viz(
-        example_3.nodes.f1, example_3.nodes.f2, fmt="mermaid", output=output_file
+        example_3.nodes.f1,
+        example_3.nodes.f2,
+        fmt="mermaid",
+        output=output_file,
     )
     assert output_file.exists()
     output_file_content = output_file.read_text("utf8")

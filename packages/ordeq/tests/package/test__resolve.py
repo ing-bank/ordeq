@@ -18,14 +18,8 @@ def expected_example_nodes() -> set[Callable]:
         a set of expected nodes
     """
     from example_1.nodes import world
-    from example_1.pipeline import (
-        transform_input,
-        transform_mock_input,
-    )
-    from example_1.wrapped_io import (
-        hello,
-        print_message,
-    )
+    from example_1.pipeline import transform_input, transform_mock_input
+    from example_1.wrapped_io import hello, print_message
 
     """Expected nodes in the example package."""
     return {transform_input, transform_mock_input, world, hello, print_message}
@@ -61,7 +55,7 @@ def test_resolve_node_by_reference_not_a_node() -> None:
     with pytest.raises(
         ValueError,
         match=r"Node 'i_do_not_exist' not found "
-              r"in module 'example_1.nodes'",
+        r"in module 'example_1.nodes'",
     ):
         _resolve_runnables_to_nodes("example_1.nodes:i_do_not_exist")
 

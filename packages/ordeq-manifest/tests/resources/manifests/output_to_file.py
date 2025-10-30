@@ -1,8 +1,8 @@
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from ordeq_manifest import create_manifest_json
 from example_project import inner
+from ordeq_manifest import create_manifest_json
 
 with NamedTemporaryFile() as file:
     path = Path(file.name)

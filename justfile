@@ -103,7 +103,11 @@ generate-api-docs:
 
 # Generate package overview documentation page
 generate-package-overview:
-    uv run scripts/generate_package_overview.py
+    uv run -m ordeq_dev_tools docs_package_overview .
+
+# Generate draft GitHub releases
+generate-draft-releases:
+    uv run -m ordeq_dev_tools generate_draft_releases .
 
 # Build the documentation
 docs-build: generate-api-docs generate-package-overview
@@ -150,10 +154,6 @@ publish PACKAGE:
 # Lock dependencies
 lock:
     uv lock
-
-# Bump version
-bump *ARGS:
-    uv run scripts/next_tag.py {{ ARGS }}
 
 # Delete all .snapshot.md files anywhere in the repository
 delete-snapshots:

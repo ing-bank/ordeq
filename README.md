@@ -3,9 +3,9 @@
 [![Release](https://github.com/ing-bank/ordeq/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/ing-bank/ordeq/actions/workflows/release.yml)
 [![Docs](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml)
 [![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)](https://pypi.org/project/ordeq/)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)](https://pypistats.org/packages/ordeq)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Static Badge](https://img.shields.io/badge/powered_by-Ordeq-darkgreen?style=flat&link=https%3A%2F%2Fing-bank.github.io%2Fordeq%2F)
+[![Static Badge](https://img.shields.io/badge/powered_by-Ordeq-darkgreen?style=flat&link=https%3A%2F%2Fing-bank.github.io%2Fordeq%2F)](https://github.com/ing-bank/ordeq)
 
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.
@@ -131,7 +131,7 @@ To learn more about Ordeq, check out the following resources:
 
 - See how Ordeq can help your project in the [introduction][intro]
 - Check out the [core concepts][core-concepts] to learn how to use Ordeq
-- Explore the [example project][example-project] to see how Ordeq is used
+- Explore the [example projects][example-projects] to see how Ordeq is used
 
 ## Acknowledgements
 
@@ -142,7 +142,7 @@ Please refer to the [acknowledgements] section in the documentation for more det
 [acknowledgements]: https://ing-bank.github.io/ordeq/contributing/acknowledgements/
 [api-ref]: https://ing-bank.github.io/ordeq/api/ordeq/
 [core-concepts]: https://ing-bank.github.io/ordeq/getting-started/concepts/io/
-[example-project]: docs/guides/examples/example-project/README.md
+[example-projects]: https://github.com/ing-bank/ordeq/tree/main/examples
 [intro]: https://ing-bank.github.io/ordeq/getting-started/introduction/
 [kedro]: https://github.com/kedro-org/kedro
 [license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE

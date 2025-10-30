@@ -1,8 +1,8 @@
 ## Resource
 
 ```python
+from example_project import nodes
 from ordeq_manifest import create_manifest_json
-from project import nodes
 
 print(create_manifest_json(nodes))
 
@@ -12,16 +12,16 @@ print(create_manifest_json(nodes))
 
 ```text
 {
-  "name": "project.nodes",
+  "name": "example_project.nodes",
   "nodes": {
-    "project.nodes:func": {
-      "id": "project.nodes:func",
+    "example_project.nodes:func": {
+      "id": "example_project.nodes:func",
       "name": "func",
       "inputs": [
-        "project.nodes:x"
+        "example_project.nodes:x"
       ],
       "outputs": [
-        "project.nodes:y"
+        "example_project.nodes:y"
       ],
       "attributes": {
         "tags": [
@@ -31,14 +31,14 @@ print(create_manifest_json(nodes))
     }
   },
   "ios": {
-    "project.nodes:x": {
-      "id": "project.nodes:x",
+    "example_project.nodes:x": {
+      "id": "example_project.nodes:x",
       "name": "x",
       "type": "ordeq._io:IO",
       "references": []
     },
-    "project.nodes:y": {
-      "id": "project.nodes:y",
+    "example_project.nodes:y": {
+      "id": "example_project.nodes:y",
       "name": "y",
       "type": "ordeq_common.io.printer:Print",
       "references": []
@@ -51,8 +51,8 @@ print(create_manifest_json(nodes))
 ## Typing
 
 ```text
-packages/ordeq-manifest/tests/resources/manifests/manifest_nodes.py:2: error: Skipping analyzing "project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/manifests/manifest_nodes.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-manifest/tests/resources/manifests/manifest_nodes.py:1: error: Skipping analyzing "example_project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-manifest/tests/resources/manifests/manifest_nodes.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

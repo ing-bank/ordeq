@@ -8,7 +8,7 @@ from ordeq_viz.api import viz
 
 def test_viz_main_kedro(tmp_path: Path) -> None:
     output_folder = tmp_path / "kedro_output"
-    viz("example", fmt="kedro-viz", output=output_folder)
+    viz("example_1", fmt="kedro-viz", output=output_folder)
     assert output_folder.exists()
     assert (output_folder / "api" / "main").exists()
 
@@ -21,7 +21,7 @@ def test_viz_to_mermaid_call(
     expected_example_ios,
 ) -> None:
     output_file = tmp_path / "output.mermaid"
-    viz("example", fmt="mermaid", output=output_file)
+    viz("example_1", fmt="mermaid", output=output_file)
     patched_pipeline_to_mermaid.assert_called_once()
     actual_node_objs, actual_ios = patched_pipeline_to_mermaid.call_args[0]
     assert actual_node_objs == expected_example_node_objects
@@ -37,7 +37,7 @@ def test_viz_to_kedro_call(
     expected_example_ios,
 ) -> None:
     output_folder = tmp_path / "kedro_output"
-    viz("example", fmt="kedro-viz", output=output_folder)
+    viz("example_1", fmt="kedro-viz", output=output_folder)
     patched_pipeline_to_kedro.assert_called_once()
     actual_node_objs, actual_ios = patched_pipeline_to_kedro.call_args[0]
     actual_kwargs = patched_pipeline_to_kedro.call_args[1]
@@ -50,4 +50,4 @@ def test_viz_main_kedro_no_output_raises(tmp_path: Path) -> None:
     with pytest.raises(
         ValueError, match="`output` is required when `fmt` is 'kedro-viz'"
     ):
-        viz("example", fmt="kedro-viz")
+        viz("example_1", fmt="kedro-viz")

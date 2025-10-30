@@ -11,7 +11,7 @@ runnables = [
     importlib.import_module("example_1"),
     importlib.import_module("example_1"),
     importlib.import_module("example_1.wrapped_io"),
-    importlib.import_module("example_1.example.nodes"),
+    importlib.import_module("example_1.nodes"),
 ]
 
 

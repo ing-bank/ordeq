@@ -14,7 +14,7 @@ runnables = [
     importlib.import_module("example_1"),
     importlib.import_module("example_1"),
     importlib.import_module("example_1.wrapped_io"),
-    importlib.import_module("example_1.example.nodes"),
+    importlib.import_module("example_1.nodes"),
 ]
 
 
@@ -29,38 +29,12 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 
 ```
 
-## Exception
+## Output
 
 ```text
-ModuleNotFoundError: No module named 'example_1.example'
-  File "<frozen importlib._bootstrap>", line LINO, in _find_and_load_unlocked
-
-  File "<frozen importlib._bootstrap>", line LINO, in _find_and_load
-
-  File "<frozen importlib._bootstrap>", line LINO, in _gcd_import
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap>", line LINO, in _find_and_load_unlocked
-
-  File "<frozen importlib._bootstrap>", line LINO, in _find_and_load
-
-  File "<frozen importlib._bootstrap>", line LINO, in _gcd_import
-
-  File "/importlib/__init__.py", line LINO, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/tests/resources/resolve/resolve_example_repeated_runnables.py", line LINO, in <module>
-    importlib.import_module("example_1.example.nodes"),
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+['example_1', 'example_1.catalog', 'example_1.hooks', 'example_1.nodes', 'example_1.pipeline', 'example_1.wrapped_io']
+['example_1.nodes:world', 'example_1.pipeline:transform_input', 'example_1.pipeline:transform_mock_input', 'example_1.wrapped_io:hello', 'example_1.wrapped_io:print_message']
+{('example_1.catalog', 'Hello'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('example_1.catalog', 'TestInput'): Input(idx=ID1), ('example_1.catalog', 'TestOutput'): Output(idx=ID2), ('example_1.catalog', 'World'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('example_1.nodes', 'x'): StringBuffer(_buffer=<_io.StringIO object at HASH3>), ('example_1.nodes', 'y'): StringBuffer(_buffer=<_io.StringIO object at HASH4>), ('example_1.pipeline', 'Hello'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('example_1.pipeline', 'TestInput'): Input(idx=ID1), ('example_1.pipeline', 'TestOutput'): Output(idx=ID2), ('example_1.pipeline', 'World'): StringBuffer(_buffer=<_io.StringIO object at HASH2>), ('example_1.wrapped_io', 'message'): SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),)), ('example_1.wrapped_io', 'name_generator'): NameGenerator(name='John'), ('example_1.wrapped_io', 'name_printer'): NamePrinter()}
+['example_1.nodes:world', 'example_1.pipeline:transform_input', 'example_1.pipeline:transform_mock_input', 'example_1.wrapped_io:hello', 'example_1.wrapped_io:print_message']
 
 ```

@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 import boto3
 from boto3.resources.base import ServiceResource
@@ -26,7 +27,7 @@ class S3Resource(Input[ServiceResource]):
     ```
     """
 
-    def load(self, **load_options) -> ServiceResource:
+    def load(self, **load_options: Any) -> ServiceResource:
         """Establishes and returns a boto3 S3 resource.
 
         Args:

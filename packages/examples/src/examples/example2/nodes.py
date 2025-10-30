@@ -1,9 +1,5 @@
+from examples.example2.catalog import TestInput2, TestOutput2
 from ordeq import node
-
-from examples.example2.catalog import (
-    TestInput2,
-    TestOutput2,
-)
 
 
 @node(inputs=[TestInput2], outputs=[TestOutput2])

@@ -1,6 +1,5 @@
-from ordeq import node
-
 from examples.rag_pipeline import catalog
+from ordeq import node
 
 
 @node(inputs=[catalog.policies], outputs=[catalog.questions])

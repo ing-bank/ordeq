@@ -1,8 +1,7 @@
-from ordeq import node
-
 from examples.function_reuse import catalog
 from examples.function_reuse.catalog import A, B
 from examples.function_reuse.func_defs import print_input
+from ordeq import node
 
 a = node(print_input, inputs=A)
 b = node(print_input, inputs=B)

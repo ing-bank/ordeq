@@ -2767,6 +2767,7 @@ test = [
     { name = "cloudpathlib", extra = ["s3"] },
     { name = "duckdb" },
     { name = "ordeq-common" },
+    { name = "ordeq-test-examples" },
     { name = "ordeq-test-utils" },
     { name = "pandas" },
     { name = "pandas-stubs" },
@@ -2781,6 +2782,7 @@ test = [
     { name = "cloudpathlib", extras = ["s3"], specifier = ">=0.20.0" },
     { name = "duckdb" },
     { name = "ordeq-common", editable = "packages/ordeq-common" },
+    { name = "ordeq-test-examples", editable = "packages/ordeq-test-examples" },
     { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
     { name = "pandas" },
     { name = "pandas-stubs" },
@@ -3112,6 +3114,7 @@ dependencies = [
 [package.dev-dependencies]
 test = [
     { name = "ordeq-common" },
+    { name = "ordeq-test-examples" },
     { name = "ordeq-test-utils" },
 ]
 
@@ -3124,6 +3127,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 test = [
     { name = "ordeq-common", editable = "packages/ordeq-common" },
+    { name = "ordeq-test-examples", editable = "packages/ordeq-test-examples" },
     { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
 ]
 
@@ -3497,6 +3501,7 @@ test = [
     { name = "ordeq-pandas" },
     { name = "ordeq-pymupdf" },
     { name = "ordeq-sentence-transformers" },
+    { name = "ordeq-test-examples" },
     { name = "ordeq-test-utils" },
 ]
 
@@ -3511,6 +3516,7 @@ test = [
     { name = "ordeq-pandas", editable = "packages/ordeq-pandas" },
     { name = "ordeq-pymupdf", editable = "packages/ordeq-pymupdf" },
     { name = "ordeq-sentence-transformers", editable = "packages/ordeq-sentence-transformers" },
+    { name = "ordeq-test-examples", editable = "packages/ordeq-test-examples" },
     { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
 ]
 

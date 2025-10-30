@@ -63,6 +63,7 @@ ordeq-yaml = { workspace = true }
 ordeq-docs = { workspace = true }
 ordeq-test-utils = { workspace = true }
 ordeq-dev-tools = { workspace = true }
+ordeq-test-examples = { workspace = true }
 
 [tool.uv]
 required-version = ">=0.8.23"

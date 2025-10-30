@@ -9,7 +9,7 @@ dev = [
     "rust-just>=1.42.4",
 ]
 lint = [
-    "ruff>=0.12.5",
+    "ruff>=0.14.2",
 ]
 docs = [
     "mkdocs",

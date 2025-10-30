@@ -106,8 +106,8 @@ generate-package-overview:
     uv run -m ordeq_dev_tools docs_package_overview .
 
 # Generate draft GitHub releases
-generate-draft-release:
-    uv run -m ordeq_dev_tools generate_draft_release .
+generate-draft-releases:
+    uv run -m ordeq_dev_tools generate_draft_releases .
 
 # Build the documentation
 docs-build: generate-api-docs generate-package-overview

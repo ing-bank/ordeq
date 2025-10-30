@@ -9,7 +9,7 @@ dev = [
     "rust-just>=1.42.4",
 ]
 lint = [
-    "ruff>=0.12.5",
+    "ruff>=0.14.2",
 ]
 docs = [
     "mkdocs",
@@ -28,7 +28,7 @@ test = [
 ]
 types = [
     "mypy>=1.18.2",
-    "ty>=0.0.1a16",
+    "ty>=0.0.1a25",
 ]
 
 [tool.uv.sources]
@@ -243,3 +243,4 @@ exclude = [
 invalid-argument-type = "ignore"
 possibly-missing-attribute = "ignore"  # faiss issue
 unresolved-attribute = "ignore"
+no-matching-overload = "ignore"  # spark issue

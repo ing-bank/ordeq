@@ -17,9 +17,15 @@ def expected_example_nodes() -> set[Callable]:
     Returns:
         a set of expected nodes
     """
-    from examples.example.nodes import world
-    from examples.example.pipeline import transform_input, transform_mock_input
-    from examples.example.wrapped_io import hello, print_message
+    from examples.example.nodes import world  # ty: ignore[unresolved-import]
+    from examples.example.pipeline import (  # ty: ignore[unresolved-import]
+        transform_input,
+        transform_mock_input,
+    )
+    from examples.example.wrapped_io import (  # ty: ignore[unresolved-import]
+        hello,
+        print_message,
+    )
 
     """Expected nodes in the example package."""
     return {transform_input, transform_mock_input, world, hello, print_message}
@@ -36,14 +42,14 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
 
 
 def test_gather_nodes_from_module():
-    from examples.example import nodes as mod
+    from examples.example import nodes as mod  # ty: ignore[unresolved-import]
 
     assert get_node(mod.world) is not None
 
 
 def test_resolve_node_by_reference(expected_example_node_objects) -> None:
     """Test resolving nodes by reference."""
-    from examples.example.nodes import world
+    from examples.example.nodes import world  # ty: ignore[unresolved-import]
 
     nodes = _resolve_runnables_to_nodes("examples.example.nodes:world")
     assert nodes == {get_node(world)}

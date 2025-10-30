@@ -1,11 +1,12 @@
 from pathlib import Path
+
 from mypy import api as mypy_api
+
 from ordeq_test_utils.snapshot import compare
 
 
 def capture_type_check(path: Path) -> str:
-    """
-    Captures the type check output of the given path using mypy.
+    """Captures the type check output of the given path using mypy.
 
     Args:
         path: The path to type check.
@@ -20,8 +21,7 @@ def capture_type_check(path: Path) -> str:
 
 
 def capture_type_check_and_compare(capture: Path, snapshot: Path):
-    """
-    Captures the type check output of the given path and compares it against
+    """Captures the type check output of the given path and compares it against
     the snapshot.
 
     Args:
@@ -33,9 +33,7 @@ def capture_type_check_and_compare(capture: Path, snapshot: Path):
     """
     captured = capture_type_check(capture)
     expected = (
-        snapshot.read_text(encoding="utf-8")
-        if snapshot.exists()
-        else "<NONE>"
+        snapshot.read_text(encoding="utf-8") if snapshot.exists() else "<NONE>"
     )
     if captured != expected:
         diff = compare(captured, expected)

@@ -20,7 +20,9 @@ def capture_type_check(path: Path) -> str:
     return "No type errors found."
 
 
-def capture_type_check_and_compare(capture: Path, snapshot: Path) -> str | None:
+def capture_type_check_and_compare(
+    capture: Path, snapshot: Path
+) -> str | None:
     """Captures the type check output of the given path and compares it against
     the snapshot.
 

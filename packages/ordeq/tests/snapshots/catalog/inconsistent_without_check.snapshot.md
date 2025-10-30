@@ -1,11 +1,8 @@
 ## Resource
 
 ```python
+from example_catalogs import inconsistent as catalog
 from ordeq import node
-
-from resources.catalog.catalogs import inconsistent
-
-catalog = inconsistent
 
 
 @node(inputs=catalog.hello, outputs=catalog.result)
@@ -17,7 +14,7 @@ def func(hello: str) -> str:
 ## Exception
 
 ```text
-AttributeError: module 'resources.catalog.catalogs.inconsistent' has no attribute 'result'
+AttributeError: module 'example_catalogs.inconsistent' has no attribute 'result'
   File "/packages/ordeq/tests/resources/catalog/inconsistent_without_check.py", line LINO, in <module>
     @node(inputs=catalog.hello, outputs=catalog.result)
                                         ^^^^^^^^^^^^^^
@@ -35,7 +32,8 @@ AttributeError: module 'resources.catalog.catalogs.inconsistent' has no attribut
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:8: error: Module has no attribute "result"  [attr-defined]
+packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

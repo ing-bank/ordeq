@@ -1,6 +1,0 @@
-## Resource
-
-```python
-
-
-```

@@ -4,10 +4,9 @@
 # Checks the behaviour when running nodes with an alternative catalog
 # We want to support this syntax and behaviour since it allows users to
 # easily switch between different catalogs, for instance during tests.
+from example_catalogs import local, remote
 from ordeq import node, run
 from ordeq_common import Print
-
-from resources.catalog.catalogs import local, remote
 
 catalog = local
 
@@ -29,7 +28,7 @@ run(uppercase, add_world, io=remote)
 ## Exception
 
 ```text
-AttributeError: module 'resources.catalog.catalogs.remote' has no attribute 'get'
+AttributeError: module 'example_catalogs.remote' has no attribute 'get'
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in <genexpr>
     inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
                  ^^^^^^
@@ -63,7 +62,8 @@ AttributeError: module 'resources.catalog.catalogs.remote' has no attribute 'get
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:22: error: Argument "io" to "run" has incompatible type Module; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:4: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

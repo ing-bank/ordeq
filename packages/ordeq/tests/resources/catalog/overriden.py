@@ -1,6 +1,5 @@
+from example_catalogs import remote_extended
 from ordeq import node, run
-
-from resources.catalog.catalogs import remote_extended
 
 catalog = remote_extended
 

@@ -1,10 +1,9 @@
 ## Resource
 
 ```python
+from example_catalogs import inconsistent, local
 from ordeq import node
 from ordeq._catalog import check_catalogs_are_consistent
-
-from resources.catalog.catalogs import inconsistent, local
 
 check_catalogs_are_consistent(local, inconsistent)
 catalog = inconsistent
@@ -40,7 +39,8 @@ CatalogError: Catalogs are inconsistent.
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:10: error: Module has no attribute "result"  [attr-defined]
+packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 Found 1 error in 1 file (checked 1 source file)
 
 ```

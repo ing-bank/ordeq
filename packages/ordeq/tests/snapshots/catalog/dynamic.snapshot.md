@@ -1,9 +1,8 @@
 ## Resource
 
 ```python
+from example_catalogs import local, remote
 from ordeq import node, run
-
-from resources.catalog.catalogs import local, remote
 
 env = "test-local"
 
@@ -56,5 +55,14 @@ INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node "func2" in module "dynamic"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/catalog/dynamic.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/catalog/dynamic.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+Found 1 error in 1 file (checked 1 source file)
 
 ```

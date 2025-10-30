@@ -8,9 +8,9 @@ on:
 #  workflow_call:
 
 jobs:
-  docs:
-    name: Deploy docs
-    uses: ./.github/workflows/docs.yml
+  #docs:
+  #  name: Deploy docs
+  #  uses: ./.github/workflows/docs.yml
 
   draft_releases:
     name: Draft releases

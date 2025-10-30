@@ -3,9 +3,8 @@
 ```python
 from types import ModuleType
 
+from example_catalogs import local, remote
 from ordeq import node, run
-
-from resources.catalog.catalogs import local, remote
 
 catalog: ModuleType = local
 
@@ -56,7 +55,9 @@ INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/catalog/static.py:18: error: Name "catalog" already defined on line LINO  [no-redef]
-Found 1 error in 1 file (checked 1 source file)
+packages/ordeq/tests/resources/catalog/static.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/catalog/static.py:3: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line LINO  [no-redef]
+Found 2 errors in 1 file (checked 1 source file)
 
 ```

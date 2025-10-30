@@ -1,7 +1,6 @@
+from example_catalogs import inconsistent, local
 from ordeq import node
 from ordeq._catalog import check_catalogs_are_consistent
-
-from resources.catalog.catalogs import inconsistent, local
 
 check_catalogs_are_consistent(local, inconsistent)
 catalog = inconsistent

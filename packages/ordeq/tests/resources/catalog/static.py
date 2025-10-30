@@ -1,8 +1,7 @@
 from types import ModuleType
 
+from example_catalogs import local, remote
 from ordeq import node, run
-
-from resources.catalog.catalogs import local, remote
 
 catalog: ModuleType = local
 

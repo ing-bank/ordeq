@@ -1,9 +1,8 @@
 ## Resource
 
 ```python
+from example_catalogs import local, remote
 from ordeq import node, run
-
-from resources.catalog.catalogs import local, remote
 
 env = "test-local"
 

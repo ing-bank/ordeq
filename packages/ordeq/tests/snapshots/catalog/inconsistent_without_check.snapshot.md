@@ -1,11 +1,8 @@
 ## Resource
 
 ```python
+from example_catalogs import inconsistent as catalog
 from ordeq import node
-
-from resources.catalog.catalogs import inconsistent
-
-catalog = inconsistent
 
 
 @node(inputs=catalog.hello, outputs=catalog.result)
@@ -17,7 +14,7 @@ def func(hello: str) -> str:
 ## Exception
 
 ```text
-AttributeError: module 'resources.catalog.catalogs.inconsistent' has no attribute 'result'
+AttributeError: module 'example_catalogs.inconsistent' has no attribute 'result'
   File "/packages/ordeq/tests/resources/catalog/inconsistent_without_check.py", line LINO, in <module>
     @node(inputs=catalog.hello, outputs=catalog.result)
                                         ^^^^^^^^^^^^^^

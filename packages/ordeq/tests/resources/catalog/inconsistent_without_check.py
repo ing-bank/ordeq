@@ -1,8 +1,5 @@
+from example_catalogs import inconsistent as catalog
 from ordeq import node
-
-from resources.catalog.catalogs import inconsistent
-
-catalog = inconsistent
 
 
 @node(inputs=catalog.hello, outputs=catalog.result)

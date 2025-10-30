@@ -1,10 +1,9 @@
 # Checks the behaviour when running nodes with an alternative catalog
 # We want to support this syntax and behaviour since it allows users to
 # easily switch between different catalogs, for instance during tests.
+from example_catalogs import local, remote
 from ordeq import node, run
 from ordeq_common import Print
-
-from resources.catalog.catalogs import local, remote
 
 catalog = local
 

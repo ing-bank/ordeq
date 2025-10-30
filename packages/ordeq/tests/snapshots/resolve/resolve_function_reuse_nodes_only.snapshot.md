@@ -9,7 +9,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("function_reuse.nodes")]
+runnables = [importlib.import_module("examples.function_reuse.nodes")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
@@ -25,24 +25,9 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['function_reuse.nodes']
-['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']
-{('function_reuse.nodes', 'A'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('function_reuse.nodes', 'B'): StringBuffer(_buffer=<_io.StringIO object at HASH2>)}
-['function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.func_defs:print_input', 'function_reuse.nodes:pi']
-
-```
-
-## Logging
-
-```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.func_defs:print_input'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.func_defs:print_input'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.func_defs:print_input'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.func_defs:print_input'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.func_defs:print_input'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.nodes:pi'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.func_defs:print_input'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.func_defs:print_input'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'function_reuse.func_defs:print_input'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+['examples.function_reuse.nodes']
+['examples.function_reuse.func_defs:print_input', 'examples.function_reuse.func_defs:print_input', 'examples.function_reuse.func_defs:print_input', 'examples.function_reuse.func_defs:print_input', 'examples.function_reuse.nodes:pi']
+{('examples.function_reuse.nodes', 'A'): StringBuffer(_buffer=<_io.StringIO object at HASH1>), ('examples.function_reuse.nodes', 'B'): StringBuffer(_buffer=<_io.StringIO object at HASH2>)}
+['examples.function_reuse.func_defs:print_input', 'examples.function_reuse.func_defs:print_input', 'examples.function_reuse.func_defs:print_input', 'examples.function_reuse.func_defs:print_input', 'examples.function_reuse.nodes:pi']
 
 ```

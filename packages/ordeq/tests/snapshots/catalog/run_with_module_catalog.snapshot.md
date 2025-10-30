@@ -4,9 +4,10 @@
 # Checks the behaviour when running nodes with an alternative catalog
 # We want to support this syntax and behaviour since it allows users to
 # easily switch between different catalogs, for instance during tests.
-from resources.catalog.catalogs import local, remote
 from ordeq import node, run
 from ordeq_common import Print
+
+from resources.catalog.catalogs import local, remote
 
 catalog = local
 
@@ -62,7 +63,7 @@ AttributeError: module 'resources.catalog.catalogs.remote' has no attribute 'get
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:21: error: Argument "io" to "run" has incompatible type Module; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:22: error: Argument "io" to "run" has incompatible type Module; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
 Found 1 error in 1 file (checked 1 source file)
 
 ```

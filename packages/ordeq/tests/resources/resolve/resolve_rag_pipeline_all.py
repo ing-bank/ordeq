@@ -7,12 +7,12 @@ from ordeq._resolve import (
 )
 
 runnables = [
-    importlib.import_module("rag_pipeline.rag.annotation"),
-    importlib.import_module("rag_pipeline.rag.evaluation"),
-    importlib.import_module("rag_pipeline.rag.indexer"),
-    importlib.import_module("rag_pipeline.rag.policies"),
-    importlib.import_module("rag_pipeline.rag.question_answering"),
-    importlib.import_module("rag_pipeline.rag.retrieval"),
+    importlib.import_module("examples.rag_pipeline.rag.annotation"),
+    importlib.import_module("examples.rag_pipeline.rag.evaluation"),
+    importlib.import_module("examples.rag_pipeline.rag.indexer"),
+    importlib.import_module("examples.rag_pipeline.rag.policies"),
+    importlib.import_module("examples.rag_pipeline.rag.question_answering"),
+    importlib.import_module("examples.rag_pipeline.rag.retrieval"),
 ]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())

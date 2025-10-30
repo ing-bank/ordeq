@@ -9,7 +9,7 @@ from ordeq._resolve import (
     _resolve_runnables_to_nodes_and_ios,
 )
 
-runnables = [importlib.import_module("rag_pipeline.rag")]
+runnables = [importlib.import_module("examples.rag_pipeline.rag")]
 
 modules = list(dict(_resolve_runnables_to_modules(*runnables)).keys())
 print(modules)
@@ -25,9 +25,9 @@ print(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['rag_pipeline.rag', 'rag_pipeline.rag.annotation', 'rag_pipeline.rag.evaluation', 'rag_pipeline.rag.indexer', 'rag_pipeline.rag.policies', 'rag_pipeline.rag.question_answering', 'rag_pipeline.rag.retrieval']
-['rag_pipeline.rag.annotation:annotate_documents', 'rag_pipeline.rag.evaluation:evaluate_answers', 'rag_pipeline.rag.indexer:create_vector_index', 'rag_pipeline.rag.policies:generate_questions', 'rag_pipeline.rag.question_answering:question_answering', 'rag_pipeline.rag.retrieval:filter_relevant', 'rag_pipeline.rag.retrieval:retrieve']
+['examples.rag_pipeline.rag', 'examples.rag_pipeline.rag.annotation', 'examples.rag_pipeline.rag.evaluation', 'examples.rag_pipeline.rag.indexer', 'examples.rag_pipeline.rag.policies', 'examples.rag_pipeline.rag.question_answering', 'examples.rag_pipeline.rag.retrieval']
+['examples.rag_pipeline.rag.annotation:annotate_documents', 'examples.rag_pipeline.rag.evaluation:evaluate_answers', 'examples.rag_pipeline.rag.indexer:create_vector_index', 'examples.rag_pipeline.rag.policies:generate_questions', 'examples.rag_pipeline.rag.question_answering:question_answering', 'examples.rag_pipeline.rag.retrieval:filter_relevant', 'examples.rag_pipeline.rag.retrieval:retrieve']
 {}
-['rag_pipeline.rag.annotation:annotate_documents', 'rag_pipeline.rag.evaluation:evaluate_answers', 'rag_pipeline.rag.indexer:create_vector_index', 'rag_pipeline.rag.policies:generate_questions', 'rag_pipeline.rag.question_answering:question_answering', 'rag_pipeline.rag.retrieval:filter_relevant', 'rag_pipeline.rag.retrieval:retrieve']
+['examples.rag_pipeline.rag.annotation:annotate_documents', 'examples.rag_pipeline.rag.evaluation:evaluate_answers', 'examples.rag_pipeline.rag.indexer:create_vector_index', 'examples.rag_pipeline.rag.policies:generate_questions', 'examples.rag_pipeline.rag.question_answering:question_answering', 'examples.rag_pipeline.rag.retrieval:filter_relevant', 'examples.rag_pipeline.rag.retrieval:retrieve']
 
 ```

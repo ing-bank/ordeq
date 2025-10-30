@@ -1,3 +1,3 @@
 from ordeq import run
 
-run("packages.example", hooks=["packages.example.hooks:other_obj"])
+run("examples.example", hooks=["examples.example.hooks:other_obj"])

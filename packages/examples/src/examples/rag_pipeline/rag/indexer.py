@@ -1,5 +1,6 @@
 from ordeq import node
-from rag_pipeline import catalog
+
+from examples.rag_pipeline import catalog
 
 
 @node(

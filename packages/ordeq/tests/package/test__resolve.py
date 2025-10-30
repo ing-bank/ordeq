@@ -11,18 +11,18 @@ from ordeq._resolve import (
 
 
 @pytest.fixture
-def expected_example_nodes(packages) -> set[Callable]:
+def expected_example_nodes() -> set[Callable]:
     """Expected nodes in the example package.
 
     Returns:
         a set of expected nodes
     """
-    from example.nodes import world  # ty: ignore[unresolved-import]
-    from example.pipeline import (  # ty: ignore[unresolved-import]
+    from examples.example.nodes import world
+    from examples.example.pipeline import (
         transform_input,
         transform_mock_input,
     )
-    from example.wrapped_io import (  # ty: ignore[unresolved-import]
+    from examples.example.wrapped_io import (
         hello,
         print_message,
     )
@@ -41,30 +41,30 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
     return {get_node(f) for f in expected_example_nodes}
 
 
-def test_gather_nodes_from_module(packages):
-    from example import nodes as mod  # ty: ignore[unresolved-import]
+def test_gather_nodes_from_module():
+    from examples.example import nodes as mod
 
     assert get_node(mod.world) is not None
 
 
 def test_resolve_node_by_reference(
-    expected_example_node_objects, packages
+    expected_example_node_objects,
 ) -> None:
     """Test resolving nodes by reference."""
-    from example.nodes import world  # ty: ignore[unresolved-import]
+    from examples.example.nodes import world
 
-    nodes = _resolve_runnables_to_nodes("example.nodes:world")
+    nodes = _resolve_runnables_to_nodes("examples.example.nodes:world")
     assert nodes == {get_node(world)}
 
 
-def test_resolve_node_by_reference_not_a_node(packages) -> None:
+def test_resolve_node_by_reference_not_a_node() -> None:
     """Test resolving nodes by reference when the reference is not a node."""
 
     with pytest.raises(
         ValueError,
-        match=r"Node 'i_do_not_exist' not found in module 'example.nodes'",
+        match=r"Node 'i_do_not_exist' not found in module 'examples.example.nodes'",
     ):
-        _resolve_runnables_to_nodes("example.nodes:i_do_not_exist")
+        _resolve_runnables_to_nodes("examples.example.nodes:i_do_not_exist")
 
 
 def test_resolve_node_by_reference_no_module() -> None:

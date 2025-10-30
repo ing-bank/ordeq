@@ -3444,6 +3444,11 @@ name = "ordeq-test-examples"
 version = "0.1.0"
 source = { editable = "packages/ordeq-test-examples" }
 
+[package.metadata]
+
+[package.metadata.requires-dev]
+test = []
+
 [[package]]
 name = "ordeq-test-utils"
 version = "0.1.0"

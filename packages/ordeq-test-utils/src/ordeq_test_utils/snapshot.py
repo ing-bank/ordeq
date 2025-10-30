@@ -270,27 +270,3 @@ def compare_resources_against_snapshots(
 
         return diff
     return None
-
-
-def append_packages_dir_to_sys_path(packages_dir: Path):
-    """Append the packages directory to `sys.path`.
-
-    This allows us to import the example packages at test time.
-    Cleanup is performed after use to ensure a clean state for each test.
-
-    Args:
-        packages_dir: The path to the packages directory.
-
-    """
-    sys.path.append(str(packages_dir))
-    yield
-    sys.path.remove(str(packages_dir))
-
-    # Cleanup imported example packages
-    dirs = tuple(d.name for d in packages_dir.iterdir())
-    for n in filter(lambda m: m.startswith(dirs), list(sys.modules)):
-        # Remove the example.* and example2.*, etc. modules from sys.modules
-        # to ensure a clean state for each test
-        del sys.modules[n]
-
-    importlib.invalidate_caches()

@@ -2,7 +2,6 @@ import difflib
 import importlib.util
 import logging
 import re
-import sys
 import traceback
 from pathlib import Path
 

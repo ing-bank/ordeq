@@ -77,7 +77,8 @@ def _resolve_runnables_to_modules(
     for runnable in runnables:
         if _is_module(runnable):
             # mypy false positive
-            modules[runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
+            modules[
+                runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
         elif isinstance(runnable, str):
             mod = _resolve_string_to_module(runnable)
             modules[mod.__name__] = mod
@@ -120,6 +121,40 @@ def _resolve_module_to_ios(module: ModuleType) -> Catalog:
         for name, obj in vars(module).items()
         if _is_io(obj)
     }
+
+
+def _resolve_patched_io(
+    io: dict[ModuleType | AnyIO, ModuleType | AnyIO],
+) -> dict[AnyIO, AnyIO]:
+    """Resolves a mapping of IOs, supporting module-to-module mapping.
+
+    For each item in the input dict, if both key and value are modules,
+    gather all IOs in each module and create a map from each old IO to each
+    new IO (by order). The new module can have more IOs than the old one.
+    Otherwise, treat the key and value as IOs directly.
+
+    Args:
+        io: mapping of modules or IOs to modules or IOs
+
+    Returns:
+        A mapping from old IOs to new IOs
+    """
+
+    patched: dict[AnyIO, AnyIO] = {}
+    for k, v in io.items():
+        if isinstance(k, ModuleType) and isinstance(v, ModuleType):
+            old_catalog = list(_resolve_module_to_ios(k).values())
+            new_catalog = list(_resolve_module_to_ios(v).values())
+            if len(old_catalog) > len(new_catalog):
+                raise ValueError(
+                    f"Catalog '{k.__name__}' has more IOs than '{v.__name__}'. "
+                    f"Cannot patch."
+                )
+            patched.update(zip(old_catalog, new_catalog, strict=False))
+        else:
+            # treat as IO-to-IO mapping
+            patched[k] = v
+    return patched
 
 
 def _resolve_node_reference(ref: str) -> Node:

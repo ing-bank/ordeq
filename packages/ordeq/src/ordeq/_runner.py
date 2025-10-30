@@ -6,9 +6,10 @@ from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
-from ordeq._io import Input, Output, _InputCache
+from ordeq._io import AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
-from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
+from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes, \
+    _resolve_patched_io
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -23,6 +24,7 @@ Runnable: TypeAlias = ModuleType | Callable | str
 # - 'last', which saves the output of the last node for which no error
 # occurred. This can be useful for debugging.
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
+PatchedIO: TypeAlias = dict[ModuleType | AnyIO, ModuleType | AnyIO]
 
 
 def _save_outputs(node: Node, values: Sequence[T], save: bool = True) -> None:
@@ -87,7 +89,7 @@ def _run_graph(
     *,
     hooks: Sequence[NodeHook] = (),
     save: SaveMode = "all",
-    io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
+    io: PatchedIO | None = None,
 ) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
@@ -103,7 +105,9 @@ def _run_graph(
 
     # Each view will be replaced by its sentinel IO:
     views = [node for node in graph.nodes if isinstance(node, View)]
-    io_ = cast("dict[Input | Output | View, Input | Output]", io or {})
+    io_ = cast(
+        "dict[AnyIO | View | ModuleType, AnyIO | View | ModuleType]", io or {}
+    )
     for view in views:
         io_[view] = view.outputs[0]
 
@@ -134,7 +138,7 @@ def run(
     hooks: Sequence[RunnerHook | str] = (),
     save: SaveMode = "all",
     verbose: bool = False,
-    io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
+    io: PatchedIO | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -153,12 +157,15 @@ def run(
     if verbose:
         print(graph)
 
+    if io:
+        patched_io = _resolve_patched_io(io)
+
     run_hooks, node_hooks = _resolve_hooks(*hooks)
 
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)

@@ -83,7 +83,7 @@ def get_latest_tag(tags: list[str]) -> str | None:
     """Gets the latest tag for a package in the format '[package]/vX.Y.Z'.
 
     Args:
-        tags: Name of the package
+        tags: package tags
 
     Returns:
         Tag if found, else None
@@ -411,6 +411,12 @@ def compute_package_changes(
 
 @node(inputs=[changes, draft_releases])
 def create_releases(changes: dict[str, dict[str, str]], releases: list[str]) -> None:
+    """Create or update draft GitHub releases based on computed changes.
+
+    Args:
+        changes: Mapping of package names to their change info
+        releases: List of existing draft release tags
+    """
     for info in changes.values():
         new_tag = info["new_tag"]
         if new_tag in releases:

@@ -10,7 +10,7 @@ def _create_draft_github_release(new_tag: str, release_notes: str) -> None:
 
     Args:
         new_tag: New tag name
-        release_notes: Changes dictionary
+        release_notes: Release notes
     """
     run_command(
         [

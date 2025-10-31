@@ -126,6 +126,22 @@ def _resolve_module_to_ios(module: ModuleType) -> Catalog:
     return ios
 
 
+def _resolve_package_to_ios(package: ModuleType) -> Catalog:
+    """Finds all `IO` objects defined in the provided module or package.
+
+    Args:
+        package: the module or package
+
+    Returns:
+        a dict of `IO` objects with their fully-qualified name as key
+    """
+    modules = _resolve_packages_to_modules([(package.__name__, package)])
+    catalog = {}
+    for _, module in modules:
+        catalog.update(_resolve_module_to_ios(module))
+    return catalog
+
+
 def _resolve_node_reference(ref: str) -> Node:
     """Resolves a node reference string of the form 'module:node_name'.
 

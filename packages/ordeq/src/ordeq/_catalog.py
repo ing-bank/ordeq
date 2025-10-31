@@ -3,7 +3,7 @@ from typing import TypeAlias
 
 from ordeq._fqn import FQN, fqn_to_str
 from ordeq._io import AnyIO
-from ordeq._resolve import _resolve_module_to_ios
+from ordeq._resolve import _resolve_module_to_ios, _resolve_package_to_ios
 
 
 class CatalogError(Exception): ...
@@ -18,7 +18,7 @@ def _name_in_catalog(fqn: FQN, catalog: ModuleType) -> str:
         raise ValueError(
             f"IO '{fqn_str}' does not belong to catalog '{catalog.__name__}'"
         )
-    return fqn_str[len(catalog.__name__) + 1:]
+    return fqn_str[len(catalog.__name__) + 1 :]
 
 
 def _patch_module_catalog(
@@ -56,14 +56,13 @@ def _patch_module_catalog(
 
 
 def check_catalogs_are_consistent(
-    a: ModuleType, b: ModuleType, *others: ModuleType
+    base: ModuleType, *others: ModuleType
 ) -> None:
     """Utility method to checks if two (or more) catalogs are consistent,
     i.e. if they define the same keys.
 
     Args:
-        a: First catalog to compare.
-        b: Second catalog to compare.
+        base: Base catalog to compare against.
         *others: Additional catalogs to compare.
 
     Raises:
@@ -71,14 +70,15 @@ def check_catalogs_are_consistent(
             i.e. if they define different keys.
     """
 
-    modules = [a, b, *others]
+    def catalog_key(fqn: FQN, catalog: ModuleType):
+        full_name = fqn_to_str(fqn)
+        return full_name[len(catalog.__name__) + 1 :]
+
+    modules = [base, *others]
 
     # for each catalog, the names (keys) of the IO it defines
     catalogs = [
-        {
-            name_in_catalog(fqn, catalog)
-            for fqn in _resolve_module_to_ios(catalog)
-        }
+        {catalog_key(fqn, catalog) for fqn in _resolve_package_to_ios(catalog)}
         for catalog in modules
     ]
 

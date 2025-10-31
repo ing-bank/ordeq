@@ -40,9 +40,9 @@ Available recipes:
     mypy-examples             # Mypy check all example directories
     sa                        # Static analysis (lint + type checking)
     fix                       # Format code and apply lint fixes with ruff and mdformat
-    test *PACKAGES            # or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
-    test_package PACKAGE      # Test a single package
-    test_all                  # Run tests for all packages with coverage
+    test-packages *PACKAGES   # or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
+    test-package PACKAGE      # Test a single package
+    test-examples             # Test all examples
     generate-api-docs         # Generate API documentation pages
     generate-package-overview # Generate package overview documentation page
     docs-build                # Build the documentation

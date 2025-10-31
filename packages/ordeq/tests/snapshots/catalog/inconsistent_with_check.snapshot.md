@@ -18,9 +18,11 @@ def func(hello: str) -> str:
 ## Exception
 
 ```text
-CatalogError: Catalogs are inconsistent.
+CatalogError: Catalog 'example_catalogs.inconsistent' is missing IO(s) 'result'
   File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in check_catalogs_are_consistent
-    raise CatalogError("Catalogs are inconsistent.")
+    raise CatalogError(
+        f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
+    )
 
   File "/packages/ordeq/tests/resources/catalog/inconsistent_with_check.py", line LINO, in <module>
     check_catalogs_are_consistent(local, inconsistent)

@@ -3450,12 +3450,14 @@ source = { editable = "packages/ordeq-test-examples" }
 dependencies = [
     { name = "ordeq" },
     { name = "ordeq-common" },
+    { name = "ordeq-files" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
     { name = "ordeq-common", editable = "packages/ordeq-common" },
+    { name = "ordeq-files", editable = "packages/ordeq-files" },
 ]
 
 [package.metadata.requires-dev]

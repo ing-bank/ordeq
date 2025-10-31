@@ -8,6 +8,7 @@ from pathlib import Path
 from _pytest.capture import CaptureFixture
 from _pytest.logging import LogCaptureFixture
 from _pytest.recwarn import WarningsRecorder
+import subprocess
 
 
 def _replace_pattern_with_seq(text: str, pattern: str, prefix: str) -> str:
@@ -193,6 +194,11 @@ def capture_module(
         sections["Warnings"] = _as_md_text_block(warnings_text)
     if caplog.text:
         sections["Logging"] = _as_md_text_block(caplog.text)
+
+    result = subprocess.run(["ty", "check", str(file_path)],
+                            capture_output=True, text=True)
+    if 'All checks passed' not in result.stdout:
+        sections["Typing"] = _as_md_text_block(result.stdout)
 
     output = "\n\n".join(
         f"## {key}\n\n{value.rstrip()}" for key, value in sections.items()

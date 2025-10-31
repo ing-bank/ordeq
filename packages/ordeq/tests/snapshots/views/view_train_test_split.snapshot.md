@@ -67,3 +67,25 @@ INFO	ordeq.runner	Running view "split" in module "view_train_test_split"
 INFO	ordeq.runner	Running view "train" in module "view_train_test_split"
 
 ```
+
+## Typing
+
+```text
+error[invalid-return-type]: Return type does not match returned value
+  --> packages/ordeq/tests/resources/views/view_train_test_split.py:18:32
+   |
+17 | @node(inputs=dataframe)
+18 | def split(df: pd.DataFrame) -> Split:
+   |                                ----- Expected `tuple[DataFrame, DataFrame]` because of return type
+19 |     df = df.sample(frac=1, random_state=1).reset_index(drop=True)
+20 |     n_test = int(len(df) * 0.25)
+21 |     test_df = df.iloc[:n_test]
+22 |     train_df = df.iloc[n_test:]
+23 |     return train_df, test_df
+   |            ^^^^^^^^^^^^^^^^^ expected `tuple[DataFrame, DataFrame]`, found `tuple[Series[Any], Series[Any]]`
+   |
+info: rule `invalid-return-type` is enabled by default
+
+Found 1 diagnostic
+
+```

@@ -79,3 +79,20 @@ INFO	ordeq.runner	Running node "multiply" in module "runner_exhausted_stream"
 INFO	ordeq.io	Saving Stream(data=[])
 
 ```
+
+## Typing
+
+```text
+error[unsupported-operator]: Operator `+=` is unsupported between objects of type `Iterable[str]` and `list[Unknown | str]`
+  --> packages/ordeq/tests/resources/runner/runner_exhausted_stream.py:19:13
+   |
+17 |     def save(self, data: Generator[str, None, None]) -> None:
+18 |         for item in data:
+19 |             self.data += [item]
+   |             ^^^^^^^^^^^^^^^^^^^
+   |
+info: rule `unsupported-operator` is enabled by default
+
+Found 1 diagnostic
+
+```

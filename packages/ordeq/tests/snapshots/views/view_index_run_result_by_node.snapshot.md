@@ -56,3 +56,19 @@ INFO	ordeq.runner	Running node "hello" in module "view_index_run_result_by_node"
 INFO	ordeq.io	Saving Print()
 
 ```
+
+## Typing
+
+```text
+error[non-subscriptable]: Cannot subscript object of type `None` with no `__getitem__` method
+  --> packages/ordeq/tests/resources/views/view_index_run_result_by_node.py:17:25
+   |
+16 | result = run(hello)
+17 | print(view, "computed", result[get_node(view)])
+   |                         ^^^^^^
+   |
+info: rule `non-subscriptable` is enabled by default
+
+Found 1 diagnostic
+
+```

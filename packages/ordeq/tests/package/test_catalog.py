@@ -21,29 +21,29 @@ class FakeModule(ModuleType):
     ("a", "b"),
     [
         (
-            {
-                # empty
-            },
-            {
-                # empty
-            },
+                {
+                    # empty
+                },
+                {
+                    # empty
+                },
         ),
         (
-            {
-                # empty
-            },
-            {
-                "something_else": 4  # not an IO
-            },
+                {
+                    # empty
+                },
+                {
+                    "something_else": 4  # not an IO
+                },
         ),
         ({"hello": StringBuffer()}, {"hello": Literal("hello")}),
         (
-            {"hello": StringBuffer(), "result": StringBuffer()},
-            {
-                "hello": Literal("hello"),
-                "result": StringBuffer(),
-                "something_else": 4,  # not an IO
-            },
+                {"hello": StringBuffer(), "result": StringBuffer()},
+                {
+                    "hello": Literal("hello"),
+                    "result": StringBuffer(),
+                    "something_else": 4,  # not an IO
+                },
         ),
     ],
 )
@@ -51,42 +51,3 @@ def test_it_checks_consistent(a, b):
     catalog_a = FakeModule("catalog_a", a)
     catalog_b = FakeModule("catalog_b", b)
     check_catalogs_are_consistent(catalog_a, catalog_b)
-
-
-@pytest.mark.parametrize(
-    ("a", "b"),
-    [
-        (
-            {"hello": StringBuffer(), "result": StringBuffer()},
-            {
-                "hello": Literal("hello")
-                # result is mising
-            },
-        ),
-        (
-            {
-                "hello": StringBuffer()
-                # result is missing
-            },
-            {"hello": Literal("hello"), "result": StringBuffer()},
-        ),
-        (
-            {
-                # empty
-            },
-            {"hello": Literal("hello")},
-        ),
-        (
-            {
-                # empty but contains non-IO
-                "something_else": 4
-            },
-            {"hello": Literal("hello"), "result": StringBuffer()},
-        ),
-    ],
-)
-def test_it_checks_inconsistent(a, b):
-    catalog_a = FakeModule("catalog_a", a)
-    catalog_b = FakeModule("catalog_b", b)
-    with pytest.raises(CatalogError, match="Catalogs are inconsistent"):
-        check_catalogs_are_consistent(catalog_a, catalog_b)

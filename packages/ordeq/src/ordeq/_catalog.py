@@ -38,7 +38,7 @@ def check_catalogs_are_consistent(
     overlap = catalogs[0]
     for module, catalog in zip(modules[1:], catalogs[1:], strict=True):
         if diff := overlap.difference(catalog):
-            missing_ios = ", ".join(f"'{io}'" for io in diff)
+            missing_ios = ", ".join(f"'{io}'" for io in sorted(diff))
             raise CatalogError(
                 f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
             )

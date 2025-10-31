@@ -77,8 +77,7 @@ def _resolve_runnables_to_modules(
     for runnable in runnables:
         if _is_module(runnable):
             # mypy false positive
-            modules[
-                runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
+            modules[runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
         elif isinstance(runnable, str):
             mod = _resolve_string_to_module(runnable)
             modules[mod.__name__] = mod
@@ -118,11 +117,11 @@ def _resolve_module_to_ios(module: ModuleType) -> Catalog:
     """
     modules = _resolve_packages_to_modules([(module.__name__, module)])
     ios: Catalog = {}
-    for name, module in modules:
+    for name, module_ in modules:
         ios.update({
-            (module.__name__, name): obj
-            for name, obj in vars(module).items()
-            if _is_io(obj)
+            (name, io_name): io
+            for io_name, io in vars(module_).items()
+            if _is_io(io)
         })
     return ios
 

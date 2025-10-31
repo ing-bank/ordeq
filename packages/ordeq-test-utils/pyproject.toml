@@ -19,7 +19,8 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "mypy>=0.18.2",  # for snapshot testing
+    "mypy>=0.18.2", # for snapshot testing
+    "ty"
 ]
 
 [tool.ordeq-dev]

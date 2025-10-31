@@ -4,10 +4,10 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
-from ordeq._catalog import PatchedIO
+from ordeq._catalog import _patch_io
 from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
-from ordeq._io import Input, Output, _InputCache, AnyIO
+from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
 
@@ -131,23 +131,12 @@ def _run_graph(
                 io_obj.unpersist()
 
 
-def _patch_io(
-    graph: NodeGraph,
-    io: PatchedIO | dict[ModuleType, ModuleType] | None = None
-) -> NodeGraph:
-    patched_nodes: dict[Node, Node] = {}
-    for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(
-            io)  # noqa: SLF001 (private access)
-    graph_patched = NodeGraph.from_nodes(patched_nodes.values())
-
-
 def run(
     *runnables: Runnable,
     hooks: Sequence[RunnerHook | str] = (),
     save: SaveMode = "all",
     verbose: bool = False,
-    io: PatchedIO | dict[ModuleType, ModuleType] | None = None,
+    io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -171,7 +160,9 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    _run_graph(graph, hooks=node_hooks, save=save, io=io)
+    patched_io = _patch_io(io)
+
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)

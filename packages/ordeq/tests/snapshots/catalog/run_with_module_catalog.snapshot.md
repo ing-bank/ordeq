@@ -28,22 +28,13 @@ run(uppercase, add_world, io=remote)
 ## Exception
 
 ```text
-AttributeError: module 'example_catalogs.remote' has no attribute 'get'
-  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in <genexpr>
-    inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-                 ^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _patch_io
-    inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
-                          ~~~~~~~~~~~~~~^^^^^^^^^^^
+AttributeError: module 'example_catalogs.remote' has no attribute 'items'
+  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in _patch_io
+    for key, value in io.items():
+                      ^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save, io=io)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    patched_io = _patch_io(io)
 
   File "/packages/ordeq/tests/resources/catalog/run_with_module_catalog.py", line LINO, in <module>
     run(uppercase, add_world, io=remote)

@@ -1,9 +1,14 @@
 from types import ModuleType
-from typing import TypeAlias
+from typing import TypeAlias, TypeVar
 
 from ordeq._fqn import FQN, fqn_to_str
 from ordeq._io import AnyIO
-from ordeq._resolve import _resolve_module_to_ios, _resolve_package_to_ios
+from ordeq._resolve import (
+    _is_io,
+    _is_module,
+    _resolve_module_to_ios,
+    _resolve_package_to_ios,
+)
 
 
 class CatalogError(Exception): ...
@@ -21,7 +26,36 @@ def _name_in_catalog(fqn: FQN, catalog: ModuleType) -> str:
     return fqn_str[len(catalog.__name__) + 1 :]
 
 
-def _patch_module_catalog(
+T = TypeVar("T")
+
+
+def _patch_io(io: dict[T, T]) -> PatchedIO:
+    if io is None:
+        return {}
+    patched_io: PatchedIO = {}
+    for key, value in io.items():
+        breakpoint()
+        patched_io.update(_patch(key, value))
+    return patched_io
+
+
+def _patch(patched: T, patched_by: T) -> PatchedIO:
+    if _is_module(patched) and _is_module(patched_by):
+        return _patch_catalog_by_catalog(patched, patched_by)
+    if _is_io(patched) and _is_io(patched_by):
+        return _patch_io_by_io(patched, patched_by)
+    raise TypeError(
+        f"Cannot patch objects of type "
+        f"'{type(patched).__name__}' and "
+        f"'{type(patched_by).__name__}'"
+    )
+
+
+def _patch_io_by_io(patched: AnyIO, patched_by: AnyIO) -> PatchedIO:
+    return {patched: patched_by}
+
+
+def _patch_catalog_by_catalog(
     patched: ModuleType, patched_by: ModuleType
 ) -> PatchedIO:
     """Patches an old catalog with a new one.

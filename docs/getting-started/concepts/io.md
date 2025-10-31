@@ -59,6 +59,11 @@ The same IO can be used to save data as well:
 >>> io.save(data_to_save)
 ```
 
+!!! note "The `data` argument"
+
+    The first argument to the `save` method, which is the data to be saved, is positional-only.
+    This is to avoid ambiguity, as it ensures the required data argument precedes any save options.
+
 Lastly, IOs serve as convenient and lightweight representations of data in your project:
 
 ```pycon

@@ -1,0 +1,18 @@
+[project]
+name = "project_ml"
+version = "0.1.0"
+description = "Example ML project using Ordeq"
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "ordeq-viz",
+    "ordeq-matplotlib",
+    "numpy>=2.0.2",
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "torch>=2.8.0",
+    "torchvision",
+]
+
+[tool.ruff.lint]
+extend-ignore = ["G004"]  # f-strings in logging, coming from the upstream example code

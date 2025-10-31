@@ -80,13 +80,3 @@ graph TB
 
 
 ```
-
-## Typing
-
-```text
-packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: error: Skipping analyzing "example_1.nodes": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-packages/ordeq-viz/tests/resources/api/mermaid_mixed_inputs.py:4: error: Skipping analyzing "example_1": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-Found 2 errors in 1 file (checked 1 source file)
-
-```

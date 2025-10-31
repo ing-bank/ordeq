@@ -35,12 +35,3 @@ CatalogError: Catalogs are inconsistent.
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 1 error in 1 file (checked 1 source file)
-
-```

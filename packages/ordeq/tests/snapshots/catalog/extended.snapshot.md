@@ -31,13 +31,3 @@ INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/catalog/extended.py:1: error: Skipping analyzing "example_catalogs.remote_overridden": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/extended.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-packages/ordeq/tests/resources/catalog/extended.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-Found 2 errors in 1 file (checked 1 source file)
-
-```

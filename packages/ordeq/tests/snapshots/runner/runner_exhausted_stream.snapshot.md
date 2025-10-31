@@ -87,11 +87,3 @@ INFO	ordeq.runner	Running node "multiply" in module "runner_exhausted_stream"
 INFO	ordeq.io	Saving Stream(data=[])
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/runner/runner_exhausted_stream.py:19: error: Unsupported left operand type for + ("Iterable[str]")  [operator]
-Found 1 error in 1 file (checked 1 source file)
-
-```

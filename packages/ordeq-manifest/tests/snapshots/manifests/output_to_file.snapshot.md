@@ -53,12 +53,3 @@ with NamedTemporaryFile() as file:
 }
 
 ```
-
-## Typing
-
-```text
-packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: error: Skipping analyzing "example_project": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq-manifest/tests/resources/manifests/output_to_file.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 1 error in 1 file (checked 1 source file)
-
-```

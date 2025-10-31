@@ -56,11 +56,3 @@ INFO	ordeq.runner	Running node "hello" in module "view_index_run_result_by_node"
 INFO	ordeq.io	Saving Print()
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/views/view_index_run_result_by_node.py:16: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
-Found 1 error in 1 file (checked 1 source file)
-
-```

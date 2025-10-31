@@ -58,12 +58,3 @@ AttributeError: module 'example_catalogs.remote' has no attribute 'get'
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:4: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
-Found 1 error in 1 file (checked 1 source file)
-
-```

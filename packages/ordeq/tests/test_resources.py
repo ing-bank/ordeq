@@ -1,7 +1,10 @@
 from pathlib import Path
 
 import pytest
-from ordeq_test_utils import compare_resources_against_snapshots
+from ordeq_test_utils import (
+    capture_type_check_and_compare,
+    compare_resources_against_snapshots,
+)
 
 TESTS_DIR = Path(__file__).resolve().parent
 RESOURCE_DIR = TESTS_DIR / "resources"
@@ -29,3 +32,12 @@ def test_resource(
     )
     if diff:
         pytest.fail(f"Output does not match snapshot:\n{diff}")
+
+
+@pytest.mark.snapshot
+def test_typing():
+    diff = capture_type_check_and_compare(
+        RESOURCE_DIR, SNAPSHOT_DIR / "typing.snapshot.md"
+    )
+    if diff:
+        pytest.fail(f"Type check output does not match snapshot:\n{diff}")

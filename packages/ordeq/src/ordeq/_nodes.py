@@ -427,7 +427,21 @@ def node(
     Returns:
         a node
 
+    Raises:
+        ValueError: if 'input' or 'output' is provided as keyword argument
+
     """
+
+    if "input" in attributes:
+        raise ValueError(
+            "The 'input' keyword argument is not supported. "
+            "Did you mean 'inputs'?"
+        )
+    if "output" in attributes:
+        raise ValueError(
+            "The 'output' keyword argument is not supported. "
+            "Did you mean 'outputs'?"
+        )
 
     if func is None:
         # we are called as @node(inputs=...

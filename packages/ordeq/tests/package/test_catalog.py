@@ -1,7 +1,7 @@
 from types import ModuleType
 
 import pytest
-from ordeq._catalog import CatalogError, check_catalogs_are_consistent
+from ordeq._catalog import check_catalogs_are_consistent
 from ordeq._io import AnyIO
 from ordeq_common import Literal, StringBuffer
 
@@ -21,29 +21,29 @@ class FakeModule(ModuleType):
     ("a", "b"),
     [
         (
-                {
-                    # empty
-                },
-                {
-                    # empty
-                },
+            {
+                # empty
+            },
+            {
+                # empty
+            },
         ),
         (
-                {
-                    # empty
-                },
-                {
-                    "something_else": 4  # not an IO
-                },
+            {
+                # empty
+            },
+            {
+                "something_else": 4  # not an IO
+            },
         ),
         ({"hello": StringBuffer()}, {"hello": Literal("hello")}),
         (
-                {"hello": StringBuffer(), "result": StringBuffer()},
-                {
-                    "hello": Literal("hello"),
-                    "result": StringBuffer(),
-                    "something_else": 4,  # not an IO
-                },
+            {"hello": StringBuffer(), "result": StringBuffer()},
+            {
+                "hello": Literal("hello"),
+                "result": StringBuffer(),
+                "something_else": 4,  # not an IO
+            },
         ),
     ],
 )

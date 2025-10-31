@@ -25,16 +25,13 @@ def check_catalogs_are_consistent(
 
     def catalog_key(fqn: FQN, catalog: ModuleType):
         full_name = fqn_to_str(fqn)
-        return full_name[len(catalog.__name__) + 1:]
+        return full_name[len(catalog.__name__) + 1 :]
 
     modules = [a, b, *others]
 
     # for each catalog, the names (keys) of the IO it defines
     catalogs = [
-        {
-            catalog_key(fqn, catalog)
-            for fqn in _resolve_module_to_ios(catalog)
-        }
+        {catalog_key(fqn, catalog) for fqn in _resolve_module_to_ios(catalog)}
         for catalog in modules
     ]
 

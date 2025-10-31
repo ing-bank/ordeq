@@ -1,4 +1,4 @@
-from example_catalogs import package_base, package_overlay
+from example_catalogs import package_base
 from ordeq import check_catalogs_are_consistent
 
 # Should pass without errors:

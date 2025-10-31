@@ -119,13 +119,3 @@ INFO	ordeq.runner	Running node "f4" in module "graph"
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
-packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
-packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
-Found 3 errors in 1 file (checked 1 source file)
-
-```

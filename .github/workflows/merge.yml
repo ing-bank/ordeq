@@ -1,0 +1,35 @@
+name: Merge to main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docs:
+    name: Deploy docs
+    uses: ./.github/workflows/docs.yml
+
+  draft_releases:
+    name: Draft releases
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Generate draft releases
+        run: uv run --with packages/ordeq-dev-tools -m ordeq_dev_tools generate_draft_releases .
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

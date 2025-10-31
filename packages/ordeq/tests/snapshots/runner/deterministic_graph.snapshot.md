@@ -79,15 +79,3 @@ INFO	ordeq.runner	Running view "z" in module "deterministic_graph"
 INFO	ordeq.runner	Running view "a" in module "deterministic_graph"
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/runner/deterministic_graph.py:5: error: Need type annotation for "o1"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:6: error: Need type annotation for "o2"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:7: error: Need type annotation for "o3"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:8: error: Need type annotation for "o4"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:41: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
-Found 5 errors in 1 file (checked 1 source file)
-
-```

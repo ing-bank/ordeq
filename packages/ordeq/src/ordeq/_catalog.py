@@ -8,14 +8,13 @@ class CatalogError(Exception): ...
 
 
 def check_catalogs_are_consistent(
-    a: ModuleType, b: ModuleType, *others: ModuleType
+    base: ModuleType, *others: ModuleType
 ) -> None:
     """Utility method to checks if two (or more) catalogs are consistent,
     i.e. if they define the same keys.
 
     Args:
-        a: First catalog to compare.
-        b: Second catalog to compare.
+        base: Base catalog to compare against.
         *others: Additional catalogs to compare.
 
     Raises:
@@ -27,7 +26,7 @@ def check_catalogs_are_consistent(
         full_name = fqn_to_str(fqn)
         return full_name[len(catalog.__name__) + 1 :]
 
-    modules = [a, b, *others]
+    modules = [base, *others]
 
     # for each catalog, the names (keys) of the IO it defines
     catalogs = [

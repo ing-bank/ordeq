@@ -135,9 +135,7 @@ def run(
     hooks: Sequence[RunnerHook | str] = (),
     save: SaveMode = "all",
     verbose: bool = False,
-    io: dict[Input[T] | Output[T], Input[T] | Output[T]]
-    | dict[ModuleType, ModuleType]
-    | None = None,
+    io: IOSubstitutionMap | dict[ModuleType, ModuleType] | None = None,
 ) -> None:
     """Runs nodes in topological order.
 

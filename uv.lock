@@ -1553,7 +1553,7 @@ wheels = [
 [[package]]
 name = "integration-streamlit"
 version = "0.1.0"
-source = { virtual = "examples/integration-streamlit" }
+source = { editable = "examples/integration-streamlit" }
 dependencies = [
     { name = "ordeq" },
     { name = "streamlit" },
@@ -2950,7 +2950,7 @@ test = []
 
 [[package]]
 name = "ordeq-docker-example"
-source = { virtual = "examples/integration-docker" }
+source = { editable = "examples/integration-docker" }
 dependencies = [
     { name = "ordeq" },
     { name = "ordeq-cli-runner" },
@@ -4517,7 +4517,7 @@ wheels = [
 [[package]]
 name = "rag-pipeline"
 version = "0.1.0"
-source = { virtual = "examples/rag-pipeline-scaffold" }
+source = { editable = "examples/rag-pipeline-scaffold" }
 dependencies = [
     { name = "ordeq" },
     { name = "ordeq-faiss" },
@@ -5161,7 +5161,7 @@ wheels = [
 [[package]]
 name = "starter-nested-subpipelines"
 version = "0.1.0"
-source = { virtual = "examples/starter-nested-subpipelines" }
+source = { editable = "examples/starter-nested-subpipelines" }
 dependencies = [
     { name = "ordeq" },
     { name = "ordeq-requests" },
@@ -5178,7 +5178,7 @@ requires-dist = [
 [[package]]
 name = "starter-package"
 version = "0.1.0"
-source = { virtual = "examples/starter-package" }
+source = { editable = "examples/starter-package" }
 dependencies = [
     { name = "ordeq" },
     { name = "ordeq-requests" },
@@ -5212,7 +5212,7 @@ requires-dist = [
 [[package]]
 name = "starter-subpipelines"
 version = "0.1.0"
-source = { virtual = "examples/starter-subpipelines" }
+source = { editable = "examples/starter-subpipelines" }
 dependencies = [
     { name = "ordeq" },
     { name = "ordeq-requests" },

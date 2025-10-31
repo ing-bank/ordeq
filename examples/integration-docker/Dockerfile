@@ -12,4 +12,4 @@ WORKDIR app
 RUN uv sync
 
 # Set the entrypoint to run the Ordeq application
-ENTRYPOINT ["uv", "run", "src/app/__main__.py", "run"]
+ENTRYPOINT ["uv", "run", "python", "-m", "integration_docker", "run"]

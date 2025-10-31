@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "rag-pipeline"
 version = "0.1.0"
@@ -12,3 +16,7 @@ dependencies = [
     "ordeq-sentence-transformers",
     "ordeq-viz",
 ]
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]

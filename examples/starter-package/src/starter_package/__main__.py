@@ -2,7 +2,7 @@ import logging
 
 from ordeq import run
 
-from package import pipeline
+from starter_package import pipeline
 
 logging.basicConfig(level=logging.INFO)
 

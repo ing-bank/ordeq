@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "starter-single-file"
 version = "0.1.0"
@@ -9,3 +13,6 @@ dependencies = [
     "ordeq-requests",
     "ordeq-yaml"
 ]
+
+[tool.setuptools]
+py-modules = ["single_file"]

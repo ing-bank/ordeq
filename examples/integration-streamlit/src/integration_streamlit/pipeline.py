@@ -1,6 +1,6 @@
 from ordeq import node
 
-from example import catalog
+from integration_streamlit import catalog
 
 
 @node(inputs=[catalog.checkbox, catalog.slider])

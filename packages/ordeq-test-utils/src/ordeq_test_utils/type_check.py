@@ -14,7 +14,10 @@ def capture_type_check(path: Path) -> str:
     Returns:
         The type check output as a string.
     """
-    stdout, _, exit_code = mypy_api.run([str(path)])
+    stdout, _, exit_code = mypy_api.run([
+        str(path),
+        "--disable-error-code=import-untyped",
+    ])
     if exit_code != 0:
         return stdout
     return "No type errors found."

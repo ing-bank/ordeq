@@ -64,7 +64,7 @@ mypy-packages:
 # Mypy check all example directories
 mypy-examples:
     for dir in `find examples/ -mindepth 1 -maxdepth 1 -type d`; do \
-        uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
+        uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir || exit 1; \
     done
 
 # Static analysis (lint + type checking)

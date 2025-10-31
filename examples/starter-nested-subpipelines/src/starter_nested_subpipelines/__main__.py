@@ -1,7 +1,7 @@
 import logging
 
 from ordeq import run
-from package import nl
+from starter_nested_subpipelines import nl
 
 logging.basicConfig(level=logging.INFO)
 

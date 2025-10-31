@@ -77,7 +77,8 @@ def _resolve_runnables_to_modules(
     for runnable in runnables:
         if _is_module(runnable):
             # mypy false positive
-            modules[runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
+            modules[
+                runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
         elif isinstance(runnable, str):
             mod = _resolve_string_to_module(runnable)
             modules[mod.__name__] = mod
@@ -107,19 +108,23 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
 
 def _resolve_module_to_ios(module: ModuleType) -> Catalog:
-    """Find all `IO` objects defined in the provided module
+    """Find all `IO` objects defined in the provided module or package.
 
     Args:
-        module: the Python module object
+        module: the module or package
 
     Returns:
         a dict of `IO` objects with their fully-qualified name as key
     """
-    return {
-        (module.__name__, name): obj
-        for name, obj in vars(module).items()
-        if _is_io(obj)
-    }
+    modules = _resolve_packages_to_modules([(module.__name__, module)])
+    ios: Catalog = {}
+    for name, module in modules:
+        ios.update({
+            (module.__name__, name): obj
+            for name, obj in vars(module).items()
+            if _is_io(obj)
+        })
+    return ios
 
 
 def _resolve_node_reference(ref: str) -> Node:

@@ -35,24 +35,24 @@ print(hooked_output.load())
 
 ```
 
-## Output
+## Exception
 
 ```text
-Before loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-After loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-HELLO WORLD
-Before saving data to: StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-After saving data to: StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-dlrow olleh
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
 
-```
+  File "/packages/ordeq/tests/resources/hooks/io_hooks.py", line LINO, in <module>
+    run(node(hello_world, inputs=hooked_input, outputs=hooked_output))
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-## Logging
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "hello_world" in module "io_hooks"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```

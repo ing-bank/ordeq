@@ -12,6 +12,28 @@ run(renamed, verbose=True)
 
 ```
 
+## Exception
+
+```text
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/runner/renamed_node.py", line LINO, in <module>
+    run(renamed, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -20,14 +42,5 @@ NodeGraph:
      resources.runner.example_module_b:increment -> []
   Nodes:
      resources.runner.example_module_b:increment: Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading Literal(12345)
-INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_b"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

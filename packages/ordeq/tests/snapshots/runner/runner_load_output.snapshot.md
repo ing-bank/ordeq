@@ -29,18 +29,10 @@ run(my_node, load_node)
 ## Exception
 
 ```text
-AttributeError: 'Example' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save, io=io)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/runner_load_output.py", line LINO, in <module>
     run(my_node, load_node)
@@ -56,19 +48,10 @@ AttributeError: 'Example' object has no attribute 'load'
 
 ```
 
-## Output
-
-```text
-saving! Hello, World!
-
-```
-
 ## Logging
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'runner_load_output:load_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "my_node" in module "runner_load_output"
-INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```
 

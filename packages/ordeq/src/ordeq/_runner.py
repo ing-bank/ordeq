@@ -8,8 +8,11 @@ from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
-from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes, \
-    _resolve_patched_io
+from ordeq._resolve import (
+    _resolve_hooks,
+    _resolve_patched_io,
+    _resolve_runnables_to_nodes,
+)
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -157,15 +160,14 @@ def run(
     if verbose:
         print(graph)
 
-    if io:
-        patched_io = _resolve_patched_io(io)
+    io_ = _resolve_patched_io(io) if io else {}
 
     run_hooks, node_hooks = _resolve_hooks(*hooks)
 
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=io_)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)

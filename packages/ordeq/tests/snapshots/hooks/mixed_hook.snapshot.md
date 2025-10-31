@@ -36,18 +36,24 @@ run(my_node, hooks=[hook])
 
 ```
 
-## Output
+## Exception
 
 ```text
-Hook: before saving output of node mixed_hook:my_node with data: Hello, World!
-saving! Hello, World!
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
 
-```
+  File "/packages/ordeq/tests/resources/hooks/mixed_hook.py", line LINO, in <module>
+    run(my_node, hooks=[hook])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^
 
-## Logging
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-```text
-INFO	ordeq.runner	Running node "my_node" in module "mixed_hook"
-INFO	ordeq.io	Saving Output(idx=ID1)
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```

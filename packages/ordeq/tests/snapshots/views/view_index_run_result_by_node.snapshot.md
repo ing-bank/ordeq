@@ -24,10 +24,13 @@ print(view, "computed", result[get_node(view)])
 ## Exception
 
 ```text
-TypeError: 'NoneType' object is not subscriptable
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
+
   File "/packages/ordeq/tests/resources/views/view_index_run_result_by_node.py", line LINO, in <module>
-    print(view, "computed", result[get_node(view)])
-                            ~~~~~~^^^^^^^^^^^^^^^^
+    result = run(hello)
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
@@ -39,21 +42,10 @@ TypeError: 'NoneType' object is not subscriptable
 
 ```
 
-## Output
-
-```text
-Hello!
-None
-
-```
-
 ## Logging
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_index_run_result_by_node:view'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running view "view" in module "view_index_run_result_by_node"
-INFO	ordeq.runner	Running node "hello" in module "view_index_run_result_by_node"
-INFO	ordeq.io	Saving Print()
 
 ```
 

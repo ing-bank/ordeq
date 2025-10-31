@@ -37,19 +37,24 @@ run(func1, func2, hooks=[RunTimer()])
 
 ```
 
-## Output
+## Exception
 
 ```text
-Total run time: 0.0 seconds
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
 
-```
+  File "/packages/ordeq/tests/resources/runner/run_hooks.py", line LINO, in <module>
+    run(func1, func2, hooks=[RunTimer()])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-## Logging
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-```text
-INFO	ordeq.runner	Running node "func2" in module "run_hooks"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "func1" in module "run_hooks"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```

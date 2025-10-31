@@ -30,25 +30,25 @@ print(catalog.result.load())
 
 ```
 
-## Output
+## Exception
 
 ```text
-HELLO FROM LOCAL!HELLO FROM LOCAL!
-HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
 
-```
+  File "/packages/ordeq/tests/resources/catalog/static.py", line LINO, in <module>
+    run(func1)
+    ~~~^^^^^^^
 
-## Logging
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "func1" in module "static"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "func2" in module "static"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
 

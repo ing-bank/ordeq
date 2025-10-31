@@ -31,6 +31,28 @@ run(n, verbose=True)
 
 ```
 
+## Exception
+
+```text
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/views/view_inputs_view_and_io.py", line LINO, in <module>
+    run(n, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -45,7 +67,6 @@ NodeGraph:
      view_inputs_view_and_io:hello: View(name=view_inputs_view_and_io:hello)
      view_inputs_view_and_io:hello_from_someone: View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])
      view_inputs_view_and_io:n: View(name=view_inputs_view_and_io:n, inputs=[View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])])
-I heard that Jane said 'Hello, World!'
 
 ```
 
@@ -55,9 +76,5 @@ I heard that Jane said 'Hello, World!'
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:hello_from_someone'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running view "hello" in module "view_inputs_view_and_io"
-INFO	ordeq.io	Loading Literal('Jane')
-INFO	ordeq.runner	Running view "hello_from_someone" in module "view_inputs_view_and_io"
-INFO	ordeq.runner	Running view "n" in module "view_inputs_view_and_io"
 
 ```

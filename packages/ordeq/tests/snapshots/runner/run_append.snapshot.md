@@ -23,19 +23,24 @@ run(add_suffix, print_value)
 
 ```
 
-## Output
+## Exception
 
 ```text
-asuffix
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
 
-```
+  File "/packages/ordeq/tests/resources/runner/run_append.py", line LINO, in <module>
+    run(add_suffix, print_value)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^
 
-## Logging
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-```text
-INFO	ordeq.runner	Running node "add_suffix" in module "run_append"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "print_value" in module "run_append"
-INFO	ordeq.io	Saving Print()
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```

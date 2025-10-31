@@ -51,6 +51,28 @@ run(increment, multiply, verbose=True, save="sinks")
 
 ```
 
+## Exception
+
+```text
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/runner/runner_exhausted_stream.py", line LINO, in <module>
+    run(increment, multiply, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -61,30 +83,6 @@ NodeGraph:
   Nodes:
      runner_exhausted_stream:increment: Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])])
      runner_exhausted_stream:multiply: Node(name=runner_exhausted_stream:multiply, inputs=[Stream(data=[]), Literal('2')], outputs=[Stream(data=[])])
-NodeGraph:
-  Edges:
-     runner_exhausted_stream:increment -> [runner_exhausted_stream:multiply]
-     runner_exhausted_stream:multiply -> []
-  Nodes:
-     runner_exhausted_stream:increment: Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=['2', '3', '4'])])
-     runner_exhausted_stream:multiply: Node(name=runner_exhausted_stream:multiply, inputs=[Stream(data=['2', '3', '4']), Literal('2')], outputs=[Stream(data=[])])
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-INFO	ordeq.runner	Running node "increment" in module "runner_exhausted_stream"
-INFO	ordeq.io	Saving Stream(data=[])
-INFO	ordeq.io	Loading Literal('2')
-INFO	ordeq.runner	Running node "multiply" in module "runner_exhausted_stream"
-INFO	ordeq.io	Saving Stream(data=[])
-INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-INFO	ordeq.runner	Running node "increment" in module "runner_exhausted_stream"
-INFO	ordeq.io	Loading Literal('2')
-INFO	ordeq.runner	Running node "multiply" in module "runner_exhausted_stream"
-INFO	ordeq.io	Saving Stream(data=[])
 
 ```
 

@@ -46,6 +46,28 @@ print(R4.load())
 
 ```
 
+## Exception
+
+```text
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/runner/graph.py", line LINO, in <module>
+    run(*pipeline, save="all", verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -60,63 +82,6 @@ NodeGraph:
      graph:f2: Node(name=graph:f2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
      graph:f3: Node(name=graph:f3, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)])
      graph:f4: Node(name=graph:f4, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>), StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])
-Hello + world! / world! - Hello + world! + Hello + world! * 2
-NodeGraph:
-  Edges:
-     graph:f1 -> [graph:f2, graph:f3, graph:f4]
-     graph:f2 -> [graph:f4]
-     graph:f3 -> [graph:f4]
-     graph:f4 -> []
-  Nodes:
-     graph:f1: Node(name=graph:f1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     graph:f2: Node(name=graph:f2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
-     graph:f3: Node(name=graph:f3, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)])
-     graph:f4: Node(name=graph:f4, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>), StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])
-Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / world! - Hello + world! + Hello + world! * 2
-NodeGraph:
-  Edges:
-     graph:f1 -> [graph:f2, graph:f3, graph:f4]
-     graph:f2 -> [graph:f4]
-     graph:f3 -> [graph:f4]
-     graph:f4 -> []
-  Nodes:
-     graph:f1: Node(name=graph:f1, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     graph:f2: Node(name=graph:f2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
-     graph:f3: Node(name=graph:f3, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)])
-     graph:f4: Node(name=graph:f4, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>), StringBuffer(_buffer=<_io.StringIO object at HASH5>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])
-Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / world! - Hello + world! + Hello + world! * 2
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "f1" in module "graph"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "f3" in module "graph"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-INFO	ordeq.runner	Running node "f2" in module "graph"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.runner	Running node "f4" in module "graph"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "f1" in module "graph"
-INFO	ordeq.runner	Running node "f3" in module "graph"
-INFO	ordeq.runner	Running node "f2" in module "graph"
-INFO	ordeq.runner	Running node "f4" in module "graph"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "f1" in module "graph"
-INFO	ordeq.runner	Running node "f3" in module "graph"
-INFO	ordeq.runner	Running node "f2" in module "graph"
-INFO	ordeq.runner	Running node "f4" in module "graph"
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```
 

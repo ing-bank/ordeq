@@ -23,6 +23,28 @@ run(n, verbose=True)
 
 ```
 
+## Exception
+
+```text
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/views/node_inputs_view_and_io.py", line LINO, in <module>
+    run(n, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -34,7 +56,6 @@ NodeGraph:
   Nodes:
      node_inputs_view_and_io:hello: View(name=node_inputs_view_and_io:hello)
      node_inputs_view_and_io:n: Node(name=node_inputs_view_and_io:n, inputs=[Literal('Jane'), View(name=node_inputs_view_and_io:hello)], outputs=[Print()])
-Jane said 'Hello, World!'
 
 ```
 
@@ -42,9 +63,5 @@ Jane said 'Hello, World!'
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_inputs_view_and_io:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running view "hello" in module "node_inputs_view_and_io"
-INFO	ordeq.io	Loading Literal('Jane')
-INFO	ordeq.runner	Running node "n" in module "node_inputs_view_and_io"
-INFO	ordeq.io	Saving Print()
 
 ```

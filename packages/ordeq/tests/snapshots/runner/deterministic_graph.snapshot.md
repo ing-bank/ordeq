@@ -45,6 +45,28 @@ run(*pipeline, verbose=True)
 
 ```
 
+## Exception
+
+```text
+UnboundLocalError: cannot access local variable 'patched_io' where it is not associated with a value
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+                                                      ^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/runner/deterministic_graph.py", line LINO, in <module>
+    run(*pipeline, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -71,12 +93,6 @@ NodeGraph:
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'deterministic_graph:a'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'deterministic_graph:z'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "f4" in module "deterministic_graph"
-INFO	ordeq.runner	Running node "f3" in module "deterministic_graph"
-INFO	ordeq.runner	Running node "f2" in module "deterministic_graph"
-INFO	ordeq.runner	Running node "f1" in module "deterministic_graph"
-INFO	ordeq.runner	Running view "z" in module "deterministic_graph"
-INFO	ordeq.runner	Running view "a" in module "deterministic_graph"
 
 ```
 

@@ -1,18 +1,24 @@
 """Automated release pipeline"""
 
 import json
+import logging
 import operator
 import typing
 from typing import Any
 
 from ordeq import IO, node
 from ordeq_common import Literal
+from ordeq_dev_tools.ios.github_release import GithubRelease
 from ordeq_files import JSON
 from packaging.version import Version
 
 from ordeq_dev_tools.pipelines.shared import packages
 from ordeq_dev_tools.paths import DATA_PATH, ROOT_PATH
 from ordeq_dev_tools.utils import run_command
+
+
+logger = logging.getLogger(__name__)
+
 
 packages_dir = Literal(ROOT_PATH / "packages")
 # TODO: use views
@@ -25,7 +31,6 @@ package_relevant_prs = IO()
 changes = JSON(path=DATA_PATH / "change_report.json").with_save_options(
     default=str, indent=4
 )
-# TODO: ordeqify GH release creation
 
 
 def get_tags(package: str) -> list[str] | None:
@@ -61,25 +66,23 @@ def package_tags(packages: list[str]) -> dict[str, str]:
     return ptags
 
 
-def get_version_from_tag(tag: str, package: str) -> Version:
+def get_version_from_tag(tag: str) -> Version:
     """Extracts the version from a tag in the format '[package]/vX.Y.Z'.
 
     Args:
         tag: Tag string
-        package: Package name
 
     Returns:
         Version object
     """
-    version_str = tag.removeprefix(f"{package}/v")
+    version_str = tag.split("/v")[-1]
     return Version(version_str)
 
 
-def get_latest_tag(package: str, tags: list[str]) -> str | None:
+def get_latest_tag(tags: list[str]) -> str | None:
     """Gets the latest tag for a package in the format '[package]/vX.Y.Z'.
 
     Args:
-        package: Name of the package
         tags: Name of the package
 
     Returns:
@@ -88,7 +91,7 @@ def get_latest_tag(package: str, tags: list[str]) -> str | None:
     if not tags:
         return None
 
-    versions = {tag: get_version_from_tag(tag, package) for tag in tags}
+    versions = {tag: get_version_from_tag(tag) for tag in tags}
     latest_tag, _ = max(versions.items(), key=operator.itemgetter(1))
     return latest_tag
 
@@ -105,7 +108,7 @@ def get_all_latest_tags(package_tags: dict[str, list[str]]) -> dict[str, str]:
     """
     package_latest_tags = {}
     for package, tags in package_tags.items():
-        latest_tag = get_latest_tag(package, tags)
+        latest_tag = get_latest_tag(tags)
         if latest_tag is not None:
             package_latest_tags[package] = latest_tag
     return package_latest_tags
@@ -317,6 +320,29 @@ def get_relevant_prs(
     return package_prs
 
 
+@node
+def draft_releases() -> list[str]:
+    """Get existing draft GitHub releases.
+
+    Returns:
+        List of tag names for draft releases
+    """
+    drafts_output = run_command(
+        [
+            "gh",
+            "release",
+            "list",
+            "--json",
+            "tagName,isDraft",
+            "--jq",
+            "[.[] | select(.isDraft == true) | .tagName]",
+        ]
+    )
+    if drafts_output:
+        return json.loads(drafts_output)
+    return []
+
+
 @node(
     inputs=[
         package_latest_tags,
@@ -333,11 +359,6 @@ def compute_package_changes(
     messages,
 ) -> dict[str, object]:
     result = {}
-
-    releases = get_draft_releases()
-    for tag in releases:
-        print(f"Deleting existing draft release for tag: {tag}")
-        delete_draft_github_release(tag)
 
     for package, filtered_commits in commits.items():
         # Extract just the hashes from filtered_commits
@@ -363,7 +384,8 @@ def compute_package_changes(
 
         if bump:
             tag = tags[package]
-            new_tag = bump_tag(package, get_version_from_tag(tag, package), bump)
+            bumped_version = bump_version(get_version_from_tag(tag), bump)
+            new_tag = f"{package}/{bumped_version}"
 
             changes = {
                 commit: {
@@ -384,12 +406,24 @@ def compute_package_changes(
                 "changed_files": distinct_files,
             }
 
-            print(f"Creating draft release for package: {package}, new tag: {new_tag}")
-            create_draft_github_release(
-                package, new_tag=new_tag, release_notes=release_notes
-            )
-
     return result
+
+
+@node(inputs=[changes, draft_releases])
+def create_releases(changes: dict[str, dict[str, str]], releases: list[str]) -> None:
+    for info in changes.values():
+        new_tag = info["new_tag"]
+        if new_tag in releases:
+            releases.remove(new_tag)
+            mode = "update"
+        else:
+            mode = "create"
+        GithubRelease(tag=info["new_tag"]).save(info["release_notes"], mode=mode)
+
+    if releases:
+        logger.info("Deleting remaining outdated draft releases")
+        for tag in releases:
+            delete_draft_github_release(tag)
 
 
 def compute_bump(
@@ -414,7 +448,7 @@ def compute_bump(
 
 def bump_version(
     version: Version, bump: typing.Literal["major", "minor", "patch"]
-) -> tuple[int, int, int]:
+) -> str:
     """Bump the version based on the specified type.
 
     Args:
@@ -423,28 +457,21 @@ def bump_version(
         bump: The type of bump to apply, one of 'major', 'minor', or 'patch'.
 
     Returns:
-        A tuple of integers representing the new version after the bump.
+        A string representing the new version after the bump.
 
     Raises:
         ValueError: If the bump type is unknown.
     """
 
     if bump == "major":
-        return version.major + 1, 0, 0
-    if bump == "minor":
-        return version.major, version.minor + 1, 0
-    if bump == "patch":
-        return version.major, version.minor, version.micro + 1
-    raise ValueError(f"Unknown bump type: {bump}")
-
-
-def bump_tag(
-    package: str,
-    max_version: Version,
-    bump: typing.Literal["major", "minor", "patch"],
-) -> str:
-    new_version = bump_version(max_version, bump)
-    return f"{package}/v{new_version[0]}.{new_version[1]}.{new_version[2]}"
+        major, minor, micro = version.major + 1, 0, 0
+    elif bump == "minor":
+        major, minor, micro = version.major, version.minor + 1, 0
+    elif bump == "patch":
+        major, minor, micro = version.major, version.minor, version.micro + 1
+    else:
+        raise ValueError(f"Unknown bump type: {bump}")
+    return f"v{major}.{minor}.{micro}"
 
 
 def generate_release_notes(changes):
@@ -501,53 +528,6 @@ def generate_release_notes(changes):
             release_notes += "\n"
 
     return release_notes
-
-
-def get_draft_releases() -> list[str]:
-    """Get existing draft GitHub releases.
-
-    Returns:
-        List of tag names for draft releases
-    """
-    drafts_output = run_command(
-        [
-            "gh",
-            "release",
-            "list",
-            "--json",
-            "tagName,isDraft",
-            "--jq",
-            "[.[] | select(.isDraft == true) | .tagName]",
-        ]
-    )
-    if drafts_output:
-        return json.loads(drafts_output)
-    return []
-
-
-def create_draft_github_release(package: str, new_tag: str, release_notes: str) -> None:
-    """Create a draft GitHub release for the new tag.
-
-    Args:
-        package: Package name
-        new_tag: New tag name
-        release_notes: Changes dictionary
-    """
-    run_command(
-        [
-            "gh",
-            "release",
-            "create",
-            new_tag,
-            "--draft",
-            "--title",
-            new_tag,
-            "--notes",
-            release_notes,
-            "--latest=false" if package != "ordeq" else "--latest",
-        ]
-    )
-    print(f"Created draft GitHub release for tag: {new_tag}")
 
 
 def delete_draft_github_release(tag: str) -> None:

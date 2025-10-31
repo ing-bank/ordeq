@@ -5,5 +5,5 @@ This example demonstrates how to create a Retrieval-Augmented Generation (RAG) p
 To run this example:
 
 ```shell
-uv run python -m rag_pipeline
+uv run -m rag_pipeline
 ```

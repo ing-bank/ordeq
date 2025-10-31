@@ -6,5 +6,5 @@ Sub-pipelines allow you to modularize your project by breaking it down into smal
 To run this example:
 
 ```shell
-uv run python -m starter_nested_subpipelines
+uv run -m starter_nested_subpipelines
 ```

@@ -1,6 +1,10 @@
+import logging
 import subprocess  # noqa: S404
 
 from ordeq_dev_tools.paths import ROOT_PATH
+
+
+logger = logging.getLogger(__name__)
 
 
 def run_command(command: list[str]) -> str | None:
@@ -17,5 +21,6 @@ def run_command(command: list[str]) -> str | None:
             command, capture_output=True, text=True, check=True, cwd=ROOT_PATH
         )
         return result.stdout.strip()
-    except subprocess.CalledProcessError:
+    except subprocess.CalledProcessError as e:
+        logger.exception(e)
         return None

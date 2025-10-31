@@ -48,3 +48,46 @@ saving! ...
 INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```
+
+## Typing
+
+```text
+error[missing-argument]: No argument provided for required parameter `df` of bound method `save`
+  --> packages/ordeq/tests/resources/io/save_with_kwarg_data.py:13:1
+   |
+11 | example = Example()
+12 | example.save(data)  # ok
+13 | example.save(data=data)  # should give an error
+   | ^^^^^^^^^^^^^^^^^^^^^^^
+   |
+info: Parameter declared here
+ --> packages/ordeq/tests/resources/io/save_with_kwarg_data.py:5:20
+  |
+4 | class Example(Output[str]):
+5 |     def save(self, df: str) -> None:
+  |                    ^^^^^^^
+6 |         print("saving!", data)
+  |
+info: rule `missing-argument` is enabled by default
+
+error[unknown-argument]: Argument `data` does not match any known parameter of bound method `save`
+  --> packages/ordeq/tests/resources/io/save_with_kwarg_data.py:13:14
+   |
+11 | example = Example()
+12 | example.save(data)  # ok
+13 | example.save(data=data)  # should give an error
+   |              ^^^^^^^^^
+   |
+info: Method signature here
+ --> packages/ordeq/tests/resources/io/save_with_kwarg_data.py:5:9
+  |
+4 | class Example(Output[str]):
+5 |     def save(self, df: str) -> None:
+  |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+6 |         print("saving!", data)
+  |
+info: rule `unknown-argument` is enabled by default
+
+Found 2 diagnostics
+
+```

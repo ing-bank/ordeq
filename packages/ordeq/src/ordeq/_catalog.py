@@ -23,7 +23,7 @@ def _name_in_catalog(fqn: FQN, catalog: ModuleType) -> str:
         raise ValueError(
             f"IO '{fqn_str}' does not belong to catalog '{catalog.__name__}'"
         )
-    return fqn_str[len(catalog.__name__) + 1 :]
+    return fqn_str[len(catalog.__name__) + 1:]
 
 
 T = TypeVar("T")
@@ -34,7 +34,6 @@ def _patch_io(io: dict[T, T]) -> PatchedIO:
         return {}
     patched_io: PatchedIO = {}
     for key, value in io.items():
-        breakpoint()
         patched_io.update(_patch(key, value))
     return patched_io
 
@@ -74,7 +73,6 @@ def _patch_catalog_by_catalog(
     for (patched_fqn, patched_io), (patched_by_fqn, patched_by_io) in zip(
         sorted(_resolve_module_to_ios(patched).items()),
         sorted(_resolve_module_to_ios(patched_by).items()),
-        strict=True,
     ):
         patched_name_in_catalog = _name_in_catalog(patched_fqn, patched)
         patched_by_name_in_catalog = _name_in_catalog(
@@ -82,7 +80,7 @@ def _patch_catalog_by_catalog(
         )
         if patched_name_in_catalog != patched_by_name_in_catalog:
             raise CatalogError(
-                f"IO {patched_name_in_catalog} was not found in catalog "
+                f"IO '{patched_name_in_catalog}' was not found in catalog "
                 f"'{patched_by.__name__}'. Cannot patch."
             )
         io[patched_io] = patched_by_io
@@ -106,7 +104,7 @@ def check_catalogs_are_consistent(
 
     def catalog_key(fqn: FQN, catalog: ModuleType):
         full_name = fqn_to_str(fqn)
-        return full_name[len(catalog.__name__) + 1 :]
+        return full_name[len(catalog.__name__) + 1:]
 
     modules = [base, *others]
 

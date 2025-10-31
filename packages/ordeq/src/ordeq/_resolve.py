@@ -77,7 +77,8 @@ def _resolve_runnables_to_modules(
     for runnable in runnables:
         if _is_module(runnable):
             # mypy false positive
-            modules[runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
+            modules[
+                runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
         elif isinstance(runnable, str):
             mod = _resolve_string_to_module(runnable)
             modules[mod.__name__] = mod
@@ -140,6 +141,64 @@ def _resolve_package_to_ios(package: ModuleType) -> Catalog:
     for _, module in modules:
         catalog.update(_resolve_module_to_ios(module))
     return catalog
+
+
+def _resolve_patched_io(
+    io: dict[ModuleType | AnyIO, ModuleType | AnyIO],
+) -> dict[AnyIO, AnyIO]:
+    """Resolves a mapping of IOs, supporting module-to-module mapping.
+
+    For each item in the input dict, if both key and value are modules,
+    gather all IOs in each module and create a map from each old IO to each
+    new IO (by order). The new module can have more IOs than the old one.
+    Otherwise, treat the key and value as IOs directly.
+
+    Args:
+        io: mapping of modules or IOs to modules or IOs
+
+    Returns:
+        A mapping from old IOs to new IOs
+    """
+
+    patched: dict[AnyIO, AnyIO] = {}
+    for old, new in io.items():
+        if isinstance(old, ModuleType) and isinstance(new, ModuleType):
+            old_is_package = _is_package(old)
+            new_is_package = _is_package(new)
+            if old_is_package:
+                raise ValueError(
+                    f"Cannot patch from package '{old.__name__}'. "
+                    f"Please provide a module."
+                )
+            if new_is_package:
+                raise ValueError(
+                    f"Cannot patch to package '{new.__name__}'. "
+                    f"Please provide a module."
+                )
+
+            old_catalog = _resolve_module_to_ios(old)
+            new_catalog = _resolve_module_to_ios(new)
+
+            if len(old_catalog) > len(new_catalog):
+                raise ValueError(
+                    f"Catalog '{old.__name__}' has more IOs than '{new.__name__}'. "
+                    f"Cannot patch."
+                )
+
+            for fqn in old_catalog:
+                _, name = fqn
+                if name not in new_catalog:
+                    breakpoint()
+                    raise ValueError(
+                        f"IO '{name}' from catalog '{old.__name__}' not found in "
+                        f"catalog '{new.__name__}'. Cannot patch."
+                    )
+                patched[old_catalog[fqn]] = new_catalog[fqn]
+
+        else:
+            # treat as IO-to-IO mapping
+            patched[old] = new
+    return patched
 
 
 def _resolve_node_reference(ref: str) -> Node:

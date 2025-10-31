@@ -63,7 +63,7 @@ mypy-packages:
 # Mypy check all example directories
 mypy-examples:
     uv run --group types mypy --check-untyped-defs --follow-untyped-imports \
-        `find examples -maxdepth 2 -type d -path "examples/*/src"` || exit 1
+        `find examples -maxdepth 2 -type d -path "examples/*"` || exit 1
 
 # Static analysis (lint + type checking)
 sa: ruff ty mypy

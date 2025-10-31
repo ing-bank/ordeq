@@ -1,4 +1,3 @@
-packages/ordeq/tests/resources/resolve/resolve_module_example_catalog.py:1: error: Skipping analyzing "example_1": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/views/view_inputs_none.py:5: error: No overload variant of "node" matches argument type "None"  [call-overload]
 packages/ordeq/tests/resources/views/view_inputs_none.py:5: note: Possible overload variants:
 packages/ordeq/tests/resources/views/view_inputs_none.py:5: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
@@ -25,15 +24,7 @@ packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: This 
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: error: Argument 2 of "before_output_save" is incompatible with supertype "ordeq._hook.OutputHook"; supertype defines the argument type as "str"  [override]
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:6: error: If x = b'abc' then f"{x}" or "{}".format(x) produces "b'abc'", not "abc". If this is desired behavior, use f"{x!r}" or "{!r}".format(x). Otherwise, decode the bytes  [str-bytes-safe]
-packages/ordeq/tests/resources/catalog/static.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 6  [no-redef]
-packages/ordeq/tests/resources/catalog/overriden.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/extended.py:1: error: Skipping analyzing "example_catalogs.remote_overridden": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/extended.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/dynamic.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
-packages/ordeq/tests/resources/catalog/dynamic.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
 packages/ordeq/tests/resources/views/view_patch_io.py:17: error: Argument "io" to "run" has incompatible type "dict[Literal[str], Literal[str]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
 packages/ordeq/tests/resources/views/view_index_run_result_by_node.py:16: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
@@ -47,9 +38,8 @@ packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: error: No
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note: Possible overload variants:
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
-packages/ordeq/tests/resources/catalog/run_with_module_catalog.py:4: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-Found 35 errors in 25 files (checked 134 source files)
+Found 26 errors in 18 files (checked 148 source files)

@@ -5195,7 +5195,7 @@ requires-dist = [
 [[package]]
 name = "starter-single-file"
 version = "0.1.0"
-source = { virtual = "examples/starter-single-file" }
+source = { editable = "examples/starter-single-file" }
 dependencies = [
     { name = "ordeq" },
     { name = "ordeq-requests" },

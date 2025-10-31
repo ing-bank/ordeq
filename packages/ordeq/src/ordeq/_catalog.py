@@ -57,22 +57,3 @@ def check_catalogs_are_consistent(
             raise CatalogError(
                 f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
             )
-
-
-def _exists_in_catalog(
-    fqn: FQN, catalog: ModuleType
-) -> bool:
-    try:
-        _name_in_catalog(fqn, catalog)
-        return True
-    except ValueError:
-        return False
-
-
-def _check_exists_in_catalog(
-    fqn: FQN, catalog: ModuleType
-) -> None:
-    if not _exists_in_catalog(fqn, catalog):
-        raise CatalogError(
-            f"IO '{fqn[1]}' was not found in catalog '{catalog.__name__}'."
-        )

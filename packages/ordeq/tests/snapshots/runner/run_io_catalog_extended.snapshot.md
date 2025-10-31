@@ -25,20 +25,32 @@ run(uppercase, add_world, io={catalog: remote_extended})
 
 ```
 
-## Output
+## Exception
 
 ```text
-HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!HELLO FROM REMOTE!, world!!
+AttributeError: 'Print' object has no attribute 'load'
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    cast("Input", input_dataset).load() for input_dataset in node.inputs
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-```
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
+    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-## Logging
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "uppercase" in module "run_io_catalog_extended"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "add_world" in module "run_io_catalog_extended"
-INFO	ordeq.io	Saving Print()
+  File "/packages/ordeq/tests/resources/runner/run_io_catalog_extended.py", line LINO, in <module>
+    run(uppercase, add_world, io={catalog: remote_extended})
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```

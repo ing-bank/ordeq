@@ -31,18 +31,25 @@ run(uppercase, add_world,
 ## Exception
 
 ```text
-AttributeError: 'Print' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+CatalogError: Catalog 'example_catalogs.local' is missing IO(s) 'another_io'
+  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in check_catalogs_are_consistent
+    raise CatalogError(
+        f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
+    )
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
+    check_catalogs_are_consistent(old, new)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitute
+    return _substitute_catalog_by_catalog(old, new)
+
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitution_map
+    substitution_map.update(_build_substitute(key, value))
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    substitution_map = _build_substitution_map(io)
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py", line LINO, in <module>
     run(uppercase, add_world,
@@ -59,14 +66,5 @@ AttributeError: 'Print' object has no attribute 'load'
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "uppercase" in module "run_io_catalog_package_and_module"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

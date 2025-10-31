@@ -6,7 +6,7 @@ flexible reconfiguration of IO without modifying the pipeline code.
 from typing import TypeVar
 from types import ModuleType
 
-from ordeq._catalog import _check_exists_in_catalog
+from ordeq._catalog import check_catalogs_are_consistent
 from ordeq._io import AnyIO
 from ordeq._resolve import _is_module, _is_io, _resolve_package_to_ios
 
@@ -55,12 +55,11 @@ def _substitute_catalog_by_catalog(
     Raises:
         CatalogError: If the catalogs are incompatible.
     """
-
+    check_catalogs_are_consistent(old, new)
     io: SubstitutionMap = {}
-    for (old_fqn, old_io), (_, new_io) in zip(
+    for (_, old_io), (_, new_io) in zip(
         sorted(_resolve_package_to_ios(old).items()),
         sorted(_resolve_package_to_ios(new).items()),
     ):
-        _check_exists_in_catalog(old_fqn, new)
         io[old_io] = new_io
     return io

@@ -28,7 +28,7 @@ run(uppercase, add_world, io={local: remote})
 ## Output
 
 ```text
-HELLO FROM LOCAL!HELLO FROM LOCAL!HELLO FROM LOCAL!, world!!
+HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!HELLO FROM REMOTE!, world!!
 
 ```
 

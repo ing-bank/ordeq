@@ -28,7 +28,7 @@ run(uppercase, add_world, io={catalog: remote_package})
 ## Output
 
 ```text
-HELLO FROM LOCAL PACKAGE!, world!!
+HELLO FROM REMOTE!, world!!
 
 ```
 

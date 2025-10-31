@@ -1,10 +1,24 @@
 from types import ModuleType
+from typing import TypeAlias
 
 from ordeq._fqn import FQN, fqn_to_str
+from ordeq._io import AnyIO
 from ordeq._resolve import _resolve_package_to_ios
 
 
 class CatalogError(Exception): ...
+
+
+PatchedIO: TypeAlias = dict[AnyIO, AnyIO]
+
+
+def _name_in_catalog(fqn: FQN, catalog: ModuleType) -> str:
+    fqn_str = fqn_to_str(fqn)
+    if not fqn_str.startswith(catalog.__name__):
+        raise ValueError(
+            f"IO '{fqn_str}' does not belong to catalog '{catalog.__name__}'"
+        )
+    return fqn_str[len(catalog.__name__) + 1 :]
 
 
 def check_catalogs_are_consistent(

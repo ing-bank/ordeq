@@ -1,35 +1,34 @@
 ## Resource
 
 ```python
-from ordeq import Output, node, run
+# Checks the behaviour when running nodes with an alternative catalog
+# We want to support this syntax and behaviour since it allows users to
+# easily switch between different catalogs, for instance during tests.
+from example_catalogs import remote, remote_extended
+from ordeq import node, run
+from ordeq_common import Print
+
+catalog = remote
 
 
-class Example(Output[str]):
-    def save(self, data: str) -> None:
-        print("saving!", data)
+@node(inputs=catalog.hello, outputs=catalog.result)
+def uppercase(hello: str) -> str:
+    return f"{hello.upper()}!"
 
 
-example = Example()
+@node(inputs=catalog.result, outputs=Print())
+def add_world(hello: str) -> str:
+    return f"{hello}, world!!"
 
 
-@node(outputs=[example])
-def my_node() -> str:
-    return "Hello, World!"
-
-
-@node(inputs=[example])
-def load_node(data: str) -> None:
-    print("loading!", data)
-
-
-run(my_node, load_node)
+run(uppercase, add_world, io={catalog: remote_extended})
 
 ```
 
 ## Exception
 
 ```text
-AttributeError: 'Example' object has no attribute 'load'
+AttributeError: 'Print' object has no attribute 'load'
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     cast("Input", input_dataset).load() for input_dataset in node.inputs
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -42,9 +41,9 @@ AttributeError: 'Example' object has no attribute 'load'
     _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/tests/resources/runner/runner_load_output.py", line LINO, in <module>
-    run(my_node, load_node)
-    ~~~^^^^^^^^^^^^^^^^^^^^
+  File "/packages/ordeq/tests/resources/runner/run_io_catalog_extended.py", line LINO, in <module>
+    run(uppercase, add_world, io={catalog: remote_extended})
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
@@ -53,21 +52,5 @@ AttributeError: 'Example' object has no attribute 'load'
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-```
-
-## Output
-
-```text
-saving! Hello, World!
-
-```
-
-## Logging
-
-```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'runner_load_output:load_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "my_node" in module "runner_load_output"
-INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```

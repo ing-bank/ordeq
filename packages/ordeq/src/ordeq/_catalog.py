@@ -1,7 +1,7 @@
 from types import ModuleType
 
 from ordeq._fqn import FQN, fqn_to_str
-from ordeq._resolve import _resolve_module_to_ios
+from ordeq._resolve import _resolve_package_to_ios
 
 
 class CatalogError(Exception): ...
@@ -31,7 +31,7 @@ def check_catalogs_are_consistent(
 
     # for each catalog, the names (keys) of the IO it defines
     catalogs = [
-        {catalog_key(fqn, catalog) for fqn in _resolve_module_to_ios(catalog)}
+        {catalog_key(fqn, catalog) for fqn in _resolve_package_to_ios(catalog)}
         for catalog in modules
     ]
 

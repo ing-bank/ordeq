@@ -107,23 +107,35 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
 
 def _resolve_module_to_ios(module: ModuleType) -> Catalog:
-    """Find all `IO` objects defined in the provided module or package.
+    """Find all `IO` objects defined in the provided module
 
     Args:
-        module: the module or package
+        module: the Python module object
 
     Returns:
         a dict of `IO` objects with their fully-qualified name as key
     """
-    modules = _resolve_packages_to_modules([(module.__name__, module)])
-    ios: Catalog = {}
-    for name, module_ in modules:
-        ios.update({
-            (name, io_name): io
-            for io_name, io in vars(module_).items()
-            if _is_io(io)
-        })
-    return ios
+    return {
+        (module.__name__, name): obj
+        for name, obj in vars(module).items()
+        if _is_io(obj)
+    }
+
+
+def _resolve_package_to_ios(package: ModuleType) -> Catalog:
+    """Finds all `IO` objects defined in the provided module or package.
+
+    Args:
+        package: the module or package
+
+    Returns:
+        a dict of `IO` objects with their fully-qualified name as key
+    """
+    modules = _resolve_packages_to_modules([(package.__name__, package)])
+    catalog = {}
+    for _, module in modules:
+        catalog.update(_resolve_module_to_ios(module))
+    return catalog
 
 
 def _resolve_node_reference(ref: str) -> Node:

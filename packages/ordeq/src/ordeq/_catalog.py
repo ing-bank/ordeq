@@ -12,15 +12,6 @@ class CatalogError(Exception): ...
 PatchedIO: TypeAlias = dict[AnyIO, AnyIO]
 
 
-def _name_in_catalog(fqn: FQN, catalog: ModuleType) -> str:
-    fqn_str = fqn_to_str(fqn)
-    if not fqn_str.startswith(catalog.__name__):
-        raise ValueError(
-            f"IO '{fqn_str}' does not belong to catalog '{catalog.__name__}'"
-        )
-    return fqn_str[len(catalog.__name__) + 1 :]
-
-
 def check_catalogs_are_consistent(
     base: ModuleType, *others: ModuleType
 ) -> None:
@@ -38,7 +29,7 @@ def check_catalogs_are_consistent(
 
     def catalog_key(fqn: FQN, catalog: ModuleType):
         full_name = fqn_to_str(fqn)
-        return full_name[len(catalog.__name__) + 1 :]
+        return full_name[len(catalog.__name__) + 1:]
 
     modules = [base, *others]
 

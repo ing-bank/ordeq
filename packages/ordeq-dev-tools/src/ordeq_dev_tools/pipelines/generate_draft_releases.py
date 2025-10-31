@@ -480,7 +480,15 @@ def bump_version(
     return f"v{major}.{minor}.{micro}"
 
 
-def generate_release_notes(changes):
+def generate_release_notes(changes: dict[str, dict[str, str | list[str]]]) -> str:
+    """Generate release notes from a dictionary of changes.
+
+    Args:
+        changes: Dictionary mapping change identifiers to change information.
+
+    Returns:
+        Release notes as a string.
+    """
     categories = {
         "breaking": "Breaking Changes",
         "change": "New Features",

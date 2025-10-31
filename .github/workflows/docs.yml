@@ -3,7 +3,9 @@ name: Docs
 on: workflow_call
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   build_docs:
@@ -12,11 +14,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-
-      - name: Configure Git Credentials
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -40,6 +37,18 @@ jobs:
       - name: Build site
         run: uv run mkdocs build --strict
 
-      - name: Publish site
-        if: ${{ github.event_name == 'push' }}
-        run: uv run mkdocs gh-deploy --force
+      - name: Upload artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy_docs:
+    name: Deploy docs
+    needs: build_docs
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

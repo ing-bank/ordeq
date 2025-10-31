@@ -31,21 +31,18 @@ run(uppercase, add_world,
 ## Exception
 
 ```text
-CatalogError: IO 'another_io' was not found in catalog 'example_catalogs.local'. Cannot patch.
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in _patch_catalog_by_catalog
-    raise CatalogError(
-    ...<2 lines>...
-    )
+AttributeError: 'Print' object has no attribute 'load'
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    cast("Input", input_dataset).load() for input_dataset in node.inputs
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in _patch
-    return _patch_catalog_by_catalog(patched, patched_by)
-
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in _patch_io
-    patched_io.update(_patch(key, value))
-                      ~~~~~~^^^^^^^^^^^^
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
+    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    patched_io = _patch_io(io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py", line LINO, in <module>
     run(uppercase, add_world,
@@ -62,5 +59,14 @@ CatalogError: IO 'another_io' was not found in catalog 'example_catalogs.local'.
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
+## Logging
+
+```text
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node "uppercase" in module "run_io_catalog_package_and_module"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

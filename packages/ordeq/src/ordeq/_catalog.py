@@ -4,9 +4,6 @@ from typing import TypeAlias, TypeVar
 from ordeq._fqn import FQN, fqn_to_str
 from ordeq._io import AnyIO
 from ordeq._resolve import (
-    _is_io,
-    _is_module,
-    _resolve_module_to_ios,
     _resolve_package_to_ios,
 )
 
@@ -24,67 +21,6 @@ def _name_in_catalog(fqn: FQN, catalog: ModuleType) -> str:
             f"IO '{fqn_str}' does not belong to catalog '{catalog.__name__}'"
         )
     return fqn_str[len(catalog.__name__) + 1:]
-
-
-T = TypeVar("T")
-
-
-def _patch_io(io: dict[T, T]) -> PatchedIO:
-    if io is None:
-        return {}
-    patched_io: PatchedIO = {}
-    for key, value in io.items():
-        patched_io.update(_patch(key, value))
-    return patched_io
-
-
-def _patch(patched: T, patched_by: T) -> PatchedIO:
-    if _is_module(patched) and _is_module(patched_by):
-        return _patch_catalog_by_catalog(patched, patched_by)
-    if _is_io(patched) and _is_io(patched_by):
-        return _patch_io_by_io(patched, patched_by)
-    raise TypeError(
-        f"Cannot patch objects of type "
-        f"'{type(patched).__name__}' and "
-        f"'{type(patched_by).__name__}'"
-    )
-
-
-def _patch_io_by_io(patched: AnyIO, patched_by: AnyIO) -> PatchedIO:
-    return {patched: patched_by}
-
-
-def _patch_catalog_by_catalog(
-    patched: ModuleType, patched_by: ModuleType
-) -> PatchedIO:
-    """Patches an old catalog with a new one.
-
-    Args:
-        patched: The old catalog to patch.
-        patched_by: The new catalog to patch with.
-
-    Returns:
-        The patched catalog.
-
-    Raises:
-        CatalogError: If the catalogs are incompatible.
-    """
-    io: PatchedIO = {}
-    for (patched_fqn, patched_io), (patched_by_fqn, patched_by_io) in zip(
-        sorted(_resolve_module_to_ios(patched).items()),
-        sorted(_resolve_module_to_ios(patched_by).items()),
-    ):
-        patched_name_in_catalog = _name_in_catalog(patched_fqn, patched)
-        patched_by_name_in_catalog = _name_in_catalog(
-            patched_by_fqn, patched_by
-        )
-        if patched_name_in_catalog != patched_by_name_in_catalog:
-            raise CatalogError(
-                f"IO '{patched_name_in_catalog}' was not found in catalog "
-                f"'{patched_by.__name__}'. Cannot patch."
-            )
-        io[patched_io] = patched_by_io
-    return io
 
 
 def check_catalogs_are_consistent(
@@ -121,3 +57,22 @@ def check_catalogs_are_consistent(
             raise CatalogError(
                 f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
             )
+
+
+def _exists_in_catalog(
+    fqn: FQN, catalog: ModuleType
+) -> bool:
+    try:
+        _name_in_catalog(fqn, catalog)
+        return True
+    except ValueError:
+        return False
+
+
+def _check_exists_in_catalog(
+    fqn: FQN, catalog: ModuleType
+) -> None:
+    if not _exists_in_catalog(fqn, catalog):
+        raise CatalogError(
+            f"IO '{fqn[1]}' was not found in catalog '{catalog.__name__}'."
+        )

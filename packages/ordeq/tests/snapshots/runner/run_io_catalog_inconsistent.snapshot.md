@@ -28,7 +28,7 @@ run(uppercase, add_world, io={catalog: inconsistent})
 ## Output
 
 ```text
-HELLO FROM LOCAL!HELLO FROM LOCAL!HELLO FROM REMOTE!, world!!
+HELLO FROM LOCAL!HELLO FROM LOCAL!HELLO FROM LOCAL!HELLO FROM LOCAL!, world!!
 
 ```
 

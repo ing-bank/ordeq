@@ -25,35 +25,20 @@ run(uppercase, add_world, io={catalog: remote_extended})
 
 ```
 
-## Exception
+## Output
 
 ```text
-CatalogError: IO 'hello' was not found in catalog 'example_catalogs.remote_extended'. Cannot patch.
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in _patch_catalog_by_catalog
-    raise CatalogError(
-    ...<2 lines>...
-    )
+HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!HELLO FROM REMOTE!, world!!
 
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in _patch
-    return _patch_catalog_by_catalog(patched, patched_by)
+```
 
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in _patch_io
-    patched_io.update(_patch(key, value))
-                      ~~~~~~^^^^^^^^^^^^
+## Logging
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    patched_io = _patch_io(io)
-
-  File "/packages/ordeq/tests/resources/runner/run_io_catalog_extended.py", line LINO, in <module>
-    run(uppercase, add_world, io={catalog: remote_extended})
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+```text
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node "uppercase" in module "run_io_catalog_extended"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Running node "add_world" in module "run_io_catalog_extended"
+INFO	ordeq.io	Saving Print()
 
 ```

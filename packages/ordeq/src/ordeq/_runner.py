@@ -4,12 +4,12 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
-from ordeq._catalog import _patch_io
 from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
+from ordeq._substitute import SubstitutionMap, _build_substitution_map
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -88,7 +88,7 @@ def _run_graph(
     *,
     hooks: Sequence[NodeHook] = (),
     save: SaveMode = "all",
-    io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
+    io: SubstitutionMap | None = None,
 ) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
@@ -145,7 +145,7 @@ def run(
         hooks: hooks to apply
         save: 'all' | 'sinks'. If 'sinks', only saves the sink outputs
         verbose: whether to print the node graph
-        io: mapping of IO objects to their replacements
+        io: mapping of IO objects to their substitutions
 
     """
 
@@ -160,9 +160,9 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    patched_io = _patch_io(io)
+    substitution_map = _build_substitution_map(io)
 
-    _run_graph(graph, hooks=node_hooks, save=save, io=patched_io)
+    _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)

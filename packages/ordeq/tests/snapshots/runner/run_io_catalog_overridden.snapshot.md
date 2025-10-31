@@ -28,16 +28,16 @@ run(uppercase, add_world, io={catalog: remote_overridden})
 ## Output
 
 ```text
-HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!, world!!
+HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!HELLO FROM REMOTE!HELLO FROM REMOTE!, world!!
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal('Hey I am overriding the hello IO')
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node "uppercase" in module "run_io_catalog_overridden"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "add_world" in module "run_io_catalog_overridden"
 INFO	ordeq.io	Saving Print()
 

@@ -9,7 +9,7 @@ from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
-from ordeq._substitute import SubstitutionMap, _build_substitution_map
+from ordeq._substitute import IOSubstitutionMap, _build_substitution_map
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -88,7 +88,7 @@ def _run_graph(
     *,
     hooks: Sequence[NodeHook] = (),
     save: SaveMode = "all",
-    io: SubstitutionMap | None = None,
+    io: IOSubstitutionMap | None = None,
 ) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
@@ -111,8 +111,7 @@ def _run_graph(
     # Apply the patches:
     patched_nodes: dict[Node, Node] = {}
     for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(
-            io_ or {})  # noqa: SLF001 (private access)
+        patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
 
     # TODO: Create _Patch wrapper for IO?
     for node in graph.topological_ordering:
@@ -136,7 +135,9 @@ def run(
     hooks: Sequence[RunnerHook | str] = (),
     save: SaveMode = "all",
     verbose: bool = False,
-    io: dict[Input[T] | Output[T], Input[T] | Output[T]] | None = None,
+    io: dict[Input[T] | Output[T], Input[T] | Output[T]]
+    | dict[ModuleType, ModuleType]
+    | None = None,
 ) -> None:
     """Runs nodes in topological order.
 

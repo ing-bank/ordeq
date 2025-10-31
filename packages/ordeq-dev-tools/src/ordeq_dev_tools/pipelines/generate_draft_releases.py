@@ -458,8 +458,7 @@ def bump_version(
     """Bump the version based on the specified type.
 
     Args:
-        version: A tuple of integers representing the current version, e.g.
-            (1, 2, 3).
+        version: the current version.
         bump: The type of bump to apply, one of 'major', 'minor', or 'patch'.
 
     Returns:

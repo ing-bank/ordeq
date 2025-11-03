@@ -34,7 +34,7 @@ def _substitute(
     old: AnyIO | ModuleType, new: AnyIO | ModuleType
 ) -> IOSubstitutes:
     if _is_module(old) and _is_module(new):
-        return _substitute_catalog_by_catalog(old, new)  # type: ignore[arg-type]
+        return _substitute_catalog_by_catalog(old, new)
     if _is_io(old) and _is_io(new):
         return {old: new} if old != new else {}
     raise TypeError(

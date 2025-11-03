@@ -88,7 +88,7 @@ def _run_graph(
     *,
     hooks: Sequence[NodeHook] = (),
     save: SaveMode = "all",
-    io: IOSubstitutes | None = None,
+    io: IOSubstitutes | None,
 ) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
@@ -98,7 +98,7 @@ def _run_graph(
         hooks: hooks to apply
         save: 'all' | 'sinks' | 'none'.
             If 'sinks', only saves the outputs of sink nodes in the graph.
-        io: mapping of IO objects to their replacements
+        io: mapping of IO objects to their substitutes
 
     """
 
@@ -159,9 +159,9 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    substitution_map: IOSubstitutes = _substitutes_modules_to_ios(io)
+    io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(io)
 
-    _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
+    _run_graph(graph, hooks=node_hooks, save=save, io=io_substitutes)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)

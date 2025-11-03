@@ -1,15 +1,10 @@
 from types import ModuleType
-from typing import TypeAlias
 
 from ordeq._fqn import FQN, fqn_to_str
-from ordeq._io import AnyIO
 from ordeq._resolve import _resolve_package_to_ios
 
 
 class CatalogError(Exception): ...
-
-
-PatchedIO: TypeAlias = dict[AnyIO, AnyIO]
 
 
 def check_catalogs_are_consistent(

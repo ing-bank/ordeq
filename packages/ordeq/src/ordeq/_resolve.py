@@ -19,11 +19,11 @@ if TYPE_CHECKING:
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
 
 
-def _is_module(obj: object) -> bool:
+def _is_module(obj: object) -> TypeGuard[ModuleType]:
     return isinstance(obj, ModuleType)
 
 
-def _is_package(module: ModuleType) -> bool:
+def _is_package(module: ModuleType) -> TypeGuard[ModuleType]:
     return hasattr(module, "__path__")
 
 

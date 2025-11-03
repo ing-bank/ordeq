@@ -88,6 +88,51 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
 
     properties: tuple[tuple[str, str], ...] = ()
 
+    def _writer(
+        self,
+        df: DataFrame,
+        partition_by: tuple[
+            tuple[Callable[[str], Column], str] | tuple[str], ...
+        ],
+    ) -> "DataFrameWriter":
+        """Returns a Spark DataFrame writer configured by save options.
+
+        Args:
+            df: DataFrame
+            partition_by: tuple of columns to partition by
+
+        Returns:
+            the writer
+
+        Raises:
+            TypeError: if partition_by is not a tuple of tuples
+        """
+
+        writer = df.writeTo(self.table).using("iceberg")
+        for k, v in self.properties:
+            writer = writer.tableProperty(k, v)
+        if partition_by:
+            partitions = []
+            for t in partition_by:
+                if not isinstance(t, tuple):
+                    raise TypeError(
+                        f"Expected partition_by to be a tuple of tuples, "
+                        f"got {type(t)}: {t}"
+                    )
+                if len(t) == 2 and callable(t[0]):
+                    partitions.append(t[0](t[1]))  # type: ignore[index-out-of-bounds]
+                elif len(t) == 1 and isinstance(t[0], str):
+                    # Otherwise, we assume it is a single column name
+                    partitions.append(F.col(t[0]))
+                else:
+                    raise TypeError(
+                        f"Expected partition_by to be a tuple of tuples with "
+                        f"either 1 or 2 elements, got {len(t)}: {t}"
+                    )
+
+            writer.partitionedBy(*partitions)
+        return writer
+
     def save(
         self,
         df: DataFrame,
@@ -171,48 +216,3 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
             ):
                 return writer.createOrReplace()
             raise
-
-    def _writer(
-        self,
-        df: DataFrame,
-        partition_by: tuple[
-            tuple[Callable[[str], Column], str] | tuple[str], ...
-        ],
-    ) -> "DataFrameWriter":
-        """Returns a Spark DataFrame writer configured by save options.
-
-        Args:
-            df: DataFrame
-            partition_by: tuple of columns to partition by
-
-        Returns:
-            the writer
-
-        Raises:
-            TypeError: if partition_by is not a tuple of tuples
-        """
-
-        writer = df.writeTo(self.table).using("iceberg")
-        for k, v in self.properties:
-            writer = writer.tableProperty(k, v)
-        if partition_by:
-            partitions = []
-            for t in partition_by:
-                if not isinstance(t, tuple):
-                    raise TypeError(
-                        f"Expected partition_by to be a tuple of tuples, "
-                        f"got {type(t)}: {t}"
-                    )
-                if len(t) == 2 and callable(t[0]):
-                    partitions.append(t[0](t[1]))  # type: ignore[index-out-of-bounds]
-                elif len(t) == 1 and isinstance(t[0], str):
-                    # Otherwise, we assume it is a single column name
-                    partitions.append(F.col(t[0]))
-                else:
-                    raise TypeError(
-                        f"Expected partition_by to be a tuple of tuples with "
-                        f"either 1 or 2 elements, got {len(t)}: {t}"
-                    )
-
-            writer.partitionedBy(*partitions)
-        return writer

@@ -333,6 +333,10 @@ def _save_decorator(save_func):
     return wrapper
 
 
+def _pass(*args, **kwargs):
+    return
+
+
 class _OutputMeta(type):
     def __new__(cls, name, bases, class_dict):
         # Retrieve the closest save method
@@ -382,10 +386,6 @@ class _OutputMeta(type):
             if not hasattr(save_method, "__wrapped__"):
                 class_dict["save"] = _save_decorator(save_method)
         return super().__new__(cls, name, bases, class_dict)
-
-
-def _pass(*args, **kwargs):
-    return
 
 
 class _BaseOutput(Generic[Tout]):

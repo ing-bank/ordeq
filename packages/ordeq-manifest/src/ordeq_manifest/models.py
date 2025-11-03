@@ -114,16 +114,22 @@ class ProjectModel(BaseModel):
         io_models = {
             io_model.id: io_model
             for io_model in [
-                IOModel.from_io(named_io)
-                for named_io in sorted(ios.items(), key=operator.itemgetter(0))
+                IOModel.from_io(((module_name, object_name), io))
+                for module_name, named_io in sorted(
+                    ios.items(), key=operator.itemgetter(0)
+                )
+                for object_name, io in named_io.items()
             ]
         }
 
         # All references to IOs by their IDs
         ios_to_id = defaultdict(list)
-        for io_name, io in ios.items():
-            if io_model := io_models.get(fqn_to_str(io_name)):
-                ios_to_id[io].append(io_model.id)
+        for module_name, named_io in ios.items():
+            for object_name, io in named_io.items():
+                if io_model := io_models.get(
+                    fqn_to_str((module_name, object_name))
+                ):
+                    ios_to_id[io].append(io_model.id)
 
         # Anonymous IOs
         idx = 0

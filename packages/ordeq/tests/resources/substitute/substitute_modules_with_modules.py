@@ -1,4 +1,4 @@
 from example_catalogs import local, package_base, package_overlay, remote
-from ordeq._substitute import _build_substitution_map
+from ordeq._substitute import _substitutes_modules_to_ios
 
-print(_build_substitution_map({local: remote, package_base: package_overlay}))
+print(_substitutes_modules_to_ios({local: remote, package_base: package_overlay}))

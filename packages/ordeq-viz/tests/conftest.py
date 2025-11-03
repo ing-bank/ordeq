@@ -33,19 +33,24 @@ def expected_example_ios() -> Catalog:
     from example_1.wrapped_io import message, name_generator, name_printer
 
     return {
-        ("example_1.catalog", "Hello"): Hello,
-        ("example_1.catalog", "TestInput"): TestInput,
-        ("example_1.catalog", "TestOutput"): TestOutput,
-        ("example_1.catalog", "World"): World,
-        ("example_1.nodes", "x"): x,
-        ("example_1.nodes", "y"): y,
-        ("example_1.pipeline", "Hello"): Hello,
-        ("example_1.pipeline", "TestInput"): TestInput,
-        ("example_1.pipeline", "TestOutput"): TestOutput,
-        ("example_1.pipeline", "World"): World,
-        ("example_1.wrapped_io", "message"): message,
-        ("example_1.wrapped_io", "name_generator"): name_generator,
-        ("example_1.wrapped_io", "name_printer"): name_printer,
+        "example_1.catalog": {
+            "Hello": Hello,
+            "TestInput": TestInput,
+            "TestOutput": TestOutput,
+            "World": World,
+        },
+        "example_1.nodes": {"x": x, "y": y},
+        "example_1.pipeline": {
+            "Hello": Hello,
+            "TestInput": TestInput,
+            "TestOutput": TestOutput,
+            "World": World,
+        },
+        "example_1.wrapped_io": {
+            "message": message,
+            "name_generator": name_generator,
+            "name_printer": name_printer,
+        },
     }
 
 

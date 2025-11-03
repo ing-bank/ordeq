@@ -1,7 +1,7 @@
 ## Resource
 
 ```python
-from ordeq._substitute import _build_substitution_map
+from ordeq._substitute import _substitutes_modules_to_ios
 
 from ordeq import IO
 from ordeq_common import StringBuffer
@@ -11,9 +11,9 @@ b = IO()
 A = StringBuffer("A")
 B = IO()
 
-print(_build_substitution_map({a: A, b: b}))
-print(_build_substitution_map({a: A, b: a}))
-print(_build_substitution_map({a: A, A: a}))
+print(_substitutes_modules_to_ios({a: A, b: b}))
+print(_substitutes_modules_to_ios({a: A, b: a}))
+print(_substitutes_modules_to_ios({a: A, A: a}))
 
 ```
 

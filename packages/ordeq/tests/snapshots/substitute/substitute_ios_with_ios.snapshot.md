@@ -1,9 +1,8 @@
 ## Resource
 
 ```python
-from ordeq._substitute import _build_substitution_map
-
 from ordeq import IO
+from ordeq._substitute import _substitutes_modules_to_ios
 from ordeq_common import StringBuffer
 
 a = StringBuffer("a")
@@ -12,13 +11,13 @@ A = StringBuffer("A")
 B = IO()
 
 # Should replace 'a' by 'A' and 'b' by 'B':
-print(_build_substitution_map({a: A, b: B}))
+print(_substitutes_modules_to_ios({a: A, b: B}))
 # Should replace 'a' by 'A' and 'A' by 'a':
-print(_build_substitution_map({a: A, A: a}))
+print(_substitutes_modules_to_ios({a: A, A: a}))
 # Should replace 'a' by 'A' and 'b' by 'a':
-print(_build_substitution_map({a: A, b: a}))
+print(_substitutes_modules_to_ios({a: A, b: a}))
 # IOs are equal: don't include substitution map:
-print(_build_substitution_map({a: a, b: b}))
+print(_substitutes_modules_to_ios({a: a, b: b}))
 
 ```
 

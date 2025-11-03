@@ -1,12 +1,12 @@
 import streamlit as st
 from ordeq import run
 
-import example.pipeline
+import integration_streamlit.pipeline
 
 
 def on_click() -> None:
     """Callback function to run the pipeline when the button is clicked."""
-    run(example.pipeline)
+    run(integration_streamlit.pipeline)
 
 
 st.checkbox("Checkbox", key="checkbox")

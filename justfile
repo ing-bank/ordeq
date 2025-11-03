@@ -44,6 +44,14 @@ format:
 format-fix:
     uv run --group lint ruff format packages/ scripts/ examples/
 
+# Source code sorting with ssort
+ssort:
+    uv run --with ssort ssort --check packages/ scripts/ examples/
+
+# Apply source code sorting with ssort
+ssort-fix:
+    uv run --with ssort ssort packages/ scripts/ examples/
+
 # Type checking with ty
 ty:
     uv run --group types ty check packages/ scripts/
@@ -64,21 +72,23 @@ mypy-packages:
 # Mypy check all example directories
 mypy-examples:
     for dir in `find examples/ -mindepth 1 -maxdepth 1 -type d`; do \
-        uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
+        uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir || exit 1; \
     done
 
 # Static analysis (lint + type checking)
 sa: ruff ty mypy
 
 # Format code and apply lint fixes with ruff and mdformat
-fix: format-fix lint-fix mdformat-fix doccmd-fix
+fix: ssort-fix format-fix lint-fix mdformat-fix doccmd-fix
+
+# Test packages and examples
+test-all: test-packages test-examples
 
 # Test all packages individually
 # or test specific ones by passing the names as arguments
-# eg. `just test` (Run tests in all packages)
-
-# or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
-test *PACKAGES:
+# eg `just test-packages` (Run tests in all packages)
+# or `just test-packages ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
+test-packages *PACKAGES:
     if [ -z "{{ PACKAGES }}" ]; then \
         for dir in `find packages -type d -name "ordeq*" -maxdepth 1`; do \
             uv run --group test pytest $dir -v || exit 1; \
@@ -90,12 +100,14 @@ test *PACKAGES:
     fi
 
 # Test a single package
-test_package PACKAGE:
+test-package PACKAGE:
     uv run --group test pytest packages/{{ PACKAGE }} -v
 
-# Run tests for all packages with coverage
-test_all:
-    uv run --group test pytest packages/ --cov=packages/ --cov-report=html
+# Tests the examples
+test-examples:
+    for dir in `find examples/ -mindepth 1 -maxdepth 1 -type d`; do \
+       uv run --group test pytest $dir -v || [ $? -eq 5 ]; \
+    done
 
 # Generate API documentation pages
 generate-api-docs:

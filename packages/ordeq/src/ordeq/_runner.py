@@ -9,7 +9,7 @@ from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import Input, Output, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
-from ordeq._substitute import IOSubstitutionMap, _build_substitution_map
+from ordeq._substitute import IOSubstitutes, _substitutes_modules_to_ios
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -88,7 +88,7 @@ def _run_graph(
     *,
     hooks: Sequence[NodeHook] = (),
     save: SaveMode = "all",
-    io: IOSubstitutionMap | None = None,
+    io: IOSubstitutes | None = None,
 ) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
@@ -135,7 +135,7 @@ def run(
     hooks: Sequence[RunnerHook | str] = (),
     save: SaveMode = "all",
     verbose: bool = False,
-    io: IOSubstitutionMap | dict[ModuleType, ModuleType] | None = None,
+    io: IOSubstitutes | dict[ModuleType, ModuleType] | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -159,7 +159,7 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    substitution_map = _build_substitution_map(io)
+    substitution_map = _substitutes_modules_to_ios(io)
 
     _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
 

@@ -13,19 +13,34 @@ from ordeq._resolve import _is_io, _is_module, _resolve_package_to_ios
 
 T = TypeVar("T", bound=AnyIO | ModuleType)
 
-IOSubstitutionMap = dict[AnyIO, AnyIO]
+IOSubstitutes = dict[AnyIO, AnyIO]
 
 
-def _build_substitution_map(io: dict[T, T] | None) -> IOSubstitutionMap:
-    if io is None:
+def _substitute_io_by_io(
+    patched: AnyIO, patched_by: AnyIO
+) -> IOSubstitutes:
+    if patched == patched_by:
         return {}
-    substitution_map: IOSubstitutionMap = {}
-    for key, value in io.items():
-        substitution_map.update(_build_substitute(key, value))
-    return substitution_map
+    return {patched: patched_by}
 
 
-def _build_substitute(old: T, new: T) -> IOSubstitutionMap:
+def _substitute_catalog_by_catalog(
+    old: ModuleType, new: ModuleType
+) -> IOSubstitutes:
+    if old == new:
+        return {}
+    check_catalogs_are_consistent(old, new)
+    io: IOSubstitutes = {}
+    for (_, old_io), (_, new_io) in zip(
+        sorted(_resolve_package_to_ios(old).items()),
+        sorted(_resolve_package_to_ios(new).items()),
+        strict=True,
+    ):
+        io[old_io] = new_io
+    return io
+
+
+def _substitute(old: T, new: T) -> IOSubstitutes:
     if _is_module(old) and _is_module(new):
         return _substitute_catalog_by_catalog(old, new)
     if _is_io(old) and _is_io(new):
@@ -37,25 +52,10 @@ def _build_substitute(old: T, new: T) -> IOSubstitutionMap:
     )
 
 
-def _substitute_io_by_io(
-    patched: AnyIO, patched_by: AnyIO
-) -> IOSubstitutionMap:
-    if patched == patched_by:
+def _substitutes_modules_to_ios(io: dict[T, T] | None) -> IOSubstitutes:
+    if io is None:
         return {}
-    return {patched: patched_by}
-
-
-def _substitute_catalog_by_catalog(
-    old: ModuleType, new: ModuleType
-) -> IOSubstitutionMap:
-    if old == new:
-        return {}
-    check_catalogs_are_consistent(old, new)
-    io: IOSubstitutionMap = {}
-    for (_, old_io), (_, new_io) in zip(
-        sorted(_resolve_package_to_ios(old).items()),
-        sorted(_resolve_package_to_ios(new).items()),
-        strict=True,
-    ):
-        io[old_io] = new_io
-    return io
+    substitution_map: IOSubstitutes = {}
+    for key, value in io.items():
+        substitution_map.update(_substitute(key, value))
+    return substitution_map

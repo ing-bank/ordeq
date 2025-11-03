@@ -1,12 +1,11 @@
 ## Resource
 
 ```python
-from ordeq._substitute import _build_substitution_map
-
 from example_catalogs import local_package
+from ordeq._substitute import _substitutes_modules_to_ios
 
 # Should return an empty map
-print(_build_substitution_map({local_package: local_package}))
+print(_substitutes_modules_to_ios({local_package: local_package}))
 
 ```
 

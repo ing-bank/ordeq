@@ -37,15 +37,10 @@ run(
 ## Exception
 
 ```text
-CatalogError: Catalog 'example_catalogs.local' is missing IO(s) 'another_io'
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in check_catalogs_are_consistent
-    raise CatalogError(
-        f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
-    )
-
+TypeError: unhashable type: 'dict'
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
-    check_catalogs_are_consistent(old, new)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+    io[old_io] = new_io
+    ~~^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitute
     return _substitute_catalog_by_catalog(old, new)

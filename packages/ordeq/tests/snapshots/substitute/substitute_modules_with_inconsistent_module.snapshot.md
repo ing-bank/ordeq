@@ -1,12 +1,11 @@
 ## Resource
 
 ```python
-from ordeq._substitute import _build_substitution_map
-
-from example_catalogs import local, inconsistent
+from example_catalogs import inconsistent, local
+from ordeq._substitute import _substitutes_modules_to_ios
 
 # NOK: 'inconsistent' contains different entries than 'local'
-print(_build_substitution_map({local: inconsistent}))
+print(_substitutes_modules_to_ios({local: inconsistent}))
 
 ```
 

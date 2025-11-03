@@ -28,18 +28,10 @@ run(uppercase, add_world, io={catalog: remote_extended})
 ## Exception
 
 ```text
-ValueError: zip() argument 2 is longer than argument 1
+TypeError: unhashable type: 'dict'
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
-    for (_, old_io), (_, new_io) in zip(
-                                    ~~~^
-        sorted(_resolve_package_to_ios(old).items()),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        sorted(_resolve_package_to_ios(new).items()),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        strict=True,
-        ^^^^^^^^^^^^
-    ):
-    ^
+    io[old_io] = new_io
+    ~~^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitute
     return _substitute_catalog_by_catalog(old, new)

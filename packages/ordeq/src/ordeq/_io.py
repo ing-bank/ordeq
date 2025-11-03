@@ -38,11 +38,11 @@ def _find_references(attributes) -> dict[str, list[AnyIO]]:
     Returns:
         a dictionary mapping attribute names to lists of Input, Output, or IO
     """
-    from ordeq._resolve import _get_io_sequence  # noqa: PLC0415
+    from ordeq._resolve import _resolve_sequence_to_ios  # noqa: PLC0415
 
     wrapped = {}
     for attribute, value in attributes.items():
-        ios = _get_io_sequence(value)
+        ios = _resolve_sequence_to_ios(value)
         if ios:
             wrapped[attribute] = ios
     return wrapped
@@ -333,6 +333,10 @@ def _save_decorator(save_func):
     return wrapper
 
 
+def _pass(*args, **kwargs):
+    return
+
+
 class _OutputMeta(type):
     def __new__(cls, name, bases, class_dict):
         # Retrieve the closest save method
@@ -382,10 +386,6 @@ class _OutputMeta(type):
             if not hasattr(save_method, "__wrapped__"):
                 class_dict["save"] = _save_decorator(save_method)
         return super().__new__(cls, name, bases, class_dict)
-
-
-def _pass(*args, **kwargs):
-    return
 
 
 class _BaseOutput(Generic[Tout]):

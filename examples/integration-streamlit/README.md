@@ -2,19 +2,11 @@
 
 To run the Streamlit application:
 
-1. Install the dependencies:
-
 ```bash
-uv sync
+uv run streamlit run src/integration_streamlit/app.py
 ```
 
-2. Run the Streamlit app:
-
-```bash
-uv run streamlit run src/example/app.py
-```
-
-3. Open your web browser and navigate to `http://localhost:8501` to view the application.
+Next, open your web browser and navigate to `http://localhost:8501` to view the application.
 
 Three widgets appear:
 

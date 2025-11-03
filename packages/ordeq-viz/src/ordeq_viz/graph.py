@@ -88,7 +88,11 @@ def _gather_graph(
         metadata for nodes (NodeData)
         metadata for ios (IOData)
     """
-    reverse_lookup = {hash(io): name for (_, name), io in ios.items()}
+    reverse_lookup = {
+        hash(io): name
+        for named_io in ios.values()
+        for name, io in named_io.items()
+    }
 
     nodes_ = []
     io_data: dict[int, IOData] = {}

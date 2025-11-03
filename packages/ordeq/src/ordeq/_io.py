@@ -38,11 +38,11 @@ def _find_references(attributes) -> dict[str, list[AnyIO]]:
     Returns:
         a dictionary mapping attribute names to lists of Input, Output, or IO
     """
-    from ordeq._resolve import _get_io_sequence  # noqa: PLC0415
+    from ordeq._resolve import _resolve_sequence_to_ios  # noqa: PLC0415
 
     wrapped = {}
     for attribute, value in attributes.items():
-        ios = _get_io_sequence(value)
+        ios = _resolve_sequence_to_ios(value)
         if ios:
             wrapped[attribute] = ios
     return wrapped

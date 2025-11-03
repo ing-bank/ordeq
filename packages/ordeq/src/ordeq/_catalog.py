@@ -30,7 +30,11 @@ def check_catalogs_are_consistent(
 
     # for each catalog, the names (keys) of the IO it defines
     catalogs = [
-        {catalog_key(fqn, catalog) for fqn in _resolve_package_to_ios(catalog)}
+        {
+            catalog_key((module_name, object_name), catalog)
+            for module_name, values in _resolve_package_to_ios(catalog).items()
+            for object_name in values
+        }
         for catalog in modules
     ]
 

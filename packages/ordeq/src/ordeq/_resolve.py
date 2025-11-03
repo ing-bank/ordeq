@@ -4,17 +4,20 @@ from __future__ import annotations
 
 import importlib
 import pkgutil
-from collections.abc import Generator, Iterable, Sequence
+from collections.abc import Generator, Sequence
 from types import ModuleType
 from typing import TYPE_CHECKING, Any, TypeAlias
 
-from ordeq._fqn import FQN, str_to_fqn
+from ordeq._fqn import str_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node
 
 if TYPE_CHECKING:
     from ordeq._runner import Runnable
+
+
+Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
 
 
 def _is_module(obj: object) -> bool:
@@ -29,18 +32,20 @@ def _is_io(obj: object) -> bool:
     return isinstance(obj, (IO, Input, Output))
 
 
-def _get_io_sequence(value: Any) -> list[AnyIO]:
+def _resolve_sequence_to_ios(value: Any) -> list[AnyIO]:
     if _is_io(value):
         return [value]
     if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-        return [io for v in value for io in _get_io_sequence(v)]
+        return [io for v in value for io in _resolve_sequence_to_ios(v)]
     if isinstance(value, dict):
-        return [io for v in value.values() for io in _get_io_sequence(v)]
+        return [
+            io for v in value.values() for io in _resolve_sequence_to_ios(v)
+        ]
     return []
 
 
 def _is_io_sequence(value: Any) -> bool:
-    return bool(_get_io_sequence(value))
+    return bool(_resolve_sequence_to_ios(value))
 
 
 def _is_node(obj: object) -> bool:
@@ -55,41 +60,11 @@ def _resolve_string_to_module(name: str) -> ModuleType:
     return importlib.import_module(name)
 
 
-def _resolve_packages_to_modules(
-    modules: Iterable[tuple[str, ModuleType]],
-) -> Generator[tuple[str, ModuleType]]:
-    for name, module in modules:
-        yield name, module
-        if _is_package(module):
-            submodules = (
-                importlib.import_module(f".{name}", package=module.__name__)
-                for _, name, _ in pkgutil.iter_modules(module.__path__)
-            )
-            yield from _resolve_packages_to_modules(
-                (mod.__name__, mod) for mod in submodules
-            )
-
-
-def _resolve_runnables_to_modules(
-    *runnables: str | ModuleType,
-) -> Generator[tuple[str, ModuleType]]:
-    modules: dict[str, ModuleType] = {}
-    for runnable in runnables:
-        if _is_module(runnable):
-            # mypy false positive
-            modules[runnable.__name__] = runnable  # type: ignore[assignment,union-attr]
-        elif isinstance(runnable, str):
-            mod = _resolve_string_to_module(runnable)
-            modules[mod.__name__] = mod
-        else:
-            raise TypeError(
-                f"{runnable} is not something we can run. "
-                f"Expected a module or a string, got {type(runnable)}"
-            )
-
-    # Then, for each module or package, if it's a package, resolve to all its
-    # submodules recursively
-    return _resolve_packages_to_modules(modules.items())
+def _resolve_package_to_module_names(package: ModuleType) -> Generator[str]:
+    yield from (
+        f"{package.__name__}.{name}"
+        for _, name, _ in pkgutil.iter_modules(package.__path__)
+    )
 
 
 def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
@@ -100,7 +75,6 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
 
     Returns:
         the nodes defined in the module
-
     """
 
     return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
@@ -116,10 +90,55 @@ def _resolve_module_to_ios(module: ModuleType) -> Catalog:
         a dict of `IO` objects with their fully-qualified name as key
     """
     return {
-        (module.__name__, name): obj
-        for name, obj in vars(module).items()
-        if _is_io(obj)
+        module.__name__: {
+            name: obj for name, obj in vars(module).items() if _is_io(obj)
+        }
     }
+
+
+def _resolve_packages_to_modules(
+    *modules: ModuleType,
+) -> Generator[ModuleType, None, None]:
+    visited = set()
+
+    def _walk(module: ModuleType):
+        if module.__name__ in visited:
+            return
+        visited.add(module.__name__)
+        yield module
+        if _is_package(module):
+            for subname in _resolve_package_to_module_names(module):
+                if subname in visited:
+                    continue
+                submodule = _resolve_string_to_module(subname)
+                yield from _walk(submodule)
+
+    for module in modules:
+        yield from _walk(module)
+
+
+def _resolve_runnables_to_modules(
+    *runnables: str | ModuleType,
+) -> Generator[ModuleType]:
+    modules: set[ModuleType] = set()
+    for runnable in runnables:
+        if _is_module(runnable):
+            # mypy false positive
+            modules.add(runnable)  # type: ignore[arg-type]
+        elif isinstance(runnable, str):
+            mod = _resolve_string_to_module(runnable)
+            modules.add(mod)
+        else:
+            raise TypeError(
+                f"{runnable} is not something we can run. "
+                f"Expected a module or a string, got {type(runnable)}"
+            )
+
+    # Then, for each module or package, if it's a package, resolve to all its
+    # submodules recursively
+    return _resolve_packages_to_modules(
+        *sorted(modules, key=lambda m: m.__name__)
+    )
 
 
 def _resolve_package_to_ios(package: ModuleType) -> Catalog:
@@ -131,11 +150,12 @@ def _resolve_package_to_ios(package: ModuleType) -> Catalog:
     Returns:
         a dict of `IO` objects with their fully-qualified name as key
     """
-    modules = _resolve_packages_to_modules([(package.__name__, package)])
+    modules = _resolve_packages_to_modules(package)
+
     catalog = {}
-    for _, module in modules:
+    for module in modules:
         catalog.update(_resolve_module_to_ios(module))
-    return catalog
+    return {module_name: ios for module_name, ios in catalog.items() if ios}
 
 
 def _resolve_node_reference(ref: str) -> Node:
@@ -246,7 +266,7 @@ def _resolve_runnables_to_nodes_and_modules(
                 f"Expected a module or a node, got {type(runnable)}"
             )
 
-    modules = {m for _, m in _resolve_runnables_to_modules(*modules_and_strs)}
+    modules = set(_resolve_runnables_to_modules(*modules_and_strs))
     return nodes, modules
 
 
@@ -309,8 +329,10 @@ def _resolve_runnables_to_nodes_and_ios(
         nodes.update(_resolve_module_to_nodes(module))
         ios.update(_resolve_module_to_ios(module))
 
+    # Filter empty IO modules
+    ios = {
+        module_name: ios_dict
+        for module_name, ios_dict in ios.items()
+        if ios_dict
+    }
     return nodes, ios
-
-
-# Type aliases
-Catalog: TypeAlias = dict[FQN, AnyIO]

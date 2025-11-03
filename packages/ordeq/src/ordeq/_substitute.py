@@ -16,7 +16,7 @@ T = TypeVar("T", bound=AnyIO | ModuleType)
 IOSubstitutionMap = dict[AnyIO, AnyIO]
 
 
-def _build_substitution_map(io: dict[T, T]) -> IOSubstitutionMap:
+def _build_substitution_map(io: dict[T, T] | None) -> IOSubstitutionMap:
     if io is None:
         return {}
     substitution_map: IOSubstitutionMap = {}
@@ -40,12 +40,16 @@ def _build_substitute(old: T, new: T) -> IOSubstitutionMap:
 def _substitute_io_by_io(
     patched: AnyIO, patched_by: AnyIO
 ) -> IOSubstitutionMap:
+    if patched == patched_by:
+        return {}
     return {patched: patched_by}
 
 
 def _substitute_catalog_by_catalog(
     old: ModuleType, new: ModuleType
 ) -> IOSubstitutionMap:
+    if old == new:
+        return {}
     check_catalogs_are_consistent(old, new)
     io: IOSubstitutionMap = {}
     for (_, old_io), (_, new_io) in zip(

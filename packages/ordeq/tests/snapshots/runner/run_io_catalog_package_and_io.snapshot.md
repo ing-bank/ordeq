@@ -21,9 +21,14 @@ def add_world(hello: str) -> str:
     return f"{hello}, world!!"
 
 
-run(uppercase, add_world,
-    io={catalog: remote_overridden,
-        catalog.result: StringBuffer("I want to say: ")})
+run(
+    uppercase,
+    add_world,
+    io={
+        catalog: remote_overridden,
+        catalog.result: StringBuffer("I want to say: "),
+    },
+)
 
 ```
 

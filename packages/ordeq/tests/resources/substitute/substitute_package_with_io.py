@@ -1,5 +1,6 @@
 from ordeq._substitute import _build_substitution_map
+from ordeq import IO
+from example_catalogs import local_package
 
-from example_catalogs import local, remote
-
-print(_build_substitution_map({local: remote}))
+# This is NOK: each key and value need to be of the same type
+print(_build_substitution_map({local_package: IO()}))

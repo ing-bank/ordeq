@@ -4,8 +4,12 @@
 # Checks the behaviour when running nodes with an alternative catalog
 # We want to support this syntax and behaviour since it allows users to
 # easily switch between different catalogs, for instance during tests.
-from example_catalogs import local_package, remote_extended, remote_package, /
-    local
+from example_catalogs import (
+    local,
+    local_package,
+    remote_extended,
+    remote_package,
+)
 from ordeq import node, run
 from ordeq_common import Print
 
@@ -22,9 +26,11 @@ def add_world(hello: str) -> str:
     return f"{hello}, world!!"
 
 
-run(uppercase, add_world,
-    io={local_package: remote_package, remote_extended: local}
-    )
+run(
+    uppercase,
+    add_world,
+    io={local_package: remote_package, remote_extended: local},
+)
 
 ```
 
@@ -52,12 +58,16 @@ CatalogError: Catalog 'example_catalogs.local' is missing IO(s) 'another_io'
     substitution_map = _build_substitution_map(io)
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py", line LINO, in <module>
-    run(uppercase, add_world,
-    ~~~^^^^^^^^^^^^^^^^^^^^^^
-        io={local_package: remote_package, remote_extended: local}
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        )
-        ^
+    run(
+    ~~~^
+        uppercase,
+        ^^^^^^^^^^
+        add_world,
+        ^^^^^^^^^^
+        io={local_package: remote_package, remote_extended: local},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 

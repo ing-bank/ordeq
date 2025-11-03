@@ -1,3 +1,14 @@
+packages/ordeq/tests/resources/substitute/substitute_package_with_same_package.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_package_with_package.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_package_with_module.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_package_with_inconsistent_package.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_modules_with_modules.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_modules_with_modules.py:5: error: Name "package_base" is not defined  [name-defined]
+packages/ordeq/tests/resources/substitute/substitute_modules_with_modules.py:5: error: Name "package_overlay" is not defined  [name-defined]
+packages/ordeq/tests/resources/substitute/substitute_modules_with_inconsistent_module.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_module_with_same_module.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_module_with_package.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_module_with_module.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/resolve/resolve_module_example_catalog.py:1: error: Skipping analyzing "example_1": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/resolve/resolve_catalog_package_overlay.py:2: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/resolve/resolve_catalog_package_base.py:2: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
@@ -13,6 +24,9 @@ packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: error: No o
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note: Possible overload variants:
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
+packages/ordeq/tests/resources/substitute/substitute_package_with_io.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_modules_with_io.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_io_with_module.py:4: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/runner/runner_load_output.py:17: error: List item 0 has incompatible type "Example"; expected "Input[Any] | Callable[..., Any]"  [list-item]
 packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/deterministic_graph.py:5: error: Need type annotation for "o1"  [var-annotated]
@@ -47,10 +61,16 @@ packages/ordeq/tests/resources/catalog/check_consistency_same_module.py:1: error
 packages/ordeq/tests/resources/catalog/check_consistency_one_catalog.py:1: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/catalog/check_consistency_one_catalog.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
-packages/ordeq/tests/resources/views/view_patch_io.py:17: error: Argument "io" to "run" has incompatible type "dict[Literal[str], Literal[str]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+packages/ordeq/tests/resources/views/view_patch_io.py:17: error: Argument "io" to "run" has incompatible type "dict[Literal[str], Literal[str]]"; expected "dict[Input[Any] | Output[Any] | IO[Any], Input[Any] | Output[Any] | IO[Any]] | dict[Module, Module] | None"  [arg-type]
 packages/ordeq/tests/resources/views/view_index_run_result_by_node.py:16: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
-packages/ordeq/tests/resources/runner/runner_io_more_than_once.py:26: error: Argument "io" to "run" has incompatible type "dict[Literal[int], Literal[int]]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
-packages/ordeq/tests/resources/runner/runner_io.py:29: error: Argument "io" to "run" has incompatible type "dict[object, object]"; expected "dict[Input[Never] | Output[Never], Input[Never] | Output[Never]] | None"  [arg-type]
+packages/ordeq/tests/resources/substitute/substitute_module_and_io.py:3: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_module_and_io.py:4: error: Skipping analyzing "example_catalogs.remote": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:7: error: Need type annotation for "b"  [var-annotated]
+packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:9: error: Need type annotation for "B"  [var-annotated]
+packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:16: error: Cannot infer value of type parameter "T" of "_build_substitution_map"  [misc]
+packages/ordeq/tests/resources/substitute/substitute_io_with_io.py:8: error: Cannot infer value of type parameter "T" of "_build_substitution_map"  [misc]
+packages/ordeq/tests/resources/runner/runner_io_more_than_once.py:26: error: Argument "io" to "run" has incompatible type "dict[Literal[int], Literal[int]]"; expected "dict[Input[Any] | Output[Any] | IO[Any], Input[Any] | Output[Any] | IO[Any]] | dict[Module, Module] | None"  [arg-type]
+packages/ordeq/tests/resources/runner/runner_io.py:29: error: Argument "io" to "run" has incompatible type "dict[object, object]"; expected "dict[Input[Any] | Output[Any] | IO[Any], Input[Any] | Output[Any] | IO[Any]] | dict[Module, Module] | None"  [arg-type]
 packages/ordeq/tests/resources/runner/runner_exhausted_stream.py:19: error: Unsupported left operand type for + ("Iterable[str]")  [operator]
 packages/ordeq/tests/resources/runner/run_io_same_catalog.py:4: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
 packages/ordeq/tests/resources/runner/run_io_catalogs_overlapping.py:4: error: Skipping analyzing "example_catalogs": module is installed, but missing library stubs or py.typed marker  [import-untyped]
@@ -72,4 +92,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No 
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-Found 55 errors in 45 files (checked 156 source files)
+Found 75 errors in 60 files (checked 173 source files)

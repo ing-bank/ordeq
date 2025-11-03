@@ -1,0 +1,18 @@
+## Resource
+
+```python
+from ordeq._substitute import _build_substitution_map
+
+from example_catalogs import local_package
+
+# Should return an empty map
+print(_build_substitution_map({local_package: local_package}))
+
+```
+
+## Output
+
+```text
+{}
+
+```

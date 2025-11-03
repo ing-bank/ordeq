@@ -28,18 +28,28 @@ run(uppercase, add_world, io={catalog: remote_extended})
 ## Exception
 
 ```text
-AttributeError: 'Print' object has no attribute 'load'
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: zip() argument 2 is longer than argument 1
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
+    for (_, old_io), (_, new_io) in zip(
+                                    ~~~^
+        sorted(_resolve_package_to_ios(old).items()),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        sorted(_resolve_package_to_ios(new).items()),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        strict=True,
+        ^^^^^^^^^^^^
+    ):
+    ^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitute
+    return _substitute_catalog_by_catalog(old, new)
+
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitution_map
+    substitution_map.update(_build_substitute(key, value))
+                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    substitution_map = _build_substitution_map(io)
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_extended.py", line LINO, in <module>
     run(uppercase, add_world, io={catalog: remote_extended})

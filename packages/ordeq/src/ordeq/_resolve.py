@@ -6,7 +6,7 @@ import importlib
 import pkgutil
 from collections.abc import Generator, Sequence
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias, TypeGuard
 
 from ordeq._fqn import str_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
@@ -15,7 +15,6 @@ from ordeq._nodes import Node, View, get_node
 
 if TYPE_CHECKING:
     from ordeq._runner import Runnable
-
 
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
 
@@ -28,7 +27,7 @@ def _is_package(module: ModuleType) -> bool:
     return hasattr(module, "__path__")
 
 
-def _is_io(obj: object) -> bool:
+def _is_io(obj: object) -> TypeGuard[AnyIO]:
     return isinstance(obj, (IO, Input, Output))
 
 

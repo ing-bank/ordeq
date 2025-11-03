@@ -30,7 +30,7 @@ CatalogError: Catalog 'example_catalogs.package_inconsistent' is missing IO(s) '
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute
-    return _substitute_catalog_by_catalog(old, new)
+    return _substitute_catalog_by_catalog(old, new)  # type: ignore[arg-type]
 
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
     substitution_map.update(_substitute(key, value))

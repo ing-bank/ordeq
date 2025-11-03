@@ -6,7 +6,7 @@ from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
-from ordeq._io import Input, Output, _InputCache
+from ordeq._io import AnyIO, Input, Output, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
 from ordeq._substitute import IOSubstitutes, _substitutes_modules_to_ios
@@ -135,7 +135,7 @@ def run(
     hooks: Sequence[RunnerHook | str] = (),
     save: SaveMode = "all",
     verbose: bool = False,
-    io: IOSubstitutes | dict[ModuleType, ModuleType] | None = None,
+    io: dict[AnyIO | ModuleType, AnyIO | ModuleType] | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -159,7 +159,7 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    substitution_map = _substitutes_modules_to_ios(io)
+    substitution_map: IOSubstitutes = _substitutes_modules_to_ios(io)
 
     _run_graph(graph, hooks=node_hooks, save=save, io=substitution_map)
 

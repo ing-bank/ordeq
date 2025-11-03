@@ -34,6 +34,7 @@ test = [
     "duckdb",
     "types-requests",
     "ordeq-test-examples",
+    "ordeq-dev-tools",
 ]
 
 [tool.setuptools_scm]

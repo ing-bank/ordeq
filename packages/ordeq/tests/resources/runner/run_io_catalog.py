@@ -18,4 +18,4 @@ def add_world(hello: str) -> str:
     return f"{hello.upper()}, world!!"
 
 
-run(uppercase, add_world, io=remote)
+run(uppercase, add_world, io={local: remote})

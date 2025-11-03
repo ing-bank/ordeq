@@ -15,6 +15,27 @@ from ordeq_toml import TOML
 package_overview = Text(path=ROOT_PATH / "docs" / "packages.md")
 
 
+def get_pypi_name_description_group_logo(
+    pyproject_path: Path,
+) -> tuple[str, str, str | None, str | None]:
+    """Extract the relevant attributes for the package pyproject.tomls, including logo_url from [tool.ordeq-dev].
+
+    Args:
+        pyproject_path: The path to the pyproject.toml file.
+
+    Returns:
+        A tuple containing the package name, description, group (or None), and logo_url (or None).
+    """
+    data = TOML(path=pyproject_path).load()
+    name = data["project"]["name"]
+    description = data["project"].get("description", "")
+    tool_section = data.get("tool", {})
+    ordeq_dev_section = tool_section.get("ordeq-dev", {})
+    logo_url = ordeq_dev_section.get("logo_url", None)
+    group = ordeq_dev_section.get("group", None)
+    return name, description, group, logo_url
+
+
 @node(inputs=packages)
 def groups(
     packages: list[str],
@@ -47,27 +68,6 @@ def groups(
         group_key = group or "Other"
         groups.setdefault(group_key, []).append(pkg_data)
     return groups
-
-
-def get_pypi_name_description_group_logo(
-    pyproject_path: Path,
-) -> tuple[str, str, str | None, str | None]:
-    """Extract the relevant attributes for the package pyproject.tomls, including logo_url from [tool.ordeq-dev].
-
-    Args:
-        pyproject_path: The path to the pyproject.toml file.
-
-    Returns:
-        A tuple containing the package name, description, group (or None), and logo_url (or None).
-    """
-    data = TOML(path=pyproject_path).load()
-    name = data["project"]["name"]
-    description = data["project"].get("description", "")
-    tool_section = data.get("tool", {})
-    ordeq_dev_section = tool_section.get("ordeq-dev", {})
-    logo_url = ordeq_dev_section.get("logo_url", None)
-    group = ordeq_dev_section.get("group", None)
-    return name, description, group, logo_url
 
 
 @node(inputs=groups, outputs=package_overview)

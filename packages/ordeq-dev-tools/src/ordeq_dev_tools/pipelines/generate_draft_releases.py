@@ -343,95 +343,6 @@ def draft_releases() -> list[str]:
     return []
 
 
-@node(
-    inputs=[
-        package_latest_tags,
-        package_relevant_commits,
-        package_relevant_prs,
-        commit_messages,
-    ],
-    outputs=changes,
-)
-def compute_package_changes(
-    tags: dict[str, str],
-    commits: dict[str, list[dict[str, str]]],
-    relevant_prs: dict[str, dict[str, dict[str, Any]]],
-    messages,
-) -> dict[str, object]:
-    result = {}
-
-    for package, filtered_commits in commits.items():
-        # Extract just the hashes from filtered_commits
-        commit_hashes = [commit["hash"] for commit in filtered_commits]
-
-        # Create a set of all distinct files changed across all commits
-        all_changed_files = set()
-        for commit in filtered_commits:
-            all_changed_files.update(commit.get("changed_files", []))
-
-        # Convert the set back to a sorted list for the JSON output
-        distinct_files = sorted(all_changed_files)
-
-        distinct_labels = sorted(
-            {
-                label
-                for pr in relevant_prs[package].values()
-                for label in pr.get("labels", [])
-            }
-        )
-
-        bump = compute_bump(distinct_labels)
-
-        if bump:
-            tag = tags[package]
-            bumped_version = bump_version(get_version_from_tag(tag), bump)
-            new_tag = f"{package}/{bumped_version}"
-
-            changes = {
-                commit: {
-                    "message": messages[commit],
-                    **relevant_prs[package][commit],
-                }
-                for commit in commit_hashes
-            }
-
-            release_notes = generate_release_notes(changes)
-
-            result[package] = {
-                "tag": tag,
-                "new_tag": new_tag,
-                "changes": changes,
-                "release_type": bump,
-                "release_notes": release_notes,
-                "changed_files": distinct_files,
-            }
-
-    return result
-
-
-@node(inputs=[changes, draft_releases])
-def create_releases(changes: dict[str, dict[str, str]], releases: list[str]) -> None:
-    """Create or update draft GitHub releases based on computed changes.
-
-    Args:
-        changes: Mapping of package names to their change info
-        releases: List of existing draft release tags
-    """
-    for info in changes.values():
-        new_tag = info["new_tag"]
-        if new_tag in releases:
-            releases.remove(new_tag)
-            mode = "update"
-        else:
-            mode = "create"
-        GithubRelease(tag=info["new_tag"]).save(info["release_notes"], mode=mode)
-
-    if releases:
-        logger.info("Deleting remaining outdated draft releases")
-        for tag in releases:
-            delete_draft_github_release(tag)
-
-
 def compute_bump(
     labels: list[str],
 ) -> typing.Literal["major", "minor", "patch"] | None:
@@ -543,6 +454,72 @@ def generate_release_notes(changes: dict[str, dict[str, str | list[str]]]) -> st
     return release_notes
 
 
+@node(
+    inputs=[
+        package_latest_tags,
+        package_relevant_commits,
+        package_relevant_prs,
+        commit_messages,
+    ],
+    outputs=changes,
+)
+def compute_package_changes(
+    tags: dict[str, str],
+    commits: dict[str, list[dict[str, str]]],
+    relevant_prs: dict[str, dict[str, dict[str, Any]]],
+    messages,
+) -> dict[str, object]:
+    result = {}
+
+    for package, filtered_commits in commits.items():
+        # Extract just the hashes from filtered_commits
+        commit_hashes = [commit["hash"] for commit in filtered_commits]
+
+        # Create a set of all distinct files changed across all commits
+        all_changed_files = set()
+        for commit in filtered_commits:
+            all_changed_files.update(commit.get("changed_files", []))
+
+        # Convert the set back to a sorted list for the JSON output
+        distinct_files = sorted(all_changed_files)
+
+        distinct_labels = sorted(
+            {
+                label
+                for pr in relevant_prs[package].values()
+                for label in pr.get("labels", [])
+            }
+        )
+
+        bump = compute_bump(distinct_labels)
+
+        if bump:
+            tag = tags[package]
+            bumped_version = bump_version(get_version_from_tag(tag), bump)
+            new_tag = f"{package}/{bumped_version}"
+
+            changes = {
+                commit: {
+                    "message": messages[commit],
+                    **relevant_prs[package][commit],
+                }
+                for commit in commit_hashes
+            }
+
+            release_notes = generate_release_notes(changes)
+
+            result[package] = {
+                "tag": tag,
+                "new_tag": new_tag,
+                "changes": changes,
+                "release_type": bump,
+                "release_notes": release_notes,
+                "changed_files": distinct_files,
+            }
+
+    return result
+
+
 def delete_draft_github_release(tag: str) -> None:
     """Delete a draft GitHub release for the given tag.
 
@@ -551,3 +528,26 @@ def delete_draft_github_release(tag: str) -> None:
     """
     run_command(["gh", "release", "delete", tag, "--yes"])
     print(f"Deleted draft GitHub release for tag: {tag}")
+
+
+@node(inputs=[changes, draft_releases])
+def create_releases(changes: dict[str, dict[str, str]], releases: list[str]) -> None:
+    """Create or update draft GitHub releases based on computed changes.
+
+    Args:
+        changes: Mapping of package names to their change info
+        releases: List of existing draft release tags
+    """
+    for info in changes.values():
+        new_tag = info["new_tag"]
+        if new_tag in releases:
+            releases.remove(new_tag)
+            mode = "update"
+        else:
+            mode = "create"
+        GithubRelease(tag=info["new_tag"]).save(info["release_notes"], mode=mode)
+
+    if releases:
+        logger.info("Deleting remaining outdated draft releases")
+        for tag in releases:
+            delete_draft_github_release(tag)

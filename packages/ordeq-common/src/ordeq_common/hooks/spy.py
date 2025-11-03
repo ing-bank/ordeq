@@ -8,6 +8,9 @@ class SpyHook(InputHook, OutputHook, NodeHook):
     def __init__(self):
         self.called_with: list[tuple] = []
 
+    def _register_call(self, item, *args) -> None:
+        self.called_with.append((item, *args))
+
     def before_node_run(self, *args) -> None:
         return self._register_call("before_node_run", *args)
 
@@ -28,6 +31,3 @@ class SpyHook(InputHook, OutputHook, NodeHook):
 
     def after_node_run(self, *args) -> None:
         return self._register_call("after_node_run", *args)
-
-    def _register_call(self, item, *args) -> None:
-        self.called_with.append((item, *args))

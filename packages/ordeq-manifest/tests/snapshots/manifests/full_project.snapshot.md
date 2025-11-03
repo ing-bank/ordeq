@@ -99,8 +99,8 @@ print(create_manifest_json(example_project))
       },
       "ios": {
         "printer": "io-10",
-        "<anonymous3>": "io-13",
-        "<anonymous4>": "io-14"
+        "<anonymous2>": "io-13",
+        "<anonymous3>": "io-14"
       }
     }
   ],

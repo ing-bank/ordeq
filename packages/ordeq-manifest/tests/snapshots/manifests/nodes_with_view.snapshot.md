@@ -22,8 +22,8 @@ print(create_manifest_json(nodes_with_view))
       },
       "ios": {
         "printer": "io-0",
-        "<anonymous1>": "io-1",
-        "<anonymous2>": "io-2"
+        "<anonymous0>": "io-1",
+        "<anonymous1>": "io-2"
       }
     }
   ],

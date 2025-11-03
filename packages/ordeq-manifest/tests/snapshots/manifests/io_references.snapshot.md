@@ -18,10 +18,10 @@ print(create_manifest_json(example_references))
       "name": "example_references.io_references",
       "nodes": {},
       "ios": {
-        "test_io": "io-6",
+        "test_io": "io-7",
         "nested_test_io": "io-4",
-        "world": "io-3",
-        "named_test_io": "io-2",
+        "world": "io-2",
+        "named_test_io": "io-3",
         "named_nested_test_io": "io-0"
       }
     }
@@ -38,18 +38,18 @@ print(create_manifest_json(example_references))
       }
     },
     "io-2": {
+      "name": "world",
+      "type": "ordeq_common.io.literal:Literal",
+      "references": {}
+    },
+    "io-3": {
       "name": "named_test_io",
       "type": "example_references.io_references:MyIO",
       "references": {
         "other_io": [
-          "io-3"
+          "io-2"
         ]
       }
-    },
-    "io-3": {
-      "name": "world",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": {}
     },
     "io-4": {
       "name": "nested_test_io",
@@ -60,12 +60,12 @@ print(create_manifest_json(example_references))
         ]
       }
     },
-    "io-6": {
+    "io-7": {
       "name": "test_io",
       "type": "example_references.io_references:MyIO",
       "references": {
         "other_io": [
-          "io-7"
+          "io-8"
         ]
       }
     }

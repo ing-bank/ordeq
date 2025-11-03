@@ -71,12 +71,13 @@ sa: ruff ty mypy
 # Format code and apply lint fixes with ruff and mdformat
 fix: format-fix lint-fix mdformat-fix doccmd-fix
 
+test-all: test-packages test-examples
+
 # Test all packages individually
 # or test specific ones by passing the names as arguments
-# eg. `just test` (Run tests in all packages)
-
-# or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
-test *PACKAGES:
+# eg `just test-packages` (Run tests in all packages)
+# or `just test-packages ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
+test-packages *PACKAGES:
     if [ -z "{{ PACKAGES }}" ]; then \
         for dir in `find packages -type d -name "ordeq*" -maxdepth 1`; do \
             uv run --group test pytest $dir -v || exit 1; \
@@ -88,12 +89,14 @@ test *PACKAGES:
     fi
 
 # Test a single package
-test_package PACKAGE:
+test-package PACKAGE:
     uv run --group test pytest packages/{{ PACKAGE }} -v
 
-# Run tests for all packages with coverage
-test_all:
-    uv run --group test pytest packages/ --cov=packages/ --cov-report=html
+# Tests the examples
+test-examples:
+    for dir in `find examples/ -mindepth 1 -maxdepth 1 -type d`; do \
+       uv run --group test pytest $dir -v || [ $? -eq 5 ]; \
+    done
 
 # Generate API documentation pages
 generate-api-docs:

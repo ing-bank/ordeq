@@ -28,7 +28,7 @@ def _substitute_catalog_by_catalog(
     for old_ios, new_ios in zip(
         old_catalog.values(), new_catalog.values(), strict=True
     ):
-        for (name, old_io) in old_ios.items():
+        for name, old_io in old_ios.items():
             io[old_io] = new_ios[name]
     return io
 

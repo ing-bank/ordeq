@@ -29,7 +29,7 @@ def check_catalogs_are_consistent(
 
     def catalog_key(fqn: FQN, catalog: ModuleType):
         full_name = fqn_to_str(fqn)
-        return full_name[len(catalog.__name__) + 1:]
+        return full_name[len(catalog.__name__) + 1 :]
 
     modules = [base, *others]
 

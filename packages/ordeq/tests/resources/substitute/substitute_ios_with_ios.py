@@ -1,6 +1,5 @@
-from ordeq._substitute import _build_substitution_map
-
 from ordeq import IO
+from ordeq._substitute import _build_substitution_map
 from ordeq_common import StringBuffer
 
 a = StringBuffer("a")

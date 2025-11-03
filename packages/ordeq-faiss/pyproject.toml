@@ -25,7 +25,7 @@ dependencies = [
 
 [tool.ordeq-dev]
 group = "ios"
-logo_url = ""
+logo_url = "https://engineering.fb.com/wp-content/uploads/2017/03/faiss_logo.png"
 
 [dependency-groups]
 test = []

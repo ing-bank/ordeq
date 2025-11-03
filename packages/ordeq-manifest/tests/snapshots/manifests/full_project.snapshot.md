@@ -13,297 +13,304 @@ print(create_manifest_json(example_project))
 ```text
 {
   "name": "example_project",
+  "modules": [
+    {
+      "name": "example_project.catalog_1",
+      "nodes": {},
+      "ios": {
+        "a": "io-0",
+        "b": "io-1",
+        "c": "io-2"
+      }
+    },
+    {
+      "name": "example_project.catalog_2",
+      "nodes": {},
+      "ios": {
+        "d": "io-3",
+        "e": "io-4",
+        "f": "io-5"
+      }
+    },
+    {
+      "name": "example_project.inner.nodes",
+      "nodes": {
+        "func": "example_project.inner.nodes:func"
+      },
+      "ios": {
+        "x": "io-6",
+        "y": "io-7"
+      }
+    },
+    {
+      "name": "example_project.nodes",
+      "nodes": {
+        "func": "example_project.nodes:func"
+      },
+      "ios": {
+        "x": "io-8",
+        "y": "io-9"
+      }
+    },
+    {
+      "name": "example_project.nodes_import",
+      "nodes": {
+        "func_a": "example_project.nodes_import:func_a",
+        "func_b": "example_project.nodes_import:func_b"
+      },
+      "ios": {
+        "a": "io-0",
+        "b": "io-1",
+        "f": "io-5"
+      }
+    },
+    {
+      "name": "example_project.nodes_import_alias",
+      "nodes": {
+        "func": "example_project.nodes_import_alias:func"
+      },
+      "ios": {
+        "a": "io-0",
+        "B": "io-1",
+        "f": "io-5"
+      }
+    },
+    {
+      "name": "example_project.nodes_import_reassign",
+      "nodes": {
+        "func_a": "example_project.nodes_import_reassign:func_a",
+        "func_b": "example_project.nodes_import_reassign:func_b"
+      },
+      "ios": {
+        "a": "io-0",
+        "b": "io-1",
+        "f": "io-5",
+        "A": "io-0",
+        "B": "io-1",
+        "AA": "io-0",
+        "BB": "io-1"
+      }
+    },
+    {
+      "name": "example_project.nodes_with_view",
+      "nodes": {
+        "farewell": "example_project.nodes_with_view:farewell",
+        "greet": "example_project.nodes_with_view:greet"
+      },
+      "ios": {
+        "printer": "io-10",
+        "<anonymous3>": "io-13",
+        "<anonymous4>": "io-14"
+      }
+    }
+  ],
   "nodes": {
     "example_project.inner.nodes:func": {
-      "id": "example_project.inner.nodes:func",
       "name": "func",
       "inputs": [
-        "example_project.inner.nodes:x"
+        "io-6"
       ],
       "outputs": [
-        "example_project.inner.nodes:y"
+        "io-7"
       ],
       "attributes": {
         "tags": [
           "dummy"
         ]
-      }
+      },
+      "view": false
     },
     "example_project.nodes:func": {
-      "id": "example_project.nodes:func",
       "name": "func",
       "inputs": [
-        "example_project.nodes:x"
+        "io-8"
       ],
       "outputs": [
-        "example_project.nodes:y"
+        "io-9"
       ],
       "attributes": {
         "tags": [
           "dummy"
         ]
-      }
+      },
+      "view": false
     },
     "example_project.nodes_import:func_a": {
-      "id": "example_project.nodes_import:func_a",
       "name": "func_a",
       "inputs": [
-        "example_project.nodes_import:a",
-        "example_project.nodes_import:b"
+        "io-0",
+        "io-1"
       ],
       "outputs": [
-        "example_project.nodes_import:f"
+        "io-5"
       ],
-      "attributes": {}
+      "attributes": {},
+      "view": false
     },
     "example_project.nodes_import:func_b": {
-      "id": "example_project.nodes_import:func_b",
       "name": "func_b",
       "inputs": [
-        "example_project.nodes_import:a",
-        "example_project.nodes_import:b"
+        "io-0",
+        "io-1"
       ],
       "outputs": [
-        "example_project.nodes_import:f"
+        "io-5"
       ],
       "attributes": {
         "tags": {
           "viz": "orange"
         }
-      }
+      },
+      "view": false
     },
     "example_project.nodes_import_alias:func": {
-      "id": "example_project.nodes_import_alias:func",
       "name": "func",
       "inputs": [
-        "example_project.nodes_import_alias:a",
-        "example_project.nodes_import_alias:B"
+        "io-0",
+        "io-1"
       ],
       "outputs": [
-        "example_project.nodes_import_alias:f"
+        "io-5"
       ],
       "attributes": {
         "tags": {
           "key": "threshold",
           "value": 0.23
         }
-      }
+      },
+      "view": false
     },
     "example_project.nodes_import_reassign:func_a": {
-      "id": "example_project.nodes_import_reassign:func_a",
       "name": "func_a",
       "inputs": [
-        "example_project.nodes_import_reassign:A|AA|a",
-        "example_project.nodes_import_reassign:B|BB|b"
+        "io-0",
+        "io-1"
       ],
       "outputs": [
-        "example_project.nodes_import_reassign:f"
+        "io-5"
       ],
-      "attributes": {}
+      "attributes": {},
+      "view": false
     },
     "example_project.nodes_import_reassign:func_b": {
-      "id": "example_project.nodes_import_reassign:func_b",
       "name": "func_b",
       "inputs": [
-        "example_project.nodes_import_reassign:A|AA|a",
-        "example_project.nodes_import_reassign:B|BB|b"
+        "io-0",
+        "io-1"
       ],
       "outputs": [
-        "example_project.nodes_import_reassign:f"
+        "io-5"
       ],
-      "attributes": {}
+      "attributes": {},
+      "view": false
     },
     "example_project.nodes_with_inline_io:greet": {
-      "id": "example_project.nodes_with_inline_io:greet",
       "name": "greet",
       "inputs": [
-        "example_project.nodes_with_inline_io:<anonymous0>"
+        "io-11"
       ],
       "outputs": [
-        "example_project.nodes_with_inline_io:<anonymous1>"
+        "io-12"
       ],
-      "attributes": {}
+      "attributes": {},
+      "view": false
     },
     "example_project.nodes_with_view:farewell": {
-      "id": "example_project.nodes_with_view:farewell",
       "name": "farewell",
       "inputs": [
-        "example_project.nodes_with_view:greeting"
+        "example_project.nodes_with_view:greet"
       ],
       "outputs": [
-        "example_project.nodes_with_view:printer"
+        "io-10"
       ],
-      "attributes": {}
+      "attributes": {},
+      "view": false
+    },
+    "example_project.nodes_with_view:greet": {
+      "name": "greet",
+      "inputs": [],
+      "outputs": [
+        "io-14"
+      ],
+      "attributes": {},
+      "view": true
     }
   },
   "ios": {
-    "example_project.catalog_1:a": {
-      "id": "example_project.catalog_1:a",
-      "name": "a",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.catalog_1:b": {
-      "id": "example_project.catalog_1:b",
-      "name": "b",
-      "type": "ordeq_common.io.string_buffer:StringBuffer",
-      "references": []
-    },
-    "example_project.catalog_1:c": {
-      "id": "example_project.catalog_1:c",
-      "name": "c",
-      "type": "ordeq_common.io.printer:Print",
-      "references": []
-    },
-    "example_project.catalog_2:d": {
-      "id": "example_project.catalog_2:d",
-      "name": "d",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.catalog_2:e": {
-      "id": "example_project.catalog_2:e",
-      "name": "e",
-      "type": "ordeq_common.io.string_buffer:StringBuffer",
-      "references": []
-    },
-    "example_project.catalog_2:f": {
-      "id": "example_project.catalog_2:f",
-      "name": "f",
-      "type": "ordeq_common.io.printer:Print",
-      "references": []
-    },
-    "example_project.inner.nodes:x": {
-      "id": "example_project.inner.nodes:x",
-      "name": "x",
-      "type": "ordeq._io:IO",
-      "references": []
-    },
-    "example_project.inner.nodes:y": {
-      "id": "example_project.inner.nodes:y",
-      "name": "y",
-      "type": "ordeq_common.io.printer:Print",
-      "references": []
-    },
-    "example_project.nodes:x": {
-      "id": "example_project.nodes:x",
-      "name": "x",
-      "type": "ordeq._io:IO",
-      "references": []
-    },
-    "example_project.nodes:y": {
-      "id": "example_project.nodes:y",
-      "name": "y",
-      "type": "ordeq_common.io.printer:Print",
-      "references": []
-    },
-    "example_project.nodes_import:a": {
-      "id": "example_project.nodes_import:a",
-      "name": "a",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.nodes_import:b": {
-      "id": "example_project.nodes_import:b",
-      "name": "b",
-      "type": "ordeq_common.io.string_buffer:StringBuffer",
-      "references": []
-    },
-    "example_project.nodes_import:f": {
-      "id": "example_project.nodes_import:f",
-      "name": "f",
-      "type": "ordeq_common.io.printer:Print",
-      "references": []
-    },
-    "example_project.nodes_import_alias:B": {
-      "id": "example_project.nodes_import_alias:B",
-      "name": "B",
-      "type": "ordeq_common.io.string_buffer:StringBuffer",
-      "references": []
-    },
-    "example_project.nodes_import_alias:a": {
-      "id": "example_project.nodes_import_alias:a",
-      "name": "a",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.nodes_import_alias:f": {
-      "id": "example_project.nodes_import_alias:f",
-      "name": "f",
-      "type": "ordeq_common.io.printer:Print",
-      "references": []
-    },
-    "example_project.nodes_import_reassign:A": {
-      "id": "example_project.nodes_import_reassign:A",
-      "name": "A",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.nodes_import_reassign:AA": {
-      "id": "example_project.nodes_import_reassign:AA",
+    "io-0": {
       "name": "AA",
       "type": "ordeq_common.io.literal:Literal",
-      "references": []
+      "references": {}
     },
-    "example_project.nodes_import_reassign:B": {
-      "id": "example_project.nodes_import_reassign:B",
-      "name": "B",
-      "type": "ordeq_common.io.string_buffer:StringBuffer",
-      "references": []
-    },
-    "example_project.nodes_import_reassign:BB": {
-      "id": "example_project.nodes_import_reassign:BB",
+    "io-1": {
       "name": "BB",
       "type": "ordeq_common.io.string_buffer:StringBuffer",
-      "references": []
+      "references": {}
     },
-    "example_project.nodes_import_reassign:a": {
-      "id": "example_project.nodes_import_reassign:a",
-      "name": "a",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.nodes_import_reassign:b": {
-      "id": "example_project.nodes_import_reassign:b",
-      "name": "b",
-      "type": "ordeq_common.io.string_buffer:StringBuffer",
-      "references": []
-    },
-    "example_project.nodes_import_reassign:f": {
-      "id": "example_project.nodes_import_reassign:f",
-      "name": "f",
-      "type": "ordeq_common.io.printer:Print",
-      "references": []
-    },
-    "example_project.nodes_with_inline_io:<anonymous0>": {
-      "id": "example_project.nodes_with_inline_io:<anonymous0>",
-      "name": "<anonymous0>",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.nodes_with_inline_io:<anonymous1>": {
-      "id": "example_project.nodes_with_inline_io:<anonymous1>",
-      "name": "<anonymous1>",
-      "type": "ordeq._io:IO",
-      "references": []
-    },
-    "example_project.nodes_with_view:<anonymous2>": {
-      "id": "example_project.nodes_with_view:<anonymous2>",
-      "name": "<anonymous2>",
-      "type": "ordeq._io:IO",
-      "references": []
-    },
-    "example_project.nodes_with_view:greeting": {
-      "id": "example_project.nodes_with_view:greeting",
-      "name": "greeting",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.nodes_with_view:printer": {
-      "id": "example_project.nodes_with_view:printer",
+    "io-10": {
       "name": "printer",
       "type": "ordeq_common.io.printer:Print",
-      "references": []
+      "references": {}
+    },
+    "io-11": {
+      "name": "<anonymous0>",
+      "type": "ordeq_common.io.literal:Literal",
+      "references": {}
+    },
+    "io-12": {
+      "name": "<anonymous1>",
+      "type": "ordeq._io:IO",
+      "references": {}
+    },
+    "io-13": {
+      "name": "<anonymous2>",
+      "type": "ordeq._nodes:View",
+      "references": {}
+    },
+    "io-14": {
+      "name": "<anonymous3>",
+      "type": "ordeq._io:IO",
+      "references": {}
+    },
+    "io-2": {
+      "name": "c",
+      "type": "ordeq_common.io.printer:Print",
+      "references": {}
+    },
+    "io-3": {
+      "name": "d",
+      "type": "ordeq_common.io.literal:Literal",
+      "references": {}
+    },
+    "io-4": {
+      "name": "e",
+      "type": "ordeq_common.io.string_buffer:StringBuffer",
+      "references": {}
+    },
+    "io-5": {
+      "name": "f",
+      "type": "ordeq_common.io.printer:Print",
+      "references": {}
+    },
+    "io-6": {
+      "name": "x",
+      "type": "ordeq._io:IO",
+      "references": {}
+    },
+    "io-7": {
+      "name": "y",
+      "type": "ordeq_common.io.printer:Print",
+      "references": {}
+    },
+    "io-8": {
+      "name": "x",
+      "type": "ordeq._io:IO",
+      "references": {}
+    },
+    "io-9": {
+      "name": "y",
+      "type": "ordeq_common.io.printer:Print",
+      "references": {}
     }
   }
 }

@@ -1,15 +1,14 @@
 from ordeq import node
-from ordeq_common import Literal, Print
+from ordeq_common import Print
 
-greeting = Literal("Hello")
 printer = Print()
 
 
-@node(inputs=greeting)
-def greet(hello: str):
-    print(hello)
+@node
+def greet():
+    return "Hello"
 
 
-@node(inputs=greeting, outputs=printer)
+@node(inputs=greet, outputs=printer)
 def farewell(g: str) -> str:
     return f"{g}; Goodbye!"

@@ -13,6 +13,7 @@ print(create_manifest_json(example_empty))
 ```text
 {
   "name": "example_empty",
+  "modules": [],
   "nodes": {},
   "ios": {}
 }

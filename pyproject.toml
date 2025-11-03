@@ -175,6 +175,7 @@ ignore = [
     "PLR0912", # Too many branches (13 > 12)
     "S301", # Pickle
     "S403", # Pickle
+    "PLR1702", # Too many nested blocks (5/4)
 ]
 
 [tool.ruff.lint.isort]

@@ -19,35 +19,45 @@ with NamedTemporaryFile() as file:
 ```text
 {
   "name": "example_project.inner",
+  "modules": [
+    {
+      "name": "example_project.inner.nodes",
+      "nodes": {
+        "func": "example_project.inner.nodes:func"
+      },
+      "ios": {
+        "x": "io-0",
+        "y": "io-1"
+      }
+    }
+  ],
   "nodes": {
     "example_project.inner.nodes:func": {
-      "id": "example_project.inner.nodes:func",
       "name": "func",
       "inputs": [
-        "example_project.inner.nodes:x"
+        "io-0"
       ],
       "outputs": [
-        "example_project.inner.nodes:y"
+        "io-1"
       ],
       "attributes": {
         "tags": [
           "dummy"
         ]
-      }
+      },
+      "view": false
     }
   },
   "ios": {
-    "example_project.inner.nodes:x": {
-      "id": "example_project.inner.nodes:x",
+    "io-0": {
       "name": "x",
       "type": "ordeq._io:IO",
-      "references": []
+      "references": {}
     },
-    "example_project.inner.nodes:y": {
-      "id": "example_project.inner.nodes:y",
+    "io-1": {
       "name": "y",
       "type": "ordeq_common.io.printer:Print",
-      "references": []
+      "references": {}
     }
   }
 }

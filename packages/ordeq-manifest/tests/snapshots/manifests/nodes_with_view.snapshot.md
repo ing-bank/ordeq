@@ -13,37 +13,57 @@ print(create_manifest_json(nodes_with_view))
 ```text
 {
   "name": "example_project.nodes_with_view",
+  "modules": [
+    {
+      "name": "example_project.nodes_with_view",
+      "nodes": {
+        "farewell": "example_project.nodes_with_view:farewell",
+        "greet": "example_project.nodes_with_view:greet"
+      },
+      "ios": {
+        "printer": "io-0",
+        "<anonymous1>": "io-1",
+        "<anonymous2>": "io-2"
+      }
+    }
+  ],
   "nodes": {
     "example_project.nodes_with_view:farewell": {
-      "id": "example_project.nodes_with_view:farewell",
       "name": "farewell",
       "inputs": [
-        "example_project.nodes_with_view:greeting"
+        "example_project.nodes_with_view:greet"
       ],
       "outputs": [
-        "example_project.nodes_with_view:printer"
+        "io-0"
       ],
-      "attributes": {}
+      "attributes": {},
+      "view": false
+    },
+    "example_project.nodes_with_view:greet": {
+      "name": "greet",
+      "inputs": [],
+      "outputs": [
+        "io-2"
+      ],
+      "attributes": {},
+      "view": true
     }
   },
   "ios": {
-    "example_project.nodes_with_view:<anonymous0>": {
-      "id": "example_project.nodes_with_view:<anonymous0>",
-      "name": "<anonymous0>",
-      "type": "ordeq._io:IO",
-      "references": []
-    },
-    "example_project.nodes_with_view:greeting": {
-      "id": "example_project.nodes_with_view:greeting",
-      "name": "greeting",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": []
-    },
-    "example_project.nodes_with_view:printer": {
-      "id": "example_project.nodes_with_view:printer",
+    "io-0": {
       "name": "printer",
       "type": "ordeq_common.io.printer:Print",
-      "references": []
+      "references": {}
+    },
+    "io-1": {
+      "name": "<anonymous0>",
+      "type": "ordeq._nodes:View",
+      "references": {}
+    },
+    "io-2": {
+      "name": "<anonymous1>",
+      "type": "ordeq._io:IO",
+      "references": {}
     }
   }
 }

@@ -13,18 +13,18 @@ print(_substitutes_modules_to_ios({IO(): local}))
 
 ```text
 TypeError: Cannot substitute objects of type 'IO' and 'module'
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitute
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute
     raise TypeError(
     ...<3 lines>...
     )
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitution_map
-    substitution_map.update(_build_substitute(key, value))
-                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
+    substitution_map.update(_substitute(key, value))
+                            ~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/substitute/substitute_io_with_module.py", line LINO, in <module>
-    print(_build_substitution_map({IO(): local}))
-          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+    print(_substitutes_modules_to_ios({IO(): local}))
+          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 

@@ -25,34 +25,20 @@ run(uppercase, add_world, io={catalog: remote_overridden})
 
 ```
 
-## Exception
+## Output
 
 ```text
-TypeError: unhashable type: 'dict'
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
-    io[old_io] = new_io
-    ~~^^^^^^^^
+HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!HELLO FROM REMOTE!HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!, world!!
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitute
-    return _substitute_catalog_by_catalog(old, new)
+```
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitution_map
-    substitution_map.update(_build_substitute(key, value))
-                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+## Logging
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    substitution_map = _build_substitution_map(io)
-
-  File "/packages/ordeq/tests/resources/runner/run_io_catalog_overridden.py", line LINO, in <module>
-    run(uppercase, add_world, io={catalog: remote_overridden})
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+```text
+INFO	ordeq.io	Loading Literal('Hey I am overriding the hello IO')
+INFO	ordeq.runner	Running node "uppercase" in module "run_io_catalog_overridden"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node "add_world" in module "run_io_catalog_overridden"
+INFO	ordeq.io	Saving Print()
 
 ```

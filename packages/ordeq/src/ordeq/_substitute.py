@@ -16,14 +16,6 @@ T = TypeVar("T", bound=AnyIO | ModuleType)
 IOSubstitutes = dict[AnyIO, AnyIO]
 
 
-def _substitute_io_by_io(
-    patched: AnyIO, patched_by: AnyIO
-) -> IOSubstitutes:
-    if patched == patched_by:
-        return {}
-    return {patched: patched_by}
-
-
 def _substitute_catalog_by_catalog(
     old: ModuleType, new: ModuleType
 ) -> IOSubstitutes:
@@ -31,12 +23,13 @@ def _substitute_catalog_by_catalog(
         return {}
     check_catalogs_are_consistent(old, new)
     io: IOSubstitutes = {}
-    for (_, old_io), (_, new_io) in zip(
-        sorted(_resolve_package_to_ios(old).items()),
-        sorted(_resolve_package_to_ios(new).items()),
-        strict=True,
+    old_catalog = dict(sorted(_resolve_package_to_ios(old).items()))
+    new_catalog = dict(sorted(_resolve_package_to_ios(new).items()))
+    for old_ios, new_ios in zip(
+        old_catalog.values(), new_catalog.values(), strict=True
     ):
-        io[old_io] = new_io
+        for (name, old_io) in old_ios.items():
+            io[old_io] = new_ios[name]
     return io
 
 
@@ -44,7 +37,7 @@ def _substitute(old: T, new: T) -> IOSubstitutes:
     if _is_module(old) and _is_module(new):
         return _substitute_catalog_by_catalog(old, new)
     if _is_io(old) and _is_io(new):
-        return _substitute_io_by_io(old, new)
+        return {old: new} if old != new else {}
     raise TypeError(
         f"Cannot substitute objects of type "
         f"'{type(old).__name__}' and "

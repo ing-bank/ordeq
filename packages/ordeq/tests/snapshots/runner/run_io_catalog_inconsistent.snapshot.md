@@ -38,15 +38,15 @@ CatalogError: Catalog 'example_catalogs.inconsistent' is missing IO(s) 'result'
     check_catalogs_are_consistent(old, new)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitute
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute
     return _substitute_catalog_by_catalog(old, new)
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _build_substitution_map
-    substitution_map.update(_build_substitute(key, value))
-                            ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
+    substitution_map.update(_substitute(key, value))
+                            ~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    substitution_map = _build_substitution_map(io)
+    substitution_map = _substitutes_modules_to_ios(io)
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_inconsistent.py", line LINO, in <module>
     run(uppercase, add_world, io={catalog: inconsistent})

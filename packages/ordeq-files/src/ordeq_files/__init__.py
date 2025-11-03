@@ -3,6 +3,7 @@ from ordeq_files.csv import CSV
 from ordeq_files.glob import Glob
 from ordeq_files.json import JSON
 from ordeq_files.pickle import Pickle
+from ordeq_files.stream import FileStream
 from ordeq_files.text import Text
 
-__all__ = ("CSV", "JSON", "Bytes", "Glob", "Pickle", "Text")
+__all__ = ("CSV", "JSON", "Bytes", "FileStream", "Glob", "Pickle", "Text")

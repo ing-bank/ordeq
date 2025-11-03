@@ -1,30 +1,32 @@
 # Testing nodes
 
+This guide outlines different strategies for testing nodes and pipelines.
+Testing an Ordeq project is easy and requires minimal setup.
 Because nodes behave like plain Python functions, they can be tested using any Python testing framework.
 Let's reconsider the `greet` node from the [node concepts section][concepts-node]:
 
-=== "nodes.py"
+=== "src/starter_testing/pipeline.py"
 
     ```python
-    import catalog
+    from collections.abc import Iterable
+
     from ordeq import node
+
+    from starter_testing_nodes import catalog
 
 
     @node(inputs=catalog.names, outputs=catalog.greetings)
-    def greet(names: tuple[str, ...]) -> list[str]:
+    def greet(rows: Iterable[tuple[str, ...]]) -> list[list[str]]:
         """Returns a greeting for each person."""
-        greetings = []
-        for name in names:
-            greetings.append(f"Hello, {name}!")
-        return greetings
+        return [[f"Hello, {row[0]}!"] for row in rows]
     ```
 
-=== "catalog.py"
+=== "src/starter_testing/catalog.py"
 
     ```python
     from pathlib import Path
 
-    from ordeq_files import CSV, Text
+    from ordeq_pandas import CSV, Text
 
     names = CSV(path=Path("names.csv"))
     greetings = Text(path=Path("greetings.txt"))
@@ -32,24 +34,24 @@ Let's reconsider the `greet` node from the [node concepts section][concepts-node
 
 This node can be unit-tested as follows:
 
-```python
-from nodes import greet
+```python title="tests/unit_test_pipeline.py"
+from starter_testing_nodes.pipeline import greet
 
 
 def test_greet_empty():
-    assert greet() == []
+    assert greet(()) == []
 
 
 def test_greet_one_name():
-    assert greet(["Alice"]) == ["Hello, Alice!"]
+    assert greet(("Alice",)) == ["Hello, Alice!"]
 
 
 def test_greet_two_names():
-    assert greet(["Alice", "Bob"]) == ["Hello, Alice!", "Hello, Bob!"]
+    assert greet(("Alice",)("Bob", )) == ["Hello, Alice!", "Hello, Bob!"]
 
 
 def test_greet_special_chars():
-    assert greet(["A$i%*c"]) == ["Hello, A$i%*c!"]
+    assert greet(("A$i%*c",)) == ["Hello, A$i%*c!"]
 ```
 
 These tests only test the _transformations_.
@@ -59,12 +61,13 @@ This is a good practice for unit tests, as it keeps them fast and isolated.
 ### Running nodes in tests
 
 Alternatively, you can test nodes by running them.
-This will load the data from the node inputs, and save the returned data to the node outputs:
+This will load the data from the node inputs, and save the returned data to the node outputs.
+It will also invoke any [hooks][concepts-hooks] that are set on the IO or runner.
 
-```python
-from catalog import greetings
-from nodes import greet
+```python title="tests/test_pipeline_run.py"
 from ordeq import run
+from starter_testing_nodes.catalog import greetings
+from starter_testing_nodes.pipeline import greet
 
 
 def test_run_greet():
@@ -88,11 +91,11 @@ Instead, we want to test the logic with some seed data, often stored locally.
 Suppose reading from `greetings` is very expensive, because it is a large file.
 We can use a local file with the same structure to test the node:
 
-```python
+```python title="test_pipeline_catalog.py"
 from pathlib import Path
 
-from catalog import greetings, names
-from nodes import greet
+from starter_testing_nodes.catalog import greetings, names
+from starter_testing_nodes.pipeline import greet
 from ordeq import run
 from ordeq_files import CSV, Text
 
@@ -111,47 +114,45 @@ def test_run_greet():
 
 When `greet` is run, Ordeq will use the `local_names` and `local_greetings` IOs as replacements of the `names` and `greetings` defined in the catalog.
 
-### IO fixtures
+### Running with an alternative catalog
 
-You can also use the `io` argument to `run` as a fixture in your tests.
-This allows you to define the IOs once and reuse them multiple times.
+An alternative way to test your node using test data is by running it with a dedicated test [catalog][concepts-catalog].
+The catalog can be defined in the source folder, as explained in [the guide][concepts-catalog], or in a separate package.
+Here is a simple overview of your test package with a test catalog:
 
-```python
-from pathlib import Path
+=== "tests/test_catalog.py"
 
-import pytest
-from catalog import greetings, names
-from ordeq import IO, Input, Output
-from ordeq_files import CSV, Text
+    from pathlib import Path
 
+    from ordeq_files import CSV, Text
 
-@pytest.fixture(scope="session")
-def io() -> dict[IO | Input | Output, IO | Input | Output]:
-    """Mapping of node inputs and outputs to the inputs and outputs used throughout tests."""
-    return {
-        names: CSV(path=Path("to/local/names.csv")),
-        greetings: Text(path=Path("to/local/greetings.txt")),
-    }
-```
+    TEST_RESOURCES_DIR = Path(__file__).resolve().parent.parent / "tests-resources"
+    names = CSV(path=TEST_RESOURCES_DIR / "test-names.csv")
+    greetings = Text(path=TEST_RESOURCES_DIR / "test-greetings.txt")
 
-Now we can use the `io` fixture in our tests:
+=== "tests/test_pipeline_run.py"
 
-```python
-import catalog
-from nodes import greet
-from ordeq import run
+    ```python title=
+    import test_catalog
+    import starter_testing
+    from ordeq import run
+    from starter_testing.pipeline import greet
 
+    def test_run_greet_catalog():
+        run(greet, io={starter_testing.catalog: test_catalog})
+        assert test_catalog.greetings.load() == [
+            "Hello, Abraham!",
+            "Hello, Adam!",
+            "Hello, Azul!",
+            ...,
+        ]
+    ```
 
-def test_run_greet(io):
-    run(greet, io=io)
-    assert io[catalog.greetings].load() == [
-        "Hello, Abraham!",
-        "Hello, Adam!",
-        "Hello, Azul!",
-        ...,
-    ]
-```
+The test catalog defines the same entries as the source catalog, but points to different data.
+In this case, the test data is stored in a `tests-resources` folder, but you can store it anywhere.
+The test catalog is imported in the tests, and passed to the runner.
+Because `starter_testing.catalog` is mapped to `test_catalog`, Ordeq will replace all entries of the source catalog with those of test catalog.
 
-For more information on the fixture scope, refer to the `pytest` [documentation](https://docs.pytest.org/en/stable/how-to/fixtures.html#fixture-scopes).
-
+[concepts-catalog]: ../getting-started/concepts/catalogs.md
+[concepts-hooks]: ../getting-started/concepts/hooks.md
 [concepts-node]: ../getting-started/concepts/nodes.md

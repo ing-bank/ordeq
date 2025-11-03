@@ -58,6 +58,7 @@ members = [
     "starter-package",
     "starter-single-file",
     "starter-subpipelines",
+    "starter-testing-nodes",
 ]
 
 [[package]]
@@ -5486,6 +5487,21 @@ requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
     { name = "ordeq-requests", editable = "packages/ordeq-requests" },
     { name = "ordeq-yaml", editable = "packages/ordeq-yaml" },
+]
+
+[[package]]
+name = "starter-testing-nodes"
+version = "0.1.0"
+source = { editable = "examples/starter-testing-nodes" }
+dependencies = [
+    { name = "ordeq" },
+    { name = "ordeq-files" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "ordeq-files", editable = "packages/ordeq-files" },
 ]
 
 [[package]]

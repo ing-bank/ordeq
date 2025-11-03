@@ -2,12 +2,14 @@
 
 A **catalog** is collection of IOs.
 From experience, we find that separating these IO from transformations (nodes) keeps your code clean and maintainable.
-Catalogs help you organize and swap IOs across different environments — such as local development, production, or testing — without changing your nodes.
+Catalogs help you organize and swap IOs across different environments — such as local development, production, or
+testing — without changing your nodes.
 This makes it easy to run the same pipeline with different data sources or destinations.
 
 ## Defining catalogs
 
-To create a catalog, make a Python module where each IO is a variable. For example, a local catalog might look like this:
+To create a catalog, make a Python module where each IO is a variable.
+For example, a _local_ catalog might look like this:
 
 ```python title="catalogs/local.py"
 from ordeq_spark import SparkCSV
@@ -38,7 +40,7 @@ one uses CSV files, the other uses Iceberg tables.
 
 Now you can use the IOs in your nodes by importing the catalog:
 
-```python title="nodes.py"
+```python title="pipeline.py"
 from ordeq import node
 from pyspark.sql import DataFrame
 
@@ -158,52 +160,42 @@ Note that the extended catalog is not consistent with the `production` catalog, 
 ## Using catalogs in tests
 
 Catalogs are useful for testing, because you can easily swap to test IOs.
-First, define a test catalog with test IOs:
+First, define a test catalog with test IOs.
+This catalog should contain the same entries as the actual catalog:
 
-```python
+```python title="catalog.py"
 from ordeq_spark import SparkCSV
 
 iris = SparkCSV(path="path/to/test/iris.csv")
 predictions = SparkCSV(path="path/to/test/predictions.csv")
 ```
 
-You can place the catalog in the source package, with the other catalogs.
+You can place the test catalog in the `catalogs` package, with the other catalogs.
 In that case, you can import it in your nodes as shown above.
 
-If you place the catalog in another package, say the `tests` package, the easiest way to use the test catalog is to patch:
+If you do not want to alter the source catalog(s) for testing purposes, you can also define the test catalog outside the
+source folder.
+For instance, in `tests/catalog.py`.
+Next, you can run the pipeline with the test catalog as follows:
 
 ```python title="test_nodes.py"
 from ordeq import run
-from unittest import patch
 
 import nodes
-import tests
-
-
-@patch("nodes.catalog", new=tests.catalog)
-def test_it_predicts(catalog):
-    actual = run(predict)
-    assert predictions.load() == ...  # do your assertions here
-```
-
-!!! warning "Limitation"
-
-    Patching a catalog only works if the catalog is a plain module, not a package.
-
-If you do not want to create a new catalog, you can run nodes with alternative IOs directly:
-
-```python title="test_nodes.py"
-from ordeq import run
-from ordeq_spark import SparkCSV
-
-from catalogs import catalog
+import tests.catalog
+import pipeline
 
 
 def test_it_predicts():
-    actual = run(predict, io={catalog.iris: SparkCSV(path="path/to/test.csv")})
-    assert catalog.predictions.load() == ...  # do your assertions here
+    run(pipeline, io={catalog: tests.catalog})  # substitute the catalog with the tests catalog
+    assert tests.catalog.predictions.load() == ...  # do your assertions
 ```
 
+Ordeq will substitute all IOs in the actual catalog with the test catalog.
+It will raise an error if the test catalog is inconsistent with the actual catalog.
+This substitution works for single-file catalogs and packages.
+
+If you do not want to create an entire catalog, you can substitute alternative IOs.
 This is especially useful for unit tests.
 Checkout the [node testing guide][node-testing] for more details.
 

@@ -88,7 +88,7 @@ def _run_graph(
     *,
     hooks: Sequence[NodeHook] = (),
     save: SaveMode = "all",
-    io: IOSubstitutes | None,
+    io: IOSubstitutes | None = None,
 ) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 

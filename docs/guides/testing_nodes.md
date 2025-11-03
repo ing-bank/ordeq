@@ -11,7 +11,6 @@ Let's reconsider the `greet` node from the [node concepts section][concepts-node
     from collections.abc import Iterable
 
     from ordeq import node
-
     from starter_testing_nodes import catalog
 
 

@@ -27,7 +27,6 @@ print(create_manifest_json(inner))
   ],
   "nodes": {
     "example_project.inner.nodes:func": {
-      "name": "func",
       "inputs": [
         "io-0"
       ],

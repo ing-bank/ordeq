@@ -16,7 +16,6 @@ print(create_manifest_json(nodes_with_inline_io))
   "modules": [],
   "nodes": {
     "example_project.nodes_with_inline_io:greet": {
-      "name": "greet",
       "inputs": [
         "io-0"
       ],

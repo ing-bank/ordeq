@@ -2,12 +2,12 @@
 
 import operator
 from collections import defaultdict
-from typing import Any, TypeVar
+from typing import Any, Self, TypeVar
 
 from ordeq import Node, View
 from ordeq._fqn import FQN, fqn_to_str, str_to_fqn  # noqa: PLC2701
 from ordeq._resolve import AnyIO, Catalog
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 T = TypeVar("T")
 
@@ -17,11 +17,13 @@ def _sort_dict_items(d: dict[Any, T]) -> list[tuple[Any, T]]:
 
 
 def _generate_io_ids(nodes: set[Node], ios: Catalog) -> dict[AnyIO, str]:
+    """Search for all IOs in nodes and catalog and assign unique IDs."""  # noqa: DOC201
     io_ids = {}
     counter = 0
 
     def register_io(io: AnyIO) -> None:
         nonlocal counter
+
         if io not in io_ids:
             io_ids[io] = f"io-{counter}"
             counter += 1
@@ -77,7 +79,6 @@ class IOModel(BaseModel):
 class NodeModel(BaseModel):
     """Model representing a node in a project."""
 
-    name: str
     inputs: list[str] = Field(default_factory=list)
     outputs: list[str] = Field(default_factory=list)
     attributes: dict[str, Any] = Field(default_factory=dict)
@@ -87,7 +88,7 @@ class NodeModel(BaseModel):
     def from_node(
         cls, named_node: tuple[FQN, Node], io_ids: dict[AnyIO, str]
     ) -> "NodeModel":
-        name, node = named_node
+        node = named_node[1]
 
         inputs = [
             # TODO: handle view by replacing with anonymous IO ID
@@ -96,7 +97,6 @@ class NodeModel(BaseModel):
         ]
 
         return cls(
-            name=name[1],
             inputs=inputs,
             outputs=[io_ids[o] for o in node.outputs],
             attributes=node.attributes,
@@ -119,6 +119,39 @@ class ProjectModel(BaseModel):
     modules: list[ModuleModel] = Field(default_factory=list)
     nodes: dict[str, NodeModel] = Field(default_factory=dict)
     ios: dict[str, IOModel] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def check_ids_exist(self) -> Self:
+        for module in self.modules:
+            for node_name in module.nodes.values():
+                if node_name not in self.nodes:
+                    raise ValueError(
+                        f"Node '{node_name}' in module '{module.name}' "
+                        "not found in project nodes."
+                    )
+            for io_name in module.ios.values():
+                if io_name not in self.ios:
+                    raise ValueError(
+                        f"IO '{io_name}' in module '{module.name}' "
+                        "not found in project IOs."
+                    )
+        for nodes in self.nodes.values():
+            for idx in nodes.inputs + nodes.outputs:
+                if idx not in self.ios and idx not in self.nodes:
+                    raise ValueError(
+                        f"IO '{idx}' in node not found in project IOs "
+                        f"or Nodes."
+                    )
+
+        for ios in self.ios.values():
+            for refs in ios.references.values():
+                for ref in refs:
+                    if ref not in self.ios:
+                        raise ValueError(
+                            f"Referenced IO '{ref}' in IO '{ios.name}' "
+                            "not found in project IOs."
+                        )
+        return self
 
     @classmethod
     def from_nodes_and_ios(
@@ -153,6 +186,8 @@ class ProjectModel(BaseModel):
             for io in named_io.values():
                 if io_models.get(io_ids[io]):
                     ios_to_id[io].append(io_ids[io])
+
+        # TODO: the reference keys are missing!
 
         # Handle anonymous IOs
         idx = 0

@@ -33,7 +33,6 @@ with NamedTemporaryFile() as file:
   ],
   "nodes": {
     "example_project.inner.nodes:func": {
-      "name": "func",
       "inputs": [
         "io-0"
       ],

@@ -106,7 +106,6 @@ print(create_manifest_json(example_project))
   ],
   "nodes": {
     "example_project.inner.nodes:func": {
-      "name": "func",
       "inputs": [
         "io-6"
       ],
@@ -121,7 +120,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes:func": {
-      "name": "func",
       "inputs": [
         "io-8"
       ],
@@ -136,7 +134,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes_import:func_a": {
-      "name": "func_a",
       "inputs": [
         "io-0",
         "io-1"
@@ -148,7 +145,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes_import:func_b": {
-      "name": "func_b",
       "inputs": [
         "io-0",
         "io-1"
@@ -164,7 +160,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes_import_alias:func": {
-      "name": "func",
       "inputs": [
         "io-0",
         "io-1"
@@ -181,7 +176,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes_import_reassign:func_a": {
-      "name": "func_a",
       "inputs": [
         "io-0",
         "io-1"
@@ -193,7 +187,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes_import_reassign:func_b": {
-      "name": "func_b",
       "inputs": [
         "io-0",
         "io-1"
@@ -205,7 +198,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes_with_inline_io:greet": {
-      "name": "greet",
       "inputs": [
         "io-11"
       ],
@@ -216,7 +208,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes_with_view:farewell": {
-      "name": "farewell",
       "inputs": [
         "example_project.nodes_with_view:greet"
       ],
@@ -227,7 +218,6 @@ print(create_manifest_json(example_project))
       "view": false
     },
     "example_project.nodes_with_view:greet": {
-      "name": "greet",
       "inputs": [],
       "outputs": [
         "io-14"

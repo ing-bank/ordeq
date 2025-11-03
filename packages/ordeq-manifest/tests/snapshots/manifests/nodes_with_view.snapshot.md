@@ -29,7 +29,6 @@ print(create_manifest_json(nodes_with_view))
   ],
   "nodes": {
     "example_project.nodes_with_view:farewell": {
-      "name": "farewell",
       "inputs": [
         "example_project.nodes_with_view:greet"
       ],
@@ -40,7 +39,6 @@ print(create_manifest_json(nodes_with_view))
       "view": false
     },
     "example_project.nodes_with_view:greet": {
-      "name": "greet",
       "inputs": [],
       "outputs": [
         "io-2"

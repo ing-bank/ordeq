@@ -33,7 +33,6 @@ print(create_manifest_json(nodes_import_reassign))
   ],
   "nodes": {
     "example_project.nodes_import_reassign:func_a": {
-      "name": "func_a",
       "inputs": [
         "io-0",
         "io-1"
@@ -45,7 +44,6 @@ print(create_manifest_json(nodes_import_reassign))
       "view": false
     },
     "example_project.nodes_import_reassign:func_b": {
-      "name": "func_b",
       "inputs": [
         "io-0",
         "io-1"

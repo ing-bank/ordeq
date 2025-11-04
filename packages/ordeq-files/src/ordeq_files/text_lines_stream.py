@@ -15,9 +15,9 @@ class TextLinesStream(IO[Generator[str]]):
     Examples:
 
     ```pycon
-    >>> from ordeq_files import TextLineStream
+    >>> from ordeq_files import TextLinesStream
     >>> from pathlib import Path
-    >>> my_file = TextLineStream(
+    >>> my_file = TextLinesStream(
     ...     path=Path("path/to.txt")
     ... )
 

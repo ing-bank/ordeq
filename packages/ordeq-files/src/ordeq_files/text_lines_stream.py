@@ -6,7 +6,7 @@ from ordeq.types import PathLike
 
 
 @dataclass(frozen=True, kw_only=True)
-class TextLineStream(IO[Generator[str]]):
+class TextLinesStream(IO[Generator[str]]):
     """IO representing a file stream
     as a generator of lines.
 

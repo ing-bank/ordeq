@@ -44,6 +44,32 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 
 ```
 
+## Exception
+
+```text
+AttributeError: 'NoneType' object has no attribute 'items'
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_strings_to_subs
+    for old, new in subs.items():
+                    ^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _resolve_strings_to_subs(io)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+
+  File "/packages/ordeq/tests/resources/runner/shared_resource_read_only.py", line LINO, in <module>
+    run(first, second, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -55,8 +81,6 @@ NodeGraph:
      shared_resource_read_only:first: View(name=shared_resource_read_only:first, inputs=[File])
      shared_resource_read_only:second: View(name=shared_resource_read_only:second, inputs=[File])
 
-
-
 ```
 
 ## Logging
@@ -64,9 +88,5 @@ NodeGraph:
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_read_only:first'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_read_only:second'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running view "second" in module "shared_resource_read_only"
-INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running view "first" in module "shared_resource_read_only"
 
 ```

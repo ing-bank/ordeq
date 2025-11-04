@@ -43,6 +43,32 @@ print(x4.load())
 
 ```
 
+## Exception
+
+```text
+AttributeError: 'NoneType' object has no attribute 'items'
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_strings_to_subs
+    for old, new in subs.items():
+                    ^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _resolve_strings_to_subs(io)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+
+  File "/packages/ordeq/tests/resources/runner/runner_load_save_options.py", line LINO, in <module>
+    run(increment, decrement, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -53,19 +79,5 @@ NodeGraph:
   Nodes:
      runner_load_save_options:decrement: Node(name=runner_load_save_options:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])
      runner_load_save_options:increment: Node(name=runner_load_save_options:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)])
-x says 'x says y did it ' but y says 'x did it and I know the murder weapon'  
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading CustomIO(attr=y did it)
-INFO	ordeq.runner	Running node "increment" in module "runner_load_save_options"
-INFO	ordeq.io	Saving CustomIO(attr=)
-INFO	ordeq.io	Loading CustomIO(attr=x did it)
-INFO	ordeq.runner	Running node "decrement" in module "runner_load_save_options"
-INFO	ordeq.io	Saving CustomIO(attr=)
-INFO	ordeq.io	Loading CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
 
 ```

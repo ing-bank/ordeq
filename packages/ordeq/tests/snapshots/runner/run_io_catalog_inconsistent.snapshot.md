@@ -46,8 +46,12 @@ CatalogError: Catalog 'example_catalogs.inconsistent' is missing IO(s) 'result'
                             ~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(io)
-                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+    io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        _resolve_strings_to_subs(io)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_inconsistent.py", line LINO, in <module>
     run(uppercase, add_world, io={catalog: inconsistent})

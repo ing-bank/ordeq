@@ -7,34 +7,35 @@ run("example_1", hooks=["example_1.hooks:MyHook"])
 
 ```
 
+## Exception
+
+```text
+AttributeError: 'NoneType' object has no attribute 'items'
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_strings_to_subs
+    for old, new in subs.items():
+                    ^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _resolve_strings_to_subs(io)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+
+  File "/packages/ordeq/tests/resources/runner/run_hook_ref.py", line LINO, in <module>
+    run("example_1", hooks=["example_1.hooks:MyHook"])
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
 Starting the run
-Name: John
-Name: John
-data hello
-Finished the run
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading NameGenerator(name='John')
-INFO	ordeq.runner	Running node "hello" in module "example_1.wrapped_io"
-INFO	ordeq.io	Saving SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))
-INFO	ordeq.io	Saving NamePrinter()
-INFO	ordeq.runner	Running node "print_message" in module "example_1.wrapped_io"
-INFO	ordeq.io	Saving NamePrinter()
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "transform_mock_input" in module "example_1.pipeline"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading Input(idx=ID1)
-INFO	ordeq.runner	Running node "transform_input" in module "example_1.pipeline"
-INFO	ordeq.io	Saving Output(idx=ID2)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "world" in module "example_1.nodes"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```

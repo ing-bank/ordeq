@@ -180,6 +180,15 @@ def _resolve_node_reference(ref: str) -> Node:
     return get_node(node_obj)
 
 
+def _resolve_string_to_io(ref: str) -> AnyIO:
+    module_name, io_name = str_to_fqn(ref)
+    module = _resolve_string_to_module(module_name)
+    io_obj = getattr(module, io_name, None)
+    if io_obj is None or not _is_io(io_obj):
+        raise ValueError(f"IO '{io_name}' not found in module '{module_name}'")
+    return io_obj
+
+
 def _resolve_hook_reference(ref: str) -> RunnerHook:
     """Resolves a hook reference string of the form 'package.module:hook_name'.
 
@@ -335,3 +344,19 @@ def _resolve_runnables_to_nodes_and_ios(
         if ios_dict
     }
     return nodes, ios
+
+
+def _resolve_strings_to_subs(
+    subs: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType] | None,
+) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
+    def resolve_string_to_sub(string: str) -> AnyIO | ModuleType:
+        if ":" in string:
+            return _resolve_string_to_io(string)
+        return _resolve_string_to_module(string)
+
+    subs_ = {}
+    for old, new in subs.items():
+        old_sub = resolve_string_to_sub(old) if isinstance(old, str) else old
+        new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new
+        subs_[old_sub] = new_sub
+    return subs_

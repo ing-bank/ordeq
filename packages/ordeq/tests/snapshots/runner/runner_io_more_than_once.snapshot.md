@@ -32,6 +32,32 @@ print(x3.load())
 
 ```
 
+## Exception
+
+```text
+AttributeError: 'NoneType' object has no attribute 'items'
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_strings_to_subs
+    for old, new in subs.items():
+                    ^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _resolve_strings_to_subs(io)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+
+  File "/packages/ordeq/tests/resources/runner/runner_io_more_than_once.py", line LINO, in <module>
+    run(increment, decrement, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
 ## Output
 
 ```text
@@ -42,32 +68,5 @@ NodeGraph:
   Nodes:
      runner_io_more_than_once:decrement: Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
      runner_io_more_than_once:increment: Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-1
-NodeGraph:
-  Edges:
-     runner_io_more_than_once:decrement -> []
-     runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
-  Nodes:
-     runner_io_more_than_once:decrement: Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
-     runner_io_more_than_once:increment: Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-12001
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading Literal(1)
-INFO	ordeq.runner	Running node "increment" in module "runner_io_more_than_once"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "decrement" in module "runner_io_more_than_once"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading Literal(200)
-INFO	ordeq.runner	Running node "increment" in module "runner_io_more_than_once"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "decrement" in module "runner_io_more_than_once"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

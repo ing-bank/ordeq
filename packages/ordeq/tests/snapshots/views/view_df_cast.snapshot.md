@@ -37,19 +37,9 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     view_df_cast:df_casted -> [view_df_cast:group_by]
-     view_df_cast:group_by -> []
-  Nodes:
-     view_df_cast:df_casted: View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])
-     view_df_cast:group_by: View(name=view_df_cast:group_by, inputs=[View(name=view_df_cast:df_casted, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])])
+View:view_df_cast:df_casted --> io-1
+io-1 --> View:view_df_cast:group_by
+View:view_df_cast:group_by --> io-2
      A    B    D
 0  bar  2.0  5.0
 1  foo  2.0  8.0

@@ -28,13 +28,9 @@ run(printer, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     view_response_stream:printer -> []
-     view_response_stream:users_stream -> [view_response_stream:printer]
-  Nodes:
-     view_response_stream:printer: Node(name=view_response_stream:printer, inputs=[View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])], outputs=[Print()])
-     view_response_stream:users_stream: View(name=view_response_stream:users_stream, inputs=[Literal(<Response [200]>)])
+Node:view_response_stream:printer --> io-1
+View:view_response_stream:users_stream --> io-2
+io-2 --> Node:view_response_stream:printer
 <generator object HTTPResponse.stream at HASH1>
 
 ```

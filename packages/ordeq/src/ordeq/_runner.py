@@ -4,9 +4,9 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
-from ordeq._graph import NodeGraph
+from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunnerHook
-from ordeq._io import AnyIO, Input, Output, _InputCache
+from ordeq._io import AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
 from ordeq._substitute import IOSubstitutes, _substitutes_modules_to_ios
@@ -102,16 +102,11 @@ def _run_graph(
 
     """
 
-    # Each view will be replaced by its sentinel IO:
-    views = [node for node in graph.nodes if isinstance(node, View)]
-    io_ = cast("dict[Input | Output | View, Input | Output]", io or {})
-    for view in views:
-        io_[view] = view.outputs[0]
-
+    # TODO: apply IO substitutions on the graph level
     # Apply the patches:
     patched_nodes: dict[Node, Node] = {}
     for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(io_ or {})  # noqa: SLF001 (private access)
+        patched_nodes[node] = node._patch_io(io or {})  # type: ignore[arg-type]  # noqa: SLF001 (private access)
 
     # TODO: Create _Patch wrapper for IO?
     for node in graph.topological_ordering:
@@ -149,17 +144,20 @@ def run(
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
-    graph = NodeGraph.from_nodes(nodes)
+    graph_with_io = NodeIOGraph.from_nodes(nodes)
+
+    # TODO: apply IO substitutions on the graph level
+    io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(io)
 
     if verbose:
-        print(graph)
+        print(graph_with_io)
+
+    graph = NodeGraph.from_graph(graph_with_io)
 
     run_hooks, node_hooks = _resolve_hooks(*hooks)
 
     for run_hook in run_hooks:
         run_hook.before_run(graph)
-
-    io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(io)
 
     _run_graph(graph, hooks=node_hooks, save=save, io=io_substitutes)
 

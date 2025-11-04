@@ -47,13 +47,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     shared_resource_nondeterministic:first -> []
-     shared_resource_nondeterministic:second -> []
-  Nodes:
-     shared_resource_nondeterministic:first: Node(name=shared_resource_nondeterministic:first, outputs=[File])
-     shared_resource_nondeterministic:second: Node(name=shared_resource_nondeterministic:second, outputs=[File])
+Node:shared_resource_nondeterministic:first --> io-1
+Node:shared_resource_nondeterministic:second --> io-2
 
 ```
 

@@ -27,13 +27,9 @@ run(n, verbose=True)
 
 ```text
 View(name=node_inputs_view_and_io:hello)
-NodeGraph:
-  Edges:
-     node_inputs_view_and_io:hello -> [node_inputs_view_and_io:n]
-     node_inputs_view_and_io:n -> []
-  Nodes:
-     node_inputs_view_and_io:hello: View(name=node_inputs_view_and_io:hello)
-     node_inputs_view_and_io:n: Node(name=node_inputs_view_and_io:n, inputs=[Literal('Jane'), View(name=node_inputs_view_and_io:hello)], outputs=[Print()])
+View:node_inputs_view_and_io:hello --> io-1
+io-1 --> Node:node_inputs_view_and_io:n
+Node:node_inputs_view_and_io:n --> io-2
 Jane said 'Hello, World!'
 
 ```

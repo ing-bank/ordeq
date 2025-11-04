@@ -12,7 +12,7 @@ print(create_manifest_json(example_references))
 
 ```text
 ValidationError: 1 validation error for ProjectModel
-  Value error, Referenced IO 'io-1' in IO 'named_nested_test_io' not found in project IOs. [type=value_error, input_value={'name': 'example_referen...'other_io': ['io-8']})}}, input_type=dict]
+  Value error, Referenced IO 'io-1' in IO 'type='example_references.io_references:MyIO' references={'other_io': ['io-1']}' not found in project IOs. [type=value_error, input_value={'name': 'example_referen...'other_io': ['io-8']})}}, input_type=dict]
     For further information visit https://errors.pydantic.dev/2.12/v/value_error
   File "/.venv/lib/python3.13/site-packages/pydantic/main.py", line LINO, in __init__
     validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)

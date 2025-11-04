@@ -228,77 +228,62 @@ print(create_manifest_json(example_project))
   },
   "ios": {
     "io-0": {
-      "name": "AA",
       "type": "ordeq_common.io.literal:Literal",
       "references": {}
     },
     "io-1": {
-      "name": "BB",
       "type": "ordeq_common.io.string_buffer:StringBuffer",
       "references": {}
     },
     "io-10": {
-      "name": "printer",
       "type": "ordeq_common.io.printer:Print",
       "references": {}
     },
     "io-11": {
-      "name": "<anonymous0>",
       "type": "ordeq_common.io.literal:Literal",
       "references": {}
     },
     "io-12": {
-      "name": "<anonymous1>",
       "type": "ordeq._io:IO",
       "references": {}
     },
     "io-13": {
-      "name": "<anonymous2>",
       "type": "ordeq._nodes:View",
       "references": {}
     },
     "io-14": {
-      "name": "<anonymous3>",
       "type": "ordeq._io:IO",
       "references": {}
     },
     "io-2": {
-      "name": "c",
       "type": "ordeq_common.io.printer:Print",
       "references": {}
     },
     "io-3": {
-      "name": "d",
       "type": "ordeq_common.io.literal:Literal",
       "references": {}
     },
     "io-4": {
-      "name": "e",
       "type": "ordeq_common.io.string_buffer:StringBuffer",
       "references": {}
     },
     "io-5": {
-      "name": "f",
       "type": "ordeq_common.io.printer:Print",
       "references": {}
     },
     "io-6": {
-      "name": "x",
       "type": "ordeq._io:IO",
       "references": {}
     },
     "io-7": {
-      "name": "y",
       "type": "ordeq_common.io.printer:Print",
       "references": {}
     },
     "io-8": {
-      "name": "x",
       "type": "ordeq._io:IO",
       "references": {}
     },
     "io-9": {
-      "name": "y",
       "type": "ordeq_common.io.printer:Print",
       "references": {}
     }

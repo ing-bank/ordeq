@@ -49,17 +49,14 @@ print(create_manifest_json(nodes_with_view))
   },
   "ios": {
     "io-0": {
-      "name": "printer",
       "type": "ordeq_common.io.printer:Print",
       "references": {}
     },
     "io-1": {
-      "name": "<anonymous0>",
       "type": "ordeq._nodes:View",
       "references": {}
     },
     "io-2": {
-      "name": "<anonymous1>",
       "type": "ordeq._io:IO",
       "references": {}
     }

@@ -5,7 +5,7 @@ from collections import defaultdict
 from typing import Any, Self, TypeVar
 
 from ordeq import Node, View
-from ordeq._fqn import FQN, fqn_to_str, str_to_fqn  # noqa: PLC2701
+from ordeq._fqn import fqn_to_str, str_to_fqn  # noqa: PLC2701
 from ordeq._resolve import AnyIO, Catalog
 from pydantic import BaseModel, Field, model_validator
 
@@ -24,6 +24,7 @@ def _generate_io_ids(nodes: set[Node], ios: Catalog) -> dict[AnyIO, str]:
     def register_io(io: AnyIO) -> None:
         nonlocal counter
 
+        # TODO: handle views by creating anonymous IO
         if io not in io_ids:
             io_ids[io] = f"io-{counter}"
             counter += 1
@@ -51,15 +52,11 @@ def _generate_io_ids(nodes: set[Node], ios: Catalog) -> dict[AnyIO, str]:
 class IOModel(BaseModel):
     """Model representing an IO in a project."""
 
-    name: str
     type: str
     references: dict[str, list[str]] = Field(default_factory=dict)
 
     @classmethod
-    def from_io(
-        cls, named_io: tuple[FQN, AnyIO], io_ids: dict[AnyIO, str]
-    ) -> "IOModel":
-        name, io = named_io
+    def from_io(cls, io: AnyIO, io_ids: dict[AnyIO, str]) -> "IOModel":
         io_type = type(io)
         io_type_fqn = (io_type.__module__, io_type.__name__)
 
@@ -71,9 +68,7 @@ class IOModel(BaseModel):
                 for attr, vs in io.references.items()
             }
 
-        return cls(
-            name=name[1], type=fqn_to_str(io_type_fqn), references=references
-        )
+        return cls(type=fqn_to_str(io_type_fqn), references=references)
 
 
 class NodeModel(BaseModel):
@@ -85,11 +80,7 @@ class NodeModel(BaseModel):
     view: bool
 
     @classmethod
-    def from_node(
-        cls, named_node: tuple[FQN, Node], io_ids: dict[AnyIO, str]
-    ) -> "NodeModel":
-        node = named_node[1]
-
+    def from_node(cls, node: Node, io_ids: dict[AnyIO, str]) -> "NodeModel":
         inputs = [
             # TODO: handle view by replacing with anonymous IO ID
             i.name if isinstance(i, View) else io_ids[i]
@@ -148,7 +139,7 @@ class ProjectModel(BaseModel):
                 for ref in refs:
                     if ref not in self.ios:
                         raise ValueError(
-                            f"Referenced IO '{ref}' in IO '{ios.name}' "
+                            f"Referenced IO '{ref}' in IO '{ios}' "
                             "not found in project IOs."
                         )
         return self
@@ -172,9 +163,7 @@ class ProjectModel(BaseModel):
 
         # Create IO models
         io_models = {
-            io_ids[io]: IOModel.from_io(
-                ((module_name, object_name), io), io_ids
-            )
+            io_ids[io]: IOModel.from_io(io, io_ids)
             for module_name, named_io in _sort_dict_items(ios)
             for object_name, io in named_io.items()
             if not isinstance(io, View)
@@ -201,7 +190,7 @@ class ProjectModel(BaseModel):
                     anonymous_name = f"<anonymous{idx}>"
                     ios_to_id[obj].append(f"{module_name}:{anonymous_name}")
                     io_models[io_ids[obj]] = IOModel.from_io(
-                        ((module_name, anonymous_name), obj), io_ids
+                        obj, io_ids
                     )
                     anonymous_ios[module_name][anonymous_name] = io_ids[obj]
                     idx += 1
@@ -210,18 +199,17 @@ class ProjectModel(BaseModel):
                 if obj not in ios_to_id:
                     anonymous_name = f"<anonymous{idx}>"
                     ios_to_id[obj].append(f"{module_name}:{anonymous_name}")
-                    io_models[io_ids[obj]] = IOModel.from_io(
-                        ((module_name, anonymous_name), obj), io_ids
-                    )
+                    io_models[io_ids[obj]] = IOModel.from_io(obj, io_ids)
                     anonymous_ios[module_name][anonymous_name] = io_ids[obj]
                     idx += 1
 
-        # Create modules
+        # Create module models
         modules = []
         for module_name, module_ios in _sort_dict_items(ios):
             ios_dict = {name: io_ids[io] for name, io in module_ios.items()}
             ios_dict.update(anonymous_ios.get(module_name, {}))
 
+            # TODO: convert FQN to module dict
             module_nodes = {
                 str_to_fqn(node.name)[1]: node.name
                 for node in sorted(nodes, key=lambda n: n.name)
@@ -234,9 +222,7 @@ class ProjectModel(BaseModel):
 
         # Create node models
         node_models = {
-            node.name: NodeModel.from_node(
-                (str_to_fqn(node.name), node), io_ids
-            )
+            node.name: NodeModel.from_node(node, io_ids)
             for node in sorted(nodes, key=lambda n: n.name)
         }
 

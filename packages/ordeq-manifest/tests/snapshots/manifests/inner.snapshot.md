@@ -43,12 +43,10 @@ print(create_manifest_json(inner))
   },
   "ios": {
     "io-0": {
-      "name": "x",
       "type": "ordeq._io:IO",
       "references": {}
     },
     "io-1": {
-      "name": "y",
       "type": "ordeq_common.io.printer:Print",
       "references": {}
     }

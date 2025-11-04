@@ -57,17 +57,14 @@ print(create_manifest_json(nodes_import_reassign))
   },
   "ios": {
     "io-0": {
-      "name": "AA",
       "type": "ordeq_common.io.literal:Literal",
       "references": {}
     },
     "io-1": {
-      "name": "BB",
       "type": "ordeq_common.io.string_buffer:StringBuffer",
       "references": {}
     },
     "io-2": {
-      "name": "f",
       "type": "ordeq_common.io.printer:Print",
       "references": {}
     }

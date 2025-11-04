@@ -28,12 +28,10 @@ print(create_manifest_json(nodes_with_inline_io))
   },
   "ios": {
     "io-0": {
-      "name": "<anonymous0>",
       "type": "ordeq_common.io.literal:Literal",
       "references": {}
     },
     "io-1": {
-      "name": "<anonymous1>",
       "type": "ordeq._io:IO",
       "references": {}
     }

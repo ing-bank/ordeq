@@ -65,5 +65,6 @@ INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading Literal('33')
 INFO	ordeq.runner	Running node "decrement" in module "runner_io"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```

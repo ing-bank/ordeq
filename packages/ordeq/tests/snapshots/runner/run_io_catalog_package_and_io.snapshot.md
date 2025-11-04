@@ -42,6 +42,7 @@ I want to say: HEY I AM OVERRIDING THE HELLO IO!, world!!
 ## Logging
 
 ```text
+INFO	ordeq.io	Loading Literal('Hey I am overriding the hello IO')
 INFO	ordeq.runner	Running node "uppercase" in module "run_io_catalog_package_and_io"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node "add_world" in module "run_io_catalog_package_and_io"

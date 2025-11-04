@@ -30,14 +30,17 @@ class NodeIOGraph:
         self.edges = edges
 
     @classmethod
-    def from_nodes(cls, nodes: set[Node]) -> Self:
+    def from_nodes(
+        cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
+    ) -> Self:
         edges: NodeIOEdge = defaultdict(dict)
 
         # First pass: collect all views
         views = _collect_views(nodes)
         all_nodes = nodes | views
 
-        patches: dict[AnyIO | View, AnyIO] = {}
+        if patches is None:
+            patches = {}
         for view in sorted(views, key=lambda n: n.name):
             patches[view] = view.outputs[0]
 

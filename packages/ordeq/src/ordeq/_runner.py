@@ -84,11 +84,7 @@ def _run_node(
 
 
 def _run_graph(
-    graph: NodeGraph,
-    *,
-    hooks: Sequence[NodeHook] = (),
-    save: SaveMode = "all",
-    io: IOSubstitutes | None = None,
+    graph: NodeGraph, *, hooks: Sequence[NodeHook] = (), save: SaveMode = "all"
 ) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
@@ -98,24 +94,15 @@ def _run_graph(
         hooks: hooks to apply
         save: 'all' | 'sinks' | 'none'.
             If 'sinks', only saves the outputs of sink nodes in the graph.
-        io: mapping of IO objects to their substitutes
-
     """
 
-    # TODO: apply IO substitutions on the graph level
-    # Apply the patches:
-    patched_nodes: dict[Node, Node] = {}
-    for node in graph.nodes:
-        patched_nodes[node] = node._patch_io(io or {})  # type: ignore[arg-type]  # noqa: SLF001 (private access)
-
-    # TODO: Create _Patch wrapper for IO?
     for node in graph.topological_ordering:
         if (save == "sinks" and node in graph.sink_nodes) or save == "all":
             save_node = True
         else:
             save_node = False
 
-        _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+        _run_node(node, hooks=hooks, save=save_node)
 
     # unpersist IO objects
     for gnode in graph.nodes:
@@ -144,10 +131,8 @@ def run(
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
-    graph_with_io = NodeIOGraph.from_nodes(nodes)
-
-    # TODO: apply IO substitutions on the graph level
     io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(io)
+    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=io_substitutes)  # type: ignore[arg-type]
 
     if verbose:
         print(graph_with_io)
@@ -159,7 +144,7 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    _run_graph(graph, hooks=node_hooks, save=save, io=io_substitutes)
+    _run_graph(graph, hooks=node_hooks, save=save)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)

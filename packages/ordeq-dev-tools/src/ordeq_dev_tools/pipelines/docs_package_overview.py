@@ -12,7 +12,7 @@ from ordeq_files import TextLinesStream
 from ordeq_toml import TOML
 
 
-package_overview = TextLinesStream(path=ROOT_PATH / "docs" / "packages.md", mode="w+")
+package_overview = TextLinesStream(path=ROOT_PATH / "docs" / "packages.md")
 
 
 def get_pypi_name_description_group_logo(

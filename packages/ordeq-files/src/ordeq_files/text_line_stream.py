@@ -1,15 +1,12 @@
 from collections.abc import Generator
 from dataclasses import dataclass
-from typing import TypeVar
 
 from ordeq import IO
 from ordeq.types import PathLike
 
-T = TypeVar("T")
-
 
 @dataclass(frozen=True, kw_only=True)
-class FileStream(IO[Generator[T]]):
+class TextLineStream(IO[Generator[str]]):
     """IO representing a file stream
     as a generator of lines.
 
@@ -18,9 +15,9 @@ class FileStream(IO[Generator[T]]):
     Examples:
 
     ```pycon
-    >>> from ordeq_files import FileStream
+    >>> from ordeq_files import TextLineStream
     >>> from pathlib import Path
-    >>> my_file = FileStream[str](
+    >>> my_file = TextLineStream(
     ...     path=Path("path/to.txt")
     ... )
 
@@ -29,12 +26,11 @@ class FileStream(IO[Generator[T]]):
     """
 
     path: PathLike
-    mode: str = "r+"
 
-    def load(self) -> Generator[T, None, None]:
-        with self.path.open(mode=self.mode) as fh:
-            yield from fh.readlines()
+    def load(self, mode="r") -> Generator[str, None, None]:
+        with self.path.open(mode=mode) as fh:
+            yield from fh
 
-    def save(self, data: Generator[T, None, None]) -> None:
-        with self.path.open(mode=self.mode) as fh:
+    def save(self, data: Generator[str, None, None], mode="w") -> None:
+        with self.path.open(mode=mode) as fh:
             fh.writelines(data)

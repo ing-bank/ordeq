@@ -8,11 +8,11 @@ from collections.abc import Iterator
 from ordeq import node
 from ordeq_dev_tools.paths import ROOT_PATH, PACKAGES_PATH
 from ordeq_dev_tools.pipelines.shared import packages
-from ordeq_files import TextLineStream
+from ordeq_files import TextLinesStream
 from ordeq_toml import TOML
 
 
-package_overview = TextLineStream[str](path=ROOT_PATH / "docs" / "packages.md", mode="w+")
+package_overview = TextLinesStream(path=ROOT_PATH / "docs" / "packages.md", mode="w+")
 
 
 def get_pypi_name_description_group_logo(

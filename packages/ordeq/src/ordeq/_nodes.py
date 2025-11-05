@@ -74,8 +74,10 @@ class Node(Generic[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
+            outputs=tuple(io.get(op, op) for op in self.outputs),
+            # type: ignore[misc,arg-type]
         )
 
     def __repr__(self) -> str:
@@ -220,7 +222,8 @@ class View(Node[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
+            # type: ignore[misc,arg-type]
         )
 
     def __repr__(self) -> str:
@@ -369,8 +372,13 @@ def node(
 ]: ...
 
 
+# Default value for 'func' in case it is not passed.
+# Used to distinguish between 'func=None' and func missing as positional arg.
+not_passed = lambda: None  # noqa: E731 (no-lambdas)
+
+
 def node(
-    func: Callable[FuncParams, FuncReturns] | None = None,
+    func: Callable[FuncParams, FuncReturns] = not_passed,
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
@@ -462,8 +470,15 @@ def node(
             "Did you mean 'outputs'?"
         )
 
-    if func is None:
+    if func is None or not callable(func):
+        raise ValueError(
+            f"The first argument to node must be a function, "
+            f"got {type(func).__name__}"
+        )
+
+    if func is not_passed:
         # we are called as @node(inputs=...
+
         def wrapped(
             f: Callable[FuncParams, FuncReturns],
         ) -> Callable[FuncParams, FuncReturns]:

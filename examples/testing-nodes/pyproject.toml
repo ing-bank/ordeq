@@ -3,7 +3,7 @@ requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "starter-testing-nodes"
+name = "testing-nodes"
 version = "0.1.0"
 description = "Starter project for testing an Ordeq project"
 readme = "README.md"

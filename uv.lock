@@ -3070,6 +3070,7 @@ dependencies = [
 test = [
     { name = "cloudpathlib", extra = ["s3"] },
     { name = "minio" },
+    { name = "ordeq-test-utils" },
     { name = "testcontainers" },
 ]
 
@@ -3080,6 +3081,7 @@ requires-dist = [{ name = "ordeq", editable = "packages/ordeq" }]
 test = [
     { name = "cloudpathlib", extras = ["s3"], specifier = ">=0.20.0" },
     { name = "minio", specifier = "==7.2.15" },
+    { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
     { name = "testcontainers", specifier = "==4.8.1" },
 ]
 

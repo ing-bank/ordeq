@@ -13,14 +13,14 @@ def test_stream_read(tmp_path: Path):
 def test_stream_write(tmp_path: Path):
     filepath = tmp_path / "hello.txt"
     dataset = TextLinesStream(path=filepath)
-    dataset.save(line for line in ["hello\n", "world\n"])
+    dataset.save(line for line in ["hello", "world"])
     assert filepath.read_text() == "hello\nworld\n"
 
 
 def test_stream_write_read_multiple_times(tmp_path: Path):
     filepath = tmp_path / "hello.txt"
     dataset = TextLinesStream(path=filepath)
-    dataset.save(line for line in ["line1\n", "line2\n", "line3\n"])
+    dataset.save(line for line in ["line1", "line2", "line3"])
     first_read = list(dataset.load())
     second_read = list(dataset.load())
     assert first_read == ["line1\n", "line2\n", "line3\n"]

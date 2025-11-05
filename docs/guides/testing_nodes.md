@@ -1,8 +1,8 @@
 # Testing nodes
 
-This guide outlines different strategies for testing nodes and pipelines.
-Testing an Ordeq project is easy and requires minimal setup.
-Because nodes behave like plain Python functions, they can be tested using any Python testing framework.
+Testing is a fundamental part of any data project.
+This guide outlines different strategies for testing nodes and pipelines, which require minimal setup.
+As we will see, testing a pipeline is in fact made easier by Ordeq, due to the separation of IO and transformations.
 
 !!! question "New to automated testing?"
 
@@ -12,8 +12,8 @@ Because nodes behave like plain Python functions, they can be tested using any P
 ## Testing a single node
 
 Let's start by considering the following basic pipeline node from the [node concepts section][concepts-node].
-We have slightly adapted the pipeline to use Polars instead of Spark.
-This pipeline joins transactions data with clients data.
+We have slightly adapted the example to use Polars instead of Spark, since this simplifies the tests.
+This pipeline joins transactions and clients data.
 The source code of this project can be found [here][testing-nodes-project].
 
 === "pipeline.py"
@@ -49,14 +49,13 @@ The source code of this project can be found [here][testing-nodes-project].
     )
     ```
 
-As we can see in the catalog, this node depends on data on S3, and a date value is passed as command line argument.
-In most cases, this would complicate testing, but with Ordeq that is not the case!
+As we can see in the catalog, the node relies on data that is stored on S3, and a date value that is passed from the command line arguments with which the node is run.
+In most cases, this would complicate testing the node, since we have to somehow mimic these dependencies during tests.
+With Ordeq, testing is much easier.
 
-Let's start by creating some unit tests for this node.
-We will use [`pytest`][pytest] to test our project, but the principles also apply to other testing framework like
-`unittest`.
-First, we will create a `tests` package and a test module.
-This module contains a basic unit test for the node:
+Let's create a basic unit test for this node.
+We will use [`pytest`][pytest] in this example, but the principles apply to any other testing framework, like `unittest`.
+First, we create a `tests` package and a test module with the following content:
 
 === "tests/test_pipeline.py"
 
@@ -100,16 +99,20 @@ This module contains a basic unit test for the node:
         assert actual.equals(expected)
     ```
 
-Unit-testing the node like can be done in the same way as unit-testing any Python method.
-Calling the node doesn't incur any overhead compared to a regular method.
-It does not load or save IOs, and does not call hooks.
-This is a good practice for unit tests, as it keeps them fast and isolated.
+This unit test follows a standard setup: we create some seed data, feed if to the method under test, and compare the output against an expected value.
+Unit-testing the node can be done in the same way as unit-testing any Python method, since nodes behave like plain Python functions.
+
+!!! note "Calling the node doesn't load or save any data"
+    It is worth nothing that calling the node this does not load or save IOs, and does not invoke hooks.
+    This is a good practice for unit tests, as it keeps them fast and isolated.
+    We don't need to worry about where the data resides, and can focus on verifying the transformations.
 
 ### Running a node in tests
 
 Alternatively, you can test nodes by running them.
 This will load the data from the node inputs, and save the returned data to the node outputs.
-It will also invoke [hooks][concepts-hooks] that are set on the IO or runner:
+It will also invoke [hooks][concepts-hooks] that are set on the IO or runner.
+Here is how you could run a node as part of a unit test:
 
 === "tests/test_pipeline.py"
 
@@ -122,12 +125,13 @@ It will also invoke [hooks][concepts-hooks] that are set on the IO or runner:
         run(join_txs_and_clients)
     ```
 
-In contrast to the tests above, this test does connect to actual data sources.
-For instance, it will attempt to connect to S3, and parse the date value from a command line argument.
+In contrast to the tests above, this test _does_ connect to actual data sources, and invokes the hooks.
+For instance, running the node will attempt to connect to S3, and parse the date value from a command line argument.
 This is not ideal: we would like to test our node with representative data without relying on external resources.
 
-We can instead use a local file, with the same structure, to test the node.
-To run the node with different IO, simply set the `io` argument of the runner:
+On the other hand, we would still like to test the node in combination with loading or saving IOs.
+To achieve this, we can create alternative IOs representing data of the same structure, and use it to test the node.
+We can tell the runner to use the alternative IO instead of the actual IO, as shown in the following example:
 
 === "tests/test_pipeline.py"
 
@@ -177,7 +181,7 @@ To run the node with different IO, simply set the `io` argument of the runner:
 When `join_txs_and_clients` is run, Ordeq will use the test's `txs` and `clients` IOs as replacements for those in the catalog.
 This approach works well if you need fine-grained control over which IOs are used during tests.
 But it is also quite verbose, and doesn't allow us yet to reuse test data across multiple tests.
-As we will see in the next section, you can also use a dedicated catalog for organizing test IOs.
+The next section introduces a more complete and reusable approach.
 
 !!! info "More on running nodes"
 
@@ -187,9 +191,9 @@ As we will see in the next section, you can also use a dedicated catalog for org
 
 ### Running with a different catalog
 
-Another way to test your node using alternative data is by running it with a dedicated test [catalog][concepts-catalog].
+Another way to test your node using alternative data is by running with a dedicated test [catalog][concepts-catalog].
 The catalog can be defined in the source folder, as explained in [the guide][concepts-catalog], or in a separate package.
-Here is a simple overview of your test package with a test catalog:
+Here is a example of the test package with a test catalog:
 
 === "tests/test_catalog.py"
 
@@ -232,9 +236,8 @@ Here is a simple overview of your test package with a test catalog:
 
 The test catalog defines the same entries as the source catalog, but points to different data.
 In this case, the test data is stored in a `tests-resources` folder, but you can store it anywhere.
-The test catalog module is imported in the tests, and passed to the runner.
-Because `testing_nodes.catalog` is mapped to `test_catalog`, Ordeq will replace all entries of the source catalog with those of test catalog.
-This avoids connecting to external resources when we run the node during tests.
+The test catalog is imported in the tests, and passed to the runner.
+The runner will use only the entries of the test catalog, without relying on external resources.
 
 !!! tip "Ordeq verifies the test catalog"
 
@@ -281,7 +284,7 @@ Next, we run this pipeline from the tests, and check the output:
 
 === "tests/test_pipeline.py"
 
-    ```python hl_lines="7 9-14"
+    ```python
     import polars as pl
     import test_catalog
     import testing_nodes
@@ -302,6 +305,10 @@ Next, we run this pipeline from the tests, and check the output:
 Because `run` runs the (sub)pipeline under test in exactly the same way as it would in a production setting, you can test the actual pipeline behaviour.
 For more information on how to set up the run, please see the [guide][run-and-viz] or check out the [API reference][run-api].
 
+
+!!! question "Questions, suggestions or remarks?"
+    If you have any questions, suggestions or remarks on this guide, please feel free to create an [issue on GitHub][issues].
+
 [concepts-catalog]: ../getting-started/concepts/catalogs.md
 [concepts-hooks]: ../getting-started/concepts/hooks.md
 [concepts-node]: ../getting-started/concepts/nodes.md
@@ -310,3 +317,4 @@ For more information on how to set up the run, please see the [guide][run-and-vi
 [run-and-viz]: ./run_and_viz.md
 [run-api]: ../api/ordeq/_runner.md
 [testing-nodes-project]: https://github.com/ing-bank/ordeq/tree/main/examples
+[issues]: https://github.com/ing-bank/ordeq/issues/new

@@ -52,7 +52,7 @@ Total lines: 3
 ## Logging
 
 ```text
-WARNING	ordeq_files.text_lines_stream	TextLinesStream is in pre-release, functionality may break in future releases 
+WARNING	ordeq_files.text_lines_stream	TextLinesStream is in pre-release, functionality may break in future releases without notice.
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'consume_line_stream:show_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'consume_line_stream:count_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running node "write_to_line_stream" in module "consume_line_stream"

@@ -37,12 +37,13 @@ class TextLinesStream(IO[Generator[str]]):
         logger.warning(
             "TextLinesStream is in pre-release, "
             "functionality may break in future releases "
+            "without notice."
         )
 
-    def load(self, mode="r") -> Generator[str, None, None]:
+    def load(self, mode="r") -> Generator[str]:
         with self.path.open(mode=mode) as fh:
             yield from fh
 
-    def save(self, data: Generator[str, None, None], mode="w") -> None:
+    def save(self, data: Generator[str], mode="w") -> None:
         with self.path.open(mode=mode) as fh:
             fh.writelines(f"{line}\n" for line in data)

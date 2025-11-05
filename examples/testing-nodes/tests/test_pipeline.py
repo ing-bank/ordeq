@@ -71,7 +71,7 @@ def test_run_node():
     assert_frame_equal(actual, expected)
 
 
-import test_catalog
+import test_catalog  # type: ignore[import-not-found]
 import testing_nodes
 
 

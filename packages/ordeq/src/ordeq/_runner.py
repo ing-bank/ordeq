@@ -140,11 +140,75 @@ def run(
     """Runs nodes in topological order.
 
     Args:
-        runnables: the nodes to run, or modules or packages containing nodes
-        hooks: hooks to apply
-        save: 'all' | 'sinks'. If 'sinks', only saves the sink outputs
-        verbose: whether to print the node graph
-        io: mapping of IO objects to their substitutions
+        runnables: The nodes to run, or modules or packages containing nodes
+        hooks: Runner or node hooks to apply. The input and output hooks are
+            taken from the IO.
+        save: One of `{"all", "sinks"}`. When set to "sinks", only saves the
+            sink outputs. Defaults to "all".
+        verbose: Whether to print the node graph during planning.
+        io: Mapping of IO objects or catalogs to their runtime substitutions.
+            See the examples for more details.
+
+    Arguments `runnables`, `hooks` and `io` also support string references to
+    modules and objects. Each string reference should be formatted
+    `module.submodule.[...]` (for modules) and `module.submodule.[...]:name`
+    (for objects).
+
+    Examples:
+
+    Run a single node:
+
+    ```pycon
+    >>> from pipeline import filter_txs
+    >>> run(filter_txs)
+    >>> # or, equivalently:
+    >>> run("pipeline.filter_txs")
+
+    ```
+
+    Run a single node with a certain hook:
+
+    ```pycon
+    >>> import custom_hooks  # suppose this is where you have the hook
+    >>> run(filter_txs, hooks=[custom_hooks.my_hook])
+    >>> # or, equivalently:
+    >>> run(filter_txs, hooks=["custom_hooks.my_hook"])
+    ```
+
+    Run more than one node:
+
+    ```pycon
+    >>> from pipeline import filter_txs, join_txs_with_clients
+    >>> run(filter_txs, join_txs_with_clients)
+    ```
+
+    Run an entire pipeline:
+
+    ```pycon
+    >>> import pipeline
+    >>> run(pipeline)
+    >>> # or, equivalently:
+    >>> run("pipeline")
+    ```
+
+    Run a pipeline with different IO:
+
+    ```pycon
+    >>> from ordeq_common import Literal
+    >>> import catalog
+    >>> run(pipeline, io={catalog.date: Literal("2024-11-18")})
+    >>> # or, equivalently:
+    >>> run(pipeline, io={"catalog.date": Literal("2024-11-18")})
+    ```
+
+    Run a pipeline with an alternative catalog:
+
+    ```pycon
+    >>> import alternative_catalog # some module on PYTHONPATH
+    >>> run(pipeline, io={catalog: alternative_catalog})
+    >>> # or, equivalently:
+    >>> run(pipeline, io={"catalog": "alternative_catalog"})
+    ```
 
     """
 

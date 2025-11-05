@@ -54,20 +54,12 @@ run(increment, multiply, verbose=True, save="sinks")
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     runner_exhausted_stream:increment -> [runner_exhausted_stream:multiply]
-     runner_exhausted_stream:multiply -> []
-  Nodes:
-     runner_exhausted_stream:increment: Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])])
-     runner_exhausted_stream:multiply: Node(name=runner_exhausted_stream:multiply, inputs=[Stream(data=[]), Literal('2')], outputs=[Stream(data=[])])
-NodeGraph:
-  Edges:
-     runner_exhausted_stream:increment -> [runner_exhausted_stream:multiply]
-     runner_exhausted_stream:multiply -> []
-  Nodes:
-     runner_exhausted_stream:increment: Node(name=runner_exhausted_stream:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=['2', '3', '4'])])
-     runner_exhausted_stream:multiply: Node(name=runner_exhausted_stream:multiply, inputs=[Stream(data=['2', '3', '4']), Literal('2')], outputs=[Stream(data=[])])
+Node:runner_exhausted_stream:increment --> io-1
+io-1 --> Node:runner_exhausted_stream:multiply
+Node:runner_exhausted_stream:multiply --> io-2
+Node:runner_exhausted_stream:increment --> io-1
+io-1 --> Node:runner_exhausted_stream:multiply
+Node:runner_exhausted_stream:multiply --> io-2
 
 ```
 

@@ -20,17 +20,9 @@ run(show_message, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     run_rename_run:print_message -> []
-  Nodes:
-     run_rename_run:print_message: View(name=run_rename_run:print_message)
+View:run_rename_run:print_message --> io-1
 Hello from printer
-NodeGraph:
-  Edges:
-     run_rename_run:print_message -> []
-  Nodes:
-     run_rename_run:print_message: View(name=run_rename_run:print_message)
+View:run_rename_run:print_message --> io-1
 Hello from printer
 
 ```

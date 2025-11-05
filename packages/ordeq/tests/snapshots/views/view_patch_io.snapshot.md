@@ -24,13 +24,9 @@ run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     view_patch_io:hello_world -> [view_patch_io:n]
-     view_patch_io:n -> []
-  Nodes:
-     view_patch_io:hello_world: View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])
-     view_patch_io:n: View(name=view_patch_io:n, inputs=[View(name=view_patch_io:hello_world, inputs=[Literal('Hello')])])
+View:view_patch_io:hello_world --> io-1
+io-1 --> View:view_patch_io:n
+View:view_patch_io:n --> io-2
 Node received 'Buenos dias World!'
 
 ```

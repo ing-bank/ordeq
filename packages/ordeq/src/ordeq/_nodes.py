@@ -8,7 +8,7 @@ from functools import cached_property, wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
-from ordeq._io import IO, Input, Output
+from ordeq._io import IO, AnyIO, Input, Output
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -60,7 +60,7 @@ class Node(Generic[FuncParams, FuncReturns]):
         )
 
     def _patch_io(
-        self, io: dict[Input[T] | Output[T] | View, Input[T] | Output[T]]
+        self, io: dict[AnyIO | View, AnyIO]
     ) -> Node[FuncParams, FuncReturns]:
         """Patches the inputs and outputs of the node with the provided IO
         mapping.

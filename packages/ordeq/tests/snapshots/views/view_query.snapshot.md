@@ -26,13 +26,9 @@ run(range_to_csv, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     view_query:range_to_csv -> []
-     view_query:selected_range -> [view_query:range_to_csv]
-  Nodes:
-     view_query:range_to_csv: View(name=view_query:range_to_csv, inputs=[View(name=view_query:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)])])
-     view_query:selected_range: View(name=view_query:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)])
+View:view_query:range_to_csv --> io-1
+View:view_query:selected_range --> io-2
+io-2 --> View:view_query:range_to_csv
 ┌───────┐
 │ range │
 │ int64 │

@@ -46,13 +46,9 @@ print(x4.load())
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     runner_load_save_options:decrement -> []
-     runner_load_save_options:increment -> [runner_load_save_options:decrement]
-  Nodes:
-     runner_load_save_options:decrement: Node(name=runner_load_save_options:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])
-     runner_load_save_options:increment: Node(name=runner_load_save_options:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)])
+Node:runner_load_save_options:decrement --> io-1
+Node:runner_load_save_options:increment --> io-2
+io-2 --> Node:runner_load_save_options:decrement
 x says 'x says y did it ' but y says 'x did it and I know the murder weapon'  
 
 ```

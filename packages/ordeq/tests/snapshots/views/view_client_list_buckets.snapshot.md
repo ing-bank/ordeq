@@ -29,13 +29,9 @@ run(print_buckets, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     view_client_list_buckets:buckets -> [view_client_list_buckets:print_buckets]
-     view_client_list_buckets:print_buckets -> []
-  Nodes:
-     view_client_list_buckets:buckets: View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])
-     view_client_list_buckets:print_buckets: View(name=view_client_list_buckets:print_buckets, inputs=[View(name=view_client_list_buckets:buckets, inputs=[Literal(<view_client_list_buckets.Client object at HASH1>)])])
+View:view_client_list_buckets:buckets --> io-1
+io-1 --> View:view_client_list_buckets:print_buckets
+View:view_client_list_buckets:print_buckets --> io-2
 bucket1
 bucket2
 bucket3

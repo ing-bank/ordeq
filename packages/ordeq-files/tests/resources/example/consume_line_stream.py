@@ -1,11 +1,10 @@
-import tempfile
 from collections.abc import Generator
 from pathlib import Path
 
 from ordeq import node, run
 from ordeq_files import TextLinesStream
 
-example_file_path = Path(tempfile.gettempdir()) / "example.txt"
+example_file_path = Path(__file__).parent / "example.txt"
 example_line_stream = TextLinesStream(path=example_file_path)
 
 

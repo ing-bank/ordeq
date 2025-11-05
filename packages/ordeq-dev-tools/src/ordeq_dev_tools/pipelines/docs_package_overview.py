@@ -82,7 +82,7 @@ def write_html_table_by_group(groups: dict[str, list[dict]]) -> Generator[str]:
     """
     header = (
         "# Package overview\n\n"
-        "This page lists all public packages in the `ordeq` project.\n\n"
+        "This page lists all public packages in the `ordeq` project.\n"
     )
     group_order = ["framework", "CLI", "ios"]
     excluded_groups = {"developer-tools"}
@@ -105,10 +105,10 @@ def write_html_table_by_group(groups: dict[str, list[dict]]) -> Generator[str]:
         if group in groups and group not in excluded_groups:
             pretty = pretty_names.get(group, group)
             desc = group_descriptions.get(group, "")
-            yield f"## {pretty}\n\n"
+            yield f"## {pretty}\n"
             if desc:
-                yield f"{desc}\n\n"
-            yield "<table>\n  <tr>\n    <th width='90' style='text-align:center;vertical-align:middle;max-height:35px;'></th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>Name</th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>Description</th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>API Docs</th>\n  </tr>\n"
+                yield f"{desc}\n"
+            yield "<table>\n  <tr>\n    <th width='90' style='text-align:center;vertical-align:middle;max-height:35px;'></th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>Name</th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>Description</th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>API Docs</th>\n  </tr>"
             for pkg in groups[group]:
                 logo_html = (
                     f"<img src='{pkg['logo_url']}' alt='logo' style='max-height:35px;'/>"
@@ -120,8 +120,8 @@ def write_html_table_by_group(groups: dict[str, list[dict]]) -> Generator[str]:
                     f"<img src='https://img.shields.io/pypi/v/{pkg['pypi_name']}?label={pkg['pkg_dir']}' style='max-height:35px;'/></a>"
                 )
                 docs_html = f"<a href='https://ing-bank.github.io/ordeq/api/{pkg['src_name']}/'>API Docs</a>"
-                yield f"  <tr>\n    <td align='center' width='90' style='text-align:center;vertical-align:middle;max-height:35px;'>{logo_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{name_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{pkg['description']}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{docs_html}</td>\n  </tr>\n"
-            yield "</table>\n\n"
+                yield f"  <tr>\n    <td align='center' width='90' style='text-align:center;vertical-align:middle;max-height:35px;'>{logo_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{name_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{pkg['description']}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{docs_html}</td>\n  </tr>"
+            yield "</table>\n"
 
     # Write any other groups (except excluded)
     for group in sorted(groups):
@@ -129,10 +129,10 @@ def write_html_table_by_group(groups: dict[str, list[dict]]) -> Generator[str]:
             continue
         pretty = pretty_names.get(group, group)
         desc = group_descriptions.get(group, "")
-        yield f"## {pretty}\n\n"
+        yield f"## {pretty}\n"
         if desc:
-            yield f"{desc}\n\n"
-        yield "<table>\n  <tr>\n    <th width='90' style='text-align:center;vertical-align:middle;max-height:35px;'></th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>Name</th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>Description</th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>API Docs</th>\n  </tr>\n"
+            yield f"{desc}\n"
+        yield "<table>\n  <tr>\n    <th width='90' style='text-align:center;vertical-align:middle;max-height:35px;'></th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>Name</th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>Description</th>\n    <th style='text-align:left;vertical-align:middle;max-height:35px;'>API Docs</th>\n  </tr>"
         for pkg in groups[group]:
             logo_html = (
                 f"<img src='{pkg['logo_url']}' alt='logo' style='max-height:35px;'/>"
@@ -144,5 +144,5 @@ def write_html_table_by_group(groups: dict[str, list[dict]]) -> Generator[str]:
                 f"<img src='https://img.shields.io/pypi/v/{pkg['pypi_name']}?label={pkg['pkg_dir']}' style='max-height:35px;'/></a>"
             )
             docs_html = f"<a href='https://ing-bank.github.io/ordeq/api/{pkg['src_name']}/'>API Docs</a>"
-            yield f"  <tr>\n    <td align='center' width='90' style='text-align:center;vertical-align:middle;max-height:35px;'>{logo_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{name_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{pkg['description']}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{docs_html}</td>\n  </tr>\n"
-        yield "</table>\n\n"
+            yield f"  <tr>\n    <td align='center' width='90' style='text-align:center;vertical-align:middle;max-height:35px;'>{logo_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{name_html}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{pkg['description']}</td>\n    <td align='left' style='text-align:left;vertical-align:middle;max-height:35px;'>{docs_html}</td>\n  </tr>"
+        yield "</table>\n"

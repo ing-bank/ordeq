@@ -31,7 +31,7 @@ def _create_parser() -> ArgumentParser:
         "--save",
         choices=get_args(SaveMode),
         help="Which outputs to save: all, or only sinks (outputs with "
-             "no successor node)",
+        "no successor node)",
         default="all",
     )
     parser.add_argument(
@@ -40,7 +40,8 @@ def _create_parser() -> ArgumentParser:
         action="append",
         metavar=("old", "new"),
         default=[],
-        help="Mapping of IO objects or catalogs to their runtime substitutions."
+        help="Mapping of IO objects or catalogs to their runtime "
+        "substitutions.",
     )
     return parser
 

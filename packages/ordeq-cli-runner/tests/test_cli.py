@@ -12,74 +12,74 @@ RESOURCES_DIR = Path(__file__).parent / "resources"
     ("args", "expected"),
     [
         (
-                ("run", "domain_A:name_A"),
-                {
-                    "action": "run",
-                    "runnables": ["domain_A:name_A"],
-                    "hooks": [],
-                    "save": "all",
-                    "io": []
-                },
+            ("run", "domain_A:name_A"),
+            {
+                "action": "run",
+                "runnables": ["domain_A:name_A"],
+                "hooks": [],
+                "save": "all",
+                "io": [],
+            },
         ),
         (
-                ("run", "domain_A:name_A", "domain_B:name_B"),
-                {
-                    "action": "run",
-                    "runnables": ["domain_A:name_A", "domain_B:name_B"],
-                    "hooks": [],
-                    "save": "all",
-                    "io": []
-                },
+            ("run", "domain_A:name_A", "domain_B:name_B"),
+            {
+                "action": "run",
+                "runnables": ["domain_A:name_A", "domain_B:name_B"],
+                "hooks": [],
+                "save": "all",
+                "io": [],
+            },
         ),
         (
-                ("run", "domain_X:name_X", "--save", "sinks"),
-                {
-                    "action": "run",
-                    "runnables": ["domain_X:name_X"],
-                    "hooks": [],
-                    "save": "sinks",
-                    "io": []
-                },
+            ("run", "domain_X:name_X", "--save", "sinks"),
+            {
+                "action": "run",
+                "runnables": ["domain_X:name_X"],
+                "hooks": [],
+                "save": "sinks",
+                "io": [],
+            },
         ),
         (
-                ("run", "domain_X:name_X", "--hooks", "x:Logger"),
-                {
-                    "action": "run",
-                    "runnables": ["domain_X:name_X"],
-                    "hooks": ["x:Logger"],
-                    "save": "all",
-                    "io": []
-                },
+            ("run", "domain_X:name_X", "--hooks", "x:Logger"),
+            {
+                "action": "run",
+                "runnables": ["domain_X:name_X"],
+                "hooks": ["x:Logger"],
+                "save": "all",
+                "io": [],
+            },
         ),
         (
-                ("run", "domain_X:name_X", "--hooks", "x:Logger", "y:Debugger"),
-                {
-                    "action": "run",
-                    "runnables": ["domain_X:name_X"],
-                    "hooks": ["x:Logger", "y:Debugger"],
-                    "save": "all",
-                    "io": []
-                },
+            ("run", "domain_X:name_X", "--hooks", "x:Logger", "y:Debugger"),
+            {
+                "action": "run",
+                "runnables": ["domain_X:name_X"],
+                "hooks": ["x:Logger", "y:Debugger"],
+                "save": "all",
+                "io": [],
+            },
         ),
         (
-                ("run", "domain_X", "--io", "a", "b"),
-                {
-                    "action": "run",
-                    "runnables": ["domain_X"],
-                    "hooks": [],
-                    "save": "all",
-                    "io": [["a", "b"]]
-                },
+            ("run", "domain_X", "--io", "a", "b"),
+            {
+                "action": "run",
+                "runnables": ["domain_X"],
+                "hooks": [],
+                "save": "all",
+                "io": [["a", "b"]],
+            },
         ),
         (
-                ("run", "domain_X", "--io", "a", "b", "--io", "c", "d"),
-                {
-                    "action": "run",
-                    "runnables": ["domain_X"],
-                    "hooks": [],
-                    "save": "all",
-                    "io": [["a", "b"], ["c", "d"]]
-                },
+            ("run", "domain_X", "--io", "a", "b", "--io", "c", "d"),
+            {
+                "action": "run",
+                "runnables": ["domain_X"],
+                "hooks": [],
+                "save": "all",
+                "io": [["a", "b"], ["c", "d"]],
+            },
         ),
     ],
 )
@@ -137,17 +137,24 @@ def test_missing_io():
             "(after-run)",
             id="node + hooks",
         ),
+        pytest.param(
+            ["sub:hello", "--io", "sub:regular", "sub:alternative"],
+            [],
+            "Hello!",
+            id="node + hooks",
+        ),
     ],
 )
 def test_it_runs(
-        capsys: pytest.CaptureFixture,
-        runnables: list[str],
-        hooks: list[str],
-        expected: str,
+    capsys: pytest.CaptureFixture,
+    runnables: list[str],
+    hooks: list[str],
+    expected: str,
 ):
     try:
+        sys.path.append(str(RESOURCES_DIR))
         with patch.object(
-                sys, "argv", ["ordeq", "run", *runnables, "--hooks", *hooks]
+            sys, "argv", ["ordeq", "run", *runnables, "--hooks", *hooks]
         ):
             main()
             captured = capsys.readouterr()

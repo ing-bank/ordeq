@@ -3,12 +3,17 @@ from ordeq_polars.eager import (
     PolarsEagerExcel,
     PolarsEagerParquet,
 )
-from ordeq_polars.lazy import PolarsLazyCSV, PolarsLazyParquet
+from ordeq_polars.lazy import (
+    PolarsLazyCSV,
+    PolarsLazyIceberg,
+    PolarsLazyParquet,
+)
 
 __all__ = (
     "PolarsEagerCSV",
     "PolarsEagerExcel",
     "PolarsEagerParquet",
     "PolarsLazyCSV",
+    "PolarsLazyIceberg",
     "PolarsLazyParquet",
 )

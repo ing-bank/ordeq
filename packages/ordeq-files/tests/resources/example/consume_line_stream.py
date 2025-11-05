@@ -6,11 +6,7 @@ from ordeq import node, run
 from ordeq_files import TextLinesStream
 
 example_file_path = Path(tempfile.gettempdir()) / "example.txt"
-example_line_stream = (
-    TextLinesStream(path=example_file_path)
-    .with_save_options(mode="w")
-    .with_load_options(mode="r")
-)
+example_line_stream = TextLinesStream(path=example_file_path)
 
 
 @node(outputs=[example_line_stream])
@@ -33,3 +29,5 @@ def count_lines(file_lines: Generator[str]) -> None:
 
 
 run(write_to_line_stream, show_lines, count_lines)
+
+example_file_path.unlink(missing_ok=True)

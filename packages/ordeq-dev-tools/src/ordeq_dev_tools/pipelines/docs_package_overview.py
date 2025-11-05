@@ -3,7 +3,7 @@ directory. The resulting markdown is written to docs/packages.md.
 """
 
 from pathlib import Path
-from collections.abc import Iterator
+from collections.abc import Generator
 
 from ordeq import node
 from ordeq_dev_tools.paths import ROOT_PATH, PACKAGES_PATH
@@ -71,7 +71,7 @@ def groups(
 
 
 @node(inputs=groups, outputs=package_overview)
-def write_html_table_by_group(groups: dict[str, list[dict]]) -> Iterator[str]:
+def write_html_table_by_group(groups: dict[str, list[dict]]) -> Generator[str]:
     """Write the grouped HTML tables to the given output_path, with logo column and proper sizing.
 
     Args:

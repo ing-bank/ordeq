@@ -2,8 +2,7 @@
 
 A **catalog** is collection of IOs.
 From experience, we find that separating these IO from transformations (nodes) keeps your code clean and maintainable.
-Catalogs help you organize and swap IOs across different environments — such as local development, production, or
-testing — without changing your nodes.
+Catalogs help you organize and swap IOs across different environments — such as local development, production, or testing — without changing your nodes.
 This makes it easy to run the same pipeline with different data sources or destinations.
 
 ## Defining catalogs

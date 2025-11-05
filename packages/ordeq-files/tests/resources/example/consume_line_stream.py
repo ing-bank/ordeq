@@ -4,7 +4,9 @@ from pathlib import Path
 from ordeq import node, run
 from ordeq_files import TextLinesStream
 
-example_file_path = Path(__file__).parent / "example.txt"
+example_file_path = (
+    Path(__file__).parent.relative_to(Path.cwd()) / "example.txt"
+)
 example_line_stream = TextLinesStream(path=example_file_path)
 
 

@@ -8,9 +8,7 @@ from pathlib import Path
 from ordeq import node, run
 from ordeq_files import TextLinesStream
 
-example_file_path = Path(
-    "/var/folders/cf/zpng87w50mz4ty3cy8xrm3hm0000gp/T/example.txt"
-)
+example_file_path = Path(tempfile.gettempdir()) / "example.txt"
 example_line_stream = (
     TextLinesStream(path=example_file_path)
     .with_save_options(mode="w")

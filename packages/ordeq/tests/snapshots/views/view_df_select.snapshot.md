@@ -34,19 +34,9 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     view_df_select:df_selected -> [view_df_select:group_by]
-     view_df_select:group_by -> []
-  Nodes:
-     view_df_select:df_selected: View(name=view_df_select:df_selected, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])
-     view_df_select:group_by: View(name=view_df_select:group_by, inputs=[View(name=view_df_select:df_selected, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)])])
+View:view_df_select:df_selected --> io-1
+io-1 --> View:view_df_select:group_by
+View:view_df_select:group_by --> io-2
      A
 0  bar
 1  foo

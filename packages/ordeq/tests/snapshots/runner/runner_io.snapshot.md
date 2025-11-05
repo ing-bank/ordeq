@@ -38,21 +38,13 @@ print(p4.load())
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     runner_io:decrement -> []
-     runner_io:increment -> [runner_io:decrement]
-  Nodes:
-     runner_io:decrement: Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     runner_io:increment: Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+Node:runner_io:decrement --> io-1
+Node:runner_io:increment --> io-2
+io-2 --> Node:runner_io:decrement
 0
-NodeGraph:
-  Edges:
-     runner_io:decrement -> []
-     runner_io:increment -> [runner_io:decrement]
-  Nodes:
-     runner_io:decrement: Node(name=runner_io:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     runner_io:increment: Node(name=runner_io:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+Node:runner_io:decrement --> io-1
+Node:runner_io:increment --> io-2
+io-2 --> Node:runner_io:decrement
 -10
 
 ```
@@ -73,5 +65,6 @@ INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading Literal('33')
 INFO	ordeq.runner	Running node "decrement" in module "runner_io"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```

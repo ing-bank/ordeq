@@ -36,15 +36,11 @@ run(n, verbose=True)
 ```text
 View(name=view_inputs_view_and_io:hello)
 View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])
-NodeGraph:
-  Edges:
-     view_inputs_view_and_io:hello -> [view_inputs_view_and_io:hello_from_someone]
-     view_inputs_view_and_io:hello_from_someone -> [view_inputs_view_and_io:n]
-     view_inputs_view_and_io:n -> []
-  Nodes:
-     view_inputs_view_and_io:hello: View(name=view_inputs_view_and_io:hello)
-     view_inputs_view_and_io:hello_from_someone: View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])
-     view_inputs_view_and_io:n: View(name=view_inputs_view_and_io:n, inputs=[View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])])
+View:view_inputs_view_and_io:hello --> io-1
+io-1 --> View:view_inputs_view_and_io:hello_from_someone
+View:view_inputs_view_and_io:hello_from_someone --> io-2
+io-2 --> View:view_inputs_view_and_io:n
+View:view_inputs_view_and_io:n --> io-3
 I heard that Jane said 'Hello, World!'
 
 ```

@@ -27,13 +27,9 @@ run(combine_greeting_with_ending, verbose=True)
 
 ```text
 View(name=node_inputs_view_tuple_and_io:hello)
-NodeGraph:
-  Edges:
-     node_inputs_view_tuple_and_io:combine_greeting_with_ending -> []
-     node_inputs_view_tuple_and_io:hello -> [node_inputs_view_tuple_and_io:combine_greeting_with_ending]
-  Nodes:
-     node_inputs_view_tuple_and_io:combine_greeting_with_ending: Node(name=node_inputs_view_tuple_and_io:combine_greeting_with_ending, inputs=[View(name=node_inputs_view_tuple_and_io:hello), Literal('!!!')], outputs=[Print()])
-     node_inputs_view_tuple_and_io:hello: View(name=node_inputs_view_tuple_and_io:hello)
+Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending --> io-1
+View:node_inputs_view_tuple_and_io:hello --> io-2
+io-2 --> Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending
 Hello world !!!
 
 ```

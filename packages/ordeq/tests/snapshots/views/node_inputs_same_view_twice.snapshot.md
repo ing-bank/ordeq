@@ -27,13 +27,10 @@ run(n, verbose=True)
 
 ```text
 View(name=node_inputs_same_view_twice:hello)
-NodeGraph:
-  Edges:
-     node_inputs_same_view_twice:hello -> [node_inputs_same_view_twice:n, node_inputs_same_view_twice:n]
-     node_inputs_same_view_twice:n -> []
-  Nodes:
-     node_inputs_same_view_twice:hello: View(name=node_inputs_same_view_twice:hello)
-     node_inputs_same_view_twice:n: Node(name=node_inputs_same_view_twice:n, inputs=[View(name=node_inputs_same_view_twice:hello), View(name=node_inputs_same_view_twice:hello)], outputs=[Print()])
+View:node_inputs_same_view_twice:hello --> io-1
+io-1 --> Node:node_inputs_same_view_twice:n
+io-1 --> Node:node_inputs_same_view_twice:n
+Node:node_inputs_same_view_twice:n --> io-2
 Hello, World! == Hello, World!'
 
 ```

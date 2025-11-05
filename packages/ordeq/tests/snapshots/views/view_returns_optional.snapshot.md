@@ -30,21 +30,13 @@ run(n, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     view_returns_optional:conditional -> [view_returns_optional:n]
-     view_returns_optional:n -> []
-  Nodes:
-     view_returns_optional:conditional: View(name=view_returns_optional:conditional)
-     view_returns_optional:n: Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional)], outputs=[Print()])
+View:view_returns_optional:conditional --> io-1
+io-1 --> Node:view_returns_optional:n
+Node:view_returns_optional:n --> io-2
 Higher value!
-NodeGraph:
-  Edges:
-     view_returns_optional:conditional -> [view_returns_optional:n]
-     view_returns_optional:n -> []
-  Nodes:
-     view_returns_optional:conditional: View(name=view_returns_optional:conditional)
-     view_returns_optional:n: Node(name=view_returns_optional:n, inputs=[View(name=view_returns_optional:conditional)], outputs=[Print()])
+View:view_returns_optional:conditional --> io-1
+io-1 --> Node:view_returns_optional:n
+Node:view_returns_optional:n --> io-2
 None
 
 ```

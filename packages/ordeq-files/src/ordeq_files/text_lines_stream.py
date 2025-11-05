@@ -37,7 +37,7 @@ class TextLinesStream(IO[Generator[str]]):
         logger.warning(
             "TextLinesStream is in pre-release, "
             "functionality may break in future releases "
-            "without notice."
+            "without it being considered a breaking change."
         )
 
     def load(self, mode="r") -> Generator[str]:

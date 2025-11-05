@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Literal
+from typing import Any
 
 import polars as pl
 from ordeq import IO
@@ -8,12 +8,12 @@ from pyiceberg.table import Table
 
 @dataclass(frozen=True, kw_only=True)
 class PolarsLazyIceberg(IO[pl.LazyFrame]):
-    """IO for loading and saving Iceberg tables lazily using Polars.
+    """IO for loading Iceberg tables lazily using Polars.
 
     Example:
 
     ```pycon
-    >>> from ordeq_polars.lazy import PolarsLazyIceberg
+    >>> from ordeq_polars import PolarsLazyIceberg
     >>> iceberg = PolarsLazyIceberg(
     ...     path="file:/path/to/iceberg-table/metadata.json",
     ... )
@@ -34,15 +34,3 @@ class PolarsLazyIceberg(IO[pl.LazyFrame]):
             LazyFrame containing the Iceberg table data
         """
         return pl.scan_iceberg(source=self.path, **load_options)
-
-    def save(
-        self, lf: pl.LazyFrame, mode: Literal["append", "overwrite"] = "append"
-    ) -> None:
-        """Write a LazyFrame to an Iceberg table.
-
-        Args:
-            lf: The LazyFrame to write
-            mode: The write mode ("append" or "overwrite")
-        """
-
-        lf.collect().write_iceberg(target=self.path, mode=mode)

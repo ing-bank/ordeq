@@ -31,8 +31,16 @@ def _create_parser() -> ArgumentParser:
         "--save",
         choices=get_args(SaveMode),
         help="Which outputs to save: all, or only sinks (outputs with "
-        "no successor node)",
+             "no successor node)",
         default="all",
+    )
+    parser.add_argument(
+        "--io",
+        nargs=2,
+        action="append",
+        metavar=("old", "new"),
+        default=[],
+        help="Mapping of IO objects or catalogs to their runtime substitutions."
     )
     return parser
 
@@ -55,7 +63,7 @@ def parse_args(args: tuple[str, ...] | None = None) -> Namespace:
 def main() -> None:
     """Main function for the CLI. Parses arguments and triggers the run."""
     args = parse_args()
-    run(*args.runnables, hooks=args.hooks, save=args.save)
+    run(*args.runnables, hooks=args.hooks, save=args.save, io=dict(args.io))
 
 
 if __name__ == "__main__":

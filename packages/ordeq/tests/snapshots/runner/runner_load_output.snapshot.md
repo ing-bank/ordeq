@@ -29,14 +29,18 @@ run(my_node, load_node)
 ## Exception
 
 ```text
-AttributeError: 'NoneType' object has no attribute 'items'
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_strings_to_subs
-    for old, new in subs.items():
-                    ^^^^^^^^^^
+AttributeError: 'Example' object has no attribute 'load'
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    cast("Input", input_dataset).load() for input_dataset in node.inputs
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
+    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _resolve_strings_to_subs(io)
-    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+    _run_graph(graph, hooks=node_hooks, save=save, io=io_substitutes)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/runner_load_output.py", line LINO, in <module>
     run(my_node, load_node)
@@ -52,9 +56,18 @@ AttributeError: 'NoneType' object has no attribute 'items'
 
 ```
 
+## Output
+
+```text
+saving! Hello, World!
+
+```
+
 ## Logging
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'runner_load_output:load_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running node "my_node" in module "runner_load_output"
+INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```

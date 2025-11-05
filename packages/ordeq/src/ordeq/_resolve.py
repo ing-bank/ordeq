@@ -347,7 +347,7 @@ def _resolve_runnables_to_nodes_and_ios(
 
 
 def _resolve_strings_to_subs(
-    subs: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType] | None,
+    subs: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType],
 ) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
     def resolve_string_to_sub(string: str) -> AnyIO | ModuleType:
         if ":" in string:

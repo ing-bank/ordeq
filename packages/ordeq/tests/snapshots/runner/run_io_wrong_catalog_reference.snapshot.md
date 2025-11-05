@@ -35,8 +35,8 @@ ValueError: IO 'remote' not found in module 'example_catalogs'
               ~~~~~~~~~~~~~~~~~~~~~^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _resolve_strings_to_subs(io)
-    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+    _resolve_strings_to_subs(io or {})
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/run_io_wrong_catalog_reference.py", line LINO, in <module>
     run(uppercase, io={catalog.hello: "example_catalogs:remote"})

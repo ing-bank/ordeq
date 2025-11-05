@@ -6,7 +6,7 @@ from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._graph import NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
-from ordeq._io import AnyIO, _InputCache
+from ordeq._io import AnyIO, Input, Output, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import (
     _resolve_hooks,
@@ -163,8 +163,8 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(
-        _resolve_strings_to_subs(io)
+    io_substitutes = _substitutes_modules_to_ios(
+        _resolve_strings_to_subs(io or {})
     )
 
     _run_graph(graph, hooks=node_hooks, save=save, io=io_substitutes)

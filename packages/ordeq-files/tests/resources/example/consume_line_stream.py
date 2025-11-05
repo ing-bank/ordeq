@@ -12,9 +12,9 @@ example_line_stream = TextLinesStream(path=example_file_path)
 @node(outputs=[example_line_stream])
 def write_to_line_stream() -> Generator[str]:
     print("Writing to example line stream...")
-    yield "First line\n"
-    yield "Second line\n"
-    yield "Third line\n"
+    yield "First line"
+    yield "Second line"
+    yield "Third line"
 
 
 @node(inputs=[example_line_stream])

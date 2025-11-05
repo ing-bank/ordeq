@@ -45,4 +45,4 @@ class TextLinesStream(IO[Generator[str]]):
 
     def save(self, data: Generator[str, None, None], mode="w") -> None:
         with self.path.open(mode=mode) as fh:
-            fh.writelines(data)
+            fh.writelines(f"{line}\n" for line in data)

@@ -5,6 +5,7 @@
 # For some IOs, like streams and buffers, caching is counter-productive:
 # repeated calls to `load()` should reload the data from scratch.
 from dataclasses import dataclass
+
 from ordeq import IO
 
 

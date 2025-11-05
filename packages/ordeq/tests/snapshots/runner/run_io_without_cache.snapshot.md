@@ -1,26 +1,38 @@
 ## Resource
 
 ```python
-# Captures the behaviour of an IO that doesn't cache saved data.
+# Captures the behaviour of an IO that doesn't cache loaded data.
 # For some IOs, like streams and buffers, caching is counter-productive:
 # repeated calls to `load()` should reload the data from scratch.
 from dataclasses import dataclass
 
-from ordeq import IO
+from ordeq import Input, node, run
 
 
 @dataclass(kw_only=True)
-class Counter(IO[int], cache=False):
+class Counter(Input[int], cache=False):
     counter: int = 0
 
-    def save(self, _: int) -> None:
+    def load(self) -> int:
         self.counter += 1
-        print(self.counter)
+        return self.counter
 
 
 counter = Counter()
-counter.save(123)  # expect 1
-counter.save(123)  # expect 2
+
+
+@node(inputs=counter)
+def func1(hello: str) -> None:
+    print(hello)
+
+
+@node(inputs=counter)
+def func2(hello: str) -> None:
+    print(hello)
+
+
+run(func1, func2)
+print(counter.counter)  # expect: 2
 
 ```
 
@@ -28,10 +40,10 @@ counter.save(123)  # expect 2
 
 ```text
 TypeError: _InputMeta.__new__() got an unexpected keyword argument 'cache'
-  File "/packages/ordeq/tests/resources/io/output_without_cache.py", line LINO, in <module>
-    class Counter(IO[int], cache=False):
+  File "/packages/ordeq/tests/resources/runner/run_io_without_cache.py", line LINO, in <module>
+    class Counter(Input[int], cache=False):
     ...<4 lines>...
-            print(self.counter)
+            return self.counter
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 

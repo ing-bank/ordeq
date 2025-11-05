@@ -10,4 +10,4 @@ To run its tests, run the following command from the current working directory:
 uv run pytest
 ```
 
-This will generate `tests-resources/test-greetings.csv`, while using `tests-resources/test-names.csv` as seed data.
+This will generate `tests-resources/txs-and-clients.csv` and `aggregated-txs.csv` while using `tests-resources/txs.csv` and `clients.csv` as input data.

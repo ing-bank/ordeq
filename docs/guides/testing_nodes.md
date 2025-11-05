@@ -103,6 +103,7 @@ This unit test follows a standard setup: we create some seed data, feed if to th
 Unit-testing the node can be done in the same way as unit-testing any Python method, since nodes behave like plain Python functions.
 
 !!! note "Calling the node doesn't load or save any data"
+
     It is worth nothing that calling the node this does not load or save IOs, and does not invoke hooks.
     This is a good practice for unit tests, as it keeps them fast and isolated.
     We don't need to worry about where the data resides, and can focus on verifying the transformations.
@@ -305,16 +306,16 @@ Next, we run this pipeline from the tests, and check the output:
 Because `run` runs the (sub)pipeline under test in exactly the same way as it would in a production setting, you can test the actual pipeline behaviour.
 For more information on how to set up the run, please see the [guide][run-and-viz] or check out the [API reference][run-api].
 
-
 !!! question "Questions, suggestions or remarks?"
+
     If you have any questions, suggestions or remarks on this guide, please feel free to create an [issue on GitHub][issues].
 
 [concepts-catalog]: ../getting-started/concepts/catalogs.md
 [concepts-hooks]: ../getting-started/concepts/hooks.md
 [concepts-node]: ../getting-started/concepts/nodes.md
+[issues]: https://github.com/ing-bank/ordeq/issues/new
 [polars-testing]: https://docs.pola.rs/api/python/stable/reference/testing.html
 [pytest]: https://docs.pytest.org/en/stable/
 [run-and-viz]: ./run_and_viz.md
 [run-api]: ../api/ordeq/_runner.md
 [testing-nodes-project]: https://github.com/ing-bank/ordeq/tree/main/examples
-[issues]: https://github.com/ing-bank/ordeq/issues/new

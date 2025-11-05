@@ -172,8 +172,7 @@ predictions = SparkCSV(path="path/to/test/predictions.csv")
 You can place the test catalog in the `catalogs` package, with the other catalogs.
 In that case, you can import it in your nodes as shown above.
 
-If you do not want to alter the source catalog(s) for testing purposes, you can also define the test catalog outside the
-source folder.
+If you do not want to alter the source catalog(s) for testing purposes, you can also define the test catalog outside the source folder.
 For instance, in `tests/catalog.py`.
 Next, you can run the pipeline with the test catalog as follows:
 

@@ -1,8 +1,9 @@
 import polars as pl
 from ordeq_polars import PolarsEagerIceberg, PolarsLazyIceberg
+from pyiceberg.table import Table
 
 
-def test_it_saves_append(iceberg_table: str, df: pl.DataFrame):
+def test_it_saves_append(iceberg_table: Table, df: pl.DataFrame):
     iceberg = PolarsEagerIceberg(path=iceberg_table)
 
     # Save initial data

@@ -47,13 +47,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     shared_resource_read_only:first -> []
-     shared_resource_read_only:second -> []
-  Nodes:
-     shared_resource_read_only:first: View(name=shared_resource_read_only:first, inputs=[File])
-     shared_resource_read_only:second: View(name=shared_resource_read_only:second, inputs=[File])
+View:shared_resource_read_only:first --> io-1
+View:shared_resource_read_only:second --> io-2
 
 
 

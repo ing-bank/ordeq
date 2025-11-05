@@ -35,21 +35,13 @@ print(x3.load())
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     runner_io_more_than_once:decrement -> []
-     runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
-  Nodes:
-     runner_io_more_than_once:decrement: Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
-     runner_io_more_than_once:increment: Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+Node:runner_io_more_than_once:decrement --> io-1
+Node:runner_io_more_than_once:increment --> io-2
+io-2 --> Node:runner_io_more_than_once:decrement
 1
-NodeGraph:
-  Edges:
-     runner_io_more_than_once:decrement -> []
-     runner_io_more_than_once:increment -> [runner_io_more_than_once:decrement]
-  Nodes:
-     runner_io_more_than_once:decrement: Node(name=runner_io_more_than_once:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
-     runner_io_more_than_once:increment: Node(name=runner_io_more_than_once:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+Node:runner_io_more_than_once:decrement --> io-1
+Node:runner_io_more_than_once:increment --> io-2
+io-2 --> Node:runner_io_more_than_once:decrement
 12001
 
 ```

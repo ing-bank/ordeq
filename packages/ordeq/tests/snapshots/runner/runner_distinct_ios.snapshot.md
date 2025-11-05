@@ -22,13 +22,8 @@ run(func1, func2, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     runner_distinct_ios:func1 -> []
-     runner_distinct_ios:func2 -> []
-  Nodes:
-     runner_distinct_ios:func1: Node(name=runner_distinct_ios:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
-     runner_distinct_ios:func2: Node(name=runner_distinct_ios:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+Node:runner_distinct_ios:func1 --> io-1
+Node:runner_distinct_ios:func2 --> io-2
 
 ```
 
@@ -36,8 +31,8 @@ NodeGraph:
 
 ```text
 INFO	ordeq.runner	Running node "func2" in module "runner_distinct_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "func1" in module "runner_distinct_ios"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node "func1" in module "runner_distinct_ios"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

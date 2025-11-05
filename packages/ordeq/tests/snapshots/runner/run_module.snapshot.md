@@ -11,13 +11,9 @@ run(example_module_a, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     resources.runner.example_module_a:decrement -> []
-     resources.runner.example_module_a:increment -> [resources.runner.example_module_a:decrement]
-  Nodes:
-     resources.runner.example_module_a:decrement: Node(name=resources.runner.example_module_a:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
-     resources.runner.example_module_a:increment: Node(name=resources.runner.example_module_a:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+Node:resources.runner.example_module_a:decrement --> io-1
+Node:resources.runner.example_module_a:increment --> io-2
+io-2 --> Node:resources.runner.example_module_a:decrement
 
 ```
 

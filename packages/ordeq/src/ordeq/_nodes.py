@@ -74,10 +74,8 @@ class Node(Generic[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
-            # type: ignore[misc,arg-type]
-            outputs=tuple(io.get(op, op) for op in self.outputs),
-            # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
         )
 
     def __repr__(self) -> str:
@@ -222,8 +220,7 @@ class View(Node[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),
-            # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
         )
 
     def __repr__(self) -> str:
@@ -340,8 +337,7 @@ def create_node(
             name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
-            attributes={} if attributes is None else attributes,
-            # type: ignore[arg-type]
+            attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
         )
     return Node(
         func=func,
@@ -354,7 +350,7 @@ def create_node(
 
 # Default value for 'func' in case it is not passed.
 # Used to distinguish between 'func=None' and func missing as positional arg.
-not_passed = lambda: None  # noqa: E731 (no-lambdas)
+def not_passed(*args, **kwargs): ...
 
 
 @overload

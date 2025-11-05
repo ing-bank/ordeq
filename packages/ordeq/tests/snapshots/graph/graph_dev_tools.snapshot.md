@@ -1,7 +1,7 @@
 ## Resource
 
 ```python
-# Captures the behaviour when resolving a package catalog to IO.
+# Capture the graph representation and topological ordering for dev tools
 from pprint import pprint
 
 import ordeq_dev_tools
@@ -10,8 +10,14 @@ from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(ordeq_dev_tools)
 base_graph = NodeIOGraph.from_nodes(nodes)
+print("NodeIOGraph")
 print(base_graph)
+
 node_graph = NodeGraph.from_graph(base_graph)
+print("NodeGraph")
+print(node_graph)
+
+print("Topological ordering")
 pprint(node_graph.topological_ordering)
 
 ```
@@ -19,6 +25,7 @@ pprint(node_graph.topological_ordering)
 ## Output
 
 ```text
+NodeIOGraph
 View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> io-1
 io-1 --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
 Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> io-2
@@ -64,6 +71,36 @@ View:ordeq_dev_tools.pipelines.shared:packages --> io-22
 io-22 --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
 io-22 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:package_tags
 Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> io-23
+NodeGraph
+View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
+Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
+View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+View:ordeq_dev_tools.pipelines.docs_update_just:just_output --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
+Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+View:ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_relevant_prs
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_commit_changed_files
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_latest_tags --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_latest_tags --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_commit_changed_files --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_relevant_prs --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+View:ordeq_dev_tools.pipelines.generate_draft_releases:package_tags --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_latest_tags
+View:ordeq_dev_tools.pipelines.list_changed_packages:changed_files --> Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
+Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
+Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies
+Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
+Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
+View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.generate_draft_releases:package_tags
+Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools
+Topological ordering
 (View(name=ordeq_dev_tools.pipelines.shared:packages),
  View(name=ordeq_dev_tools.pipelines.generate_draft_releases:package_tags, inputs=[IO(idx=ID1)]),
  Node(name=ordeq_dev_tools.pipelines.generate_draft_releases:get_all_latest_tags, inputs=[IO(idx=ID2)], outputs=[IO(idx=ID3)]),

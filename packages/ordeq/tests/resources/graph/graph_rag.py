@@ -1,4 +1,4 @@
-# Captures the behaviour when resolving a package catalog to IO.
+# Capture the graph representation and topological ordering for example rag
 from pprint import pprint
 
 import example_rag_pipeline
@@ -7,6 +7,12 @@ from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_rag_pipeline)
 base_graph = NodeIOGraph.from_nodes(nodes)
+print("NodeIOGraph")
 print(base_graph)
+
 node_graph = NodeGraph.from_graph(base_graph)
+print("NodeGraph")
+print(node_graph)
+
+print("Topological ordering")
 pprint(node_graph.topological_ordering)

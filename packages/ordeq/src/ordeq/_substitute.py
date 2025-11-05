@@ -45,11 +45,9 @@ def _substitute(
 
 
 def _substitutes_modules_to_ios(
-    io: dict[AnyIO | ModuleType, AnyIO | ModuleType] | None,
+    io: dict[AnyIO | ModuleType, AnyIO | ModuleType],
 ) -> IOSubstitutes:
     substitution_map: IOSubstitutes = {}
-    if io is None:
-        return substitution_map
     for key, value in io.items():
         substitution_map.update(_substitute(key, value))
     return substitution_map

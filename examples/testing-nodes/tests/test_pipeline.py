@@ -1,10 +1,5 @@
-from pathlib import Path
-
 import polars as pl
-from ordeq import run
-from ordeq_common import Literal
-from ordeq_polars import PolarsEagerCSV
-from testing_nodes import catalog
+from polars.testing import assert_frame_equal
 from testing_nodes.pipeline import join_txs_and_clients
 
 
@@ -34,8 +29,15 @@ def test_join_txs_and_clients():
         schema=["date", "txs_id", "client_id", "amount", "client_name"],
         orient="row",
     )
-    assert actual.equals(expected)
+    assert_frame_equal(actual, expected)
 
+
+from pathlib import Path
+
+from ordeq import run
+from ordeq_common import Literal
+from ordeq_polars import PolarsEagerCSV
+from testing_nodes import catalog
 
 TEST_RESOURCES_DIR = Path(__file__).resolve().parent.parent / "tests-resources"
 
@@ -66,11 +68,11 @@ def test_run_node():
         schema=["date", "txs_id", "client_id", "amount", "client_name"],
         orient="row",
     )
-    assert actual.equals(expected)
+    assert_frame_equal(actual, expected)
 
 
-import test_catalog  # noqa: E402 (import-not-at-top)
-import testing_nodes  # noqa: E402 (import-not-at-top)
+import test_catalog
+import testing_nodes
 
 
 def test_run_node_catalog():
@@ -84,10 +86,10 @@ def test_run_node_catalog():
         schema=["date", "txs_id", "client_id", "amount", "client_name"],
         orient="row",
     )
-    assert actual.equals(expected)
+    assert_frame_equal(actual, expected)
 
 
-from testing_nodes import pipeline  # noqa: E402 (import-not-at-top)
+from testing_nodes import pipeline
 
 
 def test_pipeline():
@@ -101,4 +103,4 @@ def test_pipeline():
         schema=["client_id", "client_name", "amount"],
         orient="row",
     )
-    assert actual.equals(expected)
+    assert_frame_equal(actual, expected)

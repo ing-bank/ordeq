@@ -4,6 +4,11 @@ This guide outlines different strategies for testing nodes and pipelines.
 Testing an Ordeq project is easy and requires minimal setup.
 Because nodes behave like plain Python functions, they can be tested using any Python testing framework.
 
+!!! question "New to automated testing?"
+
+    If you are new to automated testing, we recommend starting with exploring [`pytest`][pytest] and a testing guide of the library of your choice.
+    For instance, if you use Polars, check out [this guide][polars-testing].
+
 ## Testing a single node
 
 Let's start by considering the following basic pipeline node from the [node concepts section][concepts-node].
@@ -11,7 +16,7 @@ We have slightly adapted the pipeline to use Polars instead of Spark.
 This pipeline joins transactions data with clients data.
 The source code of this project can be found [here][testing-nodes-project].
 
-=== "src/testing_nodes/pipeline.py"
+=== "pipeline.py"
 
     ```python
     import polars as pl
@@ -30,7 +35,7 @@ The source code of this project can be found [here][testing-nodes-project].
         return txs.join(clients, on="client_id", how="left")
     ```
 
-=== "src/starter_testing/catalog.py"
+=== "catalog.py"
 
     ```python
     from ordeq_args import CommandLineArg
@@ -44,13 +49,14 @@ The source code of this project can be found [here][testing-nodes-project].
     )
     ```
 
-As we can see in the catalog, this node depends on data on S3, and a date value that is passed as command line argument.
-In most cases, this would complicate unit testing, but with Ordeq it doesn't!
+As we can see in the catalog, this node depends on data on S3, and a date value is passed as command line argument.
+In most cases, this would complicate testing, but with Ordeq that is not the case!
+
 Let's start by creating some unit tests for this node.
 We will use [`pytest`][pytest] to test our project, but the principles also apply to other testing framework like
 `unittest`.
-First, we will create a `tests` package and a test module `test_pipeline.py`.
-This module contains a basic unit tests for the node:
+First, we will create a `tests` package and a test module.
+This module contains a basic unit test for the node:
 
 === "tests/test_pipeline.py"
 
@@ -61,6 +67,7 @@ This module contains a basic unit tests for the node:
 
 
     def test_join_txs_and_clients():
+        # Create the seed data
         txs = pl.DataFrame(
             data=[
                 ["2023-12-30", 123, "A", 100],
@@ -80,7 +87,11 @@ This module contains a basic unit tests for the node:
             schema=["client_id", "client_name"],
             orient="row",
         )
+
+        # Call the method
         actual = join_txs_and_clients(txs, clients, "2023-12-30")
+
+        # Check the output
         expected = pl.DataFrame(
             data=[["2023-12-30", 123, "A", 100, "a very nice client"]],
             schema=["date", "txs_id", "client_id", "amount", "client_name"],
@@ -98,7 +109,7 @@ This is a good practice for unit tests, as it keeps them fast and isolated.
 
 Alternatively, you can test nodes by running them.
 This will load the data from the node inputs, and save the returned data to the node outputs.
-It will also invoke [hooks][concepts-hooks] that are set on the IO or runner.
+It will also invoke [hooks][concepts-hooks] that are set on the IO or runner:
 
 === "tests/test_pipeline.py"
 
@@ -108,21 +119,14 @@ It will also invoke [hooks][concepts-hooks] that are set on the IO or runner.
 
 
     def test_run_node():
-        # Run with alternative IO:
         run(join_txs_and_clients)
-        # do your assertions ...
     ```
 
-In contrast to the tests above, this test does depend on the content of the data.
+In contrast to the tests above, this test does connect to actual data sources.
+For instance, it will attempt to connect to S3, and parse the date value from a command line argument.
+This is not ideal: we would like to test our node with representative data without relying on external resources.
 
-### Running with different IO
-
-Many times we do not want to connect to a real file system or database when testing.
-This can be because connecting to the real data is slow, or because we do not want the tests to change the actual data.
-Instead, we want to test the logic with some seed data, often stored locally.
-
-For example, suppose reading from `txs` is very expensive, because it is a large file.
-We can then use a local file, with the same structure, to test the node.
+We can instead use a local file, with the same structure, to test the node.
 To run the node with different IO, simply set the `io` argument of the runner:
 
 === "tests/test_pipeline.py"
@@ -170,7 +174,10 @@ To run the node with different IO, simply set the `io` argument of the runner:
         assert actual.equals(expected)
     ```
 
-When `join_txs_and_clients` is run, Ordeq will use the test's `txs` and `clients` IOs as replacements of those in the catalog.
+When `join_txs_and_clients` is run, Ordeq will use the test's `txs` and `clients` IOs as replacements for those in the catalog.
+This approach works well if you need fine-grained control over which IOs are used during tests.
+But it is also quite verbose, and doesn't allow us yet to reuse test data across multiple tests.
+As we will see in the next section, you can also use a dedicated catalog for organizing test IOs.
 
 !!! info "More on running nodes"
 
@@ -206,16 +213,14 @@ Here is a simple overview of your test package with a test catalog:
 
 === "tests/test_pipeline.py"
 
-    ```python
+    ```python hl_lines="6"
     import test_catalog
     import testing_nodes
-
+    import polars as pl
 
     def test_run_node_catalog():
-        # Run with alternative catalog:
         run(join_txs_and_clients, io={testing_nodes.catalog: test_catalog})
 
-        # Check the output:
         actual = test_catalog.txs_and_clients.load()
         expected = pl.DataFrame(
             data=[["2023-12-30", 123, "A", 100, "a very nice client"]],
@@ -229,6 +234,13 @@ The test catalog defines the same entries as the source catalog, but points to d
 In this case, the test data is stored in a `tests-resources` folder, but you can store it anywhere.
 The test catalog module is imported in the tests, and passed to the runner.
 Because `testing_nodes.catalog` is mapped to `test_catalog`, Ordeq will replace all entries of the source catalog with those of test catalog.
+This avoids connecting to external resources when we run the node during tests.
+
+!!! tip "Ordeq verifies the test catalog"
+
+    Ordeq verifies that the alternative catalog that is passed to the runner is consistent with the original one.
+    This ensures that you accidentally run using a "real" IO during tests.
+    More info in the [catalog guide][concepts-catalog].
 
 ## Testing more nodes
 
@@ -237,9 +249,13 @@ A next step in testing your project would be to test your node in integration wi
 For instance, you might want to run an entire (sub)pipeline and verify the outputs.
 To do this, we will again leverage the runner.
 
-=== "pipeline.py" hl_lines=1-3
+We will first adapt the example and include a new node `aggregate_txs` that performs a basic aggregation.
+This means our pipeline consists of two nodes in total.
+Next, we run this pipeline from the tests, and check the output:
 
-    ```python
+=== "pipeline.py"
+
+    ```python hl_lines="17-21"
     import polars as pl
     from ordeq import node
     from testing_nodes import catalog
@@ -265,17 +281,15 @@ To do this, we will again leverage the runner.
 
 === "tests/test_pipeline.py"
 
-    ```python
+    ```python hl_lines="7 9-14"
     import polars as pl
     import test_catalog
     import testing_nodes
 
 
     def test_pipeline():
-        # Run the entire pipeline with an alternative catalog
         run(testing_nodes.pipeline, io={testing_nodes.catalog: test_catalog})
 
-        # Check the output:
         actual = test_catalog.aggregated_txs.load()
         expected = pl.DataFrame(
             data=[["A", "a very nice client", 100]],
@@ -291,6 +305,8 @@ For more information on how to set up the run, please see the [guide][run-and-vi
 [concepts-catalog]: ../getting-started/concepts/catalogs.md
 [concepts-hooks]: ../getting-started/concepts/hooks.md
 [concepts-node]: ../getting-started/concepts/nodes.md
+[polars-testing]: https://docs.pola.rs/api/python/stable/reference/testing.html
 [pytest]: https://docs.pytest.org/en/stable/
 [run-and-viz]: ./run_and_viz.md
 [run-api]: ../api/ordeq/_runner.md
+[testing-nodes-project]: https://github.com/ing-bank/ordeq/tree/main/examples

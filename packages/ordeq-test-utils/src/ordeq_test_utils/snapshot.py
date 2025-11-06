@@ -2,6 +2,7 @@ import difflib
 import importlib.util
 import logging
 import re
+import tempfile
 import traceback
 from pathlib import Path
 
@@ -114,8 +115,11 @@ def make_output_invariant(output: str) -> str:
     # File ".../_runner.py", line 140  => "File ".../_runner.py", line LINO
     captured = re.sub(r"(line )\d+", r"\1LINO", captured)
 
+    temp_dir = re.escape(str(Path(tempfile.gettempdir())))
+
     return (
         captured.replace(root_path, "")
+        .replace(temp_dir, "<TEMP_DIR>")
         .replace(stdlib_path, "")
         .replace("PosixPath", "Path")
         .replace("WindowsPath", "Path")

@@ -38,10 +38,8 @@ packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: error: Argu
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:6: error: If x = b'abc' then f"{x}" or "{}".format(x) produces "b'abc'", not "abc". If this is desired behavior, use f"{x!r}" or "{!r}".format(x). Otherwise, decode the bytes  [str-bytes-safe]
 packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 6  [no-redef]
 packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
-packages/ordeq/tests/resources/views/view_index_run_result_by_node.py:16: error: "run" does not return a value (it only ever returns None)  [func-returns-value]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:6: error: Need type annotation for "b"  [var-annotated]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:8: error: Need type annotation for "B"  [var-annotated]
-packages/ordeq/tests/resources/runner/runner_exhausted_stream.py:19: error: Unsupported left operand type for + ("Iterable[str]")  [operator]
 packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
@@ -53,4 +51,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No 
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-Found 28 errors in 19 files (checked 179 source files)
+Found 26 errors in 17 files (checked 178 source files)

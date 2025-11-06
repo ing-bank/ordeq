@@ -1,3 +1,4 @@
+packages/ordeq/tests/resources/substitute/substitute_none.py:4: error: Argument 1 to "_substitutes_modules_to_ios" has incompatible type "None"; expected "dict[Input[Any] | Output[Any] | IO[Any] | Module, Input[Any] | Output[Any] | IO[Any] | Module]"  [arg-type]
 packages/ordeq/tests/resources/views/node_outputs_view.py:9: error: No overload variant of "node" matches argument type "Callable[[], str]"  [call-overload]
 packages/ordeq/tests/resources/views/node_outputs_view.py:9: note: Possible overload variants:
 packages/ordeq/tests/resources/views/node_outputs_view.py:9: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
@@ -6,7 +7,6 @@ packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: error: No o
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note: Possible overload variants:
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
-packages/ordeq/tests/resources/substitute/substitute_none.py:4: error: Argument 1 to "_substitutes_modules_to_ios" has incompatible type "None"; expected "dict[Input[Any] | Output[Any] | IO[Any] | Module, Input[Any] | Output[Any] | IO[Any] | Module]"  [arg-type]
 packages/ordeq/tests/resources/runner/runner_load_output.py:17: error: List item 0 has incompatible type "Example"; expected "Input[Any] | Callable[..., Any]"  [list-item]
 packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/deterministic_graph.py:5: error: Need type annotation for "o1"  [var-annotated]

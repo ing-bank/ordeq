@@ -53,6 +53,7 @@ members = [
     "starter-package",
     "starter-single-file",
     "starter-subpipelines",
+    "testing-nodes",
 ]
 
 [[package]]
@@ -4393,6 +4394,21 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/44/42/62109a1057763b0e9a95a1893ee8e6a39c9adac142b9d131a8f8d31bafcf/testcontainers-4.8.1.tar.gz", hash = "sha256:5ded4820b7227ad526857eb3caaafcabce1bbac05d22ad194849b136ffae3cb0", size = 63671, upload-time = "2024-09-03T09:26:19.482Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/eb/fb/f94ab2c9c275032e4e672f1223a279a9bbd204f4bb393b00a6bce134ed5d/testcontainers-4.8.1-py3-none-any.whl", hash = "sha256:d8ae43e8fe34060fcd5c3f494e0b7652b7774beabe94568a2283d0881e94d489", size = 104422, upload-time = "2024-09-03T09:26:17.896Z" },
+]
+
+[[package]]
+name = "testing-nodes"
+version = "0.1.0"
+source = { editable = "examples/testing-nodes" }
+dependencies = [
+    { name = "ordeq" },
+    { name = "ordeq-files" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "ordeq-files", editable = "packages/ordeq-files" },
 ]
 
 [[package]]

@@ -135,7 +135,7 @@ def run(
 
     Arguments `runnables`, `hooks` and `io` also support string references.
     Each string reference should be formatted `module.submodule.[...]`
-    (for modules) or `module.submodule:name` (for nodes, hooks and IOs).
+    (for modules) or `module.submodule.[...]:name` (for nodes, hooks and IOs).
 
     Examples:
 

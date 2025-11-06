@@ -27,6 +27,7 @@ run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
 View:view_patch_io:hello_world --> io-1
 io-1 --> View:view_patch_io:n
 View:view_patch_io:n --> io-2
+io-3 --> View:view_patch_io:hello_world
 Node received 'Buenos dias World!'
 
 ```

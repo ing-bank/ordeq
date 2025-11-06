@@ -32,6 +32,10 @@ Node:example_1.pipeline:transform_mock_input --> io-3
 Node:example_1.wrapped_io:hello --> io-4
 io-4 --> Node:example_1.wrapped_io:print_message
 Node:example_1.wrapped_io:print_message --> io-5
+io-6 --> Node:example_1.nodes:world
+io-7 --> Node:example_1.pipeline:transform_input
+io-8 --> Node:example_1.pipeline:transform_mock_input
+io-9 --> Node:example_1.wrapped_io:hello
 NodeGraph
 Node:example_1.nodes:world
 Node:example_1.pipeline:transform_input

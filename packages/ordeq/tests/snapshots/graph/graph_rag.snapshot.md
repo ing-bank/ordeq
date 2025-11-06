@@ -40,6 +40,14 @@ Node:example_rag_pipeline.rag.retrieval:filter_relevant --> io-6
 io-6 --> Node:example_rag_pipeline.rag.question_answering:question_answering
 Node:example_rag_pipeline.rag.retrieval:retrieve --> io-7
 io-7 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
+io-8 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
+io-8 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
+io-9 --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
+io-9 --> Node:example_rag_pipeline.rag.question_answering:question_answering
+io-9 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
+io-10 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
+io-10 --> Node:example_rag_pipeline.rag.retrieval:retrieve
+io-11 --> Node:example_rag_pipeline.rag.policies:generate_questions
 NodeGraph
 Node:example_rag_pipeline.rag.annotation:annotate_documents
 Node:example_rag_pipeline.rag.evaluation:evaluate_answers

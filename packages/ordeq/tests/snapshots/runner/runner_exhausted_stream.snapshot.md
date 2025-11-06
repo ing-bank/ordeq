@@ -57,9 +57,13 @@ run(increment, multiply, verbose=True, save="sinks")
 Node:runner_exhausted_stream:increment --> io-1
 io-1 --> Node:runner_exhausted_stream:multiply
 Node:runner_exhausted_stream:multiply --> io-2
+io-3 --> Node:runner_exhausted_stream:increment
+io-4 --> Node:runner_exhausted_stream:multiply
 Node:runner_exhausted_stream:increment --> io-1
 io-1 --> Node:runner_exhausted_stream:multiply
 Node:runner_exhausted_stream:multiply --> io-2
+io-3 --> Node:runner_exhausted_stream:increment
+io-4 --> Node:runner_exhausted_stream:multiply
 
 ```
 

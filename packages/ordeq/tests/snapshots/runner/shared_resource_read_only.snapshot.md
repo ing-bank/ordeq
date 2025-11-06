@@ -49,6 +49,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ```text
 View:shared_resource_read_only:first --> io-1
 View:shared_resource_read_only:second --> io-2
+io-3 --> View:shared_resource_read_only:first
+io-4 --> View:shared_resource_read_only:second
 
 
 

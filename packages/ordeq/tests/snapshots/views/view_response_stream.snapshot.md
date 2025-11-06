@@ -31,6 +31,7 @@ run(printer, verbose=True)
 Node:view_response_stream:printer --> io-1
 View:view_response_stream:users_stream --> io-2
 io-2 --> Node:view_response_stream:printer
+io-3 --> View:view_response_stream:users_stream
 <generator object HTTPResponse.stream at HASH1>
 
 ```

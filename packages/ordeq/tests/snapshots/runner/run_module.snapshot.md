@@ -14,6 +14,8 @@ run(example_module_a, verbose=True)
 Node:resources.runner.example_module_a:decrement --> io-1
 Node:resources.runner.example_module_a:increment --> io-2
 io-2 --> Node:resources.runner.example_module_a:decrement
+io-3 --> Node:resources.runner.example_module_a:decrement
+io-4 --> Node:resources.runner.example_module_a:increment
 
 ```
 

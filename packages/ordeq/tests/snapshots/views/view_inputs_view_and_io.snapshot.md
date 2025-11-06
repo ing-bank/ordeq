@@ -41,6 +41,7 @@ io-1 --> View:view_inputs_view_and_io:hello_from_someone
 View:view_inputs_view_and_io:hello_from_someone --> io-2
 io-2 --> View:view_inputs_view_and_io:n
 View:view_inputs_view_and_io:n --> io-3
+io-4 --> View:view_inputs_view_and_io:hello_from_someone
 I heard that Jane said 'Hello, World!'
 
 ```

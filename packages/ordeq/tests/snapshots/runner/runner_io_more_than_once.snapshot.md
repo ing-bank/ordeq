@@ -38,10 +38,14 @@ print(x3.load())
 Node:runner_io_more_than_once:decrement --> io-1
 Node:runner_io_more_than_once:increment --> io-2
 io-2 --> Node:runner_io_more_than_once:decrement
+io-3 --> Node:runner_io_more_than_once:decrement
+io-3 --> Node:runner_io_more_than_once:increment
 1
 Node:runner_io_more_than_once:decrement --> io-1
 Node:runner_io_more_than_once:increment --> io-2
 io-2 --> Node:runner_io_more_than_once:decrement
+io-3 --> Node:runner_io_more_than_once:decrement
+io-3 --> Node:runner_io_more_than_once:increment
 12001
 
 ```

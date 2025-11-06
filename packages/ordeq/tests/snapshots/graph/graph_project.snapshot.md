@@ -36,6 +36,7 @@ Node:example_project.nodes_import_reassign:func_b --> io-7
 Node:example_project.nodes_with_inline_io:greet --> io-8
 Node:example_project.nodes_with_view:farewell --> io-9
 View:example_project.nodes_with_view:greet --> io-10
+io-10 --> Node:example_project.nodes_with_view:farewell
 NodeGraph
 Node:example_project.inner.nodes:func
 Node:example_project.nodes:func
@@ -46,7 +47,7 @@ Node:example_project.nodes_import_reassign:func_a
 Node:example_project.nodes_import_reassign:func_b
 Node:example_project.nodes_with_inline_io:greet
 Node:example_project.nodes_with_view:farewell
-View:example_project.nodes_with_view:greet
+View:example_project.nodes_with_view:greet --> Node:example_project.nodes_with_view:farewell
 Topological ordering
 ['example_project.nodes_with_view:greet',
  'example_project.nodes_with_view:farewell',

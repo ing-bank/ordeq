@@ -7,9 +7,9 @@ printer = Print()
 
 @node(inputs=greeting)
 def greet(hello: str):
-    print(hello)
+    return hello
 
 
-@node(inputs=greeting, outputs=printer)
+@node(inputs=greet, outputs=printer)
 def farewell(g: str) -> str:
     return f"{g}; Goodbye!"

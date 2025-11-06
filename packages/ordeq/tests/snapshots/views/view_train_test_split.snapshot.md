@@ -1,10 +1,11 @@
 ## Resource
 
 ```python
+from typing import TypeAlias
+
 import pandas as pd
 from ordeq import node, run
 from ordeq_common import Literal
-from typing import TypeAlias
 
 dataframe = Literal(
     pd.DataFrame({
@@ -72,21 +73,7 @@ INFO	ordeq.runner	Running view "train" in module "view_train_test_split"
 ## Typing
 
 ```text
-error[invalid-return-type]: Return type does not match returned value
-  --> packages/ordeq/tests/resources/views/view_train_test_split.py:19:32
-   |
-18 | @node(inputs=dataframe)
-19 | def split(df: pd.DataFrame) -> Split:
-   |                                ----- Expected `tuple[DataFrame, DataFrame]` because of return type
-20 |     df = df.sample(frac=1, random_state=1).reset_index(drop=True)
-21 |     n_test = int(len(df) * 0.25)
-22 |     test_df = df.iloc[:n_test]
-23 |     train_df = df.iloc[n_test:]
-24 |     return train_df, test_df
-   |            ^^^^^^^^^^^^^^^^^ expected `tuple[DataFrame, DataFrame]`, found `tuple[Series[Any], Series[Any]]`
-   |
-info: rule `invalid-return-type` is enabled by default
-
+packages/ordeq/tests/resources/views/view_train_test_split.py:25:12: error[invalid-return-type] Return type does not match returned value: expected `tuple[DataFrame, DataFrame]`, found `tuple[Series[Any], Series[Any]]`
 Found 1 diagnostic
 
 ```

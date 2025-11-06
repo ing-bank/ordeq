@@ -2786,10 +2786,14 @@ version = "0.1.0"
 source = { editable = "packages/ordeq-test-utils" }
 dependencies = [
     { name = "mypy" },
+    { name = "ty" },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "mypy", specifier = ">=0.18.2" }]
+requires-dist = [
+    { name = "mypy", specifier = ">=0.18.2" },
+    { name = "ty" },
+]
 
 [package.metadata.requires-dev]
 test = []

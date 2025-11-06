@@ -21,7 +21,6 @@ with NamedTemporaryFile() as file:
   "name": "example_project.inner",
   "nodes": {
     "example_project.inner.nodes:func": {
-      "id": "example_project.inner.nodes:func",
       "name": "func",
       "inputs": [
         "example_project.inner.nodes:x"
@@ -38,13 +37,11 @@ with NamedTemporaryFile() as file:
   },
   "ios": {
     "example_project.inner.nodes:x": {
-      "id": "example_project.inner.nodes:x",
       "name": "x",
       "type": "ordeq._io:IO",
       "references": []
     },
     "example_project.inner.nodes:y": {
-      "id": "example_project.inner.nodes:y",
       "name": "y",
       "type": "ordeq_common.io.printer:Print",
       "references": []

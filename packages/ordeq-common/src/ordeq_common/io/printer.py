@@ -22,12 +22,21 @@ class Print(Output[Any]):
     ... def print_message(message: str) -> str:
     ...     return message.capitalize()
 
-    >>> result = run(print_message)
+    >>> run(print_message)
     Hello, world!
 
-    ```
+    >>> import sys
+    >>> @node(
+    ...     inputs=Literal("error message"),
+    ...     outputs=Print().with_save_options(file=sys.stderr)
+    ... )
+    ... def log_error(message: str) -> str:
+    ...     return f"Error: {message}"
 
+    >>> run(log_error)  # prints to stderr
+
+    ```
     """
 
-    def save(self, data: Any) -> None:
-        print(data)
+    def save(self, data: Any, **save_options: Any) -> None:
+        print(data, **save_options)

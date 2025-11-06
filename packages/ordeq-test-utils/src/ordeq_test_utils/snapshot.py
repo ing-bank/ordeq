@@ -196,7 +196,7 @@ def capture_module(
         sections["Logging"] = _as_md_text_block(caplog.text)
 
     result = subprocess.run(  # noqa S603 (subprocess usage)
-        ["ty", "check", str(file_path)],  # noqa S607 (subprocess security)
+        ["ty", "check", "--output-format", "concise", str(file_path)],  # noqa S607 (subprocess security)
         check=False,
         capture_output=True,
         text=True,

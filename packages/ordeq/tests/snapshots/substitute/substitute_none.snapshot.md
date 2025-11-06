@@ -13,8 +13,8 @@ print(_substitutes_modules_to_ios(None))
 ```text
 AttributeError: 'NoneType' object has no attribute 'items'
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
-    for key, value in io.items():
-                      ^^^^^^^^
+    for old, new in io.items():
+                    ^^^^^^^^
 
   File "/packages/ordeq/tests/resources/substitute/substitute_none.py", line LINO, in <module>
     print(_substitutes_modules_to_ios(None))

@@ -14,14 +14,10 @@ print(_substitutes_modules_to_ios({local_package: IO()}))
 
 ```text
 TypeError: Cannot substitute objects of type 'module' and 'IO'
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
     raise TypeError(
     ...<3 lines>...
     )
-
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
-    substitution_map.update(_substitute(key, value))
-                            ~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/substitute/substitute_package_with_io.py", line LINO, in <module>
     print(_substitutes_modules_to_ios({local_package: IO()}))

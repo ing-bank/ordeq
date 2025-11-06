@@ -25,7 +25,7 @@ pprint([node.name for node in node_graph.topological_ordering])
 ## Exception
 
 ```text
-ValueError: IO Print() cannot be outputted by more than one node
+ValueError: IO Print() cannot be outputted by more than one node (example_project.nodes_import:func_a and example_project.nodes_import:func_b)
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
     raise ValueError(msg)
 

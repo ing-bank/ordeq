@@ -15,6 +15,13 @@ class TextLinesStream(IO[Generator[str]]):
 
     Useful for processing large files line-by-line.
 
+    By default, lines are separated by newline characters
+    during load.
+
+    When saving, the newline character is appended to each line
+    by default, this can be changed by providing a different `end` argument
+    to the `save` method using `with_save_options`.
+
     Examples:
 
     ```pycon
@@ -23,6 +30,10 @@ class TextLinesStream(IO[Generator[str]]):
     >>> my_file = TextLinesStream(
     ...     path=Path("path/to.txt")
     ... )
+
+    >>> my_file_no_endline = TextLinesStream(
+    ...     path=Path("path/to.txt")
+    ... ).with_save_options(end="")
 
     ```
 
@@ -44,6 +55,6 @@ class TextLinesStream(IO[Generator[str]]):
         with self.path.open(mode=mode) as fh:
             yield from fh
 
-    def save(self, data: Generator[str], mode="w") -> None:
+    def save(self, data: Generator[str], mode="w", end="\n") -> None:
         with self.path.open(mode=mode) as fh:
-            fh.writelines(f"{line}\n" for line in data)
+            fh.writelines(f"{line}{end}" for line in data)

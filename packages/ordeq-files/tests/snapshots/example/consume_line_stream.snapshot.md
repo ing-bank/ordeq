@@ -8,7 +8,7 @@ from tempfile import gettempdir
 from ordeq import node, run
 from ordeq_files import TextLinesStream
 
-example_file_path = Path(gettempdir()) / "example.txt"
+example_file_path = Path(gettempdir()) / "consume_line_stream.txt"
 example_line_stream = TextLinesStream(path=example_file_path)
 
 
@@ -55,10 +55,10 @@ WARNING	ordeq_files.text_lines_stream	TextLinesStream is in pre-release, functio
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'consume_line_stream:show_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'consume_line_stream:count_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running node "write_to_line_stream" in module "consume_line_stream"
-INFO	ordeq.io	Saving TextLinesStream(path=Path('<TEMP_DIR>/example.txt'))
-INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/example.txt'))
+INFO	ordeq.io	Saving TextLinesStream(path=Path('<TEMP_DIR>/consume_line_stream.txt'))
+INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/consume_line_stream.txt'))
 INFO	ordeq.runner	Running view "show_lines" in module "consume_line_stream"
-INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/example.txt'))
+INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/consume_line_stream.txt'))
 INFO	ordeq.runner	Running view "count_lines" in module "consume_line_stream"
 
 ```

@@ -296,7 +296,7 @@ Alternatively, you can run the pipeline programmatically, as follows:
 
 ```python title="src/__main__.py (Ordeq programmatic)"
 from ordeq import run
-from spaceflights import pipeline
+from kedro_spaceflights import pipeline
 
 run(pipeline)
 ```
@@ -318,7 +318,7 @@ Ordeq does not have these concepts, so there is no need to migrate them:
     If you have any questions or run into any issues, please open an issue on [GitHub][issues].
 
 [catalogs]: ../getting-started/concepts/catalogs.md
-[completed-repo]: ./kedro-starter-to-ordeq.zip
+[completed-repo]: https://github.com/ing-bank/ordeq/tree/main/examples
 [custom-ios]: ./custom_io.md
 [intro]: ../getting-started/introduction.md
 [io]: ../getting-started/concepts/io.md

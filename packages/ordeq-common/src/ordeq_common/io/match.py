@@ -19,9 +19,6 @@ class MatchOnLoad(Input[Tval], Generic[Tkey, Tval]):
     cases: tuple[tuple[Tkey, Input[Tval] | IO[Tval]], ...] = ()
     default: Input[Tval] | IO[Tval] | None = None
 
-    def load(self) -> Tval:
-        return self._match(self.io.load()).load()
-
     def _match(self, value: Tkey) -> Input[Tval] | IO[Tval]:
         for case, io in self.cases:
             if value == case:
@@ -29,6 +26,9 @@ class MatchOnLoad(Input[Tval], Generic[Tkey, Tval]):
         if self.default is not None:
             return self.default
         raise TypeError(f"Unsupported case '{value}'")
+
+    def load(self) -> Tval:
+        return self._match(self.io.load()).load()
 
     def Case(self, key: Tkey, val: Input[Tval] | IO[Tval]) -> Self:
         return replace(self, cases=(*self.cases, (key, val)))
@@ -42,10 +42,6 @@ class MatchOnSave(Output[tuple[Tkey, Tval]], Generic[Tkey, Tval]):
     cases: tuple[tuple[Tkey, Output[Tval] | IO[Tval]], ...] = ()
     default: Output[Tval] | IO[Tval] | None = None
 
-    def save(self, data: tuple[Tkey, Tval]) -> None:
-        key, value = data
-        self._match(key).save(value)
-
     def _match(self, value: Tkey) -> Output[Tval] | IO[Tval]:
         for case, io in self.cases:
             if value == case:
@@ -53,6 +49,10 @@ class MatchOnSave(Output[tuple[Tkey, Tval]], Generic[Tkey, Tval]):
         if self.default is not None:
             return self.default
         raise TypeError(f"Unsupported case '{value}'")
+
+    def save(self, data: tuple[Tkey, Tval]) -> None:
+        key, value = data
+        self._match(key).save(value)
 
     def Case(self, key: Tkey, val: Output[Tval] | IO[Tval]) -> Self:
         return replace(self, cases=(*self.cases, (key, val)))

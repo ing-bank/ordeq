@@ -8,7 +8,7 @@ from functools import cached_property, wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
-from ordeq._io import IO, Input, Output
+from ordeq._io import IO, AnyIO, Input, Output
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -59,6 +59,25 @@ class Node(Generic[FuncParams, FuncReturns]):
             input_ for input_ in self.inputs if isinstance(input_, View)
         )
 
+    def _patch_io(
+        self, io: dict[AnyIO | View, AnyIO]
+    ) -> Node[FuncParams, FuncReturns]:
+        """Patches the inputs and outputs of the node with the provided IO
+        mapping.
+
+        Args:
+            io: mapping of Input/Output objects to their replacements
+
+        Returns:
+            the node with patched inputs and outputs
+        """
+
+        return replace(
+            self,
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
+        )
+
     def __repr__(self) -> str:
         attributes = {"name": self.name}
 
@@ -77,25 +96,6 @@ class Node(Generic[FuncParams, FuncReturns]):
 
         attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
         return f"Node({attributes_str})"
-
-    def _patch_io(
-        self, io: dict[Input[T] | Output[T] | View, Input[T] | Output[T]]
-    ) -> Node[FuncParams, FuncReturns]:
-        """Patches the inputs and outputs of the node with the provided IO
-        mapping.
-
-        Args:
-            io: mapping of Input/Output objects to their replacements
-
-        Returns:
-            the node with patched inputs and outputs
-        """
-
-        return replace(
-            self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-            outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
-        )
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:
@@ -201,6 +201,63 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
     return (obj,)  # ty: ignore[invalid-return-type]
 
 
+@dataclass(frozen=True, kw_only=True)
+class View(Node[FuncParams, FuncReturns]):
+    def __post_init__(self):
+        self.validate()
+
+    def _patch_io(
+        self, io: dict[Input[T] | Output[T] | View, Input[T] | Output[T]]
+    ) -> View[FuncParams, FuncReturns]:
+        """Patches the inputs  of the view with the provided IO mapping.
+
+        Args:
+            io: mapping of Input/Output objects to their replacements
+
+        Returns:
+            the node with patched inputs
+        """
+
+        return replace(
+            self,
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+        )
+
+    def __repr__(self) -> str:
+        attributes = {"name": self.name}
+
+        inputs = getattr(self, "inputs", None)
+        if inputs:
+            input_str = ", ".join(repr(i) for i in inputs)
+            attributes["inputs"] = f"[{input_str}]"
+
+        if self.attributes:
+            attributes["attributes"] = repr(self.attributes)
+
+        attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
+
+        return f"View({attributes_str})"
+
+
+def get_node(func: Callable) -> Node:
+    """Gets the node from a callable created with the `@node` decorator.
+
+    Args:
+        func: a callable created with the `@node` decorator
+
+    Returns:
+        the node associated with the callable
+
+    Raises:
+        ValueError: if the callable was not created with the `@node` decorator
+    """
+
+    try:
+        return func.__ordeq_node__  # type: ignore[attr-defined]
+    except AttributeError as e:
+        raise ValueError(f"'{func.__name__}' is not a node") from e
+
+
 @overload
 def create_node(
     func: Callable[FuncParams, FuncReturns],
@@ -291,42 +348,9 @@ def create_node(
     )
 
 
-@dataclass(frozen=True, kw_only=True)
-class View(Node[FuncParams, FuncReturns]):
-    def __post_init__(self):
-        self.validate()
-
-    def __repr__(self):
-        attributes = {"name": self.name}
-
-        inputs = getattr(self, "inputs", None)
-        if inputs:
-            input_str = ", ".join(repr(i) for i in inputs)
-            attributes["inputs"] = f"[{input_str}]"
-
-        if self.attributes:
-            attributes["attributes"] = repr(self.attributes)
-
-        attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
-
-        return f"View({attributes_str})"
-
-    def _patch_io(
-        self, io: dict[Input[T] | Output[T] | View, Input[T] | Output[T]]
-    ) -> View[FuncParams, FuncReturns]:
-        """Patches the inputs  of the view with the provided IO mapping.
-
-        Args:
-            io: mapping of Input/Output objects to their replacements
-
-        Returns:
-            the node with patched inputs
-        """
-
-        return replace(
-            self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
-        )
+# Default value for 'func' in case it is not passed.
+# Used to distinguish between 'func=None' and func missing as positional arg.
+def not_passed(*args, **kwargs): ...
 
 
 @overload
@@ -342,7 +366,7 @@ def node(
 @overload
 def node(
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable = not_passed,
     outputs: Sequence[Output] | Output | None = None,
     **attributes: Any,
 ) -> Callable[
@@ -351,7 +375,7 @@ def node(
 
 
 def node(
-    func: Callable[FuncParams, FuncReturns] | None = None,
+    func: Callable[FuncParams, FuncReturns] = not_passed,
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
@@ -443,8 +467,15 @@ def node(
             "Did you mean 'outputs'?"
         )
 
-    if func is None:
+    if func is None or not callable(func):
+        raise ValueError(
+            f"The first argument to node must be a function, "
+            f"got {type(func).__name__}"
+        )
+
+    if func is not_passed:
         # we are called as @node(inputs=...
+
         def wrapped(
             f: Callable[FuncParams, FuncReturns],
         ) -> Callable[FuncParams, FuncReturns]:
@@ -471,22 +502,3 @@ def node(
         wrapper, inputs=inputs, outputs=outputs, attributes=attributes
     )
     return wrapper
-
-
-def get_node(func: Callable) -> Node:
-    """Gets the node from a callable created with the `@node` decorator.
-
-    Args:
-        func: a callable created with the `@node` decorator
-
-    Returns:
-        the node associated with the callable
-
-    Raises:
-        ValueError: if the callable was not created with the `@node` decorator
-    """
-
-    try:
-        return func.__ordeq_node__  # type: ignore[attr-defined]
-    except AttributeError as e:
-        raise ValueError(f"'{func.__name__}' is not a node") from e

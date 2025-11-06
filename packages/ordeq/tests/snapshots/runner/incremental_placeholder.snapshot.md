@@ -92,12 +92,12 @@ IOException: Failed to load Input(idx=ID1).
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(patched_nodes[node], hooks=hooks, save=save_node)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_node(node, hooks=hooks, save=save_node)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save, io=io)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_graph(graph, hooks=node_hooks, save=save)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/incremental_placeholder.py", line LINO, in <module>
     run(f, g, verbose=True)  # raises NotImplementedError
@@ -116,13 +116,9 @@ IOException: Failed to load Input(idx=ID1).
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     incremental_placeholder:f -> [incremental_placeholder:g]
-     incremental_placeholder:g -> []
-  Nodes:
-     incremental_placeholder:f: Node(name=incremental_placeholder:f, inputs=[Input(idx=ID1), Input(idx=ID2)], outputs=[IO(idx=ID3)])
-     incremental_placeholder:g: Node(name=incremental_placeholder:g, inputs=[IO(idx=ID3)], outputs=[Output(idx=ID4)])
+Node:incremental_placeholder:f --> io-1
+io-1 --> Node:incremental_placeholder:g
+Node:incremental_placeholder:g --> io-2
 
 ```
 

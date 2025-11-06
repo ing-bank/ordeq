@@ -48,21 +48,20 @@ run(*pipeline, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     deterministic_graph:a -> []
-     deterministic_graph:f1 -> [deterministic_graph:a, deterministic_graph:z]
-     deterministic_graph:f2 -> [deterministic_graph:a, deterministic_graph:z]
-     deterministic_graph:f3 -> [deterministic_graph:a, deterministic_graph:z]
-     deterministic_graph:f4 -> [deterministic_graph:a, deterministic_graph:z]
-     deterministic_graph:z -> []
-  Nodes:
-     deterministic_graph:a: View(name=deterministic_graph:a, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
-     deterministic_graph:f1: Node(name=deterministic_graph:f1, outputs=[IO(idx=ID1)])
-     deterministic_graph:f2: Node(name=deterministic_graph:f2, outputs=[IO(idx=ID2)])
-     deterministic_graph:f3: Node(name=deterministic_graph:f3, outputs=[IO(idx=ID3)])
-     deterministic_graph:f4: Node(name=deterministic_graph:f4, outputs=[IO(idx=ID4)])
-     deterministic_graph:z: View(name=deterministic_graph:z, inputs=[IO(idx=ID1), IO(idx=ID2), IO(idx=ID3), IO(idx=ID4)])
+View:deterministic_graph:a --> io-1
+Node:deterministic_graph:f1 --> io-2
+io-2 --> View:deterministic_graph:a
+io-2 --> View:deterministic_graph:z
+Node:deterministic_graph:f2 --> io-3
+io-3 --> View:deterministic_graph:a
+io-3 --> View:deterministic_graph:z
+Node:deterministic_graph:f3 --> io-4
+io-4 --> View:deterministic_graph:a
+io-4 --> View:deterministic_graph:z
+Node:deterministic_graph:f4 --> io-5
+io-5 --> View:deterministic_graph:a
+io-5 --> View:deterministic_graph:z
+View:deterministic_graph:z --> io-6
 
 ```
 

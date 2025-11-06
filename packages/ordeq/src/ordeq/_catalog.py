@@ -29,13 +29,16 @@ def check_catalogs_are_consistent(
     modules = [base, *others]
 
     # for each catalog, the names (keys) of the IO it defines
-    catalogs = [
-        {catalog_key(fqn, catalog) for fqn in _resolve_package_to_ios(catalog)}
+    overlap, *catalogs = [
+        {
+            catalog_key((module_name, object_name), catalog)
+            for module_name, values in _resolve_package_to_ios(catalog).items()
+            for object_name in values
+        }
         for catalog in modules
     ]
 
-    overlap = catalogs[0]
-    for module, catalog in zip(modules[1:], catalogs[1:], strict=True):
+    for module, catalog in zip(others, catalogs, strict=True):
         if diff := overlap.difference(catalog):
             missing_ios = ", ".join(f"'{io}'" for io in sorted(diff))
             raise CatalogError(

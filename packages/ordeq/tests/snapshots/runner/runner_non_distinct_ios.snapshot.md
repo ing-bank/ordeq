@@ -25,15 +25,11 @@ run(func1, func2, verbose=True)
 
 ```text
 ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in _build_graph
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
     raise ValueError(msg)
 
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    return cls(_build_graph(nodes | views))
-               ~~~~~~~~~~~~^^^^^^^^^^^^^^^
-
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    graph = NodeGraph.from_nodes(nodes)
+    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=io_substitutes)  # type: ignore[arg-type]
 
   File "/packages/ordeq/tests/resources/runner/runner_non_distinct_ios.py", line LINO, in <module>
     run(func1, func2, verbose=True)

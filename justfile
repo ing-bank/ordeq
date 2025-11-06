@@ -44,6 +44,14 @@ format:
 format-fix:
     uv run --group lint ruff format packages/ scripts/ examples/
 
+# Source code sorting with ssort
+ssort:
+    uv run --with ssort ssort --check packages/ scripts/ examples/
+
+# Apply source code sorting with ssort
+ssort-fix:
+    uv run --with ssort ssort packages/ scripts/ examples/
+
 # Type checking with ty
 ty:
     uv run --group types ty check packages/ scripts/
@@ -69,8 +77,9 @@ mypy-examples:
 sa: ruff ty mypy
 
 # Format code and apply lint fixes with ruff and mdformat
-fix: format-fix lint-fix mdformat-fix doccmd-fix
+fix: ssort-fix format-fix lint-fix mdformat-fix doccmd-fix
 
+# Test packages and examples
 test-all: test-packages test-examples
 
 # Test all packages individually

@@ -45,25 +45,9 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     standalone_view_df_filter:filter_df -> [standalone_view_df_filter:group_by]
-     standalone_view_df_filter:group_by -> []
-  Nodes:
-     standalone_view_df_filter:filter_df: View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])
-     standalone_view_df_filter:group_by: View(name=standalone_view_df_filter:group_by, inputs=[View(name=standalone_view_df_filter:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])])
+View:standalone_view_df_filter:filter_df --> io-1
+io-1 --> View:standalone_view_df_filter:group_by
+View:standalone_view_df_filter:group_by --> io-2
      A   B   D
 0  NaN NaN NaN
 

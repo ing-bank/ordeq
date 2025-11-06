@@ -7,6 +7,21 @@ from ordeq._resolve import _resolve_runnables_to_nodes_and_ios  # noqa: PLC2701
 from ordeq_manifest.models import ProjectModel
 
 
+def create_manifest(package: ModuleType) -> ProjectModel:
+    """Creates an in-memory manifest for the given package or module.
+
+    Args:
+        package: The package or module to create the manifest for.
+
+    Returns:
+        ProjectModel: the manifest of the package or module.
+    """
+
+    name = package.__name__
+    nodes, ios = _resolve_runnables_to_nodes_and_ios(package)
+    return ProjectModel.from_nodes_and_ios(name=name, nodes=nodes, ios=ios)
+
+
 @overload
 def create_manifest_json(
     package: ModuleType,
@@ -48,18 +63,3 @@ def create_manifest_json(
         output.write_text(data=json, encoding="utf-8")
         return None
     return json
-
-
-def create_manifest(package: ModuleType) -> ProjectModel:
-    """Creates an in-memory manifest for the given package or module.
-
-    Args:
-        package: The package or module to create the manifest for.
-
-    Returns:
-        ProjectModel: the manifest of the package or module.
-    """
-
-    name = package.__name__
-    nodes, ios = _resolve_runnables_to_nodes_and_ios(package)
-    return ProjectModel.from_nodes_and_ios(name=name, nodes=nodes, ios=ios)

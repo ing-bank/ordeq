@@ -19,6 +19,9 @@ class LoggerHook(InputHook, OutputHook, NodeHook):
         if level is not None:
             self._level = level
 
+    def _register_call(self, item, *args) -> None:
+        self._logger.log(self._level, "Called '%s' with args: %s", item, args)
+
     def before_node_run(self, *args) -> None:
         return self._register_call("before_node_run", *args)
 
@@ -39,6 +42,3 @@ class LoggerHook(InputHook, OutputHook, NodeHook):
 
     def after_node_run(self, *args) -> None:
         return self._register_call("after_node_run", *args)
-
-    def _register_call(self, item, *args) -> None:
-        self._logger.log(self._level, "Called '%s' with args: %s", item, args)

@@ -26,13 +26,9 @@ run(to_yaml, verbose=True)
 ## Output
 
 ```text
-NodeGraph:
-  Edges:
-     view_response_json:to_yaml -> []
-     view_response_json:users_json -> [view_response_json:to_yaml]
-  Nodes:
-     view_response_json:to_yaml: View(name=view_response_json:to_yaml, inputs=[View(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)])])
-     view_response_json:users_json: View(name=view_response_json:users_json, inputs=[Literal(<Response [200]>)])
+View:view_response_json:to_yaml --> io-1
+View:view_response_json:users_json --> io-2
+io-2 --> View:view_response_json:to_yaml
 Data: {'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}}
 
 ```

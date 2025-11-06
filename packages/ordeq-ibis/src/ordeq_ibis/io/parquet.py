@@ -37,12 +37,12 @@ class IbisParquet(IO[Table]):
     path: Path
     resource: Path | str
 
+    @cached_property
+    def _backend(self) -> BaseBackend:
+        return ibis.connect(self.resource)
+
     def load(self) -> Table:
         return self._backend.read_parquet(self.path)
 
     def save(self, t: Table) -> None:
         self._backend.to_parquet(t, self.path)
-
-    @cached_property
-    def _backend(self) -> BaseBackend:
-        return ibis.connect(self.resource)

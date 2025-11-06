@@ -1,4 +1,4 @@
-from collections.abc import Generator, Iterable
+from collections.abc import Generator
 from dataclasses import dataclass, field
 
 from ordeq import IO, node

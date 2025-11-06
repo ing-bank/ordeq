@@ -1,6 +1,8 @@
 ## Resource
 
 ```python
+from typing import TypeAlias
+
 import pandas as pd
 from ordeq import node, run
 from ordeq_common import Literal
@@ -14,7 +16,7 @@ dataframe = Literal(
     })
 )
 
-Split = tuple[pd.DataFrame, pd.DataFrame]
+Split: TypeAlias = tuple[pd.DataFrame, pd.DataFrame]
 
 
 @node(inputs=dataframe)
@@ -65,5 +67,13 @@ INFO	ordeq.io	Loading Literal(     A  B    C   gt
 2  foo  3  two  8.0)
 INFO	ordeq.runner	Running view "split" in module "view_train_test_split"
 INFO	ordeq.runner	Running view "train" in module "view_train_test_split"
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/views/view_train_test_split.py:25:12: error[invalid-return-type] Return type does not match returned value: expected `tuple[DataFrame, DataFrame]`, found `tuple[Series[Any], Series[Any]]`
+Found 1 diagnostic
 
 ```

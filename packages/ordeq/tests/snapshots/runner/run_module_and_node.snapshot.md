@@ -37,3 +37,11 @@ INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_m
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/runner/run_module_and_node.py:2:6: error[unresolved-import] Cannot resolve imported module `resources.runner`
+Found 1 diagnostic
+
+```

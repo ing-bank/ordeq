@@ -159,7 +159,7 @@ def run(
     Run an entire pipeline:
 
     ```pycon
-    >>> import pipeline # a single module or a package containing nodes
+    >>> import pipeline # a single module, or a package containing nodes
     >>> run(pipeline)
     >>> # or, equivalently:
     >>> run("pipeline")

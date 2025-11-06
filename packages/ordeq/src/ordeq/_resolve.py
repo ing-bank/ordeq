@@ -344,19 +344,3 @@ def _resolve_runnables_to_nodes_and_ios(
         if ios_dict
     }
     return nodes, ios
-
-
-def _resolve_strings_to_subs(
-    subs: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType],
-) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
-    def resolve_string_to_sub(string: str) -> AnyIO | ModuleType:
-        if ":" in string:
-            return _resolve_string_to_io(string)
-        return _resolve_string_to_module(string)
-
-    subs_ = {}
-    for old, new in subs.items():
-        old_sub = resolve_string_to_sub(old) if isinstance(old, str) else old
-        new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new
-        subs_[old_sub] = new_sub
-    return subs_

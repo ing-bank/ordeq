@@ -8,11 +8,11 @@ from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
-from ordeq._resolve import (
-    _resolve_hooks,
-    _resolve_runnables_to_nodes,
+from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
+from ordeq._substitute import (
+    _resolve_strings_to_subs,
+    _substitutes_modules_to_ios,
 )
-from ordeq._substitute import IOSubstitutes, _substitutes_modules_to_ios, _resolve_strings_to_subs
 
 logger = logging.getLogger("ordeq.runner")
 

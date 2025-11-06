@@ -1,8 +1,9 @@
+import operator
 from dataclasses import dataclass, field
 from typing import Any
 
-from ordeq import IOException, Node
-from ordeq._graph import NodeGraph  # noqa: PLC2701 private import
+from ordeq import Node
+from ordeq._graph import NodeGraph, NodeIOGraph  # noqa: PLC2701 private import
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
 
@@ -36,22 +37,13 @@ def _add_io_data(dataset, reverse_lookup, io_data) -> int:
 
     Returns:
         The ID of the dataset in the io_data dictionary.
-
-    Raises:
-        IOException: when inputs or outputs from any of the nodes is missing
-            in the "datasets" variable
     """
     dataset_id = hash(dataset)
     if dataset_id not in io_data:
-        try:
-            name = reverse_lookup[dataset_id]
-        except KeyError:
-            # No name found in the catalog for this IO. Use a placeholder name.
-            name = "<anonymous>"
         io_data[dataset_id] = IOData(
             id=dataset_id,
             dataset=dataset,
-            name=name,
+            name=reverse_lookup[dataset_id],
             type=dataset.__class__.__name__,
         )
 
@@ -61,17 +53,16 @@ def _add_io_data(dataset, reverse_lookup, io_data) -> int:
             wrapped_id = hash(wrapped_dataset)
             if wrapped_id not in io_data:
                 try:
-                    io_data[wrapped_id] = IOData(
-                        id=wrapped_id,
-                        dataset=wrapped_dataset,
-                        name=reverse_lookup[wrapped_id],
-                        type=wrapped_dataset.__class__.__name__,
-                    )
+                    name = reverse_lookup[wrapped_id]
                 except KeyError:
-                    raise IOException(
-                        "Wrapped dataset was not provided. Missing catalog "
-                        f"entry for {wrapped_dataset}."
-                    ) from None
+                    name = "<anonymous>"
+
+                io_data[wrapped_id] = IOData(
+                    id=wrapped_id,
+                    dataset=wrapped_dataset,
+                    name=name,
+                    type=wrapped_dataset.__class__.__name__,
+                )
     return dataset_id
 
 
@@ -88,16 +79,23 @@ def _gather_graph(
         metadata for nodes (NodeData)
         metadata for ios (IOData)
     """
+    graph = NodeIOGraph.from_nodes(nodes)
+
     reverse_lookup = {
         hash(io): name
-        for named_io in ios.values()
-        for name, io in named_io.items()
+        for _, named_io in sorted(ios.items(), key=operator.itemgetter(0))
+        for name, io in sorted(named_io.items(), key=operator.itemgetter(0))
     }
+
+    for io in graph.ios:
+        io_id = hash(io)
+        if io_id not in reverse_lookup:
+            reverse_lookup[io_id] = "<anonymous>"
 
     nodes_ = []
     io_data: dict[int, IOData] = {}
 
-    ordering = NodeGraph.from_nodes(nodes).topological_ordering
+    ordering = NodeGraph.from_graph(graph).topological_ordering
 
     for line in ordering:
         inputs = [

@@ -15,7 +15,7 @@ pprint(ios)
 ## Output
 
 ```text
-{'ordeq_dev_tools.pipelines.docs_package_overview': {'package_overview': Text(path=Path('/docs/packages.md'))},
+{'ordeq_dev_tools.pipelines.docs_package_overview': {'package_overview': TextLinesStream(path=Path('/docs/packages.md'))},
  'ordeq_dev_tools.pipelines.docs_update_just': {'docs_file': Text(path=Path('/docs/CONTRIBUTING.md')),
                                                 'updated_docs_file': Text(path=Path('/docs/CONTRIBUTING_NEW.md'))},
  'ordeq_dev_tools.pipelines.generate_draft_releases': {'changes': JSON(path=Path('/data/dev_tools/change_report.json')),

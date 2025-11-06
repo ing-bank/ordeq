@@ -31,6 +31,7 @@ test = [
     "cloudpathlib[s3]>=0.20.0",
     "minio==7.2.15",
     "testcontainers==4.8.1",
+    "ordeq-test-utils",
 ]
 
 [tool.setuptools_scm]

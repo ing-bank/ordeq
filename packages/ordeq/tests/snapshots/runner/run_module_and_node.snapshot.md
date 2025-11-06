@@ -21,6 +21,8 @@ Node:resources.runner.example_module_a:decrement --> io-1
 Node:resources.runner.example_module_a:increment --> io-2
 io-2 --> Node:resources.runner.example_module_a:decrement
 View:run_module_and_node:noop --> io-3
+io-4 --> Node:resources.runner.example_module_a:decrement
+io-5 --> Node:resources.runner.example_module_a:increment
 
 ```
 

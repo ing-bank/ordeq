@@ -34,6 +34,7 @@ run(concatenate, verbose=True)
 View:view_response_iter:concatenate --> io-1
 View:view_response_iter:users_lines --> io-2
 io-2 --> View:view_response_iter:concatenate
+io-3 --> View:view_response_iter:users_lines
 b'{'
 b'  "id": 1,'
 b'  "name": "Leanne Graham",'

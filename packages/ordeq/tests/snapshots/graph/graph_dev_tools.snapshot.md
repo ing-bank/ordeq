@@ -43,10 +43,10 @@ Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package
 io-9 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
 io-9 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_relevant_prs
 Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits --> io-10
-io-10 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node
-io-10 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_commit_changed_files
+io-10 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
 Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits --> io-11
-io-11 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+io-11 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node
+io-11 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_commit_changed_files
 Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_latest_tags --> io-12
 io-12 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
 io-12 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits
@@ -71,6 +71,8 @@ View:ordeq_dev_tools.pipelines.shared:packages --> io-22
 io-22 --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
 io-22 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:package_tags
 Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> io-23
+io-24 --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+io-25 --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
 NodeGraph
 View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
 Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group

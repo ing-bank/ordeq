@@ -30,6 +30,7 @@ View(name=node_inputs_view_tuple_and_io:hello)
 Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending --> io-1
 View:node_inputs_view_tuple_and_io:hello --> io-2
 io-2 --> Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending
+io-3 --> Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending
 Hello world !!!
 
 ```

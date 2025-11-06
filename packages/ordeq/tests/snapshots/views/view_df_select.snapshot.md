@@ -37,6 +37,7 @@ run(group_by, verbose=True)
 View:view_df_select:df_selected --> io-1
 io-1 --> View:view_df_select:group_by
 View:view_df_select:group_by --> io-2
+io-3 --> View:view_df_select:df_selected
      A
 0  bar
 1  foo

@@ -12,7 +12,9 @@ except ImportError:
     from typing_extensions import Self
 
 
-NodeIOEdge: TypeAlias = dict[Node | View, dict[AnyIO, list[Node | View]]]
+NodeIOEdge: TypeAlias = dict[
+    Node | View | None, dict[AnyIO, list[Node | View]]
+]
 
 
 def _collect_views(nodes_: set[Node]) -> set[View]:
@@ -67,23 +69,36 @@ class NodeIOGraph:
                 if input_ in output_to_node:
                     source_node = output_to_node[input_]  # type: ignore[index]
                     edges[source_node][input_].append(node)  # type: ignore[index]
+                else:
+                    edges[None].setdefault(input_, []).append(node)  # type: ignore[arg-type]
 
         return cls(dict(edges))
+
+    @property
+    def ios(self) -> set[AnyIO]:
+        ios: set[AnyIO] = set()
+        for targets in self.edges.values():
+            ios.update(targets.keys())
+        return ios
 
     def __repr__(self) -> str:
         lines: list[str] = []
 
         io_ids: dict[AnyIO, str] = {}
         for source_node, targets in self.edges.items():
-            for io, target_nodes in targets.items():
+            for io, target_nodes in sorted(
+                targets.items(),
+                key=lambda item: tuple(sorted(n.name for n in item[1])),
+            ):
                 if io not in io_ids:
                     io_ids[io] = f"io-{len(io_ids) + 1}"
                 io_id = io_ids[io]
 
-                lines.append(
-                    f"{type(source_node).__name__}:{source_node.name} --> "
-                    f"{io_id}"
-                )
+                if source_node is not None:
+                    lines.append(
+                        f"{type(source_node).__name__}:{source_node.name} --> "
+                        f"{io_id}"
+                    )
 
                 lines.extend(
                     f"{io_id} --> "
@@ -115,6 +130,8 @@ class NodeGraph:
         edges: dict[Node, list[Node]] = {}
 
         for source_node, io_dict in graph.edges.items():
+            if source_node is None:
+                continue
             edges[source_node] = []
             for target_nodes in io_dict.values():
                 for target_node in target_nodes:

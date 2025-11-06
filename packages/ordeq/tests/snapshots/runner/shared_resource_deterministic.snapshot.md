@@ -48,6 +48,7 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ```text
 Node:shared_resource_deterministic:first --> io-1
 View:shared_resource_deterministic:second --> io-2
+io-3 --> View:shared_resource_deterministic:second
 
 
 ```

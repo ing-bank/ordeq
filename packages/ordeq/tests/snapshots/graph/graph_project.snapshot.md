@@ -37,6 +37,20 @@ Node:example_project.nodes_with_inline_io:greet --> io-8
 Node:example_project.nodes_with_view:farewell --> io-9
 View:example_project.nodes_with_view:greet --> io-10
 io-10 --> Node:example_project.nodes_with_view:farewell
+io-11 --> Node:example_project.inner.nodes:func
+io-12 --> Node:example_project.nodes:func
+io-13 --> Node:example_project.nodes_import:func_a
+io-13 --> Node:example_project.nodes_import:func_b
+io-13 --> Node:example_project.nodes_import_alias:func
+io-13 --> Node:example_project.nodes_import_reassign:func_a
+io-13 --> Node:example_project.nodes_import_reassign:func_b
+io-14 --> Node:example_project.nodes_import:func_a
+io-14 --> Node:example_project.nodes_import:func_b
+io-14 --> Node:example_project.nodes_import_alias:func
+io-14 --> Node:example_project.nodes_import_reassign:func_a
+io-14 --> Node:example_project.nodes_import_reassign:func_b
+io-15 --> Node:example_project.nodes_with_inline_io:greet
+io-16 --> View:example_project.nodes_with_view:greet
 NodeGraph
 Node:example_project.inner.nodes:func
 Node:example_project.nodes:func

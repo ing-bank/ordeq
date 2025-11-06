@@ -28,6 +28,8 @@ pprint([node.name for node in node_graph.topological_ordering])
 NodeIOGraph
 Node:example_duplicates.file1:foo --> io-1
 Node:example_duplicates.file2:foo --> io-2
+io-3 --> Node:example_duplicates.file1:foo
+io-4 --> Node:example_duplicates.file2:foo
 NodeGraph
 Node:example_duplicates.file1:foo
 Node:example_duplicates.file2:foo

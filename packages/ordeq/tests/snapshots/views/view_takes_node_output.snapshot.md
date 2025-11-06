@@ -140,11 +140,14 @@ io-1 --> View:view_takes_node_output:what_i_heard
 View:view_takes_node_output:sink --> io-2
 View:view_takes_node_output:what_i_heard --> io-3
 io-3 --> View:view_takes_node_output:sink
+io-4 --> Node:view_takes_node_output:hello_from_someone
+io-5 --> Node:view_takes_node_output:hello_from_someone
 I heard that Jane said 'Hello'
 None
 View:view_takes_node_output:sink --> io-1
 View:view_takes_node_output:what_i_heard --> io-2
 io-2 --> View:view_takes_node_output:sink
+io-3 --> View:view_takes_node_output:what_i_heard
 
 ```
 

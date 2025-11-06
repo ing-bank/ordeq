@@ -125,11 +125,80 @@ def run(
     """Runs nodes in topological order.
 
     Args:
-        runnables: the nodes to run, or modules or packages containing nodes
-        hooks: hooks to apply
-        save: 'all' | 'sinks'. If 'sinks', only saves the sink outputs
-        verbose: whether to print the node graph
-        io: mapping of IO objects to their substitutions
+        runnables: Nodes to run, or modules or packages containing nodes.
+        hooks: Hooks to apply
+        save: One of `{"all", "sinks"}`. When set to "sinks", only saves the
+            sink outputs. Defaults to "all".
+        verbose: Whether to print the node graph.
+        io: Mapping of IO objects to their run-time substitutes.
+
+    Arguments `runnables`, `hooks` and `io` also support string references.
+    Each string reference should be formatted `module.submodule.[...]`
+    (for modules) or `module.submodule:object` (for nodes, hooks and IOs).
+
+    Examples:
+
+    Run a single node:
+
+    ```pycon
+    >>> from pipeline import node
+    >>> run(node)
+    >>> # or, equivalently:
+    >>> run("pipeline:node")
+    ```
+
+    Run more than one node:
+
+    ```pycon
+    >>> from pipeline import node_a, node_b
+    >>> run(node_a, node_b)
+    >>> # or, equivalently:
+    >>> run("pipeline:node_a", "pipeline:node_b")
+    ```
+
+    Run an entire pipeline:
+
+    ```pycon
+    >>> import pipeline # a single module or a package containing nodes
+    >>> run(pipeline)
+    >>> # or, equivalently:
+    >>> run("pipeline")
+    ```
+
+    Run a single node with a hook:
+
+    ```pycon
+    >>> from hooks import my_hook
+    >>> run(node, hooks=[my_hook])
+    >>> # or, equivalently:
+    >>> run(node, hooks=["hooks:my_hook"])
+    ```
+
+    Run a single node with alternative IO:
+    (this example substitutes `output` with an instance of `Print`)
+
+    ```pycon
+    >>> from pipeline import output  # an IO used by the pipeline
+    >>> from ordeq_common import Print
+    >>> run(node, io={output: Print()})
+    ```
+
+    Run a pipeline with an alternative catalog:
+
+    ```pycon
+    >>> import pipeline
+    >>> from catalogs import base, local
+    >>> run(pipeline, io={base: local})
+    >>> # or, equivalently:
+    >>> run(pipeline, io={"catalogs.base": "catalogs.local"})
+    ```
+
+    Run without saving intermediate IOs:
+
+    ```pycon
+    >>> import pipeline
+    >>> run(pipeline, save="sinks")
+    ```
 
     """
 

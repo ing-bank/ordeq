@@ -2,6 +2,7 @@ import difflib
 import importlib.util
 import logging
 import re
+import subprocess  # noqa S404 (subprocess usage)
 import tempfile
 import traceback
 from pathlib import Path
@@ -197,6 +198,15 @@ def capture_module(
         sections["Warnings"] = _as_md_text_block(warnings_text)
     if caplog.text:
         sections["Logging"] = _as_md_text_block(caplog.text)
+
+    result = subprocess.run(  # noqa S603 (subprocess usage)
+        ["ty", "check", "--output-format", "concise", str(file_path)],  # noqa S607 (subprocess security)
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        sections["Typing"] = _as_md_text_block(result.stdout)
 
     output = "\n\n".join(
         f"## {key}\n\n{value.rstrip()}" for key, value in sections.items()

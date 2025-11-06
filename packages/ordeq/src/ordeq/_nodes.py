@@ -348,6 +348,11 @@ def create_node(
     )
 
 
+# Default value for 'func' in case it is not passed.
+# Used to distinguish between 'func=None' and func missing as positional arg.
+def not_passed(*args, **kwargs): ...
+
+
 @overload
 def node(
     func: Callable[FuncParams, FuncReturns],
@@ -361,7 +366,7 @@ def node(
 @overload
 def node(
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | Callable] | Input | Callable = not_passed,
     outputs: Sequence[Output] | Output | None = None,
     **attributes: Any,
 ) -> Callable[
@@ -370,7 +375,7 @@ def node(
 
 
 def node(
-    func: Callable[FuncParams, FuncReturns] | None = None,
+    func: Callable[FuncParams, FuncReturns] = not_passed,
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
@@ -462,8 +467,15 @@ def node(
             "Did you mean 'outputs'?"
         )
 
-    if func is None:
+    if func is None or not callable(func):
+        raise ValueError(
+            f"The first argument to node must be a function, "
+            f"got {type(func).__name__}"
+        )
+
+    if func is not_passed:
         # we are called as @node(inputs=...
+
         def wrapped(
             f: Callable[FuncParams, FuncReturns],
         ) -> Callable[FuncParams, FuncReturns]:

@@ -65,15 +65,13 @@ mypy: mypy-packages mypy-examples
 
 # Mypy check all package directories
 mypy-packages:
-    for dir in `find packages -maxdepth 1 -type d -name "ordeq*" -not -path "packages/ordeq-dev-tools"`; do \
-            uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
-    done
+    uv run --group types mypy --check-untyped-defs --follow-untyped-imports \
+        `find packages -maxdepth 2 -type d -path "packages/ordeq*/src" -not -path "packages/ordeq-dev-tools/src"` || exit 1
 
 # Mypy check all example directories
 mypy-examples:
-    for dir in `find examples/ -mindepth 1 -maxdepth 1 -type d`; do \
-        uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir || exit 1; \
-    done
+    uv run --group types mypy --check-untyped-defs --follow-untyped-imports \
+        `find examples -maxdepth 2 -type d -path "examples/*/src"` || exit 1
 
 # Static analysis (lint + type checking)
 sa: ruff ty mypy

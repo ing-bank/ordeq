@@ -22,7 +22,7 @@ print(create_manifest_json(nodes_import_reassign))
         "example_project.nodes_import_reassign:B|BB|b"
       ],
       "outputs": [
-        "example_project.nodes_import_reassign:f"
+        "example_project.nodes_import_reassign:i"
       ],
       "attributes": {}
     },
@@ -34,7 +34,7 @@ print(create_manifest_json(nodes_import_reassign))
         "example_project.nodes_import_reassign:B|BB|b"
       ],
       "outputs": [
-        "example_project.nodes_import_reassign:f"
+        "example_project.nodes_import_reassign:j"
       ],
       "attributes": {}
     }
@@ -76,9 +76,15 @@ print(create_manifest_json(nodes_import_reassign))
       "type": "ordeq_common.io.string_buffer:StringBuffer",
       "references": []
     },
-    "example_project.nodes_import_reassign:f": {
-      "id": "example_project.nodes_import_reassign:f",
-      "name": "f",
+    "example_project.nodes_import_reassign:i": {
+      "id": "example_project.nodes_import_reassign:i",
+      "name": "i",
+      "type": "ordeq_common.io.printer:Print",
+      "references": []
+    },
+    "example_project.nodes_import_reassign:j": {
+      "id": "example_project.nodes_import_reassign:j",
+      "name": "j",
       "type": "ordeq_common.io.printer:Print",
       "references": []
     }

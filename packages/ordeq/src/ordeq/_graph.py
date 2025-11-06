@@ -54,7 +54,8 @@ class NodeIOGraph:
                 if output in output_to_node:
                     msg = (
                         f"IO {output} cannot be outputted by "
-                        f"more than one node"
+                        f"more than one node ({output_to_node[output].name} "
+                        f"and {node.name})"
                     )
                     raise ValueError(msg)
                 output_to_node[output] = node

@@ -1,11 +1,11 @@
 # Capture the graph representation and topological ordering
 from pprint import pprint
 
-import ordeq_dev_tools
+import example_references
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
-nodes = _resolve_runnables_to_nodes(ordeq_dev_tools)
+nodes = _resolve_runnables_to_nodes(example_references)
 base_graph = NodeIOGraph.from_nodes(nodes)
 print("NodeIOGraph")
 print(base_graph)

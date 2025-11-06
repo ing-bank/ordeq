@@ -1,7 +1,7 @@
 ## Resource
 
 ```python
-# Capture the graph representation and topological ordering for example rag
+# Capture the graph representation and topological ordering
 from pprint import pprint
 
 import example_rag_pipeline
@@ -18,7 +18,7 @@ print("NodeGraph")
 print(node_graph)
 
 print("Topological ordering")
-pprint(node_graph.topological_ordering)
+pprint([node.name for node in node_graph.topological_ordering])
 
 ```
 
@@ -51,12 +51,12 @@ Node:example_rag_pipeline.rag.question_answering:question_answering --> Node:exa
 Node:example_rag_pipeline.rag.retrieval:filter_relevant --> Node:example_rag_pipeline.rag.question_answering:question_answering
 Node:example_rag_pipeline.rag.retrieval:retrieve --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
 Topological ordering
-(Node(name=example_rag_pipeline.rag.policies:generate_questions, inputs=[IO(idx=ID1)], outputs=[IO(idx=ID2)]),
- Node(name=example_rag_pipeline.rag.indexer:create_vector_index, inputs=[IO(idx=ID3), IO(idx=ID4)], outputs=[IO(idx=ID5)]),
- Node(name=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(idx=ID5), IO(idx=ID2), IO(idx=ID4)], outputs=[IO(idx=ID6)]),
- Node(name=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(idx=ID6), IO(idx=ID7)], outputs=[IO(idx=ID8)]),
- Node(name=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(idx=ID2), IO(idx=ID8), IO(idx=ID7)], outputs=[IO(idx=ID9)]),
- Node(name=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(idx=ID9), IO(idx=ID7)], outputs=[IO(idx=ID10)]),
- Node(name=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(idx=ID9), IO(idx=ID3)], outputs=[IO(idx=ID11)]))
+['example_rag_pipeline.rag.policies:generate_questions',
+ 'example_rag_pipeline.rag.indexer:create_vector_index',
+ 'example_rag_pipeline.rag.retrieval:retrieve',
+ 'example_rag_pipeline.rag.retrieval:filter_relevant',
+ 'example_rag_pipeline.rag.question_answering:question_answering',
+ 'example_rag_pipeline.rag.evaluation:evaluate_answers',
+ 'example_rag_pipeline.rag.annotation:annotate_documents']
 
 ```

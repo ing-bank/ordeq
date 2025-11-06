@@ -1,4 +1,4 @@
-# Capture the graph representation and topological ordering for example rag
+# Capture the graph representation and topological ordering
 from pprint import pprint
 
 import example_rag_pipeline
@@ -15,4 +15,4 @@ print("NodeGraph")
 print(node_graph)
 
 print("Topological ordering")
-pprint(node_graph.topological_ordering)
+pprint([node.name for node in node_graph.topological_ordering])

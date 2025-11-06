@@ -24,7 +24,7 @@ run(func1, func2, verbose=True)
 ## Exception
 
 ```text
-ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node
+ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node (runner_non_distinct_ios:func1 and runner_non_distinct_ios:func2)
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
     raise ValueError(msg)
 

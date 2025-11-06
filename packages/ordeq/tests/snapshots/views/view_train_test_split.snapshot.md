@@ -4,6 +4,7 @@
 import pandas as pd
 from ordeq import node, run
 from ordeq_common import Literal
+from typing import TypeAlias
 
 dataframe = Literal(
     pd.DataFrame({
@@ -14,7 +15,7 @@ dataframe = Literal(
     })
 )
 
-Split = tuple[pd.DataFrame, pd.DataFrame]
+Split: TypeAlias = tuple[pd.DataFrame, pd.DataFrame]
 
 
 @node(inputs=dataframe)
@@ -72,16 +73,16 @@ INFO	ordeq.runner	Running view "train" in module "view_train_test_split"
 
 ```text
 error[invalid-return-type]: Return type does not match returned value
-  --> packages/ordeq/tests/resources/views/view_train_test_split.py:18:32
+  --> packages/ordeq/tests/resources/views/view_train_test_split.py:19:32
    |
-17 | @node(inputs=dataframe)
-18 | def split(df: pd.DataFrame) -> Split:
+18 | @node(inputs=dataframe)
+19 | def split(df: pd.DataFrame) -> Split:
    |                                ----- Expected `tuple[DataFrame, DataFrame]` because of return type
-19 |     df = df.sample(frac=1, random_state=1).reset_index(drop=True)
-20 |     n_test = int(len(df) * 0.25)
-21 |     test_df = df.iloc[:n_test]
-22 |     train_df = df.iloc[n_test:]
-23 |     return train_df, test_df
+20 |     df = df.sample(frac=1, random_state=1).reset_index(drop=True)
+21 |     n_test = int(len(df) * 0.25)
+22 |     test_df = df.iloc[:n_test]
+23 |     train_df = df.iloc[n_test:]
+24 |     return train_df, test_df
    |            ^^^^^^^^^^^^^^^^^ expected `tuple[DataFrame, DataFrame]`, found `tuple[Series[Any], Series[Any]]`
    |
 info: rule `invalid-return-type` is enabled by default

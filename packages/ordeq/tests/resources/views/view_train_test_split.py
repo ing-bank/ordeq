@@ -1,6 +1,7 @@
 import pandas as pd
 from ordeq import node, run
 from ordeq_common import Literal
+from typing import TypeAlias
 
 dataframe = Literal(
     pd.DataFrame({
@@ -11,7 +12,7 @@ dataframe = Literal(
     })
 )
 
-Split = tuple[pd.DataFrame, pd.DataFrame]
+Split: TypeAlias = tuple[pd.DataFrame, pd.DataFrame]
 
 
 @node(inputs=dataframe)

@@ -108,7 +108,10 @@ class ProjectModel(BaseModel):
         nodes_ = [node for node in nodes if not isinstance(node, View)]
 
         io_models = {
-            fqn_to_str((module_name, object_name)): IOModel.from_io(((module_name, object_name), io))
+            fqn_to_str((module_name, object_name)): IOModel.from_io((
+                (module_name, object_name),
+                io if not isinstance(io, View) else io.outputs[0],
+            ))
             for module_name, named_io in sorted(
                 ios.items(), key=operator.itemgetter(0)
             )
@@ -120,9 +123,7 @@ class ProjectModel(BaseModel):
         for module_name, named_io in ios.items():
             for object_name, io in named_io.items():
                 fqn = fqn_to_str((module_name, object_name))
-                if io_models.get(
-                    fqn
-                ):
+                if io_models.get(fqn):
                     ios_to_id[io].append(fqn)
 
         # Anonymous IOs
@@ -139,7 +140,10 @@ class ProjectModel(BaseModel):
                     # same module as node
                     fqn = f"{mod}:<anonymous{idx}>"
                     ios_to_id[obj].append(f"{mod}:<anonymous{idx}>")  # type: ignore[index]
-                    model = IOModel.from_io(((mod, f"<anonymous{idx}>"), obj))  # type: ignore[arg-type]
+                    model = IOModel.from_io((
+                        (mod, f"<anonymous{idx}>"),
+                        obj if not isinstance(obj, View) else obj.outputs[0],
+                    ))  # type: ignore[arg-type]
                     io_models[fqn] = model
                     idx += 1
 
@@ -148,7 +152,9 @@ class ProjectModel(BaseModel):
         ios_to_id = dict(sorted(ios_to_id.items(), key=operator.itemgetter(1)))  # type: ignore[assignment]
 
         node_models = {
-            node.name: NodeModel.from_node((str_to_fqn(node.name), node), ios_to_id)
+            node.name: NodeModel.from_node(
+                (str_to_fqn(node.name), node), ios_to_id
+            )
             for node in sorted(nodes_, key=lambda obj: obj.name)
         }
         return cls(name=name, nodes=node_models, ios=io_models)

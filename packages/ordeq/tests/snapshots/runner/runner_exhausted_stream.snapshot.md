@@ -1,7 +1,7 @@
 ## Resource
 
 ```python
-from collections.abc import Generator, Iterable
+from collections.abc import Generator
 from dataclasses import dataclass, field
 
 from ordeq import IO, node
@@ -11,7 +11,7 @@ from ordeq_common import Literal
 
 @dataclass(eq=False)
 class Stream(IO[Generator[str, None, None]]):
-    data: Iterable[str] = field(default_factory=list, hash=False)
+    data: list[str] = field(default_factory=list, hash=False)
 
     def load(self) -> Generator[str, None, None]:
         for item in self.data:

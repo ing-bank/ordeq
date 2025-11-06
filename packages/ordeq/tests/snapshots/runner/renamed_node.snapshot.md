@@ -27,3 +27,11 @@ INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_m
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/runner/renamed_node.py:2:6: error[unresolved-import] Cannot resolve imported module `resources.runner.example_module_b`
+Found 1 diagnostic
+
+```

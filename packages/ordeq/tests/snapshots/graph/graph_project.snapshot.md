@@ -22,23 +22,42 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```
 
-## Exception
+## Output
 
 ```text
-ValueError: IO Print() cannot be outputted by more than one node (example_project.nodes_import:func_a and example_project.nodes_import:func_b)
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    raise ValueError(msg)
-
-  File "/packages/ordeq/tests/resources/graph/graph_project.py", line LINO, in <module>
-    base_graph = NodeIOGraph.from_nodes(nodes)
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+NodeIOGraph
+Node:example_project.inner.nodes:func --> io-1
+Node:example_project.nodes:func --> io-2
+Node:example_project.nodes_import:func_a --> io-3
+Node:example_project.nodes_import:func_b --> io-4
+Node:example_project.nodes_import_alias:func --> io-5
+Node:example_project.nodes_import_reassign:func_a --> io-6
+Node:example_project.nodes_import_reassign:func_b --> io-7
+Node:example_project.nodes_with_inline_io:greet --> io-8
+Node:example_project.nodes_with_view:farewell --> io-9
+View:example_project.nodes_with_view:greet --> io-10
+NodeGraph
+Node:example_project.inner.nodes:func
+Node:example_project.nodes:func
+Node:example_project.nodes_import:func_a
+Node:example_project.nodes_import:func_b
+Node:example_project.nodes_import_alias:func
+Node:example_project.nodes_import_reassign:func_a
+Node:example_project.nodes_import_reassign:func_b
+Node:example_project.nodes_with_inline_io:greet
+Node:example_project.nodes_with_view:farewell
+View:example_project.nodes_with_view:greet
+Topological ordering
+['example_project.nodes_with_view:greet',
+ 'example_project.nodes_with_view:farewell',
+ 'example_project.nodes_with_inline_io:greet',
+ 'example_project.nodes_import_reassign:func_b',
+ 'example_project.nodes_import_reassign:func_a',
+ 'example_project.nodes_import_alias:func',
+ 'example_project.nodes_import:func_b',
+ 'example_project.nodes_import:func_a',
+ 'example_project.nodes:func',
+ 'example_project.inner.nodes:func']
 
 ```
 

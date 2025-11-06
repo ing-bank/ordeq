@@ -64,7 +64,7 @@ print(create_manifest_json(example_project))
         "example_project.nodes_import:b"
       ],
       "outputs": [
-        "example_project.nodes_import:f"
+        "example_project.catalog_2:g"
       ],
       "attributes": {
         "tags": {
@@ -80,7 +80,7 @@ print(create_manifest_json(example_project))
         "example_project.nodes_import_alias:B"
       ],
       "outputs": [
-        "example_project.nodes_import_alias:f"
+        "example_project.nodes_import_alias:h"
       ],
       "attributes": {
         "tags": {
@@ -97,7 +97,7 @@ print(create_manifest_json(example_project))
         "example_project.nodes_import_reassign:B|BB|b"
       ],
       "outputs": [
-        "example_project.nodes_import_reassign:f"
+        "example_project.nodes_import_reassign:i"
       ],
       "attributes": {}
     },
@@ -109,7 +109,7 @@ print(create_manifest_json(example_project))
         "example_project.nodes_import_reassign:B|BB|b"
       ],
       "outputs": [
-        "example_project.nodes_import_reassign:f"
+        "example_project.nodes_import_reassign:j"
       ],
       "attributes": {}
     },
@@ -173,6 +173,30 @@ print(create_manifest_json(example_project))
       "type": "ordeq_common.io.printer:Print",
       "references": []
     },
+    "example_project.catalog_2:g": {
+      "id": "example_project.catalog_2:g",
+      "name": "g",
+      "type": "ordeq_common.io.printer:Print",
+      "references": []
+    },
+    "example_project.catalog_2:h": {
+      "id": "example_project.catalog_2:h",
+      "name": "h",
+      "type": "ordeq_common.io.printer:Print",
+      "references": []
+    },
+    "example_project.catalog_2:i": {
+      "id": "example_project.catalog_2:i",
+      "name": "i",
+      "type": "ordeq_common.io.printer:Print",
+      "references": []
+    },
+    "example_project.catalog_2:j": {
+      "id": "example_project.catalog_2:j",
+      "name": "j",
+      "type": "ordeq_common.io.printer:Print",
+      "references": []
+    },
     "example_project.inner.nodes:x": {
       "id": "example_project.inner.nodes:x",
       "name": "x",
@@ -227,9 +251,9 @@ print(create_manifest_json(example_project))
       "type": "ordeq_common.io.literal:Literal",
       "references": []
     },
-    "example_project.nodes_import_alias:f": {
-      "id": "example_project.nodes_import_alias:f",
-      "name": "f",
+    "example_project.nodes_import_alias:h": {
+      "id": "example_project.nodes_import_alias:h",
+      "name": "h",
       "type": "ordeq_common.io.printer:Print",
       "references": []
     },
@@ -269,9 +293,15 @@ print(create_manifest_json(example_project))
       "type": "ordeq_common.io.string_buffer:StringBuffer",
       "references": []
     },
-    "example_project.nodes_import_reassign:f": {
-      "id": "example_project.nodes_import_reassign:f",
-      "name": "f",
+    "example_project.nodes_import_reassign:i": {
+      "id": "example_project.nodes_import_reassign:i",
+      "name": "i",
+      "type": "ordeq_common.io.printer:Print",
+      "references": []
+    },
+    "example_project.nodes_import_reassign:j": {
+      "id": "example_project.nodes_import_reassign:j",
+      "name": "j",
       "type": "ordeq_common.io.printer:Print",
       "references": []
     },

@@ -17,7 +17,7 @@ from example_project import (  # noqa: E402 (import after other statements)
 
 @node(
     inputs=[catalog_1.a, catalog_1.b],
-    outputs=catalog_2.f,
+    outputs=catalog_2.g,
     tags={"viz": "orange"},
 )
 def func_b(a_val: str, b_val: str) -> str:

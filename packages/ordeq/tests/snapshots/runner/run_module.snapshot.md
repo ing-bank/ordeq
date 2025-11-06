@@ -45,9 +45,9 @@ info: Searched in the following paths during module resolution:
 info:   1.  (first-party code)
 info:   2. vendored://stdlib (stdlib typeshed stubs vendored by ty)
 info:   3. /.venv/lib/python3.13/site-packages (site-packages)
-info:   4. /packages/ordeq/src (editable install)
-info:   5. /packages/ordeq-altair/src (editable install)
-info:   ... and 30 more paths. Run with `-v` to see all paths.
+info:   4. /examples/integration-streamlit/src (editable install)
+info:   5. /packages/ordeq/src (editable install)
+info:   ... and 38 more paths. Run with `-v` to see all paths.
 info: make sure your Python environment is properly configured: https://docs.astral.sh/ty/modules/#python-environment
 info: rule `unresolved-import` is enabled by default
 

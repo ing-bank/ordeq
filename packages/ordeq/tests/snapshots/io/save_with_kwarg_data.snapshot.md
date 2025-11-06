@@ -66,7 +66,7 @@ info: Parameter declared here
 4 | class Example(Output[str]):
 5 |     def save(self, df: str) -> None:
   |                    ^^^^^^^
-6 |         print("saving!", data)
+6 |         print("saving!", df)
   |
 info: rule `missing-argument` is enabled by default
 
@@ -84,7 +84,7 @@ info: Method signature here
 4 | class Example(Output[str]):
 5 |     def save(self, df: str) -> None:
   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-6 |         print("saving!", data)
+6 |         print("saving!", df)
   |
 info: rule `unknown-argument` is enabled by default
 

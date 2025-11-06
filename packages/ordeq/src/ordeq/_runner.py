@@ -8,12 +8,11 @@ from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
-from ordeq._resolve import (
-    _resolve_hooks,
-    _resolve_runnables_to_nodes,
+from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
+from ordeq._substitute import (
     _resolve_strings_to_subs,
+    _substitutes_modules_to_ios,
 )
-from ordeq._substitute import IOSubstitutes, _substitutes_modules_to_ios
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -135,10 +134,9 @@ def run(
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
-    io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(
-        _resolve_strings_to_subs(io or {})
-    )
-    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=io_substitutes)  # type: ignore[arg-type]
+    io_subs = _resolve_strings_to_subs(io or {})
+    patches = _substitutes_modules_to_ios(io_subs)
+    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 
     if verbose:
         print(graph_with_io)

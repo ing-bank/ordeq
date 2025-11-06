@@ -38,16 +38,15 @@ ModuleNotFoundError: No module named 'example_catalogs.remote.hello'; 'example_c
     return importlib.import_module(name)
            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in resolve_string_to_sub
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in resolve_string_to_sub
     return _resolve_string_to_module(string)
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_strings_to_subs
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _resolve_strings_to_subs
     new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new
               ~~~~~~~~~~~~~~~~~~~~~^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _resolve_strings_to_subs(io or {})
-    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+    io_subs = _resolve_strings_to_subs(io or {})
 
   File "/packages/ordeq/tests/resources/runner/run_io_wrong_io_reference.py", line LINO, in <module>
     run(uppercase, io={catalog.hello: "example_catalogs.remote.hello"})

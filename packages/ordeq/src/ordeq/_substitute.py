@@ -8,16 +8,36 @@ from types import ModuleType
 
 from ordeq._catalog import check_catalogs_are_consistent
 from ordeq._io import AnyIO
-from ordeq._resolve import _is_io, _is_module, _resolve_package_to_ios
+from ordeq._resolve import (
+    _is_io,
+    _is_module,
+    _resolve_package_to_ios,
+    _resolve_string_to_io,
+    _resolve_string_to_module,
+)
 
 IOSubstitutes = dict[AnyIO, AnyIO]
+
+
+def _resolve_strings_to_subs(
+    subs: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType],
+) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
+    def resolve_string_to_sub(string: str) -> AnyIO | ModuleType:
+        if ":" in string:
+            return _resolve_string_to_io(string)
+        return _resolve_string_to_module(string)
+
+    subs_ = {}
+    for old, new in subs.items():
+        old_sub = resolve_string_to_sub(old) if isinstance(old, str) else old
+        new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new
+        subs_[old_sub] = new_sub
+    return subs_
 
 
 def _substitute_catalog_by_catalog(
     old: ModuleType, new: ModuleType
 ) -> IOSubstitutes:
-    if old == new:
-        return {}
     check_catalogs_are_consistent(old, new)
     io: IOSubstitutes = {}
     old_catalog = dict(sorted(_resolve_package_to_ios(old).items()))
@@ -30,24 +50,21 @@ def _substitute_catalog_by_catalog(
     return io
 
 
-def _substitute(
-    old: AnyIO | ModuleType, new: AnyIO | ModuleType
-) -> IOSubstitutes:
-    if _is_module(old) and _is_module(new):
-        return _substitute_catalog_by_catalog(old, new)
-    if _is_io(old) and _is_io(new):
-        return {old: new} if old != new else {}
-    raise TypeError(
-        f"Cannot substitute objects of type "
-        f"'{type(old).__name__}' and "
-        f"'{type(new).__name__}'"
-    )
-
-
 def _substitutes_modules_to_ios(
     io: dict[AnyIO | ModuleType, AnyIO | ModuleType],
 ) -> IOSubstitutes:
     substitution_map: IOSubstitutes = {}
-    for key, value in io.items():
-        substitution_map.update(_substitute(key, value))
+    for old, new in io.items():
+        if old == new:
+            continue
+        if _is_module(old) and _is_module(new):
+            substitution_map.update(_substitute_catalog_by_catalog(old, new))
+        elif _is_io(old) and _is_io(new):
+            substitution_map[old] = new
+        else:
+            raise TypeError(
+                f"Cannot substitute objects of type "
+                f"'{type(old).__name__}' and "
+                f"'{type(new).__name__}'"
+            )
     return substitution_map

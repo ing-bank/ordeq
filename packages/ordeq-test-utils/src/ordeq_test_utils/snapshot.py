@@ -2,6 +2,8 @@ import difflib
 import importlib.util
 import logging
 import re
+import subprocess  # noqa S404 (subprocess usage)
+import tempfile
 import traceback
 from pathlib import Path
 
@@ -114,8 +116,11 @@ def make_output_invariant(output: str) -> str:
     # File ".../_runner.py", line 140  => "File ".../_runner.py", line LINO
     captured = re.sub(r"(line )\d+", r"\1LINO", captured)
 
+    temp_dir = re.escape(str(Path(tempfile.gettempdir())))
+
     return (
         captured.replace(root_path, "")
+        .replace(temp_dir, "<TEMP_DIR>")
         .replace(stdlib_path, "")
         .replace("PosixPath", "Path")
         .replace("WindowsPath", "Path")
@@ -193,6 +198,15 @@ def capture_module(
         sections["Warnings"] = _as_md_text_block(warnings_text)
     if caplog.text:
         sections["Logging"] = _as_md_text_block(caplog.text)
+
+    result = subprocess.run(  # noqa S603 (subprocess usage)
+        ["ty", "check", "--output-format", "concise", str(file_path)],  # noqa S607 (subprocess security)
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        sections["Typing"] = _as_md_text_block(result.stdout)
 
     output = "\n\n".join(
         f"## {key}\n\n{value.rstrip()}" for key, value in sections.items()

@@ -180,6 +180,15 @@ def _resolve_node_reference(ref: str) -> Node:
     return get_node(node_obj)
 
 
+def _resolve_string_to_io(ref: str) -> AnyIO:
+    module_name, io_name = str_to_fqn(ref)
+    module = _resolve_string_to_module(module_name)
+    io_obj = getattr(module, io_name, None)
+    if io_obj is None or not _is_io(io_obj):
+        raise ValueError(f"IO '{io_name}' not found in module '{module_name}'")
+    return io_obj
+
+
 def _resolve_hook_reference(ref: str) -> RunnerHook:
     """Resolves a hook reference string of the form 'package.module:hook_name'.
 

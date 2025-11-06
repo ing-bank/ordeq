@@ -47,16 +47,12 @@ CatalogError: Catalog 'example_catalogs.local' is missing IO(s) 'another_io'
     check_catalogs_are_consistent(old, new)
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute
-    return _substitute_catalog_by_catalog(old, new)
-
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
-    substitution_map.update(_substitute(key, value))
-                            ~~~~~~~~~~~^^^^^^^^^^^^
+    substitution_map.update(_substitute_catalog_by_catalog(old, new))
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    io_substitutes: IOSubstitutes = _substitutes_modules_to_ios(io)
-                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^
+    patches = _substitutes_modules_to_ios(io_subs)
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py", line LINO, in <module>
     run(

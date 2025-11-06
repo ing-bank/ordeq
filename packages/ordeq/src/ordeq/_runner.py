@@ -126,7 +126,8 @@ def run(
 
     Args:
         runnables: Nodes to run, or modules or packages containing nodes.
-        hooks: Hooks to apply
+        hooks: Run or node hooks to apply. Input and output hooks are taken
+            from the IOs.
         save: One of `{"all", "sinks"}`. When set to "sinks", only saves the
             sink outputs. Defaults to "all".
         verbose: Whether to print the node graph.

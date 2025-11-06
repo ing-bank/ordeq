@@ -19,25 +19,22 @@ print(diagram)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
-			L0(["Node"]):::node
-			L1[("IO")]:::io
-		end
-		subgraph IO Types
-			L00[("StringBuffer")]:::io0
-		end
+		L0@{shape: rounded, label: "Node"}
+		L00@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> world
-	world --> IO1
+	IO0 --> example_1.nodes:world
+	example_1.nodes:world --> IO1
 
-	subgraph pipeline["Pipeline"]
+	subgraph s0["example_1.nodes"]
 		direction TB
-		world(["world"]):::node
-		IO0[("x")]:::io0
-		IO1[("y")]:::io0
+		example_1.nodes:world@{shape: rounded, label: "world"}
 	end
+	IO0@{shape: rect, label: "x"}
+	IO1@{shape: rect, label: "y"}
 
+	class L0,example_1.nodes:world node
+	class L00,IO0,IO1 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

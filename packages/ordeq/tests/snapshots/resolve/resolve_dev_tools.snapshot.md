@@ -26,7 +26,7 @@ pprint(ios)
                                                        'package_relevant_commits': IO(idx=ID5),
                                                        'package_relevant_prs': IO(idx=ID6),
                                                        'packages_dir': Literal(Path('/packages'))},
- 'ordeq_dev_tools.pipelines.list_changed_packages': {'packages': JSON(path=Path('/data/dev_tools/changed_packages.json'))},
+ 'ordeq_dev_tools.pipelines.list_changed_packages': {'changed_packages': JSON(path=Path('/data/dev_tools/changed_packages.json'))},
  'ordeq_dev_tools.pipelines.list_dependencies': {'affected_dependencies': JSON(path=Path('/data/dev_tools/affected_dependencies.json')),
                                                  'dependencies': JSON(path=Path('/data/dev_tools/dependencies.json')),
                                                  'diagram': Text(path=Path('/data/dev_tools/dependencies_diagram.mmd')),

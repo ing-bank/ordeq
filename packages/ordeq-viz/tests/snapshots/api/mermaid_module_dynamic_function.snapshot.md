@@ -28,26 +28,23 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
-			L0(["Node"]):::node
-			L1[("IO")]:::io
-		end
-		subgraph IO Types
-			L00[("IO")]:::io0
-		end
+		L0@{shape: rounded, label: "Node"}
+		L00@{shape: rect, label: "IO"}
 	end
 
-	hello --> IO0
-	hello --> IO1
+	example_3.func_defs:hello --> IO0
+	example_3.func_defs:hello --> IO1
 
-	subgraph pipeline["Pipeline"]
+	subgraph s0["example_3.func_defs"]
 		direction TB
-		hello(["hello"]):::node
-		hello(["hello"]):::node
-		IO0[("&lt;anonymous&gt;")]:::io0
-		IO1[("&lt;anonymous&gt;")]:::io0
+		example_3.func_defs:hello@{shape: rounded, label: "hello"}
+		example_3.func_defs:hello@{shape: rounded, label: "hello"}
 	end
+	IO0@{shape: rect, label: "&lt;anonymous&gt;"}
+	IO1@{shape: rect, label: "&lt;anonymous&gt;"}
 
+	class L0,example_3.func_defs:hello,example_3.func_defs:hello node
+	class L00,IO0,IO1 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

@@ -11,7 +11,6 @@ with tempfile.TemporaryDirectory() as tmpdirname:
         "example_rag_pipeline",
         fmt="mermaid",
         output=output_file,
-        io_shape_template="({value})",
         use_dataset_styles=True,
         legend=True,
         title="RAG Pipeline",

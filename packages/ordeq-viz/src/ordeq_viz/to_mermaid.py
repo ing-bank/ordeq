@@ -1,4 +1,5 @@
 import html
+from collections import defaultdict
 from itertools import cycle
 from typing import Any
 
@@ -56,13 +57,13 @@ def pipeline_to_mermaid(
     ios: Catalog,
     legend: bool = True,
     use_dataset_styles: bool = True,
-    connect_wrapped_datasets: bool = True,
     title: str | None = None,
     layout: str | None = None,
     theme: str | None = None,
     look: str | None = None,
-    io_shape_template: str = '[("{value}")]',
-    node_shape_template: str = '(["{value}"])',
+    io_shape: str = "rect",
+    node_shape: str = "rounded",
+    subgraphs: bool = True,
 ) -> str:
     """Convert a pipeline to a mermaid diagram
 
@@ -71,16 +72,13 @@ def pipeline_to_mermaid(
         ios: dict of name and `ordeq.IO`
         legend: if True, display a legend
         use_dataset_styles: if True, use a distinct color for each dataset type
-        connect_wrapped_datasets: if True, connect wrapped datasets with a
-            dashed line
         title: Title of the mermaid diagram
         layout: Layout type for the diagram (e.g., 'dagre')
         theme: Theme for the diagram (e.g., 'neo')
         look: Look and feel for the diagram (e.g., 'neo')
-        io_shape_template: Shape template for IO nodes, with `{value}` as
-            placeholder for the name
-        node_shape_template: Shape template for processing nodes, with
-            `{value}` as placeholder for the name
+        io_shape: Shape for IO nodes in the diagram
+        node_shape: Shape for processing nodes in the diagram
+        subgraphs: if True, group nodes and IOs by their module in subgraphs
 
     Returns:
         the pipeline rendered as mermaid diagram syntax
@@ -88,7 +86,18 @@ def pipeline_to_mermaid(
     """
     io_names: dict[int, str] = {}
 
-    node_data, dataset_data = _gather_graph(nodes, ios)
+    node_modules, io_modules = _gather_graph(nodes, ios)
+
+    node_data = [
+        node
+        for nodes_in_module in node_modules.values()
+        for node in nodes_in_module
+    ]
+    dataset_data = [
+        dataset
+        for datasets_in_module in io_modules.values()
+        for dataset in datasets_in_module
+    ]
     distinct_dataset_types = sorted({dataset.type for dataset in dataset_data})
     dataset_type_to_id = {
         dataset_type: idx
@@ -123,46 +132,36 @@ def pipeline_to_mermaid(
         "fill:#4682b4",
     )
 
-    classes = {"node": node_style, "io": dataset_style}
+    class_definitions = {"node": node_style, "io": dataset_style}
+    class_assignments = defaultdict(list)
 
     mermaid_header = _make_mermaid_header(header_dict)
-
-    wraps_data: list[tuple[int, str, int]] = []
-    if connect_wrapped_datasets:
-        for dataset in dataset_data:
-            dataset_ = dataset.dataset
-            for attribute, values in dataset_.references.items():
-                wraps_data.extend(
-                    (hash(value), attribute, hash(dataset_))
-                    for value in values
-                )
 
     if use_dataset_styles:
         for idx, style in zip(
             dataset_type_to_id.values(), cycle(dataset_styles), strict=False
         ):
-            classes[f"io{idx}"] = style
+            class_definitions[f"io{idx}"] = style
 
     data = mermaid_header
     data += """graph TB\n"""
 
-    if legend:
+    if legend and len(node_data) > 0:
         data += '\tsubgraph legend["Legend"]\n'
-        direction = "TB" if use_dataset_styles else "LR"
-        data += f"\t\tdirection {direction}\n"
-        if use_dataset_styles:
-            data += "\t\tsubgraph Objects\n"
-        data += f"\t\t\tL0{node_shape_template.format(value='Node')}:::node\n"
-        data += f"\t\t\tL1{io_shape_template.format(value='IO')}:::io\n"
-        if use_dataset_styles:
-            data += "\t\tend\n"
-            data += "\t\tsubgraph IO Types\n"
-            for dataset_type, idx in dataset_type_to_id.items():
-                data += (
-                    f"\t\t\tL0{idx}{io_shape_template.format(value=dataset_type)}"
-                    f":::io{idx}\n"
-                )
-            data += "\t\tend\n"
+        data += "\t\tdirection TB\n"
+        data += f'\t\tL0@{{shape: {node_shape}, label: "Node"}}\n'
+        class_assignments["node"].append("L0")
+        if len(dataset_data) > 0:
+            if not use_dataset_styles:
+                data += f'\t\tL1@{{shape: {io_shape}, label: "IO"}}\n'
+                class_assignments["io"].append("L1")
+            else:
+                for dataset_type, idx in dataset_type_to_id.items():
+                    data += (
+                        f"\t\tL0{idx}@{{shape: {io_shape}, "
+                        f'label: "{dataset_type}"}}\n'
+                    )
+                    class_assignments[f"io{idx}"].append("L0" + str(idx))
         data += "\tend\n"
         data += "\n"
 
@@ -177,42 +176,64 @@ def pipeline_to_mermaid(
 
     data += "\n"
 
-    # Wrappers
-    if connect_wrapped_datasets:
-        for dataset_from_id, attr, dataset_to_id in wraps_data:
-            data += (
-                f"\t{_hash_to_str(dataset_from_id, io_names)} -.->|{attr}| "
-                f"{_hash_to_str(dataset_to_id, io_names)}\n"
-            )
-
     # Nodes
-    indent = 1
+    indent = 2 if subgraphs else 1
     tabs = "\t" * indent
-    data += f'{tabs}subgraph pipeline["Pipeline"]\n'
-    data += f"{tabs}\tdirection TB\n"
-    for node in node_data:
-        data += (
-            f"{tabs}\t{node.id}"
-            f"{node_shape_template.format(value=html.escape(node.name))}"
-            f":::node\n"
-        )
 
-    for dataset in dataset_data:
+    for idx, (module, nodes_in_module) in enumerate(node_modules.items()):
+        if subgraphs:
+            data += f'\tsubgraph s{idx}["{module}"]\n'
+            data += f"{tabs}direction TB\n"
+
+        for node in nodes_in_module:
+            data += (
+                f"{tabs}{node.id}"
+                f"@{{shape: {node_shape}, "
+                f'label: "{html.escape(node.name)}"}}\n'
+            )
+            class_assignments["node"].append(str(node.id))
+
+        for io in sorted(
+            io_modules.get(module, []),
+            key=lambda io: _hash_to_str(io.id, io_names),
+        ):
+            if use_dataset_styles:
+                class_assignments[f"io{dataset_type_to_id[io.type]}"].append(
+                    _hash_to_str(io.id, io_names)
+                )
+            else:
+                class_assignments["io"].append(_hash_to_str(io.id, io_names))
+
+            data += (
+                f"{tabs}{_hash_to_str(io.id, io_names)}"
+                f'@{{shape: {io_shape}, label: "{html.escape(io.name)}"}}\n'
+            )
+        if subgraphs:
+            data += "\tend\n"
+
+    for io in sorted(
+        io_modules.get(None, []), key=lambda io: _hash_to_str(io.id, io_names)
+    ):
         if use_dataset_styles:
-            class_name = f"io{dataset_type_to_id[dataset.type]}"
+            class_assignments[f"io{dataset_type_to_id[io.type]}"].append(
+                _hash_to_str(io.id, io_names)
+            )
         else:
-            class_name = "io"
+            class_assignments["io"].append(_hash_to_str(io.id, io_names))
+
         data += (
-            f"{tabs}\t{_hash_to_str(dataset.id, io_names)}"
-            f"{io_shape_template.format(value=html.escape(dataset.name))}"
-            f":::{class_name}\n"
+            f"\t{_hash_to_str(io.id, io_names)}"
+            f'@{{shape: {io_shape}, label: "{html.escape(io.name)}"}}\n'
         )
 
-    data += f"{tabs}end\n"
     data += "\n"
 
-    # Classes
-    for class_name, style in classes.items():
+    # Class assignments
+    for class_name, ids in class_assignments.items():
+        data += f"\tclass {','.join(ids)} {class_name}\n"
+
+    # Class definitions
+    for class_name, style in class_definitions.items():
         data += f"\tclassDef {class_name} {style}\n"
 
     return data

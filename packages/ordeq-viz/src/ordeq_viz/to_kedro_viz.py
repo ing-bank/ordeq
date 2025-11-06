@@ -180,8 +180,18 @@ def pipeline_to_kedro_viz(
         FileExistsError: if the output directory already exists
 
     """
-    node_data, dataset_data = _gather_graph(nodes, ios)
+    node_modules, io_modules = _gather_graph(nodes, ios)
 
+    node_data = [
+        node
+        for nodes_in_module in node_modules.values()
+        for node in nodes_in_module
+    ]
+    dataset_data = [
+        dataset
+        for datasets_in_module in io_modules.values()
+        for dataset in datasets_in_module
+    ]
     # populate attributes for kedro-viz
     for node in node_data:
         node.attributes["source"] = inspect.getsource(node.node.func)

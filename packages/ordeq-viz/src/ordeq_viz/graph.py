@@ -1,8 +1,10 @@
 import operator
+from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any
 
 from ordeq import Node
+from ordeq._fqn import fqn_to_str  # noqa: PLC2701 private import
 from ordeq._graph import NodeGraph, NodeIOGraph  # noqa: PLC2701 private import
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
@@ -13,6 +15,7 @@ class NodeData:
     id: int | str
     node: Node
     name: str
+    module: str
     inputs: list[int]
     outputs: list[int]
     attributes: dict[str, Any] = field(default_factory=dict)
@@ -68,7 +71,7 @@ def _add_io_data(dataset, reverse_lookup, io_data) -> int:
 
 def _gather_graph(
     nodes: set[Node], ios: Catalog
-) -> tuple[list[NodeData], list[IOData]]:
+) -> tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 
     Args:
@@ -92,10 +95,14 @@ def _gather_graph(
         if io_id not in reverse_lookup:
             reverse_lookup[io_id] = "<anonymous>"
 
-    nodes_ = []
     io_data: dict[int, IOData] = {}
 
-    ordering = NodeGraph.from_graph(graph).topological_ordering
+    node_graph = NodeGraph.from_graph(graph)
+    ordering = node_graph.topological_ordering
+
+    node_modules = defaultdict(list)
+    io_input_modules = defaultdict(set)
+    io_output_modules = defaultdict(set)
 
     for line in ordering:
         inputs = [
@@ -106,14 +113,39 @@ def _gather_graph(
             _add_io_data(output_dataset, reverse_lookup, io_data)
             for output_dataset in line.outputs
         ]
-        nodes_.append(
-            NodeData(
-                id=line.func.__name__,
-                node=line,
-                name=line.func.__name__,
-                inputs=inputs,
-                outputs=outputs,
-            )
+        # TODO: use resolved name on the NamedGraph when available
+        node_module = line.func.__module__
+        node_data = NodeData(
+            id=fqn_to_str((node_module, line.func.__name__)),
+            node=line,
+            name=line.func.__name__,
+            module=node_module,
+            inputs=inputs,
+            outputs=outputs,
         )
+        for io_id in inputs:
+            io_input_modules[io_id].add(node_module)
+        for io_id in outputs:
+            io_output_modules[io_id].add(node_module)
+        node_modules[node_module].append(node_data)
 
-    return nodes_, list(io_data.values())
+    io_modules_ = defaultdict(list)
+    for io_id in set(io_input_modules.keys()) | set(io_output_modules.keys()):
+        input_modules = io_input_modules.get(io_id, set())
+        output_modules = io_output_modules.get(io_id, set())
+
+        module = (
+            None
+            if len(input_modules) != 1
+            or len(output_modules) != 1
+            or input_modules != output_modules
+            else input_modules.pop()
+        )
+        io_modules_[module].append(io_data[io_id])
+
+    return {
+        node_module: sorted(nodes, key=lambda n: n.id)
+        for node_module, nodes in sorted(
+            node_modules.items(), key=operator.itemgetter(0)
+        )
+    }, io_modules_

@@ -51,32 +51,14 @@ graph TB
 	IO5 --> example_rag_pipeline.rag.retrieval:retrieve
 	example_rag_pipeline.rag.retrieval:retrieve --> IO10
 
-	subgraph s0["example_rag_pipeline.rag.annotation"]
-		direction TB
-		example_rag_pipeline.rag.annotation:annotate_documents@{shape: rounded, label: "annotate_documents"}
-	end
-	subgraph s1["example_rag_pipeline.rag.evaluation"]
-		direction TB
-		example_rag_pipeline.rag.evaluation:evaluate_answers@{shape: rounded, label: "evaluate_answers"}
-	end
-	subgraph s2["example_rag_pipeline.rag.indexer"]
-		direction TB
-		example_rag_pipeline.rag.indexer:create_vector_index@{shape: rounded, label: "create_vector_index"}
-	end
-	subgraph s3["example_rag_pipeline.rag.policies"]
-		direction TB
-		example_rag_pipeline.rag.policies:generate_questions@{shape: rounded, label: "generate_questions"}
-	end
-	subgraph s4["example_rag_pipeline.rag.question_answering"]
-		direction TB
-		example_rag_pipeline.rag.question_answering:question_answering@{shape: rounded, label: "question_answering"}
-	end
-	subgraph s5["example_rag_pipeline.rag.retrieval"]
-		direction TB
-		example_rag_pipeline.rag.retrieval:filter_relevant@{shape: rounded, label: "filter_relevant"}
-		example_rag_pipeline.rag.retrieval:retrieve@{shape: rounded, label: "retrieve"}
-		IO10@{shape: cylinder, label: "retrieved_pages"}
-	end
+	example_rag_pipeline.rag.annotation:annotate_documents@{shape: rounded, label: "annotate_documents"}
+	example_rag_pipeline.rag.evaluation:evaluate_answers@{shape: rounded, label: "evaluate_answers"}
+	example_rag_pipeline.rag.indexer:create_vector_index@{shape: rounded, label: "create_vector_index"}
+	example_rag_pipeline.rag.policies:generate_questions@{shape: rounded, label: "generate_questions"}
+	example_rag_pipeline.rag.question_answering:question_answering@{shape: rounded, label: "question_answering"}
+	example_rag_pipeline.rag.retrieval:filter_relevant@{shape: rounded, label: "filter_relevant"}
+	example_rag_pipeline.rag.retrieval:retrieve@{shape: rounded, label: "retrieve"}
+	IO10@{shape: cylinder, label: "retrieved_pages"}
 	IO0@{shape: cylinder, label: "llm_answers"}
 	IO1@{shape: cylinder, label: "pdf_documents"}
 	IO2@{shape: cylinder, label: "pdfs_documents_annotated"}

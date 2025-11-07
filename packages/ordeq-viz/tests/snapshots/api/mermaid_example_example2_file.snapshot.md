@@ -46,25 +46,13 @@ graph TB
 	IO9 --> example_2.nodes:transform_input_2
 	example_2.nodes:transform_input_2 --> IO10
 
-	subgraph s0["example_1.nodes"]
-		direction TB
-		example_1.nodes:world@{shape: rounded, label: "world"}
-	end
-	subgraph s1["example_1.pipeline"]
-		direction TB
-		example_1.pipeline:transform_input@{shape: rounded, label: "transform_input"}
-		example_1.pipeline:transform_mock_input@{shape: rounded, label: "transform_mock_input"}
-	end
-	subgraph s2["example_1.wrapped_io"]
-		direction TB
-		example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
-		example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
-		IO7@{shape: rect, label: "message"}
-	end
-	subgraph s3["example_2.nodes"]
-		direction TB
-		example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
-	end
+	example_1.nodes:world@{shape: rounded, label: "world"}
+	example_1.pipeline:transform_input@{shape: rounded, label: "transform_input"}
+	example_1.pipeline:transform_mock_input@{shape: rounded, label: "transform_mock_input"}
+	example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
+	example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
+	IO7@{shape: rect, label: "message"}
+	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
 	IO0@{shape: rect, label: "x"}
 	IO1@{shape: rect, label: "y"}
 	IO10@{shape: rect, label: "TestOutput2"}

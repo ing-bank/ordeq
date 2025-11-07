@@ -36,14 +36,8 @@ graph TB
 	IO2 --> example_2.nodes:transform_input_2
 	example_2.nodes:transform_input_2 --> IO3
 
-	subgraph s0["example_1.nodes"]
-		direction TB
-		example_1.nodes:world@{shape: rounded, label: "world"}
-	end
-	subgraph s1["example_2.nodes"]
-		direction TB
-		example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
-	end
+	example_1.nodes:world@{shape: rounded, label: "world"}
+	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
 	IO0@{shape: rect, label: "x"}
 	IO1@{shape: rect, label: "y"}
 	IO2@{shape: rect, label: "TestInput2"}

@@ -25,10 +25,7 @@ graph TB
 	IO0 --> example_anonymous.nodes:node_with_inline_io
 	example_anonymous.nodes:node_with_inline_io --> IO1
 
-	subgraph s0["example_anonymous.nodes"]
-		direction TB
-		example_anonymous.nodes:node_with_inline_io@{shape: rounded, label: "node_with_inline_io"}
-	end
+	example_anonymous.nodes:node_with_inline_io@{shape: rounded, label: "node_with_inline_io"}
 	IO0@{shape: rect, label: "&lt;anonymous&gt;"}
 	IO1@{shape: rect, label: "&lt;anonymous&gt;"}
 

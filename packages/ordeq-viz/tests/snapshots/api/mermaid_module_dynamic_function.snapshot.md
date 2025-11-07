@@ -35,11 +35,8 @@ graph TB
 	example_3.func_defs:hello --> IO0
 	example_3.func_defs:hello --> IO1
 
-	subgraph s0["example_3.func_defs"]
-		direction TB
-		example_3.func_defs:hello@{shape: rounded, label: "hello"}
-		example_3.func_defs:hello@{shape: rounded, label: "hello"}
-	end
+	example_3.func_defs:hello@{shape: rounded, label: "hello"}
+	example_3.func_defs:hello@{shape: rounded, label: "hello"}
 	IO0@{shape: rect, label: "&lt;anonymous&gt;"}
 	IO1@{shape: rect, label: "&lt;anonymous&gt;"}
 

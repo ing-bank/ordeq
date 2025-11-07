@@ -7,7 +7,7 @@ from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 nodes, ios = _resolve_runnables_to_nodes_and_ios(ordeq_dev_tools)
-diagram = pipeline_to_mermaid(nodes=nodes, ios=ios)
+diagram = pipeline_to_mermaid(nodes=nodes, ios=ios, subgraphs=True)
 print(diagram)
 
 ```
@@ -175,5 +175,6 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'ordeq
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.generate_draft_releases:create_releases'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.list_changed_packages:changed_files'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq_viz.to_mermaid	Subgraphs are in pre-release, functionality may break in future releases without it being considered a breaking change.
 
 ```

@@ -29,10 +29,7 @@ graph TB
 	IO0 --> example_1.nodes:world
 	example_1.nodes:world --> IO1
 
-	subgraph s0["example_1.nodes"]
-		direction TB
-		example_1.nodes:world@{shape: manual-file, label: "world"}
-	end
+	example_1.nodes:world@{shape: manual-file, label: "world"}
 	IO0@{shape: manual-input, label: "x"}
 	IO1@{shape: manual-input, label: "y"}
 

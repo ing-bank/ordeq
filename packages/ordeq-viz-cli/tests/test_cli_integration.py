@@ -37,11 +37,12 @@ def test_runs_viz_with_options(tmp_path: Path):
             "--package",
             "example",
             "--fmt",
-            "mermaid_md",
+            "mermaid-md",
             "--output",
             str(output_file),
             "--option",
-            "block_char=:",
+            "block_char",
+            ":",
         ],
     ):
         main()

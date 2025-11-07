@@ -14,7 +14,7 @@ from ordeq_viz.to_mermaid_md import pipeline_to_mermaid_md
 @overload
 def viz(
     *runnables: Runnable,
-    fmt: Literal["kedro-viz", "mermaid", "mermaid_md"],
+    fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path,
     **options: Any,
 ) -> None: ...
@@ -23,7 +23,7 @@ def viz(
 @overload
 def viz(
     *runnables: Runnable,
-    fmt: Literal["mermaid", "mermaid_md"],
+    fmt: Literal["mermaid", "mermaid-md"],
     output: None = None,
     **options: Any,
 ) -> str: ...
@@ -69,7 +69,7 @@ def viz(
                 output.write_text(result, encoding="utf8")
                 return None
             return result
-        case "mermaid_md":
+        case "mermaid-md":
             result = pipeline_to_mermaid_md(nodes, ios, **options)
             if output:
                 output.write_text(result, encoding="utf8")

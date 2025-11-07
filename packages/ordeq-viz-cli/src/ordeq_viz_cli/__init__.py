@@ -31,19 +31,19 @@ def _create_parser() -> ArgumentParser:
             "Output format for the visualization. "
             "Supported formats: kedro, mermaid."
         ),
-        choices=("kedro", "mermaid", "mermaid_md"),
+        choices=("kedro", "mermaid", "mermaid-md"),
         default="mermaid",
     )
-    # Allow any options as --option key=value
     parser.add_argument(
         "--option",
-        metavar="KEY=VALUE",
+        nargs=2,
+        action="append",
+        metavar=("key", "value"),
+        default=[],
         help=(
             "Additional options for the visualization functions, "
-            "specified as key=value pairs."
+            "specified as 'key value' pairs."
         ),
-        action="append",
-        default=[],
     )
     return parser
 
@@ -67,9 +67,5 @@ def main() -> None:
     """Main function for the CLI. Parses arguments and runs the viz."""
 
     args = parse_args()
-    extra_options = {}
-    for option in args.option:
-        key, value = option.split("=", 1)
-        extra_options[key] = value
 
-    viz(*args.packages, fmt=args.fmt, output=args.output, **extra_options)
+    viz(*args.packages, fmt=args.fmt, output=args.output, **dict(args.option))

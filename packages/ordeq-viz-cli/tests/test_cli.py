@@ -22,6 +22,7 @@ from ordeq_viz_cli import main, parse_args
                 "packages": ["example1.a1"],
                 "fmt": "kedro",
                 "output": Path("output_dir"),
+                "option": [],
             },
         ),
         (
@@ -33,11 +34,15 @@ from ordeq_viz_cli import main, parse_args
                 "kedro",
                 "--output",
                 "output_dir",
+                "--option",
+                "key",
+                "value",
             ),
             {
                 "packages": ["example1.a1", "example2.a2"],
                 "fmt": "kedro",
                 "output": Path("output_dir"),
+                "option": [["key", "value"]],
             },
         ),
         (
@@ -53,6 +58,7 @@ from ordeq_viz_cli import main, parse_args
                 "packages": ["example1.a1"],
                 "fmt": "mermaid",
                 "output": Path("output_dir"),
+                "option": [],
             },
         ),
         (
@@ -71,6 +77,23 @@ from ordeq_viz_cli import main, parse_args
                 "packages": ["example1.a1"],
                 "fmt": "mermaid",
                 "output": Path("output_dir"),
+                "option": [],
+            },
+        ),
+        (
+            (
+                "--package",
+                "example1.a1",
+                "--fmt",
+                "mermaid-md",
+                "--output",
+                "output_dir",
+            ),
+            {
+                "packages": ["example1.a1"],
+                "fmt": "mermaid-md",
+                "output": Path("output_dir"),
+                "option": [],
             },
         ),
     ],
@@ -114,9 +137,11 @@ def test_it_calls_viz_with_options(mocked_viz: MagicMock):
             "--output",
             "output_dir",
             "--option",
-            "key1=value1",
+            "key1",
+            "value1",
             "--option",
-            "key2=value2",
+            "key2",
+            "value2",
         ],
     ):
         main()

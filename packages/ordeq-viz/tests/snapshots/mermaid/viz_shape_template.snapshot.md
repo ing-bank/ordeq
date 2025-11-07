@@ -9,8 +9,8 @@ from ordeq_viz.to_mermaid import pipeline_to_mermaid
 diagram = pipeline_to_mermaid(
     nodes={get_node(mod.world)},
     ios={"...": {"x": mod.x, "y": mod.y}},
-    io_shape_template='("{value}")',
-    node_shape_template='("{value}")',
+    io_shape="manual-input",
+    node_shape="manual-file",
 )
 print(diagram)
 
@@ -22,25 +22,19 @@ print(diagram)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
-			L0("Node"):::node
-			L1("IO"):::io
-		end
-		subgraph IO Types
-			L00("StringBuffer"):::io0
-		end
+		L0@{shape: manual-file, label: "Node"}
+		L00@{shape: manual-input, label: "StringBuffer"}
 	end
 
-	IO0 --> world
-	world --> IO1
+	IO0 --> example_1.nodes:world
+	example_1.nodes:world --> IO1
 
-	subgraph pipeline["Pipeline"]
-		direction TB
-		world("world"):::node
-		IO0("x"):::io0
-		IO1("y"):::io0
-	end
+	example_1.nodes:world@{shape: manual-file, label: "world"}
+	IO0@{shape: manual-input, label: "x"}
+	IO1@{shape: manual-input, label: "y"}
 
+	class L0,example_1.nodes:world node
+	class L00,IO0,IO1 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

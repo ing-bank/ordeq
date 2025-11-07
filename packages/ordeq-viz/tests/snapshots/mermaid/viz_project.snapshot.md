@@ -7,9 +7,7 @@ from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 nodes, ios = _resolve_runnables_to_nodes_and_ios(example_project)
-diagram = pipeline_to_mermaid(
-    nodes=nodes, ios=ios, connect_wrapped_datasets=False
-)
+diagram = pipeline_to_mermaid(nodes=nodes, ios=ios, subgraphs=False)
 print(diagram)
 
 ```
@@ -20,74 +18,71 @@ print(diagram)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
-			L0(["Node"]):::node
-			L1[("IO")]:::io
-		end
-		subgraph IO Types
-			L00[("IO")]:::io0
-			L01[("Literal")]:::io1
-			L02[("Print")]:::io2
-			L03[("StringBuffer")]:::io3
-		end
+		L0@{shape: rounded, label: "Node"}
+		L00@{shape: rect, label: "IO"}
+		L01@{shape: rect, label: "Literal"}
+		L02@{shape: rect, label: "Print"}
+		L03@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> greet
-	greet --> IO1
-	IO1 --> farewell
-	farewell --> IO2
-	IO3 --> greet
-	greet --> IO4
-	IO5 --> func_b
-	IO6 --> func_b
-	func_b --> IO7
-	IO5 --> func_a
-	IO6 --> func_a
-	func_a --> IO8
-	IO5 --> func
-	IO6 --> func
-	func --> IO9
-	IO5 --> func_b
-	IO6 --> func_b
-	func_b --> IO10
-	IO5 --> func_a
-	IO6 --> func_a
-	func_a --> IO11
-	IO12 --> func
-	func --> IO13
-	IO14 --> func
-	func --> IO15
+	IO0 --> example_project.inner.nodes:func
+	example_project.inner.nodes:func --> IO1
+	IO2 --> example_project.nodes:func
+	example_project.nodes:func --> IO3
+	IO4 --> example_project.nodes_import:func_a
+	IO5 --> example_project.nodes_import:func_a
+	example_project.nodes_import:func_a --> IO6
+	IO4 --> example_project.nodes_import:func_b
+	IO5 --> example_project.nodes_import:func_b
+	example_project.nodes_import:func_b --> IO7
+	IO4 --> example_project.nodes_import_alias:func
+	IO5 --> example_project.nodes_import_alias:func
+	example_project.nodes_import_alias:func --> IO8
+	IO4 --> example_project.nodes_import_reassign:func_a
+	IO5 --> example_project.nodes_import_reassign:func_a
+	example_project.nodes_import_reassign:func_a --> IO9
+	IO4 --> example_project.nodes_import_reassign:func_b
+	IO5 --> example_project.nodes_import_reassign:func_b
+	example_project.nodes_import_reassign:func_b --> IO10
+	IO11 --> example_project.nodes_with_inline_io:greet
+	example_project.nodes_with_inline_io:greet --> IO12
+	IO13 --> example_project.nodes_with_view:farewell
+	example_project.nodes_with_view:farewell --> IO14
+	IO15 --> example_project.nodes_with_view:greet
+	example_project.nodes_with_view:greet --> IO13
 
-	subgraph pipeline["Pipeline"]
-		direction TB
-		greet(["greet"]):::node
-		farewell(["farewell"]):::node
-		greet(["greet"]):::node
-		func_b(["func_b"]):::node
-		func_a(["func_a"]):::node
-		func(["func"]):::node
-		func_b(["func_b"]):::node
-		func_a(["func_a"]):::node
-		func(["func"]):::node
-		func(["func"]):::node
-		IO0[("greeting")]:::io1
-		IO1[("&lt;anonymous&gt;")]:::io0
-		IO2[("printer")]:::io2
-		IO3[("&lt;anonymous&gt;")]:::io1
-		IO4[("&lt;anonymous&gt;")]:::io0
-		IO5[("a")]:::io1
-		IO6[("b")]:::io3
-		IO7[("j")]:::io2
-		IO8[("i")]:::io2
-		IO9[("h")]:::io2
-		IO10[("g")]:::io2
-		IO11[("f")]:::io2
-		IO12[("x")]:::io0
-		IO13[("y")]:::io2
-		IO14[("x")]:::io0
-		IO15[("y")]:::io2
-	end
+	example_project.inner.nodes:func@{shape: rounded, label: "func"}
+	example_project.nodes:func@{shape: rounded, label: "func"}
+	example_project.nodes_import:func_a@{shape: rounded, label: "func_a"}
+	example_project.nodes_import:func_b@{shape: rounded, label: "func_b"}
+	example_project.nodes_import_alias:func@{shape: rounded, label: "func"}
+	example_project.nodes_import_reassign:func_a@{shape: rounded, label: "func_a"}
+	example_project.nodes_import_reassign:func_b@{shape: rounded, label: "func_b"}
+	example_project.nodes_with_inline_io:greet@{shape: rounded, label: "greet"}
+	example_project.nodes_with_view:farewell@{shape: rounded, label: "farewell"}
+	example_project.nodes_with_view:greet@{shape: rounded, label: "greet"}
+	IO13@{shape: rect, label: "&lt;anonymous&gt;"}
+	IO0@{shape: rect, label: "x"}
+	IO1@{shape: rect, label: "y"}
+	IO10@{shape: rect, label: "j"}
+	IO11@{shape: rect, label: "&lt;anonymous&gt;"}
+	IO12@{shape: rect, label: "&lt;anonymous&gt;"}
+	IO14@{shape: rect, label: "printer"}
+	IO15@{shape: rect, label: "greeting"}
+	IO2@{shape: rect, label: "x"}
+	IO3@{shape: rect, label: "y"}
+	IO4@{shape: rect, label: "a"}
+	IO5@{shape: rect, label: "b"}
+	IO6@{shape: rect, label: "f"}
+	IO7@{shape: rect, label: "g"}
+	IO8@{shape: rect, label: "h"}
+	IO9@{shape: rect, label: "i"}
 
+	class L0,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_a,example_project.nodes_import:func_b,example_project.nodes_import_alias:func,example_project.nodes_import_reassign:func_a,example_project.nodes_import_reassign:func_b,example_project.nodes_with_inline_io:greet,example_project.nodes_with_view:farewell,example_project.nodes_with_view:greet node
+	class L00,IO13,IO0,IO12,IO2 io0
+	class L01,IO11,IO15,IO4 io1
+	class L02,IO1,IO10,IO14,IO3,IO6,IO7,IO8,IO9 io2
+	class L03,IO5 io3
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

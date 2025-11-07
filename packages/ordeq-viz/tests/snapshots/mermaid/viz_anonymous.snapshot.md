@@ -7,9 +7,7 @@ from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 nodes, ios = _resolve_runnables_to_nodes_and_ios(example_anonymous)
-diagram = pipeline_to_mermaid(
-    nodes=nodes, ios=ios, connect_wrapped_datasets=False
-)
+diagram = pipeline_to_mermaid(nodes=nodes, ios=ios)
 print(diagram)
 
 ```
@@ -20,25 +18,19 @@ print(diagram)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
-			L0(["Node"]):::node
-			L1[("IO")]:::io
-		end
-		subgraph IO Types
-			L00[("IO")]:::io0
-		end
+		L0@{shape: rounded, label: "Node"}
+		L00@{shape: rect, label: "IO"}
 	end
 
-	IO0 --> node_with_inline_io
-	node_with_inline_io --> IO1
+	IO0 --> example_anonymous.nodes:node_with_inline_io
+	example_anonymous.nodes:node_with_inline_io --> IO1
 
-	subgraph pipeline["Pipeline"]
-		direction TB
-		node_with_inline_io(["node_with_inline_io"]):::node
-		IO0[("&lt;anonymous&gt;")]:::io0
-		IO1[("&lt;anonymous&gt;")]:::io0
-	end
+	example_anonymous.nodes:node_with_inline_io@{shape: rounded, label: "node_with_inline_io"}
+	IO0@{shape: rect, label: "&lt;anonymous&gt;"}
+	IO1@{shape: rect, label: "&lt;anonymous&gt;"}
 
+	class L0,example_anonymous.nodes:node_with_inline_io node
+	class L00,IO0,IO1 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

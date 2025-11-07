@@ -1,7 +1,7 @@
 """Async nodes example using ordeq.
 
 Demonstrates the use of asynchronous nodes with simulated
-delays of I/O-bound operations with asyncio.sleep.
+delays for I/O-bound operations with asyncio.sleep.
 
 In the example below, write_buffer_2 should complete before
 write_buffer_1, despite being started after it, due to

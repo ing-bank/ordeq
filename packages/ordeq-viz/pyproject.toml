@@ -36,6 +36,7 @@ test = [
     "ordeq-sentence-transformers",
     "ordeq-test-utils",
     "ordeq-test-examples",
+    "ordeq-dev-tools",
 ]
 
 [tool.setuptools_scm]

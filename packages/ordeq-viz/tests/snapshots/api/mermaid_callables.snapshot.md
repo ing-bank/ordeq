@@ -30,32 +30,28 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
-			L0(["Node"]):::node
-			L1[("IO")]:::io
-		end
-		subgraph IO Types
-			L00[("Input")]:::io0
-			L01[("Output")]:::io1
-			L02[("StringBuffer")]:::io2
-		end
+		L0@{shape: rounded, label: "Node"}
+		L00@{shape: rect, label: "Input"}
+		L01@{shape: rect, label: "Output"}
+		L02@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> transform_input_2
-	transform_input_2 --> IO1
-	IO2 --> world
-	world --> IO3
+	IO0 --> example_1.nodes:world
+	example_1.nodes:world --> IO1
+	IO2 --> example_2.nodes:transform_input_2
+	example_2.nodes:transform_input_2 --> IO3
 
-	subgraph pipeline["Pipeline"]
-		direction TB
-		transform_input_2(["transform_input_2"]):::node
-		world(["world"]):::node
-		IO0[("TestInput2")]:::io0
-		IO1[("TestOutput2")]:::io1
-		IO2[("x")]:::io2
-		IO3[("y")]:::io2
-	end
+	example_1.nodes:world@{shape: rounded, label: "world"}
+	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
+	IO0@{shape: rect, label: "x"}
+	IO1@{shape: rect, label: "y"}
+	IO2@{shape: rect, label: "TestInput2"}
+	IO3@{shape: rect, label: "TestOutput2"}
 
+	class L0,example_1.nodes:world,example_2.nodes:transform_input_2 node
+	class L00,IO2 io0
+	class L01,IO3 io1
+	class L02,IO0,IO1 io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

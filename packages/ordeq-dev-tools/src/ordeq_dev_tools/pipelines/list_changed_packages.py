@@ -9,7 +9,9 @@ from ordeq_files import JSON
 from ordeq_dev_tools.paths import DATA_PATH
 from ordeq_dev_tools.utils import run_command
 
-packages = JSON(path=DATA_PATH / "changed_packages.json").with_save_options(indent=4)
+changed_packages = JSON(path=DATA_PATH / "changed_packages.json").with_save_options(
+    indent=4
+)
 
 
 @node
@@ -27,7 +29,7 @@ def changed_files() -> list[str]:
     return result.splitlines()
 
 
-@node(inputs=changed_files, outputs=packages)
+@node(inputs=changed_files, outputs=changed_packages)
 def extract_changed_packages(changed_files: list[str]) -> list[str]:
     """Extract unique package names from changed files.
 

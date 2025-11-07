@@ -1,4 +1,4 @@
-:::mermaid
+```mermaid
 graph TB
 	subgraph legend["Legend"]
 		direction TB
@@ -46,4 +46,4 @@ graph TB
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
-:::
+```

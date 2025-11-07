@@ -3,7 +3,9 @@
 ```python
 from example_async import mixed_graph
 from ordeq import run
+from ordeq_viz import viz
 
+print(viz(mixed_graph, fmt="mermaid"))
 run(mixed_graph)
 
 ```
@@ -115,6 +117,37 @@ string argument expected, got 'coroutine'
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     spec.loader.exec_module(module)
     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
+## Output
+
+```text
+graph TB
+	subgraph legend["Legend"]
+		direction TB
+		L0@{shape: rounded, label: "Node"}
+		L00@{shape: rect, label: "StringBuffer"}
+	end
+
+	IO0 --> example_async.mixed_graph:process_buffer
+	example_async.mixed_graph:process_buffer --> IO1
+	example_async.mixed_graph:write_buffer_1 --> IO2
+	example_async.mixed_graph:write_buffer_2 --> IO0
+
+	example_async.mixed_graph:process_buffer@{shape: rounded, label: "process_buffer"}
+	example_async.mixed_graph:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
+	example_async.mixed_graph:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
+	IO0@{shape: rect, label: "buffer_2"}
+	IO1@{shape: rect, label: "processed_buffer"}
+	IO2@{shape: rect, label: "buffer_1"}
+
+	class L0,example_async.mixed_graph:process_buffer,example_async.mixed_graph:write_buffer_1,example_async.mixed_graph:write_buffer_2 node
+	class L00,IO0,IO1,IO2 io0
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+
 
 ```
 

@@ -291,8 +291,8 @@ class Input(
 
     ```python
     >>> from ordeq_common import Literal
-    >>> result = run(greet, io={name: Literal("Alice")})
-    >>> result[greeting]
+    >>> run(greet, io={name: Literal("Alice")})
+    >>> greeting.load()
     'Hello, Alice!'
     ```
     """
@@ -516,8 +516,8 @@ class Output(
 
     ```python
     >>> from ordeq import run
-    >>> result = run(uppercase)
-    >>> result[greeting_upper]
+    >>> run(uppercase)
+    >>> greeting_upper.load()
     'HELLO'
     ```
     """
@@ -573,8 +573,8 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
     ```python
     >>> from ordeq import run
-    >>> result = run(greet, capitalize)
-    >>> result[greeting]
+    >>> run(greet, capitalize)
+    >>> greeting.load()
     'hi, Bob!'
     ```
     """

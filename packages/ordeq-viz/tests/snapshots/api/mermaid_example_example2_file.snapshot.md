@@ -22,58 +22,57 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		subgraph Objects
-			L0(["Node"]):::node
-			L1[("IO")]:::io
-		end
-		subgraph IO Types
-			L00[("Input")]:::io0
-			L01[("MockInput")]:::io1
-			L02[("MockOutput")]:::io2
-			L03[("NameGenerator")]:::io3
-			L04[("NamePrinter")]:::io4
-			L05[("Output")]:::io5
-			L06[("SayHello")]:::io6
-			L07[("StringBuffer")]:::io7
-		end
+		L0@{shape: rounded, label: "Node"}
+		L00@{shape: rect, label: "Input"}
+		L01@{shape: rect, label: "MockInput"}
+		L02@{shape: rect, label: "MockOutput"}
+		L03@{shape: rect, label: "NameGenerator"}
+		L04@{shape: rect, label: "NamePrinter"}
+		L05@{shape: rect, label: "Output"}
+		L06@{shape: rect, label: "SayHello"}
+		L07@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> hello
-	hello --> IO1
-	IO2 --> transform_input_2
-	transform_input_2 --> IO3
-	IO1 --> print_message
-	print_message --> IO4
-	IO5 --> transform_mock_input
-	transform_mock_input --> IO6
-	IO7 --> transform_input
-	transform_input --> IO8
-	IO9 --> world
-	world --> IO10
+	IO0 --> example_1.nodes:world
+	example_1.nodes:world --> IO1
+	IO2 --> example_1.pipeline:transform_input
+	example_1.pipeline:transform_input --> IO3
+	IO4 --> example_1.pipeline:transform_mock_input
+	example_1.pipeline:transform_mock_input --> IO5
+	IO6 --> example_1.wrapped_io:hello
+	example_1.wrapped_io:hello --> IO7
+	IO7 --> example_1.wrapped_io:print_message
+	example_1.wrapped_io:print_message --> IO8
+	IO9 --> example_2.nodes:transform_input_2
+	example_2.nodes:transform_input_2 --> IO10
 
-	IO0 -.->|name| IO1
-	IO4 -.->|writer| IO1
-	subgraph pipeline["Pipeline"]
-		direction TB
-		hello(["hello"]):::node
-		transform_input_2(["transform_input_2"]):::node
-		print_message(["print_message"]):::node
-		transform_mock_input(["transform_mock_input"]):::node
-		transform_input(["transform_input"]):::node
-		world(["world"]):::node
-		IO0[("name_generator")]:::io3
-		IO1[("message")]:::io6
-		IO4[("name_printer")]:::io4
-		IO2[("TestInput2")]:::io0
-		IO3[("TestOutput2")]:::io5
-		IO5[("Hello")]:::io7
-		IO6[("World")]:::io7
-		IO7[("TestInput")]:::io1
-		IO8[("TestOutput")]:::io2
-		IO9[("x")]:::io7
-		IO10[("y")]:::io7
-	end
+	example_1.nodes:world@{shape: rounded, label: "world"}
+	example_1.pipeline:transform_input@{shape: rounded, label: "transform_input"}
+	example_1.pipeline:transform_mock_input@{shape: rounded, label: "transform_mock_input"}
+	example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
+	example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
+	IO7@{shape: rect, label: "message"}
+	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
+	IO0@{shape: rect, label: "x"}
+	IO1@{shape: rect, label: "y"}
+	IO10@{shape: rect, label: "TestOutput2"}
+	IO2@{shape: rect, label: "TestInput"}
+	IO3@{shape: rect, label: "TestOutput"}
+	IO4@{shape: rect, label: "Hello"}
+	IO5@{shape: rect, label: "World"}
+	IO6@{shape: rect, label: "name_generator"}
+	IO8@{shape: rect, label: "name_printer"}
+	IO9@{shape: rect, label: "TestInput2"}
 
+	class L0,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_2.nodes:transform_input_2 node
+	class L00,IO9 io0
+	class L01,IO2 io1
+	class L02,IO3 io2
+	class L03,IO6 io3
+	class L04,IO8 io4
+	class L05,IO10 io5
+	class L06,IO7 io6
+	class L07,IO0,IO1,IO4,IO5 io7
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

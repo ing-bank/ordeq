@@ -2829,6 +2829,7 @@ dependencies = [
 [package.dev-dependencies]
 test = [
     { name = "ordeq-common" },
+    { name = "ordeq-dev-tools" },
     { name = "ordeq-faiss" },
     { name = "ordeq-files" },
     { name = "ordeq-pandas" },
@@ -2844,6 +2845,7 @@ requires-dist = [{ name = "ordeq", editable = "packages/ordeq" }]
 [package.metadata.requires-dev]
 test = [
     { name = "ordeq-common", editable = "packages/ordeq-common" },
+    { name = "ordeq-dev-tools", editable = "packages/ordeq-dev-tools" },
     { name = "ordeq-faiss", editable = "packages/ordeq-faiss" },
     { name = "ordeq-files", editable = "packages/ordeq-files" },
     { name = "ordeq-pandas", editable = "packages/ordeq-pandas" },

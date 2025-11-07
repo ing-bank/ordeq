@@ -1,10 +1,10 @@
 ## Resource
 
 ```python
-from example_async import async_nodes
+from example_async import mixed_graph
 from ordeq import run
 
-run(async_nodes)
+run(mixed_graph)
 
 ```
 
@@ -104,8 +104,8 @@ string argument expected, got 'coroutine'
     _run_graph(graph, hooks=node_hooks, save=save)
     ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/tests/resources/async/async_nodes.py", line LINO, in <module>
-    run(async_nodes)
+  File "/packages/ordeq/tests/resources/async/mixed_graph.py", line LINO, in <module>
+    run(mixed_graph)
     ~~~^^^^^^^^^^^^^
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
@@ -127,7 +127,7 @@ RuntimeWarning: coroutine 'write_buffer_2' was never awaited
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "write_buffer_2" in module "example_async.async_nodes"
+INFO	ordeq.runner	Running node "write_buffer_2" in module "example_async.mixed_graph"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

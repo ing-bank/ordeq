@@ -1,4 +1,3 @@
-import asyncio
 import logging
 from collections.abc import Callable, Sequence
 from itertools import chain
@@ -37,12 +36,8 @@ def _save_outputs(node: Node, values: Sequence[T], save: bool = True) -> None:
             output_dataset.save(data)
 
 
-async def _run_node(
-    node: Node,
-    *,
-    hooks: Sequence[NodeHook] = (),
-    save: bool = True,
-    use_async: bool = False,
+def _run_node(
+    node: Node, *, hooks: Sequence[NodeHook] = (), save: bool = True
 ) -> None:
     node.validate()
 
@@ -67,12 +62,7 @@ async def _run_node(
     )
 
     try:
-        if use_async:
-            print(f"Running async node {node}")
-            values = await node.func(*args)  # type: ignore[call-arg]
-        else:
-            print(f"Running sync node {node}")
-            values = node.func(*args)
+        values = node.func(*args)
     except Exception as exc:
         for node_hook in hooks:
             node_hook.on_node_call_error(node, exc)
@@ -96,12 +86,8 @@ async def _run_node(
         node_hook.after_node_run(node)
 
 
-async def _run_graph(
-    graph: NodeGraph,
-    *,
-    hooks: Sequence[NodeHook] = (),
-    save: SaveMode = "all",
-    use_async: bool = False,
+def _run_graph(
+    graph: NodeGraph, *, hooks: Sequence[NodeHook] = (), save: SaveMode = "all"
 ) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
@@ -112,26 +98,14 @@ async def _run_graph(
         save: 'all' | 'sinks' | 'none'.
             If 'sinks', only saves the outputs of sink nodes in the graph.
     """
-    stages = list(graph.get_stages())
-    # print(f"Running graph in {len(stages)} stages.")
-    # for idx, stage in enumerate(stages):
-    #     print(
-    #         f"Stage {idx + 1} with {len(stage)} nodes: {[node.name for node in stage]}"
-    #     )
-    for stage in stages:
-        # Run nodes in the same stage concurrently
-        await asyncio.gather(*[
-            _run_node(
-                node,
-                hooks=hooks,
-                save=(
-                    (save == "sinks" and node in graph.sink_nodes)
-                    or save == "all"
-                ),
-                use_async=use_async,
-            )
-            for node in stage
-        ])
+
+    for node in graph.topological_ordering:
+        if (save == "sinks" and node in graph.sink_nodes) or save == "all":
+            save_node = True
+        else:
+            save_node = False
+
+        _run_node(node, hooks=hooks, save=save_node)
 
     # unpersist IO objects
     for gnode in graph.nodes:
@@ -147,7 +121,6 @@ def run(
     save: SaveMode = "all",
     verbose: bool = False,
     io: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType] | None = None,
-    run_async: bool = False,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -245,15 +218,7 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    if run_async:
-        loop = asyncio.new_event_loop()
-        print("Running in async mode.")
-        loop.run_until_complete(
-            _run_graph(graph, hooks=node_hooks, save=save, use_async=True)
-        )
-        loop.close()
-    else:
-        asyncio.run(_run_graph(graph, hooks=node_hooks, save=save))
+    _run_graph(graph, hooks=node_hooks, save=save)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)

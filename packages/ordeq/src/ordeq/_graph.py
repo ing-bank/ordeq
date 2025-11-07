@@ -160,6 +160,22 @@ class NodeGraph:
             reversed(tuple(TopologicalSorter(self.edges).static_order()))
         )
 
+    def get_stages(self) -> tuple[tuple[Node, ...], ...]:
+        """Gets the stages of the graph.
+
+        Returns:
+            tuple of stages, where each stage is a tuple of nodes
+        """
+        print("edges: ", self.edges)
+        ts = TopologicalSorter(self.edges)
+        stages: list[tuple[Node, ...]] = []
+        ts.prepare()
+        while ts.is_active():
+            node_group = ts.get_ready()
+            stages.append(tuple(sorted(node_group, key=lambda n: n.name)))
+            ts.done(*node_group)
+        return tuple(stages)
+
     def __repr__(self) -> str:
         lines: list[str] = []
         for source_node, target_nodes in self.edges.items():

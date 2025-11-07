@@ -1,3 +1,5 @@
+from typing import Any
+
 from ordeq import Node
 from ordeq._resolve import Catalog
 
@@ -8,7 +10,7 @@ def pipeline_to_mermaid_md(
     nodes: set[Node],
     ios: Catalog,
     block_char: str = "`",
-    **mermaid_options: dict,
+    **mermaid_options: Any,
 ) -> str:
     """Generate a mermaid diagram in markdown format.
 

@@ -31,7 +31,7 @@ def _create_parser() -> ArgumentParser:
             "Output format for the visualization. "
             "Supported formats: kedro, mermaid."
         ),
-        choices=("kedro", "mermaid"),
+        choices=("kedro", "mermaid", "mermaid_md"),
         default="mermaid",
     )
     return parser

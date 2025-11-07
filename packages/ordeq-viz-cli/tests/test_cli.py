@@ -98,3 +98,32 @@ def test_it_calls_viz(mocked_viz: MagicMock):
     mocked_viz.assert_called_once_with(
         "example1.a1", output=Path("output_dir"), fmt="kedro"
     )
+
+
+@patch("ordeq_viz_cli.viz")
+def test_it_calls_viz_with_options(mocked_viz: MagicMock):
+    with patch.object(
+        sys,
+        "argv",
+        [
+            "ordeq-viz",
+            "--package",
+            "example1.a1",
+            "--fmt",
+            "kedro",
+            "--output",
+            "output_dir",
+            "--option",
+            "key1=value1",
+            "--option",
+            "key2=value2",
+        ],
+    ):
+        main()
+    mocked_viz.assert_called_once_with(
+        "example1.a1",
+        output=Path("output_dir"),
+        fmt="kedro",
+        key1="value1",
+        key2="value2",
+    )

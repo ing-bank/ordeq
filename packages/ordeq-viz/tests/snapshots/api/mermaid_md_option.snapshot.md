@@ -10,7 +10,7 @@ print(result)
 
 ## Output
 
-
+```text
 :::mermaid
 graph TB
 	subgraph legend["Legend"]
@@ -70,3 +70,6 @@ graph TB
 	classDef io5 fill:#ffd92f
 
 :::
+
+
+```

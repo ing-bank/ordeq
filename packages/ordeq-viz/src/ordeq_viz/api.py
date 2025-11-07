@@ -31,7 +31,7 @@ def viz(
 
 def viz(
     *runnables: Runnable,
-    fmt: Literal["kedro-viz", "mermaid"],
+    fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path | None = None,
     **options: Any,
 ) -> str | None:

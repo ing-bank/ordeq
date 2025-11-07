@@ -25,8 +25,6 @@ async def write_buffer_1() -> str:
     name = "buffer_1"
     delay = 4
     print(f"Start fetching {name}...")
-    # simulate async I/O delay,
-    # this should free up event loop for other async nodes
     await asyncio.sleep(delay)
     print(f"Finished fetching {name} after {delay} seconds.")
     return f"{name} data"

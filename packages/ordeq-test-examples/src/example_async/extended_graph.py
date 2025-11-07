@@ -4,7 +4,7 @@ Multiple async nodes with varying execution times are defined, showcasing
 concurrent execution. The final node is synchronous, illustrating
 the integration of async and sync nodes within the same graph.
 
-In the example below we have several async nodes running in different
+In the example below, we have several async nodes running in different
 branches of the graph. Nodes A and B run concurrently, followed by
 node C which depends on both. Simultaneously, nodes D and E run,
 followed by node F which depends on both. Finally, node G combines

@@ -3,7 +3,7 @@
 Demonstrates the use of asynchronous nodes with simulated
 delays of I/O-bound operations with asyncio.sleep.
 
-In the example below write_buffer_2 should complete before
+In the example below, write_buffer_2 should complete before
 write_buffer_1, despite being started after it, due to
 the shorter delay.
 
@@ -27,8 +27,8 @@ async def write_buffer_1() -> str:
     name = "buffer_1"
     delay = 4
     print(f"Start fetching {name}...")
-    # simulate async I/O delay,
-    # this should free up event loop for other async nodes
+    # Simulate async I/O delay,
+    # This should free up event loop for other async nodes
     await asyncio.sleep(delay)
     print(f"Finished fetching {name} after {delay} seconds.")
     return f"{name} data"

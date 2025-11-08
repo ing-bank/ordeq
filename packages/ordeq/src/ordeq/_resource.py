@@ -75,8 +75,8 @@ class Resource:
 
     ```pycon
     >>> file = Resource()
-    >>> csv_raw = file // CSV(path=Path("path/to.csv"))
-    >>> csv_df = file // PandasCSV(path="path/to.csv")
+    >>> csv_raw = file > CSV(path=Path("path/to.csv"))
+    >>> csv_df = file > PandasCSV(path="path/to.csv")
     ```
 
     Resources can have attributes. These attributes help represent the
@@ -85,12 +85,12 @@ class Resource:
     ```pycon
     >>> from ordeq import FileResource
     >>> file = FileResource(path=Path("path/to.csv"))
-    >>> csv_raw = file // CSV(path=file.path)
-    >>> csv_df = file // PandasCSV(path=str(file.path))
+    >>> csv_raw = file > CSV(path=file.path)
+    >>> csv_df = file > PandasCSV(path=str(file.path))
     ```
 
     Using resource attributes in the IO instantiation does not set the
-    resource on the IO. For that we still need `file //` or
+    resource on the IO. For that we still need `file >` or
     `io.add_resource(file)`.
 
     Users can create custom resource classes too by subclassing from
@@ -105,11 +105,11 @@ class Resource:
     ...     bucket: str
     ...     key: str
     >>> s3_file = S3File(bucket="bucket", key="key.csv")
-    >>> csv_raw = s3_file // S3Object(
+    >>> csv_raw = s3_file > S3Object(
     ...     bucket=s3_file.bucket,
     ...     key=s3_file.key
     ... )
-    >>> csv_df = s3_file // PandasCSV(
+    >>> csv_df = s3_file > PandasCSV(
     ...     f"s3://{s3_file.bucket}/{s3_file.key}"
     ... )
     ```

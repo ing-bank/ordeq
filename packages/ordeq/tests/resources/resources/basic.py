@@ -1,3 +1,4 @@
+# Captures basic behaviour of resources
 from pathlib import Path
 
 from ordeq import Resource

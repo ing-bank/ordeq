@@ -1,3 +1,4 @@
+# Shows potential options to sugarcoat the syntax that adds an IO to a resource.
 from pathlib import Path
 
 from ordeq import Resource

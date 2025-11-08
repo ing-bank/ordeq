@@ -1,3 +1,5 @@
+# Captures how resources can be used to distinguish between two IO
+# distinct implementations that both consume an Iceberg table.
 from dataclasses import dataclass
 
 from ordeq import Input, Resource

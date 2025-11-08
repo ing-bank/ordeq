@@ -1,3 +1,6 @@
+# Captures how resources can be used to distinguish between two IO
+# distinct implementations that both consume from a file, but are
+# initialized differently.
 import pathlib
 from dataclasses import dataclass
 

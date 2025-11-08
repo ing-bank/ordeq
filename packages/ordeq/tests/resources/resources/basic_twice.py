@@ -1,3 +1,4 @@
+# Captures behaviour when one IO is added twice to the same resource
 from pathlib import Path
 
 from ordeq import Resource

@@ -1,3 +1,5 @@
+# Captures how resources can be used to distinguish between two IO
+# distinct implementations that both consume a file on S3.
 from dataclasses import dataclass
 
 from cloudpathlib import CloudPath

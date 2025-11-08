@@ -1,3 +1,4 @@
+# Captures that the same IO can have more than one (shared) resource:
 from dataclasses import dataclass
 from pathlib import Path
 

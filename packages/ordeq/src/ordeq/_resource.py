@@ -140,18 +140,23 @@ class Resource:
         return io
 
     def __matmul__(self, io: Tio) -> Tio:
+        # We will decide on the best operator later
         return self.add_io(io)
 
     def __floordiv__(self, io: Tio) -> Tio:
+        # We will decide on the best operator later
         return self.add_io(io)
 
     def __rshift__(self, io: Tio) -> Tio:
+        # We will decide on the best operator later
         return self.add_io(io)
 
     def __or__(self, io: Tio) -> Tio:
+        # We will decide on the best operator later
         return self.add_io(io)
 
     def __gt__(self, io: Tio) -> Tio:
+        # We will decide on the best operator later
         return self.add_io(io)
 
 

@@ -1,14 +1,12 @@
 # Shows syntax to derive a resource based from an IO attribute.
 # This is useful in scenarios where the resource can directly be
 # inferred from the IO attributes.
-from typing import TypeVar
 from dataclasses import dataclass
 from pathlib import Path
-from ordeq._resource import Resource
-from ordeq._io import AnyIO, Input
-from ordeq._resource import get_resources
+from typing import Any, TypeVar, overload
 
-from typing import Any, overload
+from ordeq._io import AnyIO, Input
+from ordeq._resource import Resource, get_resources
 
 T = TypeVar("T", bound=AnyIO)
 
@@ -26,18 +24,15 @@ class File(Input[str]):
         return self.path.read_text()
 
     @overload
-    def __matmul__(self, resource: str) -> "File":
-        ...
+    def __matmul__(self, resource: str) -> "File": ...
 
     @overload
-    def __matmul__(self, resource: Resource) -> "File":
-        ...
+    def __matmul__(self, resource: Resource) -> "File": ...
 
     def __matmul__(self, resource: Resource | str) -> "File":
         if isinstance(resource, str):
             return ValuedResource(getattr(self, resource)).add_io(self)
-        else:
-            return resource.add_io(self)
+        return resource.add_io(self)
 
 
 file = Path("some/file.csv")

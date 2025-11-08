@@ -159,13 +159,13 @@ class Resource:
         # We will decide on the best operator for resources later
         return self.add_io(io)
 
+    def __eq__(self, other) -> bool:
+        return vars(self) == vars(other)
+
     def __gt__(self, io: Tio) -> Tio:
         # (Experimental)
         # We will decide on the best operator for resources later
         return self.add_io(io)
-
-    def __eq__(self, other) -> bool:
-        return vars(self) == vars(other)
 
 
 def get_resources(io: AnyIO) -> set[Any]:

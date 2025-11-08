@@ -1,3 +1,6 @@
+## Resource
+
+```python
 # Captures how resources can be used to distinguish between two IO
 # distinct implementations that both consume a file on S3.
 from dataclasses import dataclass
@@ -19,3 +22,13 @@ csv_df = CSV(path=CloudPath(f"s3://{s3_file.bucket}/{s3_file.key}")) @ s3_file
 
 print(csv_raw.resources)
 print(csv_df.resources)
+
+```
+
+## Output
+
+```text
+{S3File(bucket='bucket', key='key.csv')}
+{S3File(bucket='bucket', key='key.csv')}
+
+```

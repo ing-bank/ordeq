@@ -1,3 +1,6 @@
+## Resource
+
+```python
 # Captures how resources can be used to distinguish between two IO
 # distinct implementations that both consume from a file, but are
 # initialized differently.
@@ -35,3 +38,17 @@ print(custom1)
 print(custom1.resources)
 print(custom2)
 print(custom2.resources)
+
+```
+
+## Output
+
+```text
+{Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
+{Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
+CustomIO(uri='file:///packages/ordeq/tests/resources/resources/custom_path.py')
+{Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
+CustomIO2(file='/packages/ordeq/tests/resources/resources/custom_path.py', py_file=True)
+{Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
+
+```

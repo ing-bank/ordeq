@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import inspect
 import logging
-from collections.abc import Callable
+from collections.abc import Callable, Hashable
 from functools import cached_property, reduce, wraps
 from typing import Any, Generic, TypeAlias, TypeVar
 from uuid import uuid4
@@ -92,23 +92,23 @@ class _InputMeta(type):
         for base in bases:
             l_method = getattr(base, "load", None)
             if (
-                l_method is not None
-                and l_method.__qualname__ != "_raise_not_implemented"
+                    l_method is not None
+                    and l_method.__qualname__ != "_raise_not_implemented"
             ):
                 load_method = l_method
 
         l_method = class_dict.get("load", None)
         if (
-            l_method is not None
-            and l_method.__qualname__ != "_raise_not_implemented"
+                l_method is not None
+                and l_method.__qualname__ != "_raise_not_implemented"
         ):
             load_method = l_method
 
         if name not in {"Input", "IO"}:
             # Ensure load method is implemented
             if (
-                not callable(load_method)
-                or load_method.__qualname__ == "_raise_not_implemented"
+                    not callable(load_method)
+                    or load_method.__qualname__ == "_raise_not_implemented"
             ):
                 msg = (
                     f"Can't instantiate abstract class {name} "
@@ -122,8 +122,8 @@ class _InputMeta(type):
                 if argument in {"self", "cls"}:
                     continue
                 if (
-                    param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                        param.default is inspect.Parameter.empty
+                        and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -183,7 +183,7 @@ class _InputHooks(_BaseInput[Tin]):
     def with_input_hooks(self, *hooks: InputHook) -> Self:
         for hook in hooks:
             if not (
-                isinstance(hook, InputHook) and not isinstance(hook, type)
+                    isinstance(hook, InputHook) and not isinstance(hook, type)
             ):
                 raise TypeError(f"Expected InputHook instance, got {hook}.")
 
@@ -245,12 +245,118 @@ class _InputException(_BaseInput[Tin]):
             raise IOException(msg) from exc
 
 
+class _WithResources:
+    """A resource represents a physical data object, like a file or a table.
+    Resources are used to identify the underlying data that is being loaded or
+    saved by IOs. This is necessary because the same resource can be loaded or
+    saved in multiple ways, depending on the IO implementation.
+
+    For instance: both `ordeq_pandas.PandasCSV` and `ordeq_files.CSV` read a
+    CSV file, but `PandasCSV` loads it as a DataFrame, while `CSV` loads
+    raw rows.
+
+    Two IOs that process the same resource can exist in the same project for a
+    variety of reasons. For instance, suppose you want to first copy a raw file
+    from one location to another, and then manipulate it using Pandas.
+
+    Shared resources should be identified to determine the topological sorting
+    of nodes. In the example above: the node processing the raw file
+    should be scheduled before the node that manipulates the data with Pandas.
+
+    The resource used by an IO can often be derived from the IO attributes. For
+    instance, most file-like IOs have a `path` attribute pointing to the file
+    address. But IO attributes are typically tied to the library that performs
+    the actual IO, and different libraries make different choices as to
+    what (type of) attributes they expect and accept.
+
+    For instance: the `path` attribute of `PandasCSV` accepts a URI of files
+    on cloud storage. The `ordeq_spark.SparkCSV` does too, but the expected
+    scheme is slightly different.
+
+    There exist standards for resource specification, like file URIs or
+    `fsspec`, but we cannot expect that we can derive the resource of the IO in
+    this standard form. Sometimes the derivation is not straight-forward
+    (consider an IO that accepts a glob as `path` - like
+    `ordeq_polars.PolarsParquet`), and users that define custom IOs should not
+    be obligated to derive the resource in this standard form.
+
+    Because consistently inferring the used resource from the IO attributes is
+    difficult, users should be able to explicitly define a resource, and set
+    which IO instances share that resource:
+
+    ```pycon
+    >>> from ordeq import Resource
+    >>> from ordeq_files import CSV
+    >>> from ordeq_pandas import PandasCSV
+    >>> from pathlib import Path
+    >>> path = Path("path/to.csv")
+    >>> csv_raw = CSV(path=path).add_resource(path)
+    >>> csv_df = PandasCSV(path=str(path)).add_resource(path)
+    ```
+
+    By adding the resource to both IOs, Ordeq knows that the resource is
+    shared. This will be used when determining the topological ordering
+    of nodes: each resource can be outputted by at most one node.
+
+    An alternative, more syntactically pleasing way of setting the
+    resource is as follows:
+
+    ```pycon
+    >>> path = Path("path/to.csv")
+    >>> csv_raw = CSV(path=file) @ path
+    >>> csv_df = PandasCSV(path=str(path)) @ path
+    ```
+
+    Resources can have attributes. These attributes help represent the
+    resource in the user's code, and can be reused to instantiate IOs.
+    Using resource attributes in the IO instantiation does not set the
+    resource on the IO. For that we still need `@ file` or
+    `file.add_io(io)`:
+
+    ```pycon
+    >>> from ordeq import Resource
+    >>> from ordeq_boto3 import S3Object
+    >>> from dataclasses import dataclass
+    >>> @dataclass(frozen=True)
+    ... class S3File(Resource):
+    ...     bucket: str
+    ...     key: str
+    >>> s3_file = S3File(bucket="bucket", key="key.csv")
+    >>> csv_raw = S3Object(
+    ...     bucket=s3_file.bucket,
+    ...     key=s3_file.key
+    ... ) @ s3_file
+    >>> csv_df = PandasCSV(
+    ...     f"s3://{s3_file.bucket}/{s3_file.key}"
+    ... ) @ s3_file
+    ```
+
+    TODO: Nested IOs (IOs that use another IO as attribute) should
+    theoretically inherit the resource of the attribute IO. (...)
+
+    TODO: Sub-resources
+
+    """
+
+    resources: set[Hashable]
+
+    def add_resource(self, resource: Any) -> Self:
+        if not hasattr(self, "resources"):
+            self.__dict__["resources"] = set()
+        self.__dict__["resources"].add(resource)
+        return self
+
+    def __matmul__(self, resource: Any) -> Self:
+        return self.add_resource(resource)
+
+
 class Input(
     _InputOptions[Tin],
     _InputHooks[Tin],
     _InputReferences[Tin],
     _InputCache[Tin],
     _InputException[Tin],
+    _WithResources,
     Generic[Tin],
     metaclass=_InputMeta,
 ):
@@ -373,8 +479,8 @@ class _OutputMeta(type):
                 if i < 2:
                     continue
                 if (
-                    param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                        param.default is inspect.Parameter.empty
+                        and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -382,8 +488,8 @@ class _OutputMeta(type):
                     )
 
             if (
-                sig.return_annotation != inspect.Signature.empty
-                and sig.return_annotation is not None
+                    sig.return_annotation != inspect.Signature.empty
+                    and sig.return_annotation is not None
             ):
                 raise TypeError("Save method must have return type None.")
 
@@ -439,7 +545,7 @@ class _OutputHooks(_BaseOutput[Tout], Generic[Tout]):
     def with_output_hooks(self, *hooks: OutputHook) -> Self:
         for hook in hooks:
             if not (
-                isinstance(hook, OutputHook) and not isinstance(hook, type)
+                    isinstance(hook, OutputHook) and not isinstance(hook, type)
             ):
                 raise TypeError(f"Expected OutputHook instance, got {hook}.")
 
@@ -486,6 +592,7 @@ class Output(
     _OutputHooks[Tout],
     _OutputReferences[Tout],
     _OutputException[Tout],
+    _WithResources,
     Generic[Tout],
     metaclass=_OutputMeta,
 ):
@@ -582,11 +689,6 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
     'hi, Bob!'
     ```
     """
-
-    def __matmul__(self, resource: Resource) -> Self:
-        # (Experimental)
-        # We will decide on the best operator for resources later
-        resource.add_io(self)
 
     def __repr__(self):
         return f"IO(idx={self._idx})"

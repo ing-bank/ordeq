@@ -1,3 +1,6 @@
+## Resource
+
+```python
 # Captures how resources can be used to distinguish between two IO
 # distinct implementations that both consume an Iceberg table.
 from dataclasses import dataclass
@@ -33,3 +36,13 @@ py = PyIcebergTable(catalog=tbl.catalog, ns=tbl.ns, table=tbl.name) @ tbl
 sp = SparkIcebergTable(table=f"{tbl.catalog}.{tbl.ns}.{tbl.name}") @ tbl
 print(py.resources)
 print(sp.resources)
+
+```
+
+## Output
+
+```text
+{IcebergTable(catalog='global', ns='acc', name='txs')}
+{IcebergTable(catalog='global', ns='acc', name='txs')}
+
+```

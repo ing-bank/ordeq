@@ -1,3 +1,6 @@
+## Resource
+
+```python
 # Shows potential syntax that allows IO implementations to define the default
 # resources consumed by the IO. This may be useful since many times the resource
 # of the IO can be inferred directly from one of its attributes.
@@ -24,3 +27,14 @@ file_extended = csv @ resource
 print(csv.resources)
 print(file_overridden.resources)
 print(file_extended.resources)
+
+```
+
+## Output
+
+```text
+{'my-resource'}
+{'my-resource'}
+{'my-resource'}
+
+```

@@ -1,3 +1,6 @@
+## Resource
+
+```python
 # Captures that the same IO can have more than one (shared) resource:
 from dataclasses import dataclass
 from pathlib import Path
@@ -22,3 +25,13 @@ csv_be.add_resource(partition_eu)
 
 print(csv_nl.resources)
 print(csv_be.resources)
+
+```
+
+## Output
+
+```text
+{Partition(idx='Europe'), Partition(idx='NL')}
+{Partition(idx='Europe'), Partition(idx='BE')}
+
+```

@@ -75,8 +75,8 @@ class Resource:
 
     ```pycon
     >>> file = Resource()
-    >>> csv_raw = file > CSV(path=Path("path/to.csv"))
-    >>> csv_df = file > PandasCSV(path="path/to.csv")
+    >>> csv_raw = CSV(path=Path("path/to.csv")) @ file
+    >>> csv_df = PandasCSV(path="path/to.csv") @ file
     ```
 
     Resources can have attributes. These attributes help represent the
@@ -85,13 +85,13 @@ class Resource:
     ```pycon
     >>> from ordeq import FileResource
     >>> file = FileResource(path=Path("path/to.csv"))
-    >>> csv_raw = file > CSV(path=file.path)
-    >>> csv_df = file > PandasCSV(path=str(file.path))
+    >>> csv_raw = CSV(path=file.path) @ file
+    >>> csv_df = PandasCSV(path=str(file.path)) @ file
     ```
 
     Using resource attributes in the IO instantiation does not set the
-    resource on the IO. For that we still need `file >` or
-    `io.add_resource(file)`.
+    resource on the IO. For that we still need `@ file` or
+    `file.add_io(io)`.
 
     Users can create custom resource classes too by subclassing from
     `Resource`:
@@ -105,13 +105,13 @@ class Resource:
     ...     bucket: str
     ...     key: str
     >>> s3_file = S3File(bucket="bucket", key="key.csv")
-    >>> csv_raw = s3_file > S3Object(
+    >>> csv_raw = S3Object(
     ...     bucket=s3_file.bucket,
     ...     key=s3_file.key
-    ... )
-    >>> csv_df = s3_file > PandasCSV(
+    ... ) @ s3_file
+    >>> csv_df = PandasCSV(
     ...     f"s3://{s3_file.bucket}/{s3_file.key}"
-    ... )
+    ... ) @ s3_file
     ```
 
     TODO: Nested IOs (IOs that use another IO as attribute) should
@@ -140,24 +140,32 @@ class Resource:
         return io
 
     def __matmul__(self, io: Tio) -> Tio:
-        # We will decide on the best operator later
+        # (Experimental)
+        # We will decide on the best operator for resources later
         return self.add_io(io)
 
     def __floordiv__(self, io: Tio) -> Tio:
-        # We will decide on the best operator later
+        # (Experimental)
+        # We will decide on the best operator for resources later
         return self.add_io(io)
 
     def __rshift__(self, io: Tio) -> Tio:
-        # We will decide on the best operator later
+        # (Experimental)
+        # We will decide on the best operator for resources later
         return self.add_io(io)
 
     def __or__(self, io: Tio) -> Tio:
-        # We will decide on the best operator later
+        # (Experimental)
+        # We will decide on the best operator for resources later
         return self.add_io(io)
 
     def __gt__(self, io: Tio) -> Tio:
-        # We will decide on the best operator later
+        # (Experimental)
+        # We will decide on the best operator for resources later
         return self.add_io(io)
+
+    def __eq__(self, other) -> bool:
+        return vars(self) == vars(other)
 
 
 def get_resources(io: AnyIO) -> set[Any]:

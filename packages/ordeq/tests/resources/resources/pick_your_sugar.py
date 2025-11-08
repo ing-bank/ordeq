@@ -20,5 +20,9 @@ csv_text_gt = resource > Text(path=Path("my/path"))
 csv_or = resource | CSV(path=Path("my/path"))
 csv_text_or = resource | Text(path=Path("my/path"))
 
-csv_and = resource @ CSV(path=Path("my/path"))
-csv_text_and = resource @ Text(path=Path("my/path"))
+csv_at = resource @ CSV(path=Path("my/path"))
+csv_text_at = resource @ Text(path=Path("my/path"))
+
+# (This may be my favorite so far)
+csv_at_io = CSV(path=Path("my_path")) @ resource
+csv_text_at_op = CSV(path=Path("my_path")) @ resource

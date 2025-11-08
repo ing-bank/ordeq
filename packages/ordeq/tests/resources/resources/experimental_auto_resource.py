@@ -17,6 +17,11 @@ class ValuedResource(Resource):
 
 
 @dataclass(frozen=True)
+class FileResource(Resource):
+    path: Path
+
+
+@dataclass(frozen=True)
 class File(Input[str]):
     path: Path
 
@@ -37,6 +42,10 @@ class File(Input[str]):
 
 file = Path("some/file.csv")
 csv_raw = File(path=file) @ "path"
+# roughly equivalent to:
+file = FileResource(Path("some/file.csv"))
+csv_raw2 = File(path=file.path) @ file
 
 print(csv_raw)
 print(get_resources(csv_raw))
+print(get_resources(csv_raw2))

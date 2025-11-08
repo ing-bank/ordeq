@@ -114,10 +114,10 @@ class Resource:
     ... )
     ```
 
-    Nested IOs (IOs that use another IO as attribute) should
+    TODO: Nested IOs (IOs that use another IO as attribute) should
     theoretically inherit the resource of the attribute IO. (...)
 
-    Sub-resources
+    TODO: Sub-resources
 
     """
 

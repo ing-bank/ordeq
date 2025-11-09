@@ -52,3 +52,13 @@ CustomIO2(file='/packages/ordeq/tests/resources/resources/custom_path.py', py_fi
 {Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+
+```

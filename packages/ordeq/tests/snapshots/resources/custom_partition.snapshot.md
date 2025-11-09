@@ -35,3 +35,11 @@ print(csv_be.resources)
 {Partition(idx='BE'), Partition(idx='Europe')}
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+
+```

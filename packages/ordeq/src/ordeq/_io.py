@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import inspect
 import logging
+import warnings
 from collections.abc import Callable, Hashable
 from functools import cached_property, reduce, wraps
 from typing import Any, Generic, TypeAlias, TypeVar
@@ -343,6 +344,10 @@ class _WithResources:
         return self
 
     def __matmul__(self, resource: Any) -> Self:
+        logger.warning(
+            "The syntax 'IO @ resource' is in preview mode and may change"
+            "without notice in future releases."
+        )
         return self.with_resource(resource)
 
 

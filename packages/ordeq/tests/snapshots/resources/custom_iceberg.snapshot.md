@@ -46,3 +46,11 @@ print(sp.resources)
 {IcebergTable(catalog='global', ns='acc', name='txs')}
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+
+```

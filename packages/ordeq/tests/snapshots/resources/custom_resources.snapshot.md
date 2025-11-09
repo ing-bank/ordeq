@@ -38,3 +38,11 @@ print(file_extended.resources)
 {'my-resource'}
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+
+```

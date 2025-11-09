@@ -32,3 +32,11 @@ print(csv_df.resources)
 {S3File(bucket='bucket', key='key.csv')}
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+
+```

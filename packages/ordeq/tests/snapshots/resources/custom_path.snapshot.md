@@ -4,8 +4,8 @@
 # Captures how resources can be used to distinguish between two IO
 # distinct implementations that both consume from a file, but are
 # initialized differently.
-from pathlib import Path
 from dataclasses import dataclass
+from pathlib import Path
 
 from ordeq import Input
 from ordeq_files import CSV, Text

@@ -13,7 +13,6 @@ try:
 except ImportError:
     from typing_extensions import Self
 
-
 from ordeq._hook import InputHook, OutputHook
 
 logger = logging.getLogger("ordeq.io")
@@ -89,23 +88,23 @@ class _InputMeta(type):
         for base in bases:
             l_method = getattr(base, "load", None)
             if (
-                l_method is not None
-                and l_method.__qualname__ != "_raise_not_implemented"
+                    l_method is not None
+                    and l_method.__qualname__ != "_raise_not_implemented"
             ):
                 load_method = l_method
 
         l_method = class_dict.get("load", None)
         if (
-            l_method is not None
-            and l_method.__qualname__ != "_raise_not_implemented"
+                l_method is not None
+                and l_method.__qualname__ != "_raise_not_implemented"
         ):
             load_method = l_method
 
         if name not in {"Input", "IO"}:
             # Ensure load method is implemented
             if (
-                not callable(load_method)
-                or load_method.__qualname__ == "_raise_not_implemented"
+                    not callable(load_method)
+                    or load_method.__qualname__ == "_raise_not_implemented"
             ):
                 msg = (
                     f"Can't instantiate abstract class {name} "
@@ -119,8 +118,8 @@ class _InputMeta(type):
                 if argument in {"self", "cls"}:
                     continue
                 if (
-                    param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                        param.default is inspect.Parameter.empty
+                        and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -180,7 +179,7 @@ class _InputHooks(_BaseInput[Tin]):
     def with_input_hooks(self, *hooks: InputHook) -> Self:
         for hook in hooks:
             if not (
-                isinstance(hook, InputHook) and not isinstance(hook, type)
+                    isinstance(hook, InputHook) and not isinstance(hook, type)
             ):
                 raise TypeError(f"Expected InputHook instance, got {hook}.")
 
@@ -287,8 +286,8 @@ class _WithResources:
     >>> from ordeq_pandas import PandasCSV
     >>> from pathlib import Path
     >>> path = Path("path/to.csv")
-    >>> csv_raw = CSV(path=path).add_resource(path)
-    >>> csv_df = PandasCSV(path=str(path)).add_resource(path)
+    >>> csv_raw = CSV(path=path).with_resource(path)
+    >>> csv_df = PandasCSV(path=str(path)).with_resource(path)
     ```
 
     By adding the resource to both IOs, Ordeq knows that the resource is
@@ -337,14 +336,14 @@ class _WithResources:
 
     resources: set[Hashable]
 
-    def add_resource(self, resource: Any) -> Self:
+    def with_resource(self, resource: Any) -> Self:
         if not hasattr(self, "resources"):
             self.__dict__["resources"] = set()
         self.__dict__["resources"].add(resource)
         return self
 
     def __matmul__(self, resource: Any) -> Self:
-        return self.add_resource(resource)
+        return self.with_resource(resource)
 
 
 class Input(
@@ -476,8 +475,8 @@ class _OutputMeta(type):
                 if i < 2:
                     continue
                 if (
-                    param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                        param.default is inspect.Parameter.empty
+                        and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -485,8 +484,8 @@ class _OutputMeta(type):
                     )
 
             if (
-                sig.return_annotation != inspect.Signature.empty
-                and sig.return_annotation is not None
+                    sig.return_annotation != inspect.Signature.empty
+                    and sig.return_annotation is not None
             ):
                 raise TypeError("Save method must have return type None.")
 
@@ -542,7 +541,7 @@ class _OutputHooks(_BaseOutput[Tout], Generic[Tout]):
     def with_output_hooks(self, *hooks: OutputHook) -> Self:
         for hook in hooks:
             if not (
-                isinstance(hook, OutputHook) and not isinstance(hook, type)
+                    isinstance(hook, OutputHook) and not isinstance(hook, type)
             ):
                 raise TypeError(f"Expected OutputHook instance, got {hook}.")
 

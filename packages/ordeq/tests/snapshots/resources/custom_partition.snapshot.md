@@ -23,23 +23,23 @@ csv_be = CSV(path=folder / Path(partition_be.idx)) @ partition_be
 csv_nl.with_resource(partition_eu)
 csv_be.with_resource(partition_eu)
 
-print(csv_nl.resources)
-print(csv_be.resources)
+print(csv_nl.resource)
+print(csv_be.resource)
 
 ```
 
 ## Output
 
 ```text
-{Partition(idx='NL'), Partition(idx='Europe')}
-{Partition(idx='BE'), Partition(idx='Europe')}
+Partition(idx='Europe')
+Partition(idx='Europe')
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
 
 ```

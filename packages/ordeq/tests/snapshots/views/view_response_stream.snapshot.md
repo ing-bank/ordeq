@@ -28,10 +28,10 @@ run(printer, verbose=True)
 ## Output
 
 ```text
-Node:view_response_stream:printer --> io-1
-View:view_response_stream:users_stream --> io-2
-io-2 --> Node:view_response_stream:printer
-io-3 --> View:view_response_stream:users_stream
+io-1 --> Node:view_response_stream:printer
+io-2 --> View:view_response_stream:users_stream
+Node:view_response_stream:printer --> io-3
+View:view_response_stream:users_stream --> io-1
 <generator object HTTPResponse.stream at HASH1>
 
 ```

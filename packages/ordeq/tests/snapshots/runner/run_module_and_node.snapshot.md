@@ -17,12 +17,12 @@ run(example_module_a, noop, verbose=True)
 ## Output
 
 ```text
-Node:resources.runner.example_module_a:decrement --> io-1
-Node:resources.runner.example_module_a:increment --> io-2
+io-1 --> Node:resources.runner.example_module_a:decrement
 io-2 --> Node:resources.runner.example_module_a:decrement
-View:run_module_and_node:noop --> io-3
-io-4 --> Node:resources.runner.example_module_a:decrement
-io-5 --> Node:resources.runner.example_module_a:increment
+io-3 --> Node:resources.runner.example_module_a:increment
+Node:resources.runner.example_module_a:decrement --> io-4
+View:run_module_and_node:noop --> io-5
+Node:resources.runner.example_module_a:increment --> io-1
 
 ```
 

@@ -32,33 +32,33 @@ csv_raw = CSV(path=path) @ path
 csv_text = Text(path=path) @ path
 custom1 = CustomIO(uri=path.as_uri()) @ path
 custom2 = CustomIO2(file=str(path), py_file=path.suffix == ".py") @ path
-print(csv_raw.resources)
-print(csv_text.resources)
+print(csv_raw.resource)
+print(csv_text.resource)
 print(custom1)
-print(custom1.resources)
+print(custom1.resource)
 print(custom2)
-print(custom2.resources)
+print(custom2.resource)
 
 ```
 
 ## Output
 
 ```text
-{Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
-{Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
+/packages/ordeq/tests/resources/resources/custom_path.py
+/packages/ordeq/tests/resources/resources/custom_path.py
 CustomIO(uri='file:///packages/ordeq/tests/resources/resources/custom_path.py')
-{Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
+/packages/ordeq/tests/resources/resources/custom_path.py
 CustomIO2(file='/packages/ordeq/tests/resources/resources/custom_path.py', py_file=True)
-{Path('/packages/ordeq/tests/resources/resources/custom_path.py')}
+/packages/ordeq/tests/resources/resources/custom_path.py
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
 
 ```

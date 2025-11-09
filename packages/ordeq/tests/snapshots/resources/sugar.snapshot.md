@@ -9,23 +9,23 @@ from ordeq_files import CSV, Text
 resource = 1234
 csv = CSV(path=Path("my_path")) @ resource
 csv_text = Text(path=Path("my_path")) @ resource
-print(csv.resources)
-print(csv_text.resources)
+print(csv.resource)
+print(csv_text.resource)
 
 ```
 
 ## Output
 
 ```text
-{1234}
-{1234}
+1234
+1234
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
 
 ```

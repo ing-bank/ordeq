@@ -27,10 +27,10 @@ run(n, verbose=True)
 
 ```text
 View(name=node_inputs_view_and_io:hello)
-View:node_inputs_view_and_io:hello --> io-1
 io-1 --> Node:node_inputs_view_and_io:n
-Node:node_inputs_view_and_io:n --> io-2
-io-3 --> Node:node_inputs_view_and_io:n
+io-2 --> Node:node_inputs_view_and_io:n
+View:node_inputs_view_and_io:hello --> io-2
+Node:node_inputs_view_and_io:n --> io-3
 Jane said 'Hello, World!'
 
 ```

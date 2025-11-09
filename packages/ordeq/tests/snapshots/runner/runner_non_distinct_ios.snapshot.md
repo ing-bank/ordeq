@@ -21,26 +21,20 @@ run(func1, func2, verbose=True)
 
 ```
 
-## Exception
+## Output
 
 ```text
-ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be outputted by more than one node (runner_non_distinct_ios:func1 and runner_non_distinct_ios:func2)
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    raise ValueError(msg)
+Node:runner_non_distinct_ios:func2 --> io-1
+Node:runner_non_distinct_ios:func1 --> io-1
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+```
 
-  File "/packages/ordeq/tests/resources/runner/runner_non_distinct_ios.py", line LINO, in <module>
-    run(func1, func2, verbose=True)
-    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+## Logging
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+```text
+INFO	ordeq.runner	Running node "func1" in module "runner_non_distinct_ios"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node "func2" in module "runner_non_distinct_ios"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

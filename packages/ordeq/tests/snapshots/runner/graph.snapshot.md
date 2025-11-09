@@ -49,44 +49,44 @@ print(R4.load())
 ## Output
 
 ```text
-Node:graph:f1 --> io-1
 io-1 --> Node:graph:f2
-io-1 --> Node:graph:f3
-io-1 --> Node:graph:f4
-Node:graph:f2 --> io-2
+io-1 --> Node:graph:f1
+io-2 --> Node:graph:f2
 io-2 --> Node:graph:f4
-Node:graph:f3 --> io-3
+io-2 --> Node:graph:f3
 io-3 --> Node:graph:f4
-Node:graph:f4 --> io-4
+io-4 --> Node:graph:f4
 io-5 --> Node:graph:f1
-io-6 --> Node:graph:f1
-io-6 --> Node:graph:f2
+Node:graph:f2 --> io-3
+Node:graph:f4 --> io-6
+Node:graph:f3 --> io-4
+Node:graph:f1 --> io-2
 Hello + world! / world! - Hello + world! + Hello + world! * 2
-Node:graph:f1 --> io-1
 io-1 --> Node:graph:f2
-io-1 --> Node:graph:f3
-io-1 --> Node:graph:f4
-Node:graph:f2 --> io-2
+io-1 --> Node:graph:f1
+io-2 --> Node:graph:f2
 io-2 --> Node:graph:f4
-Node:graph:f3 --> io-3
+io-2 --> Node:graph:f3
 io-3 --> Node:graph:f4
-Node:graph:f4 --> io-4
+io-4 --> Node:graph:f4
 io-5 --> Node:graph:f1
-io-6 --> Node:graph:f1
-io-6 --> Node:graph:f2
+Node:graph:f2 --> io-3
+Node:graph:f4 --> io-6
+Node:graph:f3 --> io-4
+Node:graph:f1 --> io-2
 Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / world! - Hello + world! + Hello + world! * 2
-Node:graph:f1 --> io-1
 io-1 --> Node:graph:f2
-io-1 --> Node:graph:f3
-io-1 --> Node:graph:f4
-Node:graph:f2 --> io-2
+io-1 --> Node:graph:f1
+io-2 --> Node:graph:f2
 io-2 --> Node:graph:f4
-Node:graph:f3 --> io-3
+io-2 --> Node:graph:f3
 io-3 --> Node:graph:f4
-Node:graph:f4 --> io-4
+io-4 --> Node:graph:f4
 io-5 --> Node:graph:f1
-io-6 --> Node:graph:f1
-io-6 --> Node:graph:f2
+Node:graph:f2 --> io-3
+Node:graph:f4 --> io-6
+Node:graph:f3 --> io-4
+Node:graph:f1 --> io-2
 Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / world! - Hello + world! + Hello + world! * 2
 
 ```

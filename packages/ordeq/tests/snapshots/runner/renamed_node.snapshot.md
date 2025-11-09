@@ -15,8 +15,8 @@ run(renamed, verbose=True)
 ## Output
 
 ```text
-Node:resources.runner.example_module_b:increment --> io-1
-io-2 --> Node:resources.runner.example_module_b:increment
+io-1 --> Node:resources.runner.example_module_b:increment
+Node:resources.runner.example_module_b:increment --> io-2
 
 ```
 

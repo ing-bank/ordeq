@@ -20,23 +20,23 @@ s3_file = S3File(bucket="bucket", key="key.csv")
 csv_raw = S3Object(bucket=s3_file.bucket, key=s3_file.key) @ s3_file
 csv_df = CSV(path=CloudPath(f"s3://{s3_file.bucket}/{s3_file.key}")) @ s3_file
 
-print(csv_raw.resources)
-print(csv_df.resources)
+print(csv_raw.resource)
+print(csv_df.resource)
 
 ```
 
 ## Output
 
 ```text
-{S3File(bucket='bucket', key='key.csv')}
-{S3File(bucket='bucket', key='key.csv')}
+S3File(bucket='bucket', key='key.csv')
+S3File(bucket='bucket', key='key.csv')
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
 
 ```

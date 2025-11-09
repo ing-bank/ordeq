@@ -11,16 +11,16 @@ run(example_module_a, example_module_b, verbose=True)
 ## Output
 
 ```text
-Node:resources.runner.example_module_a:decrement --> io-1
-Node:resources.runner.example_module_a:increment --> io-2
+io-1 --> Node:resources.runner.example_module_a:decrement
 io-2 --> Node:resources.runner.example_module_a:decrement
-Node:resources.runner.example_module_b:decrement --> io-3
-Node:resources.runner.example_module_b:increment --> io-4
+io-3 --> Node:resources.runner.example_module_b:decrement
 io-4 --> Node:resources.runner.example_module_b:decrement
-io-5 --> Node:resources.runner.example_module_a:decrement
-io-6 --> Node:resources.runner.example_module_a:increment
-io-7 --> Node:resources.runner.example_module_b:decrement
-io-8 --> Node:resources.runner.example_module_b:increment
+io-5 --> Node:resources.runner.example_module_a:increment
+io-6 --> Node:resources.runner.example_module_b:increment
+Node:resources.runner.example_module_a:decrement --> io-7
+Node:resources.runner.example_module_b:decrement --> io-8
+Node:resources.runner.example_module_a:increment --> io-1
+Node:resources.runner.example_module_b:increment --> io-3
 
 ```
 

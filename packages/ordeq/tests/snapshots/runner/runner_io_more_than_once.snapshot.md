@@ -35,17 +35,17 @@ print(x3.load())
 ## Output
 
 ```text
-Node:runner_io_more_than_once:decrement --> io-1
-Node:runner_io_more_than_once:increment --> io-2
+io-1 --> Node:runner_io_more_than_once:decrement
 io-2 --> Node:runner_io_more_than_once:decrement
-io-3 --> Node:runner_io_more_than_once:decrement
-io-3 --> Node:runner_io_more_than_once:increment
+io-2 --> Node:runner_io_more_than_once:increment
+Node:runner_io_more_than_once:decrement --> io-3
+Node:runner_io_more_than_once:increment --> io-1
 1
-Node:runner_io_more_than_once:decrement --> io-1
-Node:runner_io_more_than_once:increment --> io-2
+io-1 --> Node:runner_io_more_than_once:increment
+io-1 --> Node:runner_io_more_than_once:decrement
 io-2 --> Node:runner_io_more_than_once:decrement
-io-3 --> Node:runner_io_more_than_once:decrement
-io-3 --> Node:runner_io_more_than_once:increment
+Node:runner_io_more_than_once:increment --> io-2
+Node:runner_io_more_than_once:decrement --> io-3
 12001
 
 ```

@@ -20,5 +20,5 @@ csv_be = CSV(path=folder / Path(partition_be.idx)) @ partition_be
 csv_nl.with_resource(partition_eu)
 csv_be.with_resource(partition_eu)
 
-print(csv_nl.resources)
-print(csv_be.resources)
+print(csv_nl.resource)
+print(csv_be.resource)

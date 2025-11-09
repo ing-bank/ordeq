@@ -34,23 +34,23 @@ class SparkIcebergTable(Input[None]):
 tbl = IcebergTable(catalog="global", ns="acc", name="txs")
 py = PyIcebergTable(catalog=tbl.catalog, ns=tbl.ns, table=tbl.name) @ tbl
 sp = SparkIcebergTable(table=f"{tbl.catalog}.{tbl.ns}.{tbl.name}") @ tbl
-print(py.resources)
-print(sp.resources)
+print(py.resource)
+print(sp.resource)
 
 ```
 
 ## Output
 
 ```text
-{IcebergTable(catalog='global', ns='acc', name='txs')}
-{IcebergTable(catalog='global', ns='acc', name='txs')}
+IcebergTable(catalog='global', ns='acc', name='txs')
+IcebergTable(catalog='global', ns='acc', name='txs')
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
 
 ```

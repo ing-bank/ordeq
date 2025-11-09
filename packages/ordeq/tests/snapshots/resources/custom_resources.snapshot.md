@@ -24,25 +24,25 @@ resource = "my-resource"
 file_overridden = CSV(path=Path("overridden")) @ resource
 file_extended = csv @ resource
 
-print(csv.resources)
-print(file_overridden.resources)
-print(file_extended.resources)
+print(csv.resource)
+print(file_overridden.resource)
+print(file_extended.resource)
 
 ```
 
 ## Output
 
 ```text
-{'my-resource'}
-{'my-resource'}
-{'my-resource'}
+my-resource
+my-resource
+my-resource
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may changewithout notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
 
 ```

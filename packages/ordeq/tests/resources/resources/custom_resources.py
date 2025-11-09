@@ -21,6 +21,6 @@ resource = "my-resource"
 file_overridden = CSV(path=Path("overridden")) @ resource
 file_extended = csv @ resource
 
-print(csv.resources)
-print(file_overridden.resources)
-print(file_extended.resources)
+print(csv.resource)
+print(file_overridden.resource)
+print(file_extended.resource)

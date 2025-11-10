@@ -5,45 +5,38 @@
 from pprint import pprint
 
 import example_nested
-from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
+from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_nested)
-named_node_io_graph = NamedNodeIOGraph.from_nodes(*nodes)
-print("NamedNodeIOGraph:")
-print(named_node_io_graph)
+base_graph = NodeIOGraph.from_nodes(nodes)
+print("NodeIOGraph")
+print(base_graph)
 
-named_node_graph = NamedNodeGraph.from_graph(named_node_io_graph)
-print("NamedNodeGraph:")
-print(named_node_graph)
+node_graph = NodeGraph.from_graph(base_graph)
+print("NodeGraph")
+print(node_graph)
 
-print("Topological ordering:")
-pprint(named_node_graph.topological_ordering)
-
-```
-
-## Exception
-
-```text
-ImportError: cannot import name 'NamedNodeGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
-  File "/packages/ordeq/tests/resources/graph/graph_nested.py", line LINO, in <module>
-    from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+print("Topological ordering")
+pprint([node.name for node in node_graph.topological_ordering])
 
 ```
 
-## Typing
+## Output
 
 ```text
-packages/ordeq/tests/resources/graph/graph_nested.py:5:26: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeGraph`
-packages/ordeq/tests/resources/graph/graph_nested.py:5:42: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeIOGraph`
-Found 2 diagnostics
+NodeIOGraph
+View:example_nested.subpackage.subsubpackage.hello:world --> io-1
+NodeGraph
+View:example_nested.subpackage.subsubpackage.hello:world
+Topological ordering
+['example_nested.subpackage.subsubpackage.hello:world']
+
+```
+
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_nested.subpackage.subsubpackage.hello:world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

@@ -2,17 +2,17 @@
 from pprint import pprint
 
 import example_rag_pipeline
-from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
+from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_rag_pipeline)
-named_node_io_graph = NamedNodeIOGraph.from_nodes(*nodes)
-print("NamedNodeIOGraph:")
-print(named_node_io_graph)
+base_graph = NodeIOGraph.from_nodes(nodes)
+print("NodeIOGraph")
+print(base_graph)
 
-named_node_graph = NamedNodeGraph.from_graph(named_node_io_graph)
-print("NamedNodeGraph:")
-print(named_node_graph)
+node_graph = NodeGraph.from_graph(base_graph)
+print("NodeGraph")
+print(node_graph)
 
-print("Topological ordering:")
-pprint(named_node_graph.topological_ordering)
+print("Topological ordering")
+pprint([node.name for node in node_graph.topological_ordering])

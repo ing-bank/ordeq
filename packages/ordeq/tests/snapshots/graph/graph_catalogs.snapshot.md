@@ -5,32 +5,31 @@
 from pprint import pprint
 
 import example_catalogs
-from ordeq._graph import NodeGraph
+from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_catalogs)
-node_graph = NodeGraph.from_nodes(*nodes)
-print("NodeGraph:")
+base_graph = NodeIOGraph.from_nodes(nodes)
+print("NodeIOGraph")
+print(base_graph)
+
+node_graph = NodeGraph.from_graph(base_graph)
+print("NodeGraph")
 print(node_graph)
 
-print("Topological ordering:")
-pprint(node_graph.topological_ordering)
+print("Topological ordering")
+pprint([node.name for node in node_graph.topological_ordering])
 
 ```
 
-## Exception
+## Output
 
 ```text
-TypeError: NodeGraph.from_nodes() missing 1 required positional argument: 'nodes'
-  File "/packages/ordeq/tests/resources/graph/graph_catalogs.py", line LINO, in <module>
-    node_graph = NodeGraph.from_nodes(*nodes)
+NodeIOGraph
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+NodeGraph
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+Topological ordering
+[]
 
 ```

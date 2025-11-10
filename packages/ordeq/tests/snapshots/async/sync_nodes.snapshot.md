@@ -10,43 +10,37 @@ run(sync_nodes)
 
 ```
 
-## Output
+## Exception
 
 ```text
-graph TB
-	subgraph legend["Legend"]
-		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "StringBuffer"}
-	end
+TypeError: 'Node' object is not iterable
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in _collect_views
+    for node in nodes_:
+                ^^^^^^
 
-	example_async.sync_nodes:write_buffer_1 --> IO0
-	example_async.sync_nodes:write_buffer_2 --> IO1
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    views = _collect_views(nodes)
 
-	example_async.sync_nodes:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
-	example_async.sync_nodes:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
-	IO0@{shape: rect, label: "buffer_1"}
-	IO1@{shape: rect, label: "buffer_2"}
+  File "/packages/ordeq-viz/src/ordeq_viz/graph.py", line LINO, in _gather_graph
+    graph = NodeIOGraph.from_nodes(*nodes)
 
-	class L0,example_async.sync_nodes:write_buffer_1,example_async.sync_nodes:write_buffer_2 node
-	class L00,IO0,IO1 io0
-	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef io0 fill:#66c2a5
+  File "/packages/ordeq-viz/src/ordeq_viz/to_mermaid.py", line LINO, in pipeline_to_mermaid
+    node_modules, io_modules = _gather_graph(nodes, ios)
+                               ~~~~~~~~~~~~~^^^^^^^^^^^^
 
-Start analyzing buffer_2...
-Finished analyzing buffer_2 after 2 seconds.
-Start fetching buffer_1...
-Finished fetching buffer_1 after 4 seconds.
+  File "/packages/ordeq-viz/src/ordeq_viz/api.py", line LINO, in viz
+    result = pipeline_to_mermaid(nodes, ios, **options)
 
-```
+  File "/packages/ordeq/tests/resources/async/sync_nodes.py", line LINO, in <module>
+    print(viz(sync_nodes, fmt="mermaid"))
+          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-## Logging
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-```text
-INFO	ordeq.runner	Running node "write_buffer_2" in module "example_async.sync_nodes"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "write_buffer_1" in module "example_async.sync_nodes"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```

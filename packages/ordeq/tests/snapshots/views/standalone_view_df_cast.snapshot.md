@@ -43,10 +43,10 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-0 --> Node:standalone_view_df_cast:group_by
-io-2 --> View:standalone_view_df_cast:cast
-Node:standalone_view_df_cast:group_by --> io-1
-View:standalone_view_df_cast:cast --> io-0
+View:standalone_view_df_cast:cast --> io-1
+io-1 --> Node:standalone_view_df_cast:group_by
+Node:standalone_view_df_cast:group_by --> io-2
+io-3 --> View:standalone_view_df_cast:cast
      A    B    D
 0  bar  2.0  5.0
 1  foo  2.0  8.0

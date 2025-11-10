@@ -29,10 +29,10 @@ run(print_buckets, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:view_client_list_buckets:print_buckets
-io-2 --> View:view_client_list_buckets:buckets
-View:view_client_list_buckets:print_buckets --> io-1
-View:view_client_list_buckets:buckets --> io-0
+View:view_client_list_buckets:buckets --> io-1
+io-1 --> View:view_client_list_buckets:print_buckets
+View:view_client_list_buckets:print_buckets --> io-2
+io-3 --> View:view_client_list_buckets:buckets
 bucket1
 bucket2
 bucket3

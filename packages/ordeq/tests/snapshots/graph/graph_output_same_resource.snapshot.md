@@ -14,14 +14,9 @@ _ = BaseGraph.from_nodes(*nodes)
 ## Exception
 
 ```text
-ValueError: Nodes 'example_resources.same_output:generate_raw' and 'example_resources.same_output:generate_text' both output to resource Path('to.file'). Nodes cannot output to the same resource.
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    raise ValueError(
-    ...<4 lines>...
-    )
-
+ImportError: cannot import name 'BaseGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
   File "/packages/ordeq/tests/resources/graph/graph_output_same_resource.py", line LINO, in <module>
-    _ = BaseGraph.from_nodes(*nodes)
+    from ordeq._graph import BaseGraph
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
@@ -38,5 +33,13 @@ ValueError: Nodes 'example_resources.same_output:generate_raw' and 'example_reso
 ```text
 WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
 WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/graph/graph_output_same_resource.py:3:26: error[unresolved-import] Module `ordeq._graph` has no member `BaseGraph`
+Found 1 diagnostic
 
 ```

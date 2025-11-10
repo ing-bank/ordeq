@@ -22,23 +22,28 @@ pprint(named_node_graph.topological_ordering)
 
 ```
 
-## Output
+## Exception
 
 ```text
-NamedNodeIOGraph:
-View:example_3.func_defs:hello --> io-0
-View:example_3.func_defs:hello --> io-1
-NamedNodeGraph:
+ImportError: cannot import name 'NamedNodeGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
+  File "/packages/ordeq/tests/resources/graph/graph_example3.py", line LINO, in <module>
+    from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
 
-Topological ordering:
-(View(name=example_3.func_defs:hello), View(name=example_3.func_defs:hello))
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```
 
-## Logging
+## Typing
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+packages/ordeq/tests/resources/graph/graph_example3.py:5:26: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeGraph`
+packages/ordeq/tests/resources/graph/graph_example3.py:5:42: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeIOGraph`
+Found 2 diagnostics
 
 ```

@@ -22,47 +22,28 @@ pprint(named_node_graph.topological_ordering)
 
 ```
 
-## Output
+## Exception
 
 ```text
-NamedNodeIOGraph:
-io-0 --> Node:example_rag_pipeline.rag.policies:generate_questions
-io-2 --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
-io-2 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
-io-3 --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
-io-3 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
-io-3 --> Node:example_rag_pipeline.rag.question_answering:question_answering
-io-5 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
-io-5 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
-io-6 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
-io-6 --> Node:example_rag_pipeline.rag.retrieval:retrieve
-io-7 --> Node:example_rag_pipeline.rag.retrieval:retrieve
-io-1 --> Node:example_rag_pipeline.rag.retrieval:retrieve
-io-1 --> Node:example_rag_pipeline.rag.question_answering:question_answering
-io-8 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
-io-10 --> Node:example_rag_pipeline.rag.question_answering:question_answering
-Node:example_rag_pipeline.rag.policies:generate_questions --> io-1
-Node:example_rag_pipeline.rag.evaluation:evaluate_answers --> io-4
-Node:example_rag_pipeline.rag.indexer:create_vector_index --> io-7
-Node:example_rag_pipeline.rag.retrieval:retrieve --> io-8
-Node:example_rag_pipeline.rag.annotation:annotate_documents --> io-9
-Node:example_rag_pipeline.rag.retrieval:filter_relevant --> io-10
-Node:example_rag_pipeline.rag.question_answering:question_answering --> io-2
-NamedNodeGraph:
-Node:example_rag_pipeline.rag.policies:generate_questions --> Node:example_rag_pipeline.rag.retrieval:retrieve
-Node:example_rag_pipeline.rag.policies:generate_questions --> Node:example_rag_pipeline.rag.question_answering:question_answering
-Node:example_rag_pipeline.rag.indexer:create_vector_index --> Node:example_rag_pipeline.rag.retrieval:retrieve
-Node:example_rag_pipeline.rag.retrieval:retrieve --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
-Node:example_rag_pipeline.rag.retrieval:filter_relevant --> Node:example_rag_pipeline.rag.question_answering:question_answering
-Node:example_rag_pipeline.rag.question_answering:question_answering --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
-Node:example_rag_pipeline.rag.question_answering:question_answering --> Node:example_rag_pipeline.rag.annotation:annotate_documents
-Topological ordering:
-(Node(name=example_rag_pipeline.rag.indexer:create_vector_index, inputs=[IO(idx=ID1), IO(idx=ID2)], outputs=[IO(idx=ID3)]),
- Node(name=example_rag_pipeline.rag.policies:generate_questions, inputs=[IO(idx=ID4)], outputs=[IO(idx=ID5)]),
- Node(name=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(idx=ID3), IO(idx=ID5), IO(idx=ID2)], outputs=[IO(idx=ID6)]),
- Node(name=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(idx=ID6), IO(idx=ID7)], outputs=[IO(idx=ID8)]),
- Node(name=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(idx=ID5), IO(idx=ID8), IO(idx=ID7)], outputs=[IO(idx=ID9)]),
- Node(name=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(idx=ID9), IO(idx=ID1)], outputs=[IO(idx=ID10)]),
- Node(name=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(idx=ID9), IO(idx=ID7)], outputs=[IO(idx=ID11)]))
+ImportError: cannot import name 'NamedNodeGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
+  File "/packages/ordeq/tests/resources/graph/graph_rag.py", line LINO, in <module>
+    from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/graph/graph_rag.py:5:26: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeGraph`
+packages/ordeq/tests/resources/graph/graph_rag.py:5:42: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeIOGraph`
+Found 2 diagnostics
 
 ```

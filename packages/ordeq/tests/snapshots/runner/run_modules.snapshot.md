@@ -11,16 +11,16 @@ run(example_module_a, example_module_b, verbose=True)
 ## Output
 
 ```text
-io-0 --> Node:resources.runner.example_module_b:decrement
-io-1 --> Node:resources.runner.example_module_b:decrement
-io-3 --> Node:resources.runner.example_module_b:increment
-io-4 --> Node:resources.runner.example_module_a:increment
+Node:resources.runner.example_module_a:decrement --> io-1
+Node:resources.runner.example_module_a:increment --> io-2
+io-2 --> Node:resources.runner.example_module_a:decrement
+Node:resources.runner.example_module_b:decrement --> io-3
+Node:resources.runner.example_module_b:increment --> io-4
+io-4 --> Node:resources.runner.example_module_b:decrement
 io-5 --> Node:resources.runner.example_module_a:decrement
-io-6 --> Node:resources.runner.example_module_a:decrement
-Node:resources.runner.example_module_b:decrement --> io-2
-Node:resources.runner.example_module_b:increment --> io-0
-Node:resources.runner.example_module_a:increment --> io-5
-Node:resources.runner.example_module_a:decrement --> io-7
+io-6 --> Node:resources.runner.example_module_a:increment
+io-7 --> Node:resources.runner.example_module_b:decrement
+io-8 --> Node:resources.runner.example_module_b:increment
 
 ```
 
@@ -28,16 +28,16 @@ Node:resources.runner.example_module_a:decrement --> io-7
 
 ```text
 INFO	ordeq.io	Loading Literal(12345)
-INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_a"
+INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_b"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading Literal(12345)
-INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_b"
+INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_a"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_module_a"
+INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_module_b"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_module_b"
+INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_module_a"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```

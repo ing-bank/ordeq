@@ -11,14 +11,16 @@ A, B, C, D, E, F = [StringBuffer(c) for c in "ABCDEF"]
 @pytest.mark.parametrize(
     ("edges", "expected"),
     [
-        ({"A": ["B"]}, {"B", "C", "D"}),
-        ({"A": ["B", "C"], "D": ["A"]}, {"B", "C"}),
-        ({"A": ["B"], "B": ["A"]}, {"C", "D"}),
-        ({}, {"A", "B", "C", "D"}),
+        ({"A": ["B"], "B": []}, {"B"}),
+        ({"A": ["B", "C"], "B": [], "C": [], "D": ["A"]}, {"B", "C"}),
+        ({"A": ["B"], "B": ["A"]}, set()),
+        ({"A": [], "B": [], "C": []}, {"A", "B", "C"}),
+        ({}, set()),
     ],
 )
 def test_find_sink_nodes(edges, expected):
-    g = NodeGraph(edges=edges, nodes={"A", "B", "C", "D"})
+    g = NodeGraph({})
+    g.edges = edges
     assert g.sink_nodes == expected
 
 
@@ -41,9 +43,8 @@ def test_it_builds_a_graph():
     third.inputs = [B, D]
     third.outputs = [F]
 
-    g = NodeGraph.from_nodes(third, second, first)
-    assert g.edges[first] == {second, third}
-    assert g.edges[second] == {third}
+    g = NodeGraph.from_nodes({third, second, first})
+    assert g.edges == {first: [second, third], second: [third], third: []}
     assert g.nodes == {first, second, third}
 
 
@@ -55,8 +56,27 @@ def test_it_builds_graph_with_single_node():
     first.views = []
 
     g = NodeGraph.from_nodes({first})
-    assert g.edges[first] == set()
+    assert g.edges == {first: []}
     assert g.nodes == {first}
+
+
+def test_it_raises_error_on_duplicated_outputs():
+    first = Mock(spec=Node)
+    first.views = []
+    first.name = "first"
+    first.inputs = [A]
+    first.outputs = [B]
+
+    second = Mock(spec=Node)
+    second.views = []
+    second.name = "second"
+    second.inputs = [D]
+    second.outputs = [B]
+
+    with pytest.raises(
+        ValueError, match="cannot be outputted by more than one node"
+    ):
+        NodeGraph.from_nodes({first, second})
 
 
 @pytest.mark.parametrize(
@@ -109,7 +129,8 @@ def test_it_finds_a_topological_ordering(edges, expected):
     # multiple valid topological orderings, the ordering is
     # deterministic (as dictionaries are ordered).
 
-    g = NodeGraph(edges=edges, nodes=[0, 1, 2, 3])
+    g = NodeGraph({})
+    g.edges = edges
     actual = g.topological_ordering
     assert actual == expected
 

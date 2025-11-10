@@ -22,8 +22,8 @@ run(func1, func2, verbose=True)
 ## Output
 
 ```text
-Node:runner_distinct_ios:func1 --> io-0
-Node:runner_distinct_ios:func2 --> io-1
+Node:runner_distinct_ios:func1 --> io-1
+Node:runner_distinct_ios:func2 --> io-2
 
 ```
 

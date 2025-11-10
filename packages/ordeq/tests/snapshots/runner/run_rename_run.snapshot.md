@@ -20,9 +20,9 @@ run(show_message, verbose=True)
 ## Output
 
 ```text
-View:run_rename_run:print_message --> io-0
+View:run_rename_run:print_message --> io-1
 Hello from printer
-View:run_rename_run:print_message --> io-0
+View:run_rename_run:print_message --> io-1
 Hello from printer
 
 ```

@@ -22,18 +22,28 @@ pprint(named_node_graph.topological_ordering)
 
 ```
 
-## Output
+## Exception
 
 ```text
-NamedNodeIOGraph:
-io-0 --> Node:example_duplicates.file2:foo
-io-2 --> Node:example_duplicates.file1:foo
-Node:example_duplicates.file2:foo --> io-1
-Node:example_duplicates.file1:foo --> io-3
-NamedNodeGraph:
+ImportError: cannot import name 'NamedNodeGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
+  File "/packages/ordeq/tests/resources/graph/graph_duplicates.py", line LINO, in <module>
+    from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
 
-Topological ordering:
-(Node(name=example_duplicates.file1:foo, inputs=[Literal(3)], outputs=[IO(idx=ID1)]),
- Node(name=example_duplicates.file2:foo, inputs=[Literal(3)], outputs=[IO(idx=ID2)]))
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/graph/graph_duplicates.py:5:26: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeGraph`
+packages/ordeq/tests/resources/graph/graph_duplicates.py:5:42: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeIOGraph`
+Found 2 diagnostics
 
 ```

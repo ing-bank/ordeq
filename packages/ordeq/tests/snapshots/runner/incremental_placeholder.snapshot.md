@@ -116,11 +116,11 @@ IOException: Failed to load Input(idx=ID1).
 ## Output
 
 ```text
-io-0 --> Node:incremental_placeholder:f
-io-1 --> Node:incremental_placeholder:f
-io-2 --> Node:incremental_placeholder:g
-Node:incremental_placeholder:f --> io-2
-Node:incremental_placeholder:g --> io-3
+Node:incremental_placeholder:f --> io-1
+io-1 --> Node:incremental_placeholder:g
+Node:incremental_placeholder:g --> io-2
+io-3 --> Node:incremental_placeholder:f
+io-4 --> Node:incremental_placeholder:f
 
 ```
 

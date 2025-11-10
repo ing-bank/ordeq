@@ -22,27 +22,28 @@ pprint(named_node_graph.topological_ordering)
 
 ```
 
-## Output
+## Exception
 
 ```text
-NamedNodeIOGraph:
-io-0 --> Node:example_1.nodes:world
-io-2 --> Node:example_1.wrapped_io:print_message
-io-4 --> Node:example_1.wrapped_io:hello
-io-5 --> Node:example_1.pipeline:transform_mock_input
-io-7 --> Node:example_1.pipeline:transform_input
-Node:example_1.nodes:world --> io-1
-Node:example_1.wrapped_io:print_message --> io-3
-Node:example_1.wrapped_io:hello --> io-2
-Node:example_1.pipeline:transform_mock_input --> io-6
-Node:example_1.pipeline:transform_input --> io-8
-NamedNodeGraph:
-Node:example_1.wrapped_io:hello --> Node:example_1.wrapped_io:print_message
-Topological ordering:
-(Node(name=example_1.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))]),
- Node(name=example_1.pipeline:transform_input, inputs=[Input(idx=ID1)], outputs=[Output(idx=ID2)]),
- Node(name=example_1.pipeline:transform_mock_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
- Node(name=example_1.wrapped_io:print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()]),
- Node(name=example_1.nodes:world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]))
+ImportError: cannot import name 'NamedNodeGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
+  File "/packages/ordeq/tests/resources/graph/graph_example1.py", line LINO, in <module>
+    from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/graph/graph_example1.py:5:26: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeGraph`
+packages/ordeq/tests/resources/graph/graph_example1.py:5:42: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeIOGraph`
+Found 2 diagnostics
 
 ```

@@ -135,19 +135,19 @@ IOException: Failed to load IO(idx=ID1).
 ## Output
 
 ```text
-io-0 --> Node:view_takes_node_output:hello_from_someone
-io-1 --> Node:view_takes_node_output:hello_from_someone
-io-3 --> View:view_takes_node_output:sink
-io-2 --> View:view_takes_node_output:what_i_heard
-Node:view_takes_node_output:hello_from_someone --> io-2
-View:view_takes_node_output:sink --> io-4
+Node:view_takes_node_output:hello_from_someone --> io-1
+io-1 --> View:view_takes_node_output:what_i_heard
+View:view_takes_node_output:sink --> io-2
 View:view_takes_node_output:what_i_heard --> io-3
+io-3 --> View:view_takes_node_output:sink
+io-4 --> Node:view_takes_node_output:hello_from_someone
+io-5 --> Node:view_takes_node_output:hello_from_someone
 I heard that Jane said 'Hello'
 None
-io-0 --> View:view_takes_node_output:sink
-io-2 --> View:view_takes_node_output:what_i_heard
 View:view_takes_node_output:sink --> io-1
-View:view_takes_node_output:what_i_heard --> io-0
+View:view_takes_node_output:what_i_heard --> io-2
+io-2 --> View:view_takes_node_output:sink
+io-3 --> View:view_takes_node_output:what_i_heard
 
 ```
 

@@ -38,17 +38,17 @@ print(p4.load())
 ## Output
 
 ```text
-io-0 --> Node:runner_io:increment
-io-1 --> Node:runner_io:decrement
+Node:runner_io:decrement --> io-1
+Node:runner_io:increment --> io-2
 io-2 --> Node:runner_io:decrement
-Node:runner_io:increment --> io-1
-Node:runner_io:decrement --> io-3
+io-3 --> Node:runner_io:decrement
+io-4 --> Node:runner_io:increment
 0
-io-0 --> Node:runner_io:increment
-io-1 --> Node:runner_io:decrement
+Node:runner_io:decrement --> io-1
+Node:runner_io:increment --> io-2
 io-2 --> Node:runner_io:decrement
-Node:runner_io:increment --> io-1
-Node:runner_io:decrement --> io-3
+io-3 --> Node:runner_io:decrement
+io-4 --> Node:runner_io:increment
 -10
 
 ```

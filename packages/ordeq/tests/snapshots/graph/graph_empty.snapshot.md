@@ -22,14 +22,28 @@ pprint(named_node_graph.topological_ordering)
 
 ```
 
-## Output
+## Exception
 
 ```text
-NamedNodeIOGraph:
+ImportError: cannot import name 'NamedNodeGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
+  File "/packages/ordeq/tests/resources/graph/graph_empty.py", line LINO, in <module>
+    from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
 
-NamedNodeGraph:
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
-Topological ordering
-()
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/graph/graph_empty.py:5:26: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeGraph`
+packages/ordeq/tests/resources/graph/graph_empty.py:5:42: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeIOGraph`
+Found 2 diagnostics
 
 ```

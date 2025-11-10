@@ -27,9 +27,10 @@ run(n, verbose=True)
 
 ```text
 View(name=node_inputs_same_view_twice:hello)
-io-0 --> Node:node_inputs_same_view_twice:n
-Node:node_inputs_same_view_twice:n --> io-1
-View:node_inputs_same_view_twice:hello --> io-0
+View:node_inputs_same_view_twice:hello --> io-1
+io-1 --> Node:node_inputs_same_view_twice:n
+io-1 --> Node:node_inputs_same_view_twice:n
+Node:node_inputs_same_view_twice:n --> io-2
 Hello, World! == Hello, World!'
 
 ```

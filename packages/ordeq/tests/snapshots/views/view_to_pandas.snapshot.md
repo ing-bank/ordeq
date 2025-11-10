@@ -34,10 +34,10 @@ run(aggregate, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:view_to_pandas:aggregate
-io-2 --> View:view_to_pandas:csv_as_df
 View:view_to_pandas:aggregate --> io-1
-View:view_to_pandas:csv_as_df --> io-0
+View:view_to_pandas:csv_as_df --> io-2
+io-2 --> View:view_to_pandas:aggregate
+io-3 --> View:view_to_pandas:csv_as_df
 value    6
 dtype: int64
 

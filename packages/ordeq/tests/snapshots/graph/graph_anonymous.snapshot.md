@@ -22,16 +22,27 @@ pprint(named_node_graph.topological_ordering)
 
 ```
 
-## Output
+## Exception
 
 ```text
-NamedNodeIOGraph:
-io-0 --> Node:example_anonymous.nodes:node_with_inline_io
-Node:example_anonymous.nodes:node_with_inline_io --> io-1
-NamedNodeGraph:
-NodeGraph(edges=defaultdict(dict[~T, None], {}),
-          nodes={Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(idx=ID1)], outputs=[IO(idx=ID2)]): None})
-Topological ordering:
-(Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(idx=ID1)], outputs=[IO(idx=ID2)]),)
+ImportError: cannot import name 'NamedNodeIOGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
+  File "/packages/ordeq/tests/resources/graph/graph_anonymous.py", line LINO, in <module>
+    from ordeq._graph import NamedNodeIOGraph, NodeGraph
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/graph/graph_anonymous.py:5:26: error[unresolved-import] Module `ordeq._graph` has no member `NamedNodeIOGraph`
+Found 1 diagnostic
 
 ```

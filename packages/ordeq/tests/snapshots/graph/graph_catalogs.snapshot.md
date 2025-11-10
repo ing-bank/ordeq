@@ -18,12 +18,19 @@ pprint(node_graph.topological_ordering)
 
 ```
 
-## Output
+## Exception
 
 ```text
-NodeGraph:
-NodeGraph(edges=defaultdict(dict[~T, None], {}), nodes={})
-Topological ordering:
-()
+TypeError: NodeGraph.from_nodes() missing 1 required positional argument: 'nodes'
+  File "/packages/ordeq/tests/resources/graph/graph_catalogs.py", line LINO, in <module>
+    node_graph = NodeGraph.from_nodes(*nodes)
+
+  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+
+  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
 ```

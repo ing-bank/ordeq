@@ -21,39 +21,17 @@ _run_graph(NodeGraph.from_nodes(nodes))
 
 ```
 
-## Exception
+## Logging
 
 ```text
-AttributeError: 'set' object has no attribute 'views'
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in _collect
-    for view in n.views:
-                ^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in _collect_views
-    _collect(node)
-    ~~~~~~~~^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    views = _collect_views(*nodes)
-
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    return cls.from_graph(BaseGraph.from_nodes(*nodes, patches=patches))
-                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    return cls.from_graph(NodeIOGraph.from_nodes(*nodes))
-                          ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-  File "/packages/ordeq/tests/resources/runner/logging_verbosity.py", line LINO, in <module>
-    _run_graph(NodeGraph.from_nodes(nodes))
-               ~~~~~~~~~~~~~~~~~~~~^^^^^^^
-
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
-
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.runner	Running node "<lambda>" in module "logging_verbosity"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```

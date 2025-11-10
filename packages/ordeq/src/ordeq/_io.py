@@ -3,7 +3,7 @@ from __future__ import annotations
 import copy
 import inspect
 import logging
-from collections.abc import Callable
+from collections.abc import Callable, Hashable
 from functools import cached_property, reduce, wraps
 from typing import Any, Generic, TypeAlias, TypeVar
 from uuid import uuid4
@@ -241,12 +241,35 @@ class _InputException(_BaseInput[Tin]):
             raise IOException(msg) from exc
 
 
+class _WithResource:
+    _resource_: Hashable = None
+
+    def with_resource(self, resource: Any) -> Self:
+        if resource is None:
+            raise ValueError("Resource cannot be None.")
+        logger.warning(
+            "Resources are in preview mode and may change "
+            "without notice in future releases."
+        )
+        new = copy.copy(self)
+        new.__dict__["_resource_"] = resource
+        return new
+
+    @property
+    def _resource(self) -> Hashable:
+        return self._resource_ or self
+
+    def __matmul__(self, resource: Any) -> Self:
+        return self.with_resource(resource)
+
+
 class Input(
     _InputOptions[Tin],
     _InputHooks[Tin],
     _InputReferences[Tin],
     _InputCache[Tin],
     _InputException[Tin],
+    _WithResource,
     Generic[Tin],
     metaclass=_InputMeta,
 ):
@@ -482,6 +505,7 @@ class Output(
     _OutputHooks[Tout],
     _OutputReferences[Tout],
     _OutputException[Tout],
+    _WithResource,
     Generic[Tout],
     metaclass=_OutputMeta,
 ):

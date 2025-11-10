@@ -7,7 +7,7 @@ from dataclasses import dataclass
 
 from cloudpathlib import CloudPath
 from ordeq._io import get_resource
-from ordeq_boto3 import S3Object
+from ordeq import Input
 from ordeq_files import CSV
 
 
@@ -15,6 +15,15 @@ from ordeq_files import CSV
 class S3File:
     bucket: str
     key: str
+
+
+@dataclass(frozen=True)
+class S3Object(Input[bytes]):
+    bucket: str
+    key: str
+
+    def load(self) -> bytes:
+        return b''
 
 
 s3_file = S3File(bucket="bucket", key="key.csv")

@@ -358,7 +358,7 @@ def compute_bump(
         return "major"
     if "change" in labels:
         return "minor"
-    if "fix" in labels:
+    if "fix" in labels or "preview" in labels:
         return "patch"
     return None
 
@@ -402,6 +402,7 @@ def generate_release_notes(changes: dict[str, dict[str, str | list[str]]]) -> st
     categories = {
         "breaking": "Breaking Changes",
         "change": "New Features",
+        "preview": "Preview Features",
         "fix": "Bug Fixes",
         "docs": "Documentation",
         "internal": "Other Changes",

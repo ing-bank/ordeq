@@ -81,7 +81,7 @@ IOException: Failed to load IO(idx=ID1).
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     return composed(*args, **kwargs)
 
-  File "/packages/ordeq/tests/resources/nodes/io_load.py", line LINO, in <module>
+  File "/packages/ordeq/tests/resources/io/io_load.py", line LINO, in <module>
     IO().load()
     ~~~~~~~~~^^
 

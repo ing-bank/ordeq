@@ -66,6 +66,24 @@ def _resolve_package_to_module_names(package: ModuleType) -> Generator[str]:
     )
 
 
+def _resolve_module_globals(
+    module: ModuleType,
+) -> dict[str, AnyIO | Node | list[AnyIO]]:
+    """Gathers all IOs and nodes defined in a module.
+
+    Args:
+        module: the module to gather IOs and nodes from
+
+    Returns:
+        a dict of all IOs and nodes defined in the module
+    """
+    return {
+        name: obj
+        for name, obj in vars(module).items()
+        if _is_io(obj) or _is_node(obj) or _is_io_sequence(obj)
+    }
+
+
 def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
     """Gathers all nodes defined in a module.
 

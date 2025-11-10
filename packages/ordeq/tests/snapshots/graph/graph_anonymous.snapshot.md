@@ -9,7 +9,7 @@ from ordeq._graph import NamedNodeIOGraph, NodeGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_anonymous)
-named_node_io_graph = NamedNodeIOGraph.from_nodes(nodes)
+named_node_io_graph = NamedNodeIOGraph.from_nodes(*nodes)
 print("NamedNodeIOGraph:")
 pprint(named_node_io_graph)
 
@@ -29,7 +29,7 @@ NamedNodeIOGraph:
 io-0 --> Node:example_anonymous.nodes:node_with_inline_io
 Node:example_anonymous.nodes:node_with_inline_io --> io-1
 NamedNodeGraph:
-NodeGraph(edges=defaultdict(<class 'ordeq._graph.OrderedSet'>, {}),
+NodeGraph(edges=defaultdict(dict[~T, None], {}),
           nodes={Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(idx=ID1)], outputs=[IO(idx=ID2)]): None})
 Topological ordering:
 (Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(idx=ID1)], outputs=[IO(idx=ID2)]),)

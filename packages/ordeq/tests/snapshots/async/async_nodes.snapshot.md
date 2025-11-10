@@ -150,13 +150,13 @@ graph TB
 ## Warnings
 
 ```text
-RuntimeWarning: coroutine 'write_buffer_2' was never awaited
+RuntimeWarning: coroutine 'write_buffer_1' was never awaited
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "write_buffer_2" in module "example_async.async_nodes"
+INFO	ordeq.runner	Running node "write_buffer_1" in module "example_async.async_nodes"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

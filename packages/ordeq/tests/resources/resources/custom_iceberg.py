@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 
 from ordeq import Input
+from ordeq._io import get_resource
 
 
 @dataclass(frozen=True)
@@ -31,5 +32,5 @@ class SparkIcebergTable(Input[None]):
 tbl = IcebergTable(catalog="global", ns="acc", name="txs")
 py = PyIcebergTable(catalog=tbl.catalog, ns=tbl.ns, table=tbl.name) @ tbl
 sp = SparkIcebergTable(table=f"{tbl.catalog}.{tbl.ns}.{tbl.name}") @ tbl
-print(py._resource)
-print(sp._resource)
+print(get_resource(py))
+print(get_resource(sp))

@@ -41,10 +41,10 @@ run(train, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:view_train_test_split:split
-io-1 --> View:view_train_test_split:train
-View:view_train_test_split:split --> io-1
-View:view_train_test_split:train --> io-2
+io-0 --> View:view_train_test_split:train
+io-2 --> View:view_train_test_split:split
+View:view_train_test_split:train --> io-1
+View:view_train_test_split:split --> io-0
 Training          B   gt
 count  3.0  3.0
 mean   2.0  5.0

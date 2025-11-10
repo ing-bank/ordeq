@@ -28,8 +28,8 @@ run(n, verbose=True)
 ```text
 View(name=node_inputs_same_view_twice:hello)
 io-0 --> Node:node_inputs_same_view_twice:n
-View:node_inputs_same_view_twice:hello --> io-0
 Node:node_inputs_same_view_twice:n --> io-1
+View:node_inputs_same_view_twice:hello --> io-0
 Hello, World! == Hello, World!'
 
 ```

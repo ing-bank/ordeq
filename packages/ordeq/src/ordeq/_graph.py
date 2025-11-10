@@ -1,10 +1,10 @@
-from collections import UserDict, defaultdict
+from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import Any, Generic, TypeAlias, TypeVar
+from typing import Any, Generic, TypeAlias, TypeVar, cast
 
-from ordeq._io import AnyIO, get_resource, has_resource
+from ordeq._io import IO, AnyIO, Input, get_resource, has_resource
 from ordeq._nodes import Node, View
 
 try:
@@ -12,27 +12,27 @@ try:
 except ImportError:
     from typing_extensions import Self
 
-NodeIOEdge: TypeAlias = dict[Node | None, dict[AnyIO, list[Node]]]
-
-
-def _collect_views(nodes_: set[Node]) -> set[View]:
-    views: set[View] = set()
-    for node in nodes_:
-        node_views = set(node.views)
-        views |= node_views | _collect_views(node_views)  # type: ignore[arg-type]
-    return views
-
-
 T = TypeVar("T")
 
+OrderedSet: TypeAlias = dict[T, None]
 
-class OrderedSet(UserDict[T, None]):
-    def __init__(self):
-        self.data = {}
-        super().__init__()
 
-    def add(self, key):
-        super().__setitem__(key, None)
+def add(data: OrderedSet[T], item: T) -> None:
+    data[item] = None
+
+
+def _collect_views(*nodes: Node) -> OrderedSet[View]:
+    views: OrderedSet[View] = OrderedSet()
+
+    def _collect(n: Node) -> None:
+        for view in n.views:
+            if view not in views:
+                add(views, view)
+            _collect(view)
+
+    for node in nodes:
+        _collect(node)
+    return views
 
 
 Tvertex = TypeVar("Tvertex")
@@ -46,13 +46,28 @@ class Graph(Generic[Tvertex]):
     def topological_ordering(self) -> tuple[Tvertex, ...]:
         # Adds a fake edge between an artificial start vertex
         # (None) and vertices without an edge:
-        edges = {None: self.vertices, **self.edges}
-        return tuple(reversed(tuple(TopologicalSorter(edges).static_order())))[
-            1:
-        ]
+        edges: dict[Tvertex | None, OrderedSet[Tvertex]] = {
+            None: self.vertices,
+            **self.edges,
+        }
+        return cast(
+            "tuple[Tvertex]",
+            tuple(reversed(tuple(TopologicalSorter(edges).static_order())))[
+                1:
+            ],
+        )
+
+    @cached_property
+    def sink_nodes(self) -> set[Tvertex]:
+        """Finds the sink nodes, i.e., nodes without successors.
+
+        Returns:
+            set of the sink nodes
+        """
+        return {v for v in self.vertices if v not in self.edges}
 
 
-@dataclass(frozen=True)
+@dataclass(kw_only=True)
 class BaseGraph(Graph[Any]):
     resources: OrderedSet[Any]
     ios: OrderedSet[AnyIO]
@@ -64,23 +79,23 @@ class BaseGraph(Graph[Any]):
 
     @classmethod
     def from_nodes(
-        cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
+            cls, *nodes: Node, patches: dict[AnyIO | View, AnyIO] | None = None
     ) -> Self:
         # First pass: collect all views
-        views = _collect_views(nodes)
-        all_nodes = nodes | views
+        views = _collect_views(*nodes)
+        all_nodes = nodes + tuple(view for view in views)
 
         if patches is None:
             patches = {}
-        for view in sorted(views, key=lambda n: n.name):
+        for view in views:
             patches[view] = view.outputs[0]
 
         if patches:
-            all_nodes = {node._patch_io(patches) for node in all_nodes}  # noqa: SLF001 (private access)
+            all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
-        resources = OrderedSet()
-        ios = OrderedSet()
-        nodes = OrderedSet()
+        resources: OrderedSet[Any] = OrderedSet()
+        ios: OrderedSet[AnyIO] = OrderedSet()
+        nodes_: OrderedSet[Node] = OrderedSet()
 
         resource_to_inputs: dict[Any, OrderedSet[AnyIO]] = defaultdict(
             OrderedSet
@@ -97,19 +112,23 @@ class BaseGraph(Graph[Any]):
         resource_to_node: dict[Any, Node] = {}
 
         # Traverse the nodes, sorted by name to preserve determinism:
-        for node in sorted(all_nodes, key=lambda node: node.name):
-            nodes.add(node)
-            for io in node.inputs:
-                resource = get_resource(io)
-                resources.add(resource)
-                resource_to_inputs[resource].add(io)
-                ios.add(io)
-                input_to_nodes[io].add(node)
-            for io in node.outputs:
-                resource = get_resource(io)
-                resources.add(resource)
-                output_to_resources[io].add(resource)
-                if has_resource(io) and resource in resource_to_node:
+        for node in all_nodes:
+            add(nodes_, node)
+            for ip in node.inputs:
+                # At this point we have patched all view inputs with
+                # sentinel IOs, so this case is safe:
+                ip_ = cast("Input | IO", ip)
+
+                resource = get_resource(ip_)
+                add(resources, resource)
+                add(resource_to_inputs[resource], ip_)
+                add(ios, ip_)
+                add(input_to_nodes[ip_], node)
+            for op in node.outputs:
+                resource = get_resource(op)
+                add(resources, resource)
+                add(output_to_resources[op], resource)
+                if has_resource(op) and resource in resource_to_node:
                     raise ValueError(
                         f"Nodes '{node.name}' and "
                         f"'{resource_to_node[resource].name}' "
@@ -117,8 +136,8 @@ class BaseGraph(Graph[Any]):
                         f"Nodes cannot output to the same resource."
                     )
                 resource_to_node[resource] = node
-                ios.add(io)
-                node_to_outputs[node].add(io)
+                add(ios, op)
+                add(node_to_outputs[node], op)
 
         return cls(
             resource_to_inputs=resource_to_inputs,
@@ -127,11 +146,11 @@ class BaseGraph(Graph[Any]):
             output_to_resources=output_to_resources,
             resources=resources,
             ios=ios,
-            nodes=nodes,
+            nodes=nodes_,
         )
 
     @cached_property
-    def edges(self) -> dict[Any, Any]:
+    def edges(self) -> dict[Any, Any]:  # type: ignore[override]
         return {
             **self.resource_to_inputs,
             **self.input_to_nodes,
@@ -140,11 +159,11 @@ class BaseGraph(Graph[Any]):
         }
 
     @cached_property
-    def vertices(self) -> OrderedSet[Any]:
+    def vertices(self) -> OrderedSet[Any]:  # type: ignore[override]
         return self.resources | self.nodes | self.ios
 
 
-@dataclass(frozen=True, repr=False)
+@dataclass(kw_only=True)
 class NodeIOGraph(Graph[Node | AnyIO]):
     """Graph with views, nodes and IOs."""
 
@@ -155,9 +174,9 @@ class NodeIOGraph(Graph[Node | AnyIO]):
 
     @classmethod
     def from_nodes(
-        cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
+        cls, *nodes: Node, patches: dict[AnyIO | View, AnyIO] | None = None
     ) -> Self:
-        return cls.from_graph(BaseGraph.from_nodes(nodes, patches))
+        return cls.from_graph(BaseGraph.from_nodes(*nodes, patches=patches))
 
     @classmethod
     def from_graph(cls, graph: BaseGraph):
@@ -169,17 +188,15 @@ class NodeIOGraph(Graph[Node | AnyIO]):
         )
 
     @cached_property
-    def edges(self) -> dict[AnyIO | Node, set[AnyIO | Node]]:
+    def edges(self) -> dict[AnyIO | Node, OrderedSet[AnyIO | Node]]:  # type: ignore[override]
         return {**self.input_to_nodes, **self.node_to_outputs}
 
     @cached_property
-    def vertices(self) -> OrderedSet[Any]:
+    def vertices(self) -> OrderedSet[Node | AnyIO]:  # type: ignore[override]
         return self.nodes | self.ios
 
 
 class NamedNodeIOGraph(NodeIOGraph):
-    names: dict[Node | AnyIO, str]
-
     @cached_property
     def names(self) -> dict[Node | AnyIO, str]:
         return {
@@ -207,7 +224,7 @@ class NamedNodeIOGraph(NodeIOGraph):
         return "\n".join(lines)
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, kw_only=True)
 class NodeGraph(Graph[Node]):
     """Graph where the edges are node -> [node]."""
 
@@ -215,8 +232,8 @@ class NodeGraph(Graph[Node]):
     nodes: OrderedSet[Node]
 
     @classmethod
-    def from_nodes(cls, nodes: set[Node]) -> Self:
-        return cls.from_graph(NodeIOGraph.from_nodes(nodes))
+    def from_nodes(cls, *nodes: Node) -> Self:
+        return cls.from_graph(NodeIOGraph.from_nodes(*nodes))
 
     @classmethod
     def from_graph(cls, graph: NodeIOGraph) -> Self:
@@ -225,21 +242,12 @@ class NodeGraph(Graph[Node]):
         for node, outputs in graph.node_to_outputs.items():
             for output in outputs:
                 if output in graph.input_to_nodes:
-                    edges[node].update(graph.input_to_nodes[output])
-
+                    for target in graph.input_to_nodes[output]:
+                        add(edges[node], target)
         return cls(edges=edges, nodes=graph.nodes)
 
-    @property
-    def sink_nodes(self) -> set[Node]:
-        """Finds the sink nodes, i.e., nodes without successors.
-
-        Returns:
-            set of the sink nodes
-        """
-        return {s for s, targets in self.edges.items() if len(targets) == 0}
-
     @cached_property
-    def vertices(self) -> OrderedSet[Any]:
+    def vertices(self) -> OrderedSet[Any]:  # type: ignore[override]
         return self.nodes
 
 

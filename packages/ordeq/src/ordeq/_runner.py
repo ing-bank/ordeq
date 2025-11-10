@@ -5,7 +5,7 @@ from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import str_to_fqn
-from ordeq._graph import NodeGraph, NamedNodeIOGraph
+from ordeq._graph import NamedNodeIOGraph, NodeGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
@@ -105,7 +105,6 @@ def _run_graph(
             save_node = True
         else:
             save_node = False
-
         _run_node(node, hooks=hooks, save=save_node)
 
     # unpersist IO objects
@@ -207,7 +206,7 @@ def run(
     nodes = _resolve_runnables_to_nodes(*runnables)
     io_subs = _resolve_strings_to_subs(io or {})
     patches = _substitutes_modules_to_ios(io_subs)
-    graph_with_io = NamedNodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+    graph_with_io = NamedNodeIOGraph.from_nodes(*nodes, patches=patches)  # type: ignore[arg-type]
 
     if verbose:
         print(graph_with_io)

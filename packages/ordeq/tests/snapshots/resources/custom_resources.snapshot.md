@@ -2,12 +2,13 @@
 
 ```python
 # Shows potential syntax that allows IO implementations to define the default
-# resources consumed by the IO. This may be useful since many times the resource
-# of the IO can be inferred directly from one of its attributes.
+# resources consumed by the IO. This may be useful since many times the
+# resource of the IO can be inferred directly from one of its attributes.
 from dataclasses import dataclass
 from pathlib import Path
 
 from ordeq import Input
+from ordeq._io import get_resource
 
 
 @dataclass(frozen=True)
@@ -24,16 +25,16 @@ resource = "my-resource"
 file_overridden = CSV(path=Path("overridden")) @ resource
 file_extended = csv @ resource
 
-print(csv._resource)
-print(file_overridden._resource)
-print(file_extended._resource)
+print(get_resource(csv))
+print(get_resource(file_overridden))
+print(get_resource(file_extended))
 
 ```
 
 ## Output
 
 ```text
-None
+CSV(path=Path('file'))
 my-resource
 my-resource
 

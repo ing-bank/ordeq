@@ -9,7 +9,7 @@ from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_duplicates)
-named_node_io_graph = NamedNodeIOGraph.from_nodes(nodes)
+named_node_io_graph = NamedNodeIOGraph.from_nodes(*nodes)
 print("NamedNodeIOGraph:")
 print(named_node_io_graph)
 
@@ -26,14 +26,14 @@ pprint(named_node_graph.topological_ordering)
 
 ```text
 NamedNodeIOGraph:
-io-0 --> Node:example_duplicates.file1:foo
-io-2 --> Node:example_duplicates.file2:foo
-Node:example_duplicates.file1:foo --> io-1
-Node:example_duplicates.file2:foo --> io-3
+io-0 --> Node:example_duplicates.file2:foo
+io-2 --> Node:example_duplicates.file1:foo
+Node:example_duplicates.file2:foo --> io-1
+Node:example_duplicates.file1:foo --> io-3
 NamedNodeGraph:
 
 Topological ordering:
-(Node(name=example_duplicates.file2:foo, inputs=[Literal(3)], outputs=[IO(idx=ID1)]),
- Node(name=example_duplicates.file1:foo, inputs=[Literal(3)], outputs=[IO(idx=ID2)]))
+(Node(name=example_duplicates.file1:foo, inputs=[Literal(3)], outputs=[IO(idx=ID1)]),
+ Node(name=example_duplicates.file2:foo, inputs=[Literal(3)], outputs=[IO(idx=ID2)]))
 
 ```

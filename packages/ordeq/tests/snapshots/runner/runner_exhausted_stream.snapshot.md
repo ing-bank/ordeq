@@ -54,16 +54,16 @@ run(increment, multiply, verbose=True, save="sinks")
 ## Output
 
 ```text
-io-0 --> Node:runner_exhausted_stream:increment
+io-0 --> Node:runner_exhausted_stream:multiply
 io-1 --> Node:runner_exhausted_stream:multiply
-io-2 --> Node:runner_exhausted_stream:multiply
-Node:runner_exhausted_stream:increment --> io-1
-Node:runner_exhausted_stream:multiply --> io-3
-io-0 --> Node:runner_exhausted_stream:increment
+io-3 --> Node:runner_exhausted_stream:increment
+Node:runner_exhausted_stream:multiply --> io-2
+Node:runner_exhausted_stream:increment --> io-0
+io-0 --> Node:runner_exhausted_stream:multiply
 io-1 --> Node:runner_exhausted_stream:multiply
-io-2 --> Node:runner_exhausted_stream:multiply
-Node:runner_exhausted_stream:increment --> io-1
-Node:runner_exhausted_stream:multiply --> io-3
+io-3 --> Node:runner_exhausted_stream:increment
+Node:runner_exhausted_stream:multiply --> io-2
+Node:runner_exhausted_stream:increment --> io-0
 
 ```
 
@@ -80,5 +80,6 @@ INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
 INFO	ordeq.runner	Running node "increment" in module "runner_exhausted_stream"
 INFO	ordeq.io	Loading Literal('2')
 INFO	ordeq.runner	Running node "multiply" in module "runner_exhausted_stream"
+INFO	ordeq.io	Saving Stream(data=[])
 
 ```

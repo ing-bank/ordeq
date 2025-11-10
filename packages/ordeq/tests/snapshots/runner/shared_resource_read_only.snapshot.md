@@ -47,10 +47,10 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-io-0 --> View:shared_resource_read_only:first
-io-2 --> View:shared_resource_read_only:second
-View:shared_resource_read_only:first --> io-1
-View:shared_resource_read_only:second --> io-3
+io-0 --> View:shared_resource_read_only:second
+io-2 --> View:shared_resource_read_only:first
+View:shared_resource_read_only:second --> io-1
+View:shared_resource_read_only:first --> io-3
 
 
 
@@ -62,8 +62,8 @@ View:shared_resource_read_only:second --> io-3
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_read_only:first'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_read_only:second'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running view "second" in module "shared_resource_read_only"
-INFO	ordeq.io	Loading File
 INFO	ordeq.runner	Running view "first" in module "shared_resource_read_only"
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running view "second" in module "shared_resource_read_only"
 
 ```

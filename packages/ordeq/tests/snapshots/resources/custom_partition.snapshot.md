@@ -5,6 +5,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from ordeq._io import get_resource
 from ordeq_files import CSV
 
 
@@ -23,8 +24,8 @@ csv_be = CSV(path=folder / Path(partition_be.idx)) @ partition_be
 csv_nl.with_resource(partition_eu)
 csv_be.with_resource(partition_eu)
 
-print(csv_nl._resource)
-print(csv_be._resource)
+print(get_resource(csv_nl))
+print(get_resource(csv_be))
 
 ```
 

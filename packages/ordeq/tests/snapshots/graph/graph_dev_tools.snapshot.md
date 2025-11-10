@@ -5,15 +5,15 @@
 from pprint import pprint
 
 import ordeq_dev_tools
-from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._graph import NodeGraph, NamedNodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(ordeq_dev_tools)
-base_graph = NodeIOGraph.from_nodes(nodes)
-print("NodeIOGraph")
-print(base_graph)
+named_node_io_graph = NamedNodeIOGraph.from_nodes(nodes)
+print("NamedNodeIOGraph")
+print(named_node_io_graph)
 
-node_graph = NodeGraph.from_graph(base_graph)
+node_graph = NodeGraph.from_graph(named_node_io_graph)
 print("NodeGraph")
 print(node_graph)
 
@@ -25,8 +25,54 @@ pprint([node.name for node in node_graph.topological_ordering])
 ## Output
 
 ```text
-NodeIOGraph
-<ordeq._graph.NodeIOGraph object at HASH1>
+NamedNodeIOGraph
+io-0 --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
+io-0 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:package_tags
+io-1 --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
+io-3 --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
+io-5 --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+io-4 --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+io-7 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+io-7 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits
+io-8 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+io-8 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_relevant_prs
+io-9 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+io-10 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes
+io-11 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+io-12 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+io-14 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node
+io-14 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_commit_changed_files
+io-15 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node
+io-16 --> Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_latest_tags
+io-17 --> Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
+io-19 --> Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies
+io-19 --> Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
+io-22 --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
+io-18 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+io-20 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> io-1
+Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> io-2
+View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> io-4
+View:ordeq_dev_tools.pipelines.docs_update_just:just_output --> io-3
+Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section --> io-6
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:compute_package_changes --> io-11
+View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases --> io-13
+View:ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> io-12
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:filter_commits_by_package_node --> io-8
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits --> io-14
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_commits --> io-10
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_all_latest_tags --> io-7
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_commit_changed_files --> io-15
+Node:ordeq_dev_tools.pipelines.generate_draft_releases:get_relevant_prs --> io-9
+View:ordeq_dev_tools.pipelines.generate_draft_releases:package_tags --> io-16
+View:ordeq_dev_tools.pipelines.list_changed_packages:changed_files --> io-17
+Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> io-18
+Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> io-20
+Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram --> io-21
+Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> io-19
+Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> io-23
+View:ordeq_dev_tools.pipelines.shared:packages --> io-0
+Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> io-24
 NodeGraph
 View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
 View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section

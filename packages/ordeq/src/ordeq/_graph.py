@@ -174,15 +174,15 @@ class NamedNodeIOGraph(NodeIOGraph):
 
         for io, nodes in self.input_to_nodes.items():
             lines.extend(
-                f"{type(node).__name__}:{self.names[node]} --> "
-                f"{self.names[io]}"
+                f"{self.names[io]} --> "
+                f"{type(node).__name__}:{self.names[node]}"
                 for node in nodes
             )
 
         for node, ios in self.node_to_outputs.items():
             lines.extend(
-                f"{self.names[node]} --> "
-                f"{type(io).__name__}:{self.names[io]}"
+                f"{type(node).__name__}:{self.names[node]} --> "
+                f"{self.names[io]}"
                 for io in ios
             )
 

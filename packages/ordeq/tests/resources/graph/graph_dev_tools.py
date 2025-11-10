@@ -2,15 +2,15 @@
 from pprint import pprint
 
 import ordeq_dev_tools
-from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._graph import NodeGraph, NamedNodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(ordeq_dev_tools)
-base_graph = NodeIOGraph.from_nodes(nodes)
-print("NodeIOGraph")
-print(base_graph)
+named_node_io_graph = NamedNodeIOGraph.from_nodes(nodes)
+print("NamedNodeIOGraph")
+print(named_node_io_graph)
 
-node_graph = NodeGraph.from_graph(base_graph)
+node_graph = NodeGraph.from_graph(named_node_io_graph)
 print("NodeGraph")
 print(node_graph)
 

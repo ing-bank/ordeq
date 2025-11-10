@@ -18,7 +18,7 @@ maintainers = [
     { name = "Simon Brugman" },
 ]
 requires-python = ">=3.10"
-dependencies = ["ordeq>=1.2.0"]
+dependencies = ["ordeq>=1.3.0"]
 
 [tool.ordeq-dev]
 group = "CLI"

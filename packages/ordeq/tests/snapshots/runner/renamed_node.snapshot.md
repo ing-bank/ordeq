@@ -15,7 +15,8 @@ run(renamed, verbose=True)
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-0 --> Node:resources.runner.example_module_b:increment
+Node:resources.runner.example_module_b:increment --> io-1
 
 ```
 
@@ -24,7 +25,7 @@ run(renamed, verbose=True)
 ```text
 INFO	ordeq.io	Loading Literal(12345)
 INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_b"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```
 

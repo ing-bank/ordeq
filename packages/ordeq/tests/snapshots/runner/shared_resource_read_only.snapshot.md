@@ -47,7 +47,10 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-0 --> View:shared_resource_read_only:first
+io-2 --> View:shared_resource_read_only:second
+View:shared_resource_read_only:first --> io-1
+View:shared_resource_read_only:second --> io-3
 
 
 

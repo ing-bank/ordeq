@@ -54,8 +54,16 @@ run(increment, multiply, verbose=True, save="sinks")
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
-<ordeq._graph.NodeIOGraph object at HASH2>
+io-0 --> Node:runner_exhausted_stream:increment
+io-1 --> Node:runner_exhausted_stream:multiply
+io-2 --> Node:runner_exhausted_stream:multiply
+Node:runner_exhausted_stream:increment --> io-1
+Node:runner_exhausted_stream:multiply --> io-3
+io-0 --> Node:runner_exhausted_stream:increment
+io-1 --> Node:runner_exhausted_stream:multiply
+io-2 --> Node:runner_exhausted_stream:multiply
+Node:runner_exhausted_stream:increment --> io-1
+Node:runner_exhausted_stream:multiply --> io-3
 
 ```
 

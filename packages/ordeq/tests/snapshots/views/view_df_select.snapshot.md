@@ -34,7 +34,10 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-0 --> View:view_df_select:df_selected
+io-1 --> View:view_df_select:group_by
+View:view_df_select:df_selected --> io-1
+View:view_df_select:group_by --> io-2
      A
 0  bar
 1  foo

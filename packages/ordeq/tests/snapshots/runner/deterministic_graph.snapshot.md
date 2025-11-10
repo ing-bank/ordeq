@@ -48,7 +48,20 @@ run(*pipeline, verbose=True)
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-0 --> View:deterministic_graph:a
+io-0 --> View:deterministic_graph:z
+io-1 --> View:deterministic_graph:a
+io-1 --> View:deterministic_graph:z
+io-2 --> View:deterministic_graph:a
+io-2 --> View:deterministic_graph:z
+io-3 --> View:deterministic_graph:a
+io-3 --> View:deterministic_graph:z
+View:deterministic_graph:a --> io-4
+Node:deterministic_graph:f1 --> io-0
+Node:deterministic_graph:f2 --> io-1
+Node:deterministic_graph:f3 --> io-2
+Node:deterministic_graph:f4 --> io-3
+View:deterministic_graph:z --> io-5
 
 ```
 

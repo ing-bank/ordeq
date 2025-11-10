@@ -30,9 +30,13 @@ run(n, verbose=True)
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-0 --> Node:view_returns_optional:n
+View:view_returns_optional:conditional --> io-0
+Node:view_returns_optional:n --> io-1
 Higher value!
-<ordeq._graph.NodeIOGraph object at HASH2>
+io-0 --> Node:view_returns_optional:n
+View:view_returns_optional:conditional --> io-0
+Node:view_returns_optional:n --> io-1
 None
 
 ```

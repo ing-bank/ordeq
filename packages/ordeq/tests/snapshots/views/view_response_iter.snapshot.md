@@ -31,7 +31,10 @@ run(concatenate, verbose=True)
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-0 --> View:view_response_iter:concatenate
+io-2 --> View:view_response_iter:users_lines
+View:view_response_iter:concatenate --> io-1
+View:view_response_iter:users_lines --> io-0
 b'{'
 b'  "id": 1,'
 b'  "name": "Leanne Graham",'

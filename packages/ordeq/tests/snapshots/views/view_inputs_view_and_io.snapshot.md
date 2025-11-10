@@ -36,7 +36,12 @@ run(n, verbose=True)
 ```text
 View(name=view_inputs_view_and_io:hello)
 View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-1 --> View:view_inputs_view_and_io:hello_from_someone
+io-0 --> View:view_inputs_view_and_io:hello_from_someone
+io-2 --> View:view_inputs_view_and_io:n
+View:view_inputs_view_and_io:hello --> io-0
+View:view_inputs_view_and_io:hello_from_someone --> io-2
+View:view_inputs_view_and_io:n --> io-3
 I heard that Jane said 'Hello, World!'
 
 ```

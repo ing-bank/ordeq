@@ -20,9 +20,9 @@ run(show_message, verbose=True)
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+View:run_rename_run:print_message --> io-0
 Hello from printer
-<ordeq._graph.NodeIOGraph object at HASH2>
+View:run_rename_run:print_message --> io-0
 Hello from printer
 
 ```

@@ -24,7 +24,10 @@ run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-0 --> View:view_patch_io:hello_world
+io-1 --> View:view_patch_io:n
+View:view_patch_io:hello_world --> io-1
+View:view_patch_io:n --> io-2
 Node received 'Buenos dias World!'
 
 ```

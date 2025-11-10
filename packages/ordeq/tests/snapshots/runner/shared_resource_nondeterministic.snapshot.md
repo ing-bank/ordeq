@@ -47,7 +47,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+Node:shared_resource_nondeterministic:first --> io-0
+Node:shared_resource_nondeterministic:second --> io-1
 
 ```
 

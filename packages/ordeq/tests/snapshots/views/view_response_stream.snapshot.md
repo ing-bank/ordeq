@@ -28,8 +28,11 @@ run(printer, verbose=True)
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
-<generator object HTTPResponse.stream at HASH2>
+io-0 --> Node:view_response_stream:printer
+io-2 --> View:view_response_stream:users_stream
+Node:view_response_stream:printer --> io-1
+View:view_response_stream:users_stream --> io-0
+<generator object HTTPResponse.stream at HASH1>
 
 ```
 

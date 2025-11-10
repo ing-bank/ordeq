@@ -116,7 +116,11 @@ IOException: Failed to load Input(idx=ID1).
 ## Output
 
 ```text
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-0 --> Node:incremental_placeholder:f
+io-1 --> Node:incremental_placeholder:f
+io-2 --> Node:incremental_placeholder:g
+Node:incremental_placeholder:f --> io-2
+Node:incremental_placeholder:g --> io-3
 
 ```
 

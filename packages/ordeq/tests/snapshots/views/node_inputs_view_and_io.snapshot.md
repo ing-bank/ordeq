@@ -27,7 +27,10 @@ run(n, verbose=True)
 
 ```text
 View(name=node_inputs_view_and_io:hello)
-<ordeq._graph.NodeIOGraph object at HASH1>
+io-1 --> Node:node_inputs_view_and_io:n
+io-0 --> Node:node_inputs_view_and_io:n
+View:node_inputs_view_and_io:hello --> io-0
+Node:node_inputs_view_and_io:n --> io-2
 Jane said 'Hello, World!'
 
 ```

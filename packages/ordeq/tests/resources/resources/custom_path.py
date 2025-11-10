@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ordeq import Input
-from ordeq._io import get_resource
 from ordeq_files import CSV, Text
 
 
@@ -30,9 +29,9 @@ csv_raw = CSV(path=path) @ path
 csv_text = Text(path=path) @ path
 custom1 = CustomIO(uri=path.as_uri()) @ path
 custom2 = CustomIO2(file=str(path), py_file=path.suffix == ".py") @ path
-print(get_resource(csv_raw))
-print(get_resource(csv_text))
+print(csv_raw._resource)
+print(csv_text._resource)
 print(custom1)
-print(get_resource(custom1))
+print(custom1._resource)
 print(custom2)
-print(get_resource(custom2))
+print(custom2._resource)

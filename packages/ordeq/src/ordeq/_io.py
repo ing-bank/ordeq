@@ -242,7 +242,7 @@ class _InputException(_BaseInput[Tin]):
 
 
 class _WithResource:
-    _resource: Hashable = None
+    _resource_: Hashable = None
 
     def with_resource(self, resource: Any) -> Self:
         if resource is None:
@@ -252,8 +252,12 @@ class _WithResource:
             "without notice in future releases."
         )
         new = copy.copy(self)
-        new.__dict__["_resource"] = resource
+        new.__dict__["_resource_"] = resource
         return new
+
+    @property
+    def _resource(self) -> Self:
+        return self._resource_ or self
 
     def __matmul__(self, resource: Any) -> Self:
         return self.with_resource(resource)
@@ -605,28 +609,3 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
 # Type aliases
 AnyIO: TypeAlias = Input | Output | IO
-
-
-def has_resource(io: AnyIO) -> Any:
-    """Returns whether the IO has a resource set.
-
-    Args:
-        io: The IO.
-
-    Returns:
-        Whether the IO has a resource set.
-    """
-    return io._resource is not None  # noqa: SLF001 (private-member-access)
-
-
-def get_resource(io: AnyIO) -> Any:
-    """Returns the resource underlying the IO. If the IO does not have a
-    resource set, the IO itself is the resource representation.
-
-    Args:
-        io: The IO.
-
-    Returns:
-        The resource underlying the IO.
-    """
-    return io._resource or io  # noqa: SLF001 (private-member-access)

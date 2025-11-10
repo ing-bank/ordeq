@@ -52,5 +52,5 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No 
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-packages/ordeq/tests/resources/resources/custom_s3.py:28: error: Cannot instantiate abstract class "CloudPath" with abstract attributes "drive", "mkdir" and "touch"  [abstract]
+packages/ordeq/tests/resources/resources/custom_s3.py:27: error: Cannot instantiate abstract class "CloudPath" with abstract attributes "drive", "mkdir" and "touch"  [abstract]
 Found 28 errors in 19 files (checked 206 source files)

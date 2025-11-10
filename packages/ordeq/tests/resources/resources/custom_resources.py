@@ -5,7 +5,6 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from ordeq import Input
-from ordeq._io import get_resource
 
 
 @dataclass(frozen=True)
@@ -22,6 +21,6 @@ resource = "my-resource"
 file_overridden = CSV(path=Path("overridden")) @ resource
 file_extended = csv @ resource
 
-print(get_resource(csv))
-print(get_resource(file_overridden))
-print(get_resource(file_extended))
+print(csv._resource)
+print(file_overridden._resource)
+print(file_extended._resource)

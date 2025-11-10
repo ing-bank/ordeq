@@ -32,12 +32,12 @@ csv_raw = CSV(path=path) @ path
 csv_text = Text(path=path) @ path
 custom1 = CustomIO(uri=path.as_uri()) @ path
 custom2 = CustomIO2(file=str(path), py_file=path.suffix == ".py") @ path
-print(csv_raw.resource)
-print(csv_text.resource)
+print(csv_raw._resource)
+print(csv_text._resource)
 print(custom1)
-print(custom1.resource)
+print(custom1._resource)
 print(custom2)
-print(custom2.resource)
+print(custom2._resource)
 
 ```
 

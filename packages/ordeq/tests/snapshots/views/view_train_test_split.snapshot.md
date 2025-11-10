@@ -41,10 +41,7 @@ run(train, verbose=True)
 ## Output
 
 ```text
-io-1 --> View:view_train_test_split:train
-io-2 --> View:view_train_test_split:split
-View:view_train_test_split:train --> io-3
-View:view_train_test_split:split --> io-1
+<ordeq._graph.NodeIOGraph object at HASH1>
 Training          B   gt
 count  3.0  3.0
 mean   2.0  5.0

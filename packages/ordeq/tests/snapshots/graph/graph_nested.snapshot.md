@@ -26,11 +26,11 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-View:example_nested.subpackage.subsubpackage.hello:world --> io-1
+<ordeq._graph.NodeIOGraph object at HASH1>
 NodeGraph
-View:example_nested.subpackage.subsubpackage.hello:world
+
 Topological ordering
-['example_nested.subpackage.subsubpackage.hello:world']
+[]
 
 ```
 

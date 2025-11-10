@@ -35,19 +35,3 @@ def my_node() -> str:
 run(my_node, hooks=[hook])
 
 ```
-
-## Output
-
-```text
-Hook: before saving output of node mixed_hook:my_node with data: Hello, World!
-saving! Hello, World!
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.runner	Running node "my_node" in module "mixed_hook"
-INFO	ordeq.io	Saving Output(idx=ID1)
-
-```

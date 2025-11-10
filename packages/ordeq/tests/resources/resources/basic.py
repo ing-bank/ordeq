@@ -6,5 +6,5 @@ from ordeq_files import CSV, Text
 resource = 0.1244
 csv = CSV(path=Path("my/path")).with_resource(resource)
 csv_text = Text(path=Path("my/path")).with_resource(resource)
-print(csv.resource)
-print(csv_text.resource)
+print(csv._resource)
+print(csv_text._resource)

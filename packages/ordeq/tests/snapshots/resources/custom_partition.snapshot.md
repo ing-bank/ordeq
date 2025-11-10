@@ -23,16 +23,16 @@ csv_be = CSV(path=folder / Path(partition_be.idx)) @ partition_be
 csv_nl.with_resource(partition_eu)
 csv_be.with_resource(partition_eu)
 
-print(csv_nl.resource)
-print(csv_be.resource)
+print(csv_nl._resource)
+print(csv_be._resource)
 
 ```
 
 ## Output
 
 ```text
-Partition(idx='Europe')
-Partition(idx='Europe')
+Partition(idx='NL')
+Partition(idx='BE')
 
 ```
 

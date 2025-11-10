@@ -38,17 +38,9 @@ print(p4.load())
 ## Output
 
 ```text
-io-1 --> Node:runner_io:increment
-io-2 --> Node:runner_io:decrement
-io-3 --> Node:runner_io:decrement
-Node:runner_io:increment --> io-2
-Node:runner_io:decrement --> io-4
+<ordeq._graph.NodeIOGraph object at HASH1>
 0
-io-1 --> Node:runner_io:decrement
-io-2 --> Node:runner_io:decrement
-io-3 --> Node:runner_io:increment
-Node:runner_io:decrement --> io-4
-Node:runner_io:increment --> io-1
+<ordeq._graph.NodeIOGraph object at HASH2>
 -10
 
 ```
@@ -58,17 +50,17 @@ Node:runner_io:increment --> io-1
 ```text
 INFO	ordeq.io	Loading Literal(1)
 INFO	ordeq.runner	Running node "increment" in module "runner_io"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "decrement" in module "runner_io"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.runner	Running node "decrement" in module "runner_io"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH5>)
 INFO	ordeq.io	Loading Literal(2)
 INFO	ordeq.runner	Running node "increment" in module "runner_io"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.io	Loading Literal('33')
 INFO	ordeq.runner	Running node "decrement" in module "runner_io"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```

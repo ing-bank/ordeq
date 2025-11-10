@@ -6,5 +6,5 @@ from ordeq_files import CSV
 resource = "resource!"
 csv = CSV(path=Path("my/path")).with_resource(resource)
 csv_twice = csv.with_resource(resource)
-print(csv.resource)
-print(csv_twice.resource)
+print(csv._resource)
+print(csv_twice._resource)

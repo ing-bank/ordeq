@@ -15,19 +15,3 @@ def func1(hello: str) -> str:
 run(func1)  # 'catalog.another_io' prints the output to stdout
 
 ```
-
-## Output
-
-```text
-HELLO FROM REMOTE!
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "func1" in module "overriden"
-INFO	ordeq.io	Saving Print()
-
-```

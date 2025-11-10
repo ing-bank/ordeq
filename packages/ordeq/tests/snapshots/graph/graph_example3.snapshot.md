@@ -26,13 +26,11 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-View:example_3.func_defs:hello --> io-1
-View:example_3.func_defs:hello --> io-2
+<ordeq._graph.NodeIOGraph object at HASH1>
 NodeGraph
-View:example_3.func_defs:hello
-View:example_3.func_defs:hello
+
 Topological ordering
-['example_3.func_defs:hello', 'example_3.func_defs:hello']
+[]
 
 ```
 

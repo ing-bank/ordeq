@@ -27,10 +27,7 @@ run(combine_greeting_with_ending, verbose=True)
 
 ```text
 View(name=node_inputs_view_tuple_and_io:hello)
-io-1 --> Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending
-io-2 --> Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending
-View:node_inputs_view_tuple_and_io:hello --> io-1
-Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending --> io-3
+<ordeq._graph.NodeIOGraph object at HASH1>
 Hello world !!!
 
 ```

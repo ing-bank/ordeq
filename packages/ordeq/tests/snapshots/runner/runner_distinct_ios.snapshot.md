@@ -22,17 +22,6 @@ run(func1, func2, verbose=True)
 ## Output
 
 ```text
-Node:runner_distinct_ios:func1 --> io-1
-Node:runner_distinct_ios:func2 --> io-2
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.runner	Running node "func2" in module "runner_distinct_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "func1" in module "runner_distinct_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+<ordeq._graph.NodeIOGraph object at HASH1>
 
 ```

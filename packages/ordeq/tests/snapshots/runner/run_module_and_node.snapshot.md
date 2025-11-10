@@ -17,12 +17,7 @@ run(example_module_a, noop, verbose=True)
 ## Output
 
 ```text
-io-1 --> Node:resources.runner.example_module_a:decrement
-io-2 --> Node:resources.runner.example_module_a:decrement
-io-3 --> Node:resources.runner.example_module_a:increment
-Node:resources.runner.example_module_a:decrement --> io-4
-View:run_module_and_node:noop --> io-5
-Node:resources.runner.example_module_a:increment --> io-1
+<ordeq._graph.NodeIOGraph object at HASH1>
 
 ```
 
@@ -32,11 +27,10 @@ Node:resources.runner.example_module_a:increment --> io-1
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'run_module_and_node:noop'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(12345)
 INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_a"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running view "noop" in module "run_module_and_node"
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_module_a"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```
 

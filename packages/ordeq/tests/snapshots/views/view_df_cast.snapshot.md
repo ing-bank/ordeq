@@ -37,10 +37,7 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-1 --> View:view_df_cast:df_casted
-io-2 --> View:view_df_cast:group_by
-View:view_df_cast:df_casted --> io-2
-View:view_df_cast:group_by --> io-3
+<ordeq._graph.NodeIOGraph object at HASH1>
      A    B    D
 0  bar  2.0  5.0
 1  foo  2.0  8.0

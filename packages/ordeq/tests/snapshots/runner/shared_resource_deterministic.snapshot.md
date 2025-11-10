@@ -46,10 +46,7 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-io-1 --> View:shared_resource_deterministic:second
-View:shared_resource_deterministic:second --> io-2
-Node:shared_resource_deterministic:first --> io-3
-Hello, world!
+<ordeq._graph.NodeIOGraph object at HASH1>
 
 ```
 
@@ -57,9 +54,5 @@ Hello, world!
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'shared_resource_deterministic:second'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "first" in module "shared_resource_deterministic"
-INFO	ordeq.io	Saving File
-INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running view "second" in module "shared_resource_deterministic"
 
 ```

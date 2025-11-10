@@ -47,17 +47,6 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-Node:shared_resource_nondeterministic:first --> io-1
-Node:shared_resource_nondeterministic:second --> io-2
-
-```
-
-## Logging
-
-```text
-INFO	ordeq.runner	Running node "second" in module "shared_resource_nondeterministic"
-INFO	ordeq.io	Saving File
-INFO	ordeq.runner	Running node "first" in module "shared_resource_nondeterministic"
-INFO	ordeq.io	Saving File
+<ordeq._graph.NodeIOGraph object at HASH1>
 
 ```

@@ -2,9 +2,9 @@ from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import Any, TypeAlias
+from typing import Any, TypeAlias, TypeVar, Generic
 
-from ordeq._io import AnyIO
+from ordeq._io import AnyIO, get_resource, has_resource
 from ordeq._nodes import Node, View
 
 try:
@@ -23,15 +23,40 @@ def _collect_views(nodes_: set[Node]) -> set[View]:
     return views
 
 
+T = TypeVar("T")
+
+
+class OrderedSet(dict[T, None]):
+    def __init__(self):
+        self.data = {}
+        super().__init__()
+
+    def add(self, key):
+        super().__setitem__(key, None)
+
+
+Tvertex = TypeVar("Tvertex")
+
+
+class Graph(Generic[Tvertex]):
+    edges: dict[Tvertex, OrderedSet[Tvertex]]
+
+    @cached_property
+    def topological_ordering(self) -> tuple[Tvertex, ...]:
+        return tuple(
+            reversed(tuple(TopologicalSorter(self.edges).static_order()))
+        )
+
+
 @dataclass(frozen=True)
-class BaseGraph:
-    resources: set[Any]
-    ios: set[AnyIO]
-    nodes: set[Node]
-    resource_to_inputs: dict[Any, set[AnyIO]]
-    input_to_nodes: dict[AnyIO, set[Node]]
-    node_to_outputs: dict[Node, set[AnyIO]]
-    output_to_resources: dict[AnyIO, set[Any]]
+class BaseGraph(Graph[Any]):
+    resources: OrderedSet[Any]
+    ios: OrderedSet[AnyIO]
+    nodes: OrderedSet[Node]
+    resource_to_inputs: dict[Any, OrderedSet[AnyIO]]
+    input_to_nodes: dict[AnyIO, OrderedSet[Node]]
+    node_to_outputs: dict[Node, OrderedSet[AnyIO]]
+    output_to_resources: dict[AnyIO, OrderedSet[Any]]
 
     @classmethod
     def from_nodes(
@@ -49,39 +74,39 @@ class BaseGraph:
         if patches:
             all_nodes = {node._patch_io(patches) for node in all_nodes}  # noqa: SLF001 (private access)
 
-        # Second pass: register resources & IOs:
-        resources = set()
-        ios = set()
-        nodes = set()
+        resources = OrderedSet()
+        ios = OrderedSet()
+        nodes = OrderedSet()
 
-        resource_to_inputs: dict[Any, set[AnyIO]] = defaultdict(set)
-        input_to_nodes: dict[AnyIO, set[Node]] = defaultdict(set)
-        node_to_outputs: dict[Node, set[AnyIO]] = defaultdict(set)
-        output_to_resources: dict[AnyIO, set[Any]] = defaultdict(set)
+        resource_to_inputs: dict[Any, OrderedSet[AnyIO]] = defaultdict(OrderedSet)
+        input_to_nodes: dict[AnyIO, OrderedSet[Node]] = defaultdict(OrderedSet)
+        node_to_outputs: dict[Node, OrderedSet[AnyIO]] = defaultdict(OrderedSet)
+        output_to_resources: dict[AnyIO, OrderedSet[Any]] = defaultdict(OrderedSet)
 
-        # Used to detect outputs that write to the same resource
+        # Used to detect outputs that write to the same resource:
         resource_to_node: dict[Any, Node] = {}
 
-        for node in all_nodes:
+        # Traverse the nodes, sorted by name to preserve determinism:
+        for node in sorted(all_nodes, key=lambda node: node.name):
             nodes.add(node)
             for io in node.inputs:
-                if io.resource:
-                    resources.add(io.resource)
-                    resource_to_inputs[io.resource].add(io)
+                resource = get_resource(io)
+                resources.add(resource)
+                resource_to_inputs[resource].add(io)
                 ios.add(io)
                 input_to_nodes[io].add(node)
             for io in node.outputs:
-                if io.resource:
-                    resources.add(io.resource)
-                    output_to_resources[io].add(io.resource)
-                    if io.resource in resource_to_node:
-                        raise ValueError(
-                            f"Nodes '{node.name}' and "
-                            f"'{resource_to_node[io.resource].name}' "
-                            f"both output to resource {io.resource!r}. "
-                            f"Nodes cannot output to the same resource."
-                        )
-                    resource_to_node[io.resource] = node
+                resource = get_resource(io)
+                resources.add(resource)
+                output_to_resources[io].add(resource)
+                if has_resource(io) and resource in resource_to_node:
+                    raise ValueError(
+                        f"Nodes '{node.name}' and "
+                        f"'{resource_to_node[resource].name}' "
+                        f"both output to resource {resource!r}. "
+                        f"Nodes cannot output to the same resource."
+                    )
+                resource_to_node[resource] = node
                 ios.add(io)
                 node_to_outputs[node].add(io)
 
@@ -104,21 +129,15 @@ class BaseGraph:
             **self.output_to_resources,
         }
 
-    @cached_property
-    def topological_ordering(self) -> tuple[Any, ...]:
-        return tuple(
-            reversed(tuple(TopologicalSorter(self.edges).static_order()))
-        )
-
 
 @dataclass(frozen=True, repr=False)
-class NodeIOGraph:
+class NodeIOGraph(Graph[Node | AnyIO]):
     """Graph with views, nodes and IOs."""
 
-    input_to_nodes: dict[AnyIO, set[Node]]
-    node_to_outputs: dict[Node, set[AnyIO]]
-    ios: set[AnyIO]
-    nodes: set[Node]
+    input_to_nodes: dict[AnyIO, OrderedSet[Node]]
+    node_to_outputs: dict[Node, OrderedSet[AnyIO]]
+    ios: OrderedSet[AnyIO]
+    nodes: OrderedSet[Node]
 
     @classmethod
     def from_nodes(
@@ -139,44 +158,43 @@ class NodeIOGraph:
     def edges(self) -> dict[AnyIO | Node, set[AnyIO | Node]]:
         return {**self.input_to_nodes, **self.node_to_outputs}
 
-    @cached_property
-    def topological_ordering(self) -> tuple[Any, ...]:
-        return tuple(
-            reversed(tuple(TopologicalSorter(self.edges).static_order()))
-        )
 
-    def __repr__(self) -> str:
+class NamedNodeIOGraph(NodeIOGraph):
+    names: dict[Node | AnyIO, str]
+
+    @cached_property
+    def names(self) -> dict[Node | AnyIO, str]:
+        return {
+            **{io: f"io-{idx}" for idx, io in enumerate(self.ios)},
+            **{node: node.name for node in self.nodes},
+        }
+
+    def __repr__(self):
         lines: list[str] = []
 
-        io_ids: dict[AnyIO, str] = {}
-
-        def get_io_idx(io_: AnyIO) -> str:
-            if io_ not in io_ids:
-                io_ids[io_] = f"io-{len(io_ids) + 1}"
-            return io_ids[io_]
-
         for io, nodes in self.input_to_nodes.items():
-            io_idx = get_io_idx(io)
             lines.extend(
-                f"{io_idx} --> {type(node).__name__}:{node.name}"
+                f"{type(node).__name__}:{self.names[node]} --> "
+                f"{self.names[io]}"
                 for node in nodes
             )
 
-        for node, outputs in self.node_to_outputs.items():
+        for node, ios in self.node_to_outputs.items():
             lines.extend(
-                f"{type(node).__name__}:{node.name} --> {get_io_idx(io)}"
-                for io in outputs
+                f"{self.names[node]} --> "
+                f"{type(io).__name__}:{self.names[io]}"
+                for io in ios
             )
 
         return "\n".join(lines)
 
 
 @dataclass(frozen=True)
-class NodeGraph:
+class NodeGraph(Graph[Node]):
     """Graph where the edges are node -> [node]."""
 
-    edges: dict[Node, set[Node]]
-    nodes: set[Node]
+    edges: dict[Node, OrderedSet[Node]]
+    nodes: OrderedSet[Node]
 
     @classmethod
     def from_nodes(cls, nodes: set[Node]) -> Self:
@@ -184,7 +202,7 @@ class NodeGraph:
 
     @classmethod
     def from_graph(cls, graph: NodeIOGraph) -> Self:
-        edges: dict[Node, set[Node]] = {node: set() for node in graph.nodes}
+        edges: dict[Node, OrderedSet[Node]] = defaultdict(OrderedSet)
 
         for node, outputs in graph.node_to_outputs.items():
             for output in outputs:
@@ -201,12 +219,6 @@ class NodeGraph:
             set of the sink nodes
         """
         return {s for s, targets in self.edges.items() if len(targets) == 0}
-
-    @cached_property
-    def topological_ordering(self) -> tuple[Node, ...]:
-        return tuple(
-            reversed(tuple(TopologicalSorter(self.edges).static_order()))
-        )
 
     def __repr__(self) -> str:
         lines: list[str] = []

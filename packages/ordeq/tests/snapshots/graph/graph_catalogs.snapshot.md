@@ -26,7 +26,7 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-
+<ordeq._graph.NodeIOGraph object at HASH1>
 NodeGraph
 
 Topological ordering

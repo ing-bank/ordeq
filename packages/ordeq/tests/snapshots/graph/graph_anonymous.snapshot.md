@@ -26,11 +26,10 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-io-1 --> Node:example_anonymous.nodes:node_with_inline_io
-Node:example_anonymous.nodes:node_with_inline_io --> io-2
+<ordeq._graph.NodeIOGraph object at HASH1>
 NodeGraph
-Node:example_anonymous.nodes:node_with_inline_io
+
 Topological ordering
-['example_anonymous.nodes:node_with_inline_io']
+[]
 
 ```

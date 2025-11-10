@@ -34,8 +34,8 @@ class SparkIcebergTable(Input[None]):
 tbl = IcebergTable(catalog="global", ns="acc", name="txs")
 py = PyIcebergTable(catalog=tbl.catalog, ns=tbl.ns, table=tbl.name) @ tbl
 sp = SparkIcebergTable(table=f"{tbl.catalog}.{tbl.ns}.{tbl.name}") @ tbl
-print(py.resource)
-print(sp.resource)
+print(py._resource)
+print(sp._resource)
 
 ```
 

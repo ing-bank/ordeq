@@ -46,11 +46,7 @@ print(x4.load())
 ## Output
 
 ```text
-io-1 --> Node:runner_load_save_options:increment
-io-2 --> Node:runner_load_save_options:decrement
-io-3 --> Node:runner_load_save_options:decrement
-Node:runner_load_save_options:increment --> io-2
-Node:runner_load_save_options:decrement --> io-4
+<ordeq._graph.NodeIOGraph object at HASH1>
 x says 'x says y did it ' but y says 'x did it and I know the murder weapon'  
 
 ```

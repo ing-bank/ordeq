@@ -35,7 +35,7 @@ class IbisParquet(IO[Table]):
     """
 
     path: Path
-    resource: Path | str
+    _resource: Path | str
 
     @cached_property
     def _backend(self) -> BaseBackend:

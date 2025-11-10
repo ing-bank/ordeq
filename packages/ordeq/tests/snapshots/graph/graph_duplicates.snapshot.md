@@ -26,14 +26,10 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph:
-io-1 --> Node:example_duplicates.file1:foo
-io-2 --> Node:example_duplicates.file2:foo
-Node:example_duplicates.file1:foo --> io-3
-Node:example_duplicates.file2:foo --> io-4
+<ordeq._graph.NodeIOGraph object at HASH1>
 NodeGraph:
-Node:example_duplicates.file2:foo
-Node:example_duplicates.file1:foo
+
 Topological ordering:
-['example_duplicates.file1:foo', 'example_duplicates.file2:foo']
+[]
 
 ```

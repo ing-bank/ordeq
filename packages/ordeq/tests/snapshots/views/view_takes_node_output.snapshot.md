@@ -135,19 +135,10 @@ IOException: Failed to load IO(idx=ID1).
 ## Output
 
 ```text
-io-1 --> View:view_takes_node_output:what_i_heard
-io-2 --> View:view_takes_node_output:sink
-io-3 --> Node:view_takes_node_output:hello_from_someone
-io-4 --> Node:view_takes_node_output:hello_from_someone
-View:view_takes_node_output:what_i_heard --> io-2
-View:view_takes_node_output:sink --> io-5
-Node:view_takes_node_output:hello_from_someone --> io-1
+<ordeq._graph.NodeIOGraph object at HASH1>
 I heard that Jane said 'Hello'
 None
-io-1 --> View:view_takes_node_output:what_i_heard
-io-2 --> View:view_takes_node_output:sink
-View:view_takes_node_output:what_i_heard --> io-2
-View:view_takes_node_output:sink --> io-3
+<ordeq._graph.NodeIOGraph object at HASH2>
 
 ```
 

@@ -6,6 +6,8 @@ packages/ordeq/tests/resources/graph/graph_rag.py:5: error: Module "ordeq._graph
 packages/ordeq/tests/resources/graph/graph_project.py:5: error: Module "ordeq._graph" has no attribute "NamedNodeGraph"; maybe "NodeGraph"?  [attr-defined]
 packages/ordeq/tests/resources/graph/graph_project.py:9: error: Argument 1 to "from_nodes" of "NodeIOGraph" has incompatible type "*set[Node[Any, Any]]"; expected "set[Node[Any, Any]]"  [arg-type]
 packages/ordeq/tests/resources/graph/graph_project.py:9: error: Argument 1 to "from_nodes" of "NodeIOGraph" has incompatible type "*set[Node[Any, Any]]"; expected "dict[Input[Any] | Output[Any] | IO[Any] | View[Any, Any], Input[Any] | Output[Any] | IO[Any]] | None"  [arg-type]
+packages/ordeq/tests/resources/graph/graph_output_same_resource.py:2: error: Cannot find implementation or library stub for module named "example_resources"  [import-not-found]
+packages/ordeq/tests/resources/graph/graph_output_same_resource.py:2: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
 packages/ordeq/tests/resources/graph/graph_output_same_resource.py:3: error: Module "ordeq._graph" has no attribute "BaseGraph"  [attr-defined]
 packages/ordeq/tests/resources/graph/graph_nested.py:5: error: Module "ordeq._graph" has no attribute "NamedNodeGraph"; maybe "NodeGraph"?  [attr-defined]
 packages/ordeq/tests/resources/graph/graph_nested.py:5: error: Module "ordeq._graph" has no attribute "NamedNodeIOGraph"; maybe "NodeIOGraph"?  [attr-defined]
@@ -79,4 +81,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Poss
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
 packages/ordeq/tests/resources/resources/custom_s3.py:19: error: Cannot instantiate abstract class "CloudPath" with abstract attributes "drive", "mkdir" and "touch"  [abstract]
-Found 54 errors in 33 files (checked 206 source files)
+Found 55 errors in 33 files (checked 207 source files)

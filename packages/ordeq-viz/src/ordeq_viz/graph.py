@@ -82,7 +82,7 @@ def _gather_graph(
         metadata for nodes (NodeData)
         metadata for ios (IOData)
     """
-    graph = NodeIOGraph.from_nodes(*nodes)
+    graph = NodeIOGraph.from_nodes(nodes)
 
     reverse_lookup = {
         hash(io): name

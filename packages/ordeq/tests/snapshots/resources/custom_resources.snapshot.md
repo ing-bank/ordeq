@@ -43,7 +43,7 @@ my-resource
 ## Logging
 
 ```text
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 
 ```

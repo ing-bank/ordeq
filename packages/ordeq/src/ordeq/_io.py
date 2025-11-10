@@ -88,23 +88,23 @@ class _InputMeta(type):
         for base in bases:
             l_method = getattr(base, "load", None)
             if (
-                l_method is not None
-                and l_method.__qualname__ != "_raise_not_implemented"
+                    l_method is not None
+                    and l_method.__qualname__ != "_raise_not_implemented"
             ):
                 load_method = l_method
 
         l_method = class_dict.get("load", None)
         if (
-            l_method is not None
-            and l_method.__qualname__ != "_raise_not_implemented"
+                l_method is not None
+                and l_method.__qualname__ != "_raise_not_implemented"
         ):
             load_method = l_method
 
         if name not in {"Input", "IO"}:
             # Ensure load method is implemented
             if (
-                not callable(load_method)
-                or load_method.__qualname__ == "_raise_not_implemented"
+                    not callable(load_method)
+                    or load_method.__qualname__ == "_raise_not_implemented"
             ):
                 msg = (
                     f"Can't instantiate abstract class {name} "
@@ -118,8 +118,8 @@ class _InputMeta(type):
                 if argument in {"self", "cls"}:
                     continue
                 if (
-                    param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                        param.default is inspect.Parameter.empty
+                        and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -179,7 +179,7 @@ class _InputHooks(_BaseInput[Tin]):
     def with_input_hooks(self, *hooks: InputHook) -> Self:
         for hook in hooks:
             if not (
-                isinstance(hook, InputHook) and not isinstance(hook, type)
+                    isinstance(hook, InputHook) and not isinstance(hook, type)
             ):
                 raise TypeError(f"Expected InputHook instance, got {hook}.")
 
@@ -245,15 +245,17 @@ class _WithResource:
     _resource: Hashable = None
 
     def with_resource(self, resource: Any) -> Self:
+        if resource is None:
+            raise ValueError("Resource cannot be None.")
+        logger.warning(
+            "Resources are in preview mode and may change "
+            "without notice in future releases."
+        )
         new = copy.copy(self)
         new.__dict__["_resource"] = resource
         return new
 
     def __matmul__(self, resource: Any) -> Self:
-        logger.warning(
-            "The syntax 'IO @ resource' is in preview mode and may change "
-            "without notice in future releases."
-        )
         return self.with_resource(resource)
 
 
@@ -386,8 +388,8 @@ class _OutputMeta(type):
                 if i < 2:
                     continue
                 if (
-                    param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                        param.default is inspect.Parameter.empty
+                        and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
                 ):
                     raise TypeError(
                         f"Argument '{argument}' of function "
@@ -395,8 +397,8 @@ class _OutputMeta(type):
                     )
 
             if (
-                sig.return_annotation != inspect.Signature.empty
-                and sig.return_annotation is not None
+                    sig.return_annotation != inspect.Signature.empty
+                    and sig.return_annotation is not None
             ):
                 raise TypeError("Save method must have return type None.")
 
@@ -452,7 +454,7 @@ class _OutputHooks(_BaseOutput[Tout], Generic[Tout]):
     def with_output_hooks(self, *hooks: OutputHook) -> Self:
         for hook in hooks:
             if not (
-                isinstance(hook, OutputHook) and not isinstance(hook, type)
+                    isinstance(hook, OutputHook) and not isinstance(hook, type)
             ):
                 raise TypeError(f"Expected OutputHook instance, got {hook}.")
 
@@ -606,6 +608,12 @@ AnyIO: TypeAlias = Input | Output | IO
 
 
 def has_resource(io: AnyIO) -> Any:
+    """
+    Returns whether the IO has a resource set.
+
+    :param io:
+    :return:
+    """
     return io._resource is not None  # noqa: SLF001 (private-member-access)
 
 

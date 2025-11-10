@@ -14,9 +14,9 @@ _ = BaseGraph.from_nodes(*nodes)
 ## Exception
 
 ```text
-ImportError: cannot import name 'BaseGraph' from 'ordeq._graph' (/packages/ordeq/src/ordeq/_graph.py)
+ModuleNotFoundError: No module named 'example_resources'
   File "/packages/ordeq/tests/resources/graph/graph_output_same_resource.py", line LINO, in <module>
-    from ordeq._graph import BaseGraph
+    from example_resources import same_output
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
 
@@ -28,18 +28,11 @@ ImportError: cannot import name 'BaseGraph' from 'ordeq._graph' (/packages/ordeq
 
 ```
 
-## Logging
-
-```text
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	The syntax 'IO @ resource' is in preview mode and may change without notice in future releases.
-
-```
-
 ## Typing
 
 ```text
+packages/ordeq/tests/resources/graph/graph_output_same_resource.py:2:6: error[unresolved-import] Cannot resolve imported module `example_resources`
 packages/ordeq/tests/resources/graph/graph_output_same_resource.py:3:26: error[unresolved-import] Module `ordeq._graph` has no member `BaseGraph`
-Found 1 diagnostic
+Found 2 diagnostics
 
 ```

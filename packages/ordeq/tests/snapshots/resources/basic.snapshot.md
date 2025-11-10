@@ -22,3 +22,11 @@ print(get_resource(csv_text))
 0.1244
 
 ```
+
+## Logging
+
+```text
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+
+```

@@ -256,7 +256,7 @@ class _WithResource:
         return new
 
     @property
-    def _resource(self) -> Self:
+    def _resource(self) -> Hashable:
         return self._resource_ or self
 
     def __matmul__(self, resource: Any) -> Self:

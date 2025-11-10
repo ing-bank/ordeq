@@ -4,10 +4,10 @@
 # Captures how resources can be used to distinguish between two IO
 # distinct implementations that both consume a file on S3.
 from dataclasses import dataclass
+from pathlib import Path
 
 from ordeq import Input
 from ordeq_files import CSV
-from pathlib import Path
 
 
 @dataclass(frozen=True)

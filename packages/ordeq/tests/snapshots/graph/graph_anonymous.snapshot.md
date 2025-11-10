@@ -32,6 +32,6 @@ NamedNodeGraph:
 NodeGraph(edges=defaultdict(<class 'ordeq._graph.OrderedSet'>, {}),
           nodes={Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(idx=ID1)], outputs=[IO(idx=ID2)]): None})
 Topological ordering:
-()
+(Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(idx=ID1)], outputs=[IO(idx=ID2)]),)
 
 ```

@@ -51,9 +51,9 @@ print(R4.load())
 ```text
 <ordeq._graph.NodeIOGraph object at HASH1>
 Hello + world! / world! - Hello + world! + Hello + world! * 2
-<ordeq._graph.NodeIOGraph object at HASH2>
+<ordeq._graph.NodeIOGraph object at HASH1>
 Hello + world! / world! - Hello + world! + Hello + world! * 2
-<ordeq._graph.NodeIOGraph object at HASH3>
+<ordeq._graph.NodeIOGraph object at HASH1>
 Hello + world! / world! - Hello + world! + Hello + world! * 2
 
 ```
@@ -61,30 +61,30 @@ Hello + world! / world! - Hello + world! + Hello + world! * 2
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node "f1" in module "graph"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.runner	Running node "f3" in module "graph"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.runner	Running node "f2" in module "graph"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-INFO	ordeq.runner	Running node "f3" in module "graph"
+INFO	ordeq.runner	Running node "f4" in module "graph"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH7>)
-INFO	ordeq.runner	Running node "f2" in module "graph"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH8>)
-INFO	ordeq.runner	Running node "f4" in module "graph"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH9>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH9>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH7>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node "f1" in module "graph"
 INFO	ordeq.runner	Running node "f3" in module "graph"
 INFO	ordeq.runner	Running node "f2" in module "graph"
 INFO	ordeq.runner	Running node "f4" in module "graph"
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH9>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH7>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node "f1" in module "graph"
 INFO	ordeq.runner	Running node "f3" in module "graph"
 INFO	ordeq.runner	Running node "f2" in module "graph"
 INFO	ordeq.runner	Running node "f4" in module "graph"
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH9>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH7>)
 
 ```

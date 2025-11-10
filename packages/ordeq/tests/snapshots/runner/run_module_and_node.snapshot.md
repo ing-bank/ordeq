@@ -28,6 +28,7 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'run_m
 INFO	ordeq.io	Loading Literal(12345)
 INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_a"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Running view "noop" in module "run_module_and_node"
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node "decrement" in module "resources.runner.example_module_a"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)

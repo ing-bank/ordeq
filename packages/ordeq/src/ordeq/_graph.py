@@ -40,12 +40,16 @@ Tvertex = TypeVar("Tvertex")
 
 class Graph(Generic[Tvertex]):
     edges: dict[Tvertex, OrderedSet[Tvertex]]
+    vertices: OrderedSet[Tvertex]
 
     @cached_property
     def topological_ordering(self) -> tuple[Tvertex, ...]:
-        return tuple(
-            reversed(tuple(TopologicalSorter(self.edges).static_order()))
-        )
+        # Adds a fake edge between an artificial start vertex
+        # (None) and vertices without an edge:
+        edges = {None: self.vertices, **self.edges}
+        return tuple(reversed(tuple(TopologicalSorter(edges).static_order())))[
+            1:
+        ]
 
 
 @dataclass(frozen=True)
@@ -129,12 +133,15 @@ class BaseGraph(Graph[Any]):
     @cached_property
     def edges(self) -> dict[Any, Any]:
         return {
-            **{None: node for node in self.nodes}
             **self.resource_to_inputs,
             **self.input_to_nodes,
             **self.node_to_outputs,
             **self.output_to_resources,
         }
+
+    @cached_property
+    def vertices(self) -> OrderedSet[Any]:
+        return self.resources | self.nodes | self.ios
 
 
 @dataclass(frozen=True, repr=False)
@@ -164,6 +171,10 @@ class NodeIOGraph(Graph[Node | AnyIO]):
     @cached_property
     def edges(self) -> dict[AnyIO | Node, set[AnyIO | Node]]:
         return {**self.input_to_nodes, **self.node_to_outputs}
+
+    @cached_property
+    def vertices(self) -> OrderedSet[Any]:
+        return self.nodes | self.ios
 
 
 class NamedNodeIOGraph(NodeIOGraph):
@@ -227,15 +238,22 @@ class NodeGraph(Graph[Node]):
         """
         return {s for s, targets in self.edges.items() if len(targets) == 0}
 
+    @cached_property
+    def vertices(self) -> OrderedSet[Any]:
+        return self.nodes
+
 
 class NamedNodeGraph(NodeGraph):
     def __repr__(self) -> str:
         lines: list[str] = []
         for source_node, target_nodes in self.edges.items():
+            if source_node is None:
+                continue
             lines.extend(
                 f"{type(source_node).__name__}:{source_node.name} --> "
                 f"{type(target_node).__name__}:{target_node.name}"
                 for target_node in target_nodes
+                if target_node
             )
             if not target_nodes:
                 lines.append(

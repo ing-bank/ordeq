@@ -20,7 +20,7 @@ ValueError: Nodes 'example_resources.cycle:generate_text' and 'example_resources
     ...<4 lines>...
     )
 
-  File "/packages/ordeq/tests/resources/graph/graph_cycle.py", line LINO, in <module>
+  File "/packages/ordeq/tests/resources/graph/graph_output_same_resource.py", line LINO, in <module>
     _ = BaseGraph.from_nodes(nodes)
 
   File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed

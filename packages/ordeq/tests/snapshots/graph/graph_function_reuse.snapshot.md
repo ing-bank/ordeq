@@ -5,32 +5,45 @@
 from pprint import pprint
 
 import example_function_reuse
-from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_function_reuse)
-node_io_graph = NodeIOGraph.from_nodes(nodes)
-print("NodeIOGraph:")
-print(node_io_graph)
+named_node_io_graph = NamedNodeIOGraph.from_nodes(nodes)
+print("NamedNodeIOGraph:")
+print(named_node_io_graph)
 
-node_graph = NodeGraph.from_graph(node_io_graph)
-print("NodeGraph:")
-print(node_graph)
+named_node_graph = NamedNodeGraph.from_graph(named_node_io_graph)
+print("NamedNodeGraph:")
+print(named_node_graph)
 
 print("Topological ordering:")
-pprint(node_graph.topological_ordering)
+pprint(named_node_graph.topological_ordering)
 
 ```
 
 ## Output
 
 ```text
-NodeIOGraph:
-<ordeq._graph.NodeIOGraph object at HASH1>
-NodeGraph:
-NodeGraph(edges=defaultdict(<class 'ordeq._graph.OrderedSet'>, {}), nodes={View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): None, View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]): None, View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]): None, View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)]): None, View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)]): None})
+NamedNodeIOGraph:
+io-0 --> View:example_function_reuse.func_defs:print_input
+io-2 --> View:example_function_reuse.func_defs:print_input
+io-4 --> View:example_function_reuse.func_defs:print_input
+io-4 --> View:example_function_reuse.nodes:pi
+io-6 --> View:example_function_reuse.func_defs:print_input
+View:example_function_reuse.func_defs:print_input --> io-1
+View:example_function_reuse.func_defs:print_input --> io-3
+View:example_function_reuse.func_defs:print_input --> io-5
+View:example_function_reuse.func_defs:print_input --> io-7
+View:example_function_reuse.nodes:pi --> io-8
+NamedNodeGraph:
+
 Topological ordering:
-()
+(View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+ View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
+ View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+ View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]),
+ View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]))
 
 ```
 

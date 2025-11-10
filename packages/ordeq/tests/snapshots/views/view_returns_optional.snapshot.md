@@ -32,7 +32,7 @@ run(n, verbose=True)
 ```text
 <ordeq._graph.NodeIOGraph object at HASH1>
 Higher value!
-<ordeq._graph.NodeIOGraph object at HASH1>
+<ordeq._graph.NodeIOGraph object at HASH2>
 None
 
 ```

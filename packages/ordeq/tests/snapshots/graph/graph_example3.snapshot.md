@@ -5,32 +5,33 @@
 from pprint import pprint
 
 import example_3
-from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._graph import NamedNodeGraph, NamedNodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_3)
-node_io_graph = NodeIOGraph.from_nodes(nodes)
-print("NodeIOGraph:")
-print(node_io_graph)
+named_node_io_graph = NamedNodeIOGraph.from_nodes(nodes)
+print("NamedNodeIOGraph:")
+print(named_node_io_graph)
 
-node_graph = NodeGraph.from_graph(node_io_graph)
-print("NodeGraph:")
-print(node_graph)
+named_node_graph = NamedNodeGraph.from_graph(named_node_io_graph)
+print("NamedNodeGraph:")
+print(named_node_graph)
 
 print("Topological ordering:")
-pprint(node_graph.topological_ordering)
+pprint(named_node_graph.topological_ordering)
 
 ```
 
 ## Output
 
 ```text
-NodeIOGraph:
-<ordeq._graph.NodeIOGraph object at HASH1>
-NodeGraph:
-NodeGraph(edges=defaultdict(<class 'ordeq._graph.OrderedSet'>, {}), nodes={View(name=example_3.func_defs:hello): None, View(name=example_3.func_defs:hello): None})
+NamedNodeIOGraph:
+View:example_3.func_defs:hello --> io-0
+View:example_3.func_defs:hello --> io-1
+NamedNodeGraph:
+
 Topological ordering:
-()
+(View(name=example_3.func_defs:hello), View(name=example_3.func_defs:hello))
 
 ```
 

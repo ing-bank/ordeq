@@ -55,7 +55,7 @@ run(increment, multiply, verbose=True, save="sinks")
 
 ```text
 <ordeq._graph.NodeIOGraph object at HASH1>
-<ordeq._graph.NodeIOGraph object at HASH1>
+<ordeq._graph.NodeIOGraph object at HASH2>
 
 ```
 

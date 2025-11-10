@@ -21,8 +21,6 @@ folder = Path("folder")
 
 csv_nl = CSV(path=folder / Path(partition_nl.idx)) @ partition_nl
 csv_be = CSV(path=folder / Path(partition_be.idx)) @ partition_be
-csv_nl.with_resource(partition_eu)
-csv_be.with_resource(partition_eu)
 
 print(get_resource(csv_nl))
 print(get_resource(csv_be))
@@ -40,8 +38,6 @@ Partition(idx='BE')
 ## Logging
 
 ```text
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 

@@ -1,8 +1,8 @@
-from collections import defaultdict
+from collections import UserDict, defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import Any, TypeAlias, TypeVar, Generic
+from typing import Any, Generic, TypeAlias, TypeVar
 
 from ordeq._io import AnyIO, get_resource, has_resource
 from ordeq._nodes import Node, View
@@ -26,7 +26,7 @@ def _collect_views(nodes_: set[Node]) -> set[View]:
 T = TypeVar("T")
 
 
-class OrderedSet(dict[T, None]):
+class OrderedSet(UserDict[T, None]):
     def __init__(self):
         self.data = {}
         super().__init__()
@@ -60,8 +60,8 @@ class BaseGraph(Graph[Any]):
 
     @classmethod
     def from_nodes(
-            cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
-    ):
+        cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
+    ) -> Self:
         # First pass: collect all views
         views = _collect_views(nodes)
         all_nodes = nodes | views
@@ -78,10 +78,16 @@ class BaseGraph(Graph[Any]):
         ios = OrderedSet()
         nodes = OrderedSet()
 
-        resource_to_inputs: dict[Any, OrderedSet[AnyIO]] = defaultdict(OrderedSet)
+        resource_to_inputs: dict[Any, OrderedSet[AnyIO]] = defaultdict(
+            OrderedSet
+        )
         input_to_nodes: dict[AnyIO, OrderedSet[Node]] = defaultdict(OrderedSet)
-        node_to_outputs: dict[Node, OrderedSet[AnyIO]] = defaultdict(OrderedSet)
-        output_to_resources: dict[AnyIO, OrderedSet[Any]] = defaultdict(OrderedSet)
+        node_to_outputs: dict[Node, OrderedSet[AnyIO]] = defaultdict(
+            OrderedSet
+        )
+        output_to_resources: dict[AnyIO, OrderedSet[Any]] = defaultdict(
+            OrderedSet
+        )
 
         # Used to detect outputs that write to the same resource:
         resource_to_node: dict[Any, Node] = {}
@@ -141,7 +147,7 @@ class NodeIOGraph(Graph[Node | AnyIO]):
 
     @classmethod
     def from_nodes(
-            cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
+        cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
     ) -> Self:
         return cls.from_graph(BaseGraph.from_nodes(nodes, patches))
 
@@ -220,6 +226,8 @@ class NodeGraph(Graph[Node]):
         """
         return {s for s, targets in self.edges.items() if len(targets) == 0}
 
+
+class NamedNodeGraph(NodeGraph):
     def __repr__(self) -> str:
         lines: list[str] = []
         for source_node, target_nodes in self.edges.items():

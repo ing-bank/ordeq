@@ -9,28 +9,28 @@ from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_function_reuse)
-base_graph = NodeIOGraph.from_nodes(nodes)
-print("NodeIOGraph")
-print(base_graph)
+node_io_graph = NodeIOGraph.from_nodes(nodes)
+print("NodeIOGraph:")
+print(node_io_graph)
 
-node_graph = NodeGraph.from_graph(base_graph)
-print("NodeGraph")
+node_graph = NodeGraph.from_graph(node_io_graph)
+print("NodeGraph:")
 print(node_graph)
 
-print("Topological ordering")
-pprint([node.name for node in node_graph.topological_ordering])
+print("Topological ordering:")
+pprint(node_graph.topological_ordering)
 
 ```
 
 ## Output
 
 ```text
-NodeIOGraph
+NodeIOGraph:
 <ordeq._graph.NodeIOGraph object at HASH1>
-NodeGraph
-
-Topological ordering
-[]
+NodeGraph:
+NodeGraph(edges=defaultdict(<class 'ordeq._graph.OrderedSet'>, {}), nodes={View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): None, View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]): None, View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]): None, View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)]): None, View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH5>)]): None})
+Topological ordering:
+()
 
 ```
 

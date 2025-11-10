@@ -129,6 +129,7 @@ class BaseGraph(Graph[Any]):
     @cached_property
     def edges(self) -> dict[Any, Any]:
         return {
+            **{None: node for node in self.nodes}
             **self.resource_to_inputs,
             **self.input_to_nodes,
             **self.node_to_outputs,

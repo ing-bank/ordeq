@@ -14,5 +14,5 @@ node_graph = NodeGraph.from_graph(named_node_io_graph)
 print("NodeGraph:")
 pprint(node_graph)
 
-print("Topological ordering")
+print("Topological ordering:")
 pprint(node_graph.topological_ordering)

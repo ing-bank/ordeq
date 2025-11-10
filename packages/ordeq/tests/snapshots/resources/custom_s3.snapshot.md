@@ -6,8 +6,8 @@
 from dataclasses import dataclass
 
 from cloudpathlib import CloudPath
-from ordeq._io import get_resource
 from ordeq import Input
+from ordeq._io import get_resource
 from ordeq_files import CSV
 
 
@@ -23,7 +23,7 @@ class S3Object(Input[bytes]):
     key: str
 
     def load(self) -> bytes:
-        return b''
+        return b""
 
 
 s3_file = S3File(bucket="bucket", key="key.csv")

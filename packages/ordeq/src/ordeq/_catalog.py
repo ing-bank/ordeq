@@ -1,6 +1,6 @@
 from types import ModuleType
 
-from ordeq._fqn import FQN, fqn_to_str
+from ordeq._fqn import FQN, fqn_to_object_ref
 from ordeq._resolve import _resolve_package_to_ios
 
 
@@ -23,7 +23,7 @@ def check_catalogs_are_consistent(
     """
 
     def catalog_key(fqn: FQN, catalog: ModuleType):
-        full_name = fqn_to_str(fqn)
+        full_name = fqn_to_object_ref(fqn)
         return full_name[len(catalog.__name__) + 1 :]
 
     modules = [base, *others]

@@ -4,7 +4,7 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
-from ordeq._fqn import ref_to_fqn
+from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import AnyIO, Input, _InputCache
@@ -56,7 +56,7 @@ def _run_node(
         if isinstance(node_input, _InputCache):
             node_input.persist(data)
 
-    module_name, node_name = ref_to_fqn(node.name)
+    module_name, node_name = object_ref_to_fqn(node.name)
     node_type = "view" if isinstance(node, View) else "node"
     logger.info(
         'Running %s "%s" in module "%s"', node_type, node_name, module_name
@@ -118,10 +118,11 @@ def _run_graph(
 
 def run(
     *runnables: Runnable,
-    hooks: Sequence[RunnerHook | str] = (),
+    hooks: Sequence[RunnerHook | ObjectRef] = (),
     save: SaveMode = "all",
     verbose: bool = False,
-    io: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType] | None = None,
+    io: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType]
+    | None = None,
 ) -> None:
     """Runs nodes in topological order.
 

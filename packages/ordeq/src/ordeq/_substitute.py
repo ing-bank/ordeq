@@ -7,13 +7,14 @@ flexible reconfiguration of IO without modifying the pipeline code.
 from types import ModuleType
 
 from ordeq._catalog import check_catalogs_are_consistent
+from ordeq._fqn import is_object_ref
 from ordeq._io import AnyIO
 from ordeq._resolve import (
     _is_io,
     _is_module,
-    _resolve_module_name_to_module,
+    _resolve_module_ref_to_module,
+    _resolve_object_ref_to_io,
     _resolve_package_to_ios,
-    _resolve_ref_to_io,
 )
 
 IOSubstitutes = dict[AnyIO, AnyIO]
@@ -23,10 +24,10 @@ def _resolve_strings_to_subs(
     subs: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType],
 ) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
     def resolve_string_to_sub(string: str) -> AnyIO | ModuleType:
-        if ":" in string:
-            _, _, io = _resolve_ref_to_io(string)
+        if is_object_ref(string):
+            _, _, io = _resolve_object_ref_to_io(string)
             return io
-        return _resolve_module_name_to_module(string)
+        return _resolve_module_ref_to_module(string)
 
     subs_ = {}
     for old, new in subs.items():

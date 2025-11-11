@@ -11,18 +11,18 @@ run("example_1", hooks=["invalid"])
 
 ```text
 ValueError: Invalid object reference: 'invalid'. Expected format 'module:name'.
-  File "/packages/ordeq/src/ordeq/_fqn.py", line LINO, in ref_to_fqn
+  File "/packages/ordeq/src/ordeq/_fqn.py", line LINO, in object_ref_to_fqn
     raise ValueError(
     ...<2 lines>...
     )
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_ref_to_hook
-    module_ref, hook_name = ref_to_fqn(ref)
-                            ~~~~~~~~~~^^^^^
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_object_ref_to_hook
+    module_ref, hook_name = object_ref_to_fqn(ref)
+                            ~~~~~~~~~~~~~~~~~^^^^^
 
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_refs_to_hooks
-    _, _, resolved_hook = _resolve_ref_to_hook(hook)
-                          ~~~~~~~~~~~~~~~~~~~~^^^^^^
+    _, _, resolved_hook = _resolve_object_ref_to_hook(hook)
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)

@@ -9,17 +9,23 @@ from __future__ import annotations
 
 from typing import Annotated, TypeAlias, TypeGuard, TypeVar
 
-FQN: TypeAlias = tuple[str, str]
+ModuleRef: TypeAlias = Annotated[
+    str, "Reference to a module: 'module.submodule.[...]"
+]
+FQN: TypeAlias = tuple[ModuleRef, str]
 T = TypeVar("T")
-FQNamed: TypeAlias = tuple[str, str, T]
-Ref: TypeAlias = Annotated[str, "Contains :"]
+FQNamed: TypeAlias = tuple[ModuleRef, str, T]
+ObjectRef: TypeAlias = Annotated[
+    str, "Reference to an object: 'module.submodule.[...]:name'"
+]
+AnyRef: TypeAlias = ModuleRef | ObjectRef
 
 
-def is_ref(string: str) -> TypeGuard[Ref]:
+def is_object_ref(string: str) -> TypeGuard[ObjectRef]:
     return ":" in string
 
 
-def ref_to_fqn(ref: Ref) -> FQN:
+def object_ref_to_fqn(ref: ObjectRef) -> FQN:
     """Convert a string representation to a fully qualified name (FQN).
 
     Args:
@@ -31,7 +37,7 @@ def ref_to_fqn(ref: Ref) -> FQN:
     Raises:
         ValueError: If the input string is not in the expected format.
     """
-    if not is_ref(ref):
+    if not is_object_ref(ref):
         raise ValueError(
             f"Invalid object reference: '{ref}'. "
             f"Expected format 'module:name'."
@@ -40,7 +46,7 @@ def ref_to_fqn(ref: Ref) -> FQN:
     return module_name, obj_name
 
 
-def fqn_to_str(name: FQN) -> str:
+def fqn_to_object_ref(name: FQN) -> ObjectRef:
     """Convert a fully qualified name (FQN) to a string representation.
 
     Args:

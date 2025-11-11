@@ -11,7 +11,7 @@ from ordeq._io import AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_refs_to_hooks, _resolve_runnables_to_nodes
 from ordeq._substitute import (
-    _resolve_strings_to_subs,
+    _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
 )
 
@@ -206,7 +206,7 @@ def run(
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
-    io_subs = _resolve_strings_to_subs(io or {})
+    io_subs = _resolve_refs_to_subs(io or {})
     patches = _substitutes_modules_to_ios(io_subs)
     graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 

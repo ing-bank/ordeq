@@ -165,7 +165,7 @@ def _resolve_packages_to_modules(
         yield from _walk(module)
 
 
-def _resolve_runnables_to_modules(
+def _resolve_refs_to_modules(
     *runnables: str | ModuleType,
 ) -> Generator[ModuleType]:
     modules: set[ModuleType] = set()
@@ -206,7 +206,7 @@ def _resolve_package_to_ios(package: ModuleType) -> Catalog:
     return {module_name: ios for module_name, ios in catalog.items() if ios}
 
 
-def _resolve_hooks(
+def _resolve_refs_to_hooks(
     *hooks: str | RunnerHook,
 ) -> tuple[list[RunHook], list[NodeHook]]:
     run_hooks = []
@@ -259,7 +259,7 @@ def _resolve_runnables_to_nodes_and_modules(
                 f"Expected a module or a node, got {type(runnable)}"
             )
 
-    modules = set(_resolve_runnables_to_modules(*modules_and_strs))
+    modules = set(_resolve_refs_to_modules(*modules_and_strs))
     return nodes, modules
 
 

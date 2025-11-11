@@ -7,30 +7,32 @@ flexible reconfiguration of IO without modifying the pipeline code.
 from types import ModuleType
 
 from ordeq._catalog import check_catalogs_are_consistent
+from ordeq._fqn import AnyRef, is_object_ref
 from ordeq._io import AnyIO
 from ordeq._resolve import (
     _is_io,
     _is_module,
+    _resolve_module_ref_to_module,
+    _resolve_object_ref_to_io,
     _resolve_package_to_ios,
-    _resolve_string_to_io,
-    _resolve_string_to_module,
 )
 
 IOSubstitutes = dict[AnyIO, AnyIO]
 
 
-def _resolve_strings_to_subs(
-    subs: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType],
+def _resolve_refs_to_subs(
+    subs: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType],
 ) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
-    def resolve_string_to_sub(string: str) -> AnyIO | ModuleType:
-        if ":" in string:
-            return _resolve_string_to_io(string)
-        return _resolve_string_to_module(string)
+    def resolve_ref_to_sub(ref: AnyRef) -> AnyIO | ModuleType:
+        if is_object_ref(ref):
+            _, _, io = _resolve_object_ref_to_io(ref)
+            return io
+        return _resolve_module_ref_to_module(ref)
 
     subs_ = {}
     for old, new in subs.items():
-        old_sub = resolve_string_to_sub(old) if isinstance(old, str) else old
-        new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new
+        old_sub = resolve_ref_to_sub(old) if isinstance(old, str) else old
+        new_sub = resolve_ref_to_sub(new) if isinstance(new, str) else new
         subs_[old_sub] = new_sub
     return subs_
 

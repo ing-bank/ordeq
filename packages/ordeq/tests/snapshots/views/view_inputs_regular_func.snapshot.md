@@ -27,7 +27,7 @@ print(repr(get_node(hello)))
 ## Exception
 
 ```text
-ValueError: Input '<function string at HASH1>' to node 'view_inputs_regular_func:func' is not a view
+ValueError: Input '<function string at HASH1>' to node '__main__:func' is not a view
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
         f"Input '{input_}' to node '{resolved_name}' is not a view"
@@ -45,12 +45,14 @@ ValueError: Input '<function string at HASH1>' to node 'view_inputs_regular_func
     @node(inputs=string)
      ~~~~^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+  File "<frozen runpy>", line LINO, in _run_code
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```

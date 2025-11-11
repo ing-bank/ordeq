@@ -2,7 +2,7 @@ import importlib
 from pprint import pprint
 
 from ordeq._resolve import (
-    _resolve_runnables_to_modules,
+    _resolve_refs_to_modules,
     _resolve_runnables_to_nodes,
     _resolve_runnables_to_nodes_and_ios,
 )
@@ -16,7 +16,7 @@ runnables = [
 ]
 
 
-modules = [mod.__name__ for mod in _resolve_runnables_to_modules(*runnables)]
+modules = [mod.__name__ for mod in _resolve_refs_to_modules(*runnables)]
 pprint(modules)
 
 nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)

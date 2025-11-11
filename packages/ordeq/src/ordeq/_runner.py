@@ -4,14 +4,14 @@ from itertools import chain
 from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
-from ordeq._fqn import str_to_fqn
+from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunnerHook
 from ordeq._io import AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
-from ordeq._resolve import _resolve_hooks, _resolve_runnables_to_nodes
+from ordeq._resolve import _resolve_refs_to_hooks, _resolve_runnables_to_nodes
 from ordeq._substitute import (
-    _resolve_strings_to_subs,
+    _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
 )
 
@@ -56,7 +56,7 @@ def _run_node(
         if isinstance(node_input, _InputCache):
             node_input.persist(data)
 
-    module_name, node_name = str_to_fqn(node.name)
+    module_name, node_name = object_ref_to_fqn(node.name)
     node_type = "view" if isinstance(node, View) else "node"
     logger.info(
         'Running %s "%s" in module "%s"', node_type, node_name, module_name
@@ -118,10 +118,11 @@ def _run_graph(
 
 def run(
     *runnables: Runnable,
-    hooks: Sequence[RunnerHook | str] = (),
+    hooks: Sequence[RunnerHook | ObjectRef] = (),
     save: SaveMode = "all",
     verbose: bool = False,
-    io: dict[str | AnyIO | ModuleType, str | AnyIO | ModuleType] | None = None,
+    io: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType]
+    | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -205,7 +206,7 @@ def run(
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
-    io_subs = _resolve_strings_to_subs(io or {})
+    io_subs = _resolve_refs_to_subs(io or {})
     patches = _substitutes_modules_to_ios(io_subs)
     graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 
@@ -214,7 +215,7 @@ def run(
 
     graph = NodeGraph.from_graph(graph_with_io)
 
-    run_hooks, node_hooks = _resolve_hooks(*hooks)
+    run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)
 
     for run_hook in run_hooks:
         run_hook.before_run(graph)

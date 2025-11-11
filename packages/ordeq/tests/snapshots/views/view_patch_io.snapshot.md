@@ -24,10 +24,10 @@ run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
 ## Output
 
 ```text
-View:view_patch_io:hello_world --> io-1
-io-1 --> View:view_patch_io:n
-View:view_patch_io:n --> io-2
-io-3 --> View:view_patch_io:hello_world
+View:__main__:hello_world --> io-1
+io-1 --> View:__main__:n
+View:__main__:n --> io-2
+io-3 --> View:__main__:hello_world
 Node received 'Buenos dias World!'
 
 ```
@@ -35,10 +35,10 @@ Node received 'Buenos dias World!'
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_patch_io:hello_world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_patch_io:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:hello_world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal('Buenos dias')
-INFO	ordeq.runner	Running view "hello_world" in module "view_patch_io"
-INFO	ordeq.runner	Running view "n" in module "view_patch_io"
+INFO	ordeq.runner	Running view "hello_world" in module "__main__"
+INFO	ordeq.runner	Running view "n" in module "__main__"
 
 ```

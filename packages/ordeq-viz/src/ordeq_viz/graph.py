@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from ordeq import Node, View
-from ordeq._fqn import fqn_to_str  # noqa: PLC2701 private import
+from ordeq._fqn import fqn_to_object_ref  # noqa: PLC2701 private import
 from ordeq._graph import NodeGraph, NodeIOGraph  # noqa: PLC2701 private import
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
@@ -123,7 +123,7 @@ def _gather_graph(
         # TODO: use resolved name on the NamedGraph when available
         node_module = line.func.__module__
         node_data = NodeData(
-            id=fqn_to_str((node_module, line.func.__name__)),
+            id=fqn_to_object_ref((node_module, line.func.__name__)),
             node=line,
             name=line.func.__name__,
             module=node_module,

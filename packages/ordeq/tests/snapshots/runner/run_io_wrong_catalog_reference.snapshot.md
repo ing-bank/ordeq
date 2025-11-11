@@ -24,11 +24,11 @@ run(uppercase, io={catalog.hello: "example_catalogs:remote"})
 
 ```text
 ValueError: IO 'remote' not found in module 'example_catalogs'
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_string_to_io
-    raise ValueError(f"IO '{io_name}' not found in module '{module_name}'")
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_ref_to_io
+    raise ValueError(f"IO '{io_name}' not found in module '{module_ref}'")
 
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in resolve_string_to_sub
-    return _resolve_string_to_io(string)
+    return _resolve_ref_to_io(string)
 
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _resolve_strings_to_subs
     new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new

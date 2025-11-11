@@ -54,7 +54,10 @@ class NodeIOGraph:
             patches[view] = view.outputs[0]
 
         if patches:
-            all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
+            # By converting to set the order of nodes is dropped.
+            # Unique nodes can be determined based on the FQN.
+            # TODO: change nodes to FQNamed[Node] and drop the set conversion
+            all_nodes = list({node._patch_io(patches) for node in all_nodes})  # noqa: SLF001 (private access)
 
         # Second pass: register outputs
         output_to_node: dict[AnyIO, Node | View] = {}

@@ -19,7 +19,7 @@ def say_hello(value: str) -> str:
 ## Exception
 
 ```text
-ValueError: Input '<function hello at HASH1>' to node 'view_with_output:say_hello' is not a view
+ValueError: Input '<function hello at HASH1>' to node '__main__:say_hello' is not a view
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
         f"Input '{input_}' to node '{resolved_name}' is not a view"
@@ -37,12 +37,14 @@ ValueError: Input '<function hello at HASH1>' to node 'view_with_output:say_hell
     @node(inputs=hello)
      ~~~~^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+  File "<frozen runpy>", line LINO, in _run_code
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```

@@ -25,7 +25,7 @@ def func(x: str) -> str:
 ## Exception
 
 ```text
-ValueError: Node is not hashable: Node(name=node_unhashable:func, inputs=[Unhashable(data=['y', 'z'])], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+ValueError: Node is not hashable: Node(name=__main__:func, inputs=[Unhashable(data=['y', 'z'])], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_if_not_hashable
     raise ValueError(f"Node is not hashable: {n}") from e
 
@@ -58,12 +58,14 @@ ValueError: Node is not hashable: Node(name=node_unhashable:func, inputs=[Unhash
     @node(inputs=[Unhashable(["y", "z"])], outputs=StringBuffer("y"))
      ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+  File "<frozen runpy>", line LINO, in _run_code
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```

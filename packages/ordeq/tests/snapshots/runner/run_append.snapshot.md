@@ -33,9 +33,9 @@ asuffix
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "add_suffix" in module "run_append"
+INFO	ordeq.runner	Running node "add_suffix" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "print_value" in module "run_append"
+INFO	ordeq.runner	Running node "print_value" in module "__main__"
 INFO	ordeq.io	Saving Print()
 
 ```

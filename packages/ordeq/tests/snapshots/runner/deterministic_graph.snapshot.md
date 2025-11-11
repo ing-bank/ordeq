@@ -48,33 +48,33 @@ run(*pipeline, verbose=True)
 ## Output
 
 ```text
-View:deterministic_graph:a --> io-1
-Node:deterministic_graph:f1 --> io-2
-io-2 --> View:deterministic_graph:a
-io-2 --> View:deterministic_graph:z
-Node:deterministic_graph:f2 --> io-3
-io-3 --> View:deterministic_graph:a
-io-3 --> View:deterministic_graph:z
-Node:deterministic_graph:f3 --> io-4
-io-4 --> View:deterministic_graph:a
-io-4 --> View:deterministic_graph:z
-Node:deterministic_graph:f4 --> io-5
-io-5 --> View:deterministic_graph:a
-io-5 --> View:deterministic_graph:z
-View:deterministic_graph:z --> io-6
+View:__main__:a --> io-1
+Node:__main__:f1 --> io-2
+io-2 --> View:__main__:a
+io-2 --> View:__main__:z
+Node:__main__:f2 --> io-3
+io-3 --> View:__main__:a
+io-3 --> View:__main__:z
+Node:__main__:f3 --> io-4
+io-4 --> View:__main__:a
+io-4 --> View:__main__:z
+Node:__main__:f4 --> io-5
+io-5 --> View:__main__:a
+io-5 --> View:__main__:z
+View:__main__:z --> io-6
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'deterministic_graph:a'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'deterministic_graph:z'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "f4" in module "deterministic_graph"
-INFO	ordeq.runner	Running node "f3" in module "deterministic_graph"
-INFO	ordeq.runner	Running node "f2" in module "deterministic_graph"
-INFO	ordeq.runner	Running node "f1" in module "deterministic_graph"
-INFO	ordeq.runner	Running view "z" in module "deterministic_graph"
-INFO	ordeq.runner	Running view "a" in module "deterministic_graph"
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:a'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:z'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running node "f4" in module "__main__"
+INFO	ordeq.runner	Running node "f3" in module "__main__"
+INFO	ordeq.runner	Running node "f2" in module "__main__"
+INFO	ordeq.runner	Running node "f1" in module "__main__"
+INFO	ordeq.runner	Running view "z" in module "__main__"
+INFO	ordeq.runner	Running view "a" in module "__main__"
 
 ```

@@ -19,7 +19,7 @@ nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
 pprint(sorted(node.name for node in nodes))
 pprint(dict(sorted(ios.items())))
 
-pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
+pprint(sorted(_resolve_runnables_to_nodes(*runnables)))
 
 ```
 
@@ -32,6 +32,8 @@ pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
                        'TestOutput2': Output(idx=ID2)},
  'example_2.nodes': {'TestInput2': Input(idx=ID1),
                      'TestOutput2': Output(idx=ID2)}}
-['example_2.nodes:transform_input_2']
+[('example_2.nodes',
+  'transform_input_2',
+  Node(name=example_2.nodes:transform_input_2, inputs=[Input(idx=ID1)], outputs=[Output(idx=ID2)]))]
 
 ```

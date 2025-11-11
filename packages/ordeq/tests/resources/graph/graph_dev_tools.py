@@ -6,7 +6,7 @@ from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(ordeq_dev_tools)
-base_graph = NodeIOGraph.from_nodes(nodes)
+base_graph = NodeIOGraph.from_nodes({node for _, _, node in nodes})
 print("NodeIOGraph")
 print(base_graph)
 

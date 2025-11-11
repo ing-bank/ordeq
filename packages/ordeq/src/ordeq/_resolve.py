@@ -218,7 +218,7 @@ def _resolve_refs_to_hooks(
 
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: Runnable,
-) -> tuple[set[Node], set[ModuleType]]:
+) -> tuple[list[FQNamed[Node]], set[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -232,7 +232,7 @@ def _resolve_runnables_to_nodes_and_modules(
         TypeError: if a runnable is not a module and not a node
     """
     modules_and_strs: list[ModuleType | str] = []
-    nodes = set()
+    nodes: list[FQNamed[Node]] = []
     for runnable in runnables:
         if _is_module(runnable) or (
             isinstance(runnable, str) and ":" not in runnable
@@ -240,10 +240,11 @@ def _resolve_runnables_to_nodes_and_modules(
             # mypy false positive
             modules_and_strs.append(runnable)  # type: ignore[arg-type]
         elif callable(runnable):
-            nodes.add(get_node(runnable))
+            # Nodes that aren't retrieved from the module scopen cannot be
+            # named (yet). Therefore we assign None for now.
+            nodes.append((None, None, get_node(runnable)))  # type: ignore[arg-type]
         elif isinstance(runnable, str):
-            _, _, node = _resolve_ref_to_node(runnable)
-            nodes.add(node)
+            nodes.append(_resolve_ref_to_node(runnable))
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "
@@ -254,7 +255,7 @@ def _resolve_runnables_to_nodes_and_modules(
     return nodes, modules
 
 
-def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
+def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQNamed[Node]]:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -267,7 +268,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
     """
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
-        nodes.update(node for (_, _, node) in _resolve_module_to_nodes(module))
+        nodes.extend(_resolve_module_to_nodes(module))
     return nodes
 
 
@@ -305,16 +306,16 @@ def _resolve_runnables_to_nodes_and_ios(
     ios: Catalog = {}
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
-    for node in nodes:
-        mod = _resolve_ref_to_module(node.func.__module__)
+    for module_ref, _, _ in nodes:
+        module = _resolve_ref_to_module(module_ref)
         ios.update({
-            mod.__name__: {
-                name: io for (_, name, io) in _resolve_module_to_ios(mod)
+            module_ref: {
+                name: io for (_, name, io) in _resolve_module_to_ios(module)
             }
         })
 
     for module in modules:
-        nodes.update(node for _, _, node in _resolve_module_to_nodes(module))
+        nodes.extend(_resolve_module_to_nodes(module))
         ios.update({
             module.__name__: {
                 name: io for (_, name, io) in _resolve_module_to_ios(module)
@@ -327,4 +328,4 @@ def _resolve_runnables_to_nodes_and_ios(
         for module_name, ios_dict in ios.items()
         if ios_dict
     }
-    return nodes, ios
+    return {node for _, _, node in nodes}, ios

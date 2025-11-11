@@ -19,7 +19,7 @@ nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
 pprint(sorted(node.name for node in nodes))
 pprint(dict(sorted(ios.items())))
 
-pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
+pprint(sorted(_resolve_runnables_to_nodes(*runnables)))
 
 ```
 
@@ -39,8 +39,14 @@ pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
                               'y_value': IO(idx=ID2)},
  'example_duplicates.file2': {'x_value': Literal(3),
                               'y_value': IO(idx=ID3)}}
-['example_duplicates.duplicate_node_name:<lambda>',
- 'example_duplicates.file1:foo',
- 'example_duplicates.file2:foo']
+[('example_duplicates.duplicate_node_name',
+  'x',
+  View(name=example_duplicates.duplicate_node_name:<lambda>)),
+ ('example_duplicates.file1',
+  'foo',
+  Node(name=example_duplicates.file1:foo, inputs=[Literal(3)], outputs=[IO(idx=ID2)])),
+ ('example_duplicates.file2',
+  'foo',
+  Node(name=example_duplicates.file2:foo, inputs=[Literal(3)], outputs=[IO(idx=ID3)]))]
 
 ```

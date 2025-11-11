@@ -23,4 +23,4 @@ nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
 pprint(sorted(node.name for node in nodes))
 pprint(dict(sorted(ios.items())))
 
-pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
+pprint(sorted(_resolve_runnables_to_nodes(*runnables)))

@@ -6,7 +6,7 @@ import importlib
 import pkgutil
 from collections.abc import Generator, Sequence
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, TypeAlias, TypeGuard, Annotated
+from typing import TYPE_CHECKING, Annotated, Any, TypeAlias, TypeGuard
 
 from ordeq._fqn import str_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
@@ -38,9 +38,9 @@ def _resolve_module_name_to_module(module_name: str) -> ModuleType:
 
 def _is_node(obj: object) -> bool:
     return (
-            callable(obj)
-            and hasattr(obj, "__ordeq_node__")
-            and isinstance(obj.__ordeq_node__, Node)
+        callable(obj)
+        and hasattr(obj, "__ordeq_node__")
+        and isinstance(obj.__ordeq_node__, Node)
     )
 
 
@@ -99,7 +99,7 @@ def _resolve_package_to_module_names(package: ModuleType) -> Generator[str]:
 
 
 def _resolve_module_globals(
-        module: ModuleType,
+    module: ModuleType,
 ) -> dict[str, AnyIO | Node | list[AnyIO]]:
     """Gathers all IOs and nodes defined in a module.
 
@@ -146,7 +146,7 @@ def _resolve_module_to_ios(module: ModuleType) -> Catalog:
 
 
 def _resolve_packages_to_modules(
-        *modules: ModuleType,
+    *modules: ModuleType,
 ) -> Generator[ModuleType, None, None]:
     visited = set()
 
@@ -167,7 +167,7 @@ def _resolve_packages_to_modules(
 
 
 def _resolve_refs_to_modules(
-        *runnables: str | ModuleType,
+    *runnables: str | ModuleType,
 ) -> Generator[ModuleType]:
     modules: set[ModuleType] = set()
     for runnable in runnables:
@@ -208,7 +208,7 @@ def _resolve_package_to_ios(package: ModuleType) -> Catalog:
 
 
 def _resolve_refs_to_hooks(
-        *hooks: str | RunnerHook,
+    *hooks: str | RunnerHook,
 ) -> tuple[list[RunHook], list[NodeHook]]:
     run_hooks = []
     node_hooks = []
@@ -227,7 +227,7 @@ def _resolve_refs_to_hooks(
 
 
 def _resolve_runnables_to_nodes_and_modules(
-        *runnables: Runnable,
+    *runnables: Runnable,
 ) -> tuple[set[Node], set[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
@@ -245,7 +245,7 @@ def _resolve_runnables_to_nodes_and_modules(
     nodes = set()
     for runnable in runnables:
         if _is_module(runnable) or (
-                isinstance(runnable, str) and ":" not in runnable
+            isinstance(runnable, str) and ":" not in runnable
         ):
             # mypy false positive
             modules_and_strs.append(runnable)  # type: ignore[arg-type]
@@ -299,7 +299,7 @@ def _check_missing_ios(nodes: set[Node], ios: Catalog) -> None:
 
 
 def _resolve_runnables_to_nodes_and_ios(
-        *runnables: Runnable,
+    *runnables: Runnable,
 ) -> tuple[set[Node], Catalog]:
     """Collects nodes and IOs from the provided runnables.
 

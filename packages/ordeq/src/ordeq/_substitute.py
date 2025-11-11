@@ -11,9 +11,9 @@ from ordeq._io import AnyIO
 from ordeq._resolve import (
     _is_io,
     _is_module,
+    _resolve_module_name_to_module,
     _resolve_package_to_ios,
     _resolve_ref_to_io,
-    _resolve_module_name_to_module,
 )
 
 IOSubstitutes = dict[AnyIO, AnyIO]

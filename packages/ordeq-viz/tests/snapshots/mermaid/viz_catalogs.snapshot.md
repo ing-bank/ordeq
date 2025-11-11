@@ -18,8 +18,6 @@ print(diagram)
 graph TB
 
 
-	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
 
 
 ```

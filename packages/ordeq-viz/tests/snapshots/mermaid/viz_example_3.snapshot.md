@@ -19,25 +19,20 @@ graph TB
 	subgraph legend["Legend"]
 		direction TB
 		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "IO"}
+		L2@{shape: subroutine, label: "View"}
 	end
 
-	example_3.func_defs:hello --> IO0
-	example_3.func_defs:hello --> IO1
 
 	subgraph s0["example_3.func_defs"]
 		direction TB
-		example_3.func_defs:hello@{shape: rounded, label: "hello"}
-		example_3.func_defs:hello@{shape: rounded, label: "hello"}
+		example_3.func_defs:hello@{shape: subroutine, label: "hello"}
+		example_3.func_defs:hello@{shape: subroutine, label: "hello"}
 	end
-	IO0@{shape: rect, label: "&lt;anonymous&gt;"}
-	IO1@{shape: rect, label: "&lt;anonymous&gt;"}
 
-	class L0,example_3.func_defs:hello,example_3.func_defs:hello node
-	class L00,IO0,IO1 io0
+	class L0 node
+	class L2,example_3.func_defs:hello,example_3.func_defs:hello view
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef io0 fill:#66c2a5
+	classDef view fill:#00C853,color:#FFF
 
 
 ```

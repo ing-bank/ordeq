@@ -56,8 +56,8 @@ hello.txt@L1: Hello world!
 hello.txt@L1: Hello there world!
 hello.txt@L1: Hey world!
 hello.txt@L1: Hi world!
-<class 'io_complete.ExampleIO'>
-<class 'io_complete.ExampleIO'>
+<class '__main__.ExampleIO'>
+<class '__main__.ExampleIO'>
 
 ```
 

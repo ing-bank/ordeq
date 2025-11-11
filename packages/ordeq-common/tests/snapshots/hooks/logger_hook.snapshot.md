@@ -51,26 +51,28 @@ ValueError: Intentional failure for testing.
     run(fail, hooks=[logger])
     ~~~^^^^^^^^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+  File "<frozen runpy>", line LINO, in _run_code
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'logger_hook:fail'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	LoggerHook	Called 'before_node_run' with args: (Node(name=logger_hook:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]),)
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:fail'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	LoggerHook	Called 'before_node_run' with args: (Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]),)
 INFO	ordeq.io	Loading Literal('name')
-INFO	ordeq.runner	Running node "hello" in module "logger_hook"
-INFO	LoggerHook	Called 'after_node_run' with args: (Node(name=logger_hook:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]),)
-INFO	LoggerHook	Called 'before_node_run' with args: (View(name=logger_hook:fail),)
-INFO	ordeq.runner	Running view "fail" in module "logger_hook"
-INFO	LoggerHook	Called 'on_node_call_error' with args: (View(name=logger_hook:fail), ValueError('Intentional failure for testing.'))
+INFO	ordeq.runner	Running node "hello" in module "__main__"
+INFO	LoggerHook	Called 'after_node_run' with args: (Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]),)
+INFO	LoggerHook	Called 'before_node_run' with args: (View(name=__main__:fail),)
+INFO	ordeq.runner	Running view "fail" in module "__main__"
+INFO	LoggerHook	Called 'on_node_call_error' with args: (View(name=__main__:fail), ValueError('Intentional failure for testing.'))
 
 ```

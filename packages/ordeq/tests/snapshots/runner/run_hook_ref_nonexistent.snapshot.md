@@ -11,14 +11,14 @@ run("example_1", hooks=["example_1.hooks:idontexist"])
 
 ```text
 ValueError: Hook 'idontexist' not found in module 'example_1.hooks'
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_ref_to_hook
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_object_ref_to_hook
     raise ValueError(
         f"Hook '{hook_name}' not found in module '{module_ref}'"
     )
 
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_refs_to_hooks
-    _, _, resolved_hook = _resolve_ref_to_hook(hook)
-                          ~~~~~~~~~~~~~~~~~~~~^^^^^^
+    _, _, resolved_hook = _resolve_object_ref_to_hook(hook)
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)
@@ -28,12 +28,14 @@ ValueError: Hook 'idontexist' not found in module 'example_1.hooks'
     run("example_1", hooks=["example_1.hooks:idontexist"])
     ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+  File "<frozen runpy>", line LINO, in _run_code
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```

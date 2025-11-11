@@ -195,6 +195,10 @@ split-on-trailing-comma = false
     "S608",
     "SLF",
 ]
+# False positive
+"packages/ordeq-manifest/src/ordeq_manifest/models.py" = [
+    "PLC2701"
+]
 # Rules not applicable for example tests
 "examples/*/tests/*" = [
     "ANN201",

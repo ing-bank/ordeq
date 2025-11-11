@@ -28,7 +28,8 @@ ValueError: IO 'remote' not found in module 'example_catalogs'
     raise ValueError(f"IO '{io_name}' not found in module '{module_ref}'")
 
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in resolve_string_to_sub
-    return _resolve_ref_to_io(string)
+    _, _, io = _resolve_ref_to_io(string)
+               ~~~~~~~~~~~~~~~~~~^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _resolve_strings_to_subs
     new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new

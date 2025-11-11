@@ -17,7 +17,8 @@ ValueError: Hook 'other_obj' not found in module 'example_1.hooks'
     )
 
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_hooks
-    resolved_hook = _resolve_ref_to_hook(hook)
+    _, _, resolved_hook = _resolve_ref_to_hook(hook)
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     run_hooks, node_hooks = _resolve_hooks(*hooks)

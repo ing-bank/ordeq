@@ -24,7 +24,8 @@ def _resolve_strings_to_subs(
 ) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
     def resolve_string_to_sub(string: str) -> AnyIO | ModuleType:
         if ":" in string:
-            return _resolve_ref_to_io(string)
+            _, _, io = _resolve_ref_to_io(string)
+            return io
         return _resolve_ref_to_module(string)
 
     subs_ = {}

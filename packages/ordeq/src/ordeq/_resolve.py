@@ -8,7 +8,7 @@ from collections.abc import Generator, Sequence
 from types import ModuleType
 from typing import TYPE_CHECKING, Any, TypeAlias, TypeGuard
 
-from ordeq._fqn import str_to_fqn
+from ordeq._fqn import FQNamed, str_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node
@@ -43,7 +43,7 @@ def _is_node(obj: object) -> bool:
     )
 
 
-def _resolve_ref_to_node(ref: str) -> Node:
+def _resolve_ref_to_node(ref: str) -> FQNamed[Node]:
     module_ref, node_name = str_to_fqn(ref)
     module = _resolve_ref_to_module(module_ref)
     node_obj = getattr(module, node_name, None)
@@ -51,10 +51,10 @@ def _resolve_ref_to_node(ref: str) -> Node:
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_ref}'"
         )
-    return get_node(node_obj)
+    return module_ref, node_name, get_node(node_obj)
 
 
-def _resolve_ref_to_hook(ref: str) -> RunnerHook:
+def _resolve_ref_to_hook(ref: str) -> FQNamed[RunnerHook]:
     module_ref, hook_name = str_to_fqn(ref)
     module = _resolve_ref_to_module(module_ref)
     hook_obj = getattr(module, hook_name, None)
@@ -62,16 +62,16 @@ def _resolve_ref_to_hook(ref: str) -> RunnerHook:
         raise ValueError(
             f"Hook '{hook_name}' not found in module '{module_ref}'"
         )
-    return hook_obj
+    return module_ref, hook_name, hook_obj
 
 
-def _resolve_ref_to_io(ref: str) -> AnyIO:
+def _resolve_ref_to_io(ref: str) -> FQNamed[AnyIO]:
     module_ref, io_name = str_to_fqn(ref)
     module = _resolve_ref_to_module(module_ref)
     io_obj = getattr(module, io_name, None)
     if io_obj is None or not _is_io(io_obj):
         raise ValueError(f"IO '{io_name}' not found in module '{module_ref}'")
-    return io_obj
+    return module_ref, io_name, io_obj
 
 
 def _resolve_sequence_to_ios(value: Any) -> list[AnyIO]:
@@ -217,7 +217,7 @@ def _resolve_hooks(
         elif isinstance(hook, RunHook):
             run_hooks.append(hook)
         elif isinstance(hook, str):
-            resolved_hook = _resolve_ref_to_hook(hook)
+            _, _, resolved_hook = _resolve_ref_to_hook(hook)
             if isinstance(resolved_hook, NodeHook):
                 node_hooks.append(resolved_hook)
             elif isinstance(resolved_hook, RunHook):
@@ -251,7 +251,8 @@ def _resolve_runnables_to_nodes_and_modules(
         elif callable(runnable):
             nodes.add(get_node(runnable))
         elif isinstance(runnable, str):
-            nodes.add(_resolve_ref_to_node(runnable))
+            _, _, node = _resolve_ref_to_node(runnable)
+            nodes.add(node)
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "

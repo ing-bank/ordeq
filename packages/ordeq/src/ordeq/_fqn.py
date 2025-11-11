@@ -7,9 +7,11 @@ while fully qualified names (FQNs) are represented as tuples of the form
 
 from __future__ import annotations
 
-from typing import TypeAlias
+from typing import TypeAlias, TypeVar
 
 FQN: TypeAlias = tuple[str, str]
+T = TypeVar("T")
+FQNamed: TypeAlias = tuple[str, str, T]
 
 
 def str_to_fqn(name: str) -> FQN:

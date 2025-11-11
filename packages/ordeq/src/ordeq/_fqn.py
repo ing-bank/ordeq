@@ -7,12 +7,16 @@ while fully qualified names (FQNs) are represented as tuples of the form
 
 from __future__ import annotations
 
-from typing import TypeAlias, TypeVar, Annotated, TypeGuard
+from typing import Annotated, TypeAlias, TypeGuard, TypeVar
 
 FQN: TypeAlias = tuple[str, str]
 T = TypeVar("T")
 FQNamed: TypeAlias = tuple[str, str, T]
 Ref: TypeAlias = Annotated[str, "Contains :"]
+
+
+def is_ref(string: str) -> TypeGuard[Ref]:
+    return ":" in string
 
 
 def ref_to_fqn(ref: Ref) -> FQN:
@@ -46,7 +50,3 @@ def fqn_to_str(name: FQN) -> str:
         A string in the format "module:name".
     """
     return f"{name[0]}:{name[1]}"
-
-
-def is_ref(string: str) -> TypeGuard[Ref]:
-    return ":" in string

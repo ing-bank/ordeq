@@ -6,7 +6,7 @@ from itertools import chain
 from typing import Any
 
 from ordeq import Node, View
-from ordeq._fqn import FQN, fqn_to_str, str_to_fqn  # noqa: PLC2701
+from ordeq._fqn import FQN, fqn_to_str, ref_to_fqn  # noqa: PLC2701
 from ordeq._resolve import AnyIO, Catalog
 from pydantic import BaseModel, Field
 
@@ -130,7 +130,7 @@ class ProjectModel(BaseModel):
         idx = 0
         named_nodes = dict(
             sorted(
-                {str_to_fqn(node.name): node for node in nodes}.items(),
+                {ref_to_fqn(node.name): node for node in nodes}.items(),
                 key=operator.itemgetter(0),
             )
         )
@@ -153,7 +153,7 @@ class ProjectModel(BaseModel):
 
         node_models = {
             node.name: NodeModel.from_node(
-                (str_to_fqn(node.name), node), ios_to_id
+                (ref_to_fqn(node.name), node), ios_to_id
             )
             for node in sorted(nodes_, key=lambda obj: obj.name)
         }

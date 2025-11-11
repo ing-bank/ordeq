@@ -8,7 +8,7 @@ from collections.abc import Generator, Sequence
 from types import ModuleType
 from typing import TYPE_CHECKING, Any, TypeAlias, TypeGuard
 
-from ordeq._fqn import FQNamed, ref_to_fqn, Ref
+from ordeq._fqn import FQNamed, Ref, ref_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node

@@ -20,6 +20,7 @@ graph TB
 
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
+	classDef view fill:#00C853,color:#FFF
 
 
 ```

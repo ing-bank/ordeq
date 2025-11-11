@@ -66,6 +66,7 @@ def pipeline_to_mermaid(
     look: str | None = None,
     io_shape: str = "rect",
     node_shape: str = "rounded",
+    view_shape: str = "subroutine",
     subgraphs: bool = False,
 ) -> str:
     """Convert a pipeline to a mermaid diagram
@@ -107,6 +108,18 @@ def pipeline_to_mermaid(
         for datasets_in_module in io_modules.values()
         for dataset in datasets_in_module
     ]
+    views = [
+        node
+        for nodes_in_module in node_modules.values()
+        for node in nodes_in_module
+        if node.view
+    ]
+    io2view = {hash(view.outputs[0]): view for view in views}
+    io_modules = {
+        module: [ds for ds in datasets if hash(ds.id) not in io2view]
+        for module, datasets in io_modules.items()
+    }
+
     distinct_dataset_types = sorted({dataset.type for dataset in dataset_data})
     dataset_type_to_id = {
         dataset_type: idx
@@ -120,6 +133,7 @@ def pipeline_to_mermaid(
 
     # Styles
     node_style = "fill:#008AD7,color:#FFF"
+    view_style = "fill:#00C853,color:#FFF"
     dataset_style = "fill:#FFD43B"
 
     dataset_styles = (
@@ -141,7 +155,11 @@ def pipeline_to_mermaid(
         "fill:#4682b4",
     )
 
-    class_definitions = {"node": node_style, "io": dataset_style}
+    class_definitions = {
+        "node": node_style,
+        "io": dataset_style,
+        "view": view_style,
+    }
     class_assignments = defaultdict(list)
 
     mermaid_header = _make_mermaid_header(header_dict)
@@ -159,7 +177,11 @@ def pipeline_to_mermaid(
         data += '\tsubgraph legend["Legend"]\n'
         data += "\t\tdirection TB\n"
         data += f'\t\tL0@{{shape: {node_shape}, label: "Node"}}\n'
+        if views:
+            data += f'\t\tL2@{{shape: {view_shape}, label: "View"}}\n'
+
         class_assignments["node"].append("L0")
+        class_assignments["view"].append("L2")
         if len(dataset_data) > 0:
             if not use_dataset_styles:
                 data += f'\t\tL1@{{shape: {io_shape}, label: "IO"}}\n'
@@ -178,10 +200,19 @@ def pipeline_to_mermaid(
     # Inputs/Outputs
     for node in node_data:
         for dataset_id in node.inputs:
-            data += f"\t{_hash_to_str(dataset_id, io_names)} --> {node.id}\n"
+            if dataset_id in io2view:
+                view_node = io2view[dataset_id]
+                data += f"\t{view_node.id} --> {node.id}\n"
+            else:
+                data += (
+                    f"\t{_hash_to_str(dataset_id, io_names)} --> {node.id}\n"
+                )
 
-        for dataset_id in node.outputs:
-            data += f"\t{node.id} --> {_hash_to_str(dataset_id, io_names)}\n"
+        if not node.view:
+            for dataset_id in node.outputs:
+                data += (
+                    f"\t{node.id} --> {_hash_to_str(dataset_id, io_names)}\n"
+                )
 
     data += "\n"
 
@@ -195,12 +226,14 @@ def pipeline_to_mermaid(
             data += f"{tabs}direction TB\n"
 
         for node in nodes_in_module:
+            shape = view_shape if node.view else node_shape
             data += (
                 f"{tabs}{node.id}"
-                f"@{{shape: {node_shape}, "
+                f"@{{shape: {shape}, "
                 f'label: "{html.escape(node.name)}"}}\n'
             )
-            class_assignments["node"].append(str(node.id))
+            style = "node" if not node.view else "view"
+            class_assignments[style].append(str(node.id))
 
         for io in sorted(
             io_modules.get(module, []),

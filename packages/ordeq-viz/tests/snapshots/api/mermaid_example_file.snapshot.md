@@ -57,6 +57,7 @@ graph TB
 	IO8@{shape: rect, label: "name_printer"}
 
 	class L0,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input,example_1.wrapped_io:hello,example_1.wrapped_io:print_message node
+	class L2 view
 	class L00,IO2 io0
 	class L01,IO3 io1
 	class L02,IO6 io2
@@ -65,6 +66,7 @@ graph TB
 	class L05,IO0,IO1,IO4,IO5 io5
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
+	classDef view fill:#00C853,color:#FFF
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
 	classDef io2 fill:#8da0cb

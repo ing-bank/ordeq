@@ -115,7 +115,7 @@ def _resolve_module_globals(
     }
 
 
-def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
+def _resolve_module_to_nodes(module: ModuleType) -> list[FQNamed[Node]]:
     """Gathers all nodes defined in a module.
 
     Args:
@@ -125,7 +125,11 @@ def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
         the nodes defined in the module
     """
 
-    return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
+    return [
+        (module.__name__, name, get_node(obj))
+        for name, obj in vars(module).items()
+        if _is_node(obj)
+    ]
 
 
 def _resolve_module_to_ios(module: ModuleType) -> Catalog:
@@ -276,7 +280,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
     """
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
-        nodes.update(_resolve_module_to_nodes(module))
+        nodes.update(node for (_, _, node) in _resolve_module_to_nodes(module))
     return nodes
 
 
@@ -319,7 +323,7 @@ def _resolve_runnables_to_nodes_and_ios(
         ios.update(_resolve_module_to_ios(mod))
 
     for module in modules:
-        nodes.update(_resolve_module_to_nodes(module))
+        nodes.update(node for _, _, node in _resolve_module_to_nodes(module))
         ios.update(_resolve_module_to_ios(module))
 
     # Filter empty IO modules

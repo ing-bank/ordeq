@@ -26,12 +26,21 @@ pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['example_duplicates', 'example_duplicates.file1', 'example_duplicates.file2']
-['example_duplicates.file1:foo', 'example_duplicates.file2:foo']
-{'example_duplicates.file1': {'x_value': Literal(3),
-                              'y_value': IO(idx=ID1)},
+['example_duplicates',
+ 'example_duplicates.duplicate_io_name',
+ 'example_duplicates.duplicate_node_name',
+ 'example_duplicates.file1',
+ 'example_duplicates.file2']
+['example_duplicates.duplicate_node_name:<lambda>',
+ 'example_duplicates.file1:foo',
+ 'example_duplicates.file2:foo']
+{'example_duplicates.duplicate_io_name': {'x': Input(idx=ID1)},
+ 'example_duplicates.file1': {'x_value': Literal(3),
+                              'y_value': IO(idx=ID2)},
  'example_duplicates.file2': {'x_value': Literal(3),
-                              'y_value': IO(idx=ID2)}}
-['example_duplicates.file1:foo', 'example_duplicates.file2:foo']
+                              'y_value': IO(idx=ID3)}}
+['example_duplicates.duplicate_node_name:<lambda>',
+ 'example_duplicates.file1:foo',
+ 'example_duplicates.file2:foo']
 
 ```

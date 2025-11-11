@@ -47,9 +47,9 @@ Total run time: 0.0 seconds
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "func2" in module "run_hooks"
+INFO	ordeq.runner	Running node "func2" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "func1" in module "run_hooks"
+INFO	ordeq.runner	Running node "func1" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

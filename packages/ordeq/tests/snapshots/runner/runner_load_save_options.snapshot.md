@@ -46,11 +46,11 @@ print(x4.load())
 ## Output
 
 ```text
-Node:runner_load_save_options:decrement --> io-1
-Node:runner_load_save_options:increment --> io-2
-io-2 --> Node:runner_load_save_options:decrement
-io-3 --> Node:runner_load_save_options:decrement
-io-4 --> Node:runner_load_save_options:increment
+Node:__main__:decrement --> io-1
+Node:__main__:increment --> io-2
+io-2 --> Node:__main__:decrement
+io-3 --> Node:__main__:decrement
+io-4 --> Node:__main__:increment
 x says 'x says y did it ' but y says 'x did it and I know the murder weapon'  
 
 ```
@@ -59,10 +59,10 @@ x says 'x says y did it ' but y says 'x did it and I know the murder weapon'
 
 ```text
 INFO	ordeq.io	Loading CustomIO(attr=y did it)
-INFO	ordeq.runner	Running node "increment" in module "runner_load_save_options"
+INFO	ordeq.runner	Running node "increment" in module "__main__"
 INFO	ordeq.io	Saving CustomIO(attr=)
 INFO	ordeq.io	Loading CustomIO(attr=x did it)
-INFO	ordeq.runner	Running node "decrement" in module "runner_load_save_options"
+INFO	ordeq.runner	Running node "decrement" in module "__main__"
 INFO	ordeq.io	Saving CustomIO(attr=)
 INFO	ordeq.io	Loading CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
 

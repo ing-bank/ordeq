@@ -17,13 +17,13 @@ print(repr(get_node(my_view)))
 ## Output
 
 ```text
-View(name=view_inputs_empty:my_view)
+View(name=__main__:my_view)
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_empty:my_view'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:my_view'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

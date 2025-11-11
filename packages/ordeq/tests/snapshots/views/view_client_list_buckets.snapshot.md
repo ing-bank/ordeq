@@ -29,10 +29,10 @@ run(print_buckets, verbose=True)
 ## Output
 
 ```text
-View:view_client_list_buckets:buckets --> io-1
-io-1 --> View:view_client_list_buckets:print_buckets
-View:view_client_list_buckets:print_buckets --> io-2
-io-3 --> View:view_client_list_buckets:buckets
+View:__main__:buckets --> io-1
+io-1 --> View:__main__:print_buckets
+View:__main__:print_buckets --> io-2
+io-3 --> View:__main__:buckets
 bucket1
 bucket2
 bucket3
@@ -42,10 +42,10 @@ bucket3
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_client_list_buckets:buckets'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_client_list_buckets:print_buckets'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading Literal(<view_client_list_buckets.Client object at HASH1>)
-INFO	ordeq.runner	Running view "buckets" in module "view_client_list_buckets"
-INFO	ordeq.runner	Running view "print_buckets" in module "view_client_list_buckets"
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:buckets'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:print_buckets'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.io	Loading Literal(<__main__.Client object at HASH1>)
+INFO	ordeq.runner	Running view "buckets" in module "__main__"
+INFO	ordeq.runner	Running view "print_buckets" in module "__main__"
 
 ```

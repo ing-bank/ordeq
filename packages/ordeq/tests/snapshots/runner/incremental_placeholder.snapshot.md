@@ -103,24 +103,26 @@ IOException: Failed to load Input(idx=ID1).
     run(f, g, verbose=True)  # raises NotImplementedError
     ~~~^^^^^^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+  File "<frozen runpy>", line LINO, in _run_code
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
 ## Output
 
 ```text
-Node:incremental_placeholder:f --> io-1
-io-1 --> Node:incremental_placeholder:g
-Node:incremental_placeholder:g --> io-2
-io-3 --> Node:incremental_placeholder:f
-io-4 --> Node:incremental_placeholder:f
+Node:__main__:f --> io-1
+io-1 --> Node:__main__:g
+Node:__main__:g --> io-2
+io-3 --> Node:__main__:f
+io-4 --> Node:__main__:f
 
 ```
 

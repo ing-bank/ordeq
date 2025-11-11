@@ -34,14 +34,14 @@ run(n, verbose=True)
 ## Output
 
 ```text
-View(name=view_inputs_view_and_io:hello)
-View(name=view_inputs_view_and_io:hello_from_someone, inputs=[Literal('Jane'), View(name=view_inputs_view_and_io:hello)])
-View:view_inputs_view_and_io:hello --> io-1
-io-1 --> View:view_inputs_view_and_io:hello_from_someone
-View:view_inputs_view_and_io:hello_from_someone --> io-2
-io-2 --> View:view_inputs_view_and_io:n
-View:view_inputs_view_and_io:n --> io-3
-io-4 --> View:view_inputs_view_and_io:hello_from_someone
+View(name=__main__:hello)
+View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), View(name=__main__:hello)])
+View:__main__:hello --> io-1
+io-1 --> View:__main__:hello_from_someone
+View:__main__:hello_from_someone --> io-2
+io-2 --> View:__main__:n
+View:__main__:n --> io-3
+io-4 --> View:__main__:hello_from_someone
 I heard that Jane said 'Hello, World!'
 
 ```
@@ -49,12 +49,12 @@ I heard that Jane said 'Hello, World!'
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:hello_from_someone'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_inputs_view_and_io:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running view "hello" in module "view_inputs_view_and_io"
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:hello_from_someone'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running view "hello" in module "__main__"
 INFO	ordeq.io	Loading Literal('Jane')
-INFO	ordeq.runner	Running view "hello_from_someone" in module "view_inputs_view_and_io"
-INFO	ordeq.runner	Running view "n" in module "view_inputs_view_and_io"
+INFO	ordeq.runner	Running view "hello_from_someone" in module "__main__"
+INFO	ordeq.runner	Running view "n" in module "__main__"
 
 ```

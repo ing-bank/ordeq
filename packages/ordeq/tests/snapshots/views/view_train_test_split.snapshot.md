@@ -41,10 +41,10 @@ run(train, verbose=True)
 ## Output
 
 ```text
-View:view_train_test_split:split --> io-1
-io-1 --> View:view_train_test_split:train
-View:view_train_test_split:train --> io-2
-io-3 --> View:view_train_test_split:split
+View:__main__:split --> io-1
+io-1 --> View:__main__:train
+View:__main__:train --> io-2
+io-3 --> View:__main__:split
 Training          B   gt
 count  3.0  3.0
 mean   2.0  5.0
@@ -60,14 +60,14 @@ max    3.0  8.0
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_train_test_split:split'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_train_test_split:train'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:split'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:train'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(     A  B    C   gt
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)
-INFO	ordeq.runner	Running view "split" in module "view_train_test_split"
-INFO	ordeq.runner	Running view "train" in module "view_train_test_split"
+INFO	ordeq.runner	Running view "split" in module "__main__"
+INFO	ordeq.runner	Running view "train" in module "__main__"
 
 ```
 

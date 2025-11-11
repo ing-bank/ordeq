@@ -46,13 +46,15 @@ AttributeError: 'Example' object has no attribute 'load'
     run(my_node, load_node)
     ~~~^^^^^^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+  File "<frozen runpy>", line LINO, in _run_code
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
@@ -66,8 +68,8 @@ saving! Hello, World!
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'runner_load_output:load_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "my_node" in module "runner_load_output"
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:load_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running node "my_node" in module "__main__"
 INFO	ordeq.io	Saving Output(idx=ID1)
 
 ```

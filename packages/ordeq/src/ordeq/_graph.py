@@ -17,12 +17,18 @@ NodeIOEdge: TypeAlias = dict[
 ]
 
 
-def _collect_views(nodes_: set[Node]) -> set[View]:
-    views: set[View] = set()
-    for node in nodes_:
-        node_views = set(node.views)
-        views |= node_views | _collect_views(node_views)  # type: ignore[arg-type]
-    return views
+def _collect_views(*nodes: Node) -> list[View]:
+    views: dict[View, None] = {}
+
+    def _collect(*nodes_: Node) -> None:
+        for node in nodes_:
+            for view in node.views:
+                views[view] = None
+                _collect(view)
+
+    if nodes:
+        _collect(*nodes)
+    return list(views.keys())
 
 
 class NodeIOGraph:
@@ -33,13 +39,13 @@ class NodeIOGraph:
 
     @classmethod
     def from_nodes(
-        cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
+        cls, *nodes: Node, patches: dict[AnyIO | View, AnyIO] | None = None
     ) -> Self:
         edges: NodeIOEdge = defaultdict(dict)
 
         # First pass: collect all views
-        views = _collect_views(nodes)
-        all_nodes = nodes | views
+        views = _collect_views(*nodes)
+        all_nodes = [*nodes, *views]
 
         if patches is None:
             patches = {}
@@ -47,7 +53,10 @@ class NodeIOGraph:
             patches[view] = view.outputs[0]
 
         if patches:
-            all_nodes = {node._patch_io(patches) for node in all_nodes}  # noqa: SLF001 (private access)
+            # By converting to set the order of nodes is dropped.
+            # Unique nodes can be determined based on the FQN.
+            # TODO: change nodes to FQNamed[Node] and drop the set conversion
+            all_nodes = list({node._patch_io(patches) for node in all_nodes})  # noqa: SLF001 (private access)
 
         # Second pass: register outputs
         output_to_node: dict[AnyIO, Node | View] = {}
@@ -122,8 +131,8 @@ class NodeGraph:
         }
 
     @classmethod
-    def from_nodes(cls, nodes: set[Node]) -> Self:
-        return cls.from_graph(NodeIOGraph.from_nodes(nodes))
+    def from_nodes(cls, *nodes: Node) -> Self:
+        return cls.from_graph(NodeIOGraph.from_nodes(*nodes))
 
     @classmethod
     def from_graph(cls, graph: NodeIOGraph) -> Self:

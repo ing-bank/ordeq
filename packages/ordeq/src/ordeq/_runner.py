@@ -207,7 +207,7 @@ def run(
     nodes = _resolve_runnables_to_nodes(*runnables)
     io_subs = _resolve_strings_to_subs(io or {})
     patches = _substitutes_modules_to_ios(io_subs)
-    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+    graph_with_io = NodeIOGraph.from_nodes(*nodes, patches=patches)  # type: ignore[arg-type]
 
     if verbose:
         print(graph_with_io)

@@ -6,7 +6,7 @@ import importlib
 import pkgutil
 from collections.abc import Generator, Sequence
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, TypeAlias, TypeGuard
+from typing import TYPE_CHECKING, Annotated, Any, TypeAlias, TypeGuard
 
 from ordeq._fqn import FQNamed, str_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
@@ -17,6 +17,7 @@ if TYPE_CHECKING:
     from ordeq._runner import Runnable
 
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
+Ref: TypeAlias = Annotated[str, "Contains :"]
 
 
 def _is_module(obj: object) -> TypeGuard[ModuleType]:
@@ -31,8 +32,8 @@ def _is_io(obj: object) -> TypeGuard[AnyIO]:
     return isinstance(obj, (IO, Input, Output))
 
 
-def _resolve_ref_to_module(ref: str) -> ModuleType:
-    return importlib.import_module(ref)
+def _resolve_module_name_to_module(module_name: str) -> ModuleType:
+    return importlib.import_module(module_name)
 
 
 def _is_node(obj: object) -> bool:
@@ -43,9 +44,9 @@ def _is_node(obj: object) -> bool:
     )
 
 
-def _resolve_ref_to_node(ref: str) -> FQNamed[Node]:
+def _resolve_ref_to_node(ref: Ref) -> FQNamed[Node]:
     module_ref, node_name = str_to_fqn(ref)
-    module = _resolve_ref_to_module(module_ref)
+    module = _resolve_module_name_to_module(module_ref)
     node_obj = getattr(module, node_name, None)
     if node_obj is None or not _is_node(node_obj):
         raise ValueError(
@@ -54,9 +55,9 @@ def _resolve_ref_to_node(ref: str) -> FQNamed[Node]:
     return module_ref, node_name, get_node(node_obj)
 
 
-def _resolve_ref_to_hook(ref: str) -> FQNamed[RunnerHook]:
+def _resolve_ref_to_hook(ref: Ref) -> FQNamed[RunnerHook]:
     module_ref, hook_name = str_to_fqn(ref)
-    module = _resolve_ref_to_module(module_ref)
+    module = _resolve_module_name_to_module(module_ref)
     hook_obj = getattr(module, hook_name, None)
     if hook_obj is None or not isinstance(hook_obj, (NodeHook, RunHook)):
         raise ValueError(
@@ -65,9 +66,9 @@ def _resolve_ref_to_hook(ref: str) -> FQNamed[RunnerHook]:
     return module_ref, hook_name, hook_obj
 
 
-def _resolve_ref_to_io(ref: str) -> FQNamed[AnyIO]:
+def _resolve_ref_to_io(ref: Ref) -> FQNamed[AnyIO]:
     module_ref, io_name = str_to_fqn(ref)
-    module = _resolve_ref_to_module(module_ref)
+    module = _resolve_module_name_to_module(module_ref)
     io_obj = getattr(module, io_name, None)
     if io_obj is None or not _is_io(io_obj):
         raise ValueError(f"IO '{io_name}' not found in module '{module_ref}'")
@@ -158,7 +159,7 @@ def _resolve_packages_to_modules(
             for subname in _resolve_package_to_module_names(module):
                 if subname in visited:
                     continue
-                submodule = _resolve_ref_to_module(subname)
+                submodule = _resolve_module_name_to_module(subname)
                 yield from _walk(submodule)
 
     for module in modules:
@@ -174,7 +175,7 @@ def _resolve_refs_to_modules(
             # mypy false positive
             modules.add(runnable)  # type: ignore[arg-type]
         elif isinstance(runnable, str):
-            mod = _resolve_ref_to_module(runnable)
+            mod = _resolve_module_name_to_module(runnable)
             modules.add(mod)
         else:
             raise TypeError(
@@ -315,7 +316,7 @@ def _resolve_runnables_to_nodes_and_ios(
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
     for node in nodes:
-        mod = _resolve_ref_to_module(node.func.__module__)
+        mod = _resolve_module_name_to_module(node.func.__module__)
         ios.update(_resolve_module_to_ios(mod))
 
     for module in modules:

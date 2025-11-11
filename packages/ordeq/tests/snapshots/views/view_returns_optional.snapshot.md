@@ -30,13 +30,13 @@ run(n, verbose=True)
 ## Output
 
 ```text
-View:view_returns_optional:conditional --> io-1
-io-1 --> Node:view_returns_optional:n
-Node:view_returns_optional:n --> io-2
+View:__main__:conditional --> io-1
+io-1 --> Node:__main__:n
+Node:__main__:n --> io-2
 Higher value!
-View:view_returns_optional:conditional --> io-1
-io-1 --> Node:view_returns_optional:n
-Node:view_returns_optional:n --> io-2
+View:__main__:conditional --> io-1
+io-1 --> Node:__main__:n
+Node:__main__:n --> io-2
 None
 
 ```
@@ -44,12 +44,12 @@ None
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_returns_optional:conditional'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running view "conditional" in module "view_returns_optional"
-INFO	ordeq.runner	Running node "n" in module "view_returns_optional"
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:conditional'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running view "conditional" in module "__main__"
+INFO	ordeq.runner	Running node "n" in module "__main__"
 INFO	ordeq.io	Saving Print()
-INFO	ordeq.runner	Running view "conditional" in module "view_returns_optional"
-INFO	ordeq.runner	Running node "n" in module "view_returns_optional"
+INFO	ordeq.runner	Running view "conditional" in module "__main__"
+INFO	ordeq.runner	Running node "n" in module "__main__"
 INFO	ordeq.io	Saving Print()
 
 ```

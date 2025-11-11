@@ -9,6 +9,8 @@ packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     d
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
 packages/ordeq/tests/resources/runner/runner_load_output.py:17: error: List item 0 has incompatible type "Example"; expected "Input[Any] | Callable[..., Any]"  [list-item]
 packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Callable[..., Any] | str  [arg-type]
+packages/ordeq/tests/resources/runner/run_main.py:5: error: Need type annotation for "io1"  [var-annotated]
+packages/ordeq/tests/resources/runner/run_main.py:6: error: Need type annotation for "io2"  [var-annotated]
 packages/ordeq/tests/resources/runner/deterministic_graph.py:5: error: Need type annotation for "o1"  [var-annotated]
 packages/ordeq/tests/resources/runner/deterministic_graph.py:6: error: Need type annotation for "o2"  [var-annotated]
 packages/ordeq/tests/resources/runner/deterministic_graph.py:7: error: Need type annotation for "o3"  [var-annotated]
@@ -52,4 +54,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No 
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-Found 27 errors in 18 files (checked 208 source files)
+Found 29 errors in 19 files (checked 209 source files)

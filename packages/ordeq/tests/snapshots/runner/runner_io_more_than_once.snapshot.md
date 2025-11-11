@@ -35,17 +35,17 @@ print(x3.load())
 ## Output
 
 ```text
-Node:runner_io_more_than_once:decrement --> io-1
-Node:runner_io_more_than_once:increment --> io-2
-io-2 --> Node:runner_io_more_than_once:decrement
-io-3 --> Node:runner_io_more_than_once:decrement
-io-3 --> Node:runner_io_more_than_once:increment
+Node:__main__:decrement --> io-1
+Node:__main__:increment --> io-2
+io-2 --> Node:__main__:decrement
+io-3 --> Node:__main__:decrement
+io-3 --> Node:__main__:increment
 1
-Node:runner_io_more_than_once:decrement --> io-1
-Node:runner_io_more_than_once:increment --> io-2
-io-2 --> Node:runner_io_more_than_once:decrement
-io-3 --> Node:runner_io_more_than_once:decrement
-io-3 --> Node:runner_io_more_than_once:increment
+Node:__main__:decrement --> io-1
+Node:__main__:increment --> io-2
+io-2 --> Node:__main__:decrement
+io-3 --> Node:__main__:decrement
+io-3 --> Node:__main__:increment
 12001
 
 ```
@@ -54,15 +54,15 @@ io-3 --> Node:runner_io_more_than_once:increment
 
 ```text
 INFO	ordeq.io	Loading Literal(1)
-INFO	ordeq.runner	Running node "increment" in module "runner_io_more_than_once"
+INFO	ordeq.runner	Running node "increment" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "decrement" in module "runner_io_more_than_once"
+INFO	ordeq.runner	Running node "decrement" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading Literal(200)
-INFO	ordeq.runner	Running node "increment" in module "runner_io_more_than_once"
+INFO	ordeq.runner	Running node "increment" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "decrement" in module "runner_io_more_than_once"
+INFO	ordeq.runner	Running node "decrement" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 

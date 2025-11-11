@@ -31,10 +31,10 @@ run(concatenate, verbose=True)
 ## Output
 
 ```text
-View:view_response_iter:concatenate --> io-1
-View:view_response_iter:users_lines --> io-2
-io-2 --> View:view_response_iter:concatenate
-io-3 --> View:view_response_iter:users_lines
+View:__main__:concatenate --> io-1
+View:__main__:users_lines --> io-2
+io-2 --> View:__main__:concatenate
+io-3 --> View:__main__:users_lines
 b'{'
 b'  "id": 1,'
 b'  "name": "Leanne Graham",'
@@ -64,10 +64,10 @@ b'}'
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:users_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'view_response_iter:concatenate'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:users_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:concatenate'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<Response [200]>)
-INFO	ordeq.runner	Running view "users_lines" in module "view_response_iter"
-INFO	ordeq.runner	Running view "concatenate" in module "view_response_iter"
+INFO	ordeq.runner	Running view "users_lines" in module "__main__"
+INFO	ordeq.runner	Running view "concatenate" in module "__main__"
 
 ```

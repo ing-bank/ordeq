@@ -11,9 +11,9 @@ from ordeq._io import AnyIO
 from ordeq._resolve import (
     _is_io,
     _is_module,
+    _resolve_module_name_to_module,
     _resolve_package_to_ios,
     _resolve_ref_to_io,
-    _resolve_ref_to_module,
 )
 
 IOSubstitutes = dict[AnyIO, AnyIO]
@@ -26,7 +26,7 @@ def _resolve_strings_to_subs(
         if ":" in string:
             _, _, io = _resolve_ref_to_io(string)
             return io
-        return _resolve_ref_to_module(string)
+        return _resolve_module_name_to_module(string)
 
     subs_ = {}
     for old, new in subs.items():

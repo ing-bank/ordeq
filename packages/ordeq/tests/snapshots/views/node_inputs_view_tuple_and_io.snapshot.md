@@ -26,11 +26,11 @@ run(combine_greeting_with_ending, verbose=True)
 ## Output
 
 ```text
-View(name=node_inputs_view_tuple_and_io:hello)
-Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending --> io-1
-View:node_inputs_view_tuple_and_io:hello --> io-2
-io-2 --> Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending
-io-3 --> Node:node_inputs_view_tuple_and_io:combine_greeting_with_ending
+View(name=__main__:hello)
+Node:__main__:combine_greeting_with_ending --> io-1
+View:__main__:hello --> io-2
+io-2 --> Node:__main__:combine_greeting_with_ending
+io-3 --> Node:__main__:combine_greeting_with_ending
 Hello world !!!
 
 ```
@@ -38,10 +38,10 @@ Hello world !!!
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'node_inputs_view_tuple_and_io:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running view "hello" in module "node_inputs_view_tuple_and_io"
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running view "hello" in module "__main__"
 INFO	ordeq.io	Loading Literal('!!!')
-INFO	ordeq.runner	Running node "combine_greeting_with_ending" in module "node_inputs_view_tuple_and_io"
+INFO	ordeq.runner	Running node "combine_greeting_with_ending" in module "__main__"
 INFO	ordeq.io	Saving Print()
 
 ```

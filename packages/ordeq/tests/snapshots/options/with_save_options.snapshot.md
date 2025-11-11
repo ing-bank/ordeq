@@ -79,23 +79,25 @@ TypeError: got an unexpected keyword argument 'unknown_kwarg'
     example_input_arg.with_save_options(unknown_kwarg="Hello")  # should error
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "<frozen importlib._bootstrap>", line LINO, in _call_with_frames_removed
+  File "<frozen runpy>", line LINO, in _run_code
 
-  File "<frozen importlib._bootstrap_external>", line LINO, in exec_module
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    spec.loader.exec_module(module)
-    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
 ## Output
 
 ```text
-<class 'with_save_options.ExampleOutputSaveKwarg'>
-<class 'with_save_options.ExampleOutputSaveKwarg'>
-<class 'with_save_options.ExampleOutputSaveArg'>
-<class 'with_save_options.ExampleOutputSaveArg'>
+<class '__main__.ExampleOutputSaveKwarg'>
+<class '__main__.ExampleOutputSaveKwarg'>
+<class '__main__.ExampleOutputSaveArg'>
+<class '__main__.ExampleOutputSaveArg'>
 
 ```
 

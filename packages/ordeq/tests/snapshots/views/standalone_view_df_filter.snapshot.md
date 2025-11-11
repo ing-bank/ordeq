@@ -45,11 +45,11 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-View:standalone_view_df_filter:filter_df --> io-1
-io-1 --> View:standalone_view_df_filter:group_by
-View:standalone_view_df_filter:group_by --> io-2
-io-3 --> View:standalone_view_df_filter:filter_df
-io-4 --> View:standalone_view_df_filter:filter_df
+View:__main__:filter_df --> io-1
+io-1 --> View:__main__:group_by
+View:__main__:group_by --> io-2
+io-3 --> View:__main__:filter_df
+io-4 --> View:__main__:filter_df
      A   B   D
 0  NaN NaN NaN
 
@@ -58,8 +58,8 @@ io-4 --> View:standalone_view_df_filter:filter_df
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'standalone_view_df_filter:filter_df'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'standalone_view_df_filter:group_by'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:filter_df'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:group_by'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
@@ -68,7 +68,7 @@ INFO	ordeq.io	Loading Literal(0    False
 1    False
 2    False
 Name: B, dtype: bool)
-INFO	ordeq.runner	Running view "filter_df" in module "standalone_view_df_filter"
-INFO	ordeq.runner	Running view "group_by" in module "standalone_view_df_filter"
+INFO	ordeq.runner	Running view "filter_df" in module "__main__"
+INFO	ordeq.runner	Running view "group_by" in module "__main__"
 
 ```

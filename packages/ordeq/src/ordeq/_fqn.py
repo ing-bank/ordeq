@@ -7,18 +7,19 @@ while fully qualified names (FQNs) are represented as tuples of the form
 
 from __future__ import annotations
 
-from typing import TypeAlias, TypeVar
+from typing import TypeAlias, TypeVar, Annotated, TypeGuard
 
 FQN: TypeAlias = tuple[str, str]
 T = TypeVar("T")
 FQNamed: TypeAlias = tuple[str, str, T]
+Ref: TypeAlias = Annotated[str, "Contains :"]
 
 
-def str_to_fqn(name: str) -> FQN:
+def ref_to_fqn(ref: Ref) -> FQN:
     """Convert a string representation to a fully qualified name (FQN).
 
     Args:
-        name: A string in the format "module:name".
+        ref: A string in the format "module:name".
 
     Returns:
         A tuple representing the fully qualified name (module, name).
@@ -26,12 +27,12 @@ def str_to_fqn(name: str) -> FQN:
     Raises:
         ValueError: If the input string is not in the expected format.
     """
-    if ":" not in name:
+    if not is_ref(ref):
         raise ValueError(
-            f"Invalid object reference: '{name}'. "
+            f"Invalid object reference: '{ref}'. "
             f"Expected format 'module:name'."
         )
-    module_name, _, obj_name = name.partition(":")
+    module_name, _, obj_name = ref.partition(":")
     return module_name, obj_name
 
 
@@ -45,3 +46,7 @@ def fqn_to_str(name: FQN) -> str:
         A string in the format "module:name".
     """
     return f"{name[0]}:{name[1]}"
+
+
+def is_ref(string: str) -> TypeGuard[Ref]:
+    return ":" in string

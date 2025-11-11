@@ -38,6 +38,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
         dataset: the dataset (Input or Output)
         reverse_lookup: a dictionary mapping dataset IDs to names
         io_data: a dictionary to store IOData objects
+        store: whether to store the IOData object
 
     Returns:
         The ID of the dataset in the io_data dictionary.

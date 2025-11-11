@@ -1,4 +1,4 @@
 from ordeq import IO, Input
 
-x = IO()
-x = Input()
+x = IO[str]()
+x = Input[str]()

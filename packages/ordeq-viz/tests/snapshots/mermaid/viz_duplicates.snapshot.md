@@ -42,12 +42,10 @@ graph TB
 	IO3@{shape: rect, label: "y_value"}
 
 	class L0,example_duplicates.file1:foo,example_duplicates.file2:foo node
-	class L2 view
 	class L00,IO1,IO3 io0
 	class L01,IO0,IO2 io1
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef view fill:#00C853,color:#FFF
+	classDef io fill:#FFD43B,color:#000
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
 

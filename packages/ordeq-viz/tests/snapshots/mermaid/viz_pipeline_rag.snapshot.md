@@ -71,11 +71,9 @@ graph TB
 	IO9@{shape: cylinder, label: "relevant_pages"}
 
 	class L0,example_rag_pipeline.rag.annotation:annotate_documents,example_rag_pipeline.rag.evaluation:evaluate_answers,example_rag_pipeline.rag.indexer:create_vector_index,example_rag_pipeline.rag.policies:generate_questions,example_rag_pipeline.rag.question_answering:question_answering,example_rag_pipeline.rag.retrieval:filter_relevant,example_rag_pipeline.rag.retrieval:retrieve node
-	class L2 view
 	class L00,IO10,IO0,IO1,IO2,IO3,IO4,IO5,IO6,IO7,IO8,IO9 io0
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef view fill:#00C853,color:#FFF
+	classDef io fill:#FFD43B,color:#000
 	classDef io0 fill:#66c2a5
 
 

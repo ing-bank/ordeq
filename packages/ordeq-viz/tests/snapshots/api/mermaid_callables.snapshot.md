@@ -49,13 +49,11 @@ graph TB
 	IO3@{shape: rect, label: "TestOutput2"}
 
 	class L0,example_1.nodes:world,example_2.nodes:transform_input_2 node
-	class L2 view
 	class L00,IO2 io0
 	class L01,IO3 io1
 	class L02,IO0,IO1 io2
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef view fill:#00C853,color:#FFF
+	classDef io fill:#FFD43B,color:#000
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
 	classDef io2 fill:#8da0cb

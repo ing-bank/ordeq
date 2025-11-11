@@ -31,7 +31,6 @@ graph TB
 	class L0 node
 	class L2,example_nested.subpackage.subsubpackage.hello:world view
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
 
 

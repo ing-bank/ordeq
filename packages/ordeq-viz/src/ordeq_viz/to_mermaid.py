@@ -132,11 +132,6 @@ def pipeline_to_mermaid(
         "config": {"layout": layout, "theme": theme, "look": look},
     }
 
-    # Styles
-    node_style = "fill:#008AD7,color:#FFF"
-    view_style = "fill:#00C853,color:#FFF"
-    dataset_style = "fill:#FFD43B"
-
     dataset_styles = (
         "fill:#66c2a5",
         "fill:#fc8d62",
@@ -156,16 +151,19 @@ def pipeline_to_mermaid(
         "fill:#4682b4",
     )
 
-    class_definitions = {
-        "node": node_style,
-        "io": dataset_style,
-        "view": view_style,
-    }
+    class_definitions = {}
+    if node_data:
+        class_definitions["node"] = "fill:#008AD7,color:#FFF"
+    if dataset_data:
+        class_definitions["io"] = "fill:#FFD43B,color:#000"
+    if views:
+        class_definitions["view"] = "fill:#00C853,color:#FFF"
+
     class_assignments = defaultdict(list)
 
     mermaid_header = _make_mermaid_header(header_dict)
 
-    if use_dataset_styles:
+    if use_dataset_styles and dataset_data:
         for idx, style in zip(
             dataset_type_to_id.values(), cycle(dataset_styles), strict=False
         ):
@@ -174,7 +172,7 @@ def pipeline_to_mermaid(
     data = mermaid_header
     data += """graph TB\n"""
 
-    if legend and len(node_data) > 0:
+    if legend and node_data:
         data += '\tsubgraph legend["Legend"]\n'
         data += "\t\tdirection TB\n"
         data += f'\t\tL0@{{shape: {node_shape}, label: "Node"}}\n'
@@ -182,8 +180,10 @@ def pipeline_to_mermaid(
             data += f'\t\tL2@{{shape: {view_shape}, label: "View"}}\n'
 
         class_assignments["node"].append("L0")
-        class_assignments["view"].append("L2")
-        if len(dataset_data) > 0:
+        if views:
+            class_assignments["view"].append("L2")
+
+        if dataset_data:
             if not use_dataset_styles:
                 data += f'\t\tL1@{{shape: {io_shape}, label: "IO"}}\n'
                 class_assignments["io"].append("L1")

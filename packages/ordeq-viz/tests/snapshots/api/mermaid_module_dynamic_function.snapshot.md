@@ -39,7 +39,6 @@ graph TB
 	class L0 node
 	class L2,example_3.func_defs:hello,example_3.func_defs:hello view
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
 
 Hello, world!

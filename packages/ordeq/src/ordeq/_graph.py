@@ -39,14 +39,13 @@ class NodeIOGraph:
 
     @classmethod
     def from_nodes(
-        cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
+        cls, *nodes: Node, patches: dict[AnyIO | View, AnyIO] | None = None
     ) -> Self:
         edges: NodeIOEdge = defaultdict(dict)
 
         # First pass: collect all views
         views = _collect_views(*nodes)
-        all_nodes = list(nodes)
-        all_nodes.extend(views)
+        all_nodes = [*nodes, *views]
 
         if patches is None:
             patches = {}
@@ -132,8 +131,8 @@ class NodeGraph:
         }
 
     @classmethod
-    def from_nodes(cls, nodes: set[Node]) -> Self:
-        return cls.from_graph(NodeIOGraph.from_nodes(nodes))
+    def from_nodes(cls, *nodes: Node) -> Self:
+        return cls.from_graph(NodeIOGraph.from_nodes(*nodes))
 
     @classmethod
     def from_graph(cls, graph: NodeIOGraph) -> Self:

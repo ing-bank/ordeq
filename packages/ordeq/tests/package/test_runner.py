@@ -28,7 +28,7 @@ def test_run_graph_all():
     square = node(func=lambda x: f"({x})^2", inputs=(e,), outputs=(f,))
 
     nodes = {get_node(plus), get_node(minus), get_node(square)}
-    _run_graph(NodeGraph.from_nodes(nodes))
+    _run_graph(NodeGraph.from_nodes(*nodes))
     assert c.load() == "c(a + b)"
     assert e.load() == "e(c(a + b) - d)"
     assert f.load() == "f(e(c(a + b) - d))^2"
@@ -39,7 +39,7 @@ def test_run_graph_two():
     plus = node(func=lambda x, y: f"({x} + {y})", inputs=(a, b), outputs=(c,))
     minus = node(func=lambda x, y: f"({x} - {y})", inputs=(c, d), outputs=(e,))
     nodes = {get_node(plus), get_node(minus)}
-    _run_graph(NodeGraph.from_nodes(nodes))
+    _run_graph(NodeGraph.from_nodes(*nodes))
     assert c.load() == "c(a + b)"
     assert e.load() == "e(c(a + b) - d)"
 
@@ -48,7 +48,7 @@ def test_run_graph_one():
     a, b, c = [StringBuffer(x) for x in "abc"]
     plus = node(func=lambda x, y: f"({x} + {y})", inputs=(a, b), outputs=(c,))
     nodes = {get_node(plus)}
-    _run_graph(NodeGraph.from_nodes(nodes))
+    _run_graph(NodeGraph.from_nodes(*nodes))
     assert c.load() == "c(a + b)"
 
 

@@ -43,7 +43,7 @@ def test_it_builds_a_graph():
     third.inputs = [B, D]
     third.outputs = [F]
 
-    g = NodeGraph.from_nodes({third, second, first})
+    g = NodeGraph.from_nodes(third, second, first)
     assert g.edges == {first: [second, third], second: [third], third: []}
     assert g.nodes == {first, second, third}
 
@@ -55,7 +55,7 @@ def test_it_builds_graph_with_single_node():
     first.outputs = [B]
     first.views = []
 
-    g = NodeGraph.from_nodes({first})
+    g = NodeGraph.from_nodes(first)
     assert g.edges == {first: []}
     assert g.nodes == {first}
 
@@ -76,7 +76,7 @@ def test_it_raises_error_on_duplicated_outputs():
     with pytest.raises(
         ValueError, match="cannot be outputted by more than one node"
     ):
-        NodeGraph.from_nodes({first, second})
+        NodeGraph.from_nodes(first, second)
 
 
 @pytest.mark.parametrize(

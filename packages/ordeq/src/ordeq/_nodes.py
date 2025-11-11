@@ -29,7 +29,7 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 
     name = func.__name__
     module = getattr(func, "__module__", None)
-    if module and module != "__main__":
+    if module:
         return f"{module}:{name}"
     return name
 

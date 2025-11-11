@@ -312,7 +312,8 @@ def _resolve_runnables_to_nodes_and_ios(
             module = _resolve_ref_to_module(module_ref)
             ios.update({
                 module_ref: {
-                    name: io for (_, name, io) in _resolve_module_to_ios(module)
+                    name: io
+                    for (_, name, io) in _resolve_module_to_ios(module)
                 }
             })
 

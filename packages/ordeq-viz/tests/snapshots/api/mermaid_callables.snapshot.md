@@ -43,10 +43,10 @@ graph TB
 
 	example_1.nodes:world@{shape: rounded, label: "world"}
 	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
-	IO0@{shape: rect, label: "x"}
-	IO1@{shape: rect, label: "y"}
-	IO2@{shape: rect, label: "TestInput2"}
-	IO3@{shape: rect, label: "TestOutput2"}
+	IO0@{shape: rect, label: "&lt;anonymous&gt;"}
+	IO1@{shape: rect, label: "&lt;anonymous&gt;"}
+	IO2@{shape: rect, label: "&lt;anonymous&gt;"}
+	IO3@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0,example_1.nodes:world,example_2.nodes:transform_input_2 node
 	class L00,IO2 io0

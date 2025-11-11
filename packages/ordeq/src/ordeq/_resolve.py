@@ -307,12 +307,14 @@ def _resolve_runnables_to_nodes_and_ios(
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
     for module_ref, _, _ in nodes:
-        module = _resolve_ref_to_module(module_ref)
-        ios.update({
-            module_ref: {
-                name: io for (_, name, io) in _resolve_module_to_ios(module)
-            }
-        })
+        # Nodes that aren't retrieved from module scope have None module_ref.
+        if module_ref:
+            module = _resolve_ref_to_module(module_ref)
+            ios.update({
+                module_ref: {
+                    name: io for (_, name, io) in _resolve_module_to_ios(module)
+                }
+            })
 
     for module in modules:
         nodes.extend(_resolve_module_to_nodes(module))

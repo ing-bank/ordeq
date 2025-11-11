@@ -53,13 +53,13 @@ Total lines: 2
 
 ```text
 WARNING	ordeq_files.text_lines_stream	TextLinesStream is in pre-release, functionality may break in future releases without it being considered a breaking change.
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'with_end_save_option:show_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'with_end_save_option:count_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.runner	Running node "write_to_line_stream" in module "with_end_save_option"
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:show_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:count_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running node "write_to_line_stream" in module "__main__"
 INFO	ordeq.io	Saving TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
 INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
-INFO	ordeq.runner	Running view "show_lines" in module "with_end_save_option"
+INFO	ordeq.runner	Running view "show_lines" in module "__main__"
 INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
-INFO	ordeq.runner	Running view "count_lines" in module "with_end_save_option"
+INFO	ordeq.runner	Running view "count_lines" in module "__main__"
 
 ```

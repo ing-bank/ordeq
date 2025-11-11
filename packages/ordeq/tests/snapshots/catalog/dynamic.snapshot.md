@@ -48,11 +48,11 @@ HELLO FROM REMOTE!
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "func1" in module "dynamic"
+INFO	ordeq.runner	Running node "func1" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "func2" in module "dynamic"
+INFO	ordeq.runner	Running node "func2" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 

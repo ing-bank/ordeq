@@ -28,6 +28,6 @@ print(func.__module__)
 A really nice node
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
 func
-node_magic_attributes
+__main__
 
 ```

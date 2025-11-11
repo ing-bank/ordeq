@@ -51,7 +51,7 @@ dlrow olleh
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "hello_world" in module "io_hooks"
+INFO	ordeq.runner	Running node "hello_world" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 

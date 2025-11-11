@@ -1,11 +1,11 @@
 import difflib
-import importlib.util
 import logging
 import re
 import subprocess  # noqa S404 (subprocess usage)
 import tempfile
 import traceback
 from pathlib import Path
+from runpy import run_path
 
 from _pytest.capture import CaptureFixture
 from _pytest.logging import LogCaptureFixture
@@ -75,14 +75,8 @@ def run_module(file_path: Path) -> str | None:
         None if the module runs successfully, otherwise a string describing
         the exception.
     """
-    spec = importlib.util.spec_from_file_location(file_path.stem, file_path)
-    if spec is None:
-        return f"ImportError: Could not load spec for {file_path}"
-    if spec.loader is None:
-        return f"ValueError: Spec loader is None for {file_path}"
-    module = importlib.util.module_from_spec(spec)
     try:
-        spec.loader.exec_module(module)
+        run_path(str(file_path), run_name="__main__")
     except Exception as e:
         exception = f"{type(e).__name__}: {e}"
         traceback_str = "\n".join(

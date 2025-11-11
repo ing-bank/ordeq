@@ -240,7 +240,7 @@ def _resolve_runnables_to_nodes_and_modules(
             # mypy false positive
             modules_and_strs.append(runnable)  # type: ignore[arg-type]
         elif callable(runnable):
-            # Nodes that aren't retrieved from the module scopen cannot be
+            # Nodes that aren't retrieved from the module scope cannot be
             # named (yet). Therefore we assign None for now.
             nodes.append((None, None, get_node(runnable)))  # type: ignore[arg-type]
         elif isinstance(runnable, str):

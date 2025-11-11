@@ -116,15 +116,6 @@ def _resolve_module_globals(
 
 
 def _resolve_module_to_nodes(module: ModuleType) -> list[FQNamed[Node]]:
-    """Gathers all nodes defined in a module.
-
-    Args:
-        module: the module to gather nodes from
-
-    Returns:
-        the nodes defined in the module
-    """
-
     return [
         (module.__name__, name, get_node(obj))
         for name, obj in vars(module).items()
@@ -132,20 +123,12 @@ def _resolve_module_to_nodes(module: ModuleType) -> list[FQNamed[Node]]:
     ]
 
 
-def _resolve_module_to_ios(module: ModuleType) -> Catalog:
-    """Find all `IO` objects defined in the provided module
-
-    Args:
-        module: the Python module object
-
-    Returns:
-        a dict of `IO` objects with their fully-qualified name as key
-    """
-    return {
-        module.__name__: {
-            name: obj for name, obj in vars(module).items() if _is_io(obj)
-        }
-    }
+def _resolve_module_to_ios(module: ModuleType) -> list[FQNamed[AnyIO]]:
+    return [
+        (module.__name__, name, obj)
+        for name, obj in vars(module).items()
+        if _is_io(obj)
+    ]
 
 
 def _resolve_packages_to_modules(
@@ -206,7 +189,11 @@ def _resolve_package_to_ios(package: ModuleType) -> Catalog:
 
     catalog = {}
     for module in modules:
-        catalog.update(_resolve_module_to_ios(module))
+        catalog.update({
+            module.__name__: {
+                name: io for _, name, io in _resolve_module_to_ios(module)
+            }
+        })
     return {module_name: ios for module_name, ios in catalog.items() if ios}
 
 
@@ -315,16 +302,24 @@ def _resolve_runnables_to_nodes_and_ios(
         a tuple of nodes and IOs collected from the runnables
     """
 
-    ios = {}
+    ios: Catalog = {}
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
     for node in nodes:
         mod = _resolve_ref_to_module(node.func.__module__)
-        ios.update(_resolve_module_to_ios(mod))
+        ios.update({
+            mod.__name__: {
+                name: io for (_, name, io) in _resolve_module_to_ios(mod)
+            }
+        })
 
     for module in modules:
         nodes.update(node for _, _, node in _resolve_module_to_nodes(module))
-        ios.update(_resolve_module_to_ios(module))
+        ios.update({
+            module.__name__: {
+                name: io for (_, name, io) in _resolve_module_to_ios(module)
+            }
+        })
 
     # Filter empty IO modules
     ios = {

@@ -14,9 +14,17 @@ pprint(ios)
 ## Output
 
 ```text
-{'example_1.catalog': {'Hello': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
-                       'TestInput': Input(idx=ID1),
-                       'TestOutput': Output(idx=ID2),
-                       'World': StringBuffer(_buffer=<_io.StringIO object at HASH2>)}}
+[('example_1.catalog',
+  'Hello',
+  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
+ ('example_1.catalog',
+  'World',
+  StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
+ ('example_1.catalog',
+  'TestInput',
+  Input(idx=ID1)),
+ ('example_1.catalog',
+  'TestOutput',
+  Output(idx=ID2))]
 
 ```

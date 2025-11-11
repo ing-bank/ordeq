@@ -34,19 +34,19 @@ ModuleNotFoundError: No module named 'example_catalogs.remote.hello'; 'example_c
     return _bootstrap._gcd_import(name[level:], package, level)
            ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_module_name_to_module
-    return importlib.import_module(module_name)
-           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_module_ref_to_module
+    return importlib.import_module(module_ref)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in resolve_string_to_sub
-    return _resolve_module_name_to_module(string)
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in resolve_ref_to_sub
+    return _resolve_module_ref_to_module(ref)
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _resolve_strings_to_subs
-    new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new
-              ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _resolve_refs_to_subs
+    new_sub = resolve_ref_to_sub(new) if isinstance(new, str) else new
+              ~~~~~~~~~~~~~~~~~~^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    io_subs = _resolve_strings_to_subs(io or {})
+    io_subs = _resolve_refs_to_subs(io or {})
 
   File "/packages/ordeq/tests/resources/runner/run_io_wrong_io_reference.py", line LINO, in <module>
     run(uppercase, io={catalog.hello: "example_catalogs.remote.hello"})

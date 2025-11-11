@@ -24,18 +24,19 @@ run(uppercase, io={catalog.hello: "example_catalogs:remote"})
 
 ```text
 ValueError: IO 'remote' not found in module 'example_catalogs'
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_ref_to_io
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_object_ref_to_io
     raise ValueError(f"IO '{io_name}' not found in module '{module_ref}'")
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in resolve_string_to_sub
-    return _resolve_ref_to_io(string)
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in resolve_ref_to_sub
+    _, _, io = _resolve_object_ref_to_io(ref)
+               ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _resolve_strings_to_subs
-    new_sub = resolve_string_to_sub(new) if isinstance(new, str) else new
-              ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _resolve_refs_to_subs
+    new_sub = resolve_ref_to_sub(new) if isinstance(new, str) else new
+              ~~~~~~~~~~~~~~~~~~^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    io_subs = _resolve_strings_to_subs(io or {})
+    io_subs = _resolve_refs_to_subs(io or {})
 
   File "/packages/ordeq/tests/resources/runner/run_io_wrong_catalog_reference.py", line LINO, in <module>
     run(uppercase, io={catalog.hello: "example_catalogs:remote"})

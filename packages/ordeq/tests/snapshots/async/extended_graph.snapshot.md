@@ -164,7 +164,7 @@ graph TB
 	class L0,example_async.extended_graph:write_A,example_async.extended_graph:write_B,example_async.extended_graph:write_C,example_async.extended_graph:write_D,example_async.extended_graph:write_E,example_async.extended_graph:write_F,example_async.extended_graph:write_G node
 	class L00,IO0,IO1,IO2,IO3,IO4,IO5,IO6 io0
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B,color:#000
+	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
 

@@ -143,7 +143,7 @@ graph TB
 	class L0,example_async.async_nodes:write_buffer_1,example_async.async_nodes:write_buffer_2 node
 	class L00,IO0,IO1 io0
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B,color:#000
+	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
 

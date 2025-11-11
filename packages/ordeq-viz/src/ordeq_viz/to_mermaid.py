@@ -155,7 +155,7 @@ def pipeline_to_mermaid(
     if node_data:
         class_definitions["node"] = "fill:#008AD7,color:#FFF"
     if dataset_data:
-        class_definitions["io"] = "fill:#FFD43B,color:#000"
+        class_definitions["io"] = "fill:#FFD43B"
     if views:
         class_definitions["view"] = "fill:#00C853,color:#FFF"
 

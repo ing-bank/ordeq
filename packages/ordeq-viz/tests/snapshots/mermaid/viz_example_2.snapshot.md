@@ -37,7 +37,7 @@ graph TB
 	class L00,IO0 io0
 	class L01,IO1 io1
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B,color:#000
+	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
 

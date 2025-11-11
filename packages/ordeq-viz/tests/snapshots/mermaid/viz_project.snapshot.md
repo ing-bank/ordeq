@@ -84,7 +84,7 @@ graph TB
 	class L02,IO1,IO10,IO13,IO3,IO6,IO7,IO8,IO9 io2
 	class L03,IO5 io3
 	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B,color:#000
+	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62

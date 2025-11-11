@@ -7,7 +7,7 @@ flexible reconfiguration of IO without modifying the pipeline code.
 from types import ModuleType
 
 from ordeq._catalog import check_catalogs_are_consistent
-from ordeq._fqn import is_object_ref, AnyRef
+from ordeq._fqn import AnyRef, is_object_ref
 from ordeq._io import AnyIO
 from ordeq._resolve import (
     _is_io,

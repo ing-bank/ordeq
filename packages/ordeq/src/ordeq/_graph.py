@@ -54,7 +54,7 @@ class NodeIOGraph:
             patches[view] = view.outputs[0]
 
         if patches:
-            all_nodes = {node._patch_io(patches) for node in all_nodes}  # noqa: SLF001 (private access)
+            all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
         # Second pass: register outputs
         output_to_node: dict[AnyIO, Node | View] = {}

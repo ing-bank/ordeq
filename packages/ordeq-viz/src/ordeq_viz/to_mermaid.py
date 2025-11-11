@@ -82,6 +82,7 @@ def pipeline_to_mermaid(
         look: Look and feel for the diagram (e.g., 'neo')
         io_shape: Shape for IO nodes in the diagram
         node_shape: Shape for processing nodes in the diagram
+        view_shape: Shape for view nodes in the diagram
         subgraphs: if True, group nodes and IOs by their module in subgraphs
 
     Returns:

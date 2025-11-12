@@ -8,7 +8,13 @@ from collections.abc import Generator, Sequence
 from types import ModuleType
 from typing import TYPE_CHECKING, Any, TypeAlias, TypeGuard
 
-from ordeq._fqn import FQNamed, ModuleRef, ObjectRef, object_ref_to_fqn
+from ordeq._fqn import (
+    FQNamed,
+    ModuleRef,
+    ObjectRef,
+    is_object_ref,
+    object_ref_to_fqn,
+)
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node
@@ -139,14 +145,15 @@ def _resolve_packages_to_modules(
 def _resolve_refs_to_modules(
     *runnables: str | ModuleType,
 ) -> Generator[ModuleType]:
-    modules: set[ModuleType] = set()
+    modules: list[ModuleType] = []
     for runnable in runnables:
         if _is_module(runnable):
-            # mypy false positive
-            modules.add(runnable)  # type: ignore[arg-type]
+            if runnable not in modules:
+                modules.append(runnable)
         elif isinstance(runnable, str):
             mod = _resolve_module_ref_to_module(runnable)
-            modules.add(mod)
+            if mod not in modules:
+                modules.append(mod)
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "
@@ -155,9 +162,7 @@ def _resolve_refs_to_modules(
 
     # Then, for each module or package, if it's a package, resolve to all its
     # submodules recursively
-    return _resolve_packages_to_modules(
-        *sorted(modules, key=lambda m: m.__name__)
-    )
+    return _resolve_packages_to_modules(*modules)
 
 
 def _resolve_module_to_ios(module: ModuleType) -> dict[str, AnyIO]:
@@ -211,7 +216,7 @@ def _resolve_refs_to_hooks(
 
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: Runnable,
-) -> tuple[set[Node], set[ModuleType]]:
+) -> tuple[set[Node], list[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -228,7 +233,7 @@ def _resolve_runnables_to_nodes_and_modules(
     nodes = set()
     for runnable in runnables:
         if _is_module(runnable) or (
-            isinstance(runnable, str) and ":" not in runnable
+            isinstance(runnable, str) and not is_object_ref(runnable)
         ):
             # mypy false positive
             modules_and_strs.append(runnable)  # type: ignore[arg-type]
@@ -243,7 +248,7 @@ def _resolve_runnables_to_nodes_and_modules(
                 f"Expected a module or a node, got {type(runnable)}"
             )
 
-    modules = set(_resolve_refs_to_modules(*modules_and_strs))
+    modules = list(_resolve_refs_to_modules(*modules_and_strs))
     return nodes, modules
 
 
@@ -273,9 +278,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
 
     """
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
-    # TODO: ensure _resolve_runnables_to_nodes_and_modules returns ordered
-    # data type
-    for module in sorted(modules, key=lambda m: m.__name__):
+    for module in modules:
         nodes.update(_resolve_module_to_nodes(module).values())
     return nodes
 
@@ -318,7 +321,7 @@ def _resolve_runnables_to_nodes_and_ios(
         mod = _resolve_module_ref_to_module(node.func.__module__)
         ios.update({mod.__name__: _resolve_module_to_ios(mod)})
 
-    for module in sorted(modules, key=lambda m: m.__name__):
+    for module in modules:
         nodes.update(_resolve_module_to_nodes(module).values())
         ios.update({module.__name__: _resolve_module_to_ios(module)})
 

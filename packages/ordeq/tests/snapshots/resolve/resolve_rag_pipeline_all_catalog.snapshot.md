@@ -34,13 +34,13 @@ pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Output
 
 ```text
-['example_rag_pipeline.catalog',
- 'example_rag_pipeline.rag.annotation',
+['example_rag_pipeline.rag.annotation',
  'example_rag_pipeline.rag.evaluation',
  'example_rag_pipeline.rag.indexer',
  'example_rag_pipeline.rag.policies',
  'example_rag_pipeline.rag.question_answering',
- 'example_rag_pipeline.rag.retrieval']
+ 'example_rag_pipeline.rag.retrieval',
+ 'example_rag_pipeline.catalog']
 ['example_rag_pipeline.rag.annotation:annotate_documents',
  'example_rag_pipeline.rag.evaluation:evaluate_answers',
  'example_rag_pipeline.rag.indexer:create_vector_index',

@@ -26,8 +26,8 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
+io-0 --> Node:example_2.nodes:transform_input_2
 Node:example_2.nodes:transform_input_2 --> io-1
-io-2 --> Node:example_2.nodes:transform_input_2
 NodeGraph
 Node:example_2.nodes:transform_input_2
 Topological ordering

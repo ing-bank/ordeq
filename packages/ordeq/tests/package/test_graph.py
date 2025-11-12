@@ -44,7 +44,7 @@ def test_it_builds_a_graph():
 
     g = NodeGraph.from_nodes([third, second, first])
     assert g.edges == {second: [third], first: [third, second]}
-    assert g.nodes == {first, second, third}
+    assert set(g.nodes) == {first, second, third}
 
 
 def test_it_builds_graph_with_single_node():
@@ -56,7 +56,7 @@ def test_it_builds_graph_with_single_node():
 
     g = NodeGraph.from_nodes([first])
     assert g.edges == {}
-    assert g.nodes == {first}
+    assert set(g.nodes) == {first}
 
 
 def test_it_raises_error_on_duplicated_outputs():
@@ -128,7 +128,7 @@ def test_it_finds_a_topological_ordering(edges, expected):
     # multiple valid topological orderings, the ordering is
     # deterministic (as dictionaries are ordered).
 
-    g = NodeGraph(edges=edges, nodes={0, 1, 2, 3})
+    g = NodeGraph(edges=edges, nodes=list(edges.keys()))
     assert g.topological_ordering == expected
 
 

@@ -47,10 +47,10 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
+io-0 --> View:__main__:first
 View:__main__:first --> io-1
-View:__main__:second --> io-2
-io-3 --> View:__main__:first
-io-4 --> View:__main__:second
+io-2 --> View:__main__:second
+View:__main__:second --> io-3
 
 
 

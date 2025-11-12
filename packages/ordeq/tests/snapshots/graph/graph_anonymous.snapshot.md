@@ -26,8 +26,8 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
+io-0 --> Node:example_anonymous.nodes:node_with_inline_io
 Node:example_anonymous.nodes:node_with_inline_io --> io-1
-io-2 --> Node:example_anonymous.nodes:node_with_inline_io
 NodeGraph
 Node:example_anonymous.nodes:node_with_inline_io
 Topological ordering

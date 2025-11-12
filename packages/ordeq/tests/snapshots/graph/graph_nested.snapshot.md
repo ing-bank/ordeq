@@ -26,7 +26,7 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-View:example_nested.subpackage.subsubpackage.hello:world --> io-1
+View:example_nested.subpackage.subsubpackage.hello:world --> io-0
 NodeGraph
 View:example_nested.subpackage.subsubpackage.hello:world
 Topological ordering

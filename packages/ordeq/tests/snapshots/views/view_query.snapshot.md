@@ -26,10 +26,10 @@ run(range_to_csv, verbose=True)
 ## Output
 
 ```text
+io-3 --> View:__main__:range_to_csv
 View:__main__:range_to_csv --> io-1
-View:__main__:selected_range --> io-2
-io-2 --> View:__main__:range_to_csv
-io-3 --> View:__main__:selected_range
+io-2 --> View:__main__:selected_range
+View:__main__:selected_range --> io-3
 ┌───────┐
 │ range │
 │ int64 │

@@ -2,7 +2,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import Any, TypeAlias, TypeVar, cast
+from typing import Any, TypeVar, cast
 
 from ordeq._io import AnyIO
 from ordeq._nodes import Node, View
@@ -11,10 +11,6 @@ try:
     from typing import Self  # type: ignore[attr-defined]
 except ImportError:
     from typing_extensions import Self
-
-NodeIOEdge: TypeAlias = dict[
-    Node | View | None, dict[AnyIO, list[Node | View]]
-]
 
 T = TypeVar("T")
 
@@ -35,8 +31,8 @@ def _collect_views(*nodes: Node) -> list[Node]:
 @dataclass(frozen=True)
 class NodeIOGraph:
     edges: dict[AnyIO | Node, list[AnyIO | Node]]
-    ios: set[AnyIO]
-    nodes: set[Node]
+    ios: list[AnyIO]
+    nodes: list[Node]
 
     @classmethod
     def from_nodes(
@@ -56,7 +52,7 @@ class NodeIOGraph:
         if patches:
             all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
-        ios: set[AnyIO] = set()
+        ios: list[AnyIO] = []
         edges: dict[Any, list[Any]] = defaultdict(list)
         output_to_node: dict[AnyIO, Node | View] = {}
 
@@ -66,7 +62,7 @@ class NodeIOGraph:
                 # sentinel IO, so it's safe to cast input to AnyIO.
                 ip_ = cast("AnyIO", ip)
 
-                ios.add(ip_)
+                ios.append(ip_)
                 edges[ip_].append(node)
             for op in node.outputs:
                 if op in output_to_node:
@@ -78,16 +74,49 @@ class NodeIOGraph:
                     raise ValueError(msg)
 
                 output_to_node[op] = node
-                ios.add(op)
+                ios.append(op)
                 edges[node].append(op)
 
-        return cls(edges=dict(edges), ios=ios, nodes=set(all_nodes))
+        return cls(edges=dict(edges), ios=ios, nodes=all_nodes)
+
+    @cached_property
+    def topological_ordering(self) -> tuple[Node | AnyIO, ...]:
+        # Adds an edge between a dummy vertex all unconnected nodes:
+        edges: dict[int | AnyIO | Node, list[AnyIO | Node]] = {
+            0: [*self.nodes, *self.ios],
+            **self.edges,  # type: ignore[dict-item]
+        }
+        ordering = tuple(
+            reversed(tuple(TopologicalSorter(edges).static_order()))
+        )
+        # The dummy vertex is at index 0:
+        return cast("tuple[Node, ...]", ordering[1:])
+
+    def __repr__(self) -> str:
+        # Hacky way to generate a deterministic repr of this class.
+        # This should move to a separate named graph class.
+        lines: list[str] = []
+        names: dict[Node | AnyIO, str] = {
+            **{
+                node: f"{type(node).__name__}:{node.name}"
+                for node in self.nodes
+            },
+            **{io: f"io-{i}" for i, io in enumerate(self.ios)},
+        }
+
+        for vertex in self.edges:
+            lines.extend(
+                f"{names[vertex]} --> {names[next_vertex]}"
+                for next_vertex in self.edges[vertex]
+            )
+
+        return "\n".join(lines)
 
 
 @dataclass(frozen=True)
 class NodeGraph:
     edges: dict[Node, list[Node]]
-    nodes: set[Node]
+    nodes: list[Node]
 
     @classmethod
     def from_nodes(cls, nodes: list[Node]) -> Self:
@@ -102,7 +131,10 @@ class NodeGraph:
             for target in targets:
                 if target in base.edges:
                     edges[source].extend(base.edges[target])
-        return cls(edges=dict(edges), nodes=base.nodes)
+        return cls(
+            edges=dict(edges),  # type: ignore[arg-type]
+            nodes=base.nodes,
+        )
 
     @property
     def sink_nodes(self) -> set[Node]:
@@ -114,22 +146,27 @@ class NodeGraph:
         return {s for s, targets in self.edges.items() if len(targets) == 0}
 
     @cached_property
-    def topological_ordering(self) -> tuple[T, ...]:
-        edges = {None: list(self.nodes), **self.edges}
-        return tuple(reversed(tuple(TopologicalSorter(edges).static_order())))[
-            1:
-        ]
+    def topological_ordering(self) -> tuple[Node, ...]:
+        # Adds an edge between a dummy vertex all unconnected nodes:
+        edges: dict[Node | None, list[Node]] = {
+            None: self.nodes,
+            **self.edges,  # type: ignore[dict-item]
+        }
+        ordering = tuple(
+            reversed(tuple(TopologicalSorter(edges).static_order()))
+        )
+        # The dummy vertex is at index 0:
+        return cast("tuple[Node, ...]", ordering[1:])
 
     def __repr__(self) -> str:
         lines: list[str] = []
-        for source_node, target_nodes in self.edges.items():
-            lines.extend(
-                f"{type(source_node).__name__}:{source_node.name} --> "
-                f"{type(target_node).__name__}:{target_node.name}"
-                for target_node in target_nodes
-            )
-            if not target_nodes:
-                lines.append(
-                    f"{type(source_node).__name__}:{source_node.name}"
+        for node in self.topological_ordering:
+            if node in self.edges:
+                lines.extend(
+                    f"{type(node).__name__}:{node.name} --> "
+                    f"{type(next_node).__name__}:{next_node.name}"
+                    for next_node in self.edges[node]
                 )
+            else:
+                lines.append(f"{type(node).__name__}:{node.name}")
         return "\n".join(lines)

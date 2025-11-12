@@ -20,9 +20,9 @@ run(show_message, verbose=True)
 ## Output
 
 ```text
-View:__main__:print_message --> io-1
+View:__main__:print_message --> io-0
 Hello from printer
-View:__main__:print_message --> io-1
+View:__main__:print_message --> io-0
 Hello from printer
 
 ```

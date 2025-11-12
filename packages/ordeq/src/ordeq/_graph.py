@@ -141,9 +141,7 @@ class NodeGraph(Graph[Node]):
 
     @classmethod
     def from_graph(cls, base: NodeIOGraph) -> Self:
-        edges: dict[AnyIO | Node, list[AnyIO | Node]] = {
-            node: [] for node in base.nodes
-        }
+        edges: dict[Node, list[Node]] = {node: [] for node in base.nodes}
         for source, targets in base.edges.items():
             if source in base.ios:
                 continue

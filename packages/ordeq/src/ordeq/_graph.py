@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import Any, TypeVar, cast
+from typing import Any, Generic, TypeVar, cast
 
 from ordeq._io import AnyIO
 from ordeq._nodes import Node, View
@@ -27,8 +27,18 @@ def _collect_views(*nodes: Node) -> list[Node]:
     return list(all_nodes.keys())
 
 
+class Graph(Generic[T]):
+    edges: dict[T, list[T]]
+
+    @cached_property
+    def topological_ordering(self) -> tuple[T, ...]:
+        return tuple(
+            reversed(tuple(TopologicalSorter(self.edges).static_order()))
+        )
+
+
 @dataclass(frozen=True)
-class NodeIOGraph:
+class NodeIOGraph(Graph[AnyIO | Node]):
     edges: dict[AnyIO | Node, list[AnyIO | Node]]
     ios: list[AnyIO]
     nodes: list[Node]
@@ -81,12 +91,6 @@ class NodeIOGraph:
 
         return cls(edges=dict(edges), ios=ios, nodes=all_nodes)
 
-    @cached_property
-    def topological_ordering(self) -> tuple[Node | AnyIO, ...]:
-        return tuple(
-            reversed(tuple(TopologicalSorter(self.edges).static_order()))
-        )
-
     def __repr__(self) -> str:
         # Hacky way to generate a deterministic repr of this class.
         # This should move to a separate named graph class.
@@ -109,7 +113,7 @@ class NodeIOGraph:
 
 
 @dataclass(frozen=True)
-class NodeGraph:
+class NodeGraph(Graph[Node]):
     edges: dict[Node, list[Node]]
 
     @classmethod
@@ -143,12 +147,6 @@ class NodeGraph:
     @cached_property
     def nodes(self) -> list[Node]:
         return list(self.edges.keys())
-
-    @cached_property
-    def topological_ordering(self) -> tuple[Node, ...]:
-        return tuple(
-            reversed(tuple(TopologicalSorter(self.edges).static_order()))
-        )
 
     def __repr__(self) -> str:
         lines: list[str] = []

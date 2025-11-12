@@ -160,7 +160,7 @@ def _generate_main(nodes: list[NodeData], datasets: list[IOData]):
 
 
 def pipeline_to_kedro_viz(
-    nodes: set[Node], ios: Catalog, output_directory: Path
+    nodes: list[Node], ios: Catalog, output_directory: Path
 ) -> None:
     """Convert a pipeline to a kedro-viz static pipeline directory
 

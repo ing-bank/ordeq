@@ -36,10 +36,10 @@ io-4 --> Node:example_rag_pipeline.rag.retrieval:retrieve
 Node:example_rag_pipeline.rag.question_answering:question_answering --> io-5
 io-5 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
 io-5 --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
-Node:example_rag_pipeline.rag.retrieval:filter_relevant --> io-6
-io-6 --> Node:example_rag_pipeline.rag.question_answering:question_answering
-Node:example_rag_pipeline.rag.retrieval:retrieve --> io-7
-io-7 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
+Node:example_rag_pipeline.rag.retrieval:retrieve --> io-6
+io-6 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
+Node:example_rag_pipeline.rag.retrieval:filter_relevant --> io-7
+io-7 --> Node:example_rag_pipeline.rag.question_answering:question_answering
 io-8 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
 io-8 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
 io-9 --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
@@ -56,8 +56,8 @@ Node:example_rag_pipeline.rag.policies:generate_questions --> Node:example_rag_p
 Node:example_rag_pipeline.rag.policies:generate_questions --> Node:example_rag_pipeline.rag.retrieval:retrieve
 Node:example_rag_pipeline.rag.question_answering:question_answering --> Node:example_rag_pipeline.rag.annotation:annotate_documents
 Node:example_rag_pipeline.rag.question_answering:question_answering --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
-Node:example_rag_pipeline.rag.retrieval:filter_relevant --> Node:example_rag_pipeline.rag.question_answering:question_answering
 Node:example_rag_pipeline.rag.retrieval:retrieve --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
+Node:example_rag_pipeline.rag.retrieval:filter_relevant --> Node:example_rag_pipeline.rag.question_answering:question_answering
 Topological ordering
 ['example_rag_pipeline.rag.policies:generate_questions',
  'example_rag_pipeline.rag.indexer:create_vector_index',

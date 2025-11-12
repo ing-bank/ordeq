@@ -32,9 +32,9 @@ Node:example_project.nodes_import:func_a --> io-3
 Node:example_project.nodes_import:func_b --> io-4
 Node:example_project.nodes_import_alias:func --> io-5
 Node:example_project.nodes_with_inline_io:greet --> io-6
-Node:example_project.nodes_with_view:farewell --> io-7
-View:example_project.nodes_with_view:greet --> io-8
-io-8 --> Node:example_project.nodes_with_view:farewell
+View:example_project.nodes_with_view:greet --> io-7
+io-7 --> Node:example_project.nodes_with_view:farewell
+Node:example_project.nodes_with_view:farewell --> io-8
 io-9 --> Node:example_project.inner.nodes:func
 io-10 --> Node:example_project.nodes:func
 io-11 --> Node:example_project.nodes_import:func_a
@@ -52,8 +52,8 @@ Node:example_project.nodes_import:func_a
 Node:example_project.nodes_import:func_b
 Node:example_project.nodes_import_alias:func
 Node:example_project.nodes_with_inline_io:greet
-Node:example_project.nodes_with_view:farewell
 View:example_project.nodes_with_view:greet --> Node:example_project.nodes_with_view:farewell
+Node:example_project.nodes_with_view:farewell
 Topological ordering
 ['example_project.nodes_with_view:greet',
  'example_project.nodes_with_view:farewell',

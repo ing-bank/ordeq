@@ -11,24 +11,22 @@ try:
 except ImportError:
     from typing_extensions import Self
 
-
 NodeIOEdge: TypeAlias = dict[
     Node | View | None, dict[AnyIO, list[Node | View]]
 ]
 
 
-def _collect_views(*nodes: Node) -> list[View]:
-    views: dict[View, None] = {}
+def _collect_views(*nodes: Node) -> list[Node]:
+    all_nodes: dict[Node, None] = {}
 
     def _collect(*nodes_: Node) -> None:
         for node in nodes_:
+            all_nodes[node] = None
             for view in node.views:
-                views[view] = None
                 _collect(view)
 
-    if nodes:
-        _collect(*nodes)
-    return list(views.keys())
+    _collect(*nodes)
+    return list(all_nodes.keys())
 
 
 class NodeIOGraph:
@@ -39,29 +37,27 @@ class NodeIOGraph:
 
     @classmethod
     def from_nodes(
-        cls, nodes: set[Node], patches: dict[AnyIO | View, AnyIO] | None = None
+        cls,
+        nodes: list[Node],
+        patches: dict[AnyIO | View, AnyIO] | None = None,
     ) -> Self:
         edges: NodeIOEdge = defaultdict(dict)
 
         # First pass: collect all views
-        views = _collect_views(*nodes)
-        all_nodes = list(nodes)
-        all_nodes.extend(views)
+        all_nodes = _collect_views(*nodes)
+        views = [view for view in all_nodes if isinstance(view, View)]
 
         if patches is None:
             patches = {}
-        for view in sorted(views, key=lambda n: n.name):
+        for view in views:
             patches[view] = view.outputs[0]
 
         if patches:
-            # By converting to set the order of nodes is dropped.
-            # Unique nodes can be determined based on the FQN.
-            # TODO: change nodes to FQNamed[Node] and drop the set conversion
-            all_nodes = list({node._patch_io(patches) for node in all_nodes})  # noqa: SLF001 (private access)
+            all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
         # Second pass: register outputs
         output_to_node: dict[AnyIO, Node | View] = {}
-        for node in sorted(all_nodes, key=lambda n: n.name):
+        for node in all_nodes:
             for output in node.outputs:
                 if output in output_to_node:
                     msg = (
@@ -74,7 +70,7 @@ class NodeIOGraph:
                 edges[node][output] = []
 
         # Third pass: connect nodes through inputs
-        for node in sorted(all_nodes, key=lambda n: n.name):
+        for node in all_nodes:
             for input_ in node.inputs:
                 if input_ in output_to_node:
                     source_node = output_to_node[input_]  # type: ignore[index]
@@ -96,10 +92,7 @@ class NodeIOGraph:
 
         io_ids: dict[AnyIO, str] = {}
         for source_node, targets in self.edges.items():
-            for io, target_nodes in sorted(
-                targets.items(),
-                key=lambda item: tuple(sorted(n.name for n in item[1])),
-            ):
+            for io, target_nodes in targets.items():
                 if io not in io_ids:
                     io_ids[io] = f"io-{len(io_ids) + 1}"
                 io_id = io_ids[io]
@@ -126,13 +119,10 @@ class NodeGraph:
     """Graph where the edges are node -> [node]."""
 
     def __init__(self, edges: NodeEdge):
-        self.edges = {
-            node: sorted(targets, key=lambda n: n.name)
-            for node, targets in sorted(edges.items(), key=lambda n: n[0].name)
-        }
+        self.edges = edges
 
     @classmethod
-    def from_nodes(cls, nodes: set[Node]) -> Self:
+    def from_nodes(cls, nodes: list[Node]) -> Self:
         return cls.from_graph(NodeIOGraph.from_nodes(nodes))
 
     @classmethod

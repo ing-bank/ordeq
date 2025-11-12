@@ -7,7 +7,7 @@ from ordeq_viz.to_mermaid import pipeline_to_mermaid
 
 
 def pipeline_to_mermaid_md(
-    nodes: set[Node],
+    nodes: list[Node],
     ios: Catalog,
     block_char: str = "`",
     **mermaid_options: Any,

@@ -18,11 +18,11 @@ run(example_module_a, noop, verbose=True)
 
 ```text
 View:__main__:noop --> io-1
-Node:resources.runner.example_module_a:decrement --> io-2
-Node:resources.runner.example_module_a:increment --> io-3
-io-3 --> Node:resources.runner.example_module_a:decrement
-io-4 --> Node:resources.runner.example_module_a:decrement
-io-5 --> Node:resources.runner.example_module_a:increment
+Node:resources.runner.example_module_a:increment --> io-2
+io-2 --> Node:resources.runner.example_module_a:decrement
+Node:resources.runner.example_module_a:decrement --> io-3
+io-4 --> Node:resources.runner.example_module_a:increment
+io-5 --> Node:resources.runner.example_module_a:decrement
 
 ```
 

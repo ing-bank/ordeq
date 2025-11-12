@@ -3,7 +3,13 @@ from typing import Literal
 
 import polars as pl
 from ordeq import Output
-from pyiceberg.table import Table
+
+try:
+    from pyiceberg.table import Table
+except ImportError:
+
+    class Table:  # type: ignore[no-redef]
+        ...  # Placeholder if pyiceberg is not installed
 
 
 @dataclass(frozen=True, kw_only=True)

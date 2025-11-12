@@ -89,7 +89,7 @@ class ProjectGraph(Graph[Any]):
                 ios.append(op)
                 edges[node].append(op)
 
-        return cls(edges=dict(edges), ios=ios, nodes=all_nodes)
+        return cls(edges=edges, ios=ios, nodes=all_nodes)
 
 
 @dataclass(frozen=True)

@@ -65,3 +65,9 @@ pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
  'example_rag_pipeline.rag.retrieval:retrieve']
 
 ```
+
+## Warnings
+
+```text
+UserWarning: Module 'example_rag_pipeline.rag' already provided as runnable
+```

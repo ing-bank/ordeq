@@ -22,18 +22,38 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```
 
-## Output
+## Exception
 
 ```text
-NodeIOGraph
-Node:example_duplicates.file1:foo --> io-1
-Node:example_duplicates.file2:foo --> io-2
-io-3 --> Node:example_duplicates.file1:foo
-io-4 --> Node:example_duplicates.file2:foo
-NodeGraph
-Node:example_duplicates.file1:foo
-Node:example_duplicates.file2:foo
-Topological ordering
-['example_duplicates.file2:foo', 'example_duplicates.file1:foo']
+ValueError: Module 'example_duplicates.duplicate_node_objects' contains duplicate keys for the same node ('y' and 'x')
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_module_to_nodes
+    raise ValueError(
+    ...<2 lines>...
+    )
+
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_runnables_to_nodes
+    nodes.update(_resolve_module_to_nodes(module).values())
+                 ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/graph/graph_duplicates.py", line LINO, in <module>
+    nodes = _resolve_runnables_to_nodes(example_duplicates)
+
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+```
+
+## Logging
+
+```text
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_duplicates.duplicate_node_names:<lambda>'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_duplicates.duplicate_node_objects:<lambda>'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

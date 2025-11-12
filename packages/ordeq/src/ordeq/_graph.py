@@ -147,10 +147,8 @@ class NodeGraph(Graph[Node]):
                 continue
             for target in targets:
                 if target in base.edges:
-                    edges[source].extend(base.edges[target])
-        return cls(
-            edges=dict(edges)  # type: ignore[arg-type]
-        )
+                    edges[source].extend(base.edges[target])  # type: ignore[index,arg-type]
+        return cls(edges=edges)
 
     @property
     def sink_nodes(self) -> set[Node]:

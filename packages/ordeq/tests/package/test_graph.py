@@ -19,8 +19,7 @@ A, B, C, D, E, F = [StringBuffer(c) for c in "ABCDEF"]
     ],
 )
 def test_find_sink_nodes(edges, expected):
-    g = NodeGraph({})
-    g.edges = edges
+    g = NodeGraph(edges=edges, nodes={"A", "B", "C", "D"})
     assert g.sink_nodes == expected
 
 
@@ -44,7 +43,7 @@ def test_it_builds_a_graph():
     third.outputs = [F]
 
     g = NodeGraph.from_nodes([third, second, first])
-    assert g.edges == {third: [], second: [third], first: [third, second]}
+    assert g.edges == {second: [third], first: [third, second]}
     assert g.nodes == {first, second, third}
 
 
@@ -56,7 +55,7 @@ def test_it_builds_graph_with_single_node():
     first.views = []
 
     g = NodeGraph.from_nodes([first])
-    assert g.edges == {first: []}
+    assert g.edges == {}
     assert g.nodes == {first}
 
 
@@ -129,10 +128,8 @@ def test_it_finds_a_topological_ordering(edges, expected):
     # multiple valid topological orderings, the ordering is
     # deterministic (as dictionaries are ordered).
 
-    g = NodeGraph({})
-    g.edges = edges
-    actual = g.topological_ordering
-    assert actual == expected
+    g = NodeGraph(edges=edges, nodes={0, 1, 2, 3})
+    assert g.topological_ordering == expected
 
 
 def test_collect_views():

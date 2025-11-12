@@ -60,7 +60,6 @@ class NodeIOGraph:
         edges: dict[Any, list[Any]] = defaultdict(list)
         output_to_node: dict[AnyIO, Node | View] = {}
 
-        # Traverse the nodes, sorted by name to preserve determinism:
         for node in all_nodes:
             for ip in node.inputs:
                 # Add this point we have converted all view inputs to their

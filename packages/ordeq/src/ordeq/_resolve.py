@@ -318,7 +318,7 @@ def _resolve_runnables_to_nodes_and_ios(
         mod = _resolve_module_ref_to_module(node.func.__module__)
         ios.update({mod.__name__: _resolve_module_to_ios(mod)})
 
-    for module in modules:
+    for module in sorted(modules, key=lambda m: m.__name__):
         nodes.update(_resolve_module_to_nodes(module).values())
         ios.update({module.__name__: _resolve_module_to_ios(module)})
 

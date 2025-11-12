@@ -32,10 +32,10 @@ View:example_function_reuse.func_defs:print_input --> io-3
 View:example_function_reuse.func_defs:print_input --> io-4
 View:example_function_reuse.nodes:pi --> io-5
 io-6 --> View:example_function_reuse.func_defs:print_input
+io-6 --> View:example_function_reuse.nodes:pi
 io-7 --> View:example_function_reuse.func_defs:print_input
 io-8 --> View:example_function_reuse.func_defs:print_input
 io-9 --> View:example_function_reuse.func_defs:print_input
-io-9 --> View:example_function_reuse.nodes:pi
 NodeGraph
 View:example_function_reuse.func_defs:print_input
 View:example_function_reuse.func_defs:print_input

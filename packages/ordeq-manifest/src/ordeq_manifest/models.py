@@ -91,7 +91,7 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls, name: str, nodes: set[Node], ios: Catalog
+        cls, name: str, nodes: list[Node], ios: Catalog
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 

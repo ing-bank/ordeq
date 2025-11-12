@@ -73,7 +73,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
 
 
 def _gather_graph(
-    nodes: set[Node], ios: Catalog
+    nodes: list[Node], ios: Catalog
 ) -> tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 

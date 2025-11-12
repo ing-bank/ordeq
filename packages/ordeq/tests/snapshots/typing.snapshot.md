@@ -11,11 +11,6 @@ packages/ordeq/tests/resources/runner/runner_load_output.py:17: error: List item
 packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/run_main.py:5: error: Need type annotation for "io1"  [var-annotated]
 packages/ordeq/tests/resources/runner/run_main.py:6: error: Need type annotation for "io2"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:5: error: Need type annotation for "o1"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:6: error: Need type annotation for "o2"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:7: error: Need type annotation for "o3"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:8: error: Need type annotation for "o4"  [var-annotated]
-packages/ordeq/tests/resources/runner/deterministic_graph.py:41: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/nodes/node_none_standalone.py:4: error: No overload variant of "node" matches argument type "None"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_none_standalone.py:4: note: Possible overload variants:
 packages/ordeq/tests/resources/nodes/node_none_standalone.py:4: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
@@ -43,9 +38,10 @@ packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" alrea
 packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:6: error: Need type annotation for "b"  [var-annotated]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:8: error: Need type annotation for "B"  [var-annotated]
-packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
-packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
-packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*set[function]"; expected Module | Callable[..., Any] | str  [arg-type]
+packages/ordeq/tests/resources/runner/logging_verbosity.py:17: error: Argument 1 to "from_nodes" of "NodeGraph" has incompatible type "set[Node[Any, Any]]"; expected "list[Node[Any, Any]]"  [arg-type]
+packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
+packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
+packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: error: No overload variant of "node" matches argument types "Literal[str]", "Literal[str]"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note: Possible overload variants:
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
@@ -54,4 +50,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No 
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-Found 29 errors in 19 files (checked 215 source files)
+Found 25 errors in 19 files (checked 214 source files)

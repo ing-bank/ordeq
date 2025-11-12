@@ -30,13 +30,13 @@ run(n, verbose=True)
 ## Output
 
 ```text
-View:__main__:conditional --> io-1
-io-1 --> Node:__main__:n
-Node:__main__:n --> io-2
+Node:__main__:n --> io-1
+View:__main__:conditional --> io-2
+io-2 --> Node:__main__:n
 Higher value!
-View:__main__:conditional --> io-1
-io-1 --> Node:__main__:n
-Node:__main__:n --> io-2
+Node:__main__:n --> io-1
+View:__main__:conditional --> io-2
+io-2 --> Node:__main__:n
 None
 
 ```

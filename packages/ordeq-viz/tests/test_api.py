@@ -24,7 +24,7 @@ def test_viz_to_mermaid_call(
     viz("example_1", fmt="mermaid", output=output_file)
     patched_pipeline_to_mermaid.assert_called_once()
     actual_node_objs, actual_ios = patched_pipeline_to_mermaid.call_args[0]
-    assert actual_node_objs == expected_example_node_objects
+    assert set(actual_node_objs) == expected_example_node_objects
     # Two IOs are inlined and thus not included in the actual_ios
     assert all(io in actual_ios for io in expected_example_ios)
 
@@ -41,7 +41,7 @@ def test_viz_to_kedro_call(
     patched_pipeline_to_kedro.assert_called_once()
     actual_node_objs, actual_ios = patched_pipeline_to_kedro.call_args[0]
     actual_kwargs = patched_pipeline_to_kedro.call_args[1]
-    assert actual_node_objs == expected_example_node_objects
+    assert set(actual_node_objs) == expected_example_node_objects
     assert set(actual_ios) == set(expected_example_ios)
     assert actual_kwargs.get("output_directory") == output_folder
 

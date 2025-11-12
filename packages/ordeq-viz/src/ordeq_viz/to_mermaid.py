@@ -56,7 +56,7 @@ def _hash_to_str(obj_id: int, io_names: dict[int, str]) -> str:
 
 
 def pipeline_to_mermaid(
-    nodes: set[Node],
+    nodes: list[Node],
     ios: Catalog,
     legend: bool = True,
     use_dataset_styles: bool = True,

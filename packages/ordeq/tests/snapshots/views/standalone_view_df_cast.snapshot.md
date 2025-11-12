@@ -43,9 +43,9 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-View:__main__:cast --> io-1
-io-1 --> Node:__main__:group_by
-Node:__main__:group_by --> io-2
+Node:__main__:group_by --> io-1
+View:__main__:cast --> io-2
+io-2 --> Node:__main__:group_by
 io-3 --> View:__main__:cast
      A    B    D
 0  bar  2.0  5.0

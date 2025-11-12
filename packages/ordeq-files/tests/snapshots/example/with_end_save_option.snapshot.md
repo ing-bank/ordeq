@@ -43,9 +43,9 @@ example_file_path.unlink(missing_ok=True)
 
 ```text
 Writing to example line stream...
+Total lines: 2
 First line Continues here
 Second line
-Total lines: 2
 
 ```
 
@@ -58,8 +58,8 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__mai
 INFO	ordeq.runner	Running node "write_to_line_stream" in module "__main__"
 INFO	ordeq.io	Saving TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
 INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
-INFO	ordeq.runner	Running view "show_lines" in module "__main__"
-INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
 INFO	ordeq.runner	Running view "count_lines" in module "__main__"
+INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
+INFO	ordeq.runner	Running view "show_lines" in module "__main__"
 
 ```

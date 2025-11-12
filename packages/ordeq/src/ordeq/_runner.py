@@ -205,12 +205,12 @@ def run(
 
     """
 
-    nodes = _resolve_runnables_to_nodes(*runnables)
+    named_nodes = _resolve_runnables_to_nodes(*runnables)
     io_subs = _resolve_refs_to_subs(io or {})
-    io_subs = _resolve_refs_to_subs(io or {})
-    nodes = {node for _, _, node in _resolve_runnables_to_nodes(*runnables)}
     patches = _substitutes_modules_to_ios(io_subs)
-    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+    graph_with_io = NodeIOGraph.from_nodes(
+        *[node for _, _, node in named_nodes], patches=patches
+    )  # type: ignore[arg-type]
 
     if verbose:
         print(graph_with_io)

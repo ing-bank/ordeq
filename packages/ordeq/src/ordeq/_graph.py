@@ -50,11 +50,13 @@ class NodeIOGraph:
 
         if patches is None:
             patches = {}
-        for view in views:
+        for view in sorted(views, key=lambda n: n.name):
             patches[view] = view.outputs[0]
 
         if patches:
-            all_nodes = {node._patch_io(patches): None for node in all_nodes}  # noqa: SLF001 (private access)
+            # By converting to set the order of nodes is dropped.
+            # TODO: Maintain a list and pass node as var args to this method.
+            all_nodes = list({node._patch_io(patches) for node in all_nodes})  # noqa: SLF001 (private access)
 
         # Second pass: register outputs
         output_to_node: dict[AnyIO, Node | View] = {}

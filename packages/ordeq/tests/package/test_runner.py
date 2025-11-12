@@ -47,7 +47,7 @@ def test_run_graph_two():
 def test_run_graph_one():
     a, b, c = [StringBuffer(x) for x in "abc"]
     plus = node(func=lambda x, y: f"({x} + {y})", inputs=(a, b), outputs=(c,))
-    nodes = {get_node(plus)}
+    nodes = [get_node(plus)]
     _run_graph(NodeGraph.from_nodes(nodes))
     assert c.load() == "c(a + b)"
 

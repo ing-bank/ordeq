@@ -273,7 +273,9 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
 
     """
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
-    for module in modules:
+    # TODO: ensure _resolve_runnables_to_nodes_and_modules returns ordered
+    # data type
+    for module in sorted(modules, key=lambda m: m.__name__):
         nodes.update(_resolve_module_to_nodes(module).values())
     return nodes
 

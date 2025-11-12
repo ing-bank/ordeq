@@ -26,7 +26,7 @@ pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ## Exception
 
 ```text
-ValueError: Module 'example_duplicates.duplicate_import_reassign' contains duplicate keys for the same IO ('A' and 'a')
+ValueError: Module 'example_duplicates.duplicate_import_alias' contains duplicate keys for the same IO ('b' and 'a')
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_module_to_ios
     raise ValueError(
     ...<2 lines>...

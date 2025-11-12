@@ -29,7 +29,10 @@ ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be ou
     raise ValueError(msg)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+    graph_with_io = NodeIOGraph.from_nodes(
+        # TODO: nodes should be passed while preserving order
+        {node for _, _, node in named_nodes}, patches=patches
+    )  # type: ignore[arg-type]
 
   File "/packages/ordeq/tests/resources/runner/runner_non_distinct_ios.py", line LINO, in <module>
     run(func1, func2, verbose=True)

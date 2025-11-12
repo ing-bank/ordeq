@@ -115,35 +115,6 @@ def _resolve_module_globals(
     }
 
 
-def _resolve_module_to_nodes(module: ModuleType) -> set[Node]:
-    """Gathers all nodes defined in a module.
-
-    Args:
-        module: the module to gather nodes from
-
-    Returns:
-        the nodes defined in the module
-    """
-
-    return {get_node(obj) for obj in vars(module).values() if _is_node(obj)}
-
-
-def _resolve_module_to_ios(module: ModuleType) -> Catalog:
-    """Find all `IO` objects defined in the provided module
-
-    Args:
-        module: the Python module object
-
-    Returns:
-        a dict of `IO` objects with their fully-qualified name as key
-    """
-    return {
-        module.__name__: {
-            name: obj for name, obj in vars(module).items() if _is_io(obj)
-        }
-    }
-
-
 def _resolve_packages_to_modules(
     *modules: ModuleType,
 ) -> Generator[ModuleType, None, None]:
@@ -189,6 +160,20 @@ def _resolve_refs_to_modules(
     )
 
 
+def _resolve_module_to_ios(module: ModuleType) -> dict[str, AnyIO]:
+    ios: dict[AnyIO, str] = {}
+    for name, obj in vars(module).items():
+        if _is_io(obj):
+            # TODO: Should also resolve to IO sequence
+            if obj in ios:
+                raise ValueError(
+                    f"Module '{module.__name__}' contains duplicate keys "
+                    f"for the same IO ('{name}' and '{ios[obj]}')"
+                )
+            ios[obj] = name
+    return {name: io for io, name in ios.items()}
+
+
 def _resolve_package_to_ios(package: ModuleType) -> Catalog:
     """Finds all `IO` objects defined in the provided module or package.
 
@@ -199,10 +184,9 @@ def _resolve_package_to_ios(package: ModuleType) -> Catalog:
         a dict of `IO` objects with their fully-qualified name as key
     """
     modules = _resolve_packages_to_modules(package)
-
     catalog = {}
     for module in modules:
-        catalog.update(_resolve_module_to_ios(module))
+        catalog.update({module.__name__: _resolve_module_to_ios(module)})
     return {module_name: ios for module_name, ios in catalog.items() if ios}
 
 
@@ -263,6 +247,20 @@ def _resolve_runnables_to_nodes_and_modules(
     return nodes, modules
 
 
+def _resolve_module_to_nodes(module: ModuleType) -> dict[str, Node]:
+    nodes: dict[Node, str] = {}
+    for name, obj in vars(module).items():
+        if _is_node(obj):
+            node = get_node(obj)
+            if node in nodes:
+                raise ValueError(
+                    f"Module '{module.__name__}' contains duplicate keys "
+                    f"for the same node ('{name}' and '{nodes[node]}')"
+                )
+            nodes[node] = name
+    return {name: node for node, name in nodes.items()}
+
+
 def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
     """Collects nodes from the provided runnables.
 
@@ -275,8 +273,10 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> set[Node]:
 
     """
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
-    for module in modules:
-        nodes.update(_resolve_module_to_nodes(module))
+    # TODO: ensure _resolve_runnables_to_nodes_and_modules returns ordered
+    # data type
+    for module in sorted(modules, key=lambda m: m.__name__):
+        nodes.update(_resolve_module_to_nodes(module).values())
     return nodes
 
 
@@ -316,11 +316,11 @@ def _resolve_runnables_to_nodes_and_ios(
 
     for node in nodes:
         mod = _resolve_module_ref_to_module(node.func.__module__)
-        ios.update(_resolve_module_to_ios(mod))
+        ios.update({mod.__name__: _resolve_module_to_ios(mod)})
 
-    for module in modules:
-        nodes.update(_resolve_module_to_nodes(module))
-        ios.update(_resolve_module_to_ios(module))
+    for module in sorted(modules, key=lambda m: m.__name__):
+        nodes.update(_resolve_module_to_nodes(module).values())
+        ios.update({module.__name__: _resolve_module_to_ios(module)})
 
     # Filter empty IO modules
     ios = {

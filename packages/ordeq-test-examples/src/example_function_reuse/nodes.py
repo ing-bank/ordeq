@@ -11,7 +11,6 @@ c = node(print_input, inputs=catalog.C)
 d = node(print_input, inputs=catalog.D)
 
 node(print_input, inputs=A)
-another_name = a
 
 
 @node(inputs=A)

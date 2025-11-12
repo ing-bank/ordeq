@@ -1,4 +1,0 @@
-from example_project import nodes_import_reassign
-from ordeq_manifest import create_manifest_json
-
-print(create_manifest_json(nodes_import_reassign))

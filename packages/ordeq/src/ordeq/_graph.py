@@ -38,8 +38,8 @@ class Graph(Generic[T]):
 
 
 @dataclass(frozen=True)
-class NodeIOGraph(Graph[AnyIO | Node]):
-    edges: dict[AnyIO | Node, list[AnyIO | Node]]
+class ProjectGraph(Graph[Any]):
+    edges: dict[Any, list[Any]]
     ios: list[AnyIO]
     nodes: list[Node]
 
@@ -90,6 +90,25 @@ class NodeIOGraph(Graph[AnyIO | Node]):
                 edges[node].append(op)
 
         return cls(edges=dict(edges), ios=ios, nodes=all_nodes)
+
+
+@dataclass(frozen=True)
+class NodeIOGraph(Graph[AnyIO | Node]):
+    edges: dict[AnyIO | Node, list[AnyIO | Node]]
+    ios: list[AnyIO]
+    nodes: list[Node]
+
+    @classmethod
+    def from_nodes(
+        cls,
+        nodes: list[Node],
+        patches: dict[AnyIO | View, AnyIO] | None = None,
+    ) -> Self:
+        return cls.from_graph(ProjectGraph.from_nodes(nodes, patches))
+
+    @classmethod
+    def from_graph(cls, base: ProjectGraph) -> Self:
+        return cls(edges=base.edges, ios=base.ios, nodes=base.nodes)
 
     def __repr__(self) -> str:
         # Hacky way to generate a deterministic repr of this class.

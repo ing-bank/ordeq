@@ -28,6 +28,10 @@ ValueError: IO StringBuffer(_buffer=<_io.StringIO object at HASH1>) cannot be ou
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
     raise ValueError(msg)
 
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    return cls.from_graph(ProjectGraph.from_nodes(nodes, patches))
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 

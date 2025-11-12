@@ -27,26 +27,41 @@ pprint(sorted(_resolve_runnables_to_nodes(*runnables)))
 
 ```text
 ['example_duplicates',
- 'example_duplicates.duplicate_io_name',
- 'example_duplicates.duplicate_node_name',
+ 'example_duplicates.duplicate_io_names',
+ 'example_duplicates.duplicate_io_objects',
+ 'example_duplicates.duplicate_node_names',
+ 'example_duplicates.duplicate_node_objects',
  'example_duplicates.file1',
  'example_duplicates.file2']
-['example_duplicates.duplicate_node_name:<lambda>',
+['example_duplicates.duplicate_node_names:<lambda>',
+ 'example_duplicates.duplicate_node_objects:<lambda>',
  'example_duplicates.file1:foo',
  'example_duplicates.file2:foo']
-{'example_duplicates.duplicate_io_name': {'x': Input(idx=ID1)},
+{'example_duplicates.duplicate_io_names': {'x': Input(idx=ID1)},
+ 'example_duplicates.duplicate_io_objects': {'x': IO(idx=ID2),
+                                             'y': IO(idx=ID2),
+                                             'z': IO(idx=ID2)},
  'example_duplicates.file1': {'x_value': Literal(3),
-                              'y_value': IO(idx=ID2)},
+                              'y_value': IO(idx=ID3)},
  'example_duplicates.file2': {'x_value': Literal(3),
-                              'y_value': IO(idx=ID3)}}
-[('example_duplicates.duplicate_node_name',
+                              'y_value': IO(idx=ID4)}}
+[('example_duplicates.duplicate_node_names',
   'x',
-  View(name=example_duplicates.duplicate_node_name:<lambda>)),
+  View(name=example_duplicates.duplicate_node_names:<lambda>)),
+ ('example_duplicates.duplicate_node_objects',
+  'x',
+  View(name=example_duplicates.duplicate_node_objects:<lambda>)),
+ ('example_duplicates.duplicate_node_objects',
+  'y',
+  View(name=example_duplicates.duplicate_node_objects:<lambda>)),
+ ('example_duplicates.duplicate_node_objects',
+  'z',
+  View(name=example_duplicates.duplicate_node_objects:<lambda>)),
  ('example_duplicates.file1',
   'foo',
-  Node(name=example_duplicates.file1:foo, inputs=[Literal(3)], outputs=[IO(idx=ID2)])),
+  Node(name=example_duplicates.file1:foo, inputs=[Literal(3)], outputs=[IO(idx=ID3)])),
  ('example_duplicates.file2',
   'foo',
-  Node(name=example_duplicates.file2:foo, inputs=[Literal(3)], outputs=[IO(idx=ID3)]))]
+  Node(name=example_duplicates.file2:foo, inputs=[Literal(3)], outputs=[IO(idx=ID4)]))]
 
 ```

@@ -27,9 +27,9 @@ run(n, verbose=True)
 
 ```text
 View(name=__main__:hello)
-io-2 --> Node:__main__:n
 Node:__main__:n --> io-1
 View:__main__:hello --> io-2
+io-2 --> Node:__main__:n
 She said 'Hello, World!'
 
 ```

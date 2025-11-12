@@ -36,12 +36,12 @@ run(n, verbose=True)
 ```text
 View(name=__main__:hello)
 View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), View(name=__main__:hello)])
-io-4 --> View:__main__:n
 View:__main__:n --> io-1
-io-2 --> View:__main__:hello_from_someone
-io-5 --> View:__main__:hello_from_someone
 View:__main__:hello_from_someone --> io-4
 View:__main__:hello --> io-5
+io-4 --> View:__main__:n
+io-2 --> View:__main__:hello_from_someone
+io-5 --> View:__main__:hello_from_someone
 I heard that Jane said 'Hello, World!'
 
 ```

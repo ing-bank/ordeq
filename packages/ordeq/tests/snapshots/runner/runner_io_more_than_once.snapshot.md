@@ -35,17 +35,17 @@ print(x3.load())
 ## Output
 
 ```text
+Node:__main__:increment --> io-2
+Node:__main__:decrement --> io-4
 io-3 --> Node:__main__:increment
 io-3 --> Node:__main__:decrement
-Node:__main__:increment --> io-2
 io-2 --> Node:__main__:decrement
-Node:__main__:decrement --> io-4
 1
+Node:__main__:increment --> io-2
+Node:__main__:decrement --> io-4
 io-3 --> Node:__main__:increment
 io-3 --> Node:__main__:decrement
-Node:__main__:increment --> io-2
 io-2 --> Node:__main__:decrement
-Node:__main__:decrement --> io-4
 12001
 
 ```

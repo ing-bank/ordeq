@@ -31,10 +31,10 @@ run(concatenate, verbose=True)
 ## Output
 
 ```text
-io-3 --> View:__main__:concatenate
 View:__main__:concatenate --> io-1
-io-2 --> View:__main__:users_lines
 View:__main__:users_lines --> io-3
+io-3 --> View:__main__:concatenate
+io-2 --> View:__main__:users_lines
 b'{'
 b'  "id": 1,'
 b'  "name": "Leanne Graham",'

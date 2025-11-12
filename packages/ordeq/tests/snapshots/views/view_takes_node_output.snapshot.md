@@ -137,19 +137,19 @@ IOException: Failed to load IO(idx=ID1).
 ## Output
 
 ```text
+Node:__main__:hello_from_someone --> io-5
+View:__main__:sink --> io-4
+View:__main__:what_i_heard --> io-6
 io-0 --> Node:__main__:hello_from_someone
 io-1 --> Node:__main__:hello_from_someone
-Node:__main__:hello_from_someone --> io-5
 io-6 --> View:__main__:sink
-View:__main__:sink --> io-4
 io-5 --> View:__main__:what_i_heard
-View:__main__:what_i_heard --> io-6
 I heard that Jane said 'Hello'
 None
-io-3 --> View:__main__:sink
 View:__main__:sink --> io-1
-io-2 --> View:__main__:what_i_heard
 View:__main__:what_i_heard --> io-3
+io-3 --> View:__main__:sink
+io-2 --> View:__main__:what_i_heard
 
 ```
 

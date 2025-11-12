@@ -1,4 +1,3 @@
-from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
@@ -53,7 +52,7 @@ class NodeIOGraph:
             all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
         ios: list[AnyIO] = []
-        edges: dict[Any, list[Any]] = defaultdict(list)
+        edges: dict[Any, list[Any]] = {node: [] for node in all_nodes}
         output_to_node: dict[AnyIO, Node | View] = {}
 
         for node in all_nodes:
@@ -63,7 +62,10 @@ class NodeIOGraph:
                 ip_ = cast("AnyIO", ip)
 
                 ios.append(ip_)
+                if ip_ not in edges:
+                    edges[ip_] = []
                 edges[ip_].append(node)
+
             for op in node.outputs:
                 if op in output_to_node:
                     msg = (
@@ -81,16 +83,9 @@ class NodeIOGraph:
 
     @cached_property
     def topological_ordering(self) -> tuple[Node | AnyIO, ...]:
-        # Adds an edge between a dummy vertex all unconnected nodes:
-        edges: dict[int | AnyIO | Node, list[AnyIO | Node]] = {
-            0: [*self.nodes, *self.ios],
-            **self.edges,  # type: ignore[dict-item]
-        }
-        ordering = tuple(
-            reversed(tuple(TopologicalSorter(edges).static_order()))
+        return tuple(
+            reversed(tuple(TopologicalSorter(self.edges).static_order()))
         )
-        # The dummy vertex is at index 0:
-        return cast("tuple[Node, ...]", ordering[1:])
 
     def __repr__(self) -> str:
         # Hacky way to generate a deterministic repr of this class.
@@ -116,7 +111,6 @@ class NodeIOGraph:
 @dataclass(frozen=True)
 class NodeGraph:
     edges: dict[Node, list[Node]]
-    nodes: list[Node]
 
     @classmethod
     def from_nodes(cls, nodes: list[Node]) -> Self:
@@ -124,7 +118,9 @@ class NodeGraph:
 
     @classmethod
     def from_graph(cls, base: NodeIOGraph) -> Self:
-        edges: dict[AnyIO | Node, list[AnyIO | Node]] = defaultdict(list)
+        edges: dict[AnyIO | Node, list[AnyIO | Node]] = {
+            node: [] for node in base.nodes
+        }
         for source, targets in base.edges.items():
             if source in base.ios:
                 continue
@@ -132,8 +128,7 @@ class NodeGraph:
                 if target in base.edges:
                     edges[source].extend(base.edges[target])
         return cls(
-            edges=dict(edges),  # type: ignore[arg-type]
-            nodes=base.nodes,
+            edges=dict(edges)  # type: ignore[arg-type]
         )
 
     @property
@@ -146,22 +141,19 @@ class NodeGraph:
         return {s for s, targets in self.edges.items() if len(targets) == 0}
 
     @cached_property
+    def nodes(self) -> list[Node]:
+        return list(self.edges.keys())
+
+    @cached_property
     def topological_ordering(self) -> tuple[Node, ...]:
-        # Adds an edge between a dummy vertex all unconnected nodes:
-        edges: dict[Node | None, list[Node]] = {
-            None: self.nodes,
-            **self.edges,  # type: ignore[dict-item]
-        }
-        ordering = tuple(
-            reversed(tuple(TopologicalSorter(edges).static_order()))
+        return tuple(
+            reversed(tuple(TopologicalSorter(self.edges).static_order()))
         )
-        # The dummy vertex is at index 0:
-        return cast("tuple[Node, ...]", ordering[1:])
 
     def __repr__(self) -> str:
         lines: list[str] = []
-        for node in self.topological_ordering:
-            if node in self.edges:
+        for node in self.edges:
+            if self.edges[node]:
                 lines.extend(
                     f"{type(node).__name__}:{node.name} --> "
                     f"{type(next_node).__name__}:{next_node.name}"

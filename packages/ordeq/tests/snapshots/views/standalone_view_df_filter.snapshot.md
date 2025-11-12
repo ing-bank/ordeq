@@ -45,11 +45,11 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-4 --> View:__main__:group_by
 View:__main__:group_by --> io-1
+View:__main__:filter_df --> io-4
+io-4 --> View:__main__:group_by
 io-2 --> View:__main__:filter_df
 io-3 --> View:__main__:filter_df
-View:__main__:filter_df --> io-4
      A   B   D
 0  NaN NaN NaN
 

@@ -205,6 +205,8 @@ def run(
 
     """
 
+    nodes = _resolve_runnables_to_nodes(*runnables)
+    io_subs = _resolve_refs_to_subs(io or {})
     io_subs = _resolve_refs_to_subs(io or {})
     nodes = {node for _, _, node in _resolve_runnables_to_nodes(*runnables)}
     patches = _substitutes_modules_to_ios(io_subs)

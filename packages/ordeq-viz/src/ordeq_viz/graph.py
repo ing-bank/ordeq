@@ -3,7 +3,7 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any
 
-from ordeq import Node
+from ordeq import Node, View
 from ordeq._fqn import fqn_to_object_ref  # noqa: PLC2701 private import
 from ordeq._graph import NodeGraph, NodeIOGraph  # noqa: PLC2701 private import
 from ordeq._io import AnyIO
@@ -18,6 +18,7 @@ class NodeData:
     module: str
     inputs: list[int]
     outputs: list[int]
+    view: bool
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
@@ -30,42 +31,44 @@ class IOData:
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
-def _add_io_data(dataset, reverse_lookup, io_data) -> int:
+def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
     """Add IOData for a dataset to the io_data dictionary.
 
     Args:
         dataset: the dataset (Input or Output)
         reverse_lookup: a dictionary mapping dataset IDs to names
         io_data: a dictionary to store IOData objects
+        store: whether to store the IOData object
 
     Returns:
         The ID of the dataset in the io_data dictionary.
     """
     dataset_id = hash(dataset)
-    if dataset_id not in io_data:
-        io_data[dataset_id] = IOData(
-            id=dataset_id,
-            dataset=dataset,
-            name=reverse_lookup[dataset_id],
-            type=dataset.__class__.__name__,
-        )
+    if store:
+        if dataset_id not in io_data:
+            io_data[dataset_id] = IOData(
+                id=dataset_id,
+                dataset=dataset,
+                name=reverse_lookup[dataset_id],
+                type=dataset.__class__.__name__,
+            )
 
-    # Handle wrapped datasets
-    for wrapped_attribute in dataset.references.values():
-        for wrapped_dataset in wrapped_attribute:
-            wrapped_id = hash(wrapped_dataset)
-            if wrapped_id not in io_data:
-                try:
-                    name = reverse_lookup[wrapped_id]
-                except KeyError:
-                    name = "<anonymous>"
+        # Handle wrapped datasets
+        for wrapped_attribute in dataset.references.values():
+            for wrapped_dataset in wrapped_attribute:
+                wrapped_id = hash(wrapped_dataset)
+                if wrapped_id not in io_data:
+                    try:
+                        name = reverse_lookup[wrapped_id]
+                    except KeyError:
+                        name = "<anonymous>"
 
-                io_data[wrapped_id] = IOData(
-                    id=wrapped_id,
-                    dataset=wrapped_dataset,
-                    name=name,
-                    type=wrapped_dataset.__class__.__name__,
-                )
+                    io_data[wrapped_id] = IOData(
+                        id=wrapped_id,
+                        dataset=wrapped_dataset,
+                        name=name,
+                        type=wrapped_dataset.__class__.__name__,
+                    )
     return dataset_id
 
 
@@ -106,11 +109,16 @@ def _gather_graph(
 
     for line in ordering:
         inputs = [
-            _add_io_data(input_dataset, reverse_lookup, io_data)
+            _add_io_data(input_dataset, reverse_lookup, io_data, store=True)
             for input_dataset in line.inputs
         ]
         outputs = [
-            _add_io_data(output_dataset, reverse_lookup, io_data)
+            _add_io_data(
+                output_dataset,
+                reverse_lookup,
+                io_data,
+                store=not isinstance(line, View),
+            )
             for output_dataset in line.outputs
         ]
         # TODO: use resolved name on the NamedGraph when available
@@ -122,11 +130,13 @@ def _gather_graph(
             module=node_module,
             inputs=inputs,
             outputs=outputs,
+            view=isinstance(line, View),
         )
         for io_id in inputs:
             io_input_modules[io_id].add(node_module)
-        for io_id in outputs:
-            io_output_modules[io_id].add(node_module)
+        if not node_data.view:
+            for io_id in outputs:
+                io_output_modules[io_id].add(node_module)
         node_modules[node_module].append(node_data)
 
     io_modules_ = defaultdict(list)

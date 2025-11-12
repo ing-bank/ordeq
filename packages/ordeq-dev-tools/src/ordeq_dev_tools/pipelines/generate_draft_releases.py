@@ -4,7 +4,7 @@ import json
 import logging
 
 from ordeq import node, run
-from ordeq_common import Literal
+from ordeq_common import Literal, StringBuffer
 
 from ordeq_dev_tools.ios.github_release import GithubRelease
 from ordeq_dev_tools.pipelines import generate_release_notes
@@ -53,10 +53,17 @@ def new_releases(package_names):
     new_release_data = {}
     for p in package_names:
         try:
-            run(generate_release_notes, io={generate_release_notes.package: Literal(p)})
-            tag = generate_release_notes.new_tag.load()
-            notes = generate_release_notes.release_notes.load()
-            new_release_data[tag] = notes
+            new_tag = StringBuffer()
+            notes = StringBuffer()
+            run(
+                generate_release_notes,
+                io={
+                    generate_release_notes.package: Literal(p),
+                    generate_release_notes.release_notes: notes,
+                    generate_release_notes.new_tag: new_tag,
+                },
+            )
+            new_release_data[new_tag.load()] = notes.load()
         except ValueError:
             print(f"No new release for package {p}")
     return new_release_data

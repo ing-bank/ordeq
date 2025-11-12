@@ -209,7 +209,7 @@ def run(
     io_subs = _resolve_refs_to_subs(io or {})
     patches = _substitutes_modules_to_ios(io_subs)
     graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
-
+    breakpoint()
     if verbose:
         print(graph_with_io)
 

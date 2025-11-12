@@ -1,5 +1,5 @@
-# Captures the behaviour when resolving a module containing the same names
-# for the same IO.
+# Captures the behaviour when resolving a module containing the same
+# object
 from pprint import pprint
 
 from example_duplicates import duplicate_io_objects

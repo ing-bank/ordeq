@@ -1,5 +1,4 @@
-# Captures the behaviour when resolving a module containing the same names
-# for the same node.
+# Captures the behaviour when resolving a module containing the same object
 from pprint import pprint
 
 from example_duplicates import duplicate_node_objects

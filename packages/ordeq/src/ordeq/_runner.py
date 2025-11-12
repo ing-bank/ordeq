@@ -210,7 +210,8 @@ def run(
     patches = _substitutes_modules_to_ios(io_subs)
     graph_with_io = NodeIOGraph.from_nodes(
         # TODO: nodes should be passed while preserving order
-        {node for _, _, node in named_nodes}, patches=patches
+        {node for _, _, node in named_nodes},
+        patches=patches,
     )  # type: ignore[arg-type]
 
     if verbose:

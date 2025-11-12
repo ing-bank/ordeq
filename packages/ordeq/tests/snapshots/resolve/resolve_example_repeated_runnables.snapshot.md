@@ -65,3 +65,12 @@ pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
  'example_1.wrapped_io:print_message']
 
 ```
+
+## Warnings
+
+```text
+UserWarning: Module 'example_1' already provided as runnable
+UserWarning: Module 'example_1.wrapped_io' already provided as runnable
+UserWarning: Module 'example_1.nodes' already provided as runnable
+UserWarning: Module 'example_1' already provided as runnable
+```

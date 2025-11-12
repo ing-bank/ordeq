@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib
 import pkgutil
+import warnings
 from collections.abc import Generator, Sequence
 from types import ModuleType
 from typing import TYPE_CHECKING, Any, TypeAlias, TypeGuard
@@ -128,12 +129,20 @@ def _resolve_packages_to_modules(
 
     def _walk(module: ModuleType):
         if module.__name__ in visited:
+            warnings.warn(
+                f"Module '{module.__name__}' already provided as runnable",
+                stacklevel=2,
+            )
             return
         visited.add(module.__name__)
         yield module
         if _is_package(module):
             for subname in _resolve_package_to_module_names(module):
                 if subname in visited:
+                    warnings.warn(
+                        f"Module '{subname}' already provided as runnable",
+                        stacklevel=2,
+                    )
                     continue
                 submodule = _resolve_module_ref_to_module(subname)
                 yield from _walk(submodule)
@@ -150,10 +159,21 @@ def _resolve_refs_to_modules(
         if _is_module(runnable):
             if runnable not in modules:
                 modules.append(runnable)
+            else:
+                warnings.warn(
+                    f"Module '{runnable.__name__}' already provided as "
+                    f"runnable",
+                    stacklevel=2,
+                )
         elif isinstance(runnable, str):
             mod = _resolve_module_ref_to_module(runnable)
             if mod not in modules:
                 modules.append(mod)
+            else:
+                warnings.warn(
+                    f"Module '{runnable}' already provided as runnable",
+                    stacklevel=2,
+                )
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "

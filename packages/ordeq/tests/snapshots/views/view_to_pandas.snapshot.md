@@ -35,8 +35,8 @@ run(aggregate, verbose=True)
 
 ```text
 View:__main__:aggregate --> io-1
-View:__main__:csv_as_df --> io-3
-io-3 --> View:__main__:aggregate
+View:__main__:csv_as_df --> io-0
+io-0 --> View:__main__:aggregate
 io-2 --> View:__main__:csv_as_df
 value    6
 dtype: int64

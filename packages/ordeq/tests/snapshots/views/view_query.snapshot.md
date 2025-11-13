@@ -27,8 +27,8 @@ run(range_to_csv, verbose=True)
 
 ```text
 View:__main__:range_to_csv --> io-1
-View:__main__:selected_range --> io-3
-io-3 --> View:__main__:range_to_csv
+View:__main__:selected_range --> io-0
+io-0 --> View:__main__:range_to_csv
 io-2 --> View:__main__:selected_range
 ┌───────┐
 │ range │

@@ -30,8 +30,8 @@ run(print_buckets, verbose=True)
 
 ```text
 View:__main__:print_buckets --> io-1
-View:__main__:buckets --> io-3
-io-3 --> View:__main__:print_buckets
+View:__main__:buckets --> io-0
+io-0 --> View:__main__:print_buckets
 io-2 --> View:__main__:buckets
 bucket1
 bucket2

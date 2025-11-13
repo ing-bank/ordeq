@@ -38,8 +38,8 @@ run(group_by, verbose=True)
 
 ```text
 View:__main__:group_by --> io-1
-View:__main__:df_casted --> io-3
-io-3 --> View:__main__:group_by
+View:__main__:df_casted --> io-0
+io-0 --> View:__main__:group_by
 io-2 --> View:__main__:df_casted
      A    B    D
 0  bar  2.0  5.0

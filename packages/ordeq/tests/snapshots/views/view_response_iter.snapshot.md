@@ -32,8 +32,8 @@ run(concatenate, verbose=True)
 
 ```text
 View:__main__:concatenate --> io-1
-View:__main__:users_lines --> io-3
-io-3 --> View:__main__:concatenate
+View:__main__:users_lines --> io-0
+io-0 --> View:__main__:concatenate
 io-2 --> View:__main__:users_lines
 b'{'
 b'  "id": 1,'

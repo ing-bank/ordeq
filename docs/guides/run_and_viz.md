@@ -59,8 +59,8 @@ def my_node():
 
 ### Modular pipelines
 
-You can pipelines multiple times with different inputs using `run`.
-We refers to this as modular pipelines.
+You can run pipelines multiple times with different inputs using `run`.
+We refer to this as modular pipelines.
 This is particularly useful when you want to reuse a pipeline for different data or configurations without duplicating code.
 
 For example, Ordeq uses this pattern in the `ordeq_dev_tools` package to generate release notes for multiple packages:
@@ -96,7 +96,7 @@ def new_releases(package_names: str) -> dict[str, str]:
         # We crafted the nodes in the pipelines so that anywhere we know
         # that there is no new release, a ValueError is raised.
         except ValueError:
-            print(f"No new release for package {p}")
+            print(f"No new release for package {package_name}")
 
     return new_release_data
 ```

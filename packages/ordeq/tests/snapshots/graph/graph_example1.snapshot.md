@@ -27,15 +27,15 @@ pprint([node.name for node in node_graph.topological_ordering])
 ```text
 NodeIOGraph
 Node:example_1.nodes:world --> io-1
-Node:example_1.pipeline:transform_input --> io-2
-Node:example_1.pipeline:transform_mock_input --> io-3
-Node:example_1.wrapped_io:hello --> io-4
-io-4 --> Node:example_1.wrapped_io:print_message
-Node:example_1.wrapped_io:print_message --> io-5
-io-6 --> Node:example_1.nodes:world
-io-7 --> Node:example_1.pipeline:transform_input
-io-8 --> Node:example_1.pipeline:transform_mock_input
-io-9 --> Node:example_1.wrapped_io:hello
+Node:example_1.pipeline:transform_input --> io-3
+Node:example_1.pipeline:transform_mock_input --> io-5
+Node:example_1.wrapped_io:hello --> io-8
+Node:example_1.wrapped_io:print_message --> io-9
+io-0 --> Node:example_1.nodes:world
+io-2 --> Node:example_1.pipeline:transform_input
+io-4 --> Node:example_1.pipeline:transform_mock_input
+io-6 --> Node:example_1.wrapped_io:hello
+io-8 --> Node:example_1.wrapped_io:print_message
 NodeGraph
 Node:example_1.nodes:world
 Node:example_1.pipeline:transform_input

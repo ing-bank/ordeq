@@ -46,10 +46,10 @@ run(group_by, verbose=True)
 
 ```text
 View:__main__:group_by --> io-1
-View:__main__:filter_df --> io-2
-io-2 --> View:__main__:group_by
+View:__main__:filter_df --> io-4
+io-4 --> View:__main__:group_by
+io-2 --> View:__main__:filter_df
 io-3 --> View:__main__:filter_df
-io-4 --> View:__main__:filter_df
      A   B   D
 0  NaN NaN NaN
 

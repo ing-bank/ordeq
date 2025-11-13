@@ -42,9 +42,9 @@ run(train, verbose=True)
 
 ```text
 View:__main__:train --> io-1
-View:__main__:split --> io-2
-io-2 --> View:__main__:train
-io-3 --> View:__main__:split
+View:__main__:split --> io-3
+io-3 --> View:__main__:train
+io-2 --> View:__main__:split
 Training          B   gt
 count  3.0  3.0
 mean   2.0  5.0

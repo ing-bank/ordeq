@@ -1,7 +1,7 @@
-from collections import defaultdict
+from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import TypeAlias
+from typing import Any, Generic, TypeVar, cast
 
 from ordeq._io import AnyIO
 from ordeq._nodes import Node, View
@@ -11,9 +11,7 @@ try:
 except ImportError:
     from typing_extensions import Self
 
-NodeIOEdge: TypeAlias = dict[
-    Node | View | None, dict[AnyIO, list[Node | View]]
-]
+T = TypeVar("T")
 
 
 def _collect_views(*nodes: Node) -> list[Node]:
@@ -29,11 +27,21 @@ def _collect_views(*nodes: Node) -> list[Node]:
     return list(all_nodes.keys())
 
 
-class NodeIOGraph:
-    """Graph with views, nodes and IOs."""
+class Graph(Generic[T]):
+    edges: dict[T, list[T]]
 
-    def __init__(self, edges: NodeIOEdge):
-        self.edges = edges
+    @cached_property
+    def topological_ordering(self) -> tuple[T, ...]:
+        return tuple(
+            reversed(tuple(TopologicalSorter(self.edges).static_order()))
+        )
+
+
+@dataclass(frozen=True)
+class ProjectGraph(Graph[Any]):
+    edges: dict[Any, list[Any]]
+    ios: list[AnyIO]
+    nodes: list[Node]
 
     @classmethod
     def from_nodes(
@@ -41,8 +49,6 @@ class NodeIOGraph:
         nodes: list[Node],
         patches: dict[AnyIO | View, AnyIO] | None = None,
     ) -> Self:
-        edges: NodeIOEdge = defaultdict(dict)
-
         # First pass: collect all views
         all_nodes = _collect_views(*nodes)
         views = [view for view in all_nodes if isinstance(view, View)]
@@ -55,89 +61,94 @@ class NodeIOGraph:
         if patches:
             all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
-        # Second pass: register outputs
+        ios: list[AnyIO] = []
+        edges: dict[Any, list[Any]] = {node: [] for node in all_nodes}
         output_to_node: dict[AnyIO, Node | View] = {}
+
         for node in all_nodes:
-            for output in node.outputs:
-                if output in output_to_node:
+            for ip in node.inputs:
+                # Add this point we have converted all view inputs to their
+                # sentinel IO, so it's safe to cast input to AnyIO.
+                ip_ = cast("AnyIO", ip)
+
+                ios.append(ip_)
+                if ip_ not in edges:
+                    edges[ip_] = []
+                edges[ip_].append(node)
+
+            for op in node.outputs:
+                if op in output_to_node:
                     msg = (
-                        f"IO {output} cannot be outputted by "
-                        f"more than one node ({output_to_node[output].name} "
+                        f"IO {op} cannot be outputted by "
+                        f"more than one node ({output_to_node[op].name} "
                         f"and {node.name})"
                     )
                     raise ValueError(msg)
-                output_to_node[output] = node
-                edges[node][output] = []
 
-        # Third pass: connect nodes through inputs
-        for node in all_nodes:
-            for input_ in node.inputs:
-                if input_ in output_to_node:
-                    source_node = output_to_node[input_]  # type: ignore[index]
-                    edges[source_node][input_].append(node)  # type: ignore[index]
-                else:
-                    edges[None].setdefault(input_, []).append(node)  # type: ignore[arg-type]
+                output_to_node[op] = node
+                ios.append(op)
+                edges[node].append(op)
 
-        return cls(dict(edges))
+        return cls(edges=edges, ios=ios, nodes=all_nodes)
 
-    @property
-    def ios(self) -> set[AnyIO]:
-        ios: set[AnyIO] = set()
-        for targets in self.edges.values():
-            ios.update(targets.keys())
-        return ios
+
+@dataclass(frozen=True)
+class NodeIOGraph(Graph[AnyIO | Node]):
+    edges: dict[AnyIO | Node, list[AnyIO | Node]]
+    ios: list[AnyIO]
+    nodes: list[Node]
+
+    @classmethod
+    def from_nodes(
+        cls,
+        nodes: list[Node],
+        patches: dict[AnyIO | View, AnyIO] | None = None,
+    ) -> Self:
+        return cls.from_graph(ProjectGraph.from_nodes(nodes, patches))
+
+    @classmethod
+    def from_graph(cls, base: ProjectGraph) -> Self:
+        return cls(edges=base.edges, ios=base.ios, nodes=base.nodes)
 
     def __repr__(self) -> str:
+        # Hacky way to generate a deterministic repr of this class.
+        # This should move to a separate named graph class.
         lines: list[str] = []
+        names: dict[Node | AnyIO, str] = {
+            **{
+                node: f"{type(node).__name__}:{node.name}"
+                for node in self.nodes
+            },
+            **{io: f"io-{i}" for i, io in enumerate(self.ios)},
+        }
 
-        io_ids: dict[AnyIO, str] = {}
-        for source_node, targets in self.edges.items():
-            for io, target_nodes in targets.items():
-                if io not in io_ids:
-                    io_ids[io] = f"io-{len(io_ids) + 1}"
-                io_id = io_ids[io]
-
-                if source_node is not None:
-                    lines.append(
-                        f"{type(source_node).__name__}:{source_node.name} --> "
-                        f"{io_id}"
-                    )
-
-                lines.extend(
-                    f"{io_id} --> "
-                    f"{type(target_node).__name__}:{target_node.name}"
-                    for target_node in target_nodes
-                )
+        for vertex in self.edges:
+            lines.extend(
+                f"{names[vertex]} --> {names[next_vertex]}"
+                for next_vertex in self.edges[vertex]
+            )
 
         return "\n".join(lines)
 
 
-NodeEdge: TypeAlias = dict[Node, list[Node]]
-
-
-class NodeGraph:
-    """Graph where the edges are node -> [node]."""
-
-    def __init__(self, edges: NodeEdge):
-        self.edges = edges
+@dataclass(frozen=True)
+class NodeGraph(Graph[Node]):
+    edges: dict[Node, list[Node]]
 
     @classmethod
     def from_nodes(cls, nodes: list[Node]) -> Self:
         return cls.from_graph(NodeIOGraph.from_nodes(nodes))
 
     @classmethod
-    def from_graph(cls, graph: NodeIOGraph) -> Self:
-        edges: dict[Node, list[Node]] = {}
-
-        for source_node, io_dict in graph.edges.items():
-            if source_node is None:
+    def from_graph(cls, base: NodeIOGraph) -> Self:
+        edges: dict[Node, list[Node]] = {node: [] for node in base.nodes}
+        for source, targets in base.edges.items():
+            if source in base.ios:
                 continue
-            edges[source_node] = []
-            for target_nodes in io_dict.values():
-                for target_node in target_nodes:
-                    edges[source_node].append(target_node)
-
-        return cls(edges)
+            for target in targets:
+                if target in base.edges:
+                    edges[source].extend(base.edges[target])  # type: ignore[index,arg-type]
+        return cls(edges=edges)
 
     @property
     def sink_nodes(self) -> set[Node]:
@@ -148,28 +159,19 @@ class NodeGraph:
         """
         return {s for s, targets in self.edges.items() if len(targets) == 0}
 
-    @property
-    def nodes(self) -> set[Node]:
-        return set(self.edges.keys()) | {
-            node for targets in self.edges.values() for node in targets
-        }
-
     @cached_property
-    def topological_ordering(self) -> tuple[Node, ...]:
-        return tuple(
-            reversed(tuple(TopologicalSorter(self.edges).static_order()))
-        )
+    def nodes(self) -> list[Node]:
+        return list(self.edges.keys())
 
     def __repr__(self) -> str:
         lines: list[str] = []
-        for source_node, target_nodes in self.edges.items():
-            lines.extend(
-                f"{type(source_node).__name__}:{source_node.name} --> "
-                f"{type(target_node).__name__}:{target_node.name}"
-                for target_node in target_nodes
-            )
-            if not target_nodes:
-                lines.append(
-                    f"{type(source_node).__name__}:{source_node.name}"
+        for node in self.edges:
+            if self.edges[node]:
+                lines.extend(
+                    f"{type(node).__name__}:{node.name} --> "
+                    f"{type(next_node).__name__}:{next_node.name}"
+                    for next_node in self.edges[node]
                 )
+            else:
+                lines.append(f"{type(node).__name__}:{node.name}")
         return "\n".join(lines)

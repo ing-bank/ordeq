@@ -118,11 +118,11 @@ IOException: Failed to load Input(idx=ID1).
 ## Output
 
 ```text
-Node:__main__:f --> io-1
-io-1 --> Node:__main__:g
-Node:__main__:g --> io-2
-io-3 --> Node:__main__:f
-io-4 --> Node:__main__:f
+Node:__main__:f --> io-3
+Node:__main__:g --> io-4
+io-0 --> Node:__main__:f
+io-1 --> Node:__main__:f
+io-3 --> Node:__main__:g
 
 ```
 

@@ -74,7 +74,7 @@ from ordeq_dev_tools.pipelines.shared import packages
 from ordeq_dev_tools.pipelines import generate_release_notes  # The pipeline to reuse
 
 @node(inputs=[packages])  # packages are dynamically provided
-def new_releases(package_names: str) -> dict[str, str]:
+def new_releases(package_names: list[str]) -> dict[str, str]:
     new_release_data = {}
     for package_name in package_names:
         # The new tag and release notes will be captured as strings here

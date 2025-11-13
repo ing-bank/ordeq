@@ -47,6 +47,7 @@ from ordeq_files import TextLinesStream
 example_file_path = Path("example.txt")
 example_line_stream = TextLinesStream(path=example_file_path)
 
+
 @node(outputs=[example_line_stream])
 def write_to_line_stream() -> Generator[str]:
     yield "First line"

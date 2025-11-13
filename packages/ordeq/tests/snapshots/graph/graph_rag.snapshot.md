@@ -26,28 +26,28 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-Node:example_rag_pipeline.rag.annotation:annotate_documents --> io-2
-Node:example_rag_pipeline.rag.evaluation:evaluate_answers --> io-4
-Node:example_rag_pipeline.rag.indexer:create_vector_index --> io-6
-Node:example_rag_pipeline.rag.policies:generate_questions --> io-8
-Node:example_rag_pipeline.rag.question_answering:question_answering --> io-0
-Node:example_rag_pipeline.rag.retrieval:retrieve --> io-10
-Node:example_rag_pipeline.rag.retrieval:filter_relevant --> io-9
-io-0 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
-io-0 --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
+io-7 --> Node:example_rag_pipeline.rag.policies:generate_questions
+io-5 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
+io-5 --> Node:example_rag_pipeline.rag.retrieval:retrieve
 io-1 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
 io-1 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
+Node:example_rag_pipeline.rag.policies:generate_questions --> io-8
+Node:example_rag_pipeline.rag.indexer:create_vector_index --> io-6
+io-8 --> Node:example_rag_pipeline.rag.question_answering:question_answering
+io-8 --> Node:example_rag_pipeline.rag.retrieval:retrieve
+io-6 --> Node:example_rag_pipeline.rag.retrieval:retrieve
+Node:example_rag_pipeline.rag.retrieval:retrieve --> io-10
+io-10 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
 io-3 --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
 io-3 --> Node:example_rag_pipeline.rag.question_answering:question_answering
 io-3 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
-io-5 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
-io-5 --> Node:example_rag_pipeline.rag.retrieval:retrieve
-io-6 --> Node:example_rag_pipeline.rag.retrieval:retrieve
-io-7 --> Node:example_rag_pipeline.rag.policies:generate_questions
-io-8 --> Node:example_rag_pipeline.rag.question_answering:question_answering
-io-8 --> Node:example_rag_pipeline.rag.retrieval:retrieve
+Node:example_rag_pipeline.rag.retrieval:filter_relevant --> io-9
 io-9 --> Node:example_rag_pipeline.rag.question_answering:question_answering
-io-10 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
+Node:example_rag_pipeline.rag.question_answering:question_answering --> io-0
+io-0 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
+io-0 --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
+Node:example_rag_pipeline.rag.evaluation:evaluate_answers --> io-4
+Node:example_rag_pipeline.rag.annotation:annotate_documents --> io-2
 NodeGraph
 Node:example_rag_pipeline.rag.annotation:annotate_documents
 Node:example_rag_pipeline.rag.evaluation:evaluate_answers

@@ -24,10 +24,10 @@ run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
 ## Output
 
 ```text
-View:__main__:n --> io-1
+io-2 --> View:__main__:hello_world
 View:__main__:hello_world --> io-0
 io-0 --> View:__main__:n
-io-2 --> View:__main__:hello_world
+View:__main__:n --> io-1
 Node received 'Buenos dias World!'
 
 ```

@@ -43,10 +43,10 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-Node:__main__:group_by --> io-1
+io-2 --> View:__main__:cast
 View:__main__:cast --> io-0
 io-0 --> Node:__main__:group_by
-io-2 --> View:__main__:cast
+Node:__main__:group_by --> io-1
      A    B    D
 0  bar  2.0  5.0
 1  foo  2.0  8.0

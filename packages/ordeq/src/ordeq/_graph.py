@@ -41,7 +41,7 @@ class Graph(Generic[T]):
 class ProjectGraph(Graph[Any]):
     edges: dict[Any, list[Any]]
     ios: set[AnyIO]
-    nodes: list[Node]
+    nodes: set[Node]
 
     @classmethod
     def from_nodes(
@@ -93,14 +93,14 @@ class ProjectGraph(Graph[Any]):
                 if op not in edges:
                     edges[op] = []
 
-        return cls(edges=edges, ios=ios_, nodes=all_nodes)
+        return cls(edges=edges, ios=ios_, nodes=set(all_nodes))
 
 
 @dataclass(frozen=True)
 class NodeIOGraph(Graph[AnyIO | Node]):
     edges: dict[AnyIO | Node, list[AnyIO | Node]]
     ios: set[AnyIO]
-    nodes: list[Node]
+    nodes: set[Node]
 
     @classmethod
     def from_nodes(
@@ -131,7 +131,7 @@ class NodeIOGraph(Graph[AnyIO | Node]):
             },
         }
 
-        for vertex in self.edges:
+        for vertex in self.topological_ordering:
             lines.extend(
                 f"{names[vertex]} --> {names[next_vertex]}"
                 for next_vertex in self.edges[vertex]
@@ -150,7 +150,9 @@ class NodeGraph(Graph[Node]):
 
     @classmethod
     def from_graph(cls, base: NodeIOGraph) -> Self:
-        edges: dict[Node, list[Node]] = {node: [] for node in base.nodes}
+        edges: dict[Node, list[Node]] = {
+            node: [] for node in base.edges if node in base.nodes
+        }
         for source, targets in base.edges.items():
             if source in base.ios:
                 continue

@@ -27,10 +27,10 @@ run(n, verbose=True)
 
 ```text
 View(name=__main__:hello)
-Node:__main__:n --> io-2
 View:__main__:hello --> io-1
-io-0 --> Node:__main__:n
 io-1 --> Node:__main__:n
+io-0 --> Node:__main__:n
+Node:__main__:n --> io-2
 Jane said 'Hello, World!'
 
 ```

@@ -47,8 +47,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-Node:__main__:first --> io-0
 Node:__main__:second --> io-1
+Node:__main__:first --> io-0
 
 ```
 

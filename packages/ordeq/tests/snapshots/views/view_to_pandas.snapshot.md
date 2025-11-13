@@ -34,10 +34,10 @@ run(aggregate, verbose=True)
 ## Output
 
 ```text
-View:__main__:aggregate --> io-1
+io-2 --> View:__main__:csv_as_df
 View:__main__:csv_as_df --> io-0
 io-0 --> View:__main__:aggregate
-io-2 --> View:__main__:csv_as_df
+View:__main__:aggregate --> io-1
 value    6
 dtype: int64
 

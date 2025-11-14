@@ -27,9 +27,9 @@ run(combine_greeting_with_ending, verbose=True)
 
 ```text
 View(name=__main__:hello)
-View:__main__:hello --> io-0
-io-1 --> Node:__main__:combine_greeting_with_ending
+View:__main__:hello --> io-1
 io-0 --> Node:__main__:combine_greeting_with_ending
+io-1 --> Node:__main__:combine_greeting_with_ending
 Node:__main__:combine_greeting_with_ending --> io-2
 Hello world !!!
 

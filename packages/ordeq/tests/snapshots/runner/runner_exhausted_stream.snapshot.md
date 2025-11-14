@@ -55,14 +55,14 @@ run(increment, multiply, verbose=True, save="sinks")
 
 ```text
 io-0 --> Node:__main__:increment
-Node:__main__:increment --> io-1
-io-2 --> Node:__main__:multiply
+Node:__main__:increment --> io-2
 io-1 --> Node:__main__:multiply
+io-2 --> Node:__main__:multiply
 Node:__main__:multiply --> io-3
 io-0 --> Node:__main__:increment
-Node:__main__:increment --> io-1
-io-2 --> Node:__main__:multiply
+Node:__main__:increment --> io-2
 io-1 --> Node:__main__:multiply
+io-2 --> Node:__main__:multiply
 Node:__main__:multiply --> io-3
 
 ```

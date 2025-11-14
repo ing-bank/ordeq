@@ -22,8 +22,8 @@ run(func1, func2, verbose=True)
 ## Output
 
 ```text
-Node:__main__:func2 --> io-1
-Node:__main__:func1 --> io-0
+Node:__main__:func2 --> io-0
+Node:__main__:func1 --> io-1
 
 ```
 

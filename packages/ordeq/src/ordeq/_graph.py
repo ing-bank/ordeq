@@ -126,7 +126,7 @@ class NodeIOGraph(Graph[AnyIO | Node]):
             **{
                 io: f"io-{i}"
                 for i, io in enumerate(
-                    io for io in self.edges if io in self.ios
+                    io for io in self.topological_ordering if io in self.ios
                 )
             },
         }

@@ -34,10 +34,10 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-2 --> View:__main__:df_selected
-View:__main__:df_selected --> io-0
-io-0 --> View:__main__:group_by
-View:__main__:group_by --> io-1
+io-0 --> View:__main__:df_selected
+View:__main__:df_selected --> io-1
+io-1 --> View:__main__:group_by
+View:__main__:group_by --> io-2
      A
 0  bar
 1  foo

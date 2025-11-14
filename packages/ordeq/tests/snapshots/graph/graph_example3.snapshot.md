@@ -26,8 +26,8 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-View:example_3.func_defs:hello --> io-1
 View:example_3.func_defs:hello --> io-0
+View:example_3.func_defs:hello --> io-1
 NodeGraph
 View:example_3.func_defs:hello
 View:example_3.func_defs:hello

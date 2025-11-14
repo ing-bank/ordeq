@@ -5,7 +5,7 @@ from graphlib import TopologicalSorter
 from itertools import chain
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import IO, AnyIO, Input
+from ordeq._io import IO, AnyIO, Input, InternalIO
 from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
 from ordeq._resource import Resource
@@ -52,9 +52,8 @@ class Graph(Generic[T]):
 
 
 @dataclass(frozen=True)
-class ProjectGraph(Graph[AnyIO | Node]):
-    edges: dict[AnyIO | Node, list[AnyIO | Node]]
-    ios: set[AnyIO]
+class NodeResourceGraph(Graph[Resource | Node]):
+    edges: dict[Resource | Node, list[Resource | Node]]
     nodes: set[Node]
     resources: set[Resource]
 
@@ -79,9 +78,8 @@ class ProjectGraph(Graph[AnyIO | Node]):
         #  and user patches) the graph creation.
         patched_nodes = _patch_nodes(*all_nodes, patches=patches)  # type: ignore[arg-type]
 
-        ios_: set[AnyIO] = set()
-        edges: dict[AnyIO | Node, list[AnyIO | Node]] = {
-            node: [] for node in patched_nodes
+        edges: dict[Resource | Node, list[Resource | Node]] = {
+            node: [] for node in all_nodes
         }
         resources: set[Resource] = set()
         resource_to_node: dict[Resource, Node] = {}
@@ -92,14 +90,11 @@ class ProjectGraph(Graph[AnyIO | Node]):
                 # sentinel IO, so it's safe to cast input to AnyIO.
                 ip_ = cast("AnyIO", ip)
 
-                ios_.add(ip_)
-
-                if ip_ not in edges:
-                    edges[ip_] = []
-                edges[ip_].append(node)
-
                 resource = Resource(ip_._resource)  # noqa: SLF001 (private-member-access)
                 resources.add(resource)
+                if resource not in edges:
+                    edges[resource] = []
+                edges[resource].append(node)
 
             for op in node.outputs:
                 resource = Resource(op._resource)  # noqa: SLF001 (private-member-access)
@@ -115,15 +110,13 @@ class ProjectGraph(Graph[AnyIO | Node]):
 
                 resources.add(resource)
                 resource_to_node[resource] = node
-                ios_.add(op)
-                edges[node].append(op)
+                edges[node].append(resource)
 
-                if op not in edges:
-                    edges[op] = []
+                if resource not in edges:
+                    edges[resource] = []
 
         return cls(
             edges=edges,
-            ios=ios_,
             nodes=set(patched_nodes),
             resources=resources,
         )
@@ -139,19 +132,20 @@ class NodeGraph(Graph[Node]):
         nodes: list[Node],
         patches: dict[AnyIO | View, AnyIO] | None = None,
     ) -> Self:
-        return cls.from_graph(ProjectGraph.from_nodes(nodes, patches))
+        return cls.from_graph(NodeResourceGraph.from_nodes(nodes, patches))
 
     @classmethod
-    def from_graph(cls, base: ProjectGraph) -> Self:
+    def from_graph(cls, base: NodeResourceGraph) -> Self:
         edges: dict[Node, list[Node]] = {
-            cast("Node", node): [] for node in base.edges if node in base.nodes
+            cast("Node", node): []
+            for node in base.topological_ordering
+            if node in base.nodes
         }
-        for source, targets in base.edges.items():
-            if source in base.ios:
+        for source in base.topological_ordering:
+            if source in base.resources:
                 continue
-            for target in targets:
-                if target in base.edges:
-                    edges[source].extend(base.edges[target])  # type: ignore[index,arg-type]
+            for target in base.edges[source]:
+                edges[source].extend(base.edges[target])  # type: ignore[index,arg-type]
         return cls(edges=edges)
 
     @property

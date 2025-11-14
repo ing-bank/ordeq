@@ -27,7 +27,7 @@ run(n, verbose=True)
 
 ```text
 View(name=__main__:hello)
-View:__main__:hello --> io-0
+View:__main__:hello --> io-1
 io-0 --> Node:__main__:n
 io-1 --> Node:__main__:n
 Node:__main__:n --> io-2

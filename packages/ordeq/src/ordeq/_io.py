@@ -624,3 +624,23 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
 # Type aliases
 AnyIO: TypeAlias = Input | Output | IO
+
+
+class InternalIO:
+    """Class representing the internal representation of an IO. Used for
+    comparison of IOs based on the unique ID instead of the object hash.
+    This allows users to implement their own hash and compare methods on
+    the IOs.
+    """
+
+    def __init__(self, io: AnyIO):
+        self.io = io
+
+    def __eq__(self, other):
+        return hash(self) == hash(other)
+
+    def __hash__(self) -> int:
+        return hash(self.io._idx)  # noqa: SLF001 (private-member)
+
+    def __repr__(self) -> str:
+        return repr(self.io)

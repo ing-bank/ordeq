@@ -9,5 +9,5 @@ class Resource:
 
     value: Hashable
 
-    def __repr__(self) -> str:
-        return repr(self.value)
+    def __str__(self) -> str:
+        return str(self.value)

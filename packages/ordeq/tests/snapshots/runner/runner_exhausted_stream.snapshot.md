@@ -78,6 +78,7 @@ INFO	ordeq.runner	Running node "multiply" in module "__main__"
 INFO	ordeq.io	Saving Stream(data=[])
 INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
 INFO	ordeq.runner	Running node "increment" in module "__main__"
+INFO	ordeq.io	Saving Stream(data=['2', '3', '4'])
 INFO	ordeq.io	Loading Literal('2')
 INFO	ordeq.runner	Running node "multiply" in module "__main__"
 INFO	ordeq.io	Saving Stream(data=[])

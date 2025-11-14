@@ -30,11 +30,6 @@ Runnable: TypeAlias = ModuleType | Callable | str
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 
-def _save_outputs(node: Node, values: Sequence[T]) -> None:
-    for output_dataset, data in zip(node.outputs, values, strict=False):
-        output_dataset.save(data)
-
-
 def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
     node.validate()
 
@@ -72,7 +67,9 @@ def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
     else:
         values = tuple(values)
 
-    _save_outputs(node, values)
+    # saving computed data
+    for output_dataset, data in zip(node.outputs, values, strict=False):
+        output_dataset.save(data)
 
     # persisting computed data only if outputs are loaded again later
     for output, data in zip(node.outputs, values, strict=True):

@@ -21,7 +21,7 @@ class PolarsLazyNdJSON(IO[pl.LazyFrame]):
 
     """
 
-    path: Path
+    path: str | Path
 
-    def load(self, **load_options: Any) -> pl.DataFrame:
+    def load(self, **load_options: Any) -> pl.LazyFrame:
         return pl.scan_ndjson(source=self.path, **load_options)

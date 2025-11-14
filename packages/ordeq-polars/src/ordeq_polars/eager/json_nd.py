@@ -21,7 +21,7 @@ class PolarsEagerNdJSON(IO[pl.DataFrame]):
 
     """
 
-    path: Path
+    path: str | Path
 
     def load(self, **load_options: Any) -> pl.DataFrame:
         return pl.read_ndjson(source=self.path, **load_options)

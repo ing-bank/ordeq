@@ -18,9 +18,8 @@ logger = logging.getLogger(__name__)
 
 @node(
     inputs=[processed_mnist_test_data, catalog.model_evaluation_config],
-    outputs=catalog.test_loader,
 )
-def create_test_loader(raw_mnist_data: dict[str, Any], config: ModelEvaluationConfig):
+def test_loader(raw_mnist_data: dict[str, Any], config: ModelEvaluationConfig):
     test_data = raw_mnist_data["test_data"]
     test_labels = raw_mnist_data["test_labels"]
 
@@ -37,7 +36,7 @@ def training_device() -> torch.device:
 
 
 @node(
-    inputs=[catalog.model, catalog.test_loader, training_device],
+    inputs=[catalog.model, test_loader, training_device],
     outputs=[
         catalog.model_evaluation_result,
         catalog.confusion_matrix,

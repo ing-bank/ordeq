@@ -16,30 +16,35 @@ logger = logging.getLogger(__name__)
 
 @node(
     inputs=[processed_mnist_train_data, catalog.model_config],
-    outputs=[catalog.train_loader, catalog.val_loader],
 )
-def create_data_loaders(
+def train_loader(
     processed_mnist_data: dict[str, torch.Tensor], config: ModelConfig
-) -> tuple[DataLoader, DataLoader]:
+) -> DataLoader:
     """Create data loaders for training and validation datasets."""
     train_data = processed_mnist_data["train_data"]
-    val_data = processed_mnist_data["val_data"]
     train_labels = processed_mnist_data["train_labels"]
-    val_labels = processed_mnist_data["val_labels"]
-
     train_dataset = TensorDataset(train_data, train_labels)
+    return DataLoader(train_dataset, batch_size=config.batch_size, shuffle=True)
+
+
+@node(
+    inputs=[processed_mnist_train_data, catalog.model_config],
+)
+def val_loader(
+    processed_mnist_data: dict[str, torch.Tensor], config: ModelConfig
+) -> DataLoader:
+    """Create data loaders for training and validation datasets."""
+    val_data = processed_mnist_data["val_data"]
+    val_labels = processed_mnist_data["val_labels"]
     val_dataset = TensorDataset(val_data, val_labels)
 
-    train_loader = DataLoader(train_dataset, batch_size=config.batch_size, shuffle=True)
-    val_loader = DataLoader(val_dataset, batch_size=config.batch_size, shuffle=False)
-
-    return train_loader, val_loader
+    return DataLoader(val_dataset, batch_size=config.batch_size, shuffle=False)
 
 
 @node(
     inputs=[
-        catalog.train_loader,
-        catalog.val_loader,
+        train_loader,
+        val_loader,
         catalog.model_config,
         training_device,
     ],

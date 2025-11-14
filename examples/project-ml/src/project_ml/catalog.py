@@ -34,13 +34,8 @@ test_dataset = Literal(
 )
 mnist_moments = Literal((0.1307, 0.3081))  # mean and std for MNIST
 
-# preprocessing
-data_metadata = IO()
-
 # training
 training_metadata = IO()
-train_loader = IO()
-val_loader = IO()
 
 # models
 model = Pickle(path=Path(DATA_DIR / "02_models" / "mnist_cnn_model.pkl"))
@@ -48,7 +43,6 @@ model = Pickle(path=Path(DATA_DIR / "02_models" / "mnist_cnn_model.pkl"))
 production_model = Pickle(path=Path(DATA_DIR / "02_models" / "mnist_cnn_model.pkl"))
 
 # evaluation
-test_loader = IO()
 model_evaluation_result = IO()
 model_evaluation_metadata = IO()
 confusion_matrix = MatplotlibFigure(

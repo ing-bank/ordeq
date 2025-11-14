@@ -91,8 +91,8 @@ string argument expected, got 'coroutine'
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    output_dataset.save(data)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^
+    output.save(data)
+    ~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     _run_node(node, hooks=hooks)

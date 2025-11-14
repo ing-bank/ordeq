@@ -12,28 +12,33 @@ print(diagram)
 
 ```
 
-## Output
+## Exception
 
 ```text
-graph TB
-	subgraph legend["Legend"]
-		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "IO"}
-	end
+KeyError: 272593727
+  File "/packages/ordeq-viz/src/ordeq_viz/graph.py", line LINO, in _add_io_data
+    name=reverse_lookup[dataset_id],
+         ~~~~~~~~~~~~~~^^^^^^^^^^^^
 
-	IO0 --> example_anonymous.nodes:node_with_inline_io
-	example_anonymous.nodes:node_with_inline_io --> IO1
+  File "/packages/ordeq-viz/src/ordeq_viz/graph.py", line LINO, in _gather_graph
+    _add_io_data(input_dataset, reverse_lookup, io_data, store=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-	example_anonymous.nodes:node_with_inline_io@{shape: rounded, label: "node_with_inline_io"}
-	IO0@{shape: rect, label: "&lt;anonymous&gt;"}
-	IO1@{shape: rect, label: "&lt;anonymous&gt;"}
+  File "/packages/ordeq-viz/src/ordeq_viz/to_mermaid.py", line LINO, in pipeline_to_mermaid
+    node_modules, io_modules = _gather_graph(nodes, ios)
+                               ~~~~~~~~~~~~~^^^^^^^^^^^^
 
-	class L0,example_anonymous.nodes:node_with_inline_io node
-	class L00,IO0,IO1 io0
-	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef io0 fill:#66c2a5
+  File "/packages/ordeq-viz/tests/resources/mermaid/viz_anonymous.py", line LINO, in <module>
+    diagram = pipeline_to_mermaid(nodes=nodes, ios=ios)
 
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```

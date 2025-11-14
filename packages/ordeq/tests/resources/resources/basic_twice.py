@@ -8,3 +8,4 @@ csv = CSV(path=Path("my/path")).with_resource(resource)
 csv_twice = csv.with_resource(resource)
 print(csv._resource)
 print(csv_twice._resource)
+assert csv._idx != csv_twice._idx

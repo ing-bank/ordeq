@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from functools import cached_property
 from pathlib import Path
+from typing import Any
 
 import ibis
 from ibis import BaseBackend, Table
@@ -44,5 +45,5 @@ class IbisTable(IO[Table]):
     def load(self) -> Table:
         return self._backend.table(self.name)
 
-    def save(self, t: Table) -> None:
-        self._backend.create_table(self.name, t)
+    def save(self, t: Table, **save_options: Any) -> None:
+        self._backend.create_table(self.name, t, **save_options)

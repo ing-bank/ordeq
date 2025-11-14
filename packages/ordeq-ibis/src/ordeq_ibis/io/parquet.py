@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from functools import cached_property
 from pathlib import Path
+from typing import Any
 
 import ibis
 from ibis import BaseBackend, Table
@@ -41,8 +42,8 @@ class IbisParquet(IO[Table]):
     def _backend(self) -> BaseBackend:
         return ibis.connect(self.resource)
 
-    def load(self) -> Table:
-        return self._backend.read_parquet(self.path)
+    def load(self, **load_options: Any) -> Table:
+        return self._backend.read_parquet(self.path, **load_options)
 
-    def save(self, t: Table) -> None:
-        self._backend.to_parquet(t, self.path)
+    def save(self, t: Table, **save_options: Any) -> None:
+        self._backend.to_parquet(t, self.path, **save_options)

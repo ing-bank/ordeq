@@ -41,5 +41,5 @@ class IbisView(Output[Table]):
     def _backend(self) -> BaseBackend:
         return ibis.connect(self.resource)
 
-    def save(self, t: Table) -> None:
-        self._backend.create_view(self.name, t)
+    def save(self, t: Table, overwrite: bool = False) -> None:
+        self._backend.create_view(self.name, t, overwrite=overwrite)

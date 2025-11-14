@@ -39,13 +39,6 @@ def processed_mnist_data(
     train_labels = torch.tensor(train_labels)
     val_labels = torch.tensor(val_labels)
 
-    metadata = {
-        "train_samples": len(train_data),
-        "val_samples": len(val_data),
-        "test_samples": len(test_data),
-        "image_shape": str(train_data.shape[1:]),
-        "num_classes": len(torch.unique(train_labels)),
-    }
     data = {
         "train_data": train_data,
         "val_data": val_data,
@@ -55,8 +48,19 @@ def processed_mnist_data(
         "test_labels": test_labels,
     }
 
+    metadata = {
+        "train_samples": len(train_data),
+        "val_samples": len(val_data),
+        "test_samples": len(test_data),
+        "image_shape": str(train_data.shape[1:]),
+        "num_classes": len(torch.unique(train_labels)),
+    }
+
     logger.info(
-        f"Processed data - Train: {len(train_data)}, Val: {len(val_data)}, Test: {len(test_data)}"
+        "Processed data - Train: %d, Val: %d, Test: %d",
+        metadata["train_samples"],
+        metadata["val_samples"],
+        metadata["test_samples"],
     )
 
     return data, metadata

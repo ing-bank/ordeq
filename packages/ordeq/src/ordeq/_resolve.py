@@ -186,7 +186,7 @@ def _resolve_refs_to_modules(
     return _resolve_packages_to_modules(*modules)
 
 
-class InternalIO:
+class _Resource:
     io: AnyIO
 
     def __init__(self, io: AnyIO):
@@ -200,18 +200,18 @@ class InternalIO:
 
 
 def _resolve_module_to_ios(module: ModuleType) -> dict[str, AnyIO]:
-    ios: dict[InternalIO, str] = {}
+    ios: dict[_Resource, str] = {}
     for name, obj in vars(module).items():
         if _is_io(obj):
-            internal_io = InternalIO(obj)
+            resource = _Resource(obj)
             # TODO: Should also resolve to IO sequence
-            if internal_io in ios:
+            if resource in ios:
                 raise ValueError(
                     f"Module '{module.__name__}' contains duplicate keys "
-                    f"for the same IO ('{name}' and '{ios[internal_io]}')"
+                    f"for the same IO ('{name}' and '{ios[resource]}')"
                 )
-            ios[internal_io] = name
-    return {name: io.io for io, name in ios.items()}
+            ios[resource] = name
+    return {name: resource.io for resource, name in ios.items()}
 
 
 def _resolve_package_to_ios(package: ModuleType) -> Catalog:

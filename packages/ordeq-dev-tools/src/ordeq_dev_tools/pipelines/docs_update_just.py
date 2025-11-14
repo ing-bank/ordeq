@@ -8,7 +8,7 @@ from ordeq_dev_tools.utils import run_command
 
 contribution_guide = Text(path=ROOT_PATH / "docs" / "CONTRIBUTING.md")
 docs_file = contribution_guide @ "existing"
-updated_docs_file = docs_file @ "new"
+updated_docs_file = contribution_guide @ "new"
 
 
 @node

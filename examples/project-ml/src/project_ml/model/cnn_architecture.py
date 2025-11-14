@@ -1,7 +1,8 @@
 import torch
 import torch.nn.functional as F
-from config.model_config import ModelConfig
 from torch import nn
+
+from project_ml.config.model_config import ModelConfig
 
 
 class DigitCNN(nn.Module):

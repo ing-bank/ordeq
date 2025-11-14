@@ -2,8 +2,9 @@ import logging
 from typing import Any
 
 import torch
-from config.model_config import ModelConfig
 from torch import nn, optim
+
+from project_ml.config.model_config import ModelConfig
 
 logger = logging.getLogger(__name__)
 

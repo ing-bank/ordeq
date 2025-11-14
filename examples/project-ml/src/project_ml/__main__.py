@@ -1,12 +1,10 @@
 import logging
 from pathlib import Path
 
-import catalog
-import data
-import deploy
-import model
 from ordeq import run
 from ordeq_viz import viz
+
+from project_ml import catalog, data, deploy, model
 
 ROOT_PATH = Path(__file__).parent.parent.parent
 
@@ -19,5 +17,6 @@ if __name__ == "__main__":
         catalog,
         fmt="mermaid",
         output=ROOT_PATH / "pipeline_diagram.mermaid",
+        subgraphs=True,
     )
     run(*pipeline)

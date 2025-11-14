@@ -1,16 +1,18 @@
 import logging
 from typing import Any
 
-import catalog
 import torch
 from ordeq import node
 from sklearn.model_selection import train_test_split
+
+from project_ml import catalog
+from project_ml.data.raw_data_loading import raw_mnist_data
 
 logger = logging.getLogger(__name__)
 
 
 @node(
-    inputs=[catalog.raw_data, catalog.validation_split, catalog.random_seed],
+    inputs=[raw_mnist_data, catalog.validation_split, catalog.random_seed],
     outputs=[catalog.processed_data, catalog.data_metadata],
 )
 def processed_mnist_data(

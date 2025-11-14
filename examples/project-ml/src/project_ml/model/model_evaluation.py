@@ -1,21 +1,23 @@
 import logging
 from typing import Any
 
-import catalog
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 import torch
-from config.model_evaluation_config import ModelEvaluationConfig
 from ordeq import node
 from sklearn.metrics import classification_report, confusion_matrix
 from torch.utils.data import DataLoader, TensorDataset
+
+from project_ml import catalog
+from project_ml.config.model_evaluation_config import ModelEvaluationConfig
+from project_ml.data.raw_data_loading import raw_mnist_data
 
 logger = logging.getLogger(__name__)
 
 
 @node(
-    inputs=[catalog.raw_data, catalog.model_evaluation_config],
+    inputs=[raw_mnist_data, catalog.model_evaluation_config],
     outputs=catalog.test_loader,
 )
 def create_test_loader(raw_mnist_data: dict[str, Any], config: ModelEvaluationConfig):
@@ -26,8 +28,8 @@ def create_test_loader(raw_mnist_data: dict[str, Any], config: ModelEvaluationCo
     return DataLoader(test_dataset, batch_size=config.batch_size, shuffle=False)
 
 
-@node(outputs=catalog.training_device)
-def get_training_device() -> torch.device:
+@node
+def training_device() -> torch.device:
     """Determine the device to use for training (CPU or GPU)."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     logger.info("Using device: %s", device)
@@ -35,7 +37,7 @@ def get_training_device() -> torch.device:
 
 
 @node(
-    inputs=[catalog.model, catalog.test_loader, catalog.training_device],
+    inputs=[catalog.model, catalog.test_loader, training_device],
     outputs=[
         catalog.model_evaluation_result,
         catalog.confusion_matrix,

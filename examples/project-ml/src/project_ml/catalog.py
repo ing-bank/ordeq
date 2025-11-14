@@ -32,7 +32,6 @@ train_dataset = Literal(
 test_dataset = Literal(
     datasets.MNIST(root=str(RAW_DATA_DIR), train=False, download=True)
 )
-raw_data = IO()
 mnist_moments = Literal((0.1307, 0.3081))  # mean and std for MNIST
 
 # preprocessing
@@ -40,7 +39,6 @@ processed_data = IO()
 data_metadata = IO()
 
 # training
-training_device = IO()
 training_metadata = IO()
 train_loader = IO()
 val_loader = IO()
@@ -59,10 +57,7 @@ confusion_matrix = MatplotlibFigure(
 )
 
 # inference
-inference_device = IO()
-dummy_images = IO()
 batch_predictions = IO()
 batch_prediction_metadata = IO()
-dummy_batch = IO()
 real_time_predictions = IO()
 real_time_prediction_metadata = IO()

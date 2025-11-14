@@ -1,12 +1,14 @@
 import logging
 
-import catalog
 import torch
-from config.model_config import ModelConfig
-from model.cnn_architecture import DigitCNN
-from model.train_model import train_model
 from ordeq import node
 from torch.utils.data import DataLoader, TensorDataset
+
+from project_ml import catalog
+from project_ml.config.model_config import ModelConfig
+from project_ml.model.cnn_architecture import DigitCNN
+from project_ml.model.model_evaluation import training_device
+from project_ml.model.train_model import train_model
 
 logger = logging.getLogger(__name__)
 
@@ -38,7 +40,7 @@ def create_data_loaders(
         catalog.train_loader,
         catalog.val_loader,
         catalog.model_config,
-        catalog.training_device,
+        training_device,
     ],
     outputs=[catalog.model, catalog.training_metadata],
 )

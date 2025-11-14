@@ -1,31 +1,32 @@
 import logging
 from typing import Any
 
-import catalog
 import numpy as np
 import torch
-from config.batch_prediction_config import BatchPredictionConfig
-from config.real_time_prediction_config import RealTimePredictionConfig
 from ordeq import node
 from torch.utils.data import DataLoader, TensorDataset
+
+from project_ml import catalog
+from project_ml.config.batch_prediction_config import BatchPredictionConfig
+from project_ml.config.real_time_prediction_config import RealTimePredictionConfig
 
 logger = logging.getLogger(__name__)
 
 
-@node(inputs=catalog.batch_prediction_config, outputs=catalog.dummy_images)
-def generate_dummy_images(config: BatchPredictionConfig) -> torch.Tensor:
+@node(inputs=catalog.batch_prediction_config)
+def dummy_images(config: BatchPredictionConfig) -> torch.Tensor:
     # For demo purposes, create some test images
     return torch.randn(config.num_test_images, 1, 28, 28)
 
 
-@node(inputs=catalog.real_time_prediction_config, outputs=catalog.dummy_batch)
-def generate_dummy_batch(config: RealTimePredictionConfig):
+@node(inputs=catalog.real_time_prediction_config)
+def dummy_batch(config: RealTimePredictionConfig):
     # For demo purposes, create some test images
     return torch.randn(config.batch_size, 1, 28, 28)
 
 
-@node(inputs=catalog.batch_prediction_config, outputs=catalog.inference_device)
-def select_inference_device(config: BatchPredictionConfig) -> str:
+@node(inputs=catalog.batch_prediction_config)
+def inference_device(config: BatchPredictionConfig) -> str:
     """Select device for inference based on availability."""
     return torch.device(
         config.device
@@ -36,10 +37,10 @@ def select_inference_device(config: BatchPredictionConfig) -> str:
 
 @node(
     inputs=[
-        catalog.dummy_images,
+        dummy_images,
         catalog.production_model,
         catalog.batch_prediction_config,
-        catalog.inference_device,
+        inference_device,
     ],
     outputs=[catalog.batch_predictions, catalog.batch_prediction_metadata],
 )
@@ -90,10 +91,10 @@ def batch_digit_predictions(
 
 @node(
     inputs=[
-        catalog.dummy_batch,
+        dummy_batch,
         catalog.production_model,
         catalog.real_time_prediction_config,
-        catalog.inference_device,
+        inference_device,
     ],
     outputs=[
         catalog.real_time_predictions,

@@ -53,7 +53,6 @@ The original Dagster example can be found [here](https://github.com/dagster-io/d
     └── test_model.py
 ```
 
-
 ```text title="Ordeq project structure"
 .
 ├── data
@@ -89,6 +88,7 @@ The original Dagster example can be found [here](https://github.com/dagster-io/d
 ```
 
 Deviations:
+
 - excluded model selection part for simplicity
 - data quality checks
 

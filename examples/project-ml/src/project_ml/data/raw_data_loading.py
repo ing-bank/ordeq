@@ -1,12 +1,13 @@
 import logging
 from typing import Any
 
-import catalog
 import torch
 from ordeq import node
 from torchvision import transforms
 from torchvision.datasets import VisionDataset
 from torchvision.datasets.vision import StandardTransform
+
+from project_ml import catalog
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,6 @@ logger = logging.getLogger(__name__)
         catalog.test_dataset,
         catalog.mnist_moments,
     ],
-    outputs=catalog.raw_data,
 )
 def raw_mnist_data(
     train_dataset: VisionDataset,

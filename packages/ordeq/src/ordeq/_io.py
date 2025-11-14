@@ -130,12 +130,24 @@ class _InputMeta(type):
             class_dict["load"] = _load_decorator(load_method)
         return super().__new__(cls, name, bases, class_dict)
 
+    def __call__(cls, *args, **kwargs):
+        obj = super().__call__(*args, **kwargs)
+        obj.__dict__["_idx"] = str(uuid4())
+        return obj
+
+
+class _CopyIO:
+    def copy(self) -> Self:
+        new = copy.copy(self)
+        new.__dict__["_idx"] = str(uuid4())
+        return new
+
 
 class _BaseInput(Generic[Tin]):
     load: Callable = _raise_not_implemented
 
 
-class _InputOptions(_BaseInput[Tin]):
+class _InputOptions(_CopyIO, _BaseInput[Tin]):
     """Class that adds load options to an Input.
     Used for compartmentalizing load options, no reuse."""
 
@@ -152,7 +164,7 @@ class _InputOptions(_BaseInput[Tin]):
             a new instance, with load options set to kwargs
         """
 
-        new_instance = copy.copy(self)
+        new_instance = self.copy()
 
         # ensure the `load_options` are valid for the `load` method
         inspect.signature(new_instance.load).bind_partial(**load_options)
@@ -170,7 +182,7 @@ class _InputOptions(_BaseInput[Tin]):
         return load_func(*args, **load_options)
 
 
-class _InputHooks(_BaseInput[Tin]):
+class _InputHooks(_CopyIO, _BaseInput[Tin]):
     """Class that adds input hooks to an Input.
     Used for compartmentalizing load options, no reuse."""
 
@@ -183,7 +195,7 @@ class _InputHooks(_BaseInput[Tin]):
             ):
                 raise TypeError(f"Expected InputHook instance, got {hook}.")
 
-        new_instance = copy.copy(self)
+        new_instance = self.copy()
         new_instance.__dict__["input_hooks"] = hooks
         return new_instance
 
@@ -241,7 +253,7 @@ class _InputException(_BaseInput[Tin]):
             raise IOException(msg) from exc
 
 
-class _WithResource:
+class _WithResource(_CopyIO):
     _resource_: Hashable = None
 
     def with_resource(self, resource: Any) -> Self:
@@ -251,9 +263,9 @@ class _WithResource:
             "Resources are in preview mode and may change "
             "without notice in future releases."
         )
-        new = copy.copy(self)
-        new.__dict__["_resource_"] = resource
-        return new
+        new_instance = self.copy()
+        new_instance.__dict__["_resource_"] = resource
+        return new_instance
 
     @property
     def _resource(self) -> Hashable:
@@ -320,8 +332,7 @@ class Input(
     ```
     """
 
-    def __init__(self):
-        self._idx = str(uuid4())
+    _idx: str
 
     def __repr__(self):
         return f"Input(idx={self._idx})"
@@ -410,12 +421,17 @@ class _OutputMeta(type):
                 class_dict["save"] = _save_decorator(save_method)
         return super().__new__(cls, name, bases, class_dict)
 
+    def __call__(cls, *args, **kwargs):
+        obj = super().__call__(*args, **kwargs)
+        obj.__dict__["_idx"] = str(uuid4())
+        return obj
+
 
 class _BaseOutput(Generic[Tout]):
     save: Callable = _pass
 
 
-class _OutputOptions(_BaseOutput[Tout], Generic[Tout]):
+class _OutputOptions(_CopyIO, _BaseOutput[Tout], Generic[Tout]):
     """Class that adds save options to an Output.
     Used for compartmentalizing save options, no reuse."""
 
@@ -432,7 +448,7 @@ class _OutputOptions(_BaseOutput[Tout], Generic[Tout]):
             a new instance, with save options set to kwargs
         """
 
-        new_instance = copy.copy(self)
+        new_instance = self.copy()
 
         # ensure the `save_options` are valid for the `save` method
         inspect.signature(new_instance.save).bind_partial(**save_options)
@@ -449,7 +465,7 @@ class _OutputOptions(_BaseOutput[Tout], Generic[Tout]):
         save_func(data, *args, **save_options)
 
 
-class _OutputHooks(_BaseOutput[Tout], Generic[Tout]):
+class _OutputHooks(_CopyIO, _BaseOutput[Tout], Generic[Tout]):
     """Class that adds output hooks to an Output.
     Used for compartmentalizing load options, no reuse."""
 
@@ -462,7 +478,7 @@ class _OutputHooks(_BaseOutput[Tout], Generic[Tout]):
             ):
                 raise TypeError(f"Expected OutputHook instance, got {hook}.")
 
-        new_instance = copy.copy(self)
+        new_instance = self.copy()
         new_instance.__dict__["output_hooks"] = hooks
         return new_instance
 
@@ -546,8 +562,7 @@ class Output(
     ```
     """
 
-    def __init__(self):
-        self._idx = str(uuid4())
+    _idx: str
 
     def __repr__(self):
         return f"Output(idx={self._idx})"

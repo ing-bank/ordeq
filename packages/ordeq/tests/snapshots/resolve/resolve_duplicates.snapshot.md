@@ -58,6 +58,7 @@ ValueError: Module 'example_duplicates.duplicate_import_alias' contains duplicat
 ['example_duplicates',
  'example_duplicates.duplicate_import_alias',
  'example_duplicates.duplicate_import_reassign',
+ 'example_duplicates.duplicate_io_different_resource',
  'example_duplicates.duplicate_io_names',
  'example_duplicates.duplicate_io_objects',
  'example_duplicates.duplicate_node_names',

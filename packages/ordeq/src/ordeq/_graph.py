@@ -194,7 +194,7 @@ class NodeIOGraph(Graph[AnyIO | Node]):
         edges: dict[AnyIO | Node, list[AnyIO | Node]] = defaultdict(list)
         nodes: set[Node] = set()
         ios: set[AnyIO] = set()
-        for node in base.nodes:
+        for node in base.topological_ordering:
             nodes.add(node)
             for ip in node.inputs:
                 ip_ = cast("Input | IO", ip)

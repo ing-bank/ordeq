@@ -95,16 +95,16 @@ string argument expected, got 'coroutine'
     ~~~~~~~~~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    _save_outputs(node, values, save=save)
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+    _save_outputs(node, values)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(node, hooks=hooks, save=save_node)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_node(node, hooks=hooks)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks, save=save)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_graph(graph, hooks=node_hooks)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/async/mixed_graph.py", line LINO, in <module>
     run(mixed_graph)

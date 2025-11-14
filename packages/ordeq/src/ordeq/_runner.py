@@ -207,7 +207,7 @@ def run(
                 for node in nodes
                 if node
                 not in NodeGraph.from_graph(
-                    NodeIOGraph.from_nodes(nodes, patches=patches)
+                    NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
                 ).sink_nodes
             ]
         )

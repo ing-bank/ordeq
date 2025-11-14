@@ -3,9 +3,9 @@
 [![Release](https://github.com/ing-bank/ordeq/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/ing-bank/ordeq/actions/workflows/release.yml)
 [![Docs](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml)
 [![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)](https://pypi.org/project/ordeq/)
-![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)](https://pypistats.org/packages/ordeq)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![Static Badge](https://img.shields.io/badge/powered_by-Ordeq-darkgreen?style=flat&link=https%3A%2F%2Fing-bank.github.io%2Fordeq%2F)
+[![Static Badge](https://img.shields.io/badge/powered_by-Ordeq-darkgreen?style=flat&link=https%3A%2F%2Fing-bank.github.io%2Fordeq%2F)](https://github.com/ing-bank/ordeq)
 
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.
@@ -56,9 +56,6 @@ Some of the available integrations:
             <a href="https://ing-bank.github.io/ordeq/api/ordeq_ibis/"><img src="https://ibis-project.org/logo.svg" alt="Ibis" height="50"/><br />Ibis</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_matplotlib/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png" alt="Matplotlib" height="40"/><br />Matplotlib</a>
-        </td>
-        <td width="90" height="60" align="center">
             <a href="https://ing-bank.github.io/ordeq/api/ordeq_joblib/"><img src="https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg" alt="Joblib" height="40"/><br />Joblib</a>
         </td>
         <td width="90" height="60" align="center">
@@ -79,9 +76,6 @@ Some of the available integrations:
             <a href="https://ing-bank.github.io/ordeq/api/ordeq_duckdb/"><img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/logos/duckdb-umoj5fxu8w5pzg7d0js9.png/duckdb-kz05ottxukbgvmp8c3bpi.png?_a=DATAg1AAZAA0" alt="DuckDB" height="40"/><br/>DuckDB</a>
         </td>
         <td width="90" height="60" align="center">
-            <a href="https://ing-bank.github.io/ordeq/api/ordeq_altair/"><img src="https://avatars.githubusercontent.com/u/22396732?s=200&v=4" alt="Altair" height="40"/><br/>Altair</a>
-        </td>
-        <td width="90" height="60" align="center">
             <a href="https://ing-bank.github.io/ordeq/api/ordeq_networkx/"><img src="https://avatars.githubusercontent.com/u/388785?s=200&v=4" alt="Networkx" height="40"/><br/>NetworkX</a>
         </td>
         <td width="90" height="60" align="center">
@@ -93,7 +87,21 @@ Some of the available integrations:
     </tr>
 </table>
 
-Have a look at the [package overview][packages] and [API reference][api-ref] for a list of available packages.
+**Plotting**
+
+<table>
+    <tr>
+        <td width="90" height="60" align="center">
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_matplotlib/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Created_with_Matplotlib-logo.svg/2048px-Created_with_Matplotlib-logo.svg.png" alt="Matplotlib" height="40"/><br />Matplotlib</a>
+        </td>
+        <td width="90" height="60" align="center">
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_altair/"><img src="https://avatars.githubusercontent.com/u/22396732?s=200&v=4" alt="Altair" height="40"/><br/>Altair</a>
+        </td>
+        <td width="90" height="60" align="center">
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_plotly_express/"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Plotly-logo.png" alt="Plotly Express" height="40"/><br/>Plotly Express</a>
+        </td>
+    </tr>
+</table>
 
 **Cloud storage**
 
@@ -114,6 +122,8 @@ Have a look at the [package overview][packages] and [API reference][api-ref] for
   </tr>
 </table>
 
+Have a look at the [package overview][packages] and [API reference][api-ref] for a list of available packages.
+
 ## Documentation
 
 Documentation is available at https://ing-bank.github.io/ordeq/.
@@ -131,7 +141,7 @@ To learn more about Ordeq, check out the following resources:
 
 - See how Ordeq can help your project in the [introduction][intro]
 - Check out the [core concepts][core-concepts] to learn how to use Ordeq
-- Explore the [example project][example-project] to see how Ordeq is used
+- Explore the [example projects][example-projects] to see how Ordeq is used
 
 ## Acknowledgements
 
@@ -142,7 +152,7 @@ Please refer to the [acknowledgements] section in the documentation for more det
 [acknowledgements]: https://ing-bank.github.io/ordeq/contributing/acknowledgements/
 [api-ref]: https://ing-bank.github.io/ordeq/api/ordeq/
 [core-concepts]: https://ing-bank.github.io/ordeq/getting-started/concepts/io/
-[example-project]: docs/guides/examples/example-project/README.md
+[example-projects]: https://github.com/ing-bank/ordeq/tree/main/examples
 [intro]: https://ing-bank.github.io/ordeq/getting-started/introduction/
 [kedro]: https://github.com/kedro-org/kedro
 [license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE

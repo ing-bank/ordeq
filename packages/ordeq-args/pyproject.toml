@@ -20,7 +20,7 @@ maintainers = [
 requires-python = ">=3.10"
 dependencies = ["ordeq>=1.2.0"]
 
-[tool.ordeq]
+[tool.ordeq-dev]
 group = "ios"
 
 [dependency-groups]
@@ -39,10 +39,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-args/*"
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

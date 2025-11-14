@@ -9,7 +9,7 @@ dev = [
     "rust-just>=1.42.4",
 ]
 lint = [
-    "ruff>=0.12.5",
+    "ruff>=0.14.2",
 ]
 docs = [
     "mkdocs",
@@ -20,6 +20,7 @@ docs = [
     "mkdocs-awesome-nav",
     "markdown",
     "pymdown-extensions",
+    "ordeq_docs"
 ]
 test = [
     "pytest-cov>=6.2.1",
@@ -27,7 +28,7 @@ test = [
 ]
 types = [
     "mypy>=1.18.2",
-    "ty>=0.0.1a16",
+    "ty>=0.0.1a25",
 ]
 
 [tool.uv.sources]
@@ -47,6 +48,7 @@ ordeq-matplotlib = { workspace = true }
 ordeq-numpy = { workspace = true }
 ordeq-pandas = { workspace = true }
 ordeq-polars = { workspace = true }
+ordeq-plotly-express = { workspace = true }
 ordeq-manifest = { workspace = true }
 ordeq-pydantic = { workspace = true }
 ordeq-pymupdf = { workspace = true }
@@ -59,7 +61,10 @@ ordeq-viz-cli = { workspace = true }
 ordeq-yaml = { workspace = true }
 
 # Development packages
+ordeq-docs = { workspace = true }
 ordeq-test-utils = { workspace = true }
+ordeq-dev-tools = { workspace = true }
+ordeq-test-examples = { workspace = true }
 
 [tool.uv]
 required-version = ">=0.8.23"
@@ -68,6 +73,7 @@ required-version = ">=0.8.23"
 members = [
     "packages/*",
     "examples/*",
+    "docs/"
 ]
 
 [tool.coverage.paths]
@@ -92,6 +98,7 @@ omit = [
 addopts = "--doctest-modules --import-mode=importlib"
 markers = [
     "docker: marks tests that require (deselect with '-m \"not docker\"')",
+    "snapshot: marks tests that use snapshot testing (deselect with '-m \"not snapshot\"')",
 ]
 norecursedirs = ["build", "resources"]
 pythonpath = ["src", "tests"]
@@ -99,7 +106,6 @@ pythonpath = ["src", "tests"]
 [tool.ruff]
 exclude = [
     "packages/*/src/*/_version.py",
-    "packages/*/tests/resources/*",
 ]
 force-exclude = true
 line-length = 79
@@ -189,6 +195,10 @@ split-on-trailing-comma = false
     "S608",
     "SLF",
 ]
+# False positive
+"packages/ordeq-manifest/src/ordeq_manifest/models.py" = [
+    "PLC2701"
+]
 # Rules not applicable for example tests
 "examples/*/tests/*" = [
     "ANN201",
@@ -223,6 +233,9 @@ split-on-trailing-comma = false
 # Rules not applicable for some example projects
 "examples/starter-single-file/*" = ["INP001", ]
 "examples/integration-marimo/*" = ["PLC0415", "E501", "INP001"]
+"examples/testing-nodes/tests/test_pipeline.py" = ["E402"]
+# Rules not applicable for private examples
+"packages/ordeq-test-examples/*" = ["D103", "INP001"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -232,10 +245,11 @@ exclude = [
     "packages/*/src/*/_version.py",
     # type checking on resources is conducted by snapshot tests
     "packages/*/tests/resources/*",
-    "packages/*/tests/packages/*"
+    "packages/ordeq-test-examples",
 ]
 
 [tool.ty.rules]
 invalid-argument-type = "ignore"
 possibly-missing-attribute = "ignore"  # faiss issue
 unresolved-attribute = "ignore"
+no-matching-overload = "ignore"  # spark issue

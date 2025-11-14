@@ -6,6 +6,7 @@ nav:
           - IO: getting-started/concepts/io.md
           - Nodes: getting-started/concepts/nodes.md
           - Catalogs: getting-started/concepts/catalogs.md
+          - Views: getting-started/concepts/views.md
           - Hooks: getting-started/concepts/hooks.md
   - Guides & examples:
       - Starting a new project: guides/starting_a_new_project.md

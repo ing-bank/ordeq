@@ -43,15 +43,16 @@ class StringBuffer(IO[str]):
     >>> from ordeq_args import CommandLineArg
     >>> from ordeq_common import StringBuffer, Literal
     >>> from ordeq import node, run
-    >>> result = StringBuffer("Greeting")
+    >>> result = StringBuffer()
     >>> @node(
     ...     inputs=[StringBuffer("Hello"), Literal("you")],
     ...     outputs=result
     ... )
     ... def greet(greeting: str, name: str) -> str:
-    ...     return f"{greeting}, {name}!"
-    >>> run(greet).get(result)
-    'Hello, you!'
+    ...     return f"{greeting} to {name}!"
+    >>> run(greet)
+    >>> result.load()
+    'Hello to you!'
 
     ```
 
@@ -69,3 +70,6 @@ class StringBuffer(IO[str]):
 
     def save(self, data: str) -> None:
         self._buffer.write(data)
+
+    def persist(self, _) -> None:
+        return super().persist(self._buffer.getvalue())

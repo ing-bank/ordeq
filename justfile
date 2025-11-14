@@ -13,21 +13,26 @@ ruff: lint format
 mdformat:
     uv run --with mdformat-mkdocs mdformat --check docs/ README.md
 
+# Fix formatting with mdformat
 mdformat-fix:
     uv run --with mdformat-mkdocs mdformat docs/ README.md
 
+# Formatting with ruff via doccmd
 doccmd-ruff-format:
     uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff format --quiet" docs/ README.md
 
+# Linting with ruff via doccmd
 doccmd-ruff-lint:
     uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff check --quiet --fix" docs/ README.md
 
+# Combine doccmd with ruff for linting and formatting
 doccmd-fix: doccmd-ruff-format doccmd-ruff-lint
 
 # Linting with ruff
 lint:
     uv run --group lint ruff check packages/ scripts/ examples/
 
+# Fix linting issues with ruff
 lint-fix:
     uv run --group lint ruff check --fix packages/ scripts/ examples/
 
@@ -35,8 +40,17 @@ lint-fix:
 format:
     uv run --group lint ruff format --check packages/ scripts/ examples/
 
+# Fix formatting with ruff
 format-fix:
     uv run --group lint ruff format packages/ scripts/ examples/
+
+# Source code sorting with ssort
+ssort:
+    uv run --with ssort ssort --check packages/ scripts/ examples/
+
+# Apply source code sorting with ssort
+ssort-fix:
+    uv run --with ssort ssort packages/ scripts/ examples/
 
 # Type checking with ty
 ty:
@@ -47,23 +61,32 @@ list:
     ls -1 packages/
 
 # Type checking with mypy
-mypy:
-    for dir in `find packages -maxdepth 1 -type d -name "ordeq*"`; do \
-        uv run --group types mypy --check-untyped-defs --follow-untyped-imports $dir/src || exit 1; \
-    done
+mypy: mypy-packages mypy-examples
+
+# Mypy check all package directories
+mypy-packages:
+    uv run --group types mypy --check-untyped-defs --follow-untyped-imports \
+        `find packages -maxdepth 2 -type d -path "packages/ordeq*/src" -not -path "packages/ordeq-dev-tools/src"` || exit 1
+
+# Mypy check all example directories
+mypy-examples:
+    uv run --group types mypy --check-untyped-defs --follow-untyped-imports \
+        `find examples -maxdepth 2 -type d -path "examples/*/src"` || exit 1
 
 # Static analysis (lint + type checking)
 sa: ruff ty mypy
 
 # Format code and apply lint fixes with ruff and mdformat
-fix: format-fix lint-fix mdformat-fix doccmd-fix
+fix: ssort-fix format-fix lint-fix mdformat-fix doccmd-fix
+
+# Test packages and examples
+test-all: test-packages test-examples
 
 # Test all packages individually
 # or test specific ones by passing the names as arguments
-# eg. `just test` (Run tests in all packages)
-
-# or `just test ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
-test *PACKAGES:
+# eg `just test-packages` (Run tests in all packages)
+# or `just test-packages ordeq ordeq-cli-runner` (Run tests in the 'ordeq' and 'ordeq-cli-runner' packages)
+test-packages *PACKAGES:
     if [ -z "{{ PACKAGES }}" ]; then \
         for dir in `find packages -type d -name "ordeq*" -maxdepth 1`; do \
             uv run --group test pytest $dir -v || exit 1; \
@@ -75,18 +98,26 @@ test *PACKAGES:
     fi
 
 # Test a single package
-test_package PACKAGE:
+test-package PACKAGE:
     uv run --group test pytest packages/{{ PACKAGE }} -v
 
-# Run tests for all packages with coverage
-test_all:
-    uv run --group test pytest packages/ --cov=packages/ --cov-report=html
+# Tests the examples
+test-examples:
+    for dir in `find examples/ -mindepth 1 -maxdepth 1 -type d`; do \
+       uv run --group test pytest $dir -v || [ $? -eq 5 ]; \
+    done
 
+# Generate API documentation pages
 generate-api-docs:
     uv run scripts/generate_api_docs.py
 
+# Generate package overview documentation page
 generate-package-overview:
-    uv run scripts/generate_package_overview.py
+    uv run -m ordeq_dev_tools docs_package_overview .
+
+# Generate draft GitHub releases
+generate-draft-releases:
+    uv run -m ordeq_dev_tools generate_draft_releases .
 
 # Build the documentation
 docs-build: generate-api-docs generate-package-overview
@@ -117,6 +148,7 @@ upgrade:
     # TODO: keep an eye out for: https://github.com/astral-sh/uv/issues/6794
     pre-commit autoupdate
 
+# Build a package
 build PACKAGE:
     echo "prune tests" > ./packages/{{ PACKAGE }}/MANIFEST.in || true
     cp -n ./README.md ./packages/{{ PACKAGE }}/README.md || true
@@ -133,6 +165,12 @@ publish PACKAGE:
 lock:
     uv lock
 
-# Bump version
-bump *ARGS:
-    uv run scripts/next_tag.py {{ ARGS }}
+# Delete all .snapshot.md files anywhere in the repository
+delete-snapshots:
+    find . -type f -name "*.snapshot.md" -delete
+
+# Recompute snapshots by running only those tests for all packages
+capture-snapshots:
+    for dir in `find packages -type d -name "ordeq*" -maxdepth 1`; do \
+        uv run --group test pytest $dir -v -m snapshot || [ $? -eq 5 ]; \
+    done \

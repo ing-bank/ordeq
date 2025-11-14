@@ -23,10 +23,8 @@ dependencies = [
     "joblib",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://joblib.readthedocs.io/en/stable/_static/joblib_logo.svg"
 
 [dependency-groups]
@@ -43,10 +41,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-joblib/
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

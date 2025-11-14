@@ -1,7 +1,0 @@
-Output:
-NameGenerator(name='John')
-{}
-NamePrinter()
-{}
-SayHello(name=NameGenerator(name='John'), writer=NamePrinter())
-{'name': [NameGenerator(name='John')], 'writer': [NamePrinter()]}

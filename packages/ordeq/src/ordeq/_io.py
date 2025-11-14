@@ -3,9 +3,9 @@ from __future__ import annotations
 import copy
 import inspect
 import logging
-from collections.abc import Callable
+from collections.abc import Callable, Hashable
 from functools import cached_property, reduce, wraps
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, TypeAlias, TypeVar
 from uuid import uuid4
 
 try:
@@ -29,7 +29,7 @@ Tin = TypeVar("Tin")
 Tout = TypeVar("Tout")
 
 
-def _find_references(attributes) -> dict[str, list[Input | Output | IO]]:
+def _find_references(attributes) -> dict[str, list[AnyIO]]:
     """Find all attributes of type Input, Output, or IO.
 
     Args:
@@ -38,11 +38,11 @@ def _find_references(attributes) -> dict[str, list[Input | Output | IO]]:
     Returns:
         a dictionary mapping attribute names to lists of Input, Output, or IO
     """
-    from ordeq._resolve import _get_io_sequence  # noqa: PLC0415
+    from ordeq._resolve import _resolve_sequence_to_ios  # noqa: PLC0415
 
     wrapped = {}
     for attribute, value in attributes.items():
-        ios = _get_io_sequence(value)
+        ios = _resolve_sequence_to_ios(value)
         if ios:
             wrapped[attribute] = ios
     return wrapped
@@ -130,12 +130,24 @@ class _InputMeta(type):
             class_dict["load"] = _load_decorator(load_method)
         return super().__new__(cls, name, bases, class_dict)
 
+    def __call__(cls, *args, **kwargs):
+        obj = super().__call__(*args, **kwargs)
+        obj.__dict__["_idx"] = str(uuid4())
+        return obj
+
+
+class _CopyIO:
+    def copy(self) -> Self:
+        new = copy.copy(self)
+        new.__dict__["_idx"] = str(uuid4())
+        return new
+
 
 class _BaseInput(Generic[Tin]):
     load: Callable = _raise_not_implemented
 
 
-class _InputOptions(_BaseInput[Tin]):
+class _InputOptions(_CopyIO, _BaseInput[Tin]):
     """Class that adds load options to an Input.
     Used for compartmentalizing load options, no reuse."""
 
@@ -152,7 +164,7 @@ class _InputOptions(_BaseInput[Tin]):
             a new instance, with load options set to kwargs
         """
 
-        new_instance = copy.copy(self)
+        new_instance = self.copy()
 
         # ensure the `load_options` are valid for the `load` method
         inspect.signature(new_instance.load).bind_partial(**load_options)
@@ -170,7 +182,7 @@ class _InputOptions(_BaseInput[Tin]):
         return load_func(*args, **load_options)
 
 
-class _InputHooks(_BaseInput[Tin]):
+class _InputHooks(_CopyIO, _BaseInput[Tin]):
     """Class that adds input hooks to an Input.
     Used for compartmentalizing load options, no reuse."""
 
@@ -183,7 +195,7 @@ class _InputHooks(_BaseInput[Tin]):
             ):
                 raise TypeError(f"Expected InputHook instance, got {hook}.")
 
-        new_instance = copy.copy(self)
+        new_instance = self.copy()
         new_instance.__dict__["input_hooks"] = hooks
         return new_instance
 
@@ -204,7 +216,7 @@ class _InputReferences(_BaseInput[Tin]):
     Used for compartmentalizing reference tracking, no reuse."""
 
     @cached_property
-    def references(self) -> dict[str, list[Input | Output | IO]]:
+    def references(self) -> dict[str, list[AnyIO]]:
         """Find all attributes of type Input, Output, or IO on the object.
 
         Returns:
@@ -241,12 +253,35 @@ class _InputException(_BaseInput[Tin]):
             raise IOException(msg) from exc
 
 
+class _WithResource(_CopyIO):
+    _resource_: Hashable = None
+
+    def with_resource(self, resource: Any) -> Self:
+        if resource is None:
+            raise ValueError("Resource cannot be None.")
+        logger.warning(
+            "Resources are in preview mode and may change "
+            "without notice in future releases."
+        )
+        new_instance = self.copy()
+        new_instance.__dict__["_resource_"] = resource
+        return new_instance
+
+    @property
+    def _resource(self) -> Hashable:
+        return self._resource_ or self
+
+    def __matmul__(self, resource: Any) -> Self:
+        return self.with_resource(resource)
+
+
 class Input(
     _InputOptions[Tin],
     _InputHooks[Tin],
     _InputReferences[Tin],
     _InputCache[Tin],
     _InputException[Tin],
+    _WithResource,
     Generic[Tin],
     metaclass=_InputMeta,
 ):
@@ -291,14 +326,13 @@ class Input(
 
     ```python
     >>> from ordeq_common import Literal
-    >>> result = run(greet, io={name: Literal("Alice")})
-    >>> result[greeting]
+    >>> run(greet, io={name: Literal("Alice")})
+    >>> greeting.load()
     'Hello, Alice!'
     ```
     """
 
-    def __init__(self):
-        self._idx = str(uuid4())
+    _idx: str
 
     def __repr__(self):
         return f"Input(idx={self._idx})"
@@ -331,6 +365,10 @@ def _save_decorator(save_func):
         composed(data, *args, **kwargs)
 
     return wrapper
+
+
+def _pass(*args, **kwargs):
+    return
 
 
 class _OutputMeta(type):
@@ -383,16 +421,17 @@ class _OutputMeta(type):
                 class_dict["save"] = _save_decorator(save_method)
         return super().__new__(cls, name, bases, class_dict)
 
-
-def _pass(*args, **kwargs):
-    return
+    def __call__(cls, *args, **kwargs):
+        obj = super().__call__(*args, **kwargs)
+        obj.__dict__["_idx"] = str(uuid4())
+        return obj
 
 
 class _BaseOutput(Generic[Tout]):
     save: Callable = _pass
 
 
-class _OutputOptions(_BaseOutput[Tout], Generic[Tout]):
+class _OutputOptions(_CopyIO, _BaseOutput[Tout], Generic[Tout]):
     """Class that adds save options to an Output.
     Used for compartmentalizing save options, no reuse."""
 
@@ -409,7 +448,7 @@ class _OutputOptions(_BaseOutput[Tout], Generic[Tout]):
             a new instance, with save options set to kwargs
         """
 
-        new_instance = copy.copy(self)
+        new_instance = self.copy()
 
         # ensure the `save_options` are valid for the `save` method
         inspect.signature(new_instance.save).bind_partial(**save_options)
@@ -426,7 +465,7 @@ class _OutputOptions(_BaseOutput[Tout], Generic[Tout]):
         save_func(data, *args, **save_options)
 
 
-class _OutputHooks(_BaseOutput[Tout], Generic[Tout]):
+class _OutputHooks(_CopyIO, _BaseOutput[Tout], Generic[Tout]):
     """Class that adds output hooks to an Output.
     Used for compartmentalizing load options, no reuse."""
 
@@ -439,7 +478,7 @@ class _OutputHooks(_BaseOutput[Tout], Generic[Tout]):
             ):
                 raise TypeError(f"Expected OutputHook instance, got {hook}.")
 
-        new_instance = copy.copy(self)
+        new_instance = self.copy()
         new_instance.__dict__["output_hooks"] = hooks
         return new_instance
 
@@ -458,7 +497,7 @@ class _OutputReferences(_BaseOutput[Tout], Generic[Tout]):
     Used for compartmentalizing reference tracking, no reuse."""
 
     @cached_property
-    def references(self) -> dict[str, list[Input | Output | IO]]:
+    def references(self) -> dict[str, list[AnyIO]]:
         """Find all attributes of type Input, Output, or IO on the object.
 
         Returns:
@@ -482,6 +521,7 @@ class Output(
     _OutputHooks[Tout],
     _OutputReferences[Tout],
     _OutputException[Tout],
+    _WithResource,
     Generic[Tout],
     metaclass=_OutputMeta,
 ):
@@ -516,14 +556,13 @@ class Output(
 
     ```python
     >>> from ordeq import run
-    >>> result = run(uppercase)
-    >>> result[greeting_upper]
+    >>> run(uppercase)
+    >>> greeting_upper.load()
     'HELLO'
     ```
     """
 
-    def __init__(self):
-        self._idx = str(uuid4())
+    _idx: str
 
     def __repr__(self):
         return f"Output(idx={self._idx})"
@@ -573,11 +612,15 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
     ```python
     >>> from ordeq import run
-    >>> result = run(greet, capitalize)
-    >>> result[greeting]
+    >>> run(greet, capitalize)
+    >>> greeting.load()
     'hi, Bob!'
     ```
     """
 
     def __repr__(self):
         return f"IO(idx={self._idx})"
+
+
+# Type aliases
+AnyIO: TypeAlias = Input | Output | IO

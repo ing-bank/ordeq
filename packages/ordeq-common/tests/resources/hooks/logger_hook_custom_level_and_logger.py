@@ -1,14 +1,13 @@
 import logging
 
-from ordeq import node, IO, run
+from ordeq import IO, node, run
 from ordeq_common import Literal, LoggerHook
 
 _logger = logging.getLogger("custom_logger")
 _logger.setLevel(logging.INFO)
 
 logger = LoggerHook(
-    logger=logging.getLogger("custom_logger"),
-    level=logging.ERROR
+    logger=logging.getLogger("custom_logger"), level=logging.ERROR
 )
 
 

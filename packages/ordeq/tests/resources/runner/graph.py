@@ -30,13 +30,13 @@ def f4(i: str, j: str, k: str) -> str:
     return f"{i} / {j} + {k}"
 
 
-pipeline = {f1, f2, f3, f4}
+pipeline = [f1, f2, f3, f4]
 
-output = run(*pipeline, save="all", verbose=True)
-print(output[R4])
+run(*pipeline, save="all", verbose=True)
+print(R4.load())
 
-output = run(*pipeline, save="sinks", verbose=True)
-print(output[R4])
+run(*pipeline, save="sinks", verbose=True)
+print(R4.load())
 
-output = run(*pipeline, save="none", verbose=True)
-print(output[R4])
+run(*pipeline, save="none", verbose=True)
+print(R4.load())

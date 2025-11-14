@@ -3,7 +3,8 @@ import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from ordeq import Input, Node, Output
+from ordeq import Node
+from ordeq._resolve import Catalog
 
 from ordeq_viz.graph import IOData, NodeData, _gather_graph
 
@@ -159,11 +160,16 @@ def _generate_main(nodes: list[NodeData], datasets: list[IOData]):
 
 
 def pipeline_to_kedro_viz(
-    nodes: set[Node],
-    ios: dict[tuple[str, str], Input | Output],
-    output_directory: Path,
+    nodes: list[Node], ios: Catalog, output_directory: Path
 ) -> None:
     """Convert a pipeline to a kedro-viz static pipeline directory
+
+    Run with:
+
+    ```shell
+    export KEDRO_DISABLE_TELEMETRY=true
+    kedro viz run --load-file kedro-pipeline-example
+    ```
 
     Args:
         nodes: set of `ordeq.Node`
@@ -173,47 +179,19 @@ def pipeline_to_kedro_viz(
     Raises:
         FileExistsError: if the output directory already exists
 
-    Examples:
-
-    ```pycon
-    >>> from pathlib import Path
-    >>> from ordeq_viz import (
-    ...     pipeline_to_kedro_viz
-    ... )
-
-    >>> import catalog as catalog_module  # doctest: +SKIP
-    >>> import nodes as nodes_module  # doctest: +SKIP
-    ```
-
-    Gather all nodes and ios in your project:
-    ```pycon
-    >>> from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
-    >>> nodes, ios = _resolve_runnables_to_nodes_and_ios(  # doctest: +SKIP
-    ...     catalog_module,
-    ...     pipeline_module
-    ... )
-    ```
-
-    Create the kedro-viz output directory:
-
-    ```pycon
-    >>> pipeline_to_kedro_viz(
-    ...    nodes,
-    ...    ios,
-    ...    output_directory=Path("kedro-pipeline-example/")
-    ... )  # doctest: +SKIP
-
-    ```
-
-    Run with:
-
-    ```shell
-    export KEDRO_DISABLE_TELEMETRY=true
-    kedro viz run --load-file kedro-pipeline-example
-    ```
     """
-    node_data, dataset_data = _gather_graph(nodes, ios)
+    node_modules, io_modules = _gather_graph(nodes, ios)
 
+    node_data = [
+        node
+        for nodes_in_module in node_modules.values()
+        for node in nodes_in_module
+    ]
+    dataset_data = [
+        dataset
+        for datasets_in_module in io_modules.values()
+        for dataset in datasets_in_module
+    ]
     # populate attributes for kedro-viz
     for node in node_data:
         node.attributes["source"] = inspect.getsource(node.node.func)

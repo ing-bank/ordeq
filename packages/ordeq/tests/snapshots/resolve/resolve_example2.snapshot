@@ -1,5 +1,0 @@
-Output:
-['example2', 'example2.catalog', 'example2.nodes']
-['example2.nodes:transform_input_2']
-{('example2.catalog', 'TestInput2'): Input(idx=ID1), ('example2.catalog', 'TestOutput2'): Output(idx=ID2), ('example2.nodes', 'TestInput2'): Input(idx=ID1), ('example2.nodes', 'TestOutput2'): Output(idx=ID2)}
-['example2.nodes:transform_input_2']

@@ -1,2 +1,0 @@
-Exception:
-ValueError: Node is not hashable: Node(name=node_unhashable:func, ...)

@@ -5,8 +5,13 @@ on:
     branches:
       - main
 
+# Cancel in-progress runs on the same PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
 env:
-  pythonVersion: '3.10'
+  pythonVersion: '3.13'
 
 jobs:
   docs:
@@ -14,27 +19,42 @@ jobs:
     uses: ./.github/workflows/docs.yml
 
   packages:
-    name: List packages
+    name: List changed packages
     runs-on: ubuntu-latest
     outputs:
-      packages: ${{ steps.list-packages.outputs.packages }}
+      changed-packages: ${{ steps.list-changed-packages.outputs.changed-packages }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: List packages in repository
-        id: list-packages
+      - name: Set up Python ${{ env.pythonVersion }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.pythonVersion }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: false
+
+      - name: List changed packages
+        id: list-changed-packages
         run: |
-          echo "packages=$(ls packages/ | jq --raw-input --slurp --compact-output 'split("\n")[:-1]')" >> ${GITHUB_OUTPUT}
+          uv run --with packages/ordeq-dev-tools -m ordeq_dev_tools changed_packages .
+          uv run --with packages/ordeq-dev-tools -m ordeq_dev_tools list_dependencies .
+          uv run --with packages/ordeq-dev-tools -m ordeq_dev_tools compute_relevant_packages .
+          relevant_pkgs="changed-packages=$(cat data/dev_tools/relevant_packages.json)"
+          echo "$relevant_pkgs"
+          echo "$relevant_pkgs" >> ${GITHUB_OUTPUT}
 
   static_code_analysis:
     name: Check formatting, linting and typing
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python ${{ env.pythonVersion }}
         uses: actions/setup-python@v5
@@ -66,14 +86,16 @@ jobs:
 
   test:
     name: Test
-    needs: [ packages, static_code_analysis, docs ]
+    if: needs.packages.outputs.changed-packages != '[]'
+    needs: [ packages ]
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: true
       matrix:
-        package: ${{ fromJson(needs.packages.outputs.packages) }}
+        package: ${{ fromJson(needs.packages.outputs.changed-packages) }}
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python ${{ env.pythonVersion }}
         uses: actions/setup-python@v5
@@ -90,7 +112,7 @@ jobs:
         run: uv sync --package ${{ matrix.package }} --group test --locked
 
       - name: Run unit tests
-        run: uv run --group test pytest -v --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"
+        run: uv run --group test pytest -xv --cov-report=xml:coverage.xml --cov-report=html --cov-append --cov="packages/${{ matrix.package }}/" --cov-fail-under=0 --cov-branch "packages/${{ matrix.package }}/"
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
@@ -101,12 +123,15 @@ jobs:
   complete:
     name: All checks passed
     runs-on: ubuntu-latest
+    if: always()
     needs:
-      - test
       - static_code_analysis
       - docs
       - packages
-
+      - test
     steps:
-      - name: Complete
-        run: echo "🎉"
+    - name: Decide whether the needed jobs succeeded or failed
+      uses: re-actors/alls-green@release/v1
+      with:
+        jobs: ${{ toJSON(needs) }}
+        allowed-skips: test

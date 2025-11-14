@@ -37,7 +37,9 @@ class ExampleOutputSaveArg(Output):
         assert data == f"{self.path}@{self.attribute}: {hello} world!"
 
 
-example_input_arg = ExampleOutputSaveArg(path=Path("hello.txt"), attribute="L1")
+example_input_arg = ExampleOutputSaveArg(
+    path=Path("hello.txt"), attribute="L1"
+)
 example_input_arg.save("hello.txt@L1: Hello world!", "Hello")
 print(type(example_input_arg))
 

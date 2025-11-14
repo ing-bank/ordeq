@@ -1,108 +1,152 @@
 from collections import defaultdict
-from collections.abc import Iterable
+from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
+from typing import Generic, TypeVar, cast
 
-from ordeq._nodes import Node
+from ordeq._io import IO, AnyIO, Input
+from ordeq._nodes import Node, View
+from ordeq._resource import Resource
 
 try:
     from typing import Self  # type: ignore[attr-defined]
 except ImportError:
     from typing_extensions import Self
-EdgesType = dict[Node, list[Node]]
+
+T = TypeVar("T")
 
 
-def _build_graph(nodes: Iterable[Node]) -> EdgesType:
-    """Builds a mapping of node to node(s), i.e., the edge map of a graph.
+def _collect_views(*nodes: Node) -> list[Node]:
+    all_nodes: dict[Node, None] = {}
 
-    Args:
-        nodes: iterable of `Node` objects
+    def _collect(*nodes_: Node) -> None:
+        for node in nodes_:
+            all_nodes[node] = None
+            for view in node.views:
+                _collect(view)
 
-    Returns:
-        a mapping of node to node(s), i.e., the edge map of a graph
-
-    Raises:
-        ValueError: if an output is defined by more than one node
-    """
-    output_to_node: dict = {}
-    input_to_nodes: defaultdict = defaultdict(list)
-    edges: dict = {node: [] for node in nodes}
-    for node in nodes:
-        for output_ in node.outputs:
-            if output_ in output_to_node:
-                msg = f"IO {output_} cannot be outputted by more than one node"
-                raise ValueError(msg)
-            output_to_node[output_] = node
-        for input_ in node.inputs:
-            input_to_nodes[input_].append(node)
-    for node_output, node in output_to_node.items():
-        if node_output in input_to_nodes:
-            edges[node] += input_to_nodes[node_output]
-    return edges
+    _collect(*nodes)
+    return list(all_nodes.keys())
 
 
-def _find_topological_ordering(edges: EdgesType) -> tuple[Node, ...]:
-    """Topological sort.
+class Graph(Generic[T]):
+    edges: dict[T, list[T]]
 
-    Args:
-        edges: mapping of node to node(s), i.e., the edge map of a graph
+    @cached_property
+    def topological_ordering(self) -> tuple[T, ...]:
+        return tuple(
+            reversed(tuple(TopologicalSorter(self.edges).static_order()))
+        )
 
-    Returns:
-            a tuple of nodes in topological order
-    """
-    return tuple(reversed(tuple(TopologicalSorter(edges).static_order())))
+    @cached_property
+    def topological_levels(self) -> tuple[tuple[T, ...], ...]:
+        levels: list[tuple[T, ...]] = []
+        sorter = TopologicalSorter(self.edges)
 
-
-def _find_sink_nodes(edges: EdgesType) -> set[Node]:
-    """Finds the sinks nodes, i.e. nodes without successors.
-
-    Args:
-        edges: the graph
-
-    Returns:
-        set of the sink nodes
-
-    """
-
-    return {s for s, targets in edges.items() if len(targets) == 0}
+        sorter.prepare()
+        while sorter.is_active():
+            level = sorter.get_ready()
+            levels.append(tuple(reversed(level)))
+            sorter.done(*level)
+        return tuple(reversed(levels))
 
 
-def _nodes(edges: EdgesType) -> set[Node]:
-    """Returns the set of all nodes.
-
-    Args:
-        edges: the graph
-
-    Returns:
-        set of all nodes
-    """
-
-    return set(edges.keys())
-
-
-class NodeGraph:
-    def __init__(self, edges: EdgesType):
-        self.edges = edges
+@dataclass(frozen=True)
+class ProjectGraph(Graph[AnyIO | Node]):
+    edges: dict[AnyIO | Node, list[AnyIO | Node]]
+    ios: set[AnyIO]
+    nodes: set[Node]
+    resources: set[Resource]
 
     @classmethod
-    def from_nodes(cls, nodes: Iterable[Node]) -> Self:
-        return cls(_build_graph(nodes))
+    def from_nodes(
+        cls,
+        nodes: list[Node],
+        patches: dict[AnyIO | View, AnyIO] | None = None,
+    ) -> Self:
+        # First pass: collect all views
+        all_nodes = _collect_views(*nodes)
+        views = [view for view in all_nodes if isinstance(view, View)]
 
-    @cached_property
-    def topological_ordering(self) -> tuple[Node, ...]:
-        return _find_topological_ordering(self.sorted_edges)
+        if patches is None:
+            patches = {}
+        for view in views:
+            patches[view] = view.outputs[0]
 
-    @cached_property
-    def sorted_edges(self) -> EdgesType:
-        return dict(
-            sorted(
-                [
-                    (node, sorted(targets, key=lambda n: n.name))
-                    for node, targets in self.edges.items()
-                ],
-                key=lambda x: x[0].name,
-            )
+        if patches:
+            all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
+
+        ios_: set[AnyIO] = set()
+        edges: dict[AnyIO | Node, list[AnyIO | Node]] = {
+            node: [] for node in all_nodes
+        }
+        resources: set[Resource] = set()
+        resource_to_node: dict[Resource, Node] = {}
+
+        for node in all_nodes:
+            for ip in node.inputs:
+                # Add this point we have converted all view inputs to their
+                # sentinel IO, so it's safe to cast input to AnyIO.
+                ip_ = cast("AnyIO", ip)
+
+                ios_.add(ip_)
+
+                if ip_ not in edges:
+                    edges[ip_] = []
+                edges[ip_].append(node)
+
+                resource = Resource(ip_._resource)  # noqa: SLF001 (private-member-access)
+                resources.add(resource)
+
+            for op in node.outputs:
+                resource = Resource(op._resource)  # noqa: SLF001 (private-member-access)
+
+                if resource in resource_to_node:
+                    msg = (
+                        f"Nodes '{node.name}' and "
+                        f"'{resource_to_node[resource].name}' "
+                        f"both output to {resource!r}. "
+                        f"Nodes cannot output to the same resource."
+                    )
+                    raise ValueError(msg)
+
+                resources.add(resource)
+                resource_to_node[resource] = node
+                ios_.add(op)
+                edges[node].append(op)
+
+                if op not in edges:
+                    edges[op] = []
+
+        return cls(
+            edges=edges, ios=ios_, nodes=set(all_nodes), resources=resources
         )
+
+
+@dataclass(frozen=True)
+class NodeGraph(Graph[Node]):
+    edges: dict[Node, list[Node]]
+
+    @classmethod
+    def from_nodes(
+        cls,
+        nodes: list[Node],
+        patches: dict[AnyIO | View, AnyIO] | None = None,
+    ) -> Self:
+        return cls.from_graph(ProjectGraph.from_nodes(nodes, patches))
+
+    @classmethod
+    def from_graph(cls, base: ProjectGraph) -> Self:
+        edges: dict[Node, list[Node]] = {
+            cast("Node", node): [] for node in base.edges if node in base.nodes
+        }
+        for source, targets in base.edges.items():
+            if source in base.ios:
+                continue
+            for target in targets:
+                if target in base.edges:
+                    edges[source].extend(base.edges[target])  # type: ignore[index,arg-type]
+        return cls(edges=edges)
 
     @property
     def sink_nodes(self) -> set[Node]:
@@ -111,23 +155,77 @@ class NodeGraph:
         Returns:
             set of the sink nodes
         """
-        return _find_sink_nodes(self.edges)
+        return {s for s, targets in self.edges.items() if len(targets) == 0}
 
-    @property
-    def nodes(self) -> set[Node]:
-        """Returns the set of all nodes in this graph.
-
-        Returns:
-            all nodes in this graph
-        """
-
-        return _nodes(self.edges)
+    @cached_property
+    def nodes(self) -> list[Node]:
+        return list(self.edges.keys())
 
     def __repr__(self) -> str:
-        lines = ["NodeGraph:", "  Edges:"]
-        for node, targets in self.sorted_edges.items():
-            targets_str = ", ".join(t.name for t in targets)
-            lines.append(f"     {node.name} -> [{targets_str}]")
-        lines.append("  Nodes:")
-        lines.extend(f"     {node!r}" for node in self.sorted_edges)
+        lines: list[str] = []
+        for node in self.topological_ordering:
+            if self.edges[node]:
+                lines.extend(
+                    f"{type(node).__name__}:{node.name} --> "
+                    f"{type(next_node).__name__}:{next_node.name}"
+                    for next_node in self.edges[node]
+                )
+            else:
+                lines.append(f"{type(node).__name__}:{node.name}")
+        return "\n".join(lines)
+
+
+@dataclass(frozen=True)
+class NodeIOGraph(Graph[AnyIO | Node]):
+    edges: dict[AnyIO | Node, list[AnyIO | Node]]
+    ios: set[AnyIO]
+    nodes: set[Node]
+
+    @classmethod
+    def from_nodes(
+        cls,
+        nodes: list[Node],
+        patches: dict[AnyIO | View, AnyIO] | None = None,
+    ) -> Self:
+        return cls.from_graph(NodeGraph.from_nodes(nodes, patches))
+
+    @classmethod
+    def from_graph(cls, base: NodeGraph) -> Self:
+        edges: dict[AnyIO | Node, list[AnyIO | Node]] = defaultdict(list)
+        nodes: set[Node] = set()
+        ios: set[AnyIO] = set()
+        for node in base.topological_ordering:
+            nodes.add(node)
+            for ip in node.inputs:
+                ip_ = cast("Input | IO", ip)
+                ios.add(ip_)
+                edges[ip_].append(node)
+            for op in node.outputs:
+                ios.add(op)
+                edges[node].append(op)
+        return cls(edges=edges, ios=ios, nodes=nodes)
+
+    def __repr__(self) -> str:
+        # Hacky way to generate a deterministic repr of this class.
+        # This should move to a separate named graph class.
+        lines: list[str] = []
+        names: dict[Node | AnyIO, str] = {
+            **{
+                node: f"{type(node).__name__}:{node.name}"
+                for node in self.nodes
+            },
+            **{
+                io: f"io-{i}"
+                for i, io in enumerate(
+                    io for io in self.topological_ordering if io in self.ios
+                )
+            },
+        }
+
+        for vertex in self.topological_ordering:
+            lines.extend(
+                f"{names[vertex]} --> {names[next_vertex]}"
+                for next_vertex in self.edges[vertex]
+            )
+
         return "\n".join(lines)

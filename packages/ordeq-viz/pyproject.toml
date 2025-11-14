@@ -19,13 +19,11 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "ordeq>=1.2.0",
+    "ordeq>=1.3.0",
 ]
 
-[tool.ordeq]
-group = "framework"
-
 [tool.ordeq-dev]
+group = "framework"
 logo_url = ""
 
 [dependency-groups]
@@ -37,6 +35,8 @@ test = [
     "ordeq-pymupdf",
     "ordeq-sentence-transformers",
     "ordeq-test-utils",
+    "ordeq-test-examples",
+    "ordeq-dev-tools",
 ]
 
 [tool.setuptools_scm]

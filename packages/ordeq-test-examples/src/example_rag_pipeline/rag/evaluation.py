@@ -1,0 +1,10 @@
+from ordeq import node
+
+from example_rag_pipeline import catalog
+
+
+@node(
+    inputs=[catalog.llm_answers, catalog.llm_model], outputs=[catalog.metrics]
+)
+def evaluate_answers(answers, genai_model):
+    """Evaluate answers"""

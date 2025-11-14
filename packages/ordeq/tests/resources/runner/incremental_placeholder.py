@@ -1,6 +1,5 @@
 from ordeq import IO, Input, Output, node
 from ordeq._runner import run
-from ordeq_common import StringBuffer
 
 I1 = Input[str]()
 I2 = Input[str]()
@@ -18,4 +17,4 @@ def g(a: str) -> str:
     return f(a, a)
 
 
-print(run(f, g, verbose=True))  # raises NotImplementedError
+run(f, g, verbose=True)  # raises NotImplementedError

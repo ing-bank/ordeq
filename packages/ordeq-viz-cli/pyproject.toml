@@ -18,9 +18,9 @@ maintainers = [
     { name = "Simon Brugman" },
 ]
 requires-python = ">=3.10"
-dependencies = ["ordeq-viz>=0.4.0"]
+dependencies = ["ordeq-viz>=1.2.0"]
 
-[tool.ordeq]
+[tool.ordeq-dev]
 group = "CLI"
 
 [dependency-groups]
@@ -38,10 +38,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-viz-cli
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

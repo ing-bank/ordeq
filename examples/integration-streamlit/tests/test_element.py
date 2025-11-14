@@ -1,6 +1,7 @@
+# type: ignore
 import pytest
 import streamlit as st
-from example.io import StreamlitElement
+from integration_streamlit.element import StreamlitElement
 from ordeq import IOException
 
 

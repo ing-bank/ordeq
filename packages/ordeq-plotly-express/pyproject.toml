@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ordeq_plotly_express"
+description = "Plotly Express integration for Ordeq"
+dynamic = ["version"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+maintainers = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq>=1.2.0",
+    "plotly-express",
+]
+
+[tool.ordeq-dev]
+group = "ios"
+logo_url = "https://upload.wikimedia.org/wikipedia/commons/8/8a/Plotly-logo.png"
+
+[dependency-groups]
+test = [
+    "kaleido"
+]
+
+[tool.setuptools_scm]
+root = "../../"
+version_file = "src/ordeq_plotly_express/_version.py"
+tag_regex = "^ordeq-plotly-express/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
+git_describe_command = "git describe --dirty --tags --long --match ordeq-plotly-express/*"
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]
+

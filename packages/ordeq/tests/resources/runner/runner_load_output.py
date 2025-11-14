@@ -13,6 +13,7 @@ example = Example()
 def my_node() -> str:
     return "Hello, World!"
 
+
 @node(inputs=[example])
 def load_node(data: str) -> None:
     print("loading!", data)

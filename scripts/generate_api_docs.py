@@ -36,8 +36,18 @@ def clear_api_docs() -> None:
             item.unlink()
 
 
-def generate_api_docs():
+def packages():
     for package_dir in sorted(PACKAGE_DIRS):
+        if package_dir.name not in {
+            "ordeq-test-examples",
+            "ordeq-dev-tools",
+            "ordeq-test-utils",
+        }:
+            yield package_dir
+
+
+def generate_api_docs():
+    for package_dir in packages():
         package_src = package_dir / "src"
         for module in sorted(package_src.rglob("*.py")):
             module_path = module.relative_to(package_src).with_suffix("")

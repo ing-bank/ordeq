@@ -1,6 +1,3 @@
 from ordeq import run
 
-run(
-    "packages.example",
-    hooks=["packages.example.hooks:MyHook"]
-)
+run("example_1", hooks=["example_1.hooks:MyHook"])

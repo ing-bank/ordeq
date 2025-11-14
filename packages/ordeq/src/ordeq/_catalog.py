@@ -1,20 +1,20 @@
 from types import ModuleType
 
-from ordeq._io import IO, Input, Output
+from ordeq._fqn import FQN, fqn_to_object_ref
+from ordeq._resolve import _resolve_package_to_ios
 
 
 class CatalogError(Exception): ...
 
 
 def check_catalogs_are_consistent(
-    a: ModuleType, b: ModuleType, *others: ModuleType
+    base: ModuleType, *others: ModuleType
 ) -> None:
     """Utility method to checks if two (or more) catalogs are consistent,
     i.e. if they define the same keys.
 
     Args:
-        a: First catalog to compare.
-        b: Second catalog to compare.
+        base: Base catalog to compare against.
         *others: Additional catalogs to compare.
 
     Raises:
@@ -22,13 +22,25 @@ def check_catalogs_are_consistent(
             i.e. if they define different keys.
     """
 
-    ios = []  # for each catalog, the names (keys) of the IOs it defines
-    for catalog in [a, b, *others]:
-        catalog_ios = set()
-        for key, value in vars(catalog).items():
-            if isinstance(value, (IO, Input, Output)):
-                catalog_ios.add(key)
-        ios.append(catalog_ios)
+    def catalog_key(fqn: FQN, catalog: ModuleType):
+        full_name = fqn_to_object_ref(fqn)
+        return full_name[len(catalog.__name__) + 1 :]
 
-    if not all(s == ios[0] for s in ios[1:]):
-        raise CatalogError("Catalogs are inconsistent.")
+    modules = [base, *others]
+
+    # for each catalog, the names (keys) of the IO it defines
+    overlap, *catalogs = [
+        {
+            catalog_key((module_name, object_name), catalog)
+            for module_name, values in _resolve_package_to_ios(catalog).items()
+            for object_name in values
+        }
+        for catalog in modules
+    ]
+
+    for module, catalog in zip(others, catalogs, strict=True):
+        if diff := overlap.difference(catalog):
+            missing_ios = ", ".join(f"'{io}'" for io in sorted(diff))
+            raise CatalogError(
+                f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
+            )

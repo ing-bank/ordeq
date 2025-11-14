@@ -1,8 +1,7 @@
 from types import ModuleType
 
+from example_catalogs import local, remote
 from ordeq import node, run
-
-from resources.catalog.catalogs import local, remote
 
 catalog: ModuleType = local
 
@@ -12,7 +11,8 @@ def func1(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func1))
+run(func1)
+print(catalog.result.load())
 
 catalog: ModuleType = remote
 
@@ -22,4 +22,5 @@ def func2(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func2))
+run(func2)
+print(catalog.result.load())

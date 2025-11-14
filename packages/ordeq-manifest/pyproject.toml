@@ -19,20 +19,19 @@ maintainers = [
 ]
 requires-python = ">=3.10"
 dependencies = [
-    "ordeq",
+    "ordeq>=1.3.0",
     "pydantic"
 ]
 
-[tool.ordeq]
-group = "framework"
-
 [tool.ordeq-dev]
+group = "framework"
 logo_url = ""
 
 [dependency-groups]
 test = [
     "ordeq-common",
     "ordeq-test-utils",
+    "ordeq-test-examples",
 ]
 
 [tool.setuptools_scm]

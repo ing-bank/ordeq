@@ -1,6 +1,5 @@
+from example_catalogs import remote_extended
 from ordeq import node, run
-
-from resources.catalog.catalogs import remote_extended
 
 catalog = remote_extended
 
@@ -10,4 +9,4 @@ def func1(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-print(run(func1))
+run(func1)  # 'catalog.another_io' prints the output to stdout

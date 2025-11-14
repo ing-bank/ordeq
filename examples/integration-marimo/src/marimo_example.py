@@ -1,3 +1,4 @@
+# ruff: noqa
 import marimo
 
 __generated_with = "0.17.0"
@@ -43,6 +44,7 @@ def _():
     from ordeq_polars import PolarsEagerCSV
 
     data_dir = Path(__file__).parent / "data"
+    data_dir.mkdir(exist_ok=True)
 
     # Input data
     user_data = PolarsEagerCSV(path=data_dir / "users.csv")
@@ -54,8 +56,66 @@ def _():
 
 
 @app.cell
+def _(mo):
+    mo.md(
+        r"""Let's first create a Polars DataFrame containing our user data, then use the `PolarsEagerCSV` IO to write it to a CSV file."""
+    )
+
+
+@app.cell
+def _():
+    import polars as pl
+
+    user_data_df = pl.DataFrame([
+        {
+            "Name": "John Doe",
+            "Email": "john@example.com",
+            "Phone": "555-123-4567",
+        },
+        {
+            "Name": "Jane Smith",
+            "Email": "jane@example.com",
+            "Phone": "555-987-6543",
+        },
+        {
+            "Name": "Peter Jones",
+            "Email": "peter@sample.com",
+            "Phone": "555-555-1212",
+        },
+        {
+            "Name": "Rachel Adams",
+            "Email": "rachel.adams@test.com",
+            "Phone": "555-444-3333",
+        },
+        {
+            "Name": "Emily Davis",
+            "Email": "emily.davis@sample.com",
+            "Phone": "555-333-2222",
+        },
+        {
+            "Name": "Michael Brown",
+            "Email": "michael.brown@example2.com",
+            "Phone": "555-222-1111",
+        },
+        {
+            "Name": "Jane L. Smith",
+            "Email": "jane@example.com",
+            "Phone": "555-987-6543",
+        },
+    ])
+    user_data_df
+    return pl, user_data_df
+
+
+@app.cell
+def _(user_data, user_data_df):
+    # Write the data to a file using the IO object's .save() method:
+    user_data.save(user_data_df)
+
+
+@app.cell
 def _(user_data):
-    # Inspect the data from the IO objects using .load()
+    # You can also load the data from using the IO object's .load() method:
 
     user_data.load()
 
@@ -66,15 +126,14 @@ def _(mo):
         r"""
     **Nodes** are Python functions decorated with `@node`, which implement the business logic of your pipeline.
 
-    Ordeq automatically loads and passes the `IO` objects that you mark as `inputs` of the node to the function and saves the data returned by the function to the `IO` objects marked as `outputs`
+    Ordeq automatically loads and passes the `IO` objects that you mark as `inputs` of the node to the function and saves the data returned by the function to the `IO` objects marked as `outputs`. This way you don't need to worry about the inputs and outputs of your transformations and only focus on the business logic of your application.
     """
     )
 
 
 @app.cell
-def _(clean_users_data, user_data, user_metrics):
+def _(clean_users_data, pl, user_data, user_metrics):
     # nodes.py
-    import polars as pl
     from ordeq import node
     from polars import DataFrame
 

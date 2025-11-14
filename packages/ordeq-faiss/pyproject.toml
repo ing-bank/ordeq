@@ -23,11 +23,9 @@ dependencies = [
     "faiss-cpu",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
-logo_url = ""
+group = "ios"
+logo_url = "https://engineering.fb.com/wp-content/uploads/2017/03/faiss_logo.png"
 
 [dependency-groups]
 test = []
@@ -41,10 +39,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-faiss/*
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

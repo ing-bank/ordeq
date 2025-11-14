@@ -1,30 +1,31 @@
 """Ordeq project data models"""
 
 import operator
+from collections import defaultdict
+from itertools import chain
 from typing import Any
 
-from ordeq import IO, Input, Node, Output
+from ordeq import Node, View
+from ordeq._fqn import FQN, fqn_to_object_ref, object_ref_to_fqn
+from ordeq._resolve import AnyIO, Catalog
 from pydantic import BaseModel, Field
 
 
 class IOModel(BaseModel):
     """Model representing an IO in a project."""
 
-    id: str
     name: str
     type: str
     references: list[str] = Field(default_factory=list)
 
     @classmethod
-    def from_io(
-        cls, name: tuple[str, str], io: IO | Input | Output
-    ) -> "IOModel":
-        idx = ".".join(name)
-        t = type(io)
+    def from_io(cls, named_io: tuple[FQN, AnyIO]) -> "IOModel":
+        name, io = named_io
+        io_type = type(io)
+        io_type_fqn = (io_type.__module__, io_type.__name__)
         return cls(
-            id=idx,
             name=name[1],
-            type=f"{t.__module__}.{t.__name__}",
+            type=fqn_to_object_ref(io_type_fqn),
             references=list(io.references.keys()),
         )
 
@@ -32,7 +33,6 @@ class IOModel(BaseModel):
 class NodeModel(BaseModel):
     """Model representing a node in a project."""
 
-    id: str
     name: str
     inputs: list[str] = Field(default_factory=list)
     outputs: list[str] = Field(default_factory=list)
@@ -40,16 +40,44 @@ class NodeModel(BaseModel):
 
     @classmethod
     def from_node(
-        cls,
-        name: tuple[str, str],
-        node: Node,
-        ios_to_id: dict[IO | Input | Output, str],
+        cls, named_node: tuple[FQN, Node], ios_to_id: dict[AnyIO, list[str]]
     ) -> "NodeModel":
+        name, node = named_node
+        ins = []
+        for i in node.inputs:
+            candidates = sorted(ios_to_id[i])  # type: ignore[index]
+            if len(candidates) == 1:
+                ins.append(candidates[0])
+            else:
+                candidates = [
+                    c.removeprefix(name[0] + ":")
+                    for c in candidates
+                    if c.startswith(name[0] + ":")
+                ]
+                if len(candidates) == 1:
+                    ins.append(name[0] + ":" + candidates[0])
+                else:
+                    ins.append(name[0] + ":" + "|".join(candidates))
+        outs = []
+        for o in node.outputs:
+            candidates = sorted(ios_to_id[o])
+            if len(candidates) == 1:
+                outs.append(candidates[0])
+            else:
+                candidates = [
+                    c.removeprefix(name[0] + ":")
+                    for c in candidates
+                    if c.startswith(name[0] + ":")
+                ]
+                if len(candidates) == 1:
+                    outs.append(name[0] + ":" + candidates[0])
+                else:
+                    outs.append(name[0] + ":" + "|".join(candidates))
+
         return cls(
-            id=".".join(name),
             name=name[1],
-            inputs=[ios_to_id[i] for i in node.inputs],
-            outputs=[ios_to_id[o] for o in node.outputs],
+            inputs=ins,  # type: ignore[index,arg-type]
+            outputs=outs,
             attributes=node.attributes,
         )
 
@@ -63,10 +91,7 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls,
-        name: str,
-        nodes: set[Node],
-        ios: dict[tuple[str, str], IO | Input | Output],
+        cls, name: str, nodes: list[Node], ios: Catalog
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 
@@ -78,19 +103,58 @@ class ProjectModel(BaseModel):
         Returns:
             A ProjectModel instance.
         """
+
+        # Manifests don't accurately display views yet, so we filter them out
+        nodes_ = [node for node in nodes if not isinstance(node, View)]
+
         io_models = {
-            ".".join(name): IOModel.from_io(name, io)
-            for name, io in sorted(ios.items(), key=operator.itemgetter(0))
-        }
-        ios_to_id = {
-            io: io_model.id
-            for name, io in ios.items()
-            if (io_model := io_models.get(".".join(name)))
-        }
-        node_models = {
-            f"nodes.{node.name}": NodeModel.from_node(
-                ("nodes", node.name), node, ios_to_id
+            fqn_to_object_ref((module_name, object_name)): IOModel.from_io((
+                (module_name, object_name),
+                io if not isinstance(io, View) else io.outputs[0],
+            ))
+            for module_name, named_io in sorted(
+                ios.items(), key=operator.itemgetter(0)
             )
-            for node in sorted(nodes, key=lambda obj: obj.name)
+            for object_name, io in named_io.items()
+        }
+
+        # All references to IOs by their IDs
+        ios_to_id = defaultdict(list)
+        for module_name, named_io in ios.items():
+            for object_name, io in named_io.items():
+                fqn = fqn_to_object_ref((module_name, object_name))
+                if io_models.get(fqn):
+                    ios_to_id[io].append(fqn)
+
+        # Anonymous IOs
+        idx = 0
+        named_nodes = dict(
+            sorted(
+                {object_ref_to_fqn(node.name): node for node in nodes}.items(),
+                key=operator.itemgetter(0),
+            )
+        )
+        for (mod, _), node in named_nodes.items():
+            for obj in chain(node.inputs, node.outputs):
+                if obj not in ios_to_id:
+                    # same module as node
+                    fqn = f"{mod}:<anonymous{idx}>"
+                    ios_to_id[obj].append(f"{mod}:<anonymous{idx}>")  # type: ignore[index]
+                    model = IOModel.from_io((
+                        (mod, f"<anonymous{idx}>"),
+                        obj if not isinstance(obj, View) else obj.outputs[0],
+                    ))  # type: ignore[arg-type]
+                    io_models[fqn] = model
+                    idx += 1
+
+        # Sort dictionaries by key for consistency
+        io_models = dict(sorted(io_models.items(), key=operator.itemgetter(0)))
+        ios_to_id = dict(sorted(ios_to_id.items(), key=operator.itemgetter(1)))  # type: ignore[assignment]
+
+        node_models = {
+            node.name: NodeModel.from_node(
+                (object_ref_to_fqn(node.name), node), ios_to_id
+            )
+            for node in sorted(nodes_, key=lambda obj: obj.name)
         }
         return cls(name=name, nodes=node_models, ios=io_models)

@@ -23,14 +23,24 @@ dependencies = [
     "sentence-transformers",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://www.sbert.net/_static/logo.png"
 
 [dependency-groups]
-test = []
+test = [
+    "torch"
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [tool.setuptools_scm]
 root = "../../"
@@ -41,10 +51,6 @@ git_describe_command = "git describe --dirty --tags --long --match ordeq-sentenc
 [tool.setuptools.packages.find]
 namespaces = true
 where = ["src"]
-
-[tool.pytest.ini_options]
-pythonpath = ["src", "tests"]
-addopts = "--doctest-modules"
 
 [tool.coverage.run]
 omit = [

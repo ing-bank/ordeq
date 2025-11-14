@@ -1,10 +1,10 @@
+from pathlib import Path
 from tempfile import NamedTemporaryFile
 
+from example_project import inner
 from ordeq_manifest import create_manifest_json
-from examples.project import inner
-from pathlib import Path
 
 with NamedTemporaryFile() as file:
     path = Path(file.name)
     create_manifest_json(inner, output=path)
-    print('JSON:\n', path.read_text())
+    print(path.read_text(encoding="utf8"))

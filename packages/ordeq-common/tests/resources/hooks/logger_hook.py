@@ -1,5 +1,5 @@
-from ordeq import node, IO, run
-from ordeq_common import SpyHook, Literal, LoggerHook
+from ordeq import IO, node, run
+from ordeq_common import Literal, LoggerHook
 
 logger = LoggerHook()
 

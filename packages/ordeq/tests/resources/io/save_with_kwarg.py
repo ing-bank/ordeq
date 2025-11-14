@@ -3,7 +3,7 @@ from ordeq import Output
 
 class Example(Output[str]):
     def save(self, df: str) -> None:
-        print("saving!", data)
+        print("saving!", df)
 
 
 data = "..."

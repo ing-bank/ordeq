@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "starter-kedro-spaceflights"
+version = "0.1.0"
+description = "From Kedro's spaceflights-pandas starter to Ordeq"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "openpyxl>=3.1.5",
+    "ordeq>=1.0.0",
+    "ordeq-cli-runner>=2.0.0",
+    "ordeq-pandas>=1.0.1",
+    "pyarrow>=21.0.0",
+]
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]

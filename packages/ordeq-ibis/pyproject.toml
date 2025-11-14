@@ -23,15 +23,15 @@ dependencies = [
     "ibis-framework",
 ]
 
-[tool.ordeq]
-group = "ios"
-
 [tool.ordeq-dev]
+group = "ios"
 logo_url = "https://ibis-project.org/logo.svg"
 
 [dependency-groups]
 test = [
-    "ibis-framework[polars,duckdb]",
+    "ibis-framework[polars,duckdb,sqlite,deltalake]",
+    "xlsxwriter",
+    "fastexcel"
 ]
 
 [tool.setuptools_scm]

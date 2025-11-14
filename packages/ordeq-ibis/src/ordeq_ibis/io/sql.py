@@ -10,7 +10,7 @@ from ordeq import Input
 
 @dataclass(frozen=True, kw_only=True)
 class IbisSQL(Input[Table]):
-    """IO to load a table from a sql experession using Ibis.
+    """IO to load a table from a sql expression using Ibis.
 
     Example usage:
 

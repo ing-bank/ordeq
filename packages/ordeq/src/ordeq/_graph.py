@@ -176,7 +176,7 @@ class NodeGraph(Graph[Node]):
 
     def __repr__(self) -> str:
         lines: list[str] = []
-        for node in self.edges:
+        for node in self.topological_ordering:
             if self.edges[node]:
                 lines.extend(
                     f"{type(node).__name__}:{node.name} --> "

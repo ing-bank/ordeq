@@ -46,14 +46,14 @@ Node:example_project.nodes_import:func_a --> io-11
 Node:example_project.nodes:func --> io-12
 Node:example_project.inner.nodes:func --> io-13
 NodeGraph
-Node:example_project.inner.nodes:func
-Node:example_project.nodes:func
-Node:example_project.nodes_import:func_a
-Node:example_project.nodes_import:func_b
-Node:example_project.nodes_import_alias:func
-Node:example_project.nodes_with_inline_io:greet
 View:example_project.nodes_with_view:greet --> Node:example_project.nodes_with_view:farewell
 Node:example_project.nodes_with_view:farewell
+Node:example_project.nodes_with_inline_io:greet
+Node:example_project.nodes_import_alias:func
+Node:example_project.nodes_import:func_b
+Node:example_project.nodes_import:func_a
+Node:example_project.nodes:func
+Node:example_project.inner.nodes:func
 Topological ordering
 ['example_project.nodes_with_view:greet',
  'example_project.nodes_with_view:farewell',

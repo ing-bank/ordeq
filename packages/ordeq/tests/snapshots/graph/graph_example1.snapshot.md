@@ -37,11 +37,11 @@ Node:example_1.pipeline:transform_mock_input --> io-6
 Node:example_1.pipeline:transform_input --> io-7
 Node:example_1.nodes:world --> io-8
 NodeGraph
-Node:example_1.nodes:world
-Node:example_1.pipeline:transform_input
-Node:example_1.pipeline:transform_mock_input
 Node:example_1.wrapped_io:hello --> Node:example_1.wrapped_io:print_message
 Node:example_1.wrapped_io:print_message
+Node:example_1.pipeline:transform_mock_input
+Node:example_1.pipeline:transform_input
+Node:example_1.nodes:world
 Topological ordering
 ['example_1.wrapped_io:hello',
  'example_1.wrapped_io:print_message',

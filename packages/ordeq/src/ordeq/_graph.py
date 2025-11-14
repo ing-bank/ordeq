@@ -165,7 +165,7 @@ class NodeGraph(Graph[Node]):
     @classmethod
     def from_graph(cls, base: NodeIOGraph) -> Self:
         edges: dict[Node, list[Node]] = {
-            node: [] for node in base.edges if node in base.nodes
+            cast("Node", node): [] for node in base.edges if node in base.nodes
         }
         for source, targets in base.edges.items():
             if source in base.ios:

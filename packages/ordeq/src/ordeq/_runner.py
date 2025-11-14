@@ -36,16 +36,14 @@ def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
     for node_hook in hooks:
         node_hook.before_node_run(node)
 
-    # We know at this point that all view inputs are patched by sentinel IOs,
-    # so we can safely cast here.
-    args = [
-        cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ]
-
-    # persisting loaded data
-    for node_input, data in zip(node.inputs, args, strict=True):
-        if isinstance(node_input, _InputCache):
-            node_input.persist(data)
+    args = []
+    for input_dataset in node.inputs:
+        # We know at this point that all view inputs are patched by sentinel IOs,
+        # so we can safely cast here.
+        data = cast("Input", input_dataset).load()
+        args.append(data)
+        if isinstance(input_dataset, _InputCache):
+            input_dataset.persist(data)
 
     module_name, node_name = object_ref_to_fqn(node.name)
     node_type = "view" if isinstance(node, View) else "node"

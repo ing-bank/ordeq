@@ -38,8 +38,8 @@ def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
 
     args = []
     for input_dataset in node.inputs:
-        # We know at this point that all view inputs are patched by sentinel IOs,
-        # so we can safely cast here.
+        # We know at this point that all view inputs are patched by
+        # sentinel IOs, so we can safely cast here.
         data = cast("Input", input_dataset).load()
         args.append(data)
         if isinstance(input_dataset, _InputCache):

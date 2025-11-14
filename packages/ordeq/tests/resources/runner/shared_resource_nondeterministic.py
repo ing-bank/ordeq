@@ -23,8 +23,8 @@ class File(IO[str]):
 
 with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     path = Path(tmp.name)
-    first_file = File(path=path)
-    second_file = File(path=path)
+    first_file = File(path=path) @ "path"
+    second_file = File(path=path) @ "path"
 
     @node(outputs=first_file)
     def first() -> str:
@@ -34,7 +34,5 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     def second() -> str:
         return "2nd"
 
-    # This should not be allowed: both nodes write to the same resource.
-    # Expecting an error message like:
-    # Node 'first' and 'second' both output to the same resource '{path}'.
+    # This should raise an error: both nodes write to the same resource.
     run(first, second, verbose=True)

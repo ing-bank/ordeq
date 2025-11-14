@@ -23,8 +23,8 @@ class File(IO[str]):
 
 with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     path = Path(tmp.name)
-    first_file = File(path=path)
-    second_file = File(path=path)
+    first_file = File(path=path) @ "path"
+    second_file = File(path=path) @ "path"
 
     @node(inputs=first_file)
     def first(value: str) -> None:
@@ -34,7 +34,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     def second(value: str) -> None:
         print(value)
 
+    # This should not raise an error
     # The run can schedule 'first' and 'second' in any order,
     # since both only read from the shared resource.
-    # (The graph is still deterministic.)
+    # The graph is still deterministic.
     run(first, second, verbose=True)

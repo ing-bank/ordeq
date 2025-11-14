@@ -73,7 +73,7 @@ def test_it_raises_error_on_duplicated_outputs():
     second.outputs = [B]
 
     with pytest.raises(
-        ValueError, match="cannot be outputted by more than one node"
+        ValueError, match=r"Nodes cannot output to the same resource."
     ):
         NodeGraph.from_nodes({first, second})
 

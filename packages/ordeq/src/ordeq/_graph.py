@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import Any, Generic, TypeVar, cast
+from typing import Generic, TypeVar, cast
 
 from ordeq._io import AnyIO
 from ordeq._nodes import Node, View
+from ordeq._resource import Resource
 
 try:
     from typing import Self  # type: ignore[attr-defined]
@@ -38,10 +39,11 @@ class Graph(Generic[T]):
 
 
 @dataclass(frozen=True)
-class ProjectGraph(Graph[Any]):
-    edges: dict[Any, list[Any]]
+class ProjectGraph(Graph[AnyIO | Node]):
+    edges: dict[AnyIO | Node, list[AnyIO | Node]]
     ios: set[AnyIO]
     nodes: set[Node]
+    resources: set[Resource]
 
     @classmethod
     def from_nodes(
@@ -62,8 +64,11 @@ class ProjectGraph(Graph[Any]):
             all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
         ios_: set[AnyIO] = set()
-        edges: dict[Any, list[Any]] = {node: [] for node in all_nodes}
-        output_to_node: dict[AnyIO, Node | View] = {}
+        edges: dict[AnyIO | Node, list[AnyIO | Node]] = {
+            node: [] for node in all_nodes
+        }
+        resources: set[Resource] = set()
+        resource_to_node: dict[Resource, Node] = {}
 
         for node in all_nodes:
             for ip in node.inputs:
@@ -77,23 +82,32 @@ class ProjectGraph(Graph[Any]):
                     edges[ip_] = []
                 edges[ip_].append(node)
 
+                resource = Resource(ip_._resource)  # noqa: SLF001 (private-member-access)
+                resources.add(resource)
+
             for op in node.outputs:
-                if op in output_to_node:
+                resource = Resource(op._resource)  # noqa: SLF001 (private-member-access)
+
+                if resource in resource_to_node:
                     msg = (
-                        f"IO {op} cannot be outputted by "
-                        f"more than one node ({output_to_node[op].name} "
-                        f"and {node.name})"
+                        f"Nodes '{node.name}' and "
+                        f"'{resource_to_node[resource].name}' "
+                        f"both output to {resource!r}. "
+                        f"Nodes cannot output to the same resource."
                     )
                     raise ValueError(msg)
 
-                output_to_node[op] = node
+                resources.add(resource)
+                resource_to_node[resource] = node
                 ios_.add(op)
                 edges[node].append(op)
 
                 if op not in edges:
                     edges[op] = []
 
-        return cls(edges=edges, ios=ios_, nodes=set(all_nodes))
+        return cls(
+            edges=edges, ios=ios_, nodes=set(all_nodes), resources=resources
+        )
 
 
 @dataclass(frozen=True)

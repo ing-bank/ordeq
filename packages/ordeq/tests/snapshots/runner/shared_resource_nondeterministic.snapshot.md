@@ -26,8 +26,8 @@ class File(IO[str]):
 
 with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     path = Path(tmp.name)
-    first_file = File(path=path)
-    second_file = File(path=path)
+    first_file = File(path=path) @ "path"
+    second_file = File(path=path) @ "path"
 
     @node(outputs=first_file)
     def first() -> str:
@@ -37,27 +37,45 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     def second() -> str:
         return "2nd"
 
-    # This should not be allowed: both nodes write to the same resource.
-    # Expecting an error message like:
-    # Node 'first' and 'second' both output to the same resource '{path}'.
+    # This should raise an error: both nodes write to the same resource.
     run(first, second, verbose=True)
 
 ```
 
-## Output
+## Exception
 
 ```text
-Node:__main__:second --> io-0
-Node:__main__:first --> io-1
+ValueError: Nodes '__main__:second' and '__main__:first' both output to 'path'. Nodes cannot output to the same resource.
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    raise ValueError(msg)
+
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    return cls.from_graph(ProjectGraph.from_nodes(nodes, patches))
+                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+
+  File "/packages/ordeq/tests/resources/runner/shared_resource_nondeterministic.py", line LINO, in <module>
+    run(first, second, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "second" in module "__main__"
-INFO	ordeq.io	Saving File
-INFO	ordeq.runner	Running node "first" in module "__main__"
-INFO	ordeq.io	Saving File
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 
 ```

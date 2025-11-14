@@ -49,7 +49,7 @@ class BytesBuffer(IO[bytes]):
     ... )
     ... def greet(greeting: bytes, name: bytes) -> bytes:
     ...     return greeting + b" to " + name + b"!"
-    >>> _ = run(greet)
+    >>> run(greet)
     >>> result.load()
     b'Hello to you!'
 

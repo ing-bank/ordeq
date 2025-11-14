@@ -50,7 +50,7 @@ class StringBuffer(IO[str]):
     ... )
     ... def greet(greeting: str, name: str) -> str:
     ...     return f"{greeting} to {name}!"
-    >>> _ = run(greet)
+    >>> run(greet)
     >>> result.load()
     'Hello to you!'
 

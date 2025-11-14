@@ -7,7 +7,7 @@ from typing import Literal, TypeAlias, TypeVar, cast
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunnerHook
-from ordeq._io import AnyIO, Input, _InputCache
+from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_refs_to_hooks, _resolve_runnables_to_nodes
 from ordeq._substitute import (
@@ -30,31 +30,20 @@ Runnable: TypeAlias = ModuleType | Callable | str
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 
-def _save_outputs(node: Node, values: Sequence[T], save: bool = True) -> None:
-    for output_dataset, data in zip(node.outputs, values, strict=False):
-        # TODO: this can be handled in the `save_wrapper`
-        if save:
-            output_dataset.save(data)
-
-
-def _run_node(
-    node: Node, *, hooks: Sequence[NodeHook] = (), save: bool = True
-) -> None:
+def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
     node.validate()
 
     for node_hook in hooks:
         node_hook.before_node_run(node)
 
-    # We know at this point that all view inputs are patched by sentinel IOs,
-    # so we can safely cast here.
-    args = [
-        cast("Input", input_dataset).load() for input_dataset in node.inputs
-    ]
-
-    # persisting loaded data
-    for node_input, data in zip(node.inputs, args, strict=True):
-        if isinstance(node_input, _InputCache):
-            node_input.persist(data)
+    args = []
+    for input_dataset in node.inputs:
+        # We know at this point that all view inputs are patched by
+        # sentinel IOs, so we can safely cast here.
+        data = cast("Input", input_dataset).load()
+        args.append(data)
+        if isinstance(input_dataset, _InputCache):
+            input_dataset.persist(data)
 
     module_name, node_name = object_ref_to_fqn(node.name)
     node_type = "view" if isinstance(node, View) else "node"
@@ -76,10 +65,11 @@ def _run_node(
     else:
         values = tuple(values)
 
-    _save_outputs(node, values, save=save)
-
-    # persisting computed data only if outputs are loaded again later
+    # saving computed data
     for output, data in zip(node.outputs, values, strict=True):
+        output.save(data)
+
+        # persisting computed data only if outputs are loaded again later
         if isinstance(output, _InputCache):
             output.persist(data)
 
@@ -87,26 +77,17 @@ def _run_node(
         node_hook.after_node_run(node)
 
 
-def _run_graph(
-    graph: NodeGraph, *, hooks: Sequence[NodeHook] = (), save: SaveMode = "all"
-) -> None:
+def _run_graph(graph: NodeGraph, *, hooks: Sequence[NodeHook] = ()) -> None:
     """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
 
     Args:
         graph: node graph to run
         hooks: hooks to apply
         hooks: hooks to apply
-        save: 'all' | 'sinks' | 'none'.
-            If 'sinks', only saves the outputs of sink nodes in the graph.
     """
 
     for node in graph.topological_ordering:
-        if (save == "sinks" and node in graph.sink_nodes) or save == "all":
-            save_node = True
-        else:
-            save_node = False
-
-        _run_node(node, hooks=hooks, save=save_node)
+        _run_node(node, hooks=hooks)
 
     # unpersist IO objects
     for gnode in graph.nodes:
@@ -208,6 +189,26 @@ def run(
     nodes = _resolve_runnables_to_nodes(*runnables)
     io_subs = _resolve_refs_to_subs(io or {})
     patches = _substitutes_modules_to_ios(io_subs)
+
+    if save in {"none", "sinks"}:
+        # Replace relevant outputs with ordeq.IO, that does not save
+        save_nodes = (
+            nodes
+            if save == "none"
+            # This builds the graph twice, can be optimized.
+            else [
+                node
+                for node in nodes
+                if node
+                not in NodeGraph.from_graph(
+                    NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+                ).sink_nodes
+            ]
+        )
+        for node in save_nodes:
+            for output in node.outputs:
+                patches[output] = IO()
+
     graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 
     if verbose:
@@ -220,7 +221,7 @@ def run(
     for run_hook in run_hooks:
         run_hook.before_run(graph)
 
-    _run_graph(graph, hooks=node_hooks, save=save)
+    _run_graph(graph, hooks=node_hooks)
 
     for run_hook in run_hooks:
         run_hook.after_run(graph)

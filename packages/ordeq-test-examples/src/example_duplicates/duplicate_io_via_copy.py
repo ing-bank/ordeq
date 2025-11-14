@@ -1,4 +1,3 @@
-
 from ordeq import IO
 
 x = IO[str]()

@@ -1,8 +1,8 @@
 ## Resource
 
 ```python
-# Captures the behaviour when resolving a module containing the same
-# object
+# Captures the behaviour when resolving a module containing duplicate IOs
+# created via the .copy() method.
 from pprint import pprint
 
 from example_duplicates import duplicate_io_via_copy

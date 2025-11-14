@@ -6,7 +6,7 @@ from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
-from ordeq._hook import NodeHook, RunnerHook, RunHook
+from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_refs_to_hooks, _resolve_runnables_to_nodes
@@ -95,9 +95,7 @@ def _run_graph(graph: NodeGraph, *, hooks: Sequence[NodeHook] = ()) -> None:
                 io_obj.unpersist()
 
 
-def _run_before_hooks(
-    graph: NodeGraph, *, hooks: Sequence[RunHook]
-) -> None:
+def _run_before_hooks(graph: NodeGraph, *, hooks: Sequence[RunHook]) -> None:
     for run_hook in hooks:
         run_hook.before_run(graph)
 

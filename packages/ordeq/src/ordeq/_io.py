@@ -147,7 +147,7 @@ class _BaseInput(Generic[Tin]):
     load: Callable = _raise_not_implemented
 
 
-class _InputOptions(_BaseInput[Tin]):
+class _InputOptions(_CopyIO, _BaseInput[Tin]):
     """Class that adds load options to an Input.
     Used for compartmentalizing load options, no reuse."""
 

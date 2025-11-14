@@ -1,9 +1,10 @@
+from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import AnyIO
+from ordeq._io import IO, AnyIO, Input
 from ordeq._nodes import Node, View
 from ordeq._resource import Resource
 
@@ -123,10 +124,8 @@ class ProjectGraph(Graph[AnyIO | Node]):
 
 
 @dataclass(frozen=True)
-class NodeIOGraph(Graph[AnyIO | Node]):
-    edges: dict[AnyIO | Node, list[AnyIO | Node]]
-    ios: set[AnyIO]
-    nodes: set[Node]
+class NodeGraph(Graph[Node]):
+    edges: dict[Node, list[Node]]
 
     @classmethod
     def from_nodes(
@@ -138,44 +137,6 @@ class NodeIOGraph(Graph[AnyIO | Node]):
 
     @classmethod
     def from_graph(cls, base: ProjectGraph) -> Self:
-        return cls(edges=base.edges, ios=base.ios, nodes=base.nodes)
-
-    def __repr__(self) -> str:
-        # Hacky way to generate a deterministic repr of this class.
-        # This should move to a separate named graph class.
-        lines: list[str] = []
-        names: dict[Node | AnyIO, str] = {
-            **{
-                node: f"{type(node).__name__}:{node.name}"
-                for node in self.nodes
-            },
-            **{
-                io: f"io-{i}"
-                for i, io in enumerate(
-                    io for io in self.topological_ordering if io in self.ios
-                )
-            },
-        }
-
-        for vertex in self.topological_ordering:
-            lines.extend(
-                f"{names[vertex]} --> {names[next_vertex]}"
-                for next_vertex in self.edges[vertex]
-            )
-
-        return "\n".join(lines)
-
-
-@dataclass(frozen=True)
-class NodeGraph(Graph[Node]):
-    edges: dict[Node, list[Node]]
-
-    @classmethod
-    def from_nodes(cls, nodes: list[Node]) -> Self:
-        return cls.from_graph(NodeIOGraph.from_nodes(nodes))
-
-    @classmethod
-    def from_graph(cls, base: NodeIOGraph) -> Self:
         edges: dict[Node, list[Node]] = {
             cast("Node", node): [] for node in base.edges if node in base.nodes
         }
@@ -211,4 +172,60 @@ class NodeGraph(Graph[Node]):
                 )
             else:
                 lines.append(f"{type(node).__name__}:{node.name}")
+        return "\n".join(lines)
+
+
+@dataclass(frozen=True)
+class NodeIOGraph(Graph[AnyIO | Node]):
+    edges: dict[AnyIO | Node, list[AnyIO | Node]]
+    ios: set[AnyIO]
+    nodes: set[Node]
+
+    @classmethod
+    def from_nodes(
+        cls,
+        nodes: list[Node],
+        patches: dict[AnyIO | View, AnyIO] | None = None,
+    ) -> Self:
+        return cls.from_graph(NodeGraph.from_nodes(nodes, patches))
+
+    @classmethod
+    def from_graph(cls, base: NodeGraph) -> Self:
+        edges: dict[AnyIO | Node, list[AnyIO | Node]] = defaultdict(list)
+        nodes: set[Node] = set()
+        ios: set[AnyIO] = set()
+        for node in base.nodes:
+            nodes.add(node)
+            for ip in node.inputs:
+                ip_ = cast("Input | IO", ip)
+                ios.add(ip_)
+                edges[ip_].append(node)
+            for op in node.outputs:
+                ios.add(op)
+                edges[node].append(op)
+        return cls(edges=edges, ios=ios, nodes=nodes)
+
+    def __repr__(self) -> str:
+        # Hacky way to generate a deterministic repr of this class.
+        # This should move to a separate named graph class.
+        lines: list[str] = []
+        names: dict[Node | AnyIO, str] = {
+            **{
+                node: f"{type(node).__name__}:{node.name}"
+                for node in self.nodes
+            },
+            **{
+                io: f"io-{i}"
+                for i, io in enumerate(
+                    io for io in self.topological_ordering if io in self.ios
+                )
+            },
+        }
+
+        for vertex in self.topological_ordering:
+            lines.extend(
+                f"{names[vertex]} --> {names[next_vertex]}"
+                for next_vertex in self.edges[vertex]
+            )
+
         return "\n".join(lines)

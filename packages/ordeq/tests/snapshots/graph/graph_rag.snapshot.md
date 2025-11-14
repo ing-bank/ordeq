@@ -13,7 +13,7 @@ base_graph = NodeIOGraph.from_nodes(nodes)
 print("NodeIOGraph")
 print(base_graph)
 
-node_graph = NodeGraph.from_graph(base_graph)
+node_graph = NodeGraph.from_nodes(nodes)
 print("NodeGraph")
 print(node_graph)
 
@@ -26,15 +26,15 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-io-0 --> Node:example_rag_pipeline.rag.policies:generate_questions
+io-0 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
+io-0 --> Node:example_rag_pipeline.rag.retrieval:retrieve
+io-1 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
 io-1 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
-io-1 --> Node:example_rag_pipeline.rag.retrieval:retrieve
-io-2 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
-io-2 --> Node:example_rag_pipeline.rag.indexer:create_vector_index
-Node:example_rag_pipeline.rag.policies:generate_questions --> io-3
-Node:example_rag_pipeline.rag.indexer:create_vector_index --> io-4
-io-3 --> Node:example_rag_pipeline.rag.question_answering:question_answering
+io-2 --> Node:example_rag_pipeline.rag.policies:generate_questions
+Node:example_rag_pipeline.rag.indexer:create_vector_index --> io-3
+Node:example_rag_pipeline.rag.policies:generate_questions --> io-4
 io-3 --> Node:example_rag_pipeline.rag.retrieval:retrieve
+io-4 --> Node:example_rag_pipeline.rag.question_answering:question_answering
 io-4 --> Node:example_rag_pipeline.rag.retrieval:retrieve
 Node:example_rag_pipeline.rag.retrieval:retrieve --> io-5
 io-5 --> Node:example_rag_pipeline.rag.retrieval:filter_relevant

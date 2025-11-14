@@ -13,7 +13,7 @@ base_graph = NodeIOGraph.from_nodes(nodes)
 print("NodeIOGraph")
 print(base_graph)
 
-node_graph = NodeGraph.from_graph(base_graph)
+node_graph = NodeGraph.from_nodes(nodes)
 print("NodeGraph")
 print(node_graph)
 
@@ -69,9 +69,9 @@ Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies -
 Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> io-17
 View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> io-18
 View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version --> io-19
-View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> io-20
-View:ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> io-21
-View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> io-23
+View:ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> io-20
+View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> io-21
+View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> io-22
 View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> io-24
 io-16 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
 io-17 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages

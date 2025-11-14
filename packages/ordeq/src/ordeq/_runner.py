@@ -217,12 +217,11 @@ def run(
             for output in node.outputs:
                 patches[output] = IO()
 
-    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+    graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 
     if verbose:
+        graph_with_io = NodeIOGraph.from_graph(graph)
         print(graph_with_io)
-
-    graph = NodeGraph.from_graph(graph_with_io)
 
     # Validate nodes
     for node in graph.topological_ordering:

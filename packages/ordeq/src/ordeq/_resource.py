@@ -1,5 +1,5 @@
+from collections.abc import Hashable
 from dataclasses import dataclass
-from typing import Hashable
 
 
 @dataclass(frozen=True)

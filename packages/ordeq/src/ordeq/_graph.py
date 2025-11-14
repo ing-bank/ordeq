@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import Any, Generic, TypeVar, cast
+from typing import Generic, TypeAlias, TypeVar, cast
 
 from ordeq._io import AnyIO
 from ordeq._nodes import Node, View
@@ -40,6 +40,7 @@ class Graph(Generic[T]):
 
 ProjectVertex: TypeAlias = Resource | AnyIO | Node
 
+
 @dataclass(frozen=True)
 class ProjectGraph(Graph[ProjectVertex]):
     edges: dict[ProjectVertex, list[ProjectVertex]]
@@ -66,7 +67,9 @@ class ProjectGraph(Graph[ProjectVertex]):
             all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
         ios_: set[AnyIO] = set()
-        edges: dict[ProjectVertex, list[ProjectVertex]] = {node: [] for node in all_nodes}
+        edges: dict[ProjectVertex, list[ProjectVertex]] = {
+            node: [] for node in all_nodes
+        }
         resources: set[Resource] = set()
         resource_to_node: dict[Resource, Node] = {}
 

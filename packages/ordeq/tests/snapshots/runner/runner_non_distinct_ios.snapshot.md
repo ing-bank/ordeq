@@ -24,7 +24,7 @@ run(func1, func2, verbose=True)
 ## Exception
 
 ```text
-ValueError: Nodes '__main__:func2' and '__main__:func1' both output to StringBuffer(_buffer=<_io.StringIO object at HASH1>). Nodes cannot output to the same resource.
+ValueError: Nodes '__main__:func2' and '__main__:func1' both output to 'StringBuffer(_buffer=<_io.StringIO object at HASH1>)'. Nodes cannot output to the same resource.
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
     raise ValueError(msg)
 

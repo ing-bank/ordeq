@@ -99,7 +99,7 @@ class ProjectGraph(Graph[ProjectVertex]):
                     msg = (
                         f"Nodes '{node.name}' and "
                         f"'{resource_to_node[resource].name}' "
-                        f"both output to {resource}. "
+                        f"both output to '{resource}'. "
                         f"Nodes cannot output to the same resource."
                     )
                     raise ValueError(msg)

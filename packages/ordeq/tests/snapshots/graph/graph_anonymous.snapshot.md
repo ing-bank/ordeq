@@ -5,7 +5,7 @@
 from pprint import pprint
 
 import example_anonymous
-from ordeq._graph import NodeGraph, ProjectGraph, NodeIOGraph
+from ordeq._graph import NodeGraph, NodeIOGraph, ProjectGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_anonymous)

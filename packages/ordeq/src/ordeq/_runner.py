@@ -31,8 +31,6 @@ SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 
 def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
-    node.validate()
-
     for node_hook in hooks:
         node_hook.before_node_run(node)
 
@@ -215,6 +213,10 @@ def run(
         print(graph_with_io)
 
     graph = NodeGraph.from_graph(graph_with_io)
+
+    # Validate nodes
+    for node in graph.topological_ordering:
+        node.validate()
 
     run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)
 

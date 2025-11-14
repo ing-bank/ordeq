@@ -30,7 +30,8 @@ logo_url = "https://ibis-project.org/logo.svg"
 [dependency-groups]
 test = [
     "ibis-framework[polars,duckdb,sqlite,deltalake]",
-    "xlsxwriter"
+    "xlsxwriter",
+    "fastexcel"
 ]
 
 [tool.setuptools_scm]

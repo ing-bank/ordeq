@@ -2436,6 +2436,7 @@ dependencies = [
 
 [package.dev-dependencies]
 test = [
+    { name = "fastexcel" },
     { name = "ibis-framework", extra = ["deltalake", "duckdb", "polars", "sqlite"] },
     { name = "xlsxwriter" },
 ]
@@ -2448,6 +2449,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 test = [
+    { name = "fastexcel" },
     { name = "ibis-framework", extras = ["polars", "duckdb", "sqlite", "deltalake"] },
     { name = "xlsxwriter" },
 ]

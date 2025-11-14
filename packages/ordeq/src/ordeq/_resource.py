@@ -10,4 +10,7 @@ class Resource:
     value: Hashable
 
     def __repr__(self) -> str:
-        return repr(self.value)
+        return f"Resource({self.value!r})"
+
+    def __str__(self) -> str:
+        return str(self.value)

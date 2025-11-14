@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
-from typing import Generic, TypeVar, cast
+from typing import Generic, TypeAlias, TypeVar, cast
 
-from ordeq._io import AnyIO
+from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View
 from ordeq._resource import Resource
 
@@ -38,9 +38,12 @@ class Graph(Generic[T]):
         )
 
 
+ProjectVertex: TypeAlias = Resource | AnyIO | Node
+
+
 @dataclass(frozen=True)
-class ProjectGraph(Graph[AnyIO | Node]):
-    edges: dict[AnyIO | Node, list[AnyIO | Node]]
+class ProjectGraph(Graph[ProjectVertex]):
+    edges: dict[ProjectVertex, list[ProjectVertex]]
     ios: set[AnyIO]
     nodes: set[Node]
     resources: set[Resource]
@@ -64,7 +67,7 @@ class ProjectGraph(Graph[AnyIO | Node]):
             all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
         ios_: set[AnyIO] = set()
-        edges: dict[AnyIO | Node, list[AnyIO | Node]] = {
+        edges: dict[ProjectVertex, list[ProjectVertex]] = {
             node: [] for node in all_nodes
         }
         resources: set[Resource] = set()
@@ -85,6 +88,10 @@ class ProjectGraph(Graph[AnyIO | Node]):
                 resource = Resource(ip_._resource)  # noqa: SLF001 (private-member-access)
                 resources.add(resource)
 
+                if resource not in edges:
+                    edges[resource] = []
+                edges[resource].append(ip_)
+
             for op in node.outputs:
                 resource = Resource(op._resource)  # noqa: SLF001 (private-member-access)
 
@@ -92,18 +99,25 @@ class ProjectGraph(Graph[AnyIO | Node]):
                     msg = (
                         f"Nodes '{node.name}' and "
                         f"'{resource_to_node[resource].name}' "
-                        f"both output to {resource!r}. "
+                        f"both output to {resource}. "
                         f"Nodes cannot output to the same resource."
                     )
                     raise ValueError(msg)
 
-                resources.add(resource)
                 resource_to_node[resource] = node
                 ios_.add(op)
                 edges[node].append(op)
 
                 if op not in edges:
                     edges[op] = []
+
+                if resource not in resources:
+                    edges[op].append(resource)
+
+                resources.add(resource)
+
+                if resource not in edges:
+                    edges[resource] = []
 
         return cls(
             edges=edges, ios=ios_, nodes=set(all_nodes), resources=resources
@@ -126,7 +140,24 @@ class NodeIOGraph(Graph[AnyIO | Node]):
 
     @classmethod
     def from_graph(cls, base: ProjectGraph) -> Self:
-        return cls(edges=base.edges, ios=base.ios, nodes=base.nodes)
+        edges: dict[AnyIO | Node, list[AnyIO | Node]] = {}
+        for source, targets in base.edges.items():
+            if source in base.resources:
+                continue
+            if source not in edges:
+                edges[cast("AnyIO | Node", source)] = []
+            for target in targets:
+                if source in base.ios and target in base.nodes:
+                    # source is an input and target is a node
+                    edges[cast("Input | IO", source)].append(
+                        cast("Node", target)
+                    )
+                elif source in base.nodes and target in base.ios:
+                    # source is a node and target is an output
+                    edges[cast("Node", source)].append(
+                        cast("Output | IO", target)
+                    )
+        return cls(edges=edges, ios=base.ios, nodes=base.nodes)
 
     def __repr__(self) -> str:
         # Hacky way to generate a deterministic repr of this class.

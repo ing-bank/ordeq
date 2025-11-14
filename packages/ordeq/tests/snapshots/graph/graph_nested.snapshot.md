@@ -5,15 +5,19 @@
 from pprint import pprint
 
 import example_nested
-from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._graph import NodeGraph, NodeIOGraph, ProjectGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_nested)
-base_graph = NodeIOGraph.from_nodes(nodes)
-print("NodeIOGraph")
-print(base_graph)
+project_graph = ProjectGraph.from_nodes(nodes)
+print("Topological ordering:")
+pprint(project_graph.topological_ordering)
 
-node_graph = NodeGraph.from_graph(base_graph)
+node_io_graph = NodeIOGraph.from_graph(project_graph)
+print("NodeIOGraph:")
+print(node_io_graph)
+
+node_graph = NodeGraph.from_graph(node_io_graph)
 print("NodeGraph")
 print(node_graph)
 
@@ -25,7 +29,11 @@ pprint([node.name for node in node_graph.topological_ordering])
 ## Output
 
 ```text
-NodeIOGraph
+Topological ordering:
+(View(name=example_nested.subpackage.subsubpackage.hello:world),
+ IO(idx=ID1),
+ Resource(IO(idx=ID1)))
+NodeIOGraph:
 View:example_nested.subpackage.subsubpackage.hello:world --> io-0
 NodeGraph
 View:example_nested.subpackage.subsubpackage.hello:world

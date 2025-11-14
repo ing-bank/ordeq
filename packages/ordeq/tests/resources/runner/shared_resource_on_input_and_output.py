@@ -26,8 +26,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     tmp.flush()
 
     path = Path(tmp.name)
-    first_file = File(path=path)
-    second_file = File(path=path)
+    first_file = File(path=path) @ "path"
+    second_file = File(path=path) @ "path"
 
     @node(inputs=first_file, outputs=second_file)
     def reverse(value: str) -> str:

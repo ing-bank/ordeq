@@ -26,8 +26,8 @@ class File(IO[str]):
 
 with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     path = Path(tmp.name)
-    first_file = File(path=path)
-    second_file = File(path=path)
+    first_file = File(path=path) @ "path"
+    second_file = File(path=path) @ "path"
 
     @node(outputs=first_file)
     def first() -> str:
@@ -56,6 +56,8 @@ Hello, world!
 ## Logging
 
 ```text
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:second'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running node "first" in module "__main__"
 INFO	ordeq.io	Saving File

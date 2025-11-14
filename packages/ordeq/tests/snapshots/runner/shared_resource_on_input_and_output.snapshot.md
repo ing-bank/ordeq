@@ -29,8 +29,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     tmp.flush()
 
     path = Path(tmp.name)
-    first_file = File(path=path)
-    second_file = File(path=path)
+    first_file = File(path=path) @ "path"
+    second_file = File(path=path) @ "path"
 
     @node(inputs=first_file, outputs=second_file)
     def reverse(value: str) -> str:
@@ -52,6 +52,8 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Logging
 
 ```text
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading File
 INFO	ordeq.runner	Running node "reverse" in module "__main__"
 INFO	ordeq.io	Saving File

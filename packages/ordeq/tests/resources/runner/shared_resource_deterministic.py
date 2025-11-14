@@ -23,8 +23,8 @@ class File(IO[str]):
 
 with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     path = Path(tmp.name)
-    first_file = File(path=path)
-    second_file = File(path=path)
+    first_file = File(path=path) @ "path"
+    second_file = File(path=path) @ "path"
 
     @node(outputs=first_file)
     def first() -> str:

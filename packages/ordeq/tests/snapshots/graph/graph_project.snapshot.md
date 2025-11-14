@@ -5,15 +5,19 @@
 from pprint import pprint
 
 import example_project
-from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._graph import NodeGraph, NodeIOGraph, ProjectGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_project)
-base_graph = NodeIOGraph.from_nodes(nodes)
-print("NodeIOGraph")
-print(base_graph)
+project_graph = ProjectGraph.from_nodes(nodes)
+print("Topological ordering:")
+pprint(project_graph.topological_ordering)
 
-node_graph = NodeGraph.from_graph(base_graph)
+node_io_graph = NodeIOGraph.from_graph(project_graph)
+print("NodeIOGraph:")
+print(node_io_graph)
+
+node_graph = NodeGraph.from_graph(node_io_graph)
 print("NodeGraph")
 print(node_graph)
 
@@ -22,47 +26,44 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```
 
+## Exception
+
+```text
+CycleError: ('nodes are in a cycle', [IO(idx=ID1), Resource(IO(idx=ID1)), IO(idx=ID1)])
+  File "/graphlib.py", line LINO, in prepare
+    raise CycleError(f"nodes are in a cycle", cycle)
+
+  File "/graphlib.py", line LINO, in static_order
+    self.prepare()
+    ~~~~~~~~~~~~^^
+
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in topological_ordering
+    reversed(tuple(TopologicalSorter(self.edges).static_order()))
+             ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/functools.py", line LINO, in __get__
+    val = self.func(instance)
+
+  File "/packages/ordeq/tests/resources/graph/graph_project.py", line LINO, in <module>
+    pprint(project_graph.topological_ordering)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+```
+
 ## Output
 
 ```text
-NodeIOGraph
-io-0 --> View:example_project.nodes_with_view:greet
-View:example_project.nodes_with_view:greet --> io-1
-io-1 --> Node:example_project.nodes_with_view:farewell
-io-2 --> Node:example_project.nodes_with_inline_io:greet
-io-3 --> Node:example_project.nodes_import:func_a
-io-3 --> Node:example_project.nodes_import:func_b
-io-3 --> Node:example_project.nodes_import_alias:func
-io-4 --> Node:example_project.nodes_import:func_a
-io-4 --> Node:example_project.nodes_import:func_b
-io-4 --> Node:example_project.nodes_import_alias:func
-io-5 --> Node:example_project.nodes:func
-io-6 --> Node:example_project.inner.nodes:func
-Node:example_project.nodes_with_view:farewell --> io-7
-Node:example_project.nodes_with_inline_io:greet --> io-8
-Node:example_project.nodes_import_alias:func --> io-9
-Node:example_project.nodes_import:func_b --> io-10
-Node:example_project.nodes_import:func_a --> io-11
-Node:example_project.nodes:func --> io-12
-Node:example_project.inner.nodes:func --> io-13
-NodeGraph
-View:example_project.nodes_with_view:greet --> Node:example_project.nodes_with_view:farewell
-Node:example_project.nodes_with_view:farewell
-Node:example_project.nodes_with_inline_io:greet
-Node:example_project.nodes_import_alias:func
-Node:example_project.nodes_import:func_b
-Node:example_project.nodes_import:func_a
-Node:example_project.nodes:func
-Node:example_project.inner.nodes:func
-Topological ordering
-['example_project.nodes_with_view:greet',
- 'example_project.nodes_with_view:farewell',
- 'example_project.nodes_with_inline_io:greet',
- 'example_project.nodes_import_alias:func',
- 'example_project.nodes_import:func_b',
- 'example_project.nodes_import:func_a',
- 'example_project.nodes:func',
- 'example_project.inner.nodes:func']
+Topological ordering:
 
 ```
 

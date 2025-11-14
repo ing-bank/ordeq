@@ -5,15 +5,19 @@
 from pprint import pprint
 
 import example_2
-from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._graph import NodeGraph, NodeIOGraph, ProjectGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_2)
-base_graph = NodeIOGraph.from_nodes(nodes)
-print("NodeIOGraph")
-print(base_graph)
+project_graph = ProjectGraph.from_nodes(nodes)
+print("Topological ordering:")
+pprint(project_graph.topological_ordering)
 
-node_graph = NodeGraph.from_graph(base_graph)
+node_io_graph = NodeIOGraph.from_graph(project_graph)
+print("NodeIOGraph:")
+print(node_io_graph)
+
+node_graph = NodeGraph.from_graph(node_io_graph)
 print("NodeGraph")
 print(node_graph)
 
@@ -25,7 +29,13 @@ pprint([node.name for node in node_graph.topological_ordering])
 ## Output
 
 ```text
-NodeIOGraph
+Topological ordering:
+(Resource(Input(idx=ID1)),
+ Input(idx=ID1),
+ Node(name=example_2.nodes:transform_input_2, inputs=[Input(idx=ID1)], outputs=[Output(idx=ID2)]),
+ Output(idx=ID2),
+ Resource(Output(idx=ID2)))
+NodeIOGraph:
 io-0 --> Node:example_2.nodes:transform_input_2
 Node:example_2.nodes:transform_input_2 --> io-1
 NodeGraph

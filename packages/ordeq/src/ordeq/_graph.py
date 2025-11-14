@@ -40,7 +40,7 @@ class Graph(Generic[T]):
 @dataclass(frozen=True)
 class ProjectGraph(Graph[Any]):
     edges: dict[Any, list[Any]]
-    ios: list[AnyIO]
+    ios: set[AnyIO]
     nodes: list[Node]
 
     @classmethod
@@ -61,7 +61,7 @@ class ProjectGraph(Graph[Any]):
         if patches:
             all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
 
-        ios: list[AnyIO] = []
+        ios_: set[AnyIO] = set()
         edges: dict[Any, list[Any]] = {node: [] for node in all_nodes}
         output_to_node: dict[AnyIO, Node | View] = {}
 
@@ -71,7 +71,8 @@ class ProjectGraph(Graph[Any]):
                 # sentinel IO, so it's safe to cast input to AnyIO.
                 ip_ = cast("AnyIO", ip)
 
-                ios.append(ip_)
+                ios_.add(ip_)
+
                 if ip_ not in edges:
                     edges[ip_] = []
                 edges[ip_].append(node)
@@ -86,16 +87,19 @@ class ProjectGraph(Graph[Any]):
                     raise ValueError(msg)
 
                 output_to_node[op] = node
-                ios.append(op)
+                ios_.add(op)
                 edges[node].append(op)
 
-        return cls(edges=edges, ios=ios, nodes=all_nodes)
+                if op not in edges:
+                    edges[op] = []
+
+        return cls(edges=edges, ios=ios_, nodes=all_nodes)
 
 
 @dataclass(frozen=True)
 class NodeIOGraph(Graph[AnyIO | Node]):
     edges: dict[AnyIO | Node, list[AnyIO | Node]]
-    ios: list[AnyIO]
+    ios: set[AnyIO]
     nodes: list[Node]
 
     @classmethod
@@ -119,7 +123,12 @@ class NodeIOGraph(Graph[AnyIO | Node]):
                 node: f"{type(node).__name__}:{node.name}"
                 for node in self.nodes
             },
-            **{io: f"io-{i}" for i, io in enumerate(self.ios)},
+            **{
+                io: f"io-{i}"
+                for i, io in enumerate(
+                    io for io in self.edges if io in self.ios
+                )
+            },
         }
 
         for vertex in self.edges:

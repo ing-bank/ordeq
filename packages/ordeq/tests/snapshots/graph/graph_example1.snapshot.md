@@ -29,13 +29,13 @@ NodeIOGraph
 Node:example_1.nodes:world --> io-1
 Node:example_1.pipeline:transform_input --> io-3
 Node:example_1.pipeline:transform_mock_input --> io-5
-Node:example_1.wrapped_io:hello --> io-8
-Node:example_1.wrapped_io:print_message --> io-9
+Node:example_1.wrapped_io:hello --> io-7
+Node:example_1.wrapped_io:print_message --> io-8
 io-0 --> Node:example_1.nodes:world
 io-2 --> Node:example_1.pipeline:transform_input
 io-4 --> Node:example_1.pipeline:transform_mock_input
 io-6 --> Node:example_1.wrapped_io:hello
-io-8 --> Node:example_1.wrapped_io:print_message
+io-7 --> Node:example_1.wrapped_io:print_message
 NodeGraph
 Node:example_1.nodes:world
 Node:example_1.pipeline:transform_input

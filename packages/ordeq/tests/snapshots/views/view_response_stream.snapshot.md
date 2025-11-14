@@ -29,8 +29,8 @@ run(printer, verbose=True)
 
 ```text
 Node:__main__:printer --> io-1
-View:__main__:users_stream --> io-3
-io-3 --> Node:__main__:printer
+View:__main__:users_stream --> io-0
+io-0 --> Node:__main__:printer
 io-2 --> View:__main__:users_stream
 <generator object HTTPResponse.stream at HASH1>
 

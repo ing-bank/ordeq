@@ -29,22 +29,22 @@ NodeIOGraph
 Node:example_project.inner.nodes:func --> io-1
 Node:example_project.nodes:func --> io-3
 Node:example_project.nodes_import:func_a --> io-6
-Node:example_project.nodes_import:func_b --> io-9
-Node:example_project.nodes_import_alias:func --> io-12
-Node:example_project.nodes_with_inline_io:greet --> io-14
-View:example_project.nodes_with_view:greet --> io-17
-Node:example_project.nodes_with_view:farewell --> io-18
+Node:example_project.nodes_import:func_b --> io-7
+Node:example_project.nodes_import_alias:func --> io-8
+Node:example_project.nodes_with_inline_io:greet --> io-10
+View:example_project.nodes_with_view:greet --> io-12
+Node:example_project.nodes_with_view:farewell --> io-13
 io-0 --> Node:example_project.inner.nodes:func
 io-2 --> Node:example_project.nodes:func
-io-10 --> Node:example_project.nodes_import:func_a
-io-10 --> Node:example_project.nodes_import:func_b
-io-10 --> Node:example_project.nodes_import_alias:func
-io-11 --> Node:example_project.nodes_import:func_a
-io-11 --> Node:example_project.nodes_import:func_b
-io-11 --> Node:example_project.nodes_import_alias:func
-io-13 --> Node:example_project.nodes_with_inline_io:greet
-io-15 --> View:example_project.nodes_with_view:greet
-io-17 --> Node:example_project.nodes_with_view:farewell
+io-4 --> Node:example_project.nodes_import:func_a
+io-4 --> Node:example_project.nodes_import:func_b
+io-4 --> Node:example_project.nodes_import_alias:func
+io-5 --> Node:example_project.nodes_import:func_a
+io-5 --> Node:example_project.nodes_import:func_b
+io-5 --> Node:example_project.nodes_import_alias:func
+io-9 --> Node:example_project.nodes_with_inline_io:greet
+io-11 --> View:example_project.nodes_with_view:greet
+io-12 --> Node:example_project.nodes_with_view:farewell
 NodeGraph
 Node:example_project.inner.nodes:func
 Node:example_project.nodes:func

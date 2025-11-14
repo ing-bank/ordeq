@@ -37,6 +37,18 @@ class Graph(Generic[T]):
             reversed(tuple(TopologicalSorter(self.edges).static_order()))
         )
 
+    @cached_property
+    def topological_levels(self) -> tuple[tuple[T, ...], ...]:
+        levels: list[tuple[T, ...]] = []
+        sorter = TopologicalSorter(self.edges)
+
+        sorter.prepare()
+        while sorter.is_active():
+            level = sorter.get_ready()
+            levels.append(tuple(reversed(level)))
+            sorter.done(*level)
+        return tuple(reversed(levels))
+
 
 @dataclass(frozen=True)
 class ProjectGraph(Graph[AnyIO | Node]):

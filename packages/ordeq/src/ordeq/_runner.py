@@ -6,7 +6,7 @@ from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
-from ordeq._hook import NodeHook, RunnerHook
+from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._resolve import _resolve_refs_to_hooks, _resolve_runnables_to_nodes
@@ -81,11 +81,11 @@ def _run_graph(graph: NodeGraph, *, hooks: Sequence[NodeHook] = ()) -> None:
     Args:
         graph: node graph to run
         hooks: hooks to apply
-        hooks: hooks to apply
     """
 
-    for node in graph.topological_ordering:
-        _run_node(node, hooks=hooks)
+    for level in graph.topological_levels:
+        for node in level:
+            _run_node(node, hooks=hooks)
 
     # unpersist IO objects
     for gnode in graph.nodes:
@@ -93,6 +93,16 @@ def _run_graph(graph: NodeGraph, *, hooks: Sequence[NodeHook] = ()) -> None:
         for io_obj in io_objs:
             if isinstance(io_obj, _InputCache):
                 io_obj.unpersist()
+
+
+def _run_before_hooks(graph: NodeGraph, *, hooks: Sequence[RunHook]) -> None:
+    for run_hook in hooks:
+        run_hook.before_run(graph)
+
+
+def _run_after_hooks(graph: NodeGraph, *, hooks: Sequence[RunHook]) -> None:
+    for run_hook in hooks:
+        run_hook.after_run(graph)
 
 
 def run(
@@ -220,10 +230,6 @@ def run(
 
     run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)
 
-    for run_hook in run_hooks:
-        run_hook.before_run(graph)
-
+    _run_before_hooks(graph, hooks=run_hooks)
     _run_graph(graph, hooks=node_hooks)
-
-    for run_hook in run_hooks:
-        run_hook.after_run(graph)
+    _run_after_hooks(graph, hooks=run_hooks)

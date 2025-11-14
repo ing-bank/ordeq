@@ -45,7 +45,7 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Exception
 
 ```text
-ValueError: Nodes '__main__:second' and '__main__:first' both output to resource 'path'. Nodes cannot output to the same resource.
+ValueError: Nodes '__main__:second' and '__main__:first' both output to 'path'. Nodes cannot output to the same resource.
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
     raise ValueError(msg)
 

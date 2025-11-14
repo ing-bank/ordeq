@@ -35,7 +35,6 @@ test_dataset = Literal(
 mnist_moments = Literal((0.1307, 0.3081))  # mean and std for MNIST
 
 # preprocessing
-processed_data = IO()
 data_metadata = IO()
 
 # training

@@ -6,6 +6,7 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from project_ml import catalog
 from project_ml.config.model_config import ModelConfig
+from project_ml.data.data_preprocessing import processed_mnist_train_data
 from project_ml.model.cnn_architecture import DigitCNN
 from project_ml.model.model_evaluation import training_device
 from project_ml.model.train_model import train_model
@@ -14,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 @node(
-    inputs=[catalog.processed_data, catalog.model_config],
+    inputs=[processed_mnist_train_data, catalog.model_config],
     outputs=[catalog.train_loader, catalog.val_loader],
 )
 def create_data_loaders(

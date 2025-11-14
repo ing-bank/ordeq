@@ -11,13 +11,13 @@ from torch.utils.data import DataLoader, TensorDataset
 
 from project_ml import catalog
 from project_ml.config.model_evaluation_config import ModelEvaluationConfig
-from project_ml.data.raw_data_loading import raw_mnist_data
+from project_ml.data.data_preprocessing import processed_mnist_test_data
 
 logger = logging.getLogger(__name__)
 
 
 @node(
-    inputs=[raw_mnist_data, catalog.model_evaluation_config],
+    inputs=[processed_mnist_test_data, catalog.model_evaluation_config],
     outputs=catalog.test_loader,
 )
 def create_test_loader(raw_mnist_data: dict[str, Any], config: ModelEvaluationConfig):

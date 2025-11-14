@@ -29,7 +29,7 @@ logo_url = "https://ibis-project.org/logo.svg"
 
 [dependency-groups]
 test = [
-    "ibis-framework[polars,duckdb]",
+    "ibis-framework[polars,duckdb,sqlite,deltalake]",
 ]
 
 [tool.setuptools_scm]

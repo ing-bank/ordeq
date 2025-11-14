@@ -4,25 +4,25 @@ from pathlib import Path
 
 import ibis
 from ibis import BaseBackend, Table
-from ordeq import IO
+from ordeq import Output
 
 
 @dataclass(frozen=True, kw_only=True)
-class IbisParquet(IO[Table]):
-    """IO to load from and save to PARQUET data using Ibis.
+class IbisView(Output[Table]):
+    """IO to save to a view using Ibis.
 
     Example usage:
 
     ```pycon
     >>> from pathlib import Path
-    >>> from ordeq_ibis import IbisParquet
-    >>> my_parquet_using_polars = IbisParquet(
-    ...     path=Path("path/to.parquet"),
-    ...     resource="polars://"
+    >>> from ordeq_ibis import IbisView
+    >>> my_view_using_trino = IbisView(
+    ...     name="my_view",
+    ...     resource="trino://"
     ... )
 
-    >>> my_parquet_using_duck_db = IbisParquet(
-    ...     path=Path("path/to.parquet"),
+    >>> my_view_using_duck_db = IbisView(
+    ...     name="my_view",
     ...     resource="duckdb://"
     ... )
 
@@ -34,15 +34,12 @@ class IbisParquet(IO[Table]):
 
     """
 
-    path: Path
+    name: str
     resource: Path | str
 
     @cached_property
     def _backend(self) -> BaseBackend:
         return ibis.connect(self.resource)
 
-    def load(self) -> Table:
-        return self._backend.read_parquet(self.path)
-
     def save(self, t: Table) -> None:
-        self._backend.to_parquet(t, self.path)
+        self._backend.create_view(self.name, t)

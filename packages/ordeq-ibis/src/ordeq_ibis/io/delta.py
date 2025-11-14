@@ -8,21 +8,21 @@ from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
-class IbisParquet(IO[Table]):
-    """IO to load from and save to PARQUET data using Ibis.
+class IbisDelta(IO[Table]):
+    """IO to load from and save to DELTA data using Ibis.
 
     Example usage:
 
     ```pycon
     >>> from pathlib import Path
-    >>> from ordeq_ibis import IbisParquet
-    >>> my_parquet_using_polars = IbisParquet(
-    ...     path=Path("path/to.parquet"),
+    >>> from ordeq_ibis import IbisDelta
+    >>> my_delta_using_polars = IbisDelta(
+    ...     path=Path("path/to.delta"),
     ...     resource="polars://"
     ... )
 
-    >>> my_parquet_using_duck_db = IbisParquet(
-    ...     path=Path("path/to.parquet"),
+    >>> my_delta_using_duck_db = IbisDelta(
+    ...     path=Path("path/to.delta"),
     ...     resource="duckdb://"
     ... )
 
@@ -42,7 +42,7 @@ class IbisParquet(IO[Table]):
         return ibis.connect(self.resource)
 
     def load(self) -> Table:
-        return self._backend.read_parquet(self.path)
+        return self._backend.read_delta(self.path)
 
     def save(self, t: Table) -> None:
-        self._backend.to_parquet(t, self.path)
+        self._backend.to_delta(t, self.path)

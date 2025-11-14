@@ -8,21 +8,21 @@ from ordeq import IO
 
 
 @dataclass(frozen=True, kw_only=True)
-class IbisParquet(IO[Table]):
-    """IO to load from and save to PARQUET data using Ibis.
+class IbisJSON(IO[Table]):
+    """IO to load from and save to JSON data using Ibis.
 
     Example usage:
 
     ```pycon
     >>> from pathlib import Path
-    >>> from ordeq_ibis import IbisParquet
-    >>> my_parquet_using_polars = IbisParquet(
-    ...     path=Path("path/to.parquet"),
+    >>> from ordeq_ibis import IbisJSON
+    >>> my_json_using_polars = IbisJSON(
+    ...     path=Path("path/to.json"),
     ...     resource="polars://"
     ... )
 
-    >>> my_parquet_using_duck_db = IbisParquet(
-    ...     path=Path("path/to.parquet"),
+    >>> my_json_using_duck_db = IbisJSON(
+    ...     path=Path("path/to.json"),
     ...     resource="duckdb://"
     ... )
 
@@ -42,7 +42,7 @@ class IbisParquet(IO[Table]):
         return ibis.connect(self.resource)
 
     def load(self) -> Table:
-        return self._backend.read_parquet(self.path)
+        return self._backend.read_json(self.path)
 
     def save(self, t: Table) -> None:
-        self._backend.to_parquet(t, self.path)
+        self._backend.to_json(t, self.path)

@@ -10,7 +10,7 @@ base_graph = NodeIOGraph.from_nodes(nodes)
 print("NodeIOGraph")
 print(base_graph)
 
-node_graph = NodeGraph.from_graph(base_graph)
+node_graph = NodeGraph.from_nodes(nodes)
 print("NodeGraph")
 print(node_graph)
 

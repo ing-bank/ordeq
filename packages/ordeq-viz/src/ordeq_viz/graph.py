@@ -85,7 +85,9 @@ def _gather_graph(
         metadata for nodes (NodeData)
         metadata for ios (IOData)
     """
-    graph = NodeIOGraph.from_nodes(nodes)
+
+    node_graph = NodeGraph.from_nodes(nodes)
+    graph = NodeIOGraph.from_graph(node_graph)
 
     reverse_lookup = {
         hash(io): name
@@ -100,7 +102,6 @@ def _gather_graph(
 
     io_data: dict[int, IOData] = {}
 
-    node_graph = NodeGraph.from_graph(graph)
     ordering = node_graph.topological_ordering
 
     node_modules = defaultdict(list)

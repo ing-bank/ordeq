@@ -54,7 +54,7 @@ ValueError: Nodes '__main__:second' and '__main__:first' both output to 'path'. 
                           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    graph_with_io = NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+    graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 
   File "/packages/ordeq/tests/resources/runner/shared_resource_nondeterministic.py", line LINO, in <module>
     run(first, second, verbose=True)

@@ -90,13 +90,9 @@ string argument expected, got 'coroutine'
     composed(data, *args, **kwargs)
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _save_outputs
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     output_dataset.save(data)
     ~~~~~~~~~~~~~~~~~~~^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    _save_outputs(node, values)
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     _run_node(node, hooks=hooks)

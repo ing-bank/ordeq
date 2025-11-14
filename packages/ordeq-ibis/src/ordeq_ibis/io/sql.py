@@ -5,25 +5,25 @@ from typing import Any
 
 import ibis
 from ibis import BaseBackend, Table
-from ordeq import IO
+from ordeq import Input
 
 
 @dataclass(frozen=True, kw_only=True)
-class IbisParquet(IO[Table]):
-    """IO to load from and save to PARQUET data using Ibis.
+class IbisSQL(Input[Table]):
+    """IO to load a table from a sql expression using Ibis.
 
     Example usage:
 
     ```pycon
     >>> from pathlib import Path
-    >>> from ordeq_ibis import IbisParquet
-    >>> my_parquet_using_polars = IbisParquet(
-    ...     path=Path("path/to.parquet"),
-    ...     resource="polars://"
+    >>> from ordeq_ibis import IbisSQL
+    >>> my_sql_using_trino = IbisSQL(
+    ...     query="SELECT * FROM my_table",
+    ...     resource="trino://"
     ... )
 
-    >>> my_parquet_using_duck_db = IbisParquet(
-    ...     path=Path("path/to.parquet"),
+    >>> my_sql_using_duck_db = IbisSQL(
+    ...     query="SELECT * FROM my_table",
     ...     resource="duckdb://"
     ... )
 
@@ -35,7 +35,7 @@ class IbisParquet(IO[Table]):
 
     """
 
-    path: Path
+    query: str
     resource: Path | str
 
     @cached_property
@@ -43,7 +43,4 @@ class IbisParquet(IO[Table]):
         return ibis.connect(self.resource)
 
     def load(self, **load_options: Any) -> Table:
-        return self._backend.read_parquet(self.path, **load_options)
-
-    def save(self, t: Table, **save_options: Any) -> None:
-        self._backend.to_parquet(t, self.path, **save_options)
+        return self._backend.sql(self.query, **load_options)  # type: ignore[attr-defined]

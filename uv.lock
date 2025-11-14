@@ -2437,6 +2437,7 @@ dependencies = [
 [package.dev-dependencies]
 test = [
     { name = "ibis-framework", extra = ["deltalake", "duckdb", "polars", "sqlite"] },
+    { name = "xlsxwriter" },
 ]
 
 [package.metadata]
@@ -2446,7 +2447,10 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-test = [{ name = "ibis-framework", extras = ["polars", "duckdb", "sqlite", "deltalake"] }]
+test = [
+    { name = "ibis-framework", extras = ["polars", "duckdb", "sqlite", "deltalake"] },
+    { name = "xlsxwriter" },
+]
 
 [[package]]
 name = "ordeq-joblib"

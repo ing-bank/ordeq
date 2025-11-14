@@ -14,6 +14,6 @@ def test_it_saves(df: pl.DataFrame, resource: str):
     view_io.save(ibis.memtable(df))
 
     # Verify the view was created by accessing it through the backend
-    backend = ibis.connect(resource)
+    backend = view_io._backend
     loaded_view = backend.table(view_name)
     assert loaded_view.to_polars().equals(df)

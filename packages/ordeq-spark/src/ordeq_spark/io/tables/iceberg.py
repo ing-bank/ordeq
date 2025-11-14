@@ -1,4 +1,4 @@
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Literal, cast
 
@@ -91,55 +91,66 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
     def _writer(
         self,
         df: DataFrame,
-        partition_by: tuple[
-            tuple[Callable[[str], Column], str] | tuple[str], ...
-        ],
+        partition_by: str
+        | Sequence[str]
+        | tuple[tuple[Callable[[str], Column], str] | tuple[str], ...],
     ) -> "DataFrameWriter":
         """Returns a Spark DataFrame writer configured by save options.
 
         Args:
             df: DataFrame
-            partition_by: tuple of columns to partition by
+            partition_by: columns to partition by
 
         Returns:
             the writer
 
         Raises:
-            TypeError: if partition_by is not a tuple of tuples
+            TypeError: if partition_by is not a supported type
         """
 
         writer = df.writeTo(self.table).using("iceberg")
         for k, v in self.properties:
             writer = writer.tableProperty(k, v)
-        if partition_by:
-            partitions = []
-            for t in partition_by:
-                if not isinstance(t, tuple):
-                    raise TypeError(
-                        f"Expected partition_by to be a tuple of tuples, "
-                        f"got {type(t)}: {t}"
-                    )
-                if len(t) == 2 and callable(t[0]):
-                    partitions.append(t[0](t[1]))  # type: ignore[index-out-of-bounds]
-                elif len(t) == 1 and isinstance(t[0], str):
-                    # Otherwise, we assume it is a single column name
-                    partitions.append(F.col(t[0]))
-                else:
-                    raise TypeError(
-                        f"Expected partition_by to be a tuple of tuples with "
-                        f"either 1 or 2 elements, got {len(t)}: {t}"
-                    )
 
-            writer.partitionedBy(*partitions)
-        return writer
+        if not partition_by:
+            return writer
+
+        partitions = []
+        if isinstance(partition_by, str):
+            partitions.append(F.col(partition_by))
+        elif isinstance(partition_by, (list, tuple)):
+            if all(isinstance(item, str) for item in partition_by):
+                partitions.extend([F.col(p) for p in partition_by])
+            else:
+                for t in partition_by:
+                    if not isinstance(t, tuple):
+                        raise TypeError(
+                            f"Expected partition_by to be a tuple of tuples, "
+                            f"got {type(t)}: {t}"
+                        )
+                    if len(t) == 2 and callable(t[0]):
+                        partitions.append(t[0](t[1]))
+                    elif len(t) == 1 and isinstance(t[0], str):
+                        partitions.append(F.col(t[0]))
+                    else:
+                        raise TypeError(
+                            f"Expected partition_by to be a tuple of tuples with "
+                            f"either 1 or 2 elements, got {len(t)}: {t}"
+                        )
+        else:
+            raise TypeError(
+                f"Unsupported type for partition_by: {type(partition_by)}"
+            )
+
+        return writer.partitionedBy(*partitions)
 
     def save(
         self,
         df: DataFrame,
         mode: SparkIcebergWriteMode = "overwritePartitions",
-        partition_by: tuple[
-            tuple[Callable[[str], Column], str] | tuple[str], ...
-        ] = (),
+        partition_by: str
+        | Sequence[str]
+        | tuple[tuple[Callable[[str], Column], str] | tuple[str], ...] = (),
     ) -> None:
         """Saves the DataFrame to the Iceberg table.
 
@@ -151,12 +162,14 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
                 - "overwrite" - overwrite the table
                 - "overwritePartitions" - overwrite partitions of the table
                 - "append" - append to the table
-            partition_by: tuple of columns to partition by, each element can be
-                - a tuple of a function and a column name, e.g. (F.years, "dt")
+            partition_by: columns to partition by, can be
                 - a single column name as a string, e.g. "colour"
+                - a list of column names, e.g. ["colour", "dt"]
+                - a tuple of tuples for more complex partitioning, e.g.
+                  (("colour",), (F.years, "dt"))
 
         Raises:
-            TypeError: if partition_by is not a tuple of tuples
+            TypeError: if partition_by is not a supported type
             ValueError: if mode is not one of the supported modes
             RuntimeError: if the Spark captured exception cannot be parsed
             CapturedException: if there is an error during the write operation
@@ -164,22 +177,31 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
         df = apply_schema(df, self.schema) if self.schema else df
         if partition_by:
             partition_cols = []
-            for t in partition_by:
-                if not isinstance(t, tuple):
-                    raise TypeError(
-                        f"Expected partition_by to be a tuple of tuples, "
-                        f"got {type(t)}: {t}"
-                    )
-                if len(t) == 2 and callable(t[0]):
-                    partition_cols.append(t[1])  # type: ignore[index-out-of-bounds]
-                elif len(t) == 1 and isinstance(t[0], str):
-                    # Otherwise, we assume it is a single column name
-                    partition_cols.append(t[0])  # type: ignore[index-out-of-bounds]
+            if isinstance(partition_by, str):
+                partition_cols.append(partition_by)
+            elif isinstance(partition_by, (list, tuple)):
+                if all(isinstance(item, str) for item in partition_by):
+                    partition_cols.extend(partition_by)
                 else:
-                    raise TypeError(
-                        f"Expected partition_by to be a tuple of tuples with "
-                        f"either 1 or 2 elements, got {len(t)}: {t}"
-                    )
+                    for t in partition_by:
+                        if not isinstance(t, tuple):
+                            raise TypeError(
+                                f"Expected partition_by to be a tuple of tuples, "
+                                f"got {type(t)}: {t}"
+                            )
+                        if len(t) == 2 and callable(t[0]):
+                            partition_cols.append(t[1])
+                        elif len(t) == 1 and isinstance(t[0], str):
+                            partition_cols.append(t[0])
+                        else:
+                            raise TypeError(
+                                f"Expected partition_by to be a tuple of tuples with "
+                                f"either 1 or 2 elements, got {len(t)}: {t}"
+                            )
+            else:
+                raise TypeError(
+                    f"Unsupported type for partition_by: {type(partition_by)}"
+                )
             df = df.sortWithinPartitions(*partition_cols)
         writer = self._writer(df, partition_by)
         try:

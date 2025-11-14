@@ -43,4 +43,4 @@ class IbisSQL(Input[Table]):
         return ibis.connect(self.resource)
 
     def load(self, **load_options: Any) -> Table:
-        return self._backend.sql(self.query, **load_options)
+        return self._backend.sql(self.query, **load_options)  # type: ignore[attr-defined]

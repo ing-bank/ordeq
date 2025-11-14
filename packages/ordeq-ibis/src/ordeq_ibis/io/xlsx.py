@@ -43,7 +43,7 @@ class IbisXlsx(IO[Table]):
         return ibis.connect(self.resource)
 
     def load(self, **load_options: Any) -> Table:
-        return self._backend.read_xlsx(self.path, **load_options)
+        return self._backend.read_xlsx(self.path, **load_options)  # type: ignore[attr-defined]
 
     def save(self, t: Table, header: bool = True, **save_options: Any) -> None:
-        self._backend.to_xlsx(t, self.path, header=header, **save_options)
+        self._backend.to_xlsx(t, self.path, header=header, **save_options)  # type: ignore[attr-defined]

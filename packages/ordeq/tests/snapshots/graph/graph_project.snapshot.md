@@ -26,34 +26,34 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-Node:example_project.inner.nodes:func --> io-1
-Node:example_project.nodes:func --> io-3
-Node:example_project.nodes_import:func_a --> io-6
-Node:example_project.nodes_import:func_b --> io-7
-Node:example_project.nodes_import_alias:func --> io-8
-Node:example_project.nodes_with_inline_io:greet --> io-10
-View:example_project.nodes_with_view:greet --> io-12
-Node:example_project.nodes_with_view:farewell --> io-13
-io-0 --> Node:example_project.inner.nodes:func
-io-2 --> Node:example_project.nodes:func
+io-0 --> View:example_project.nodes_with_view:greet
+View:example_project.nodes_with_view:greet --> io-1
+io-1 --> Node:example_project.nodes_with_view:farewell
+io-2 --> Node:example_project.nodes_with_inline_io:greet
+io-3 --> Node:example_project.nodes_import:func_a
+io-3 --> Node:example_project.nodes_import:func_b
+io-3 --> Node:example_project.nodes_import_alias:func
 io-4 --> Node:example_project.nodes_import:func_a
 io-4 --> Node:example_project.nodes_import:func_b
 io-4 --> Node:example_project.nodes_import_alias:func
-io-5 --> Node:example_project.nodes_import:func_a
-io-5 --> Node:example_project.nodes_import:func_b
-io-5 --> Node:example_project.nodes_import_alias:func
-io-9 --> Node:example_project.nodes_with_inline_io:greet
-io-11 --> View:example_project.nodes_with_view:greet
-io-12 --> Node:example_project.nodes_with_view:farewell
+io-5 --> Node:example_project.nodes:func
+io-6 --> Node:example_project.inner.nodes:func
+Node:example_project.nodes_with_view:farewell --> io-7
+Node:example_project.nodes_with_inline_io:greet --> io-8
+Node:example_project.nodes_import_alias:func --> io-9
+Node:example_project.nodes_import:func_b --> io-10
+Node:example_project.nodes_import:func_a --> io-11
+Node:example_project.nodes:func --> io-12
+Node:example_project.inner.nodes:func --> io-13
 NodeGraph
-Node:example_project.inner.nodes:func
-Node:example_project.nodes:func
-Node:example_project.nodes_import:func_a
-Node:example_project.nodes_import:func_b
-Node:example_project.nodes_import_alias:func
-Node:example_project.nodes_with_inline_io:greet
 View:example_project.nodes_with_view:greet --> Node:example_project.nodes_with_view:farewell
 Node:example_project.nodes_with_view:farewell
+Node:example_project.nodes_with_inline_io:greet
+Node:example_project.nodes_import_alias:func
+Node:example_project.nodes_import:func_b
+Node:example_project.nodes_import:func_a
+Node:example_project.nodes:func
+Node:example_project.inner.nodes:func
 Topological ordering
 ['example_project.nodes_with_view:greet',
  'example_project.nodes_with_view:farewell',

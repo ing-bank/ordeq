@@ -26,22 +26,22 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-View:example_function_reuse.func_defs:print_input --> io-1
-View:example_function_reuse.func_defs:print_input --> io-3
-View:example_function_reuse.func_defs:print_input --> io-5
-View:example_function_reuse.func_defs:print_input --> io-7
-View:example_function_reuse.nodes:pi --> io-8
 io-0 --> View:example_function_reuse.func_defs:print_input
 io-0 --> View:example_function_reuse.nodes:pi
+io-1 --> View:example_function_reuse.func_defs:print_input
 io-2 --> View:example_function_reuse.func_defs:print_input
-io-4 --> View:example_function_reuse.func_defs:print_input
-io-6 --> View:example_function_reuse.func_defs:print_input
+io-3 --> View:example_function_reuse.func_defs:print_input
+View:example_function_reuse.nodes:pi --> io-4
+View:example_function_reuse.func_defs:print_input --> io-5
+View:example_function_reuse.func_defs:print_input --> io-6
+View:example_function_reuse.func_defs:print_input --> io-7
+View:example_function_reuse.func_defs:print_input --> io-8
 NodeGraph
-View:example_function_reuse.func_defs:print_input
-View:example_function_reuse.func_defs:print_input
-View:example_function_reuse.func_defs:print_input
-View:example_function_reuse.func_defs:print_input
 View:example_function_reuse.nodes:pi
+View:example_function_reuse.func_defs:print_input
+View:example_function_reuse.func_defs:print_input
+View:example_function_reuse.func_defs:print_input
+View:example_function_reuse.func_defs:print_input
 Topological ordering
 ['example_function_reuse.nodes:pi',
  'example_function_reuse.func_defs:print_input',

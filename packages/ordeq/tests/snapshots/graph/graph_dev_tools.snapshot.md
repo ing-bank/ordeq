@@ -26,85 +26,74 @@ pprint([node.name for node in node_graph.topological_ordering])
 
 ```text
 NodeIOGraph
-View:ordeq_dev_tools.pipelines.shared:packages --> io-0
-View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> io-1
-Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> io-2
-View:ordeq_dev_tools.pipelines.docs_update_just:just_output --> io-3
-View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> io-4
-Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section --> io-6
-View:ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> io-7
-View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> io-8
-View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases --> io-9
-View:ordeq_dev_tools.pipelines.generate_release_notes:tags --> io-11
-View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag --> io-12
+io-0 --> View:ordeq_dev_tools.pipelines.generate_release_notes:tags
+io-0 --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
+io-0 --> Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
+View:ordeq_dev_tools.pipelines.generate_release_notes:tags --> io-1
+io-1 --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag
+View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag --> io-2
+io-2 --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version
+io-2 --> View:ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag
+View:ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag --> io-3
+io-3 --> View:ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes
+io-3 --> View:ordeq_dev_tools.pipelines.generate_release_notes:changes
+View:ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes --> io-4
+io-4 --> View:ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files
+io-4 --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
+View:ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files --> io-5
+io-5 --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
+View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits --> io-6
+io-6 --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs
+io-6 --> View:ordeq_dev_tools.pipelines.generate_release_notes:changes
+View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> io-7
+io-7 --> View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels
+io-7 --> View:ordeq_dev_tools.pipelines.generate_release_notes:changes
+View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels --> io-9
+io-8 --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
+io-9 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type
+Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> io-10
+View:ordeq_dev_tools.pipelines.list_changed_packages:changed_files --> io-11
+View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type --> io-12
 View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version --> io-13
-View:ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag --> io-14
-View:ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes --> io-15
-View:ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files --> io-16
-View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits --> io-17
-View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> io-18
-View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels --> io-19
-View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type --> io-20
-View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version --> io-21
-Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag --> io-22
-View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> io-23
-Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes --> io-24
-View:ordeq_dev_tools.pipelines.list_changed_packages:changed_files --> io-25
-Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> io-26
-Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> io-28
-Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram --> io-29
-Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> io-30
-Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> io-31
-Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> io-32
-io-0 --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
-io-0 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
-io-1 --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
-io-3 --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
-io-4 --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
-io-5 --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
-io-7 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
-io-8 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
-io-10 --> View:ordeq_dev_tools.pipelines.generate_release_notes:tags
-io-10 --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
-io-10 --> Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
-io-11 --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag
-io-12 --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version
-io-12 --> View:ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag
+View:ordeq_dev_tools.pipelines.shared:packages --> io-14
+View:ordeq_dev_tools.pipelines.docs_update_just:just_output --> io-15
+io-10 --> Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
+io-10 --> Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies
+io-11 --> Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
+io-12 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
 io-13 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
-io-14 --> View:ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes
-io-14 --> View:ordeq_dev_tools.pipelines.generate_release_notes:changes
-io-15 --> View:ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files
-io-15 --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
-io-16 --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
-io-17 --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs
-io-17 --> View:ordeq_dev_tools.pipelines.generate_release_notes:changes
-io-18 --> View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels
-io-18 --> View:ordeq_dev_tools.pipelines.generate_release_notes:changes
-io-19 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type
-io-20 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
-io-21 --> Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
-io-23 --> Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
-io-25 --> Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
-io-26 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
-io-27 --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
-io-28 --> Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
-io-28 --> Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies
-io-30 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+io-14 --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
+io-14 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
+io-15 --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
+Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> io-16
+Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> io-17
+View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> io-18
+View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version --> io-19
+View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> io-20
+View:ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> io-21
+View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> io-23
+View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> io-24
+io-16 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+io-17 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+io-18 --> Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
+io-19 --> Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
+io-20 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+io-21 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+io-22 --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+io-23 --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+io-24 --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
+Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> io-25
+Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> io-26
+Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram --> io-27
+Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes --> io-28
+Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag --> io-29
+View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases --> io-30
+Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section --> io-31
+Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> io-32
 NodeGraph
-View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
-View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
-View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
-Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
-View:ordeq_dev_tools.pipelines.docs_update_just:just_output --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
-View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
-Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
-View:ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
-View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
-View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
 View:ordeq_dev_tools.pipelines.generate_release_notes:tags --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag
 View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version
 View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag --> View:ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag
-View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
 View:ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag --> View:ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes
 View:ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag --> View:ordeq_dev_tools.pipelines.generate_release_notes:changes
 View:ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes --> View:ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files
@@ -115,19 +104,30 @@ View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits --> View:
 View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels
 View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> View:ordeq_dev_tools.pipelines.generate_release_notes:changes
 View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type
-View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
-View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version --> Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
-Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
-View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
-Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
-View:ordeq_dev_tools.pipelines.list_changed_packages:changed_files --> Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
-Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
 Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
 Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies
-Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
+View:ordeq_dev_tools.pipelines.list_changed_packages:changed_files --> Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
+View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
+View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
+View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
+View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
+View:ordeq_dev_tools.pipelines.docs_update_just:just_output --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
 Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
-Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
+View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version --> Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
+View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+View:ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
 Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools
+Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
+Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
+Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
+View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
 Topological ordering
 ['ordeq_dev_tools.pipelines.generate_release_notes:tags',
  'ordeq_dev_tools.pipelines.generate_release_notes:latest_tag',

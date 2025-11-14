@@ -46,9 +46,9 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-View:__main__:second --> io-1
-Node:__main__:first --> io-2
 io-0 --> View:__main__:second
+Node:__main__:first --> io-1
+View:__main__:second --> io-2
 Hello, world!
 
 ```

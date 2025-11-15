@@ -2,6 +2,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
+from itertools import chain
 from typing import Generic, TypeVar, cast
 
 from ordeq._io import IO, AnyIO, Input
@@ -34,9 +35,7 @@ class Graph(Generic[T]):
 
     @cached_property
     def topological_ordering(self) -> tuple[T, ...]:
-        return tuple(
-            reversed(tuple(TopologicalSorter(self.edges).static_order()))
-        )
+        return tuple(chain.from_iterable(self.topological_levels))
 
     @cached_property
     def topological_levels(self) -> tuple[tuple[T, ...], ...]:

@@ -15,7 +15,7 @@ class Greeting(Input[str]):
     def __init__(self, value: str):
         self.value = value
 
-    def load(self, show: str = False) -> str:
+    def load(self, show: bool = False) -> str:
         if show:
             print('Loading greeting', self.value)
         return self.value
@@ -54,13 +54,5 @@ NodeIOGraph:
 io-0 --> Node:are_greetings_equal
 io-1 --> Node:are_greetings_equal
 Node:are_greetings_equal --> io-2
-
-```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/graph/graph_ios_options.py:15:20: error[invalid-parameter-default] Default value of type `Literal[False]` is not assignable to annotated parameter type `str`
-Found 1 diagnostic
 
 ```

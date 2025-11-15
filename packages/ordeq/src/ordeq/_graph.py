@@ -4,7 +4,7 @@ from functools import cached_property
 from graphlib import TopologicalSorter
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import AnyIO, Input, IO
+from ordeq._io import IO, AnyIO, Input
 from ordeq._nodes import Node, View
 from ordeq._resource import Resource
 

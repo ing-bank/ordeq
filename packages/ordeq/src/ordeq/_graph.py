@@ -4,7 +4,7 @@ from functools import cached_property
 from graphlib import TopologicalSorter
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import AnyIO
+from ordeq._io import AnyIO, Input, IO
 from ordeq._nodes import Node, View
 from ordeq._resource import Resource
 
@@ -202,7 +202,7 @@ class NodeIOGraph(Graph[int | Node]):
             nodes.add(node)
             for input_ in node.inputs:
                 input_id = id(input_)
-                ios[input_id] = input_
+                ios[input_id] = cast("Input | IO", input_)
                 edges[input_id].append(node)
             for output in node.outputs:
                 output_id = id(output)
@@ -214,7 +214,7 @@ class NodeIOGraph(Graph[int | Node]):
         # Hacky way to generate a deterministic repr of this class.
         # This should move to a separate named graph class.
         lines: list[str] = []
-        names: dict[Node | AnyIO, str] = {
+        names: dict[int | Node, str] = {
             **{
                 node: f"{type(node).__name__}:{node.name}"
                 for node in self.nodes

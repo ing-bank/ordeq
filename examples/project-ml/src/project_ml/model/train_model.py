@@ -4,48 +4,48 @@ from typing import Any
 import torch
 from torch import nn, optim
 
+from ordeq import node
+from project_ml import catalog
 from project_ml.config.model_config import ModelConfig
+from project_ml.model.cnn_architecture import DigitCNN
+from project_ml.model.digit_classifier import train_loader, val_loader, training_device
 
 logger = logging.getLogger(__name__)
 
 
-def get_optimizer(config: Any, model_params) -> torch.optim.Optimizer:
+@node(inputs=[catalog.model_config])
+def untrained_model(config):
+    # Initialize model with configuration
+    model = DigitCNN(config)
+    return model
+
+
+@node(inputs=[catalog.model_config, untrained_model])
+def optimizer(config: Any, model: nn.Module) -> torch.optim.Optimizer:
     """Get optimizer based on config."""
     if config.optimizer_type.lower() == "adam":
         return optim.Adam(
-            model_params,
+            model.parameters(),
             lr=config.learning_rate,
             weight_decay=config.weight_decay,
         )
     if config.optimizer_type.lower() == "sgd":
         return optim.SGD(
-            model_params,
+            model.parameters(),
             lr=config.learning_rate,
             momentum=config.momentum,
             weight_decay=config.weight_decay,
         )
     return optim.Adam(
-        model_params, lr=config.learning_rate, weight_decay=config.weight_decay
+        model.parameters(), lr=config.learning_rate, weight_decay=config.weight_decay
     )
 
 
-def train_model(
-    model: nn.Module, train_loader, val_loader, config: ModelConfig, device
-):
-    """Train the digit classification model with configurable parameters."""
-    logger.info("Training on device: %s", device)
-    model.to(device)
-
-    # Get optimizer using utility function
-    optimizer = get_optimizer(config, model.parameters())
-    logger.info(
-        f"Using {config.optimizer_type} optimizer with lr={config.learning_rate}"
-    )
-
-    criterion = nn.CrossEntropyLoss()
-
-    # Add learning rate scheduler
-    scheduler = None
+@node(inputs=[catalog.model_config, optimizer])
+def scheduler(
+    config: ModelConfig, optimizer: torch.optim.Optimizer
+) -> torch.optim.lr_scheduler._LRScheduler | None:
+    """Get learning rate scheduler based on config."""
     if config.use_lr_scheduler:
         scheduler = optim.lr_scheduler.StepLR(
             optimizer, step_size=config.lr_step_size, gamma=config.lr_gamma
@@ -55,6 +55,40 @@ def train_model(
             config.lr_step_size,
             config.lr_gamma,
         )
+        return scheduler
+    return None
+
+
+@node(
+    inputs=[
+        train_loader,
+        val_loader,
+        catalog.model_config,
+        training_device,
+        untrained_model,
+        optimizer,
+        scheduler,
+    ],
+    outputs=[catalog.model, catalog.training_metadata],
+)
+def train_model(
+    train_loader,
+    val_loader,
+    config: ModelConfig,
+    model: nn.Module,
+    device: torch.device,
+    optimizer,
+    scheduler,
+):
+    """Train the digit classification model with configurable parameters."""
+    logger.info("Training on device: %s", device)
+    model.to(device)
+
+    # Get optimizer using utility function
+    logger.info(
+        f"Using {config.optimizer_type} optimizer with lr={config.learning_rate}"
+    )
+    criterion = nn.CrossEntropyLoss()
 
     train_losses = []
     val_accuracies = []
@@ -170,4 +204,23 @@ def train_model(
     logger.info(f"- Final learning rate: {optimizer.param_groups[0]['lr']:.6f}")
     logger.info(f"- Total epochs run: {epoch + 1}")
 
-    return model, train_losses, val_accuracies
+    final_val_accuracy = val_accuracies[-1]
+
+    # Add metadata
+    metadata = {
+        "final_val_accuracy": final_val_accuracy,
+        "training_epochs": len(train_losses),
+        "configured_epochs": config.epochs,
+        "model_parameters": sum(p.numel() for p in model.parameters()),
+        "final_train_loss": train_losses[-1],
+        "learning_rate": config.learning_rate,
+        "batch_size": config.batch_size,
+        "optimizer": config.optimizer_type,
+        "early_stopping_used": config.use_early_stopping,
+    }
+
+    logger.info(
+        f"Model training completed. Final validation accuracy: {final_val_accuracy:.2f}%"
+    )
+
+    return model, metadata

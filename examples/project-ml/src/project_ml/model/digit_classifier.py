@@ -7,9 +7,6 @@ from torch.utils.data import DataLoader, TensorDataset
 from project_ml import catalog
 from project_ml.config.model_config import ModelConfig
 from project_ml.data.data_preprocessing import processed_mnist_train_data
-from project_ml.model.cnn_architecture import DigitCNN
-from project_ml.model.model_evaluation import training_device
-from project_ml.model.train_model import train_model
 
 logger = logging.getLogger(__name__)
 
@@ -41,49 +38,9 @@ def val_loader(
     return DataLoader(val_dataset, batch_size=config.batch_size, shuffle=False)
 
 
-@node(
-    inputs=[
-        train_loader,
-        val_loader,
-        catalog.model_config,
-        training_device,
-    ],
-    outputs=[catalog.model, catalog.training_metadata],
-)
-def digit_classifier(
-    train_loader: DataLoader,
-    val_loader: DataLoader,
-    config: ModelConfig,
-    device: torch.device,
-) -> tuple[DigitCNN, dict]:
-    """Train a CNN to classify handwritten digits 0-9 with flexible configuration."""
-    logger.info("Training with config: %s", config)
-
-    # Initialize model with configuration
-    model = DigitCNN(config)
-
-    # Train the model - pass context to train_model
-    trained_model, train_losses, val_accuracies = train_model(
-        model, train_loader, val_loader, config, device
-    )
-
-    final_val_accuracy = val_accuracies[-1]
-
-    # Add metadata
-    metadata = {
-        "final_val_accuracy": final_val_accuracy,
-        "training_epochs": len(train_losses),
-        "configured_epochs": config.epochs,
-        "model_parameters": sum(p.numel() for p in trained_model.parameters()),
-        "final_train_loss": train_losses[-1],
-        "learning_rate": config.learning_rate,
-        "batch_size": config.batch_size,
-        "optimizer": config.optimizer_type,
-        "early_stopping_used": config.use_early_stopping,
-    }
-
-    logger.info(
-        f"Model training completed. Final validation accuracy: {final_val_accuracy:.2f}%"
-    )
-
-    return trained_model, metadata
+@node
+def training_device() -> torch.device:
+    """Determine the device to use for training (CPU or GPU)."""
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    logger.info("Using device: %s", device)
+    return device

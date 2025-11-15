@@ -12,6 +12,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from project_ml import catalog
 from project_ml.config.model_evaluation_config import ModelEvaluationConfig
 from project_ml.data.data_preprocessing import processed_mnist_test_data
+from project_ml.model.digit_classifier import training_device
 
 logger = logging.getLogger(__name__)
 
@@ -25,14 +26,6 @@ def test_loader(raw_mnist_data: dict[str, Any], config: ModelEvaluationConfig):
 
     test_dataset = TensorDataset(test_data, test_labels)
     return DataLoader(test_dataset, batch_size=config.batch_size, shuffle=False)
-
-
-@node
-def training_device() -> torch.device:
-    """Determine the device to use for training (CPU or GPU)."""
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    logger.info("Using device: %s", device)
-    return device
 
 
 @node(

@@ -1,7 +1,6 @@
 import logging
 from pathlib import Path
 
-from ordeq import run
 from ordeq_viz import viz
 
 from project_ml import catalog, data, deploy, model
@@ -19,4 +18,4 @@ if __name__ == "__main__":
         output=ROOT_PATH / "pipeline_diagram.mermaid",
         subgraphs=True,
     )
-    run(*pipeline)
+    # run(*pipeline)

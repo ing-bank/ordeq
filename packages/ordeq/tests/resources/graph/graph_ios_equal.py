@@ -16,14 +16,14 @@ class Greeting(Input[str]):
         return self.value
 
     def __eq__(self, other):
-        return self.value.lower() == self.value.lower()
+        return self.value == other.value
 
     def __hash__(self):
-        return hash(self.value.lower())
+        return hash(self.value)
 
 
 x = Greeting("hello")
-y = Greeting("HELLO")
+y = Greeting("hello")
 assert hash(x) == hash(y)
 assert x == y
 

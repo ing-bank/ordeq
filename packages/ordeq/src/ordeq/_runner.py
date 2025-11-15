@@ -198,26 +198,25 @@ def run(
     io_subs = _resolve_refs_to_subs(io or {})
     patches = _substitutes_modules_to_ios(io_subs)
 
+    graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+
     if save in {"none", "sinks"}:
         # Replace relevant outputs with ordeq.IO, that does not save
         save_nodes = (
             nodes
             if save == "none"
-            # This builds the graph twice, can be optimized.
             else [
                 node
                 for node in nodes
                 if node
-                not in NodeGraph.from_graph(
-                    NodeIOGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
-                ).sink_nodes
+                not in graph.sink_nodes
             ]
         )
         for node in save_nodes:
             for output in node.outputs:
                 patches[output] = IO()
-
-    graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+        # This builds the graph a second time, can be optimized.
+        graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 
     if verbose:
         graph_with_io = NodeIOGraph.from_graph(graph)

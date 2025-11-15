@@ -4,7 +4,7 @@ from functools import cached_property
 from graphlib import TopologicalSorter
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import IO, AnyIO, Input
+from ordeq._io import AnyIO
 from ordeq._nodes import Node, View
 from ordeq._resource import Resource
 
@@ -176,9 +176,13 @@ class NodeGraph(Graph[Node]):
 
 
 @dataclass(frozen=True)
-class NodeIOGraph(Graph[AnyIO | Node]):
-    edges: dict[AnyIO | Node, list[AnyIO | Node]]
-    ios: set[AnyIO]
+class NodeIOGraph(Graph[int | Node]):
+    # We cannot rely on the __hash__ and __eq__ of IO objects, as they may be
+    # overridden by the user. Therefore, this graph maintain strong references
+    # to the IO objects.
+    # TODO: Clear the references when they are no longer needed.
+    edges: dict[int | Node, list[int | Node]]
+    ios: dict[int, AnyIO]
     nodes: set[Node]
 
     @classmethod
@@ -191,18 +195,19 @@ class NodeIOGraph(Graph[AnyIO | Node]):
 
     @classmethod
     def from_graph(cls, base: NodeGraph) -> Self:
-        edges: dict[AnyIO | Node, list[AnyIO | Node]] = defaultdict(list)
+        edges: dict[int | Node, list[int | Node]] = defaultdict(list)
         nodes: set[Node] = set()
-        ios: set[AnyIO] = set()
+        ios: dict[int, AnyIO] = {}
         for node in base.topological_ordering:
             nodes.add(node)
-            for ip in node.inputs:
-                ip_ = cast("Input | IO", ip)
-                ios.add(ip_)
-                edges[ip_].append(node)
-            for op in node.outputs:
-                ios.add(op)
-                edges[node].append(op)
+            for input_ in node.inputs:
+                input_id = id(input_)
+                ios[input_id] = input_
+                edges[input_id].append(node)
+            for output in node.outputs:
+                output_id = id(output)
+                ios[output_id] = output
+                edges[node].append(output_id)
         return cls(edges=edges, ios=ios, nodes=nodes)
 
     def __repr__(self) -> str:

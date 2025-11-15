@@ -14,6 +14,9 @@ class ModelConfig:
     hidden_size: int = 256
     use_batch_norm: bool = True
 
+
+@dataclass
+class ModelTrainingConfig:
     # Training parameters
     batch_size: int = 64  # Smaller batch size for better generalization
     learning_rate: float = 0.001  # Reduced learning rate

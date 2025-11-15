@@ -1,27 +1,65 @@
 import logging
-from typing import Any
 
 import torch
 from torch import nn, optim
 
 from ordeq import node
 from project_ml import catalog
-from project_ml.config.model_config import ModelConfig
+from project_ml.config.model_config import ModelConfig, ModelTrainingConfig
 from project_ml.model.cnn_architecture import DigitCNN
-from project_ml.model.digit_classifier import train_loader, val_loader, training_device
+
+from torch.utils.data import DataLoader, TensorDataset
+
+from project_ml.data.data_preprocessing import processed_mnist_train_data
+
 
 logger = logging.getLogger(__name__)
 
 
+@node(
+    inputs=[processed_mnist_train_data, catalog.training_config],
+)
+def train_loader(
+    processed_mnist_data: dict[str, torch.Tensor], config: ModelTrainingConfig
+) -> DataLoader:
+    """Create data loaders for training and validation datasets."""
+    train_data = processed_mnist_data["train_data"]
+    train_labels = processed_mnist_data["train_labels"]
+    train_dataset = TensorDataset(train_data, train_labels)
+    return DataLoader(train_dataset, batch_size=config.batch_size, shuffle=True)
+
+
+@node(
+    inputs=[processed_mnist_train_data, catalog.training_config],
+)
+def val_loader(
+    processed_mnist_data: dict[str, torch.Tensor], config: ModelTrainingConfig
+) -> DataLoader:
+    """Create data loaders for training and validation datasets."""
+    val_data = processed_mnist_data["val_data"]
+    val_labels = processed_mnist_data["val_labels"]
+    val_dataset = TensorDataset(val_data, val_labels)
+
+    return DataLoader(val_dataset, batch_size=config.batch_size, shuffle=False)
+
+
+@node
+def training_device() -> torch.device:
+    """Determine the device to use for training (CPU or GPU)."""
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    logger.info("Using device: %s", device)
+    return device
+
+
 @node(inputs=[catalog.model_config])
-def untrained_model(config):
+def untrained_model(config: ModelConfig):
     # Initialize model with configuration
     model = DigitCNN(config)
     return model
 
 
-@node(inputs=[catalog.model_config, untrained_model])
-def optimizer(config: Any, model: nn.Module) -> torch.optim.Optimizer:
+@node(inputs=[catalog.training_config, untrained_model])
+def optimizer(config: ModelTrainingConfig, model: nn.Module) -> torch.optim.Optimizer:
     """Get optimizer based on config."""
     if config.optimizer_type.lower() == "adam":
         return optim.Adam(
@@ -41,9 +79,9 @@ def optimizer(config: Any, model: nn.Module) -> torch.optim.Optimizer:
     )
 
 
-@node(inputs=[catalog.model_config, optimizer])
+@node(inputs=[catalog.training_config, optimizer])
 def scheduler(
-    config: ModelConfig, optimizer: torch.optim.Optimizer
+    config: ModelTrainingConfig, optimizer: torch.optim.Optimizer
 ) -> torch.optim.lr_scheduler._LRScheduler | None:
     """Get learning rate scheduler based on config."""
     if config.use_lr_scheduler:
@@ -63,7 +101,7 @@ def scheduler(
     inputs=[
         train_loader,
         val_loader,
-        catalog.model_config,
+        catalog.training_config,
         training_device,
         untrained_model,
         optimizer,
@@ -74,7 +112,7 @@ def scheduler(
 def train_model(
     train_loader,
     val_loader,
-    config: ModelConfig,
+    config: ModelTrainingConfig,
     model: nn.Module,
     device: torch.device,
     optimizer,

@@ -33,32 +33,32 @@ graph TB
 	IO9 --> project_ml.deploy.predict:dummy_batch
 	IO6 --> project_ml.deploy.predict:dummy_images
 	IO6 --> project_ml.deploy.predict:inference_device
-	project_ml.data.data_preprocessing:processed_mnist_train_data --> project_ml.model.digit_classifier:train_loader
-	IO12 --> project_ml.model.digit_classifier:train_loader
-	project_ml.data.data_preprocessing:processed_mnist_train_data --> project_ml.model.digit_classifier:val_loader
-	IO12 --> project_ml.model.digit_classifier:val_loader
 	IO5 --> project_ml.model.model_evaluation:model_evaluation
 	project_ml.model.model_evaluation:test_loader --> project_ml.model.model_evaluation:model_evaluation
-	project_ml.model.digit_classifier:training_device --> project_ml.model.model_evaluation:model_evaluation
+	project_ml.model.train_model:training_device --> project_ml.model.model_evaluation:model_evaluation
+	project_ml.model.model_evaluation:model_evaluation --> IO12
 	project_ml.model.model_evaluation:model_evaluation --> IO13
 	project_ml.model.model_evaluation:model_evaluation --> IO14
-	project_ml.model.model_evaluation:model_evaluation --> IO15
 	project_ml.data.data_preprocessing:processed_mnist_test_data --> project_ml.model.model_evaluation:test_loader
-	IO16 --> project_ml.model.model_evaluation:test_loader
-	IO12 --> project_ml.model.train_model:optimizer
+	IO15 --> project_ml.model.model_evaluation:test_loader
+	IO16 --> project_ml.model.train_model:optimizer
 	project_ml.model.train_model:untrained_model --> project_ml.model.train_model:optimizer
-	IO12 --> project_ml.model.train_model:scheduler
+	IO16 --> project_ml.model.train_model:scheduler
 	project_ml.model.train_model:optimizer --> project_ml.model.train_model:scheduler
-	project_ml.model.digit_classifier:train_loader --> project_ml.model.train_model:train_model
-	project_ml.model.digit_classifier:val_loader --> project_ml.model.train_model:train_model
-	IO12 --> project_ml.model.train_model:train_model
-	project_ml.model.digit_classifier:training_device --> project_ml.model.train_model:train_model
+	project_ml.data.data_preprocessing:processed_mnist_train_data --> project_ml.model.train_model:train_loader
+	IO16 --> project_ml.model.train_model:train_loader
+	project_ml.model.train_model:train_loader --> project_ml.model.train_model:train_model
+	project_ml.model.train_model:val_loader --> project_ml.model.train_model:train_model
+	IO16 --> project_ml.model.train_model:train_model
+	project_ml.model.train_model:training_device --> project_ml.model.train_model:train_model
 	project_ml.model.train_model:untrained_model --> project_ml.model.train_model:train_model
 	project_ml.model.train_model:optimizer --> project_ml.model.train_model:train_model
 	project_ml.model.train_model:scheduler --> project_ml.model.train_model:train_model
 	project_ml.model.train_model:train_model --> IO5
 	project_ml.model.train_model:train_model --> IO17
-	IO12 --> project_ml.model.train_model:untrained_model
+	IO18 --> project_ml.model.train_model:untrained_model
+	project_ml.data.data_preprocessing:processed_mnist_train_data --> project_ml.model.train_model:val_loader
+	IO16 --> project_ml.model.train_model:val_loader
 
 	subgraph s0["project_ml.data.data_preprocessing"]
 		direction TB
@@ -79,34 +79,32 @@ graph TB
 		project_ml.deploy.predict:dummy_images@{shape: subroutine, label: "dummy_images"}
 		project_ml.deploy.predict:inference_device@{shape: subroutine, label: "inference_device"}
 	end
-	subgraph s3["project_ml.model.digit_classifier"]
-		direction TB
-		project_ml.model.digit_classifier:train_loader@{shape: subroutine, label: "train_loader"}
-		project_ml.model.digit_classifier:training_device@{shape: subroutine, label: "training_device"}
-		project_ml.model.digit_classifier:val_loader@{shape: subroutine, label: "val_loader"}
-	end
-	subgraph s4["project_ml.model.model_evaluation"]
+	subgraph s3["project_ml.model.model_evaluation"]
 		direction TB
 		project_ml.model.model_evaluation:model_evaluation@{shape: rounded, label: "model_evaluation"}
 		project_ml.model.model_evaluation:test_loader@{shape: subroutine, label: "test_loader"}
 	end
-	subgraph s5["project_ml.model.train_model"]
+	subgraph s4["project_ml.model.train_model"]
 		direction TB
 		project_ml.model.train_model:optimizer@{shape: subroutine, label: "optimizer"}
 		project_ml.model.train_model:scheduler@{shape: subroutine, label: "scheduler"}
+		project_ml.model.train_model:train_loader@{shape: subroutine, label: "train_loader"}
 		project_ml.model.train_model:train_model@{shape: rounded, label: "train_model"}
+		project_ml.model.train_model:training_device@{shape: subroutine, label: "training_device"}
 		project_ml.model.train_model:untrained_model@{shape: subroutine, label: "untrained_model"}
+		project_ml.model.train_model:val_loader@{shape: subroutine, label: "val_loader"}
 	end
 	IO0@{shape: rect, label: "validation_split"}
 	IO1@{shape: rect, label: "random_seed"}
 	IO10@{shape: rect, label: "real_time_predictions"}
 	IO11@{shape: rect, label: "real_time_prediction_metadata"}
-	IO12@{shape: rect, label: "model_config"}
-	IO13@{shape: rect, label: "model_evaluation_result"}
-	IO14@{shape: rect, label: "confusion_matrix"}
-	IO15@{shape: rect, label: "model_evaluation_metadata"}
-	IO16@{shape: rect, label: "model_evaluation_config"}
+	IO12@{shape: rect, label: "model_evaluation_result"}
+	IO13@{shape: rect, label: "confusion_matrix"}
+	IO14@{shape: rect, label: "model_evaluation_metadata"}
+	IO15@{shape: rect, label: "model_evaluation_config"}
+	IO16@{shape: rect, label: "training_config"}
 	IO17@{shape: rect, label: "training_metadata"}
+	IO18@{shape: rect, label: "model_config"}
 	IO2@{shape: rect, label: "test_dataset"}
 	IO3@{shape: rect, label: "train_dataset"}
 	IO4@{shape: rect, label: "mnist_moments"}
@@ -117,10 +115,10 @@ graph TB
 	IO9@{shape: rect, label: "real_time_prediction_config"}
 
 	class L0,project_ml.deploy.predict:batch_digit_predictions,project_ml.deploy.predict:digit_predictions,project_ml.model.model_evaluation:model_evaluation,project_ml.model.train_model:train_model node
-	class L2,project_ml.data.data_preprocessing:processed_mnist_test_data,project_ml.data.data_preprocessing:processed_mnist_train_data,project_ml.data.raw_data_loading:raw_mnist_test_data,project_ml.data.raw_data_loading:raw_mnist_train_data,project_ml.data.raw_data_loading:transform,project_ml.deploy.predict:dummy_batch,project_ml.deploy.predict:dummy_images,project_ml.deploy.predict:inference_device,project_ml.model.digit_classifier:train_loader,project_ml.model.digit_classifier:training_device,project_ml.model.digit_classifier:val_loader,project_ml.model.model_evaluation:test_loader,project_ml.model.train_model:optimizer,project_ml.model.train_model:scheduler,project_ml.model.train_model:untrained_model view
-	class L00,IO10,IO11,IO13,IO15,IO17,IO7,IO8 io0
-	class L01,IO0,IO1,IO12,IO16,IO2,IO3,IO4,IO6,IO9 io1
-	class L02,IO14 io2
+	class L2,project_ml.data.data_preprocessing:processed_mnist_test_data,project_ml.data.data_preprocessing:processed_mnist_train_data,project_ml.data.raw_data_loading:raw_mnist_test_data,project_ml.data.raw_data_loading:raw_mnist_train_data,project_ml.data.raw_data_loading:transform,project_ml.deploy.predict:dummy_batch,project_ml.deploy.predict:dummy_images,project_ml.deploy.predict:inference_device,project_ml.model.model_evaluation:test_loader,project_ml.model.train_model:optimizer,project_ml.model.train_model:scheduler,project_ml.model.train_model:train_loader,project_ml.model.train_model:training_device,project_ml.model.train_model:untrained_model,project_ml.model.train_model:val_loader view
+	class L00,IO10,IO11,IO12,IO14,IO17,IO7,IO8 io0
+	class L01,IO0,IO1,IO15,IO16,IO18,IO2,IO3,IO4,IO6,IO9 io1
+	class L02,IO13 io2
 	class L03,IO5 io3
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B

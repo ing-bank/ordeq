@@ -2,7 +2,7 @@ from pathlib import Path
 
 from config.batch_prediction_config import BatchPredictionConfig
 from config.deployment_config import DeploymentConfig
-from config.model_config import ModelConfig
+from config.model_config import ModelConfig, ModelTrainingConfig
 from config.model_evaluation_config import ModelEvaluationConfig
 from config.real_time_prediction_config import RealTimePredictionConfig
 from ordeq import IO
@@ -17,6 +17,7 @@ RAW_DATA_DIR = DATA_DIR / "01_raw"
 
 # configurations
 model_config = Literal(ModelConfig())
+training_config = Literal(ModelTrainingConfig())
 model_evaluation_config = Literal(ModelEvaluationConfig())
 deployment_config = Literal(DeploymentConfig())
 batch_prediction_config = Literal(BatchPredictionConfig())

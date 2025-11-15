@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader, TensorDataset
 from project_ml import catalog
 from project_ml.config.model_evaluation_config import ModelEvaluationConfig
 from project_ml.data.data_preprocessing import processed_mnist_test_data
-from project_ml.model.digit_classifier import training_device
+from project_ml.model.train_model import training_device
 
 logger = logging.getLogger(__name__)
 

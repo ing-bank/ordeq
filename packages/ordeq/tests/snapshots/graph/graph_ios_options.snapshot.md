@@ -17,7 +17,7 @@ class Greeting(Input[str]):
 
     def load(self, show: bool = False) -> str:
         if show:
-            print('Loading greeting', self.value)
+            print("Loading greeting", self.value)
         return self.value
 
     def __eq__(self, other):
@@ -28,9 +28,7 @@ class Greeting(Input[str]):
 
 
 x = Greeting("hello")
-y = x.with_load_options(
-    show=True
-)
+y = x.with_load_options(show=True)
 assert hash(x) == hash(y)
 assert x == y
 

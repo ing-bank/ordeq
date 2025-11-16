@@ -43,12 +43,19 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     # The run needs to recognize that 'first_file' and 'second_file'
     # share the same resource. It should plan first -> second.
     run(second, first, verbose=True)
+    run(first, second, verbose=True)
 
 ```
 
 ## Output
 
 ```text
+io-0 --> Node:__main__:second
+Node:__main__:second --> io-1
+Node:__main__:first --> io-2
+First node
+Second node
+Hello, world!
 io-0 --> Node:__main__:second
 Node:__main__:second --> io-1
 Node:__main__:first --> io-2
@@ -63,6 +70,11 @@ Hello, world!
 ```text
 WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+INFO	ordeq.runner	Running node "first" in module "__main__"
+INFO	ordeq.io	Saving File
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running node "second" in module "__main__"
+INFO	ordeq.io	Saving Print()
 INFO	ordeq.runner	Running node "first" in module "__main__"
 INFO	ordeq.io	Saving File
 INFO	ordeq.io	Loading File

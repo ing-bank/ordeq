@@ -40,3 +40,4 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
     # The run needs to recognize that 'first_file' and 'second_file'
     # share the same resource. It should plan first -> second.
     run(second, first, verbose=True)
+    run(first, second, verbose=True)

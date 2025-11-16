@@ -34,17 +34,18 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 
     @node(inputs=first_file)
     def first(value: str) -> None:
-        print(value)
+        print("1st node:", value)
 
     @node(inputs=second_file)
     def second(value: str) -> None:
-        print(value)
+        print("2nd node:", value)
 
     # This should not raise an error
     # The run can schedule 'first' and 'second' in any order,
     # since both only read from the shared resource.
     # The graph is still deterministic.
     run(first, second, verbose=True)
+    run(second, first, verbose=True)
 
 ```
 
@@ -55,8 +56,14 @@ io-0 --> View:__main__:second
 io-1 --> View:__main__:first
 View:__main__:second --> io-2
 View:__main__:first --> io-3
-Helloooo
-Helloooo
+1st node: Helloooo
+2nd node: Helloooo
+io-0 --> View:__main__:first
+io-1 --> View:__main__:second
+View:__main__:first --> io-2
+View:__main__:second --> io-3
+2nd node: Helloooo
+1st node: Helloooo
 
 ```
 
@@ -71,5 +78,9 @@ INFO	ordeq.io	Loading File
 INFO	ordeq.runner	Running view "first" in module "__main__"
 INFO	ordeq.io	Loading File
 INFO	ordeq.runner	Running view "second" in module "__main__"
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running view "second" in module "__main__"
+INFO	ordeq.io	Loading File
+INFO	ordeq.runner	Running view "first" in module "__main__"
 
 ```

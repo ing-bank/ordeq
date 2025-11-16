@@ -45,18 +45,18 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Exception
 
 ```text
-ValueError: Nodes '__main__:second' and '__main__:first' both output to 'path'. Nodes cannot output to the same resource.
+ValueError: Nodes '__main__:second' and '__main__:first' both output to Resource(value='path'). Nodes cannot output to the same resource.
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
     raise ValueError(msg)
 
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    return cls.from_graph(ProjectGraph.from_nodes(nodes, patches))
-                          ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+    return cls.from_graph(NodeResourceGraph.from_nodes(nodes, patches))
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
 
-  File "/packages/ordeq/tests/resources/runner/shared_resource_nondeterministic.py", line LINO, in <module>
+  File "/packages/ordeq/tests/resources/runner/resource_nondeterministic.py", line LINO, in <module>
     run(first, second, verbose=True)
     ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

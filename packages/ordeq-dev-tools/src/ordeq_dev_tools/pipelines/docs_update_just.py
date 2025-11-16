@@ -6,9 +6,9 @@ from ordeq_files import Text
 from ordeq_dev_tools.paths import ROOT_PATH
 from ordeq_dev_tools.utils import run_command
 
-docs_file = Text(path=ROOT_PATH / "docs" / "CONTRIBUTING.md")
-# TODO: write to self after https://github.com/ing-bank/ordeq/pull/191
-updated_docs_file = Text(path=ROOT_PATH / "docs" / "CONTRIBUTING_NEW.md")
+contribution_guide = Text(path=ROOT_PATH / "docs" / "CONTRIBUTING.md")
+docs_file = contribution_guide @ "existing"
+updated_docs_file = contribution_guide @ "new"
 
 
 @node

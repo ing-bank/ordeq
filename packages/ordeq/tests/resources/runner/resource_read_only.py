@@ -22,18 +22,24 @@ class File(IO[str]):
 
 
 with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
-    path = Path(tmp.name)
-    first_file = File(path=path)
-    second_file = File(path=path)
+    tmp.write("Helloooo")
+    tmp.flush()
 
-    @node(outputs=first_file)
-    def first() -> str:
-        return "Hello, world!"
+    path = Path(tmp.name)
+    first_file = File(path=path) @ "path"
+    second_file = File(path=path) @ "path"
+
+    @node(inputs=first_file)
+    def first(value: str) -> None:
+        print("1st node:", value)
 
     @node(inputs=second_file)
     def second(value: str) -> None:
-        print(value)
+        print("2nd node:", value)
 
-    # The run needs to recognize that 'first_file' and 'second_file'
-    # share the same resource. It should plan first -> second.
+    # This should not raise an error
+    # The run can schedule 'first' and 'second' in any order,
+    # since both only read from the shared resource.
+    # The graph is still deterministic.
+    run(first, second, verbose=True)
     run(second, first, verbose=True)

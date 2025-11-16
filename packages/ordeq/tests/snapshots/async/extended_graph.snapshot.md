@@ -169,13 +169,13 @@ graph TB
 ## Warnings
 
 ```text
-RuntimeWarning: coroutine 'write_E' was never awaited
+RuntimeWarning: coroutine 'write_A' was never awaited
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "write_E" in module "example_async.extended_graph"
+INFO	ordeq.runner	Running node "write_A" in module "example_async.extended_graph"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

@@ -16,8 +16,9 @@ pprint(ios)
 
 ```text
 {'ordeq_dev_tools.pipelines.docs_package_overview': {'package_overview': TextLinesStream(path=Path('/docs/packages.md'))},
- 'ordeq_dev_tools.pipelines.docs_update_just': {'docs_file': Text(path=Path('/docs/CONTRIBUTING.md')),
-                                                'updated_docs_file': Text(path=Path('/docs/CONTRIBUTING_NEW.md'))},
+ 'ordeq_dev_tools.pipelines.docs_update_just': {'contribution_guide': Text(path=Path('/docs/CONTRIBUTING.md')),
+                                                'docs_file': Text(path=Path('/docs/CONTRIBUTING.md')),
+                                                'updated_docs_file': Text(path=Path('/docs/CONTRIBUTING.md'))},
  'ordeq_dev_tools.pipelines.generate_release_notes': {'new_tag': IO(idx=ID1),
                                                       'package': Input(idx=ID2),
                                                       'release_notes': IO(idx=ID3)},

@@ -53,8 +53,8 @@ io-0 --> Node:__main__:f1
 io-0 --> Node:__main__:f2
 io-1 --> Node:__main__:f1
 Node:__main__:f1 --> io-2
-io-2 --> Node:__main__:f3
 io-2 --> Node:__main__:f2
+io-2 --> Node:__main__:f3
 io-2 --> Node:__main__:f4
 Node:__main__:f3 --> io-3
 Node:__main__:f2 --> io-4
@@ -66,8 +66,8 @@ io-0 --> Node:__main__:f1
 io-0 --> Node:__main__:f2
 io-1 --> Node:__main__:f1
 Node:__main__:f1 --> io-2
-io-2 --> Node:__main__:f3
 io-2 --> Node:__main__:f2
+io-2 --> Node:__main__:f3
 io-2 --> Node:__main__:f4
 Node:__main__:f3 --> io-3
 Node:__main__:f2 --> io-4
@@ -79,8 +79,8 @@ io-0 --> Node:__main__:f1
 io-0 --> Node:__main__:f2
 io-1 --> Node:__main__:f1
 Node:__main__:f1 --> io-2
-io-2 --> Node:__main__:f3
 io-2 --> Node:__main__:f2
+io-2 --> Node:__main__:f3
 io-2 --> Node:__main__:f4
 Node:__main__:f3 --> io-3
 Node:__main__:f2 --> io-4
@@ -98,9 +98,9 @@ INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "f1" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "f3" in module "__main__"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 INFO	ordeq.runner	Running node "f2" in module "__main__"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.runner	Running node "f3" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
 INFO	ordeq.runner	Running node "f4" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
@@ -108,16 +108,16 @@ INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "f1" in module "__main__"
-INFO	ordeq.runner	Running node "f3" in module "__main__"
 INFO	ordeq.runner	Running node "f2" in module "__main__"
+INFO	ordeq.runner	Running node "f3" in module "__main__"
 INFO	ordeq.runner	Running node "f4" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "f1" in module "__main__"
-INFO	ordeq.runner	Running node "f3" in module "__main__"
 INFO	ordeq.runner	Running node "f2" in module "__main__"
+INFO	ordeq.runner	Running node "f3" in module "__main__"
 INFO	ordeq.runner	Running node "f4" in module "__main__"
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 

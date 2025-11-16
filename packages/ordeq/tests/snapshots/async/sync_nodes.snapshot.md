@@ -34,19 +34,19 @@ graph TB
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
-Start analyzing buffer_2...
-Finished analyzing buffer_2 after 2 seconds.
 Start fetching buffer_1...
 Finished fetching buffer_1 after 4 seconds.
+Start analyzing buffer_2...
+Finished analyzing buffer_2 after 2 seconds.
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "write_buffer_2" in module "example_async.sync_nodes"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node "write_buffer_1" in module "example_async.sync_nodes"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node "write_buffer_2" in module "example_async.sync_nodes"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

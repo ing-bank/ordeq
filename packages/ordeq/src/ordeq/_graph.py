@@ -115,11 +115,7 @@ class NodeResourceGraph(Graph[Resource | Node]):
                 if resource not in edges:
                     edges[resource] = []
 
-        return cls(
-            edges=edges,
-            nodes=set(patched_nodes),
-            resources=resources,
-        )
+        return cls(edges=edges, nodes=set(patched_nodes), resources=resources)
 
 
 @dataclass(frozen=True)

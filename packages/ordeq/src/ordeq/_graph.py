@@ -7,6 +7,7 @@ from typing import Generic, TypeVar, cast
 
 from ordeq._io import IO, AnyIO, Input
 from ordeq._nodes import Node, View
+from ordeq._patch import _patch_nodes
 from ordeq._resource import Resource
 
 try:
@@ -72,17 +73,20 @@ class ProjectGraph(Graph[AnyIO | Node]):
         for view in views:
             patches[view] = view.outputs[0]
 
-        if patches:
-            all_nodes = [node._patch_io(patches) for node in all_nodes]  # noqa: SLF001 (private access)
+        # Patching should not be done during graph creation, as it can change
+        # the graph topology.
+        # TODO: Move the patching to before (for views) and after (for save
+        #  and user patches) the graph creation.
+        patched_nodes = _patch_nodes(*all_nodes, patches=patches)  # type: ignore[arg-type]
 
         ios_: set[AnyIO] = set()
         edges: dict[AnyIO | Node, list[AnyIO | Node]] = {
-            node: [] for node in all_nodes
+            node: [] for node in patched_nodes
         }
         resources: set[Resource] = set()
         resource_to_node: dict[Resource, Node] = {}
 
-        for node in all_nodes:
+        for node in patched_nodes:
             for ip in node.inputs:
                 # Add this point we have converted all view inputs to their
                 # sentinel IO, so it's safe to cast input to AnyIO.
@@ -118,7 +122,10 @@ class ProjectGraph(Graph[AnyIO | Node]):
                     edges[op] = []
 
         return cls(
-            edges=edges, ios=ios_, nodes=set(all_nodes), resources=resources
+            edges=edges,
+            ios=ios_,
+            nodes=set(patched_nodes),
+            resources=resources,
         )
 
 

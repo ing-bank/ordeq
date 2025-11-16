@@ -151,7 +151,6 @@ def test_it_saves_with_table_properties(spark: SparkSession):
     # |            col_name|           data_type|comment|
     # +--------------------+--------------------+-------+
     #  ...
-    # |               Owner|              sw05nn|       |
     # |    Table Properties|[commit.retry.num...|       |
     # +--------------------+--------------------+-------+
     # We are only interested in the last row for this test:

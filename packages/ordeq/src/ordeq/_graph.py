@@ -5,7 +5,7 @@ from graphlib import TopologicalSorter
 from itertools import chain
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import IO, AnyIO, Input, InternalIO
+from ordeq._io import IO, AnyIO, Input
 from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
 from ordeq._resource import Resource

@@ -36,7 +36,7 @@ run(n, verbose=True)
 ```text
 View(name=__main__:hello)
 View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), View(name=__main__:hello)])
-View:__main__:hello --> io-1
+View:__main__:hello --> io-0
 io-0 --> View:__main__:hello_from_someone
 io-1 --> View:__main__:hello_from_someone
 View:__main__:hello_from_someone --> io-2

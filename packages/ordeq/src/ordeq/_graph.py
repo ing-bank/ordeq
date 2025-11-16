@@ -79,7 +79,7 @@ class NodeResourceGraph(Graph[Resource | Node]):
         patched_nodes = _patch_nodes(*all_nodes, patches=patches)  # type: ignore[arg-type]
 
         edges: dict[Resource | Node, list[Resource | Node]] = {
-            node: [] for node in all_nodes
+            node: [] for node in patched_nodes
         }
         resources: set[Resource] = set()
         resource_to_node: dict[Resource, Node] = {}

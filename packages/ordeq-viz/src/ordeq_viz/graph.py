@@ -43,7 +43,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
     Returns:
         The ID of the dataset in the io_data dictionary.
     """
-    dataset_id = hash(dataset)
+    dataset_id = id(dataset)
     if store:
         if dataset_id not in io_data:
             io_data[dataset_id] = IOData(
@@ -90,13 +90,12 @@ def _gather_graph(
     graph = NodeIOGraph.from_graph(node_graph)
 
     reverse_lookup = {
-        hash(io): name
+        id(io): name
         for _, named_io in sorted(ios.items(), key=operator.itemgetter(0))
         for name, io in sorted(named_io.items(), key=operator.itemgetter(0))
     }
 
-    for io in graph.ios:
-        io_id = hash(io)
+    for io_id in graph.ios:
         if io_id not in reverse_lookup:
             reverse_lookup[io_id] = "<anonymous>"
 

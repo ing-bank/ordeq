@@ -68,10 +68,10 @@ graph TB
 	ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram --> IO9
 	IO10 --> ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
 	ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> IO7
-	IO6 --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
-	IO8 --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
-	ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> IO11
-	ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> IO12
+	IO11 --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+	IO12 --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+	ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> IO13
+	ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> IO14
 
 	subgraph s0["ordeq_dev_tools.pipelines.docs_package_overview"]
 		direction TB
@@ -134,13 +134,15 @@ graph TB
 	IO0@{shape: rect, label: "package_overview"}
 	IO1@{shape: rect, label: "docs_file"}
 	IO10@{shape: rect, label: "lock_file"}
-	IO11@{shape: rect, label: "relevant_packages"}
-	IO12@{shape: rect, label: "ordeq_dev_tools_diagram"}
+	IO11@{shape: rect, label: "packages"}
+	IO12@{shape: rect, label: "affected_dependencies"}
+	IO13@{shape: rect, label: "relevant_packages"}
+	IO14@{shape: rect, label: "ordeq_dev_tools_diagram"}
 	IO2@{shape: rect, label: "updated_docs_file"}
 	IO3@{shape: rect, label: "release_notes"}
 	IO4@{shape: rect, label: "package"}
 	IO5@{shape: rect, label: "new_tag"}
-	IO6@{shape: rect, label: "packages"}
+	IO6@{shape: rect, label: "changed_packages"}
 	IO8@{shape: rect, label: "affected_dependencies"}
 	IO9@{shape: rect, label: "diagram"}
 
@@ -148,9 +150,9 @@ graph TB
 	class L2,ordeq_dev_tools.pipelines.docs_package_overview:groups,ordeq_dev_tools.pipelines.docs_update_just:docs_just_section,ordeq_dev_tools.pipelines.docs_update_just:just_output,ordeq_dev_tools.pipelines.generate_draft_releases:create_releases,ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases,ordeq_dev_tools.pipelines.generate_draft_releases:new_releases,ordeq_dev_tools.pipelines.generate_release_notes:bump_type,ordeq_dev_tools.pipelines.generate_release_notes:bump_version,ordeq_dev_tools.pipelines.generate_release_notes:changes,ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files,ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes,ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag,ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels,ordeq_dev_tools.pipelines.generate_release_notes:latest_tag,ordeq_dev_tools.pipelines.generate_release_notes:latest_version,ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits,ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs,ordeq_dev_tools.pipelines.generate_release_notes:tags,ordeq_dev_tools.pipelines.list_changed_packages:changed_files,ordeq_dev_tools.pipelines.shared:packages view
 	class L00,IO3,IO5 io0
 	class L01,IO4 io1
-	class L02,IO7,IO11,IO6,IO8 io2
+	class L02,IO7,IO11,IO12,IO13,IO6,IO8 io2
 	class L03,IO10 io3
-	class L04,IO1,IO12,IO2,IO9 io4
+	class L04,IO1,IO14,IO2,IO9 io4
 	class L05,IO0 io5
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B

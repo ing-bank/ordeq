@@ -236,6 +236,8 @@ split-on-trailing-comma = false
 "examples/testing-nodes/tests/test_pipeline.py" = ["E402"]
 # Rules not applicable for private examples
 "packages/ordeq-test-examples/*" = ["D103", "INP001"]
+# Rules not applicable for framework extensions
+"packages/ordeq-viz/src/ordeq_viz/graph.py" = ["PLC2701"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

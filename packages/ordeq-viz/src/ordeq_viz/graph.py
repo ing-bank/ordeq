@@ -4,8 +4,8 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from ordeq import Node, View
-from ordeq._fqn import fqn_to_object_ref  # noqa: PLC2701 private import
-from ordeq._graph import NodeGraph, NodeIOGraph  # noqa: PLC2701 private import
+from ordeq._fqn import fqn_to_object_ref
+from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
 
@@ -43,7 +43,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
     Returns:
         The ID of the dataset in the io_data dictionary.
     """
-    dataset_id = id(dataset)
+    dataset_id: IOIdentity = id(dataset)
     if store:
         if dataset_id not in io_data:
             io_data[dataset_id] = IOData(
@@ -89,7 +89,7 @@ def _gather_graph(
     node_graph = NodeGraph.from_nodes(nodes)
     graph = NodeIOGraph.from_graph(node_graph)
 
-    reverse_lookup = {
+    reverse_lookup: dict[IOIdentity, str] = {
         id(io): name
         for _, named_io in sorted(ios.items(), key=operator.itemgetter(0))
         for name, io in sorted(named_io.items(), key=operator.itemgetter(0))
@@ -99,7 +99,7 @@ def _gather_graph(
         if io_id not in reverse_lookup:
             reverse_lookup[io_id] = "<anonymous>"
 
-    io_data: dict[int, IOData] = {}
+    io_data: dict[IOIdentity, IOData] = {}
 
     ordering = node_graph.topological_ordering
 

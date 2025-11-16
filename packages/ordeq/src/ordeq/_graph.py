@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
 from itertools import chain
-from typing import Generic, TypeVar, cast
+from typing import Annotated, Generic, TypeAlias, TypeVar, cast
 
 from ordeq._io import IO, AnyIO, Input
 from ordeq._nodes import Node, View
@@ -181,14 +181,16 @@ class NodeGraph(Graph[Node]):
         return "\n".join(lines)
 
 
+IOIdentity: TypeAlias = Annotated[int, "Identity of an IO object"]
+
+
 @dataclass(frozen=True)
-class NodeIOGraph(Graph[int | Node]):
+class NodeIOGraph(Graph[IOIdentity | Node]):
     # We cannot rely on the __hash__ and __eq__ of IO objects, as they may be
-    # overridden by the user. Therefore, this graph maintain strong references
-    # to the IO objects.
-    # TODO: Clear the references when they are no longer needed.
-    edges: dict[int | Node, list[int | Node]]
-    ios: dict[int, AnyIO]
+    # overridden by the user. Therefore, this graph maps IO identity (using
+    # id()) to the IO object.
+    edges: dict[IOIdentity | Node, list[IOIdentity | Node]]
+    ios: dict[IOIdentity, AnyIO]
     nodes: set[Node]
 
     @classmethod
@@ -201,9 +203,11 @@ class NodeIOGraph(Graph[int | Node]):
 
     @classmethod
     def from_graph(cls, base: NodeGraph) -> Self:
-        edges: dict[int | Node, list[int | Node]] = defaultdict(list)
+        edges: dict[IOIdentity | Node, list[IOIdentity | Node]] = defaultdict(
+            list
+        )
         nodes: set[Node] = set()
-        ios: dict[int, AnyIO] = {}
+        ios: dict[IOIdentity, AnyIO] = {}
         for node in base.topological_ordering:
             nodes.add(node)
             for input_ in node.inputs:
@@ -220,7 +224,7 @@ class NodeIOGraph(Graph[int | Node]):
         # Hacky way to generate a deterministic repr of this class.
         # This should move to a separate named graph class.
         lines: list[str] = []
-        names: dict[int | Node, str] = {
+        names: dict[IOIdentity | Node, str] = {
             **{
                 node: f"{type(node).__name__}:{node.name}"
                 for node in self.nodes

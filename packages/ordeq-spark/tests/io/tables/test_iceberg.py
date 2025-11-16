@@ -92,7 +92,7 @@ def test_it_saves_if_exists(
     SparkIcebergTable(table=table).save(
         spark.createDataFrame(update_data, schema=cols),
         mode=mode,
-        partition_by=(("id",),),
+        partition_by="id",
     )
     actual = spark.table(table)
     expected = spark.createDataFrame(expected_data, schema=cols)

@@ -18,7 +18,7 @@ from ordeq._fqn import (
     object_ref_to_fqn,
 )
 from ordeq._hook import NodeHook, RunHook, RunnerHook
-from ordeq._io import IO, AnyIO, Input, InternalIO, Output
+from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._nodes import Node, View, get_node
 
 if TYPE_CHECKING:
@@ -184,6 +184,19 @@ def _resolve_refs_to_modules(
     # Then, for each module or package, if it's a package, resolve to all its
     # submodules recursively
     return _resolve_packages_to_modules(*modules)
+
+
+class InternalIO:
+    io: AnyIO
+
+    def __init__(self, io: AnyIO):
+        self.io = io
+
+    def __eq__(self, other):
+        return hash(self) == hash(other)
+
+    def __hash__(self) -> int:
+        return hash(self.io._idx)  # noqa: SLF001 (private-member)
 
 
 def _resolve_module_to_ios(module: ModuleType) -> dict[str, AnyIO]:

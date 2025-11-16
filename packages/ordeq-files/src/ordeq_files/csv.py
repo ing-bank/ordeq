@@ -36,6 +36,24 @@ class CSV(IO[Iterable[Iterable[Any]]]):
 
     ```
 
+    Example with a node generator:
+
+    ```pycon
+    >>> from pathlib import Path
+    >>> from ordeq import node
+    >>> from ordeq_files import CSV
+    >>> @node(outputs=CSV(path=Path("output.csv")))
+    ... def generator():
+    ...     yield ["constant", "idx"]
+    ...     for idx in range(100):
+    ...         yield [1, idx]
+
+    >>> if __name__ == "__main__":
+    ...     from ordeq import run
+    ...     run(generator)
+
+    ```
+
     Loading and saving can be configured with additional parameters, e.g:
 
     ```pycon
@@ -54,12 +72,14 @@ class CSV(IO[Iterable[Iterable[Any]]]):
 
     path: PathLike
 
-    def load(self, **kwargs) -> Iterable[Iterable[Any]]:
-        with self.path.open(mode="r") as fh:
-            reader = csv.reader(fh, **kwargs)
+    def load(self, mode="r", **load_options: Any) -> Iterable[Iterable[Any]]:
+        with self.path.open(mode=mode) as fh:
+            reader = csv.reader(fh, **load_options)
             return list(reader)
 
-    def save(self, data: Iterable[Iterable[Any]], **kwargs) -> None:
-        with self.path.open(mode="w") as fh:
-            writer = csv.writer(fh, **kwargs)
+    def save(
+        self, data: Iterable[Iterable[Any]], mode="w", **save_options: Any
+    ) -> None:
+        with self.path.open(mode=mode) as fh:
+            writer = csv.writer(fh, **save_options)
             writer.writerows(data)

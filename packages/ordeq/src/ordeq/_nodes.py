@@ -197,7 +197,7 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
 
 @dataclass(frozen=True, kw_only=True)
 class View(Node[FuncParams, FuncReturns]):
-    outputs: tuple[IO] = ()
+    outputs: tuple[IO, ...] = ()
 
     def __post_init__(self):
         self.validate()

@@ -153,6 +153,34 @@ For more information on the available load and save options, refer to the docume
     - if the option refers to an operation that is likely to be useful to others, it might be appropriate as a load/save option.
     - if the option is closely tied to the IO implementation, it is likely appropriate as a load/save option.
 
+### Attributes
+
+Often it can be useful to annotate IOs with additional attributes.
+Examples of useful attributes include:
+
+- the description (e.g., "Sales data by month")
+- the layer of the data (e.g., raw, processed, final)
+- the source of the data (e.g., internal, external, third-party)
+- the owner of the data (e.g., team or person responsible)
+
+Attributes can be assigned using the `with_attributes` method:
+
+```python
+from pathlib import Path
+
+from ordeq_files import CSV
+
+sales = CSV(path=Path("sales.csv")).with_attributes(
+    description="Sales data by month",
+    layer="gold",
+    source="internal",
+    owner="dwh-team@company.com",
+)
+```
+
+Attributes are stored on the IO instance.
+Framework extensions like `ordeq-viz` can leverage these attributes to provide additional functionality.
+
 !!! success "Where to go from here?"
 
     - See how IOs are used in [nodes]

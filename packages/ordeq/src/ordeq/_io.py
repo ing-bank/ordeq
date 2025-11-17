@@ -218,29 +218,36 @@ def _process_output_meta(name, bases, class_dict):
     return class_dict, bases
 
 
+def _has_base(bases, target_names: set[str]) -> bool:
+    def _check_ancestor(cls) -> bool:
+        if cls.__name__ in target_names:
+            return True
+
+        # Recursively check all ancestors in MRO
+        for ancestor in getattr(cls, "__mro__", [])[
+            1:
+        ]:  # Skip self (first element)
+            if ancestor.__name__ in target_names:
+                return True
+
+            if (
+                hasattr(ancestor, "__bases__")
+                and ancestor.__bases__
+                and _has_base(ancestor.__bases__, target_names)
+            ):
+                return True
+        return False
+
+    return any(_check_ancestor(base) for base in bases)
+
+
 class _IOMeta(type):
     """Metaclass that handles Input and Output logic."""
 
     def __new__(cls, name, bases, class_dict):
-        # Check if this class inherits from Input (considering MRO)
-        has_input_base = any(
-            base.__name__ in {"Input", "IO"}
-            or any(
-                ancestor.__name__ in {"Input", "IO"}
-                for ancestor in getattr(base, "__mro__", [])
-            )
-            for base in bases
-        )
-
-        # Check if this class inherits from Output (considering MRO)
-        has_output_base = any(
-            base.__name__ in {"Output", "IO"}
-            or any(
-                ancestor.__name__ in {"Output", "IO"}
-                for ancestor in getattr(base, "__mro__", [])
-            )
-            for base in bases
-        )
+        # Check if this class inherits from Input or Output
+        has_input_base = _has_base(bases, {"Input", "IO"})
+        has_output_base = _has_base(bases, {"Output", "IO"})
 
         # Apply input metaclass logic if needed
         if has_input_base or name in {"Input", "IO"}:
@@ -596,7 +603,7 @@ class Output(
         return f"Output(id={id(self)})"
 
 
-class IO(Input[T], Output[T], Generic[T]):
+class IO(Input[T], Output[T]):
     """Base class for all IOs in Ordeq. An `IO` is a class that can both load
     and save data. See the Ordeq IO packages for some out-of-the-box
     implementations (e.g., `YAML`, `StringBuffer`, etc.).

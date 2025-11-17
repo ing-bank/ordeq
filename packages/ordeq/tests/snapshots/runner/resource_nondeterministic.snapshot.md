@@ -50,11 +50,11 @@ ValueError: Nodes '__main__:second' and '__main__:first' both output to Resource
     raise ValueError(msg)
 
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    return cls.from_graph(NodeResourceGraph.from_nodes(nodes, patches))
-                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+    return cls.from_graph(NodeResourceGraph.from_nodes(nodes))
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+    graph = NodeGraph.from_nodes(patched_nodes)
 
   File "/packages/ordeq/tests/resources/runner/resource_nondeterministic.py", line LINO, in <module>
     run(first, second, verbose=True)

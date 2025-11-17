@@ -5,8 +5,9 @@ from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import fqn_to_object_ref
-from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph
+from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph, _collect_views
 from ordeq._io import AnyIO
+from ordeq._patch import _patch_view_inputs
 from ordeq._resolve import Catalog
 
 
@@ -86,7 +87,9 @@ def _gather_graph(
         metadata for ios (IOData)
     """
 
-    node_graph = NodeGraph.from_nodes(nodes)
+    all_nodes = _collect_views(*nodes)
+    patched_nodes = _patch_view_inputs(*all_nodes)
+    node_graph = NodeGraph.from_nodes(patched_nodes)
     graph = NodeIOGraph.from_graph(node_graph)
 
     reverse_lookup: dict[IOIdentity, str] = {

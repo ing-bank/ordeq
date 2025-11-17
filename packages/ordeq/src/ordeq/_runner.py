@@ -5,10 +5,11 @@ from types import ModuleType
 from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
-from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
+from ordeq._patch import _patch_nodes, _patch_view_inputs
 from ordeq._resolve import _resolve_refs_to_hooks, _resolve_runnables_to_nodes
 from ordeq._substitute import (
     _resolve_refs_to_subs,
@@ -195,11 +196,11 @@ def run(
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
-    io_subs = _resolve_refs_to_subs(io or {})
-    patches = _substitutes_modules_to_ios(io_subs)
+    all_nodes = _collect_views(*nodes)
+    patched_nodes = _patch_view_inputs(*all_nodes)
+    graph = NodeGraph.from_nodes(patched_nodes)
 
-    graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
-
+    save_mode_patches: dict[AnyIO, AnyIO] = {}
     if save in {"none", "sinks"}:
         # Replace relevant outputs with ordeq.IO, that does not save
         save_nodes = (
@@ -209,9 +210,14 @@ def run(
         )
         for node in save_nodes:
             for output in node.outputs:
-                patches[output] = IO()
-        # This builds the graph a second time, can be optimized.
-        graph = NodeGraph.from_nodes(nodes, patches=patches)  # type: ignore[arg-type]
+                save_mode_patches[output] = IO()
+
+    io_subs = _resolve_refs_to_subs(io or {})
+    user_patches = _substitutes_modules_to_ios(io_subs)
+    patches = {**user_patches, **save_mode_patches}
+    if patches:
+        patched_nodes = _patch_nodes(*patched_nodes, patches=patches)
+        graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:
         graph_with_io = NodeIOGraph.from_graph(graph)

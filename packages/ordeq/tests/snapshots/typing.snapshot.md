@@ -37,7 +37,7 @@ packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" alrea
 packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:6: error: Need type annotation for "b"  [var-annotated]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:8: error: Need type annotation for "B"  [var-annotated]
-packages/ordeq/tests/resources/runner/logging_verbosity.py:17: error: Argument 1 to "from_nodes" of "NodeGraph" has incompatible type "set[Node[Any, Any]]"; expected "list[Node[Any, Any]]"  [arg-type]
+packages/ordeq/tests/resources/runner/logging_verbosity.py:17: error: Argument 1 to "from_nodes" of "NodeGraph" has incompatible type "set[Node[Any, Any]]"; expected "Sequence[Node[Any, Any]]"  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]

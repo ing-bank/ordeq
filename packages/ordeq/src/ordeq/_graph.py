@@ -1,4 +1,5 @@
 from collections import defaultdict
+from collections.abc import Sequence
 from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
@@ -6,8 +7,7 @@ from itertools import chain
 from typing import Generic, TypeVar, cast
 
 from ordeq._io import IO, AnyIO, Input, IOIdentity
-from ordeq._nodes import Node, View
-from ordeq._patch import _patch_nodes
+from ordeq._nodes import Node
 from ordeq._resource import Resource
 
 try:
@@ -58,33 +58,14 @@ class NodeResourceGraph(Graph[Resource | Node]):
     resources: set[Resource]
 
     @classmethod
-    def from_nodes(
-        cls,
-        nodes: list[Node],
-        patches: dict[AnyIO | View, AnyIO] | None = None,
-    ) -> Self:
-        # First pass: collect all views
-        all_nodes = _collect_views(*nodes)
-        views = [view for view in all_nodes if isinstance(view, View)]
-
-        if patches is None:
-            patches = {}
-        for view in views:
-            patches[view] = view.outputs[0]
-
-        # Patching should not be done during graph creation, as it can change
-        # the graph topology.
-        # TODO: Move the patching to before (for views) and after (for save
-        #  and user patches) the graph creation.
-        patched_nodes = _patch_nodes(*all_nodes, patches=patches)  # type: ignore[arg-type]
-
+    def from_nodes(cls, nodes: Sequence[Node]) -> Self:
         edges: dict[Resource | Node, list[Resource | Node]] = {
-            node: [] for node in patched_nodes
+            node: [] for node in nodes
         }
         resources: set[Resource] = set()
         resource_to_node: dict[Resource, Node] = {}
 
-        for node in patched_nodes:
+        for node in nodes:
             for ip in node.inputs:
                 # Add this point we have converted all view inputs to their
                 # sentinel IO, so it's safe to cast input to AnyIO.
@@ -115,7 +96,7 @@ class NodeResourceGraph(Graph[Resource | Node]):
                 if resource not in edges:
                     edges[resource] = []
 
-        return cls(edges=edges, nodes=set(patched_nodes), resources=resources)
+        return cls(edges=edges, nodes=set(nodes), resources=resources)
 
 
 @dataclass(frozen=True)
@@ -123,12 +104,8 @@ class NodeGraph(Graph[Node]):
     edges: dict[Node, list[Node]]
 
     @classmethod
-    def from_nodes(
-        cls,
-        nodes: list[Node],
-        patches: dict[AnyIO | View, AnyIO] | None = None,
-    ) -> Self:
-        return cls.from_graph(NodeResourceGraph.from_nodes(nodes, patches))
+    def from_nodes(cls, nodes: Sequence[Node]) -> Self:
+        return cls.from_graph(NodeResourceGraph.from_nodes(nodes))
 
     @classmethod
     def from_graph(cls, base: NodeResourceGraph) -> Self:
@@ -178,12 +155,8 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
     nodes: set[Node]
 
     @classmethod
-    def from_nodes(
-        cls,
-        nodes: list[Node],
-        patches: dict[AnyIO | View, AnyIO] | None = None,
-    ) -> Self:
-        return cls.from_graph(NodeGraph.from_nodes(nodes, patches))
+    def from_nodes(cls, nodes: Sequence[Node]) -> Self:
+        return cls.from_graph(NodeGraph.from_nodes(nodes))
 
     @classmethod
     def from_graph(cls, base: NodeGraph) -> Self:

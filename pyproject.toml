@@ -237,7 +237,7 @@ split-on-trailing-comma = false
 # Rules not applicable for private examples
 "packages/ordeq-test-examples/*" = ["D103", "INP001"]
 # Rules not applicable for framework extensions
-"packages/ordeq-viz/src/ordeq_viz/graph.py" = ["PLC2701"]
+"packages/ordeq-viz/src/ordeq_viz/*" = ["PLC2701"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

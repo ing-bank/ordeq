@@ -24,39 +24,34 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 
 ```
 
-## Output
+## Exception
 
 ```text
-graph TB
-	subgraph legend["Legend"]
-		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "Input"}
-		L01@{shape: rect, label: "Output"}
-		L02@{shape: rect, label: "StringBuffer"}
-	end
+TypeError: All vizzables must be modules or references to modules.
+  File "/packages/ordeq-viz/src/ordeq_viz/api.py", line LINO, in viz
+    raise TypeError(
+        "All vizzables must be modules or references to modules."
+    )
 
-	IO0 --> example_1.nodes:world
-	example_1.nodes:world --> IO1
-	IO2 --> example_2.nodes:transform_input_2
-	example_2.nodes:transform_input_2 --> IO3
+  File "/packages/ordeq-viz/tests/resources/api/mermaid_callables.py", line LINO, in <module>
+    viz(
+    ~~~^
+        example_1.nodes.world,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        output=output_file,
+        ^^^^^^^^^^^^^^^^^^^
+    )
+    ^
 
-	example_1.nodes:world@{shape: rounded, label: "world"}
-	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
-	IO0@{shape: rect, label: "x"}
-	IO1@{shape: rect, label: "y"}
-	IO2@{shape: rect, label: "TestInput2"}
-	IO3@{shape: rect, label: "TestOutput2"}
+  File "<frozen runpy>", line LINO, in _run_code
 
-	class L0,example_1.nodes:world,example_2.nodes:transform_input_2 node
-	class L00,IO2 io0
-	class L01,IO3 io1
-	class L02,IO0,IO1 io2
-	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef io0 fill:#66c2a5
-	classDef io1 fill:#fc8d62
-	classDef io2 fill:#8da0cb
+  File "<frozen runpy>", line LINO, in _run_module_code
 
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```

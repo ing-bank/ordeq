@@ -1,19 +1,20 @@
 from pathlib import Path
-from typing import Any, Literal, overload
+from types import ModuleType
+from typing import Any, Literal, TypeAlias, overload
 
-from ordeq._resolve import (
-    _resolve_runnables_to_nodes_and_ios,  # noqa: PLC2701 (private-member-access)
-)
-from ordeq._runner import Runnable
+from ordeq._fqn import ModuleRef
+from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 
 from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
 from ordeq_viz.to_mermaid_md import pipeline_to_mermaid_md
 
+Vizzable: TypeAlias = ModuleRef | ModuleType
+
 
 @overload
 def viz(
-    *runnables: Runnable,
+    *vizzables: Vizzable,
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path,
     **options: Any,
@@ -22,7 +23,7 @@ def viz(
 
 @overload
 def viz(
-    *runnables: Runnable,
+    *vizzables: Vizzable,
     fmt: Literal["mermaid", "mermaid-md"],
     output: None = None,
     **options: Any,
@@ -30,7 +31,7 @@ def viz(
 
 
 def viz(
-    *runnables: Runnable,
+    *vizzables: Vizzable,
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path | None = None,
     **options: Any,
@@ -38,8 +39,7 @@ def viz(
     """Visualize the pipeline from the provided packages, modules, or nodes
 
     Args:
-        runnables: Package names, modules, or node callables from which to
-            gather nodes from.
+        vizzables: modules or references to modules to visualize.
         fmt: Format of the output visualization, ("kedro-viz" or "mermaid").
         output: output file or directory where the viz will be saved.
         options: Additional options for the visualization functions.
@@ -49,10 +49,17 @@ def viz(
         diagram as a string. Otherwise, returns None.
 
     Raises:
+        TypeError: If any of the `vizzables` are not modules or module
+            references.
         ValueError: If `fmt` is 'kedro-viz' and `output` is not provided.
     """
 
-    nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
+    if not all(isinstance(v, (ModuleType, str)) for v in vizzables):
+        raise TypeError(
+            "All vizzables must be modules or references to modules."
+        )
+
+    nodes, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
 
     match fmt:
         case "kedro-viz":

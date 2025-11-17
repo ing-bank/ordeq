@@ -222,14 +222,24 @@ class _IOMeta(type):
     """Metaclass that handles Input and Output logic."""
 
     def __new__(cls, name, bases, class_dict):
-        # Check if this class inherits from Input
+        # Check if this class inherits from Input (considering MRO)
         has_input_base = any(
-            base.__name__ in {"Input", "IO"} for base in bases
+            base.__name__ in {"Input", "IO"}
+            or any(
+                ancestor.__name__ in {"Input", "IO"}
+                for ancestor in getattr(base, "__mro__", [])
+            )
+            for base in bases
         )
 
-        # Check if this class inherits from Output
+        # Check if this class inherits from Output (considering MRO)
         has_output_base = any(
-            base.__name__ in {"Output", "IO"} for base in bases
+            base.__name__ in {"Output", "IO"}
+            or any(
+                ancestor.__name__ in {"Output", "IO"}
+                for ancestor in getattr(base, "__mro__", [])
+            )
+            for base in bases
         )
 
         # Apply input metaclass logic if needed

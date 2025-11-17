@@ -87,7 +87,9 @@ def _gather_graph(
         metadata for ios (IOData)
     """
 
-    node_graph = NodeGraph.from_nodes(nodes)
+    all_nodes = _collect_views(*nodes)
+    patched_nodes = _patch_view_inputs(*all_nodes)
+    node_graph = NodeGraph.from_nodes(patched_nodes)
     graph = NodeIOGraph.from_graph(node_graph)
 
     reverse_lookup: dict[IOIdentity, str] = {

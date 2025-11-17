@@ -3,17 +3,15 @@ from pprint import pprint
 
 import example_project
 from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
-from ordeq._patch import _patch_view_inputs
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 nodes = _resolve_runnables_to_nodes(example_project)
-all_nodes = _collect_views(*nodes)
-patched_nodes = _patch_view_inputs(*all_nodes)
-base_graph = NodeIOGraph.from_nodes(patched_nodes)
+nodes_and_views = _collect_views(*nodes)
+base_graph = NodeIOGraph.from_nodes(nodes_and_views)
 print("NodeIOGraph")
 print(base_graph)
 
-node_graph = NodeGraph.from_nodes(patched_nodes)
+node_graph = NodeGraph.from_nodes(nodes_and_views)
 print("NodeGraph")
 print(node_graph)
 

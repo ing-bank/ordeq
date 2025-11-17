@@ -602,6 +602,9 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
 # Type aliases
 AnyIO: TypeAlias = Input | Output | IO
+AnyInput: TypeAlias = Input | IO
+AnyOutput: TypeAlias = Output | IO
+
 # Type alias for IO identity retrieved using id(). This is used to uniquely
 # identify IO instances. We cannot rely on the __eq__ and __hash__ of IO
 # objects, as they may be overridden by the user.

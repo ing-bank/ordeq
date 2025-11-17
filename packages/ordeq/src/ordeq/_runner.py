@@ -9,7 +9,7 @@ from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
-from ordeq._patch import _patch_nodes, _patch_view_inputs
+from ordeq._patch import _patch_nodes
 from ordeq._resolve import _resolve_refs_to_hooks, _resolve_runnables_to_nodes
 from ordeq._substitute import (
     _resolve_refs_to_subs,
@@ -196,9 +196,8 @@ def run(
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
-    all_nodes = _collect_views(*nodes)
-    patched_nodes = _patch_view_inputs(*all_nodes)
-    graph = NodeGraph.from_nodes(patched_nodes)
+    nodes_and_views = _collect_views(*nodes)
+    graph = NodeGraph.from_nodes(nodes_and_views)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
     if save in {"none", "sinks"}:
@@ -216,7 +215,7 @@ def run(
     user_patches = _substitutes_modules_to_ios(io_subs)
     patches = {**user_patches, **save_mode_patches}
     if patches:
-        patched_nodes = _patch_nodes(*patched_nodes, patches=patches)
+        patched_nodes = _patch_nodes(*nodes_and_views, patches=patches)
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:

@@ -49,14 +49,14 @@ def replace_object_hashes(text: str) -> str:
     return _replace_pattern_with_seq(text, r"0x[0-9a-fA-F]+", "HASH")
 
 
-def replace_uuid4(text: str) -> str:
-    """Replace UUID4 strings in the text with sequential placeholders.
+def replace_object_id(text: str) -> str:
+    """Replace object IDs in the text with sequential placeholders.
 
     Args:
         text: The input string to process.
 
     Returns:
-        The text with UUID4 strings replaced by ID1, ID2, etc.
+        The text with IDs replaced by ID1, ID2, etc.
     """
     return _replace_pattern_with_seq(text, r"id=\d+", "id=ID")
 
@@ -93,7 +93,7 @@ def make_output_invariant(output: str) -> str:
         The normalized output string.
     """
     # Normalize object hashes
-    captured = replace_uuid4(replace_object_hashes(output))
+    captured = replace_object_id(replace_object_hashes(output))
 
     # Normalize platform-specific paths
 

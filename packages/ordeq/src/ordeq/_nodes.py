@@ -8,7 +8,7 @@ from functools import wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
-from ordeq._io import IO, AnyInput, AnyIO, AnyOutput, Input, Output
+from ordeq._io import IO, AnyIO, Input, Output
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -38,8 +38,8 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
     name: str
-    inputs: tuple[AnyInput, ...]
-    outputs: tuple[AnyOutput, ...]
+    inputs: tuple[Input, ...]
+    outputs: tuple[Output, ...]
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
 

@@ -18,8 +18,12 @@ _ = ExampleStaticIO()
 
 ```text
 ValueError: Save method cannot be static.
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in _process_output_meta
     raise ValueError("Save method cannot be static.")
+
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
+    class_dict, bases = _process_output_meta(name, bases, class_dict)
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/io/io_static_save.py", line LINO, in <module>
     class ExampleStaticIO(Output[str]):

@@ -18,8 +18,12 @@ _ = ExampleInputNoLoad()
 
 ```text
 TypeError: Can't instantiate abstract class ExampleInputNoLoad with abstract method load
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in _process_input_meta
     raise TypeError(msg)
+
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
+    class_dict, bases = _process_input_meta(name, bases, class_dict)
+                        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/io/input_without_load.py", line LINO, in <module>
     class ExampleInputNoLoad(Input): ...

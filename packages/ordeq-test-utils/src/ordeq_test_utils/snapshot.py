@@ -58,11 +58,7 @@ def replace_uuid4(text: str) -> str:
     Returns:
         The text with UUID4 strings replaced by ID1, ID2, etc.
     """
-    return _replace_pattern_with_seq(
-        text,
-        r"[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
-        "ID",
-    )
+    return _replace_pattern_with_seq(text, r"id=\d+", "id=ID")
 
 
 def run_module(file_path: Path) -> str | None:

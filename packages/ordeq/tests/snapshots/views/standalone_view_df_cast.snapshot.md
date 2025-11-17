@@ -63,6 +63,6 @@ INFO	ordeq.io	Loading Literal(     A  B    C    D
 2  foo  3  two  8.0)
 INFO	ordeq.runner	Running view "cast" in module "__main__"
 INFO	ordeq.runner	Running node "group_by" in module "__main__"
-INFO	ordeq.io	Saving Output(idx=ID1)
+INFO	ordeq.io	Saving Output(id=ID1)
 
 ```

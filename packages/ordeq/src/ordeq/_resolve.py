@@ -18,7 +18,7 @@ from ordeq._fqn import (
     object_ref_to_fqn,
 )
 from ordeq._hook import NodeHook, RunHook, RunnerHook
-from ordeq._io import IO, AnyIO, Input, Output
+from ordeq._io import IO, AnyIO, Input, IOIdentity, Output
 from ordeq._nodes import Node, View, get_node
 
 if TYPE_CHECKING:
@@ -186,32 +186,20 @@ def _resolve_refs_to_modules(
     return _resolve_packages_to_modules(*modules)
 
 
-class InternalIO:
-    io: AnyIO
-
-    def __init__(self, io: AnyIO):
-        self.io = io
-
-    def __eq__(self, other):
-        return hash(self) == hash(other)
-
-    def __hash__(self) -> int:
-        return hash(self.io._idx)  # noqa: SLF001 (private-member)
-
-
 def _resolve_module_to_ios(module: ModuleType) -> dict[str, AnyIO]:
-    ios: dict[InternalIO, str] = {}
+    ios: dict[IOIdentity, tuple[AnyIO, str]] = {}
     for name, obj in vars(module).items():
         if _is_io(obj):
-            io = InternalIO(obj)
+            io_id = id(obj)
             # TODO: Should also resolve to IO sequence
-            if io in ios:
+            if io_id in ios:
+                alias = ios[io_id][1]
                 raise ValueError(
                     f"Module '{module.__name__}' contains duplicate keys "
-                    f"for the same IO ('{name}' and '{ios[io]}')"
+                    f"for the same IO ('{name}' and '{alias}')"
                 )
-            ios[io] = name
-    return {name: internal_io.io for internal_io, name in ios.items()}
+            ios[io_id] = (obj, name)
+    return {name: io for io, name in ios.values()}
 
 
 def _resolve_package_to_ios(package: ModuleType) -> Catalog:

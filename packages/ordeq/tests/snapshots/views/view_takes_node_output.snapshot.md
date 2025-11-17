@@ -35,7 +35,7 @@ run(sink, verbose=True)
 ## Exception
 
 ```text
-IOException: Failed to load IO(idx=ID1).
+IOException: Failed to load IO(id=ID1).
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
     raise IOException(msg) from exc
@@ -162,6 +162,6 @@ INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running node "hello_from_someone" in module "__main__"
 INFO	ordeq.runner	Running view "what_i_heard" in module "__main__"
 INFO	ordeq.runner	Running view "sink" in module "__main__"
-INFO	ordeq.io	Loading IO(idx=ID1)
+INFO	ordeq.io	Loading IO(id=ID1)
 
 ```

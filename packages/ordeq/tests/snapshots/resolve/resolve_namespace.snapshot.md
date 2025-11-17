@@ -13,10 +13,9 @@ pprint(_resolve_module_globals(example_namespace.namespace))
 ## Output
 
 ```text
-{'B': IO(idx=ID1),
- 'a': IO(idx=ID1),
- 'ios': [IO(idx=ID1),
-         IO(idx=ID1)],
+{'B': IO(id=ID1),
+ 'a': IO(id=ID1),
+ 'ios': [IO(id=ID1), IO(id=ID1)],
  'node_with_inline_io': <function node_with_inline_io at HASH1>,
  'node_with_list_input': <function node_with_list_input at HASH2>,
  'node_with_node_input': <function node_with_node_input at HASH3>,

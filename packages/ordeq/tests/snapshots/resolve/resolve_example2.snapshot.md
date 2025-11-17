@@ -28,10 +28,10 @@ pprint(sorted(node.name for node in _resolve_runnables_to_nodes(*runnables)))
 ```text
 ['example_2', 'example_2.catalog', 'example_2.nodes']
 ['example_2.nodes:transform_input_2']
-{'example_2.catalog': {'TestInput2': Input(idx=ID1),
-                       'TestOutput2': Output(idx=ID2)},
- 'example_2.nodes': {'TestInput2': Input(idx=ID1),
-                     'TestOutput2': Output(idx=ID2)}}
+{'example_2.catalog': {'TestInput2': Input(id=ID1),
+                       'TestOutput2': Output(id=ID2)},
+ 'example_2.nodes': {'TestInput2': Input(id=ID1),
+                     'TestOutput2': Output(id=ID2)}}
 ['example_2.nodes:transform_input_2']
 
 ```

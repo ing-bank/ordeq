@@ -3,9 +3,9 @@ from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
 from itertools import chain
-from typing import Annotated, Generic, TypeAlias, TypeVar, cast
+from typing import Generic, TypeVar, cast
 
-from ordeq._io import IO, AnyIO, Input
+from ordeq._io import IO, AnyIO, Input, IOIdentity
 from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
 from ordeq._resource import Resource
@@ -171,14 +171,8 @@ class NodeGraph(Graph[Node]):
         return "\n".join(lines)
 
 
-IOIdentity: TypeAlias = Annotated[int, "Identity of an IO object"]
-
-
 @dataclass(frozen=True)
 class NodeIOGraph(Graph[IOIdentity | Node]):
-    # We cannot rely on the __hash__ and __eq__ of IO objects, as they may be
-    # overridden by the user. Therefore, this graph maps IO identity (using
-    # id()) to the IO object.
     edges: dict[IOIdentity | Node, list[IOIdentity | Node]]
     ios: dict[IOIdentity, AnyIO]
     nodes: set[Node]

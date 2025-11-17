@@ -111,6 +111,9 @@ class _InputMeta(type):
                 )
                 raise TypeError(msg)
 
+            if isinstance(load_method, staticmethod):
+                raise ValueError("Load method cannot be static.")
+
             # Ensure all arguments (except self/cls) have default values
             sig = inspect.signature(load_method)
             for argument, param in sig.parameters.items():
@@ -386,6 +389,9 @@ class _OutputMeta(type):
                     "with abstract method save"
                 )
                 raise TypeError(msg)
+
+            if isinstance(save_method, staticmethod):
+                raise ValueError("Save method cannot be static.")
 
             sig = inspect.signature(save_method)
             if len(sig.parameters) < 2:

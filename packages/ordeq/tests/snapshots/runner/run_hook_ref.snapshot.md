@@ -28,9 +28,9 @@ INFO	ordeq.io	Saving NamePrinter()
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node "world" in module "example_1.nodes"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading Input(idx=ID1)
+INFO	ordeq.io	Loading Input(id=ID1)
 INFO	ordeq.runner	Running node "transform_input" in module "example_1.pipeline"
-INFO	ordeq.io	Saving Output(idx=ID2)
+INFO	ordeq.io	Saving Output(id=ID2)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.runner	Running node "transform_mock_input" in module "example_1.pipeline"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)

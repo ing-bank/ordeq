@@ -14,6 +14,6 @@ print(_substitutes_modules_to_ios({buffer: IO()}))
 ## Output
 
 ```text
-{BytesBuffer(_buffer=<_io.BytesIO object at HASH1>): IO(idx=ID1)}
+{BytesBuffer(_buffer=<_io.BytesIO object at HASH1>): IO(id=ID1)}
 
 ```

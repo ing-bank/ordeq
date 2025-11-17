@@ -16,7 +16,6 @@ pprint(ios)
 ## Output
 
 ```text
-{'x': IO(idx=ID1),
- 'y': IO(idx=ID2)}
+{'x': IO(id=ID1), 'y': IO(id=ID2)}
 
 ```

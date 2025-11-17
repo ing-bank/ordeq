@@ -10,7 +10,7 @@ IO().load()
 ## Exception
 
 ```text
-IOException: Failed to load IO(idx=ID1).
+IOException: Failed to load IO(id=ID1).
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
     raise IOException(msg) from exc
@@ -100,6 +100,6 @@ IOException: Failed to load IO(idx=ID1).
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading IO(idx=ID1)
+INFO	ordeq.io	Loading IO(id=ID1)
 
 ```

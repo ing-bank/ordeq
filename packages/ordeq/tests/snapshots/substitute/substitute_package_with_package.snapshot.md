@@ -52,6 +52,6 @@ CatalogError: Catalog 'example_catalogs.package_inconsistent' is missing IO(s) '
 ## Output
 
 ```text
-{Literal('ohSoSecret!@#'): Literal('ohSoSecret!@#'), IO(idx=ID1): IO(idx=ID2), IO(idx=ID3): StringBuffer(_buffer=<_io.StringIO object at HASH1>), IO(idx=ID4): IO(idx=ID5), JSON(path=Path('predictions-base.json')): JSON(path=Path('predictions-overlay.json')), IO(idx=ID6): IO(idx=ID7), IO(idx=ID8): IO(idx=ID9)}
+{Literal('ohSoSecret!@#'): Literal('ohSoSecret!@#'), IO(id=ID1): IO(id=ID2), IO(id=ID3): StringBuffer(_buffer=<_io.StringIO object at HASH1>), IO(id=ID4): IO(id=ID5), JSON(path=Path('predictions-base.json')): JSON(path=Path('predictions-overlay.json')), IO(id=ID6): IO(id=ID7), IO(id=ID8): IO(id=ID9)}
 
 ```

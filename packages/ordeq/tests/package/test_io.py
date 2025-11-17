@@ -9,22 +9,22 @@ def test_standalone_input():
     with pytest.raises(IOException):
         i.load()
 
-    assert repr(i) == f"Input(idx={i._idx})"
+    assert repr(i) == f"Input(id={id(i)})"
     assert i != j
     assert i == i  # noqa: PLR0124
     assert j == j  # noqa: PLR0124
-    assert i._idx != j._idx
+    assert i is not j
 
 
 def test_standalone_output():
     k, x = Output(), Output()
     k.save("test")  # does nothing
 
-    assert repr(k) == f"Output(idx={k._idx})"
+    assert repr(k) == f"Output(id={id(k)})"
     assert k != x
     assert k == k  # noqa: PLR0124
     assert x == x  # noqa: PLR0124
-    assert k._idx != x._idx
+    assert k is not x
 
 
 def test_standalone_io():
@@ -33,11 +33,11 @@ def test_standalone_io():
         y.load()
     y.save("test")  # does nothing
 
-    assert repr(y) == f"IO(idx={y._idx})"
+    assert repr(y) == f"IO(id={id(y)})"
     assert y != z
     assert y == y  # noqa: PLR0124
     assert z == z  # noqa: PLR0124
-    assert y._idx != z._idx
+    assert y is not z
 
 
 @dataclass(frozen=True)

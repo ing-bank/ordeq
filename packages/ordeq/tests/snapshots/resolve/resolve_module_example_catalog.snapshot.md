@@ -15,8 +15,8 @@ pprint(ios)
 
 ```text
 {'Hello': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
- 'TestInput': Input(idx=ID1),
- 'TestOutput': Output(idx=ID2),
+ 'TestInput': Input(id=ID1),
+ 'TestOutput': Output(id=ID2),
  'World': StringBuffer(_buffer=<_io.StringIO object at HASH2>)}
 
 ```

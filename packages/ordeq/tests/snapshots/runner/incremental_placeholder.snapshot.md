@@ -27,7 +27,7 @@ run(f, g, verbose=True)  # raises NotImplementedError
 ## Exception
 
 ```text
-IOException: Failed to load Input(idx=ID1).
+IOException: Failed to load Input(id=ID1).
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
     raise IOException(msg) from exc
@@ -128,6 +128,6 @@ Node:__main__:g --> io-3
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Input(idx=ID1)
+INFO	ordeq.io	Loading Input(id=ID1)
 
 ```

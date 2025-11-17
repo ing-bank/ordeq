@@ -68,7 +68,7 @@ ValueError: Intentional failure for testing.
 ## Output
 
 ```text
-[('before_node_run', Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)])), ('after_node_run', Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]))]
+[('before_node_run', Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)])), ('after_node_run', Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]))]
 
 ```
 

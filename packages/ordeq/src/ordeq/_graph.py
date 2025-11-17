@@ -6,7 +6,7 @@ from graphlib import TopologicalSorter
 from itertools import chain
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import IO, AnyIO, Input, IOIdentity
+from ordeq._io import AnyInput, AnyIO, IOIdentity
 from ordeq._nodes import Node
 from ordeq._resource import Resource
 
@@ -169,7 +169,7 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
             nodes.add(node)
             for input_ in node.inputs:
                 input_id = id(input_)
-                ios[input_id] = cast("Input | IO", input_)
+                ios[input_id] = cast("AnyInput", input_)
                 edges[input_id].append(node)
             for output in node.outputs:
                 output_id = id(output)

@@ -140,10 +140,7 @@ class ProjectModel(BaseModel):
                     # same module as node
                     fqn = f"{mod}:<anonymous{idx}>"
                     ios_to_id[obj].append(f"{mod}:<anonymous{idx}>")  # type: ignore[index]
-                    model = IOModel.from_io((
-                        (mod, f"<anonymous{idx}>"),
-                        obj if not isinstance(obj, View) else obj.outputs[0],
-                    ))  # type: ignore[arg-type]
+                    model = IOModel.from_io(((mod, f"<anonymous{idx}>"), obj))  # type: ignore[arg-type]
                     io_models[fqn] = model
                     idx += 1
 

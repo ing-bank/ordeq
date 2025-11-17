@@ -36,8 +36,8 @@ ValueError: Node inputs invalid for function arguments: Node(name=__main__:func,
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     return Node(
         func=func,
-    ...<3 lines>...
-        attributes={} if attributes is None else attributes,
+    ...<4 lines>...
+        views=tuple(views),
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped

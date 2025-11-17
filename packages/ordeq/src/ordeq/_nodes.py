@@ -4,11 +4,11 @@ import importlib
 import logging
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
-from functools import cached_property, wraps
+from functools import wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
-from ordeq._io import IO, AnyIO, Input, Output
+from ordeq._io import IO, AnyInput, AnyIO, AnyOutput, Input, Output
 
 logger = logging.getLogger("ordeq.nodes")
 
@@ -38,9 +38,10 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
     name: str
-    inputs: tuple[Input | View, ...]
-    outputs: tuple[Output, ...]
+    inputs: tuple[AnyInput, ...]
+    outputs: tuple[AnyOutput, ...]
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
+    views: tuple[View, ...] = ()
 
     def __post_init__(self):
         """Nodes always have to be hashable"""
@@ -51,13 +52,6 @@ class Node(Generic[FuncParams, FuncReturns]):
         _raise_if_not_hashable(self)
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
-
-    @cached_property
-    def views(self) -> tuple[View, ...]:
-        """Returns the views used as input to this node."""
-        return tuple(
-            input_ for input_ in self.inputs if isinstance(input_, View)
-        )
 
     def _patch_io(
         self, io: dict[AnyIO | View, AnyIO]
@@ -203,6 +197,8 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
 
 @dataclass(frozen=True, kw_only=True)
 class View(Node[FuncParams, FuncReturns]):
+    outputs: tuple[IO, ...] = ()
+
     def __post_init__(self):
         self.validate()
 
@@ -309,7 +305,8 @@ def create_node(
     resolved_name = (
         name if name is not None else infer_node_name_from_func(func)
     )
-    inputs_: list[Input | View] = []
+    inputs_: list[Input] = []
+    views: list[View] = []
     for input_ in _sequence_to_tuple(inputs):
         if callable(input_):
             if not _is_node(input_):
@@ -321,7 +318,8 @@ def create_node(
                 raise ValueError(
                     f"Input '{input_}' to node '{resolved_name}' is not a view"
                 )
-            inputs_.append(view)
+            views.append(view)
+            inputs_.append(view.outputs[0])
         else:
             inputs_.append(cast("Input", input_))
 
@@ -338,6 +336,7 @@ def create_node(
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
             attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
+            views=tuple(views),  # type: ignore[arg-type]
         )
     return Node(
         func=func,
@@ -345,6 +344,7 @@ def create_node(
         inputs=tuple(inputs_),
         outputs=_sequence_to_tuple(outputs),
         attributes={} if attributes is None else attributes,
+        views=tuple(views),
     )
 
 

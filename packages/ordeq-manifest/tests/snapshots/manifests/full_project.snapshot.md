@@ -221,11 +221,6 @@ print(create_manifest_json(example_project))
       "type": "ordeq._io:IO",
       "references": []
     },
-    "example_project.nodes_with_view:<anonymous3>": {
-      "name": "<anonymous3>",
-      "type": "ordeq._io:IO",
-      "references": []
-    },
     "example_project.nodes_with_view:greeting": {
       "name": "greeting",
       "type": "ordeq_common.io.literal:Literal",

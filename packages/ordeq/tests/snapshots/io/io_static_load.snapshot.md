@@ -1,13 +1,13 @@
 ## Resource
 
 ```python
-from ordeq import Output
+from ordeq import Input
 
 
-class ExampleStaticIO(Output[str]):
+class ExampleStaticIO(Input[str]):
     @staticmethod
-    def save(data: str) -> None:
-        print(data)
+    def load() -> None:
+        print("Hello!")
 
 
 _ = ExampleStaticIO()
@@ -17,14 +17,14 @@ _ = ExampleStaticIO()
 ## Exception
 
 ```text
-ValueError: Save method cannot be static.
+ValueError: Load method cannot be static.
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
-    raise ValueError("Save method cannot be static.")
+    raise ValueError("Load method cannot be static.")
 
   File "/packages/ordeq/tests/resources/io/io_static_load.py", line LINO, in <module>
-    class ExampleStaticIO(Output[str]):
+    class ExampleStaticIO(Input[str]):
     ...<2 lines>...
-            print(data)
+            print("Hello!")
 
   File "<frozen runpy>", line LINO, in _run_code
 

@@ -1,10 +1,10 @@
-from ordeq import Input
+from ordeq import Output
 
 
-class ExampleStaticIO(Input[str]):
+class ExampleStaticIO(Output[str]):
     @staticmethod
-    def load() -> None:
-        print("Hello!")
+    def save(data: str) -> None:
+        print(data)
 
 
 _ = ExampleStaticIO()

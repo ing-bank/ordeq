@@ -47,7 +47,7 @@ saving! ...
 ## Logging
 
 ```text
-INFO	ordeq.io	Saving Output(idx=ID1)
+INFO	ordeq.io	Saving Output(id=ID1)
 
 ```
 

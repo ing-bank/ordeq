@@ -17,7 +17,7 @@ mock.load()
 ## Exception
 
 ```text
-IOException: Failed to load Input(idx=ID1).
+IOException: Failed to load Input(id=ID1).
 Some load exception
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
     raise IOException(msg) from exc
@@ -107,6 +107,6 @@ Some load exception
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Input(idx=ID1)
+INFO	ordeq.io	Loading Input(id=ID1)
 
 ```

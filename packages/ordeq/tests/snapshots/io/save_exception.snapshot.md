@@ -17,7 +17,7 @@ mock.save(None)
 ## Exception
 
 ```text
-IOException: Failed to save Output(idx=ID1).
+IOException: Failed to save Output(id=ID1).
 Some save exception
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
     raise IOException(msg) from exc
@@ -101,6 +101,6 @@ Some save exception
 ## Logging
 
 ```text
-INFO	ordeq.io	Saving Output(idx=ID1)
+INFO	ordeq.io	Saving Output(id=ID1)
 
 ```

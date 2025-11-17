@@ -155,8 +155,7 @@ For more information on the available load and save options, refer to the docume
 
 ### Attributes
 
-Often it can be useful to annotate IOs with additional metadata.
-This metadata is stored as _attributes_ on the IO instance.
+Often it can be useful to annotate IOs with additional attributes.
 Examples of useful attributes include:
 
 - the description (e.g., "Sales data by month")
@@ -179,6 +178,7 @@ sales = CSV(path=Path("sales.csv")).with_attributes(
 )
 ```
 
+Attributes are stored on the IO instance.
 Framework extensions like `ordeq-viz` can leverage these attributes to provide additional functionality.
 
 !!! success "Where to go from here?"

@@ -5,8 +5,9 @@ from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import fqn_to_object_ref
-from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph
+from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph, _collect_views
 from ordeq._io import AnyIO
+from ordeq._patch import _patch_view_inputs
 from ordeq._resolve import Catalog
 
 

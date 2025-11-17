@@ -71,10 +71,10 @@ ValueError: Intentional failure for testing.
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:fail'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-CRITICAL	custom_logger	Called 'before_node_run' with args: (Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]),)
+CRITICAL	custom_logger	Called 'before_node_run' with args: (Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
 INFO	ordeq.io	Loading Literal('name')
 INFO	ordeq.runner	Running node "hello" in module "__main__"
-CRITICAL	custom_logger	Called 'after_node_run' with args: (Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(idx=ID1)]),)
+CRITICAL	custom_logger	Called 'after_node_run' with args: (Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
 CRITICAL	custom_logger	Called 'before_node_run' with args: (View(name=__main__:fail),)
 INFO	ordeq.runner	Running view "fail" in module "__main__"
 CRITICAL	custom_logger	Called 'on_node_call_error' with args: (View(name=__main__:fail), ValueError('Intentional failure for testing.'))

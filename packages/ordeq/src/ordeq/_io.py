@@ -240,6 +240,15 @@ class _InputException(_BaseInput[Tin]):
             raise IOException(msg) from exc
 
 
+class _WithAttributes:
+    _attributes: dict[str, Any] | None = None
+
+    def with_attributes(self, **attributes) -> Self:
+        new_instance = copy(self)
+        new_instance.__dict__["_attributes"] = attributes
+        return new_instance
+
+
 class _WithResource:
     _resource_: Hashable = None
 
@@ -269,6 +278,7 @@ class Input(
     _InputCache[Tin],
     _InputException[Tin],
     _WithResource,
+    _WithAttributes,
     Generic[Tin],
     metaclass=_InputMeta,
 ):
@@ -502,6 +512,7 @@ class Output(
     _OutputReferences[Tout],
     _OutputException[Tout],
     _WithResource,
+    _WithAttributes,
     Generic[Tout],
     metaclass=_OutputMeta,
 ):

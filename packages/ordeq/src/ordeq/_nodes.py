@@ -490,7 +490,11 @@ def node(
                 return f(*args, **kwargs)
 
             inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                inner, inputs=inputs, outputs=outputs, checks=checks, attributes=attributes
+                inner,
+                inputs=inputs,
+                outputs=outputs,
+                checks=checks,
+                attributes=attributes,
             )
             return inner
 
@@ -504,6 +508,10 @@ def node(
         return func(*args, **kwargs)
 
     wrapper.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-        wrapper, inputs=inputs, outputs=outputs, attributes=attributes
+        wrapper,
+        inputs=inputs,
+        outputs=outputs,
+        checks=checks,
+        attributes=attributes,
     )
     return wrapper

@@ -7,7 +7,7 @@ from itertools import chain
 from typing import Generic, TypeVar, cast
 
 from ordeq._io import AnyIO, IOIdentity
-from ordeq._nodes import Node
+from ordeq._nodes import Node, View
 from ordeq._resource import Resource
 
 try:
@@ -71,7 +71,13 @@ class NodeResourceGraph(Graph[Resource | Node]):
         checks: dict[Resource, list[Resource]] = defaultdict(list)
         for node in nodes:
             for check in node.checks:
-                resource = Resource(check._resource)  # noqa: SLF001 (private-member-access)
+                if isinstance(check, View):
+                    resource = Resource(check.outputs[0]._resource)  # noqa: SLF001 (private-member-access)
+                elif isinstance(check, AnyIO):
+                    resource = Resource(check._resource)  # noqa: SLF001 (private-member-access)
+                else:
+                    resource = Resource(check)
+
                 for output in node.outputs:
                     checks[resource].append(Resource(output._resource))  # noqa: SLF001 (private-member-access)
 

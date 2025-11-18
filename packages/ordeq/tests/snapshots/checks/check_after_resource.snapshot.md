@@ -35,38 +35,43 @@ if __name__ == "__main__":
 ## Output
 
 ```text
-AttributeError: 'Path' object has no attribute '_resource'
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    resource = Resource(check._resource)  # noqa: SLF001 (private-member-access)
-                        ^^^^^^^^^^^^^^^
+graph TB
+	subgraph legend["Legend"]
+		direction TB
+		L0@{shape: rounded, label: "Node"}
+		L2@{shape: subroutine, label: "View"}
+		L00@{shape: rect, label: "PandasCSV"}
+		L01@{shape: rect, label: "PolarsEagerCSV"}
+	end
 
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    return cls.from_graph(NodeResourceGraph.from_nodes(nodes))
-                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+	IO0 --> __main__:check
+	__main__:produce --> IO1
 
-  File "/packages/ordeq-viz/src/ordeq_viz/graph.py", line LINO, in _gather_graph
-    node_graph = NodeGraph.from_nodes(nodes_and_views)
+	__main__:check@{shape: subroutine, label: "check"}
+	__main__:produce@{shape: rounded, label: "produce"}
+	IO0@{shape: rect, label: "csv_polars"}
+	IO1@{shape: rect, label: "csv_pandas"}
 
-  File "/packages/ordeq-viz/src/ordeq_viz/to_mermaid.py", line LINO, in pipeline_to_mermaid
-    node_modules, io_modules = _gather_graph(nodes, ios)
-                               ~~~~~~~~~~~~~^^^^^^^^^^^^
+	class L0,__main__:produce node
+	class L2,__main__:check view
+	class L00,IO1 io0
+	class L01,IO0 io1
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef view fill:#00C853,color:#FFF
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62
 
-  File "/packages/ordeq-viz/src/ordeq_viz/api.py", line LINO, in viz
-    result = pipeline_to_mermaid(nodes_, ios, **options)
-
-  File "/packages/ordeq/tests/resources/checks/check_after_resource.py", line LINO, in <module>
-    print(viz(__name__, fmt="mermaid"))
-          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "<frozen runpy>", line LINO, in _run_code
-
-  File "<frozen runpy>", line LINO, in _run_module_code
-
-  File "<frozen runpy>", line LINO, in run_path
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    run_path(str(file_path), run_name="__main__")
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+shape: (3, 3)
+┌─────┬───────┬───────┐
+│     ┆ hello ┆ world │
+│ --- ┆ ---   ┆ ---   │
+│ i64 ┆ i64   ┆ str   │
+╞═════╪═══════╪═══════╡
+│ 0   ┆ 1     ┆ A     │
+│ 1   ┆ 2     ┆ B     │
+│ 2   ┆ 3     ┆ C     │
+└─────┴───────┴───────┘
 
 ```
 
@@ -91,5 +96,9 @@ WARNING	ordeq.io	Resources are in preview mode and may change without notice in 
 WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.runner	Running node "produce" in module "__main__"
+INFO	ordeq.io	Saving PandasCSV(path=Path('<TEMP_DIR>/tmp2ydbacni/my.csv'))
+INFO	ordeq.io	Loading PolarsEagerCSV(path=Path('<TEMP_DIR>/tmp2ydbacni/my.csv'))
+INFO	ordeq.runner	Running view "check" in module "__main__"
 
 ```

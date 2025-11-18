@@ -46,28 +46,60 @@ if __name__ == "__main__":
 ## Output
 
 ```text
-AttributeError: 'function' object has no attribute '_resource'
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    resource = Resource(check._resource)  # noqa: SLF001 (private-member-access)
-                        ^^^^^^^^^^^^^^^
+graph TB
+	subgraph legend["Legend"]
+		direction TB
+		L0@{shape: rounded, label: "Node"}
+		L2@{shape: subroutine, label: "View"}
+		L00@{shape: rect, label: "IO"}
+		L01@{shape: rect, label: "Literal"}
+	end
 
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    return cls.from_graph(NodeResourceGraph.from_nodes(nodes))
-                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+	__main__:txs_agg --> __main__:perform_check
+	__main__:txs_agg --> __main__:print_agg
+	IO0 --> __main__:txs_agg
 
-  File "/packages/ordeq-viz/src/ordeq_viz/graph.py", line LINO, in _gather_graph
-    node_graph = NodeGraph.from_nodes(nodes_and_views)
+	__main__:perform_check@{shape: subroutine, label: "perform_check"}
+	__main__:print_agg@{shape: subroutine, label: "print_agg"}
+	__main__:txs_agg@{shape: subroutine, label: "txs_agg"}
+	IO0@{shape: rect, label: "txs"}
 
-  File "/packages/ordeq-viz/src/ordeq_viz/to_mermaid.py", line LINO, in pipeline_to_mermaid
-    node_modules, io_modules = _gather_graph(nodes, ios)
-                               ~~~~~~~~~~~~~^^^^^^^^^^^^
+	class L0 node
+	class L2,__main__:perform_check,__main__:print_agg,__main__:txs_agg view
+	class L00 io0
+	class L01,IO0 io1
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef view fill:#00C853,color:#FFF
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62
 
-  File "/packages/ordeq-viz/src/ordeq_viz/api.py", line LINO, in viz
-    result = pipeline_to_mermaid(nodes_, ios, **options)
+{"amount":{"BE":200,"NL":100,"US":300}}
+AssertionError: Invalid countries found: US
+  File "/packages/ordeq/tests/resources/checks/check_between_saves.py", line LINO, in perform_check
+    assert len(countries) == 0, "Invalid countries found: " + ", ".join(
+           ^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in inner
+    return f(*args, **kwargs)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    values = node.func(*args)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    raise exc
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
+    _run_node(node, hooks=hooks)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    _run_graph(graph, hooks=node_hooks)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/checks/check_between_saves.py", line LINO, in <module>
-    print(viz(__name__, fmt="mermaid"))
-          ~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+    run(__name__)
+    ~~~^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 
@@ -88,5 +120,12 @@ WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__mai
 WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:perform_check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:print_agg'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+INFO	ordeq.io	Loading Literal(   id  amount   to country
+0   1     100   me      NL
+1   2     200   me      BE
+2   3     300  you      US)
+INFO	ordeq.runner	Running view "txs_agg" in module "__main__"
+INFO	ordeq.runner	Running view "print_agg" in module "__main__"
+INFO	ordeq.runner	Running view "perform_check" in module "__main__"
 
 ```

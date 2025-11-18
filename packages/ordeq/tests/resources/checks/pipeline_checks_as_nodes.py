@@ -1,0 +1,54 @@
+from ordeq import node, IO, run
+from ordeq_common import Literal, StringBuffer
+from ordeq_viz import viz
+
+A = Literal("A")
+B = Literal("B")
+Ap = IO()
+Bp = IO()
+AB = StringBuffer()
+
+
+@node(inputs=A, outputs=Ap)
+def process_a(data: str) -> str:
+    return data.lower()
+
+@node(inputs=B, outputs=Bp)
+def process_b(data: str) -> str:
+    return data * 3
+
+@node(inputs=[Ap, Bp], outputs=AB)
+def join(a: str, b: str) -> str:
+    return a + b
+
+@node(inputs=AB)
+def print_result(data: str) -> None:
+    print(data)
+
+# Additional checks
+D = Literal("D")
+
+@node(inputs=[A,D])
+def check_a(a: str, d: str) -> None:
+    assert a != d, "A and D should not be equal"
+
+@node(inputs=[Ap])
+def check_ap(ap: str) -> None:
+    assert ap.islower(), "Ap should be lowercase"
+
+
+@node(inputs=[Bp])
+def check_bp(bp: str) -> None:
+    assert len(bp) == 3 * len("B"), "Bp should be three times the length of B"
+
+@node(inputs=[Ap, Bp])
+def check_join(ap: str, bp: str) -> None:
+    assert len(ap) + len(bp) == 4
+
+@node(inputs=AB)
+def check_ab(ab: str) -> None:
+    assert "a" in ab, "AB should contain 'a'"
+
+if __name__ == "__main__":
+    print(viz(__name__, fmt="mermaid"))
+    run(__name__)

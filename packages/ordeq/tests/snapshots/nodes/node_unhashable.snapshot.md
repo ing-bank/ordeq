@@ -42,15 +42,15 @@ ValueError: Node is not hashable: Node(name=__main__:func, inputs=[Unhashable(da
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     return Node(
         func=func,
-    ...<4 lines>...
+    ...<5 lines>...
         views=tuple(views),
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
     inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
                            ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        inner, inputs=inputs, outputs=outputs, attributes=attributes
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inner, inputs=inputs, outputs=outputs, checks=checks, attributes=attributes
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
 

@@ -40,6 +40,7 @@ class Node(Generic[FuncParams, FuncReturns]):
     name: str
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
+    checks: tuple[AnyIO, ...] = ()
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
 
@@ -282,6 +283,7 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output] | Input | Output | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns] | View[FuncParams, FuncReturns]:
     """Creates a Node instance.
@@ -335,6 +337,7 @@ def create_node(
             name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
+            checks=_sequence_to_tuple(checks),
             attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
             views=tuple(views),  # type: ignore[arg-type]
         )
@@ -343,6 +346,7 @@ def create_node(
         name=resolved_name,
         inputs=tuple(inputs_),
         outputs=_sequence_to_tuple(outputs),
+        checks=_sequence_to_tuple(checks),
         attributes={} if attributes is None else attributes,
         views=tuple(views),
     )
@@ -379,6 +383,7 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output] | Input | Output | None = None,
     **attributes: Any,
 ) -> (
     Callable[
@@ -485,7 +490,7 @@ def node(
                 return f(*args, **kwargs)
 
             inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                inner, inputs=inputs, outputs=outputs, attributes=attributes
+                inner, inputs=inputs, outputs=outputs, checks=checks, attributes=attributes
             )
             return inner
 

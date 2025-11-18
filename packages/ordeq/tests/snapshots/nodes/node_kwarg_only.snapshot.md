@@ -33,15 +33,15 @@ ValueError: Node inputs invalid for function arguments: Node(name=__main__:my_no
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     return View(
         func=func,  # type: ignore[arg-type]
-    ...<4 lines>...
+    ...<5 lines>...
         views=tuple(views),  # type: ignore[arg-type]
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
     inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
                            ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        inner, inputs=inputs, outputs=outputs, attributes=attributes
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inner, inputs=inputs, outputs=outputs, checks=checks, attributes=attributes
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
 

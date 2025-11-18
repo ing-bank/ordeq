@@ -23,9 +23,13 @@ pprint(_resolve_runnables_to_nodes(*runnables))
 
 ```
 
-## Exception
+## Output
 
 ```text
+['example_function_reuse',
+ 'example_function_reuse.catalog',
+ 'example_function_reuse.func_defs',
+ 'example_function_reuse.nodes']
 ValueError: Module 'example_function_reuse.catalog' contains duplicate keys for the same IO ('another_name' and 'A')
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_module_to_ios
     raise ValueError(
@@ -49,15 +53,5 @@ ValueError: Module 'example_function_reuse.catalog' contains duplicate keys for 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-['example_function_reuse',
- 'example_function_reuse.catalog',
- 'example_function_reuse.func_defs',
- 'example_function_reuse.nodes']
 
 ```

@@ -10,9 +10,34 @@ run(mixed_graph)
 
 ```
 
-## Exception
+## Output
 
 ```text
+graph TB
+	subgraph legend["Legend"]
+		direction TB
+		L0@{shape: rounded, label: "Node"}
+		L00@{shape: rect, label: "StringBuffer"}
+	end
+
+	IO0 --> example_async.mixed_graph:process_buffer
+	example_async.mixed_graph:process_buffer --> IO1
+	example_async.mixed_graph:write_buffer_1 --> IO2
+	example_async.mixed_graph:write_buffer_2 --> IO0
+
+	example_async.mixed_graph:process_buffer@{shape: rounded, label: "process_buffer"}
+	example_async.mixed_graph:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
+	example_async.mixed_graph:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
+	IO0@{shape: rect, label: "buffer_2"}
+	IO1@{shape: rect, label: "processed_buffer"}
+	IO2@{shape: rect, label: "buffer_1"}
+
+	class L0,example_async.mixed_graph:process_buffer,example_async.mixed_graph:write_buffer_1,example_async.mixed_graph:write_buffer_2 node
+	class L00,IO0,IO1,IO2 io0
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+
 IOException: Failed to save StringBuffer(_buffer=<_io.StringIO object at HASH1>).
 string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
@@ -115,37 +140,6 @@ string argument expected, got 'coroutine'
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-graph TB
-	subgraph legend["Legend"]
-		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "StringBuffer"}
-	end
-
-	IO0 --> example_async.mixed_graph:process_buffer
-	example_async.mixed_graph:process_buffer --> IO1
-	example_async.mixed_graph:write_buffer_1 --> IO2
-	example_async.mixed_graph:write_buffer_2 --> IO0
-
-	example_async.mixed_graph:process_buffer@{shape: rounded, label: "process_buffer"}
-	example_async.mixed_graph:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
-	example_async.mixed_graph:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
-	IO0@{shape: rect, label: "buffer_2"}
-	IO1@{shape: rect, label: "processed_buffer"}
-	IO2@{shape: rect, label: "buffer_1"}
-
-	class L0,example_async.mixed_graph:process_buffer,example_async.mixed_graph:write_buffer_1,example_async.mixed_graph:write_buffer_2 node
-	class L00,IO0,IO1,IO2 io0
-	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef io0 fill:#66c2a5
-
 
 ```
 

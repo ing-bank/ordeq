@@ -58,9 +58,13 @@ example_input_arg.with_save_options(unknown_kwarg="Hello")  # should error
 
 ```
 
-## Exception
+## Output
 
 ```text
+<class '__main__.ExampleOutputSaveKwarg'>
+<class '__main__.ExampleOutputSaveKwarg'>
+<class '__main__.ExampleOutputSaveArg'>
+<class '__main__.ExampleOutputSaveArg'>
 TypeError: got an unexpected keyword argument 'unknown_kwarg'
   File "/inspect.py", line LINO, in _bind
     raise TypeError(
@@ -88,16 +92,6 @@ TypeError: got an unexpected keyword argument 'unknown_kwarg'
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-<class '__main__.ExampleOutputSaveKwarg'>
-<class '__main__.ExampleOutputSaveKwarg'>
-<class '__main__.ExampleOutputSaveArg'>
-<class '__main__.ExampleOutputSaveArg'>
 
 ```
 

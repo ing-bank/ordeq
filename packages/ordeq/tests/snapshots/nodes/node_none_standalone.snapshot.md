@@ -8,7 +8,7 @@ node(None)
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: The first argument to node must be a function, got NoneType

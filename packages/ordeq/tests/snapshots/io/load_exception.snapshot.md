@@ -14,7 +14,7 @@ mock.load()
 
 ```
 
-## Exception
+## Output
 
 ```text
 IOException: Failed to load Input(id=ID1).

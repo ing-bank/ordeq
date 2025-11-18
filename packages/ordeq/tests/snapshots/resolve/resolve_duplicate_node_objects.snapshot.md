@@ -9,7 +9,7 @@ _ = _resolve_module_to_nodes(duplicate_node_objects)
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Module 'example_duplicates.duplicate_node_objects' contains duplicate keys for the same node ('y' and 'x')

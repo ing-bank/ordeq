@@ -12,9 +12,10 @@ print(_substitutes_modules_to_ios({local: package_base}))
 
 ```
 
-## Exception
+## Output
 
 ```text
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>): StringBuffer(_buffer=<_io.StringIO object at HASH4>)}
 CatalogError: Catalog 'example_catalogs.package_base' is missing IO(s) 'hello', 'result'
   File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in check_catalogs_are_consistent
     raise CatalogError(
@@ -42,12 +43,5 @@ CatalogError: Catalog 'example_catalogs.package_base' is missing IO(s) 'hello', 
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-{StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>): StringBuffer(_buffer=<_io.StringIO object at HASH4>)}
 
 ```

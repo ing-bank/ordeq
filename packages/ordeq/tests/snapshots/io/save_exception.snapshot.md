@@ -14,7 +14,7 @@ mock.save(None)
 
 ```
 
-## Exception
+## Output
 
 ```text
 IOException: Failed to save Output(id=ID1).

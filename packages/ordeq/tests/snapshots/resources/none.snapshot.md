@@ -10,7 +10,7 @@ csv = CSV(path=Path("my/path")) @ None
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Resource cannot be None.

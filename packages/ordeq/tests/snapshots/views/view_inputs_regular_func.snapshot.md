@@ -24,7 +24,7 @@ print(repr(get_node(hello)))
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Input '<function string at HASH1>' to node '__main__:func' is not a view

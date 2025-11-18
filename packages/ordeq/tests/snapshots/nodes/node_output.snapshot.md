@@ -10,7 +10,7 @@ def my_node(a):
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: The 'output' keyword argument is not supported. Did you mean 'outputs'?

@@ -7,7 +7,7 @@ run(0.23)
 
 ```
 
-## Exception
+## Output
 
 ```text
 TypeError: 0.23 is not something we can run. Expected a module or a node, got <class 'float'>

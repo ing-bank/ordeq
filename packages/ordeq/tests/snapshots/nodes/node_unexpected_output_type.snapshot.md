@@ -13,7 +13,7 @@ def func(data: str) -> str:
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Outputs of node '__main__:func' must be of type Output, got <class 'ordeq_common.io.literal.Literal'> 

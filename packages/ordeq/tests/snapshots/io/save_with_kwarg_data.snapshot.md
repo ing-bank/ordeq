@@ -17,9 +17,10 @@ example.save(data=data)  # should give an error
 
 ```
 
-## Exception
+## Output
 
 ```text
+saving! ...
 TypeError: Example.save() missing 1 required positional argument: 'data'
   File "/packages/ordeq/tests/resources/io/save_with_kwarg_data.py", line LINO, in <module>
     example.save(data=data)  # should give an error
@@ -34,13 +35,6 @@ TypeError: Example.save() missing 1 required positional argument: 'data'
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-saving! ...
 
 ```
 

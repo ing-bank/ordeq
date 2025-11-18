@@ -16,7 +16,7 @@ _ = ExampleInputLoadArg().with_load_options(hello="hello world")
 
 ```
 
-## Exception
+## Output
 
 ```text
 TypeError: got an unexpected keyword argument 'hello'

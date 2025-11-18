@@ -14,7 +14,7 @@ _ = ExampleStaticIO()
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Load method cannot be static.

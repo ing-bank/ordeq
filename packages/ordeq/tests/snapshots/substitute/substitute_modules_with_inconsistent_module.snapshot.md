@@ -9,7 +9,7 @@ print(_substitutes_modules_to_ios({local: inconsistent}))
 
 ```
 
-## Exception
+## Output
 
 ```text
 CatalogError: Catalog 'example_catalogs.inconsistent' is missing IO(s) 'result'

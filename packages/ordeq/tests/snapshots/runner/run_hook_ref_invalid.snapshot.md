@@ -7,7 +7,7 @@ run("example_1", hooks=["invalid"])
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Invalid object reference: 'invalid'. Expected format 'module:name'.

@@ -14,7 +14,7 @@ _ = ExampleInputNoLoad()
 
 ```
 
-## Exception
+## Output
 
 ```text
 TypeError: Can't instantiate abstract class ExampleInputNoLoad with abstract method load

@@ -9,7 +9,7 @@ check_catalogs_are_consistent(remote, package_base)
 
 ```
 
-## Exception
+## Output
 
 ```text
 CatalogError: Catalog 'example_catalogs.package_base' is missing IO(s) 'hello', 'result'

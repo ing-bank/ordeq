@@ -25,7 +25,7 @@ run(uppercase, add_world, io={catalog: inconsistent})
 
 ```
 
-## Exception
+## Output
 
 ```text
 CatalogError: Catalog 'example_catalogs.inconsistent' is missing IO(s) 'result'

@@ -42,7 +42,7 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Nodes '__main__:second' and '__main__:first' both output to Resource(value='path'). Nodes cannot output to the same resource.

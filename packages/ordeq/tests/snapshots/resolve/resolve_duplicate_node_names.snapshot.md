@@ -11,7 +11,7 @@ _ = _resolve_module_to_nodes(duplicate_node_names)
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Module 'example_duplicates.duplicate_node_names' contains duplicate keys for the same node ('y' and 'x')

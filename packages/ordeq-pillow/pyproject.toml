@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_pillow"
+description = "Pillow integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"

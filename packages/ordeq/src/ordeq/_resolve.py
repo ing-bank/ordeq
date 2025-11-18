@@ -10,6 +10,7 @@ from types import ModuleType
 from typing import TypeAlias, TypeGuard
 
 from ordeq._fqn import (
+    FQN,
     FQNamed,
     ModuleRef,
     ObjectRef,
@@ -49,24 +50,24 @@ def _resolve_object_ref_to_node(ref: ObjectRef) -> FQNamed[Node]:
     return module_ref, node_name, get_node(node_obj)
 
 
-def _resolve_object_ref_to_hook(ref: ObjectRef) -> FQNamed[RunnerHook]:
-    module_ref, hook_name = object_ref_to_fqn(ref)
+def _resolve_fqn_to_hook(fqn: FQN) -> RunnerHook:
+    module_ref, hook_name = fqn
     module = _resolve_module_ref_to_module(module_ref)
     hook_obj = getattr(module, hook_name, None)
     if hook_obj is None or not isinstance(hook_obj, (NodeHook, RunHook)):
         raise ValueError(
             f"Hook '{hook_name}' not found in module '{module_ref}'"
         )
-    return module_ref, hook_name, hook_obj
+    return hook_obj
 
 
-def _resolve_object_ref_to_io(ref: ObjectRef) -> FQNamed[AnyIO]:
-    module_ref, io_name = object_ref_to_fqn(ref)
+def _resolve_fqn_to_io(fqn: FQN) -> AnyIO:
+    module_ref, io_name = fqn
     module = _resolve_module_ref_to_module(module_ref)
     io_obj = getattr(module, io_name, None)
     if io_obj is None or not _is_io(io_obj):
         raise ValueError(f"IO '{io_name}' not found in module '{module_ref}'")
-    return module_ref, io_name, io_obj
+    return io_obj
 
 
 def _resolve_package_to_module_names(package: ModuleType) -> Generator[str]:
@@ -200,7 +201,8 @@ def _resolve_refs_to_hooks(
         elif isinstance(hook, RunHook):
             run_hooks.append(hook)
         elif isinstance(hook, str):
-            _, _, resolved_hook = _resolve_object_ref_to_hook(hook)
+            fqn = object_ref_to_fqn(hook)
+            resolved_hook = _resolve_fqn_to_hook(fqn)
             if isinstance(resolved_hook, NodeHook):
                 node_hooks.append(resolved_hook)
             elif isinstance(resolved_hook, RunHook):

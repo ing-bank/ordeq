@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ordeq_pillow"
+dynamic = ["version"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+maintainers = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq>=1.0.0",
+    "pillow"
+]
+
+[tool.ordeq-dev]
+group = "ios"
+logo_url = "https://pillow.readthedocs.io/en/stable/_static/pillow-logo.png"
+
+[project.optional-dependencies]
+pdf = [
+  "pdf2image"
+]
+
+[dependency-groups]
+test = [
+    "pdf2image",
+    "types-Pillow"
+]
+
+[tool.setuptools_scm]
+root = "../../"
+version_file = "src/ordeq_pillow/_version.py"
+tag_regex = "^ordeq-pillow/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
+git_describe_command = "git describe --dirty --tags --long --match ordeq-pillow/*"
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+addopts = "--doctest-modules"
+
+[tool.coverage.run]
+omit = [
+    "src/ordeq_pillow/_version.py"
+]

@@ -61,6 +61,9 @@ Some of the available integrations:
         <td width="90" height="60" align="center">
             <a href="https://ing-bank.github.io/ordeq/api/ordeq_huggingface/"><img src="https://huggingface.co/front/assets/huggingface_logo.svg" alt="HuggingFace" height="40"/><br />HuggingFace</a>
         </td>
+        <td width="90" height="60" align="center">
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_pillow/"><img src="https://pillow.readthedocs.io/en/stable/_static/pillow-logo.png" alt="Pillow" height="40"/><br />Pillow</a>
+        </td>
     </tr>
     <tr>
         <td width="90" height="60" align="center">

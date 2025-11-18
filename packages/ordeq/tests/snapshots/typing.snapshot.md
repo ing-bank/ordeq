@@ -28,6 +28,14 @@ packages/ordeq/tests/resources/nodes/node_float.py:5: note:     def [FuncParams`
 packages/ordeq/tests/resources/nodes/node_float.py:5: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any]] | Input[Any] | Output[Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
 packages/ordeq/tests/resources/io/save_with_kwarg_data.py:5: note: "save" of "Example" defined here
 packages/ordeq/tests/resources/io/save_with_kwarg_data.py:13: error: Unexpected keyword argument "data" for "save" of "Example"  [call-arg]
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save_options.py:46: error: No overload variant of "save" of "Text" matches argument types "bytes", "str"  [call-overload]
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save_options.py:46: note: Possible overload variants:
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save_options.py:46: note:     def save(self, data: str, encoding: str | None = ...) -> None
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save_options.py:46: note:     def save(self, data: bytes, encoding: None = ...) -> None
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: error: No overload variant of "save" of "Text" matches argument types "bytes", "str"  [call-overload]
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note: Possible overload variants:
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note:     def save(self, data: str) -> Any
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note:     def save(self, data: bytes) -> Any
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: error: Argument 1 of "before_output_save" is incompatible with supertype "ordeq._hook.OutputHook"; supertype defines the argument type as "Output[str]"  [override]
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: This violates the Liskov substitution principle
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
@@ -60,4 +68,4 @@ packages/ordeq/tests/resources/checks/check_after_resource.py:16: error: No over
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note: Possible overload variants:
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any]] | Input[Any] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any]] | Input[Any] | Output[Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
-Found 29 errors in 23 files (checked 237 source files)
+Found 31 errors in 25 files (checked 241 source files)

@@ -20,6 +20,8 @@ class PDF2Image(Input[list[Image.Image]]):
     3  # Number of pages in the PDF
     >>> images[0].size  # doctest: +SKIP
     (612, 792)  # Size of the first page image
+
+    ```
     """
 
     path: Path

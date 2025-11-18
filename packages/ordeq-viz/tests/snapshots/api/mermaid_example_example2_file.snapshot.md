@@ -33,46 +33,46 @@ graph TB
 		L07@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> example_1.nodes:world
-	example_1.nodes:world --> IO1
-	IO2 --> example_1.pipeline:transform_input
-	example_1.pipeline:transform_input --> IO3
-	IO4 --> example_1.pipeline:transform_mock_input
-	example_1.pipeline:transform_mock_input --> IO5
-	IO6 --> example_1.wrapped_io:hello
-	example_1.wrapped_io:hello --> IO7
-	IO7 --> example_1.wrapped_io:print_message
-	example_1.wrapped_io:print_message --> IO8
+	IO0 --> example_1.wrapped_io:hello
+	example_1.wrapped_io:hello --> IO1
+	IO1 --> example_1.wrapped_io:print_message
+	example_1.wrapped_io:print_message --> IO2
+	IO3 --> example_1.nodes:world
+	example_1.nodes:world --> IO4
+	IO5 --> example_1.pipeline:transform_input
+	example_1.pipeline:transform_input --> IO6
+	IO7 --> example_1.pipeline:transform_mock_input
+	example_1.pipeline:transform_mock_input --> IO8
 	IO9 --> example_2.nodes:transform_input_2
 	example_2.nodes:transform_input_2 --> IO10
 
+	example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
+	example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
+	IO1@{shape: rect, label: "message"}
 	example_1.nodes:world@{shape: rounded, label: "world"}
 	example_1.pipeline:transform_input@{shape: rounded, label: "transform_input"}
 	example_1.pipeline:transform_mock_input@{shape: rounded, label: "transform_mock_input"}
-	example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
-	example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
-	IO7@{shape: rect, label: "message"}
 	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
-	IO0@{shape: rect, label: "x"}
-	IO1@{shape: rect, label: "y"}
+	IO0@{shape: rect, label: "name_generator"}
 	IO10@{shape: rect, label: "TestOutput2"}
-	IO2@{shape: rect, label: "TestInput"}
-	IO3@{shape: rect, label: "TestOutput"}
-	IO4@{shape: rect, label: "Hello"}
-	IO5@{shape: rect, label: "World"}
-	IO6@{shape: rect, label: "name_generator"}
-	IO8@{shape: rect, label: "name_printer"}
+	IO2@{shape: rect, label: "name_printer"}
+	IO3@{shape: rect, label: "x"}
+	IO4@{shape: rect, label: "y"}
+	IO5@{shape: rect, label: "TestInput"}
+	IO6@{shape: rect, label: "TestOutput"}
+	IO7@{shape: rect, label: "Hello"}
+	IO8@{shape: rect, label: "World"}
 	IO9@{shape: rect, label: "TestInput2"}
 
-	class L0,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_2.nodes:transform_input_2 node
+	class L0,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input,example_2.nodes:transform_input_2 node
 	class L00,IO9 io0
-	class L01,IO2 io1
-	class L02,IO3 io2
-	class L03,IO6 io3
-	class L04,IO8 io4
+	class L01,IO5 io1
+	class L02,IO6 io2
+	class L03,IO0 io3
+	class L04,IO2 io4
 	class L05,IO10 io5
-	class L06,IO7 io6
-	class L07,IO0,IO1,IO4,IO5 io7
+	class L06,IO1 io6
+	class L07,IO3,IO4,IO7,IO8 io7
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

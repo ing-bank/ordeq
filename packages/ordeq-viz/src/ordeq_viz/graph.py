@@ -1,4 +1,3 @@
-import operator
 from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any
@@ -92,8 +91,8 @@ def _gather_graph(
 
     reverse_lookup: dict[IOIdentity, str] = {
         id(io): name
-        for _, named_io in sorted(ios.items(), key=operator.itemgetter(0))
-        for name, io in sorted(named_io.items(), key=operator.itemgetter(0))
+        for named_io in ios.values()
+        for name, io in named_io.items()
     }
 
     for io_id in graph.ios:
@@ -154,9 +153,4 @@ def _gather_graph(
         )
         io_modules_[module].append(io_data[io_id])
 
-    return {
-        node_module: sorted(nodes, key=lambda n: n.id)
-        for node_module, nodes in sorted(
-            node_modules.items(), key=operator.itemgetter(0)
-        )
-    }, io_modules_
+    return node_modules, io_modules_

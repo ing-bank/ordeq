@@ -2,10 +2,10 @@ from __future__ import annotations
 
 import inspect
 import logging
-from collections.abc import Callable, Hashable
+from collections.abc import Callable, Hashable, Sequence
 from copy import copy
 from functools import cached_property, reduce, wraps
-from typing import Annotated, Any, Generic, TypeAlias, TypeVar
+from typing import Annotated, Any, Generic, TypeAlias, TypeGuard, TypeVar
 
 try:
     from typing import Self  # type: ignore[attr-defined]
@@ -28,6 +28,26 @@ Tin = TypeVar("Tin")
 Tout = TypeVar("Tout")
 
 
+def _is_io(obj: object) -> TypeGuard[AnyIO]:
+    return isinstance(obj, (IO, Input, Output))
+
+
+def _resolve_sequence_to_ios(value: Any) -> list[AnyIO]:
+    if _is_io(value):
+        return [value]
+    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
+        return [io for v in value for io in _resolve_sequence_to_ios(v)]
+    if isinstance(value, dict):
+        return [
+            io for v in value.values() for io in _resolve_sequence_to_ios(v)
+        ]
+    return []
+
+
+def _is_io_sequence(value: Any) -> bool:
+    return bool(_resolve_sequence_to_ios(value))
+
+
 def _find_references(attributes) -> dict[str, list[AnyIO]]:
     """Find all attributes of type Input, Output, or IO.
 
@@ -37,8 +57,6 @@ def _find_references(attributes) -> dict[str, list[AnyIO]]:
     Returns:
         a dictionary mapping attribute names to lists of Input, Output, or IO
     """
-    from ordeq._resolve import _resolve_sequence_to_ios  # noqa: PLC0415
-
     wrapped = {}
     for attribute, value in attributes.items():
         ios = _resolve_sequence_to_ios(value)

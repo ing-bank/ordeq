@@ -5,9 +5,9 @@ from __future__ import annotations
 import importlib
 import pkgutil
 import warnings
-from collections.abc import Generator, Sequence
+from collections.abc import Callable, Generator
 from types import ModuleType
-from typing import TYPE_CHECKING, Any, TypeAlias, TypeGuard
+from typing import TypeAlias, TypeGuard
 
 from ordeq._fqn import (
     FQNamed,
@@ -18,12 +18,10 @@ from ordeq._fqn import (
     object_ref_to_fqn,
 )
 from ordeq._hook import NodeHook, RunHook, RunnerHook
-from ordeq._io import IO, AnyIO, Input, IOIdentity, Output
-from ordeq._nodes import Node, View, get_node
+from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
+from ordeq._nodes import Node, View, _is_node, get_node
 
-if TYPE_CHECKING:
-    from ordeq._runner import Runnable
-
+Runnable: TypeAlias = ModuleType | Callable | str
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
 Unknown: str = "unknown"
 
@@ -36,20 +34,8 @@ def _is_package(module: ModuleType) -> TypeGuard[ModuleType]:
     return hasattr(module, "__path__")
 
 
-def _is_io(obj: object) -> TypeGuard[AnyIO]:
-    return isinstance(obj, (IO, Input, Output))
-
-
 def _resolve_module_ref_to_module(module_ref: ModuleRef) -> ModuleType:
     return importlib.import_module(module_ref)
-
-
-def _is_node(obj: object) -> bool:
-    return (
-        callable(obj)
-        and hasattr(obj, "__ordeq_node__")
-        and isinstance(obj.__ordeq_node__, Node)
-    )
 
 
 def _resolve_object_ref_to_node(ref: ObjectRef) -> FQNamed[Node]:
@@ -81,22 +67,6 @@ def _resolve_object_ref_to_io(ref: ObjectRef) -> FQNamed[AnyIO]:
     if io_obj is None or not _is_io(io_obj):
         raise ValueError(f"IO '{io_name}' not found in module '{module_ref}'")
     return module_ref, io_name, io_obj
-
-
-def _resolve_sequence_to_ios(value: Any) -> list[AnyIO]:
-    if _is_io(value):
-        return [value]
-    if isinstance(value, Sequence) and not isinstance(value, (str, bytes)):
-        return [io for v in value for io in _resolve_sequence_to_ios(v)]
-    if isinstance(value, dict):
-        return [
-            io for v in value.values() for io in _resolve_sequence_to_ios(v)
-        ]
-    return []
-
-
-def _is_io_sequence(value: Any) -> bool:
-    return bool(_resolve_sequence_to_ios(value))
 
 
 def _resolve_package_to_module_names(package: ModuleType) -> Generator[str]:

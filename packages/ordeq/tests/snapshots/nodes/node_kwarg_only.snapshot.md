@@ -40,8 +40,11 @@ ValueError: Node inputs invalid for function arguments: Node(name=__main__:my_no
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
     inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
                            ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        inner, inputs=inputs, outputs=outputs, checks=checks, attributes=attributes
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inner,
+        ^^^^^^
+    ...<3 lines>...
+        attributes=attributes,
+        ^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
 

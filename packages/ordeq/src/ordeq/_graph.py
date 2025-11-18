@@ -65,6 +65,18 @@ class NodeResourceGraph(Graph[Resource | Node]):
         resources: set[Resource] = set()
         resource_to_node: dict[Resource, Node] = {}
 
+        # if node.checks contains an resource, then this node precedes node(s) with
+        # that input that do not have it as a check.
+        # add edges from check resource to node(s) with that input
+        checks: dict[Resource, list[Resource]] = defaultdict(list)
+        for node in nodes:
+            for check in node.checks:
+                resource = Resource(check._resource)
+                # assume checks are views
+                assert type(node).__name__ == "View"
+                assert len(node.outputs) == 1
+                checks[resource].append(Resource(node.outputs[0]._resource))
+
         for node in nodes:
             for ip in node.inputs:
                 # Add this point we have converted all view inputs to their
@@ -72,9 +84,20 @@ class NodeResourceGraph(Graph[Resource | Node]):
                 ip_ = cast("AnyIO", ip)
 
                 resource = Resource(ip_._resource)  # noqa: SLF001 (private-member-access)
+
                 resources.add(resource)
                 if resource not in edges:
                     edges[resource] = []
+
+                # link checks
+                if resource in checks and node.checks == ():
+                    for resource_x in checks[resource]:
+                        if resource_x not in edges:
+                            edges[resource_x] = []
+                            resources.add(resource_x)
+
+                        edges[resource_x].append(node)
+
                 edges[resource].append(node)
 
             for op in node.outputs:

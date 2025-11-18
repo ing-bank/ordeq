@@ -43,8 +43,11 @@ ValueError: Outputs of node '__main__:say_hello' must be of type Output, got <cl
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
     inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
                            ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        inner, inputs=inputs, outputs=outputs, checks=checks, attributes=attributes
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inner,
+        ^^^^^^
+    ...<3 lines>...
+        attributes=attributes,
+        ^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
 

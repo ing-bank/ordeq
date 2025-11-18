@@ -11,11 +11,11 @@ A, B, C, D, E, F = [StringBuffer(c) for c in "ABCDEF"]
 @pytest.mark.parametrize(
     ("edges", "expected"),
     [
-        ({"A": ["B"], "B": []}, {"B"}),
-        ({"A": ["B", "C"], "B": [], "C": [], "D": ["A"]}, {"B", "C"}),
-        ({"A": ["B"], "B": ["A"]}, set()),
-        ({"A": [], "B": [], "C": []}, {"A", "B", "C"}),
-        ({}, set()),
+        ({"A": ["B"], "B": []}, ["B"]),
+        ({"A": ["B", "C"], "B": [], "C": [], "D": ["A"]}, ["B", "C"]),
+        ({"A": ["B"], "B": ["A"]}, []),
+        ({"A": [], "B": [], "C": []}, ["A", "B", "C"]),
+        ({}, []),
     ],
 )
 def test_find_sink_nodes(edges, expected):

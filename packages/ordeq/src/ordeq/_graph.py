@@ -94,6 +94,13 @@ class NodeResourceGraph(Graph[Resource | Node]):
 
         return cls(edges=edges, nodes=set(nodes), resources=resources)
 
+    def __repr__(self):
+        return (
+            f"NodeResourceGraph(nodes={len(self.nodes)}, "
+            f"resources={len(self.resources)}, "
+            f"edges={self.edges})"
+        )
+
 
 @dataclass(frozen=True)
 class NodeGraph(Graph[Node]):
@@ -118,13 +125,13 @@ class NodeGraph(Graph[Node]):
         return cls(edges=edges)
 
     @property
-    def sink_nodes(self) -> set[Node]:
+    def sink_nodes(self) -> list[Node]:
         """Finds the sink nodes, i.e., nodes without successors.
 
         Returns:
-            set of the sink nodes
+            the sink nodes
         """
-        return {s for s, targets in self.edges.items() if len(targets) == 0}
+        return [s for s, targets in self.edges.items() if len(targets) == 0]
 
     @cached_property
     def nodes(self) -> list[Node]:

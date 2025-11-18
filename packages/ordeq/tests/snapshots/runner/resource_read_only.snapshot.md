@@ -52,16 +52,10 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-io-0 --> View:__main__:second
-io-1 --> View:__main__:first
-View:__main__:second --> io-2
-View:__main__:first --> io-3
+NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:second, inputs=[File]): [Resource(value=IO(id=ID1))], View(name=__main__:first, inputs=[File]): [Resource(value=IO(id=ID2))], Resource(value='path'): [View(name=__main__:second, inputs=[File]), View(name=__main__:first, inputs=[File])], Resource(value=IO(id=ID1)): [], Resource(value=IO(id=ID2)): []})
 1st node: Helloooo
 2nd node: Helloooo
-io-0 --> View:__main__:first
-io-1 --> View:__main__:second
-View:__main__:first --> io-2
-View:__main__:second --> io-3
+NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:first, inputs=[File]): [Resource(value=IO(id=ID2))], View(name=__main__:second, inputs=[File]): [Resource(value=IO(id=ID1))], Resource(value='path'): [View(name=__main__:first, inputs=[File]), View(name=__main__:second, inputs=[File])], Resource(value=IO(id=ID2)): [], Resource(value=IO(id=ID1)): []})
 2nd node: Helloooo
 1st node: Helloooo
 

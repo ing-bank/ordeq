@@ -24,10 +24,7 @@ run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
 ## Output
 
 ```text
-io-0 --> View:__main__:hello_world
-View:__main__:hello_world --> io-1
-io-1 --> View:__main__:n
-View:__main__:n --> io-2
+NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:hello_world, inputs=[Literal('Buenos dias')]): [Resource(value=IO(id=ID1))], View(name=__main__:n, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal('Buenos dias')): [View(name=__main__:hello_world, inputs=[Literal('Buenos dias')])], Resource(value=IO(id=ID1)): [View(name=__main__:n, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
 Node received 'Buenos dias World!'
 
 ```

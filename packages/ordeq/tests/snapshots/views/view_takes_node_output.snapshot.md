@@ -35,19 +35,10 @@ run(sink, verbose=True)
 ## Output
 
 ```text
-io-0 --> Node:__main__:hello_from_someone
-io-1 --> Node:__main__:hello_from_someone
-Node:__main__:hello_from_someone --> io-2
-io-2 --> View:__main__:what_i_heard
-View:__main__:what_i_heard --> io-3
-io-3 --> View:__main__:sink
-View:__main__:sink --> io-4
+NodeResourceGraph(nodes=3, resources=5, edges={Node(name=__main__:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(id=ID1)]): [Resource(value=IO(id=ID1))], View(name=__main__:what_i_heard, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], View(name=__main__:sink, inputs=[IO(id=ID2)]): [Resource(value=IO(id=ID3))], Resource(value=Literal('Jane')): [Node(name=__main__:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(id=ID1)])], Resource(value=Literal('Hello')): [Node(name=__main__:hello_from_someone, inputs=[Literal('Jane'), Literal('Hello')], outputs=[IO(id=ID1)])], Resource(value=IO(id=ID1)): [View(name=__main__:what_i_heard, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): [View(name=__main__:sink, inputs=[IO(id=ID2)])], Resource(value=IO(id=ID3)): []})
 I heard that Jane said 'Hello'
 None
-io-0 --> View:__main__:what_i_heard
-View:__main__:what_i_heard --> io-1
-io-1 --> View:__main__:sink
-View:__main__:sink --> io-2
+NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:what_i_heard, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], View(name=__main__:sink, inputs=[IO(id=ID2)]): [Resource(value=IO(id=ID3))], Resource(value=IO(id=ID1)): [View(name=__main__:what_i_heard, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): [View(name=__main__:sink, inputs=[IO(id=ID2)])], Resource(value=IO(id=ID3)): []})
 IOException: Failed to load IO(id=ID1).
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper

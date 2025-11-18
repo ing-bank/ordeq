@@ -17,12 +17,7 @@ run(example_module_a, noop, verbose=True)
 ## Output
 
 ```text
-io-0 --> Node:resources.runner.example_module_a:increment
-Node:resources.runner.example_module_a:increment --> io-2
-io-1 --> Node:resources.runner.example_module_a:decrement
-io-2 --> Node:resources.runner.example_module_a:decrement
-Node:resources.runner.example_module_a:decrement --> io-3
-View:__main__:noop --> io-4
+NodeResourceGraph(nodes=3, resources=5, edges={Node(name=resources.runner.example_module_a:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>))], Node(name=resources.runner.example_module_a:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH3>))], View(name=__main__:noop): [Resource(value=IO(id=ID1))], Resource(value=Literal(12345)): [Node(name=resources.runner.example_module_a:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)): [Node(name=resources.runner.example_module_a:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>)): [Node(name=resources.runner.example_module_a:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH3>)): [], Resource(value=IO(id=ID1)): []})
 
 ```
 

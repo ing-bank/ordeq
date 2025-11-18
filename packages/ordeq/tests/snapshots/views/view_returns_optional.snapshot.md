@@ -30,13 +30,9 @@ run(n, verbose=True)
 ## Output
 
 ```text
-View:__main__:conditional --> io-0
-io-0 --> Node:__main__:n
-Node:__main__:n --> io-1
+NodeResourceGraph(nodes=2, resources=2, edges={View(name=__main__:conditional): [Resource(value=IO(id=ID1))], Node(name=__main__:n, inputs=[IO(id=ID1)], outputs=[Print()]): [Resource(value=Print())], Resource(value=IO(id=ID1)): [Node(name=__main__:n, inputs=[IO(id=ID1)], outputs=[Print()])], Resource(value=Print()): []})
 Higher value!
-View:__main__:conditional --> io-0
-io-0 --> Node:__main__:n
-Node:__main__:n --> io-1
+NodeResourceGraph(nodes=2, resources=2, edges={View(name=__main__:conditional): [Resource(value=IO(id=ID1))], Node(name=__main__:n, inputs=[IO(id=ID1)], outputs=[Print()]): [Resource(value=Print())], Resource(value=IO(id=ID1)): [Node(name=__main__:n, inputs=[IO(id=ID1)], outputs=[Print()])], Resource(value=Print()): []})
 None
 
 ```

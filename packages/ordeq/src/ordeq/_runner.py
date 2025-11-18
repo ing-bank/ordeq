@@ -5,7 +5,7 @@ from types import ModuleType
 from typing import Annotated, Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
-from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
+from ordeq._graph import NodeGraph, NodeResourceGraph, _collect_views
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
@@ -269,7 +269,7 @@ def run(
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:
-        graph_with_io = NodeIOGraph.from_graph(graph)
+        graph_with_io = NodeResourceGraph.from_nodes(graph.nodes)
         print(graph_with_io)
 
     # Validate nodes

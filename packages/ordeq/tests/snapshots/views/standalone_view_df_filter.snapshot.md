@@ -45,11 +45,31 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:__main__:filter_df
-io-1 --> View:__main__:filter_df
-View:__main__:filter_df --> io-2
-io-2 --> View:__main__:group_by
-View:__main__:group_by --> io-3
+NodeResourceGraph(nodes=2, resources=4, edges={View(name=__main__:filter_df, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0), Literal(0    False
+1    False
+2    False
+Name: B, dtype: bool)]): [Resource(value=IO(id=ID1))], View(name=__main__:group_by, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)): [View(name=__main__:filter_df, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0), Literal(0    False
+1    False
+2    False
+Name: B, dtype: bool)])], Resource(value=Literal(0    False
+1    False
+2    False
+Name: B, dtype: bool)): [View(name=__main__:filter_df, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0), Literal(0    False
+1    False
+2    False
+Name: B, dtype: bool)])], Resource(value=IO(id=ID1)): [View(name=__main__:group_by, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
      A   B   D
 0  NaN NaN NaN
 

@@ -35,17 +35,9 @@ print(x3.load())
 ## Output
 
 ```text
-io-0 --> Node:__main__:increment
-io-0 --> Node:__main__:decrement
-Node:__main__:increment --> io-1
-io-1 --> Node:__main__:decrement
-Node:__main__:decrement --> io-2
+NodeResourceGraph(nodes=2, resources=3, edges={Node(name=__main__:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>))], Node(name=__main__:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>))], Resource(value=Literal(1)): [Node(name=__main__:increment, inputs=[Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Node(name=__main__:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)): [Node(name=__main__:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>)): []})
 1
-io-0 --> Node:__main__:increment
-io-0 --> Node:__main__:decrement
-Node:__main__:increment --> io-1
-io-1 --> Node:__main__:decrement
-Node:__main__:decrement --> io-2
+NodeResourceGraph(nodes=2, resources=3, edges={Node(name=__main__:increment, inputs=[Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>))], Node(name=__main__:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>))], Resource(value=Literal(200)): [Node(name=__main__:increment, inputs=[Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Node(name=__main__:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)): [Node(name=__main__:decrement, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), Literal(200)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>)): []})
 12001
 
 ```

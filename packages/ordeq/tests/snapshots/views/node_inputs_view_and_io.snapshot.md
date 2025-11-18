@@ -27,10 +27,7 @@ run(n, verbose=True)
 
 ```text
 View(name=__main__:hello)
-View:__main__:hello --> io-0
-io-0 --> Node:__main__:n
-io-1 --> Node:__main__:n
-Node:__main__:n --> io-2
+NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:hello): [Resource(value=IO(id=ID1))], Node(name=__main__:n, inputs=[Literal('Jane'), IO(id=ID1)], outputs=[Print()]): [Resource(value=Print())], Resource(value=IO(id=ID1)): [Node(name=__main__:n, inputs=[Literal('Jane'), IO(id=ID1)], outputs=[Print()])], Resource(value=Literal('Jane')): [Node(name=__main__:n, inputs=[Literal('Jane'), IO(id=ID1)], outputs=[Print()])], Resource(value=Print()): []})
 Jane said 'Hello, World!'
 
 ```

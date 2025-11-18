@@ -34,10 +34,16 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:__main__:df_selected
-View:__main__:df_selected --> io-1
-io-1 --> View:__main__:group_by
-View:__main__:group_by --> io-2
+NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:df_selected, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)]): [Resource(value=IO(id=ID1))], View(name=__main__:group_by, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)): [View(name=__main__:df_selected, inputs=[Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)])], Resource(value=IO(id=ID1)): [View(name=__main__:group_by, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
      A
 0  bar
 1  foo

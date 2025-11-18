@@ -15,8 +15,7 @@ run(renamed, verbose=True)
 ## Output
 
 ```text
-io-0 --> Node:resources.runner.example_module_b:increment
-Node:resources.runner.example_module_b:increment --> io-1
+NodeResourceGraph(nodes=1, resources=2, edges={Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>))], Resource(value=Literal(12345)): [Node(name=resources.runner.example_module_b:increment, inputs=[Literal(12345)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)): []})
 
 ```
 

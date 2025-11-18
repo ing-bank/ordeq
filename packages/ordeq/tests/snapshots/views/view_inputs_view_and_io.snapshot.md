@@ -36,12 +36,7 @@ run(n, verbose=True)
 ```text
 View(name=__main__:hello)
 View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
-View:__main__:hello --> io-0
-io-0 --> View:__main__:hello_from_someone
-io-1 --> View:__main__:hello_from_someone
-View:__main__:hello_from_someone --> io-2
-io-2 --> View:__main__:n
-View:__main__:n --> io-3
+NodeResourceGraph(nodes=3, resources=4, edges={View(name=__main__:hello): [Resource(value=IO(id=ID1))], View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)]): [Resource(value=IO(id=ID2))], View(name=__main__:n, inputs=[IO(id=ID2)]): [Resource(value=IO(id=ID3))], Resource(value=IO(id=ID1)): [View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])], Resource(value=Literal('Jane')): [View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])], Resource(value=IO(id=ID2)): [View(name=__main__:n, inputs=[IO(id=ID2)])], Resource(value=IO(id=ID3)): []})
 I heard that Jane said 'Hello, World!'
 
 ```

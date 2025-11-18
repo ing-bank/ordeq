@@ -54,16 +54,8 @@ run(increment, multiply, verbose=True, save="sinks")
 ## Output
 
 ```text
-io-0 --> Node:__main__:increment
-Node:__main__:increment --> io-2
-io-1 --> Node:__main__:multiply
-io-2 --> Node:__main__:multiply
-Node:__main__:multiply --> io-3
-io-0 --> Node:__main__:increment
-Node:__main__:increment --> io-2
-io-1 --> Node:__main__:multiply
-io-2 --> Node:__main__:multiply
-Node:__main__:multiply --> io-3
+NodeResourceGraph(nodes=2, resources=4, edges={Node(name=__main__:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])]): [Resource(value=Stream(data=[]))], Node(name=__main__:multiply, inputs=[Stream(data=[]), Literal('2')], outputs=[Stream(data=[])]): [Resource(value=Stream(data=[]))], Resource(value=Stream(data=['1', '2', '3'])): [Node(name=__main__:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[Stream(data=[])])], Resource(value=Stream(data=[])): [Node(name=__main__:multiply, inputs=[Stream(data=[]), Literal('2')], outputs=[Stream(data=[])])], Resource(value=Literal('2')): [Node(name=__main__:multiply, inputs=[Stream(data=[]), Literal('2')], outputs=[Stream(data=[])])], Resource(value=Stream(data=[])): []})
+NodeResourceGraph(nodes=2, resources=4, edges={Node(name=__main__:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[IO(id=ID1)]): [Resource(value=IO(id=ID1))], Node(name=__main__:multiply, inputs=[IO(id=ID1), Literal('2')], outputs=[Stream(data=[])]): [Resource(value=Stream(data=[]))], Resource(value=Stream(data=['1', '2', '3'])): [Node(name=__main__:increment, inputs=[Stream(data=['1', '2', '3'])], outputs=[IO(id=ID1)])], Resource(value=IO(id=ID1)): [Node(name=__main__:multiply, inputs=[IO(id=ID1), Literal('2')], outputs=[Stream(data=[])])], Resource(value=Literal('2')): [Node(name=__main__:multiply, inputs=[IO(id=ID1), Literal('2')], outputs=[Stream(data=[])])], Resource(value=Stream(data=[])): []})
 
 ```
 

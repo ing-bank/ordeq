@@ -20,9 +20,9 @@ run(show_message, verbose=True)
 ## Output
 
 ```text
-View:__main__:print_message --> io-0
+NodeResourceGraph(nodes=1, resources=1, edges={View(name=__main__:print_message): [Resource(value=IO(id=ID1))], Resource(value=IO(id=ID1)): []})
 Hello from printer
-View:__main__:print_message --> io-0
+NodeResourceGraph(nodes=1, resources=1, edges={View(name=__main__:print_message): [Resource(value=IO(id=ID1))], Resource(value=IO(id=ID1)): []})
 Hello from printer
 
 ```

@@ -5,7 +5,7 @@ from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import fqn_to_object_ref
-from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph, _collect_views
+from ordeq._graph import IOIdentity, NodeGraph, _collect_views, NodeResourceGraph
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
 
@@ -87,8 +87,8 @@ def _gather_graph(
     """
 
     nodes_and_views = _collect_views(*nodes)
-    node_graph = NodeGraph.from_nodes(nodes_and_views)
-    graph = NodeIOGraph.from_graph(node_graph)
+    graph = NodeResourceGraph.from_nodes(nodes_and_views)
+    node_graph = NodeGraph.from_graph(graph)
 
     reverse_lookup: dict[IOIdentity, str] = {
         id(io): name
@@ -96,7 +96,8 @@ def _gather_graph(
         for name, io in sorted(named_io.items(), key=operator.itemgetter(0))
     }
 
-    for io_id in graph.ios:
+    for resource in graph.resources:
+        io_id = id(resource.value)
         if io_id not in reverse_lookup:
             reverse_lookup[io_id] = "<anonymous>"
 

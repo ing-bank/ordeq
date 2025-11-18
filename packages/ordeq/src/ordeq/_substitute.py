@@ -7,12 +7,12 @@ flexible reconfiguration of IO without modifying the pipeline code.
 from types import ModuleType
 
 from ordeq._catalog import check_catalogs_are_consistent
-from ordeq._fqn import AnyRef, is_object_ref
+from ordeq._fqn import AnyRef, is_object_ref, object_ref_to_fqn
 from ordeq._io import AnyIO, _is_io
 from ordeq._resolve import (
     _is_module,
+    _resolve_fqn_to_io,
     _resolve_module_ref_to_module,
-    _resolve_object_ref_to_io,
     _resolve_package_to_ios,
 )
 
@@ -24,8 +24,8 @@ def _resolve_refs_to_subs(
 ) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
     def resolve_ref_to_sub(ref: AnyRef) -> AnyIO | ModuleType:
         if is_object_ref(ref):
-            _, _, io = _resolve_object_ref_to_io(ref)
-            return io
+            fqn = object_ref_to_fqn(ref)
+            return _resolve_fqn_to_io(fqn)
         return _resolve_module_ref_to_module(ref)
 
     subs_ = {}

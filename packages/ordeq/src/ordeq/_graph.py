@@ -65,15 +65,15 @@ class NodeResourceGraph(Graph[Resource | Node]):
         resources: set[Resource] = set()
         resource_to_node: dict[Resource, Node] = {}
 
-        # if node.checks contains an resource, then this node precedes node(s) with
-        # that input that do not have it as a check.
+        # if node.checks contains an resource, then this node precedes node(s)
+        # with that input that do not have it as a check.
         # add edges from check resource to node(s) with that input
         checks: dict[Resource, list[Resource]] = defaultdict(list)
         for node in nodes:
             for check in node.checks:
-                resource = Resource(check._resource)
+                resource = Resource(check._resource)  # noqa: SLF001 (private-member-access)
                 for output in node.outputs:
-                    checks[resource].append(Resource(output._resource))
+                    checks[resource].append(Resource(output._resource))  # noqa: SLF001 (private-member-access)
 
         for node in nodes:
             for ip in node.inputs:
@@ -89,12 +89,12 @@ class NodeResourceGraph(Graph[Resource | Node]):
 
                 # link checks
                 if resource in checks and node.checks == ():
-                    for resource_x in checks[resource]:
-                        if resource_x not in edges:
-                            edges[resource_x] = []
-                            resources.add(resource_x)
+                    for check_resource in checks[resource]:
+                        if check_resource not in edges:
+                            edges[check_resource] = []
+                            resources.add(check_resource)
 
-                        edges[resource_x].append(node)
+                        edges[check_resource].append(node)
 
                 edges[resource].append(node)
 

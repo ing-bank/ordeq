@@ -262,6 +262,7 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output] | Input | Output | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]: ...
 
@@ -273,6 +274,7 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: None = None,
+    checks: Sequence[Input | Output] | Input | Output | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> View[FuncParams, FuncReturns]: ...
 
@@ -293,6 +295,7 @@ def create_node(
         name: name for the node. If not provided, inferred from func.
         inputs: The inputs to the node.
         outputs: The outputs from the node.
+        checks: The checks for the node.
         attributes: Optional attributes for the node.
 
     Returns:
@@ -363,6 +366,7 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output] | Input | Output | None = None,
     **attributes: Any,
 ) -> Callable[FuncParams, FuncReturns]: ...
 
@@ -372,6 +376,7 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable = not_passed,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output] | Input | Output | None = None,
     **attributes: Any,
 ) -> Callable[
     [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
@@ -451,6 +456,7 @@ def node(
         func: function of the node
         inputs: sequence of inputs
         outputs: sequence of outputs
+        checks: sequence of checks
         attributes: additional attributes to assign to the node
 
     Returns:

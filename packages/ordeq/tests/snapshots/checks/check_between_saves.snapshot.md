@@ -48,7 +48,7 @@ if __name__ == "__main__":
 ```text
 AttributeError: 'function' object has no attribute '_resource'
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    resource = Resource(check._resource)
+    resource = Resource(check._resource)  # noqa: SLF001 (private-member-access)
                         ^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes

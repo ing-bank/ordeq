@@ -4,8 +4,8 @@ from ordeq_viz import viz
 
 A = Literal("A")
 B = Literal("B")
-Ap = IO()
-Bp = IO()
+Ap = IO[str]()
+Bp = IO[str]()
 AB = StringBuffer()
 
 

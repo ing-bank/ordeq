@@ -1,7 +1,5 @@
-from typing import Any
-
 import pandas as pd
-from ordeq import IO, node, run
+from ordeq import node, run
 from ordeq_common import Literal
 from ordeq_viz import viz
 
@@ -12,7 +10,6 @@ txs = Literal(
         "to": ["me", "me", "you"],
     })
 )
-txs_agg = IO[Any]()
 
 
 @node(inputs=txs, checks=txs)

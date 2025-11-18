@@ -11,7 +11,7 @@ from ordeq_viz import viz
 records = Literal(
     pd.DataFrame({"id": [1, 2, 3, 4], "value": [10, -5, 20, -1]})
 )
-invalid_records = JSON(path=Path(tempfile.mkdtemp()) / "invalid_records.json")
+invalid_records = JSON(path=Path(tempfile.gettempdir()) / "invalid_records.json")
 processed_records = IO()
 
 

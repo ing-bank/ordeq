@@ -27,7 +27,7 @@ class IOModel(BaseModel):
             name=io_name,
             type=fqn_to_object_ref(io_type_fqn),
             references=list(io_obj.references.keys()),
-            attributes=io._attributes or {},
+            attributes=io_obj._attributes or {},
         )
 
 

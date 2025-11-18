@@ -83,12 +83,7 @@ class NodeResourceGraph(Graph[Resource | Node]):
 
         for node in nodes:
             for ip in node.inputs:
-                # Add this point we have converted all view inputs to their
-                # sentinel IO, so it's safe to cast input to AnyIO.
-                ip_ = cast("AnyIO", ip)
-
-                resource = Resource(ip_._resource)  # noqa: SLF001 (private-member-access)
-
+                resource = Resource(ip._resource)  # noqa: SLF001 (private-member-access)
                 resources.add(resource)
                 if resource not in edges:
                     edges[resource] = []

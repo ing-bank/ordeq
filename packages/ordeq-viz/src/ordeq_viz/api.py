@@ -7,9 +7,10 @@ from ordeq._fqn import ModuleRef
 from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq._runner import NodeFilter
 
-from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
-from ordeq_viz.to_mermaid import pipeline_to_mermaid
-from ordeq_viz.to_mermaid_md import pipeline_to_mermaid_md
+from ordeq_viz.graph import _gather_graph
+from ordeq_viz.to_kedro_viz import graph_to_kedro_viz
+from ordeq_viz.to_mermaid import graph_to_mermaid
+from ordeq_viz.to_mermaid_md import graph_to_mermaid_md
 
 Vizzable: TypeAlias = ModuleRef | ModuleType
 
@@ -77,23 +78,24 @@ def viz(
             "without notice in future releases."
         )
         nodes_ = [node for node in nodes_ if node_filter(node)]
+
+    graph = _gather_graph(nodes_, ios)
+
     match fmt:
         case "kedro-viz":
             if not output:
                 raise ValueError(
                     "`output` is required when `fmt` is 'kedro-viz'"
                 )
-            pipeline_to_kedro_viz(
-                nodes_, ios, output_directory=output, **options
-            )
+            graph_to_kedro_viz(graph, output_directory=output, **options)
         case "mermaid":
-            result = pipeline_to_mermaid(nodes_, ios, **options)
+            result = graph_to_mermaid(graph, **options)
             if output:
                 output.write_text(result, encoding="utf8")
                 return None
             return result
         case "mermaid-md":
-            result = pipeline_to_mermaid_md(nodes_, ios, **options)
+            result = graph_to_mermaid_md(graph, **options)
             if output:
                 output.write_text(result, encoding="utf8")
                 return None

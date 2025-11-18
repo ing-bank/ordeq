@@ -4,10 +4,7 @@ from collections import defaultdict
 from itertools import cycle
 from typing import Any
 
-from ordeq import Node
-from ordeq._resolve import Catalog
-
-from ordeq_viz.graph import _gather_graph
+from ordeq_viz.graph import IOData, NodeData
 
 logger = logging.getLogger(__name__)
 
@@ -55,9 +52,8 @@ def _hash_to_str(obj_id: int, io_names: dict[int, str]) -> str:
     return io_names[obj_id]
 
 
-def pipeline_to_mermaid(
-    nodes: list[Node],
-    ios: Catalog,
+def graph_to_mermaid(
+    graph: tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]],
     legend: bool = True,
     use_dataset_styles: bool = True,
     title: str | None = None,
@@ -72,8 +68,7 @@ def pipeline_to_mermaid(
     """Convert a pipeline to a mermaid diagram
 
     Args:
-        nodes: set of `ordeq.Node`
-        ios: dict of name and `ordeq.IO`
+        graph: tuple of node modules and io modules
         legend: if True, display a legend
         use_dataset_styles: if True, use a distinct color for each dataset type
         title: Title of the mermaid diagram
@@ -97,7 +92,7 @@ def pipeline_to_mermaid(
         )
     io_names: dict[int, str] = {}
 
-    node_modules, io_modules = _gather_graph(nodes, ios)
+    node_modules, io_modules = graph
 
     node_data = [
         node

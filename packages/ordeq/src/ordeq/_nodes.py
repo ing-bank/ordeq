@@ -254,6 +254,14 @@ def get_node(func: Callable) -> Node:
         raise ValueError(f"'{func.__name__}' is not a node") from e
 
 
+def _is_node(obj: object) -> bool:
+    return (
+        callable(obj)
+        and hasattr(obj, "__ordeq_node__")
+        and isinstance(obj.__ordeq_node__, Node)
+    )
+
+
 @overload
 def create_node(
     func: Callable[FuncParams, FuncReturns],
@@ -299,8 +307,6 @@ def create_node(
     Raises:
         ValueError: if any of the inputs is a callable that is not a view
     """
-
-    from ordeq._resolve import _is_node  # noqa: PLC0415
 
     resolved_name = (
         name if name is not None else infer_node_name_from_func(func)

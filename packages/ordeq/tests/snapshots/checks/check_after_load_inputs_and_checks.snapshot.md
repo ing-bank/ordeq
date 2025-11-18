@@ -29,9 +29,39 @@ if __name__ == "__main__":
 
 ```
 
-## Exception
+## Output
 
 ```text
+graph TB
+	subgraph legend["Legend"]
+		direction TB
+		L0@{shape: rounded, label: "Node"}
+		L2@{shape: subroutine, label: "View"}
+		L00@{shape: rect, label: "IO"}
+		L01@{shape: rect, label: "Literal"}
+	end
+
+	IO0 --> __main__:agg_txs
+	__main__:agg_txs --> IO1
+	IO1 --> __main__:perform_check
+	IO2 --> __main__:perform_check
+
+	__main__:agg_txs@{shape: rounded, label: "agg_txs"}
+	__main__:perform_check@{shape: subroutine, label: "perform_check"}
+	IO1@{shape: rect, label: "txs_agg"}
+	IO0@{shape: rect, label: "txs"}
+	IO2@{shape: rect, label: "threshold"}
+
+	class L0,__main__:agg_txs node
+	class L2,__main__:perform_check view
+	class L00,IO1,IO0 io0
+	class L01,IO2 io1
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef view fill:#00C853,color:#FFF
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62
+
 IOException: Failed to load IO(id=ID1).
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
@@ -127,42 +157,6 @@ IOException: Failed to load IO(id=ID1).
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-graph TB
-	subgraph legend["Legend"]
-		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
-	end
-
-	IO0 --> __main__:agg_txs
-	__main__:agg_txs --> IO1
-	IO1 --> __main__:perform_check
-	IO2 --> __main__:perform_check
-
-	__main__:agg_txs@{shape: rounded, label: "agg_txs"}
-	__main__:perform_check@{shape: subroutine, label: "perform_check"}
-	IO1@{shape: rect, label: "txs_agg"}
-	IO0@{shape: rect, label: "txs"}
-	IO2@{shape: rect, label: "threshold"}
-
-	class L0,__main__:agg_txs node
-	class L2,__main__:perform_check view
-	class L00,IO1,IO0 io0
-	class L01,IO2 io1
-	classDef node fill:#008AD7,color:#FFF
-	classDef io fill:#FFD43B
-	classDef view fill:#00C853,color:#FFF
-	classDef io0 fill:#66c2a5
-	classDef io1 fill:#fc8d62
-
 
 ```
 

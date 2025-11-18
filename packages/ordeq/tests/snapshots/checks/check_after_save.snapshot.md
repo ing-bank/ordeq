@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Node inputs invalid for function arguments: Node(name=__main__:perform_check,...)

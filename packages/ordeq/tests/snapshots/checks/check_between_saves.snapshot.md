@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
 ```
 
-## Exception
+## Output
 
 ```text
 AttributeError: 'function' object has no attribute '_resource'
@@ -63,7 +63,7 @@ AttributeError: 'function' object has no attribute '_resource'
                                ~~~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq-viz/src/ordeq_viz/api.py", line LINO, in viz
-    result = pipeline_to_mermaid(nodes, ios, **options)
+    result = pipeline_to_mermaid(nodes_, ios, **options)
 
   File "/packages/ordeq/tests/resources/checks/check_between_saves.py", line LINO, in <module>
     print(viz(__name__, fmt="mermaid"))

@@ -50,74 +50,8 @@ io-1 --> View:__main__:sink
 View:__main__:sink --> io-2
 IOException: Failed to load IO(id=ID1).
 
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
-    raise IOException(msg) from exc
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda *a, **k: wrap(
-                                            ~~~~^
-        self, prev_func, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
-    return load_func(*args, **kwargs)
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda *a, **k: wrap(
-                                            ~~~~^
-        self, prev_func, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
-    result = load_func(*args, **kwargs)
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda *a, **k: wrap(
-                                            ~~~~^
-        self, prev_func, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
-    return load_func(*args, **load_options)
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda *a, **k: wrap(
-                                            ~~~~^
-        self, prev_func, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
-    return load_func(*args, **load_options)
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda *a, **k: wrap(
-                                            ~~~~^
-        self, prev_func, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
-    return load_func(*args, **load_options)
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda *a, **k: wrap(
-                                            ~~~~^
-        self, prev_func, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
-    return composed(*args, **kwargs)
+    raise IOException(msg) from exc
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     data = cast("Input", input_dataset).load()

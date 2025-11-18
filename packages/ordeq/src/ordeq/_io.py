@@ -75,7 +75,12 @@ def _load_decorator(load_func):
             wrappers,
             base_func,
         )
-        return composed(*args, **kwargs)
+
+        try:
+            return composed(*args, **kwargs)
+        except Exception as exc:
+            msg = f"Failed to load {self!s}.\n{exc!s}"
+            raise IOException(msg) from exc
 
     return wrapper
 
@@ -160,7 +165,12 @@ def _save_decorator(save_func):
             wrappers,
             base_func,
         )
-        composed(data, *args, **kwargs)
+
+        try:
+            composed(data, *args, **kwargs)
+        except Exception as exc:
+            msg = f"Failed to save {self!s}.\n{exc!s}"
+            raise IOException(msg) from exc
 
     return wrapper
 
@@ -361,15 +371,6 @@ class _InputCache(_BaseInput[Tin]):
             del self.__dict__["_data"]
 
 
-class _InputException(_BaseInput[Tin]):
-    def load_wrapper(self, load_func, *args, **kwargs) -> Tin:
-        try:
-            return load_func(*args, **kwargs)
-        except Exception as exc:
-            msg = f"Failed to load {self!s}.\n{exc!s}"
-            raise IOException(msg) from exc
-
-
 class _WithAttributes:
     _attributes: dict[str, Any] | None = None
 
@@ -406,7 +407,6 @@ class Input(
     _InputHooks[Tin],
     _InputReferences[Tin],
     _InputCache[Tin],
-    _InputException[Tin],
     _WithResource,
     _WithAttributes,
     Generic[Tin],
@@ -543,20 +543,10 @@ class _OutputReferences(_BaseOutput[Tout], Generic[Tout]):
         return _find_references(self.__dict__)
 
 
-class _OutputException(_BaseOutput[Tout]):
-    def save_wrapper(self, save_func, data: Tout, *args, **kwargs) -> None:
-        try:
-            save_func(data, *args, **kwargs)
-        except Exception as exc:
-            msg = f"Failed to save {self!s}.\n{exc!s}"
-            raise IOException(msg) from exc
-
-
 class Output(
     _OutputOptions[Tout],
     _OutputHooks[Tout],
     _OutputReferences[Tout],
-    _OutputException[Tout],
     _WithResource,
     _WithAttributes,
     Generic[Tout],

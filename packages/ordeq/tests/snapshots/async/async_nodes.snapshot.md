@@ -36,80 +36,8 @@ graph TB
 
 IOException: Failed to save StringBuffer(_buffer=<_io.StringIO object at HASH1>).
 string argument expected, got 'coroutine'
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    raise IOException(msg) from exc
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **kwargs)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **save_options)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **save_options)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **save_options)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **save_options)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
-    composed(data, *args, **kwargs)
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+    raise IOException(msg) from exc
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     output.save(data)

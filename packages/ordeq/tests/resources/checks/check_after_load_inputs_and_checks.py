@@ -5,19 +5,26 @@ from ordeq import IO, node, run
 from ordeq_common import Literal
 from ordeq_viz import viz
 
-txs = IO[Any]()
+txs = Literal(
+    pd.DataFrame({
+        "id": [1, 2, 3],
+        "amount": [100, 200, 300],
+        "to": ["me", "me", "you"],
+        "country": ["NL", "BE", "US"],
+    })
+)
 txs_agg = IO[Any]()
 threshold = Literal(100)
 
 
 @node(inputs=[txs_agg, threshold], checks=txs_agg)
 def perform_check(txs_agg: pd.DataFrame, t: int) -> None:
-    assert txs_agg.count() > t
+    assert (txs_agg.count() < t).all()
 
 
 @node(inputs=txs, outputs=txs_agg)
 def agg_txs(txs: pd.DataFrame) -> pd.DataFrame:
-    return txs.groupBy(...).agg(...)
+    return txs.groupby("country").agg({"amount": "sum"})
 
 
 if __name__ == "__main__":

@@ -8,19 +8,26 @@ from ordeq import IO, node, run
 from ordeq_common import Literal
 from ordeq_viz import viz
 
-txs = IO[Any]()
+txs = Literal(
+    pd.DataFrame({
+        "id": [1, 2, 3],
+        "amount": [100, 200, 300],
+        "to": ["me", "me", "you"],
+        "country": ["NL", "BE", "US"],
+    })
+)
 txs_agg = IO[Any]()
 threshold = Literal(100)
 
 
 @node(inputs=[txs_agg, threshold], checks=txs_agg)
 def perform_check(txs_agg: pd.DataFrame, t: int) -> None:
-    assert txs_agg.count() > t
+    assert (txs_agg.count() < t).all()
 
 
 @node(inputs=txs, outputs=txs_agg)
 def agg_txs(txs: pd.DataFrame) -> pd.DataFrame:
-    return txs.groupBy(...).agg(...)
+    return txs.groupby("country").agg({"amount": "sum"})
 
 
 if __name__ == "__main__":
@@ -54,43 +61,14 @@ graph TB
 
 	class L0,__main__:agg_txs node
 	class L2,__main__:perform_check view
-	class L00,IO1,IO0 io0
-	class L01,IO2 io1
+	class L00,IO1 io0
+	class L01,IO0,IO2 io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
 
-IOException: Failed to load IO(id=ID1).
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
-    raise IOException(msg) from exc
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    data = cast("Input", input_dataset).load()
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(node, hooks=hooks)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/tests/resources/checks/check_after_load_inputs_and_checks.py", line LINO, in <module>
-    run(__name__)
-    ~~~^^^^^^^^^^
-
-  File "<frozen runpy>", line LINO, in _run_code
-
-  File "<frozen runpy>", line LINO, in _run_module_code
-
-  File "<frozen runpy>", line LINO, in run_path
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    run_path(str(file_path), run_name="__main__")
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
@@ -99,14 +77,12 @@ IOException: Failed to load IO(id=ID1).
 ```text
 WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:perform_check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-INFO	ordeq.io	Loading IO(id=ID1)
-
-```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/checks/check_after_load_inputs_and_checks.py:20:12: error[call-non-callable] Object of type `Series[Any]` is not callable
-Found 1 diagnostic
+INFO	ordeq.io	Loading Literal(   id  amount   to country
+0   1     100   me      NL
+1   2     200   me      BE
+2   3     300  you      US)
+INFO	ordeq.runner	Running node "agg_txs" in module "__main__"
+INFO	ordeq.io	Loading Literal(100)
+INFO	ordeq.runner	Running view "perform_check" in module "__main__"
 
 ```

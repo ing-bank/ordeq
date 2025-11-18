@@ -72,10 +72,8 @@ class NodeResourceGraph(Graph[Resource | Node]):
         for node in nodes:
             for check in node.checks:
                 resource = Resource(check._resource)
-                # assume checks are views
-                assert type(node).__name__ == "View"
-                assert len(node.outputs) == 1
-                checks[resource].append(Resource(node.outputs[0]._resource))
+                for output in node.outputs:
+                    checks[resource].append(Resource(output._resource))
 
         for node in nodes:
             for ip in node.inputs:

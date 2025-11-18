@@ -239,6 +239,7 @@ split-on-trailing-comma = false
 "packages/ordeq-test-examples/*" = ["D103", "INP001"]
 # Rules not applicable for framework extensions
 "packages/ordeq-viz/src/ordeq_viz/*" = ["PLC2701"]
+"packages/ordeq-manifest/src/ordeq_manifest/*" = ["SLF001"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

@@ -17,6 +17,7 @@ class IOModel(BaseModel):
     name: str
     type: str
     references: list[str] = Field(default_factory=list)
+    attributes: dict[str, Any] = Field(default_factory=dict)
 
     @classmethod
     def from_io(cls, named_io: tuple[FQN, AnyIO]) -> "IOModel":
@@ -27,6 +28,7 @@ class IOModel(BaseModel):
             name=name[1],
             type=fqn_to_object_ref(io_type_fqn),
             references=list(io.references.keys()),
+            attributes=io._attributes or {},
         )
 
 

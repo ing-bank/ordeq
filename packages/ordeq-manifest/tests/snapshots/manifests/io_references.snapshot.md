@@ -20,33 +20,38 @@ print(create_manifest_json(example_references))
       "type": "example_references.io_references:MyIO",
       "references": [
         "other_io"
-      ]
+      ],
+      "attributes": {}
     },
     "example_references.io_references:named_test_io": {
       "name": "named_test_io",
       "type": "example_references.io_references:MyIO",
       "references": [
         "other_io"
-      ]
+      ],
+      "attributes": {}
     },
     "example_references.io_references:nested_test_io": {
       "name": "nested_test_io",
       "type": "example_references.io_references:MyIO",
       "references": [
         "other_io"
-      ]
+      ],
+      "attributes": {}
     },
     "example_references.io_references:test_io": {
       "name": "test_io",
       "type": "example_references.io_references:MyIO",
       "references": [
         "other_io"
-      ]
+      ],
+      "attributes": {}
     },
     "example_references.io_references:world": {
       "name": "world",
       "type": "ordeq_common.io.literal:Literal",
-      "references": []
+      "references": [],
+      "attributes": {}
     }
   }
 }

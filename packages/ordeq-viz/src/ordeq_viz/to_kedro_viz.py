@@ -3,10 +3,7 @@ import json
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from ordeq import Node
-from ordeq._resolve import Catalog
-
-from ordeq_viz.graph import IOData, NodeData, _gather_graph
+from ordeq_viz.graph import IOData, NodeData
 
 
 @dataclass
@@ -159,8 +156,9 @@ def _generate_main(nodes: list[NodeData], datasets: list[IOData]):
     return asdict(main)
 
 
-def pipeline_to_kedro_viz(
-    nodes: list[Node], ios: Catalog, output_directory: Path
+def graph_to_kedro_viz(
+    graph: tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]],
+    output_directory: Path,
 ) -> None:
     """Convert a pipeline to a kedro-viz static pipeline directory
 
@@ -172,15 +170,14 @@ def pipeline_to_kedro_viz(
     ```
 
     Args:
-        nodes: set of `ordeq.Node`
-        ios: dict of name and `ordeq.IO`
+        graph: tuple of node modules and io modules
         output_directory: path to write the output data to
 
     Raises:
         FileExistsError: if the output directory already exists
 
     """
-    node_modules, io_modules = _gather_graph(nodes, ios)
+    node_modules, io_modules = graph
 
     node_data = [
         node

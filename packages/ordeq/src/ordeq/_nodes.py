@@ -367,7 +367,7 @@ def create_node(
         name=resolved_name,
         inputs=tuple(inputs_),
         outputs=_sequence_to_tuple(outputs),
-        checks=_sequence_to_tuple(checks),
+        checks=_sequence_to_tuple(checks),  # type: ignore[arg-type]
         attributes={} if attributes is None else attributes,
         views=tuple(views),
     )

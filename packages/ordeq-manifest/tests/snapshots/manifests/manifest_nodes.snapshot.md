@@ -33,12 +33,14 @@ print(create_manifest_json(nodes))
     "example_project.nodes:x": {
       "name": "x",
       "type": "ordeq._io:IO",
-      "references": []
+      "references": [],
+      "attributes": {}
     },
     "example_project.nodes:y": {
       "name": "y",
       "type": "ordeq_common.io.printer:Print",
-      "references": []
+      "references": [],
+      "attributes": {}
     }
   }
 }

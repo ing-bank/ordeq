@@ -2,7 +2,7 @@ import logging
 from collections.abc import Callable, Sequence
 from itertools import chain
 from types import ModuleType
-from typing import Literal, TypeAlias, TypeVar, cast
+from typing import Annotated, Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
@@ -29,6 +29,31 @@ Runnable: TypeAlias = ModuleType | Callable | str
 # - 'last', which saves the output of the last node for which no error
 # occurred. This can be useful for debugging.
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
+NodeFilter: TypeAlias = Annotated[
+    Callable[[Node], bool],
+    """Method for filtering nodes. The method should take `ordeq.Node` as
+only argument and return `bool`.
+
+Examples:
+
+>>> def filter_daily(node: Node) -> bool:
+...     # Filters all nodes with `@node(..., frequency="daily")`
+...     return node.attributes.get("frequency", None) == "daily"
+
+>>> def filter_spark_iceberg(node: Node) -> bool:
+...     # Filters all nodes that have use SparkIcebergTable
+...     return (
+...         SparkIcebergTable in {
+...             type(t) for t in [*node.inputs, *node.outputs]
+...         }
+...     )
+
+>>> def filter_ml(node: Node) -> bool:
+...     # Filters all nodes with `@node(..., group="ml")`
+...     return node.attributes.get("group", None) == "ml"
+
+""",
+]
 
 
 def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
@@ -113,6 +138,7 @@ def run(
     verbose: bool = False,
     io: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType]
     | None = None,
+    node_filter: NodeFilter | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -124,6 +150,7 @@ def run(
             sink outputs. Defaults to "all".
         verbose: Whether to print the node graph.
         io: Mapping of IO objects to their run-time substitutes.
+        node_filter: Method to filter nodes.
 
     Arguments `runnables`, `hooks` and `io` also support string references.
     Each string reference should be formatted `module.submodule.[...]`
@@ -193,9 +220,24 @@ def run(
     >>> run(pipeline, save="sinks")
     ```
 
+    Run nodes a filtered subset of nodes in `pipeline`:
+
+    ```pycon
+    >>> from ordeq import Node
+    >>> import pipeline
+    >>> def filter_daily_frequency(node: Node) -> bool:
+    ...     # Filters the nodes with attribute "frequency' set to daily
+    ...     # e.g.: @node(..., frequency="daily")
+    ...     return node.attributes.get("frequency", None) == "daily"
+    >>> run(pipeline, filter=filter_daily_frequency)
+
+    ```
+
     """
 
     nodes = _resolve_runnables_to_nodes(*runnables)
+    if node_filter:
+        nodes = [node for node in nodes if node_filter(node)]
     nodes_and_views = _collect_views(*nodes)
     graph = NodeGraph.from_nodes(nodes_and_views)
 

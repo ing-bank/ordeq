@@ -80,56 +80,183 @@ def _load_decorator(load_func):
     return wrapper
 
 
-class _InputMeta(type):
-    def __new__(cls, name, bases, class_dict):
-        # Retrieve the closest load method
-        load_method = _raise_not_implemented
-        for base in bases:
-            l_method = getattr(base, "load", None)
-            if (
-                l_method is not None
-                and l_method.__qualname__ != "_raise_not_implemented"
-            ):
-                load_method = l_method
-
-        l_method = class_dict.get("load", None)
+def _process_input_meta(name, bases, class_dict):
+    # Retrieve the closest load method
+    load_method = _raise_not_implemented
+    for base in bases:
+        l_method = getattr(base, "load", None)
         if (
             l_method is not None
             and l_method.__qualname__ != "_raise_not_implemented"
         ):
             load_method = l_method
 
-        if name not in {"Input", "IO"}:
-            # Ensure load method is implemented
+    l_method = class_dict.get("load", None)
+    if (
+        l_method is not None
+        and l_method.__qualname__ != "_raise_not_implemented"
+    ):
+        load_method = l_method
+
+    if name not in {"Input", "IO"}:
+        # Ensure load method is implemented
+        if (
+            not callable(load_method)
+            or load_method.__qualname__ == "_raise_not_implemented"
+        ):
+            msg = (
+                f"Can't instantiate abstract class {name} "
+                "with abstract method load"
+            )
+            raise TypeError(msg)
+
+        if isinstance(load_method, staticmethod):
+            raise ValueError("Load method cannot be static.")
+
+        # Ensure all arguments (except self/cls) have default values
+        sig = inspect.signature(load_method)
+        for argument, param in sig.parameters.items():
+            if argument in {"self", "cls"}:
+                continue
             if (
-                not callable(load_method)
-                or load_method.__qualname__ == "_raise_not_implemented"
+                param.default is inspect.Parameter.empty
+                and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
             ):
-                msg = (
-                    f"Can't instantiate abstract class {name} "
-                    "with abstract method load"
+                raise TypeError(
+                    f"Argument '{argument}' of function "
+                    f"'{load_method.__name__}' has no default value."
                 )
-                raise TypeError(msg)
 
-            if isinstance(load_method, staticmethod):
-                raise ValueError("Load method cannot be static.")
+    if not hasattr(load_method, "__wrapped__"):
+        class_dict["load"] = _load_decorator(load_method)
+    return class_dict, bases
 
-            # Ensure all arguments (except self/cls) have default values
-            sig = inspect.signature(load_method)
-            for argument, param in sig.parameters.items():
-                if argument in {"self", "cls"}:
-                    continue
-                if (
-                    param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
-                ):
-                    raise TypeError(
-                        f"Argument '{argument}' of function "
-                        f"'{load_method.__name__}' has no default value."
-                    )
 
-        if not hasattr(load_method, "__wrapped__"):
-            class_dict["load"] = _load_decorator(load_method)
+def _pass(*args, **kwargs):
+    return
+
+
+def _save_decorator(save_func):
+    @wraps(save_func)
+    def wrapper(self, data, /, *args, **kwargs):
+        # wrappers defined in the base classes
+        # similar to super().save_wrapper() calls, without requiring
+        # the `save_wrapper` to call each super.
+        wrappers = [
+            base.save_wrapper
+            for base in reversed(type(self).__mro__)
+            if hasattr(base, "save_wrapper")
+        ]
+
+        def base_func(d, *a, **k):
+            logger.info("Saving %s", self)
+
+            save_func(self, d, *a, **k)
+
+        composed = reduce(
+            lambda prev_func, wrap: lambda d, *a, **k: wrap(
+                self, prev_func, d, *a, **k
+            ),
+            wrappers,
+            base_func,
+        )
+        composed(data, *args, **kwargs)
+
+    return wrapper
+
+
+def _process_output_meta(name, bases, class_dict):
+    # Retrieve the closest save method
+    save_method = _raise_not_implemented
+    for base in bases:
+        s_method = getattr(base, "save", None)
+        if s_method is not None and s_method.__qualname__ != "_pass":
+            save_method = s_method
+
+    s_method = class_dict.get("save", None)
+    if s_method is not None and s_method.__qualname__ != "_pass":
+        save_method = s_method
+
+    if name not in {"Output", "IO"}:
+        if not callable(save_method) or save_method == _pass:
+            msg = (
+                f"Can't instantiate abstract class {name} "
+                "with abstract method save"
+            )
+            raise TypeError(msg)
+
+        if isinstance(save_method, staticmethod):
+            raise ValueError("Save method cannot be static.")
+
+        sig = inspect.signature(save_method)
+        if len(sig.parameters) < 2:
+            raise TypeError("Save method requires a data parameter.")
+
+        # Ensure all arguments (except the first two, self/cls and data)
+        # have default values
+        for i, (argument, param) in enumerate(sig.parameters.items()):
+            # Skip self/cls and data
+            if i < 2:
+                continue
+            if (
+                param.default is inspect.Parameter.empty
+                and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+            ):
+                raise TypeError(
+                    f"Argument '{argument}' of function "
+                    f"'{save_method.__name__}' has no default value."
+                )
+
+        if (
+            sig.return_annotation != inspect.Signature.empty
+            and sig.return_annotation is not None
+        ):
+            raise TypeError("Save method must have return type None.")
+
+        if not hasattr(save_method, "__wrapped__"):
+            class_dict["save"] = _save_decorator(save_method)
+    return class_dict, bases
+
+
+def _has_base(bases, target_names: set[str]) -> bool:
+    def _check_ancestor(cls) -> bool:
+        if cls.__name__ in target_names:
+            return True
+
+        # Recursively check all ancestors in MRO
+        for ancestor in getattr(cls, "__mro__", [])[
+            1:
+        ]:  # Skip self (first element)
+            if ancestor.__name__ in target_names:
+                return True
+
+            if (
+                hasattr(ancestor, "__bases__")
+                and ancestor.__bases__
+                and _has_base(ancestor.__bases__, target_names)
+            ):
+                return True
+        return False
+
+    return any(_check_ancestor(base) for base in bases)
+
+
+class _IOMeta(type):
+    """Metaclass that handles Input and Output logic."""
+
+    def __new__(cls, name, bases, class_dict):
+        # Check if this class inherits from Input or Output
+        has_input_base = _has_base(bases, {"Input", "IO"})
+        has_output_base = _has_base(bases, {"Output", "IO"})
+
+        # Apply input metaclass logic if needed
+        if has_input_base or name in {"Input", "IO"}:
+            class_dict, bases = _process_input_meta(name, bases, class_dict)
+
+        # Apply output metaclass logic if needed
+        if has_output_base or name in {"Output", "IO"}:
+            class_dict, bases = _process_output_meta(name, bases, class_dict)
+
         return super().__new__(cls, name, bases, class_dict)
 
 
@@ -283,7 +410,7 @@ class Input(
     _WithResource,
     _WithAttributes,
     Generic[Tin],
-    metaclass=_InputMeta,
+    metaclass=_IOMeta,
 ):
     """Base class for all inputs in Ordeq. An `Input` is a class that loads
     data. All `Input` classes should implement a load method. By default,
@@ -334,93 +461,6 @@ class Input(
 
     def __repr__(self):
         return f"Input(id={id(self)})"
-
-
-def _save_decorator(save_func):
-    @wraps(save_func)
-    def wrapper(self, data, /, *args, **kwargs):
-        # wrappers defined in the base classes
-        # similar to super().save_wrapper() calls, without requiring
-        # the `save_wrapper` to call each super.
-        wrappers = [
-            base.save_wrapper
-            for base in reversed(type(self).__mro__)
-            if hasattr(base, "save_wrapper")
-        ]
-
-        def base_func(d, *a, **k):
-            logger.info("Saving %s", self)
-
-            save_func(self, d, *a, **k)
-
-        composed = reduce(
-            lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                self, prev_func, d, *a, **k
-            ),
-            wrappers,
-            base_func,
-        )
-        composed(data, *args, **kwargs)
-
-    return wrapper
-
-
-def _pass(*args, **kwargs):
-    return
-
-
-class _OutputMeta(type):
-    def __new__(cls, name, bases, class_dict):
-        # Retrieve the closest save method
-        save_method = _raise_not_implemented
-        for base in bases:
-            s_method = getattr(base, "save", None)
-            if s_method is not None and s_method.__qualname__ != "_pass":
-                save_method = s_method
-
-        s_method = class_dict.get("save", None)
-        if s_method is not None and s_method.__qualname__ != "_pass":
-            save_method = s_method
-
-        if name not in {"Output", "IO"}:
-            if not callable(save_method) or save_method == _pass:
-                msg = (
-                    f"Can't instantiate abstract class {name} "
-                    "with abstract method save"
-                )
-                raise TypeError(msg)
-
-            if isinstance(save_method, staticmethod):
-                raise ValueError("Save method cannot be static.")
-
-            sig = inspect.signature(save_method)
-            if len(sig.parameters) < 2:
-                raise TypeError("Save method requires a data parameter.")
-
-            # Ensure all arguments (except the first two, self/cls and data)
-            # have default values
-            for i, (argument, param) in enumerate(sig.parameters.items()):
-                # Skip self/cls and data
-                if i < 2:
-                    continue
-                if (
-                    param.default is inspect.Parameter.empty
-                    and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
-                ):
-                    raise TypeError(
-                        f"Argument '{argument}' of function "
-                        f"'{save_method.__name__}' has no default value."
-                    )
-
-            if (
-                sig.return_annotation != inspect.Signature.empty
-                and sig.return_annotation is not None
-            ):
-                raise TypeError("Save method must have return type None.")
-
-            if not hasattr(save_method, "__wrapped__"):
-                class_dict["save"] = _save_decorator(save_method)
-        return super().__new__(cls, name, bases, class_dict)
 
 
 class _BaseOutput(Generic[Tout]):
@@ -520,7 +560,7 @@ class Output(
     _WithResource,
     _WithAttributes,
     Generic[Tout],
-    metaclass=_OutputMeta,
+    metaclass=_IOMeta,
 ):
     """Base class for all outputs in Ordeq. An `Output` is a class that saves
     data. All `Output` classes should implement a save method. By default,
@@ -563,10 +603,7 @@ class Output(
         return f"Output(id={id(self)})"
 
 
-class _IOMeta(_InputMeta, _OutputMeta): ...
-
-
-class IO(Input[T], Output[T], metaclass=_IOMeta):
+class IO(Input[T], Output[T]):
     """Base class for all IOs in Ordeq. An `IO` is a class that can both load
     and save data. See the Ordeq IO packages for some out-of-the-box
     implementations (e.g., `YAML`, `StringBuffer`, etc.).
@@ -618,9 +655,7 @@ class IO(Input[T], Output[T], metaclass=_IOMeta):
 
 
 # Type aliases
-AnyIO: TypeAlias = Input | Output | IO
-AnyInput: TypeAlias = Input | IO
-AnyOutput: TypeAlias = Output | IO
+AnyIO: TypeAlias = Input | Output
 
 # Type alias for IO identity retrieved using id(). This is used to uniquely
 # identify IO instances. We cannot rely on the __eq__ and __hash__ of IO

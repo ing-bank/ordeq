@@ -18,8 +18,12 @@ _ = ExampleStaticIO()
 
 ```text
 ValueError: Load method cannot be static.
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in _process_input_meta
     raise ValueError("Load method cannot be static.")
+
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
+    class_dict, bases = _process_input_meta(name, bases, class_dict)
+                        ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/io/io_static_load.py", line LINO, in <module>
     class ExampleStaticIO(Input[str]):

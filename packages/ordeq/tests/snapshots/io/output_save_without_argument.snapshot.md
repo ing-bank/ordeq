@@ -20,8 +20,12 @@ _ = ExampleOutputNosave()
 
 ```text
 TypeError: Save method requires a data parameter.
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in _process_output_meta
     raise TypeError("Save method requires a data parameter.")
+
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in __new__
+    class_dict, bases = _process_output_meta(name, bases, class_dict)
+                        ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/io/output_save_without_argument.py", line LINO, in <module>
     class ExampleOutputNosave(Output):

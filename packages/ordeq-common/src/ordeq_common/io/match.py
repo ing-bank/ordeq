@@ -1,7 +1,7 @@
 from dataclasses import dataclass, replace
 from typing import Generic, TypeVar, overload
 
-from ordeq import IO, Input, Output
+from ordeq import Input, Output
 
 try:
     from typing import Self  # type: ignore[attr-defined]
@@ -16,10 +16,10 @@ Tval = TypeVar("Tval")
 @dataclass(frozen=True, kw_only=True)
 class MatchOnLoad(Input[Tval], Generic[Tkey, Tval]):
     io: Input[Tkey]
-    cases: tuple[tuple[Tkey, Input[Tval] | IO[Tval]], ...] = ()
-    default: Input[Tval] | IO[Tval] | None = None
+    cases: tuple[tuple[Tkey, Input[Tval]], ...] = ()
+    default: Input[Tval] | None = None
 
-    def _match(self, value: Tkey) -> Input[Tval] | IO[Tval]:
+    def _match(self, value: Tkey) -> Input[Tval]:
         for case, io in self.cases:
             if value == case:
                 return io
@@ -30,19 +30,19 @@ class MatchOnLoad(Input[Tval], Generic[Tkey, Tval]):
     def load(self) -> Tval:
         return self._match(self.io.load()).load()
 
-    def Case(self, key: Tkey, val: Input[Tval] | IO[Tval]) -> Self:
+    def Case(self, key: Tkey, val: Input[Tval]) -> Self:
         return replace(self, cases=(*self.cases, (key, val)))
 
-    def Default(self, val: Input[Tval] | IO[Tval]) -> Self:
+    def Default(self, val: Input[Tval]) -> Self:
         return replace(self, default=val)
 
 
 @dataclass(frozen=True, kw_only=True)
 class MatchOnSave(Output[tuple[Tkey, Tval]], Generic[Tkey, Tval]):
-    cases: tuple[tuple[Tkey, Output[Tval] | IO[Tval]], ...] = ()
-    default: Output[Tval] | IO[Tval] | None = None
+    cases: tuple[tuple[Tkey, Output[Tval]], ...] = ()
+    default: Output[Tval] | None = None
 
-    def _match(self, value: Tkey) -> Output[Tval] | IO[Tval]:
+    def _match(self, value: Tkey) -> Output[Tval]:
         for case, io in self.cases:
             if value == case:
                 return io
@@ -54,24 +54,22 @@ class MatchOnSave(Output[tuple[Tkey, Tval]], Generic[Tkey, Tval]):
         key, value = data
         self._match(key).save(value)
 
-    def Case(self, key: Tkey, val: Output[Tval] | IO[Tval]) -> Self:
+    def Case(self, key: Tkey, val: Output[Tval]) -> Self:
         return replace(self, cases=(*self.cases, (key, val)))
 
-    def Default(self, val: Output[Tval] | IO[Tval]) -> Self:
+    def Default(self, val: Output[Tval]) -> Self:
         return replace(self, default=val)
 
 
 @overload
-def Match(io: Input[Tkey] | IO[Tkey]) -> MatchOnLoad[Tval, Tkey]: ...
+def Match(io: Input[Tkey]) -> MatchOnLoad[Tval, Tkey]: ...
 
 
 @overload
 def Match() -> MatchOnSave[Tval, Tkey]: ...
 
 
-def Match(
-    io: Input[Tkey] | IO[Tkey] | None = None,
-) -> MatchOnLoad | MatchOnSave:
+def Match(io: Input[Tkey] | None = None) -> MatchOnLoad | MatchOnSave:
     """Utility IO that allows dynamic switching between IO, like the match-case
     statement in Python.
 

@@ -60,7 +60,8 @@ def viz(
         )
 
     nodes, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
-
+    # TODO: Propagate FQNs to viz
+    nodes_ = [node for _, _, node in nodes]
     match fmt:
         case "kedro-viz":
             if not output:
@@ -68,16 +69,16 @@ def viz(
                     "`output` is required when `fmt` is 'kedro-viz'"
                 )
             pipeline_to_kedro_viz(
-                nodes, ios, output_directory=output, **options
+                nodes_, ios, output_directory=output, **options
             )
         case "mermaid":
-            result = pipeline_to_mermaid(nodes, ios, **options)
+            result = pipeline_to_mermaid(nodes_, ios, **options)
             if output:
                 output.write_text(result, encoding="utf8")
                 return None
             return result
         case "mermaid-md":
-            result = pipeline_to_mermaid_md(nodes, ios, **options)
+            result = pipeline_to_mermaid_md(nodes_, ios, **options)
             if output:
                 output.write_text(result, encoding="utf8")
                 return None

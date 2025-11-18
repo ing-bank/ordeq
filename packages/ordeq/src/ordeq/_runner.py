@@ -235,7 +235,8 @@ def run(
 
     """
 
-    nodes = _resolve_runnables_to_nodes(*runnables)
+    # TODO: Node names should be propagated to the graph/plan
+    nodes = [node for _, _, node in _resolve_runnables_to_nodes(*runnables)]
     if node_filter:
         logger.warning(
             "Node filters are in preview mode and may change "

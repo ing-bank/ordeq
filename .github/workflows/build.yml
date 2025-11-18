@@ -108,6 +108,10 @@ jobs:
           enable-cache: true
           save-cache: false
 
+      - name: Install poppler-utils for pdf2image
+        if: matrix.package == 'ordeq-pillow'
+        run: sudo apt install -y poppler-utils
+
       - name: Install the package
         run: uv sync --package ${{ matrix.package }} --group test --locked
 

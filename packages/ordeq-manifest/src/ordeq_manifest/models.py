@@ -10,16 +10,37 @@ from ordeq._resolve import AnyIO, Catalog
 from pydantic import BaseModel, Field
 
 
+class ResourceModel(BaseModel):
+    """Model representing a resource of an IO."""
+
+    id: int
+    type: str
+    value: Any
+
+    @classmethod
+    def from_resource(cls, resource: Any, idx: int) -> "ResourceModel":
+        resource_type = type(resource)
+        return cls(
+            id=idx,
+            type=fqn_to_object_ref((
+                resource_type.__module__,
+                resource_type.__name__,
+            )),
+            value=resource,
+        )
+
+
 class IOModel(BaseModel):
     """Model representing an IO in a project."""
 
     name: str
     type: str
+    resource: int | None = None
     references: list[str] = Field(default_factory=list)
     attributes: dict[str, Any] = Field(default_factory=dict)
 
     @classmethod
-    def from_io(cls, io: FQNamed[AnyIO]) -> "IOModel":
+    def from_io(cls, io: FQNamed[AnyIO], resource: int | None) -> "IOModel":
         _, io_name, io_obj = io
         io_type = type(io_obj)
         io_type_fqn = (io_type.__module__, io_type.__name__)
@@ -28,6 +49,7 @@ class IOModel(BaseModel):
             type=fqn_to_object_ref(io_type_fqn),
             references=list(io_obj.references.keys()),
             attributes=io_obj._attributes or {},
+            resource=resource,
         )
 
 
@@ -83,12 +105,13 @@ class NodeModel(BaseModel):
         )
 
 
-class ProjectModel(BaseModel, frozen=True):
+class ProjectModel(BaseModel):
     """Model representing a project."""
 
     name: str
     nodes: dict[str, NodeModel] = Field(default_factory=dict)
     ios: dict[str, IOModel] = Field(default_factory=dict)
+    resources: list[ResourceModel] = Field(default_factory=list)
 
     @classmethod
     def from_nodes_and_ios(
@@ -107,14 +130,21 @@ class ProjectModel(BaseModel, frozen=True):
 
         ref_to_io_models = {}
         io_to_fqns = defaultdict(list)
+        resource_to_model: dict[Any, ResourceModel] = {}
         for module_ref in ios:
             for io_name, io in ios[module_ref].items():
+                resource = io._resource
+                if resource not in resource_to_model and resource is not io:
+                    resource_to_model[resource] = ResourceModel.from_resource(
+                        resource, idx=len(resource_to_model)
+                    )
                 ref = fqn_to_object_ref((module_ref, io_name))
-                ref_to_io_models[ref] = IOModel.from_io((
-                    module_ref,
-                    io_name,
-                    io,
-                ))
+                ref_to_io_models[ref] = IOModel.from_io(
+                    (module_ref, io_name, io),
+                    resource_to_model[resource].id
+                    if resource in resource_to_model
+                    else None,
+                )
                 io_to_fqns[io].append(ref)
 
         # Anonymous IOs:
@@ -123,14 +153,25 @@ class ProjectModel(BaseModel, frozen=True):
         for module_ref, _, node in nodes:
             for io_ in chain(node.inputs, node.outputs):
                 if io_ not in io_to_fqns:
+                    resource = io_._resource
+                    if (
+                        resource not in resource_to_model
+                        and resource is not io_
+                    ):
+                        resource_to_model[resource] = (
+                            ResourceModel.from_resource(
+                                resource, idx=len(resource_to_model)
+                            )
+                        )
                     # same module as node
                     fqn = f"{module_ref}:<anonymous{idx}>"
                     io_to_fqns[io_].append(f"{module_ref}:<anonymous{idx}>")  # type: ignore[index]
-                    model = IOModel.from_io((
-                        module_ref,
-                        f"<anonymous{idx}>",
-                        io_,
-                    ))  # type: ignore[arg-type]
+                    model = IOModel.from_io(
+                        (module_ref, f"<anonymous{idx}>", io_),  # type: ignore[arg-type]
+                        resource_to_model[resource].id
+                        if resource in resource_to_model
+                        else None,
+                    )  # type: ignore[arg-type]
                     ref_to_io_models[fqn] = model
                     idx += 1
 
@@ -140,4 +181,9 @@ class ProjectModel(BaseModel, frozen=True):
             )
             for module_ref, node_name, node in nodes
         }
-        return cls(name=name, nodes=refs_to_nodes, ios=ref_to_io_models)
+        return cls(
+            name=name,
+            nodes=refs_to_nodes,
+            ios=ref_to_io_models,
+            resources=list(resource_to_model.values()),
+        )

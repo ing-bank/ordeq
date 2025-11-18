@@ -8,7 +8,7 @@ from ordeq_pandas import PandasCSV
 from ordeq_polars import PolarsEagerCSV
 from ordeq_viz import viz
 
-csv = Path(tempfile.mkdtemp()) / "my.csv"
+csv = Path(tempfile.gettempdir()) / "my.csv"
 csv_pandas = PandasCSV(path=csv) @ csv
 csv_polars = PolarsEagerCSV(path=csv) @ csv
 

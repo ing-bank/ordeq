@@ -11,7 +11,7 @@ from ordeq_pandas import PandasCSV
 from ordeq_polars import PolarsEagerCSV
 from ordeq_viz import viz
 
-csv = Path(tempfile.mkdtemp()) / "my.csv"
+csv = Path(tempfile.gettempdir()) / "my.csv"
 csv_pandas = PandasCSV(path=csv) @ csv
 csv_polars = PolarsEagerCSV(path=csv) @ csv
 
@@ -97,8 +97,8 @@ WARNING	ordeq.io	Resources are in preview mode and may change without notice in 
 WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running node "produce" in module "__main__"
-INFO	ordeq.io	Saving PandasCSV(path=Path('<TEMP_DIR>/tmp2ydbacni/my.csv'))
-INFO	ordeq.io	Loading PolarsEagerCSV(path=Path('<TEMP_DIR>/tmp2ydbacni/my.csv'))
+INFO	ordeq.io	Saving PandasCSV(path=Path('<TEMP_DIR>/my.csv'))
+INFO	ordeq.io	Loading PolarsEagerCSV(path=Path('<TEMP_DIR>/my.csv'))
 INFO	ordeq.runner	Running view "check" in module "__main__"
 
 ```

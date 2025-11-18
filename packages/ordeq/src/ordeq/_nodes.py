@@ -262,7 +262,11 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output] | Input | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]: ...
 
@@ -274,7 +278,11 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: None = None,
-    checks: Sequence[Input | Output] | Input | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> View[FuncParams, FuncReturns]: ...
 
@@ -285,7 +293,11 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output] | Input | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns] | View[FuncParams, FuncReturns]:
     """Creates a Node instance.
@@ -372,7 +384,11 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output] | Input | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     **attributes: Any,
 ) -> Callable[FuncParams, FuncReturns]: ...
 
@@ -382,7 +398,11 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable = not_passed,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output] | Input | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     **attributes: Any,
 ) -> Callable[
     [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
@@ -394,7 +414,11 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output] | Input | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     **attributes: Any,
 ) -> (
     Callable[

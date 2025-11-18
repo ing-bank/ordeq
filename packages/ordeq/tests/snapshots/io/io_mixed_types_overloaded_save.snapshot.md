@@ -60,68 +60,8 @@ some_bytes
 Should fail because of unexpected argument:
 IOException: Failed to save Text.
 Text.save() got an unexpected keyword argument 'x'
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    raise IOException(msg) from exc
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **kwargs)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **save_options)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **save_options)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
-    save_func(data, *args, **save_options)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in <lambda>
-    lambda prev_func, wrap: lambda d, *a, **k: wrap(
-                                               ~~~~^
-        self, prev_func, d, *a, **k
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    ),
-    ^
-
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
-    composed(data, *args, **kwargs)
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+    raise IOException(msg) from exc
 
   File "/packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py", line LINO, in <module>
     example.save(b"some_bytes", x="x")

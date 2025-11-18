@@ -90,13 +90,13 @@ class NodeResourceGraph(Graph[Resource | Node]):
 
     @cached_property
     def nodes(self) -> list[Node]:
-        return [node for node in self.edges.keys() if isinstance(node, Node)]
+        return [node for node in self.edges if isinstance(node, Node)]
 
     @cached_property
     def resources(self) -> list[Resource]:
         return [
             resource
-            for resource in self.edges.keys()
+            for resource in self.edges
             if isinstance(resource, Resource)
         ]
 
@@ -179,8 +179,8 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
         return cls(edges=edges, ios=ios)
 
     @cached_property
-    def nodes(self):
-        return [node for node in self.edges.keys() if isinstance(node, Node)]
+    def nodes(self) -> list[Node]:
+        return [node for node in self.edges if isinstance(node, Node)]
 
     def __repr__(self) -> str:
         # Hacky way to generate a deterministic repr of this class.

@@ -8,7 +8,8 @@ import example_project
 from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
 from ordeq._resolve import _resolve_runnables_to_nodes
 
-nodes = _resolve_runnables_to_nodes(example_project)
+fqn_nodes = _resolve_runnables_to_nodes(example_project)
+nodes = [node for _, _, node in fqn_nodes]
 nodes_and_views = _collect_views(*nodes)
 base_graph = NodeIOGraph.from_nodes(nodes_and_views)
 print("NodeIOGraph")

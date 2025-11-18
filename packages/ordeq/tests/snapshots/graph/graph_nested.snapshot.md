@@ -8,7 +8,8 @@ import example_nested
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
-nodes = _resolve_runnables_to_nodes(example_nested)
+fqn_nodes = _resolve_runnables_to_nodes(example_nested)
+nodes = [node for _, _, node in fqn_nodes]
 base_graph = NodeIOGraph.from_nodes(nodes)
 print("NodeIOGraph")
 print(base_graph)

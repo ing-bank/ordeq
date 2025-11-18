@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from ordeq._runner import Runnable
 
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
+Unknown: str = "unknown"
 
 
 def _is_module(obj: object) -> TypeGuard[ModuleType]:
@@ -239,7 +240,7 @@ def _resolve_refs_to_hooks(
 
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: Runnable,
-) -> tuple[list[Node], list[ModuleType]]:
+) -> tuple[list[FQNamed[Node]], list[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -253,7 +254,7 @@ def _resolve_runnables_to_nodes_and_modules(
         TypeError: if a runnable is not a module and not a node
     """
     modules_and_strs: list[ModuleType | str] = []
-    nodes: list[Node] = []
+    nodes: list[FQNamed[Node]] = []
     for runnable in runnables:
         if _is_module(runnable) or (
             isinstance(runnable, str) and not is_object_ref(runnable)
@@ -263,7 +264,7 @@ def _resolve_runnables_to_nodes_and_modules(
         elif callable(runnable):
             node = get_node(runnable)
             if node not in nodes:
-                nodes.append(node)
+                nodes.append((Unknown, Unknown, node))
             else:
                 warnings.warn(
                     f"Node '{node.name}' already provided in another runnable",
@@ -272,7 +273,7 @@ def _resolve_runnables_to_nodes_and_modules(
         elif isinstance(runnable, str):
             module_ref, node_name, node = _resolve_object_ref_to_node(runnable)
             if node not in nodes:
-                nodes.append(node)
+                nodes.append((module_ref, node_name, node))
             else:
                 warnings.warn(
                     f"Node '{fqn_to_object_ref((module_ref, node_name))}' "
@@ -303,7 +304,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> dict[str, Node]:
     return {name: node for node, name in nodes.items()}
 
 
-def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[Node]:
+def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQNamed[Node]]:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -316,7 +317,10 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[Node]:
     """
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
-        nodes.extend(_resolve_module_to_nodes(module).values())
+        nodes.extend(
+            (module.__name__, node_name, node)
+            for node_name, node in _resolve_module_to_nodes(module).items()
+        )
     return nodes
 
 
@@ -340,7 +344,7 @@ def _check_missing_ios(nodes: set[Node], ios: Catalog) -> None:
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: Runnable,
-) -> tuple[list[Node], Catalog]:
+) -> tuple[list[FQNamed[Node]], Catalog]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:
@@ -354,12 +358,16 @@ def _resolve_runnables_to_nodes_and_ios(
     ios = {}
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
-    for node in nodes:
-        mod = _resolve_module_ref_to_module(node.func.__module__)
-        ios.update({mod.__name__: _resolve_module_to_ios(mod)})
+    for module_name, _, _ in nodes:
+        if module_name is not Unknown:
+            module = _resolve_module_ref_to_module(module_name)
+            ios.update({module_name: _resolve_module_to_ios(module)})
 
     for module in modules:
-        nodes.extend(_resolve_module_to_nodes(module).values())
+        nodes.extend(
+            (module.__name__, node_name, node)
+            for node_name, node in _resolve_module_to_nodes(module).items()
+        )
         ios.update({module.__name__: _resolve_module_to_ios(module)})
 
     # Filter empty IO modules

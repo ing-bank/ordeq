@@ -94,6 +94,16 @@ print(create_manifest_json(example_project))
       ],
       "attributes": {}
     },
+    "example_project.nodes_with_view:greet": {
+      "name": "greet",
+      "inputs": [
+        "example_project.nodes_with_view:greeting"
+      ],
+      "outputs": [
+        "example_project.nodes_with_view:<anonymous2>"
+      ],
+      "attributes": {}
+    },
     "example_project.nodes_with_view:farewell": {
       "name": "farewell",
       "inputs": [
@@ -208,20 +218,32 @@ print(create_manifest_json(example_project))
       "references": [],
       "attributes": {}
     },
-    "example_project.nodes_import_alias:B": {
-      "name": "B",
-      "type": "ordeq_common.io.string_buffer:StringBuffer",
-      "references": [],
-      "attributes": {}
-    },
     "example_project.nodes_import_alias:a": {
       "name": "a",
       "type": "ordeq_common.io.literal:Literal",
       "references": [],
       "attributes": {}
     },
+    "example_project.nodes_import_alias:B": {
+      "name": "B",
+      "type": "ordeq_common.io.string_buffer:StringBuffer",
+      "references": [],
+      "attributes": {}
+    },
     "example_project.nodes_import_alias:h": {
       "name": "h",
+      "type": "ordeq_common.io.printer:Print",
+      "references": [],
+      "attributes": {}
+    },
+    "example_project.nodes_with_view:greeting": {
+      "name": "greeting",
+      "type": "ordeq_common.io.literal:Literal",
+      "references": [],
+      "attributes": {}
+    },
+    "example_project.nodes_with_view:printer": {
+      "name": "printer",
       "type": "ordeq_common.io.printer:Print",
       "references": [],
       "attributes": {}
@@ -241,18 +263,6 @@ print(create_manifest_json(example_project))
     "example_project.nodes_with_view:<anonymous2>": {
       "name": "<anonymous2>",
       "type": "ordeq._io:IO",
-      "references": [],
-      "attributes": {}
-    },
-    "example_project.nodes_with_view:greeting": {
-      "name": "greeting",
-      "type": "ordeq_common.io.literal:Literal",
-      "references": [],
-      "attributes": {}
-    },
-    "example_project.nodes_with_view:printer": {
-      "name": "printer",
-      "type": "ordeq_common.io.printer:Print",
       "references": [],
       "attributes": {}
     }

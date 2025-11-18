@@ -19,9 +19,7 @@ def create_manifest(package: ModuleType) -> ProjectModel:
 
     name = package.__name__
     nodes, ios = _resolve_runnables_to_nodes_and_ios(package)
-    # TODO: Propagate FQNs to manifest
-    nodes_ = [node for _, _, node in nodes]
-    return ProjectModel.from_nodes_and_ios(name=name, nodes=nodes_, ios=ios)
+    return ProjectModel.from_nodes_and_ios(name=name, nodes=nodes, ios=ios)
 
 
 @overload

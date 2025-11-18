@@ -1,9 +1,11 @@
+import logging
 from pathlib import Path
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, overload
 
 from ordeq._fqn import ModuleRef
 from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
+from ordeq._runner import NodeFilter
 
 from ordeq_viz.to_kedro_viz import pipeline_to_kedro_viz
 from ordeq_viz.to_mermaid import pipeline_to_mermaid
@@ -12,11 +14,15 @@ from ordeq_viz.to_mermaid_md import pipeline_to_mermaid_md
 Vizzable: TypeAlias = ModuleRef | ModuleType
 
 
+logger = logging.getLogger("ordeq.viz")
+
+
 @overload
 def viz(
     *vizzables: Vizzable,
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path,
+    node_filter: NodeFilter | None = None,
     **options: Any,
 ) -> None: ...
 
@@ -26,6 +32,7 @@ def viz(
     *vizzables: Vizzable,
     fmt: Literal["mermaid", "mermaid-md"],
     output: None = None,
+    node_filter: NodeFilter | None = None,
     **options: Any,
 ) -> str: ...
 
@@ -34,6 +41,7 @@ def viz(
     *vizzables: Vizzable,
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path | None = None,
+    node_filter: NodeFilter | None = None,
     **options: Any,
 ) -> str | None:
     """Visualize the pipeline from the provided packages, modules, or nodes
@@ -42,6 +50,7 @@ def viz(
         vizzables: modules or references to modules to visualize.
         fmt: Format of the output visualization, ("kedro-viz" or "mermaid").
         output: output file or directory where the viz will be saved.
+        node_filter: Optional filter to apply to nodes before visualization.
         options: Additional options for the visualization functions.
 
     Returns:
@@ -62,6 +71,12 @@ def viz(
     nodes, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
     # TODO: Propagate FQNs to viz
     nodes_ = [node for _, _, node in nodes]
+    if node_filter:
+        logger.warning(
+            "Node filters are in preview mode and may change "
+            "without notice in future releases."
+        )
+        nodes_ = [node for node in nodes_ if node_filter(node)]
     match fmt:
         case "kedro-viz":
             if not output:

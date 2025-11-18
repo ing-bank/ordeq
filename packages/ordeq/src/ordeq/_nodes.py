@@ -328,6 +328,12 @@ def create_node(
         else:
             inputs_.append(cast("Input", input_))
 
+    if checks:
+        logger.warning(
+            "Checks are in preview mode and may change "
+            "without notice in future releases."
+        )
+
     if not outputs:
         logger.warning(
             "Creating a view, as no outputs were provided for node '%s'. "
@@ -340,7 +346,7 @@ def create_node(
             name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
-            checks=_sequence_to_tuple(checks),
+            checks=_sequence_to_tuple(checks),  # type: ignore[arg-type]
             attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
             views=tuple(views),  # type: ignore[arg-type]
         )

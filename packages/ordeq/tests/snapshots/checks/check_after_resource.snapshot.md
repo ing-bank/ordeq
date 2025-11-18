@@ -89,6 +89,7 @@ PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a clas
 ```text
 WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

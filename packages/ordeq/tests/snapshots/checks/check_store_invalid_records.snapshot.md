@@ -14,7 +14,9 @@ from ordeq_viz import viz
 records = Literal(
     pd.DataFrame({"id": [1, 2, 3, 4], "value": [10, -5, 20, -1]})
 )
-invalid_records = JSON(path=Path(tempfile.gettempdir()) / "invalid_records.json")
+invalid_records = JSON(
+    path=Path(tempfile.gettempdir()) / "invalid_records.json"
+)
 processed_records = IO()
 
 
@@ -99,6 +101,7 @@ Invalid Records Data: {"id":{"0":null,"1":2.0,"2":null,"3":4.0},"value":{"0":nul
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:process_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:print_invalid_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:print_processed_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(   id  value

@@ -29,18 +29,21 @@ def test_it_builds_a_graph():
     first.name = "first"
     first.inputs = [A]
     first.outputs = [B]
+    first.checks = []
 
     second = Mock(spec=Node)
     second.views = []
     second.name = "second"
     second.inputs = [B, C]
     second.outputs = [D]
+    second.checks = []
 
     third = Mock(spec=Node)
     third.views = []
     third.name = "third"
     third.inputs = [B, D]
     third.outputs = [F]
+    third.checks = []
 
     g = NodeGraph.from_nodes([third, second, first])
     assert g.edges == {second: [third], first: [third, second], third: []}
@@ -53,6 +56,7 @@ def test_it_builds_graph_with_single_node():
     first.inputs = [A]
     first.outputs = [B]
     first.views = []
+    first.checks = []
 
     g = NodeGraph.from_nodes([first])
     assert g.edges == {first: []}
@@ -65,12 +69,14 @@ def test_it_raises_error_on_duplicated_outputs():
     first.name = "first"
     first.inputs = [A]
     first.outputs = [B]
+    first.checks = []
 
     second = Mock(spec=Node)
     second.views = []
     second.name = "second"
     second.inputs = [D]
     second.outputs = [B]
+    second.checks = []
 
     with pytest.raises(
         ValueError, match=r"Nodes cannot output to the same resource."

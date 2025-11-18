@@ -8,9 +8,8 @@ from types import ModuleType
 
 from ordeq._catalog import check_catalogs_are_consistent
 from ordeq._fqn import AnyRef, is_object_ref
-from ordeq._io import AnyIO
+from ordeq._io import AnyIO, _is_io
 from ordeq._resolve import (
-    _is_io,
     _is_module,
     _resolve_module_ref_to_module,
     _resolve_object_ref_to_io,

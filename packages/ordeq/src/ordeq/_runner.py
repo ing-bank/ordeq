@@ -10,7 +10,11 @@ from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
-from ordeq._resolve import _resolve_refs_to_hooks, _resolve_runnables_to_nodes
+from ordeq._resolve import (
+    Runnable,
+    _resolve_refs_to_hooks,
+    _resolve_runnables_to_nodes,
+)
 from ordeq._substitute import (
     _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
@@ -20,7 +24,6 @@ logger = logging.getLogger("ordeq.runner")
 
 T = TypeVar("T")
 
-Runnable: TypeAlias = ModuleType | Callable | str
 # The save mode determines which outputs are saved. When set to:
 # - 'all', all outputs are saved, including those of intermediate nodes.
 # - 'sinks', only outputs of sink nodes are saved, i.e. those w/o successors.

@@ -16,7 +16,7 @@ _ = ExampleOutputsaveArg().with_save_options(world="hello world")
 
 ```
 
-## Exception
+## Output
 
 ```text
 TypeError: got an unexpected keyword argument 'world'

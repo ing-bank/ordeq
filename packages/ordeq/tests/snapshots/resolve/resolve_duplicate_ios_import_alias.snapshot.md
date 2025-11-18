@@ -9,7 +9,7 @@ _ = _resolve_module_to_ios(duplicate_import_alias)
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Module 'example_duplicates.duplicate_import_alias' contains duplicate keys for the same IO ('b' and 'a')

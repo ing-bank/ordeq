@@ -10,7 +10,7 @@ _ = _resolve_module_to_ios(duplicate_io_names)
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Module 'example_duplicates.duplicate_io_names' contains duplicate keys for the same IO ('y' and 'x')

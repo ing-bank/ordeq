@@ -24,7 +24,7 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 
 ```
 
-## Exception
+## Output
 
 ```text
 TypeError: All vizzables must be modules or references to modules.

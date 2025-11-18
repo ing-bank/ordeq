@@ -32,9 +32,22 @@ run(sink, verbose=True)
 
 ```
 
-## Exception
+## Output
 
 ```text
+io-0 --> Node:__main__:hello_from_someone
+io-1 --> Node:__main__:hello_from_someone
+Node:__main__:hello_from_someone --> io-2
+io-2 --> View:__main__:what_i_heard
+View:__main__:what_i_heard --> io-3
+io-3 --> View:__main__:sink
+View:__main__:sink --> io-4
+I heard that Jane said 'Hello'
+None
+io-0 --> View:__main__:what_i_heard
+View:__main__:what_i_heard --> io-1
+io-1 --> View:__main__:sink
+View:__main__:sink --> io-2
 IOException: Failed to load IO(id=ID1).
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
@@ -130,25 +143,6 @@ IOException: Failed to load IO(id=ID1).
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-io-0 --> Node:__main__:hello_from_someone
-io-1 --> Node:__main__:hello_from_someone
-Node:__main__:hello_from_someone --> io-2
-io-2 --> View:__main__:what_i_heard
-View:__main__:what_i_heard --> io-3
-io-3 --> View:__main__:sink
-View:__main__:sink --> io-4
-I heard that Jane said 'Hello'
-None
-io-0 --> View:__main__:what_i_heard
-View:__main__:what_i_heard --> io-1
-io-1 --> View:__main__:sink
-View:__main__:sink --> io-2
 
 ```
 

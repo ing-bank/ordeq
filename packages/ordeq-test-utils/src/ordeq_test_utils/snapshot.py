@@ -173,12 +173,9 @@ def capture_module(
 
     exception = run_module(file_path)
 
-    if exception is not None:
-        sections["Exception"] = _as_md_text_block(exception)
-
     captured_out_err = capsys.readouterr()
-    if captured_out_err.out:
-        sections["Output"] = _as_md_text_block(captured_out_err.out)
+    if captured_out_err.out or exception:
+        sections["Output"] = _as_md_text_block(captured_out_err.out + (exception or ""))
     if captured_out_err.err:
         sections["Error"] = _as_md_text_block(captured_out_err.err)
     if len(recwarn) > 0:

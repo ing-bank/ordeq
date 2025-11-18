@@ -16,7 +16,7 @@ example.save(df=data)  # should give an error
 
 ```
 
-## Exception
+## Output
 
 ```text
 TypeError: Example.save() missing 1 required positional argument: 'data'

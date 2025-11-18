@@ -16,7 +16,7 @@ def say_hello(value: str) -> str:
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Input '<function hello at HASH1>' to node '__main__:say_hello' is not a view

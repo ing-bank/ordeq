@@ -11,7 +11,7 @@ def func(hello: str) -> str:
 
 ```
 
-## Exception
+## Output
 
 ```text
 AttributeError: module 'example_catalogs.inconsistent' has no attribute 'result'

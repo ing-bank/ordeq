@@ -21,7 +21,7 @@ run(func1, func2, verbose=True)
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Nodes '__main__:func2' and '__main__:func1' both output to Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)). Nodes cannot output to the same resource.

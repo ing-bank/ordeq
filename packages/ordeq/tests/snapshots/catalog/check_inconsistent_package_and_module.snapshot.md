@@ -9,7 +9,7 @@ check_catalogs_are_consistent(package_base, remote)
 
 ```
 
-## Exception
+## Output
 
 ```text
 CatalogError: Catalog 'example_catalogs.remote' is missing IO(s) 'creds:secret', 'etl:clients', 'etl:txs', 'ml:metrics', 'ml:model', 'ml:plot', 'ml:predictions'

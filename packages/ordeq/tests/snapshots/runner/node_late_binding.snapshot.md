@@ -10,7 +10,7 @@ def func(x: str) -> str:
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Node inputs invalid for function arguments: Node(name=__main__:func,...)

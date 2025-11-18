@@ -8,7 +8,7 @@ run(example_module_a, example_module_b, verbose=True)
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Module 'resources.runner.example_module_b' contains duplicate keys for the same node ('renamed' and 'increment')

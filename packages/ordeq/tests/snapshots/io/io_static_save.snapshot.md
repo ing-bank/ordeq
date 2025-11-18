@@ -14,7 +14,7 @@ _ = ExampleStaticIO()
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Save method cannot be static.

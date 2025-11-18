@@ -58,9 +58,20 @@ example_input_arg.with_load_options(unknown_kwarg="Hello")  # should error
 
 ```
 
-## Exception
+## Output
 
 ```text
+hello.txt@L1: Hi world!
+hello.txt@L1: Hello world!
+<class '__main__.ExampleInputLoadKwarg'>
+hello.txt@L1: Hello world!
+hello.txt@L1: Hello world!
+<class '__main__.ExampleInputLoadKwarg'>
+hello.txt@L1: Hello world!
+<class '__main__.ExampleInputLoadArg'>
+hello.txt@L1: Hello world!
+hello.txt@L1: Hi world!
+<class '__main__.ExampleInputLoadArg'>
 TypeError: got an unexpected keyword argument 'unknown_kwarg'
   File "/inspect.py", line LINO, in _bind
     raise TypeError(
@@ -88,23 +99,6 @@ TypeError: got an unexpected keyword argument 'unknown_kwarg'
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-hello.txt@L1: Hi world!
-hello.txt@L1: Hello world!
-<class '__main__.ExampleInputLoadKwarg'>
-hello.txt@L1: Hello world!
-hello.txt@L1: Hello world!
-<class '__main__.ExampleInputLoadKwarg'>
-hello.txt@L1: Hello world!
-<class '__main__.ExampleInputLoadArg'>
-hello.txt@L1: Hello world!
-hello.txt@L1: Hi world!
-<class '__main__.ExampleInputLoadArg'>
 
 ```
 

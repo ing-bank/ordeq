@@ -7,7 +7,7 @@ run("example_1", hooks=["example_1.hooks:idontexist"])
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Hook 'idontexist' not found in module 'example_1.hooks'

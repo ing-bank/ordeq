@@ -15,7 +15,7 @@ def func(hello: str) -> str:
 
 ```
 
-## Exception
+## Output
 
 ```text
 CatalogError: Catalog 'example_catalogs.inconsistent' is missing IO(s) 'result'

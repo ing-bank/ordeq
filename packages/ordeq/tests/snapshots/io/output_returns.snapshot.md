@@ -16,7 +16,7 @@ _ = ExampleOutputNosave()
 
 ```
 
-## Exception
+## Output
 
 ```text
 TypeError: Save method must have return type None.

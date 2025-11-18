@@ -34,7 +34,7 @@ run(
 
 ```
 
-## Exception
+## Output
 
 ```text
 CatalogError: Catalog 'example_catalogs.local' is missing IO(s) 'another_io'

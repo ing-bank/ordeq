@@ -20,7 +20,7 @@ run(uppercase, io={catalog.hello: "example_catalogs:remote"})
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: IO 'remote' not found in module 'example_catalogs'

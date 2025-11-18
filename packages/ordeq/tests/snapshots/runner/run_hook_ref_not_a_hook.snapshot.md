@@ -7,7 +7,7 @@ run("example_1", hooks=["example_1.hooks:other_obj"])
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Hook 'other_obj' not found in module 'example_1.hooks'

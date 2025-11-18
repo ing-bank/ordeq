@@ -23,7 +23,7 @@ run(fail, hooks=[logger])
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Intentional failure for testing.

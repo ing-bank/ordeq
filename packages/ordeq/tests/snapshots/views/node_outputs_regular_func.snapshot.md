@@ -14,7 +14,7 @@ def say_hello() -> str:
 
 ```
 
-## Exception
+## Output
 
 ```text
 ValueError: Outputs of node '__main__:say_hello' must be of type Output, got <class 'function'> 

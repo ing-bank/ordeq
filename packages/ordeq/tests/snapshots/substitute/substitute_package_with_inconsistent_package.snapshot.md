@@ -9,7 +9,7 @@ print(_substitutes_modules_to_ios({package_base: package_inconsistent}))
 
 ```
 
-## Exception
+## Output
 
 ```text
 CatalogError: Catalog 'example_catalogs.package_inconsistent' is missing IO(s) 'creds:secret', 'ml:metrics', 'ml:model', 'ml:plot', 'ml:predictions'

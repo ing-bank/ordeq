@@ -24,9 +24,14 @@ run(f, g, verbose=True)  # raises NotImplementedError
 
 ```
 
-## Exception
+## Output
 
 ```text
+io-0 --> Node:__main__:f
+io-1 --> Node:__main__:f
+Node:__main__:f --> io-2
+io-2 --> Node:__main__:g
+Node:__main__:g --> io-3
 IOException: Failed to load Input(id=ID1).
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in load_wrapper
@@ -111,17 +116,6 @@ IOException: Failed to load Input(id=ID1).
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-io-0 --> Node:__main__:f
-io-1 --> Node:__main__:f
-Node:__main__:f --> io-2
-io-2 --> Node:__main__:g
-Node:__main__:g --> io-3
 
 ```
 

@@ -23,9 +23,20 @@ pprint(_resolve_runnables_to_nodes(*runnables))
 
 ```
 
-## Exception
+## Output
 
 ```text
+['example_duplicates',
+ 'example_duplicates.duplicate_import_alias',
+ 'example_duplicates.duplicate_import_reassign',
+ 'example_duplicates.duplicate_io_different_resource',
+ 'example_duplicates.duplicate_io_names',
+ 'example_duplicates.duplicate_io_objects',
+ 'example_duplicates.duplicate_io_via_copy',
+ 'example_duplicates.duplicate_node_names',
+ 'example_duplicates.duplicate_node_objects',
+ 'example_duplicates.file1',
+ 'example_duplicates.file2']
 ValueError: Module 'example_duplicates.duplicate_import_alias' contains duplicate keys for the same IO ('b' and 'a')
   File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_module_to_ios
     raise ValueError(
@@ -49,22 +60,5 @@ ValueError: Module 'example_duplicates.duplicate_import_alias' contains duplicat
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-['example_duplicates',
- 'example_duplicates.duplicate_import_alias',
- 'example_duplicates.duplicate_import_reassign',
- 'example_duplicates.duplicate_io_different_resource',
- 'example_duplicates.duplicate_io_names',
- 'example_duplicates.duplicate_io_objects',
- 'example_duplicates.duplicate_io_via_copy',
- 'example_duplicates.duplicate_node_names',
- 'example_duplicates.duplicate_node_objects',
- 'example_duplicates.file1',
- 'example_duplicates.file2']
 
 ```

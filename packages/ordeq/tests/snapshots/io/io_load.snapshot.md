@@ -7,7 +7,7 @@ IO().load()
 
 ```
 
-## Exception
+## Output
 
 ```text
 IOException: Failed to load IO(id=ID1).

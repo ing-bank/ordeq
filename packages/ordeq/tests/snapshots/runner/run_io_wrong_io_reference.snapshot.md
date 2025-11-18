@@ -20,7 +20,7 @@ run(uppercase, io={catalog.hello: "example_catalogs.remote.hello"})
 
 ```
 
-## Exception
+## Output
 
 ```text
 ModuleNotFoundError: No module named 'example_catalogs.remote.hello'; 'example_catalogs.remote' is not a package

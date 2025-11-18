@@ -10,7 +10,7 @@ print(_substitutes_modules_to_ios({IO(): local}))
 
 ```
 
-## Exception
+## Output
 
 ```text
 TypeError: Cannot substitute objects of type 'IO' and 'module'

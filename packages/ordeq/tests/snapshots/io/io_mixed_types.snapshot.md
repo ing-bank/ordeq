@@ -2,6 +2,8 @@
 
 ```python
 # Captures loading and saving an IO with different load and save type.
+# This example is highly artificial and should not be used as a reference when
+# implementing IOs in practice.
 from dataclasses import dataclass
 
 from ordeq import Input, Output

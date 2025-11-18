@@ -28,6 +28,15 @@ packages/ordeq/tests/resources/nodes/node_float.py:5: note:     def [FuncParams`
 packages/ordeq/tests/resources/nodes/node_float.py:5: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
 packages/ordeq/tests/resources/io/save_with_kwarg_data.py:5: note: "save" of "Example" defined here
 packages/ordeq/tests/resources/io/save_with_kwarg_data.py:13: error: Unexpected keyword argument "data" for "save" of "Example"  [call-arg]
+packages/ordeq/tests/resources/io/io_types_overloaded_save_options.py:14: error: "IO" expects 1 type argument, but 2 given  [type-arg]
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save_options.py:46: error: No overload variant of "save" of "Text" matches argument types "bytes", "str"  [call-overload]
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save_options.py:46: note: Possible overload variants:
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save_options.py:46: note:     def save(self, data: str, encoding: str | None = ...) -> None
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save_options.py:46: note:     def save(self, data: bytes, encoding: None = ...) -> None
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: error: No overload variant of "save" of "Text" matches argument types "bytes", "str"  [call-overload]
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note: Possible overload variants:
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note:     def save(self, data: str) -> Any
+packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note:     def save(self, data: bytes) -> Any
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: error: Argument 1 of "before_output_save" is incompatible with supertype "ordeq._hook.OutputHook"; supertype defines the argument type as "Output[str]"  [override]
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: This violates the Liskov substitution principle
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
@@ -49,4 +58,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No 
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-Found 24 errors in 18 files (checked 228 source files)
+Found 27 errors in 21 files (checked 233 source files)

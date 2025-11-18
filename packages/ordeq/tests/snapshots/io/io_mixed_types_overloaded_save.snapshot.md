@@ -21,12 +21,10 @@ class Text(Input[str], Output[bytes | str]):
         return str(self)
 
     @overload
-    def save(self, data: str):
-        ...
+    def save(self, data: str): ...
 
     @overload
-    def save(self, data: bytes):
-        ...
+    def save(self, data: bytes): ...
 
     def save(self, data: str | bytes) -> None:
         if isinstance(data, str):
@@ -43,7 +41,7 @@ with NamedTemporaryFile() as tmp:
     example = Text(path=path)
     print("Should save to `example` with utf8 encoding:")
     example.save("some_string")
-    print(path.read_text())
+    print(path.read_text(encoding="utf8"))
     print("Should save to `example` in byte mode:")
     example.save(b"some_bytes")
     print(path.read_text(encoding="utf8"))
@@ -52,9 +50,14 @@ with NamedTemporaryFile() as tmp:
 
 ```
 
-## Exception
+## Output
 
 ```text
+Should save to `example` with utf8 encoding:
+some_string
+Should save to `example` in byte mode:
+some_bytes
+Should fail because of unexpected argument:
 IOException: Failed to save Text.
 Text.save() got an unexpected keyword argument 'x'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_wrapper
@@ -133,17 +136,6 @@ Text.save() got an unexpected keyword argument 'x'
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-```
-
-## Output
-
-```text
-Should save to `example` with utf8 encoding:
-some_string
-Should save to `example` in byte mode:
-some_bytes
-Should fail because of unexpected argument:
 
 ```
 

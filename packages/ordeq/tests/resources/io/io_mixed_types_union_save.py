@@ -1,14 +1,16 @@
 # Captures loading and saving an IO with different load and save type.
 # The save type is a union of two data types.
+# This example is highly artificial and should not be used as a reference when
+# implementing IOs in practice.
 from dataclasses import dataclass
 from pathlib import Path
 from tempfile import NamedTemporaryFile
 
-from ordeq import IO
+from ordeq import Input, Output
 
 
 @dataclass(kw_only=True, frozen=True)
-class Text(IO[str, bytes | str]):
+class Text(Input[str], Output[bytes | str]):
     path: Path
 
     def load(self) -> str:

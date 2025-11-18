@@ -8,7 +8,7 @@ T = TypeVar("T")
 
 
 @dataclass(frozen=True)
-class _Iterate(IO[Iterable[T], Iterable[T]]):
+class _Iterate(IO[Iterable[T]]):
     ios: tuple[IO[T], ...]
 
     def load(self) -> Iterable[T]:

@@ -39,20 +39,41 @@ with NamedTemporaryFile() as tmp:
 
 ```
 
-## Output
+## Exception
 
 ```text
-Text
-some_string
-some_bytes
+TypeError: Too many arguments for <class 'ordeq._io.IO'>; actual 2, expected 1
+  File "/typing.py", line LINO, in _check_generic_specialization
+    raise TypeError(f"Too {'many' if actual_len > expected_len else 'few'} arguments"
+                    f" for {cls}; actual {actual_len}, expected {expect_val}")
+
+  File "/typing.py", line LINO, in _generic_class_getitem
+    _check_generic_specialization(cls, args)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+
+  File "/typing.py", line LINO, in inner
+    return func(*args, **kwds)
+
+  File "/packages/ordeq/tests/resources/io/io_types_union_save.py", line LINO, in <module>
+    class Text(IO[str, bytes | str]):
+               ~~^^^^^^^^^^^^^^^^^^
+
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
-## Logging
+## Typing
 
 ```text
-INFO	ordeq.io	Loading Text
-INFO	ordeq.io	Saving Text
-INFO	ordeq.io	Saving Text
+packages/ordeq/tests/resources/io/io_types_union_save.py:11:12: error[too-many-positional-arguments] Too many positional arguments to class `IO`: expected 1, got 2
+Found 1 diagnostic
 
 ```

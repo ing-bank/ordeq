@@ -237,6 +237,10 @@ def run(
 
     nodes = _resolve_runnables_to_nodes(*runnables)
     if node_filter:
+        logger.warning(
+            "Node filters are in preview mode and may change "
+            "without notice in future releases."
+        )
         nodes = [node for node in nodes if node_filter(node)]
     nodes_and_views = _collect_views(*nodes)
     graph = NodeGraph.from_nodes(nodes_and_views)

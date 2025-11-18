@@ -14,7 +14,8 @@ print(create_manifest_json(example_empty))
 {
   "name": "example_empty",
   "nodes": {},
-  "ios": {}
+  "ios": {},
+  "resources": []
 }
 
 ```

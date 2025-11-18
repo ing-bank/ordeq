@@ -39,16 +39,19 @@ with NamedTemporaryFile() as file:
     "example_project.inner.nodes:x": {
       "name": "x",
       "type": "ordeq._io:IO",
+      "resource": null,
       "references": [],
       "attributes": {}
     },
     "example_project.inner.nodes:y": {
       "name": "y",
       "type": "ordeq_common.io.printer:Print",
+      "resource": null,
       "references": [],
       "attributes": {}
     }
-  }
+  },
+  "resources": []
 }
 
 ```

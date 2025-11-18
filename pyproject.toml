@@ -47,6 +47,7 @@ ordeq-joblib = { workspace = true }
 ordeq-matplotlib = { workspace = true }
 ordeq-numpy = { workspace = true }
 ordeq-pandas = { workspace = true }
+ordeq-pillow = { workspace = true }
 ordeq-polars = { workspace = true }
 ordeq-plotly-express = { workspace = true }
 ordeq-manifest = { workspace = true }

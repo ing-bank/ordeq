@@ -135,11 +135,6 @@ docs-publish: docs-build
 install:
     uv sync --all-packages --all-groups --all-extras
 
-# Upgrade (pre-commit only)
-upgrade:
-    # TODO: keep an eye out for: https://github.com/astral-sh/uv/issues/6794
-    pre-commit autoupdate
-
 # Build a package
 build PACKAGE:
     echo "prune tests" > ./packages/{{ PACKAGE }}/MANIFEST.in || true

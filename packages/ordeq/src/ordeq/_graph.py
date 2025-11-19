@@ -18,19 +18,6 @@ except ImportError:
 T = TypeVar("T")
 
 
-def _collect_views(*nodes: Node) -> list[Node]:
-    all_nodes: dict[Node, None] = {}
-
-    def _collect(*nodes_: Node) -> None:
-        for node in nodes_:
-            all_nodes[node] = None
-            for view in node.views:
-                _collect(view)
-
-    _collect(*nodes)
-    return list(all_nodes.keys())
-
-
 class Graph(Generic[T]):
     edges: dict[T, list[T]]
 

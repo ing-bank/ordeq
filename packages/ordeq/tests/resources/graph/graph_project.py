@@ -2,7 +2,8 @@
 from pprint import pprint
 
 import example_project
-from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
+from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._process_nodes import _collect_views
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 fqn_nodes = _resolve_runnables_to_nodes(example_project)

@@ -4,6 +4,7 @@ from types import ModuleType
 from typing import Any, Literal, TypeAlias, overload
 
 from ordeq._fqn import ModuleRef
+from ordeq._process_nodes import _process_nodes
 from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq._runner import NodeFilter
 
@@ -71,14 +72,9 @@ def viz(
 
     nodes, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
     # TODO: Propagate FQNs to viz
-    nodes_ = [node for _, _, node in nodes]
-    if node_filter:
-        logger.warning(
-            "Node filters are in preview mode and may change "
-            "without notice in future releases."
-        )
-        nodes_ = [node for node in nodes_ if node_filter(node)]
+    nodes_ = tuple(node for _, _, node in nodes)
 
+    nodes_ = _process_nodes(*nodes_, node_filter=node_filter)
     graph = _gather_graph(nodes_, ios)
 
     match fmt:

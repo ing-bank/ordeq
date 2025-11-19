@@ -19,7 +19,8 @@ graph TB
 		direction TB
 		L0@{shape: rounded, label: "Node"}
 		L00@{shape: rect, label: "AsyncStaticString"}
-		L01@{shape: rect, label: "StringBuffer"}
+		L01@{shape: rect, label: "AsyncStringBuffer"}
+		L02@{shape: rect, label: "StringBuffer"}
 	end
 
 	IO0 --> example_async.async_ios:process_slow_string
@@ -41,21 +42,24 @@ graph TB
 
 	class L0,example_async.async_ios:process_slow_string,example_async.async_ios:process_fast_string,example_async.async_ios:combine_results node
 	class L00,IO0,IO2 io0
-	class L01,IO1,IO3,IO4 io1
+	class L01,IO3 io1
+	class L02,IO1,IO4 io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
+	classDef io2 fill:#8da0cb
 
 Combined Results:
 Result of slow data: <coroutine object AsyncStaticString.load at HASH1>
-Result of fast data: <coroutine object AsyncStaticString.load at HASH2>
+
 
 ```
 
 ## Warnings
 
 ```text
+RuntimeWarning: coroutine 'AsyncStringBuffer.save' was never awaited
 RuntimeWarning: coroutine 'AsyncStaticString.load' was never awaited
 ```
 
@@ -64,12 +68,12 @@ RuntimeWarning: coroutine 'AsyncStaticString.load' was never awaited
 ```text
 INFO	ordeq.io	Loading AsyncStaticString(value='This string was loaded slowly.', sleep_delay=3.0)
 INFO	ordeq.runner	Running node "process_slow_string" in module "example_async.async_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading AsyncStaticString(value='This string was loaded quickly!', sleep_delay=2.0)
 INFO	ordeq.runner	Running node "process_fast_string" in module "example_async.async_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.io	Saving AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=1.0)
 INFO	ordeq.runner	Running node "combine_results" in module "example_async.async_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```

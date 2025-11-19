@@ -15,29 +15,9 @@ the sum of all durations (5 seconds) as would be the case
 with synchronous execution.
 """
 
-import asyncio
-from dataclasses import dataclass
-
-from ordeq import Input, node
+from example_async.io import AsyncStaticString, AsyncStringBuffer
+from ordeq import node
 from ordeq_common.io.string_buffer import StringBuffer
-
-
-@dataclass(frozen=True, eq=False)
-class AsyncStaticString(Input[str]):
-    """Example IO that simulates asynchronous loading of a static string.
-    It uses asyncio.sleep to mimic I/O-bound delays.
-
-    In a real-world scenario, this could represent an async read from a
-    database, web service, or file system.
-    """
-
-    value: str
-    sleep_delay: float = 1.0  # seconds
-
-    async def load(self) -> str:
-        await asyncio.sleep(self.sleep_delay)  # Simulate async load delay
-        return self.value
-
 
 slow_string_io = AsyncStaticString(
     value="This string was loaded slowly.", sleep_delay=3.0
@@ -45,7 +25,7 @@ slow_string_io = AsyncStaticString(
 fast_string_io = AsyncStaticString(
     value="This string was loaded quickly!", sleep_delay=2.0
 )
-fast_result = StringBuffer()
+fast_result = AsyncStringBuffer()
 slow_result = StringBuffer()
 combined_result = StringBuffer()
 

@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_function_reuse)
 print("Nodes:")
-pprint(nodes)
+pprint(list(nodes.items()))
 print("IOs:")
-pprint(ios)
+pprint(list(ios.values()))
 
 ```
 
@@ -18,16 +18,16 @@ pprint(ios)
 
 ```text
 Nodes:
-[(('example_function_reuse.nodes', 'a'),
-  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
- (('example_function_reuse.nodes', 'b'),
-  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
- (('example_function_reuse.nodes', 'c'),
-  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
- (('example_function_reuse.nodes', 'd'),
-  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
- (('example_function_reuse.nodes', 'pi'),
-  View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
+[(View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+  [('example_function_reuse.nodes', 'a')]),
+ (View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
+  [('example_function_reuse.nodes', 'b')]),
+ (View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]),
+  [('example_function_reuse.nodes', 'c')]),
+ (View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]),
+  [('example_function_reuse.nodes', 'd')]),
+ (View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+  [('example_function_reuse.nodes', 'pi')])]
 IOs:
 [[(('example_function_reuse.catalog', 'A'),
    StringBuffer(_buffer=<_io.StringIO object at HASH1>)),

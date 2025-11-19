@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_references)
 print("Nodes:")
-pprint(nodes)
+pprint(list(nodes.items()))
 print("IOs:")
-pprint(ios)
+pprint(list(ios.values()))
 
 ```
 

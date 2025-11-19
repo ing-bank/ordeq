@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_anonymous)
 print("Nodes:")
-pprint(nodes)
+pprint(list(nodes.items()))
 print("IOs:")
-pprint(ios)
+pprint(list(ios.values()))
 
 ```
 
@@ -18,8 +18,8 @@ pprint(ios)
 
 ```text
 Nodes:
-[(('example_anonymous.nodes', 'node_with_inline_io'),
-  Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]))]
+[(Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]),
+  [('example_anonymous.nodes', 'node_with_inline_io')])]
 IOs:
 []
 

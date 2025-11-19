@@ -8,19 +8,19 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_project)
 print("Nodes:")
-pprint(nodes)
+pprint(list(nodes.items()))
 print("IOs:")
-pprint(ios)
+pprint(list(ios.values()))
 
 ```
 
 ## Output
 
 ```text
-ValueError: 'example_project' contains duplicate keys for the same IO ('example_project.nodes_import_alias:B' and 'example_project.catalog_1:b')
+ValueError: Module 'example_project.nodes_import_alias' aliases IO 'example_project.catalog_1:b' to 'B'. IOs cannot be aliased.
   File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
     raise ValueError(
-    ...<3 lines>...
+    ...<2 lines>...
     )
 
   File "/packages/ordeq/tests/resources/scan/scan_project.py", line LINO, in <module>

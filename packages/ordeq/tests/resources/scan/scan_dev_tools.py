@@ -5,6 +5,6 @@ from ordeq._scan import scan
 
 nodes, ios = scan(ordeq_dev_tools)
 print("Nodes:")
-pprint(nodes)
+pprint(list(nodes.items()))
 print("IOs:")
-pprint(ios)
+pprint(list(ios.values()))

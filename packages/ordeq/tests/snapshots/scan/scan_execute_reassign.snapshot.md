@@ -1,7 +1,6 @@
 ## Resource
 
 ```python
-
 import example_imports.execute_reassign
 from ordeq._scan import scan
 

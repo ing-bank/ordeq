@@ -1,7 +1,6 @@
 ## Resource
 
 ```python
-
 import example_imports.modify_globals
 from ordeq._scan import scan
 

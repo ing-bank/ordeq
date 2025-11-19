@@ -1,7 +1,6 @@
 ## Resource
 
 ```python
-
 import example_imports.relative_import
 from ordeq._scan import scan
 

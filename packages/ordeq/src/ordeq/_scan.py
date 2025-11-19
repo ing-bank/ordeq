@@ -2,12 +2,10 @@ from collections import defaultdict
 from types import ModuleType
 from typing import TypeAlias
 
-from ordeq._fqn import FQ, FQN, ModuleRef, fqn_to_object_ref
+from ordeq._fqn import FQ, FQN, fqn_to_object_ref
 from ordeq._io import AnyIO, IOIdentity, _is_io
 from ordeq._nodes import Node, _is_node, get_node
 from ordeq._resolve import _resolve_packages_to_modules
-
-RootType = ModuleRef | ModuleType
 
 NodeToFQNs: TypeAlias = dict[Node, list[FQN]]
 IOToFQNs: TypeAlias = dict[IOIdentity, list[FQ[AnyIO]]]

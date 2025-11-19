@@ -21,9 +21,7 @@ Nodes:
 [(('example_2.nodes', 'transform_input_2'),
   Node(name=example_2.nodes:transform_input_2, inputs=[Input(id=ID1)], outputs=[Output(id=ID2)]))]
 IOs:
-[(('example_2.catalog', 'TestInput2'), Input(id=ID1)),
- (('example_2.catalog', 'TestOutput2'), Output(id=ID2)),
- (('example_2.nodes', 'TestInput2'), Input(id=ID1)),
+[(('example_2.nodes', 'TestInput2'), Input(id=ID1)),
  (('example_2.nodes', 'TestOutput2'), Output(id=ID2))]
 
 ```

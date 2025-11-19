@@ -17,49 +17,24 @@ pprint(ios)
 ## Output
 
 ```text
-Nodes:
-[(('example_project.inner.nodes', 'func'),
-  Node(name=example_project.inner.nodes:func, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'tags': ['dummy']})),
- (('example_project.nodes', 'func'),
-  Node(name=example_project.nodes:func, inputs=[IO(id=ID2)], outputs=[Print()], attributes={'tags': ['dummy']})),
- (('example_project.nodes_import', 'func_a'),
-  Node(name=example_project.nodes_import:func_a, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])),
- (('example_project.nodes_import', 'func_b'),
-  Node(name=example_project.nodes_import:func_b, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}})),
- (('example_project.nodes_import_alias', 'func'),
-  Node(name=example_project.nodes_import_alias:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}})),
- (('example_project.nodes_with_inline_io', 'greet'),
-  Node(name=example_project.nodes_with_inline_io:greet, inputs=[Literal('Buenos dias')], outputs=[IO(id=ID3)])),
- (('example_project.nodes_with_view', 'greet'),
-  View(name=example_project.nodes_with_view:greet, inputs=[Literal('Hello')])),
- (('example_project.nodes_with_view', 'farewell'),
-  Node(name=example_project.nodes_with_view:farewell, inputs=[IO(id=ID4)], outputs=[Print()]))]
-IOs:
-[(('example_project.catalog_1', 'a'), Literal('a')),
- (('example_project.catalog_1', 'b'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- (('example_project.catalog_1', 'c'), Print()),
- (('example_project.catalog_2', 'd'), Literal('a')),
- (('example_project.catalog_2', 'e'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
- (('example_project.catalog_2', 'f'), Print()),
- (('example_project.catalog_2', 'g'), Print()),
- (('example_project.catalog_2', 'h'), Print()),
- (('example_project.catalog_2', 'i'), Print()),
- (('example_project.catalog_2', 'j'), Print()),
- (('example_project.inner.nodes', 'x'), IO(id=ID1)),
- (('example_project.inner.nodes', 'y'), Print()),
- (('example_project.nodes', 'x'), IO(id=ID2)),
- (('example_project.nodes', 'y'), Print()),
- (('example_project.nodes_import', 'a'), Literal('a')),
- (('example_project.nodes_import', 'b'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- (('example_project.nodes_import', 'f'), Print()),
- (('example_project.nodes_import_alias', 'a'), Literal('a')),
- (('example_project.nodes_import_alias', 'B'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- (('example_project.nodes_import_alias', 'h'), Print()),
- (('example_project.nodes_with_view', 'greeting'), Literal('Hello')),
- (('example_project.nodes_with_view', 'printer'), Print())]
+ValueError: 'example_project' contains duplicate keys for the same IO ('example_project.nodes_import_alias:B' and 'example_project.nodes_import:b')
+  File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
+    raise ValueError(
+    ...<3 lines>...
+    )
+
+  File "/packages/ordeq/tests/resources/scan/scan_project.py", line LINO, in <module>
+    nodes, ios = scan(example_project)
+                 ~~~~^^^^^^^^^^^^^^^^^
+
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```

@@ -4,7 +4,7 @@ _default:
     @just --list --unsorted
 
 # Local installation
-localsetup: install precommit_install
+localsetup: install
 
 # Linting and formatting with ruff
 ruff: lint format

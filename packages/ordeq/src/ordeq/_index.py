@@ -1,10 +1,11 @@
+from collections.abc import Callable
 from types import ModuleType
+from typing import TypeAlias
 
-from ordeq._fqn import FQ, fqn_to_object_ref, FQN, ObjectRef
+from ordeq._fqn import FQ, FQN, ObjectRef, fqn_to_object_ref
 from ordeq._io import AnyIO, IOIdentity, _is_io
 from ordeq._nodes import Node, _is_node, get_node
 from ordeq._resolve import _resolve_packages_to_modules
-from typing import TypeAlias, Callable
 
 NodeIndex: TypeAlias = dict[Node | FQN | Callable | ObjectRef, FQ[Node]]
 IOIndex: TypeAlias = dict[IOIdentity | FQN | ObjectRef, FQ[AnyIO]]

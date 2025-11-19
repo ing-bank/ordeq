@@ -10,7 +10,7 @@ nodes, ios = index(example_anonymous)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -31,6 +31,6 @@ Nodes:
                                                        'node_with_inline_io'),
                                                       <function node_with_inline_io at HASH1>)}
 IOs:
-{}
+[]
 
 ```

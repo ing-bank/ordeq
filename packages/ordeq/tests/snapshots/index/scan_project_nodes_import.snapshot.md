@@ -10,7 +10,7 @@ nodes, ios = index(example_project.nodes_import)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -41,32 +41,23 @@ Nodes:
                                                'func_b'),
                                               <function func_b at HASH2>)}
 IOs:
-{4423730672: (('example_project.nodes_import',
-               'a'),
-              Literal('a')),
- 4423737008: (('example_project.nodes_import',
-               'f'),
-              Print()),
- 4424352144: (('example_project.nodes_import',
-               'b'),
-              StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
- 'example_project.nodes_import:a': (('example_project.nodes_import',
-                                     'a'),
-                                    Literal('a')),
- 'example_project.nodes_import:b': (('example_project.nodes_import',
-                                     'b'),
-                                    StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
- 'example_project.nodes_import:f': (('example_project.nodes_import',
-                                     'f'),
-                                    Print()),
- ('example_project.nodes_import', 'a'): (('example_project.nodes_import',
-                                          'a'),
-                                         Literal('a')),
- ('example_project.nodes_import', 'b'): (('example_project.nodes_import',
-                                          'b'),
-                                         StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
- ('example_project.nodes_import', 'f'): (('example_project.nodes_import',
-                                          'f'),
-                                         Print())}
+[(('example_project.nodes_import', 'a'),
+  Literal('a')),
+ (('example_project.nodes_import', 'a'),
+  Literal('a')),
+ (('example_project.nodes_import', 'a'),
+  Literal('a')),
+ (('example_project.nodes_import', 'b'),
+  StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
+ (('example_project.nodes_import', 'b'),
+  StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
+ (('example_project.nodes_import', 'b'),
+  StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
+ (('example_project.nodes_import', 'f'),
+  Print()),
+ (('example_project.nodes_import', 'f'),
+  Print()),
+ (('example_project.nodes_import', 'f'),
+  Print())]
 
 ```

@@ -10,7 +10,7 @@ nodes, ios = index(example_empty)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -20,6 +20,6 @@ pprint(ios, width=40)
 Nodes:
 {}
 IOs:
-{}
+[]
 
 ```

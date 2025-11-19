@@ -10,7 +10,7 @@ nodes, ios = index(example_imports.import_different_package)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -20,14 +20,14 @@ pprint(ios, width=40)
 Nodes:
 {}
 IOs:
-{4414693024: (('example_imports.import_different_package',
-               'Hello'),
-              StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- 'example_imports.import_different_package:Hello': (('example_imports.import_different_package',
-                                                     'Hello'),
-                                                    StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- ('example_imports.import_different_package', 'Hello'): (('example_imports.import_different_package',
-                                                          'Hello'),
-                                                         StringBuffer(_buffer=<_io.StringIO object at HASH1>))}
+[(('example_imports.import_different_package',
+   'Hello'),
+  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
+ (('example_imports.import_different_package',
+   'Hello'),
+  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
+ (('example_imports.import_different_package',
+   'Hello'),
+  StringBuffer(_buffer=<_io.StringIO object at HASH1>))]
 
 ```

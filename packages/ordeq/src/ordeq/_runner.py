@@ -7,6 +7,7 @@ from typing import Literal, TypeAlias, TypeVar, cast
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
+from ordeq._index import index
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
@@ -14,6 +15,7 @@ from ordeq._process_nodes import NodeFilter, _process_nodes
 from ordeq._resolve import (
     Runnable,
     _resolve_refs_to_hooks,
+    _resolve_runnables_to_modules,
     _resolve_runnables_to_nodes,
 )
 from ordeq._substitute import (
@@ -213,6 +215,10 @@ def run(
     ```
 
     """
+
+    modules = _resolve_runnables_to_modules(*runnables)
+    # TODO: Fetch the FQ[Node] and FQ[AnyIO] from the indexes
+    _ = index(*modules)
 
     # TODO: Node names should be propagated to the graph/plan
     nodes = [node for _, node in _resolve_runnables_to_nodes(*runnables)]

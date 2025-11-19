@@ -10,7 +10,7 @@ nodes, ios = index(example_imports.local_import_made_global)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -20,14 +20,14 @@ pprint(ios, width=40)
 Nodes:
 {}
 IOs:
-{4424363344: (('example_imports.local_import_made_global',
-               'a'),
-              IO(id=ID1)),
- 'example_imports.local_import_made_global:a': (('example_imports.local_import_made_global',
-                                                 'a'),
-                                                IO(id=ID1)),
- ('example_imports.local_import_made_global', 'a'): (('example_imports.local_import_made_global',
-                                                      'a'),
-                                                     IO(id=ID1))}
+[(('example_imports.local_import_made_global',
+   'a'),
+  IO(id=ID1)),
+ (('example_imports.local_import_made_global',
+   'a'),
+  IO(id=ID1)),
+ (('example_imports.local_import_made_global',
+   'a'),
+  IO(id=ID1))]
 
 ```

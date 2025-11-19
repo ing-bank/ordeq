@@ -10,7 +10,7 @@ nodes, ios = index(example_3)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -35,6 +35,6 @@ Nodes:
  ('example_3.nodes', 'f2'): (('example_3.nodes', 'f2'),
                              <function hello at HASH2>)}
 IOs:
-{}
+[]
 
 ```

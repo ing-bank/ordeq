@@ -50,6 +50,10 @@ class Graph(Generic[T]):
             sorter.done(*level)
         return tuple(reversed(levels))
 
+    @cached_property
+    def vertices(self) -> set[T]:
+        return set(self.edges.keys())
+
 
 @dataclass(frozen=True)
 class NodeResourceGraph(Graph[Resource | Node]):
@@ -134,7 +138,7 @@ class NodeGraph(Graph[Node]):
 
     @cached_property
     def nodes(self) -> set[Node]:
-        return set(self.edges.keys())
+        return self.vertices
 
     # TODO: remove and replace with `viz` method
     def __repr__(self) -> str:

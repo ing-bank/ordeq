@@ -32,11 +32,33 @@ def f4(i: str, j: str, k: str) -> str:
 
 pipeline = [f1, f2, f3, f4]
 
-run(*pipeline, save="all", verbose=True)
+run(*pipeline, save="none", verbose=True)
+print("Expect R4 to be empty")
 print(R4.load())
+R4._buffer.truncate(0)
+R4._buffer.seek(0)
 
 run(*pipeline, save="sinks", verbose=True)
+print("Expect R4 to be populated")
 print(R4.load())
+R4._buffer.truncate(0)
+R4._buffer.seek(0)
+
+run(*pipeline, save="all", verbose=True)
+print("Expect R4 to be populated")
+print(R4.load())
+R4._buffer.truncate(0)
+R4._buffer.seek(0)
 
 run(*pipeline, save="none", verbose=True)
+print("Expect R4 to be empty")
 print(R4.load())
+R4._buffer.truncate(0)
+R4._buffer.seek(0)
+
+R5 = StringBuffer()
+run(*pipeline, save="none", io={R4: R5}, verbose=True)
+print("Expect R4 to be empty")
+print(R4.load())
+print("Expect R5 to be populated")
+print(R5.load())

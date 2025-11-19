@@ -54,6 +54,15 @@ class Graph(Generic[T]):
     def vertices(self) -> set[T]:
         return set(self.edges.keys())
 
+    @cached_property
+    def sinks(self) -> set[T]:
+        """Finds the sink vertices, i.e., those without successors.
+
+        Returns:
+            set of the sink vertices
+        """
+        return {v for v, targets in self.edges.items() if len(targets) == 0}
+
 
 @dataclass(frozen=True)
 class NodeResourceGraph(Graph[Resource | Node]):
@@ -126,15 +135,6 @@ class NodeGraph(Graph[Node]):
             for target in base.edges[source]:
                 edges[source].extend(base.edges[target])  # type: ignore[index,arg-type]
         return cls(edges=edges)
-
-    @property
-    def sink_nodes(self) -> set[Node]:
-        """Finds the sink nodes, i.e., nodes without successors.
-
-        Returns:
-            set of the sink nodes
-        """
-        return {s for s, targets in self.edges.items() if len(targets) == 0}
 
     @cached_property
     def nodes(self) -> set[Node]:

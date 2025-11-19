@@ -18,9 +18,9 @@ A, B, C, D, E, F = [StringBuffer(c) for c in "ABCDEF"]
         ({}, set()),
     ],
 )
-def test_find_sink_nodes(edges, expected):
+def test_find_sinks(edges, expected):
     g = NodeGraph(edges=edges)
-    assert g.sink_nodes == expected
+    assert g.sinks == expected
 
 
 def test_it_builds_a_graph():

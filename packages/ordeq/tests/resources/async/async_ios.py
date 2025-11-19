@@ -4,3 +4,4 @@ from ordeq_viz import viz
 
 print(viz(async_ios, fmt="mermaid"))
 run(async_ios)
+print(async_ios.combined_result.load())

@@ -7,6 +7,7 @@ from ordeq_viz import viz
 
 print(viz(async_ios, fmt="mermaid"))
 run(async_ios)
+print(async_ios.combined_result.load())
 
 ```
 
@@ -46,6 +47,9 @@ graph TB
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
 
+Combined Results:
+Result of slow data: <coroutine object AsyncStaticString.load at HASH1>
+Result of fast data: <coroutine object AsyncStaticString.load at HASH2>
 
 ```
 
@@ -60,11 +64,12 @@ RuntimeWarning: coroutine 'AsyncStaticString.load' was never awaited
 ```text
 INFO	ordeq.io	Loading AsyncStaticString(value='This string was loaded slowly.', sleep_delay=3.0)
 INFO	ordeq.runner	Running node "process_slow_string" in module "example_async.async_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.io	Loading AsyncStaticString(value='This string was loaded quickly!', sleep_delay=2.0)
 INFO	ordeq.runner	Running node "process_fast_string" in module "example_async.async_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 INFO	ordeq.runner	Running node "combine_results" in module "example_async.async_ios"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH5>)
 
 ```

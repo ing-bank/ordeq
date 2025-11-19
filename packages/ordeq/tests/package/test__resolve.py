@@ -1,9 +1,9 @@
 from collections.abc import Callable
 
 import pytest
-from ordeq import Node, node
+from ordeq import Node
 from ordeq._nodes import get_node
-from ordeq._resolve import _is_node, _resolve_runnables_to_nodes
+from ordeq._resolve import _resolve_runnables_to_nodes
 
 
 @pytest.fixture
@@ -54,30 +54,3 @@ def test_resolve_node_by_reference_not_a_node() -> None:
         r"in module 'example_1.nodes'",
     ):
         _resolve_runnables_to_nodes("example_1.nodes:i_do_not_exist")
-
-
-def test_is_node_proxy():
-    def func():
-        pass
-
-    proxy = node(func)
-    assert _is_node(proxy)
-    assert not _is_node(func)
-    assert not _is_node(object)
-    assert not _is_node(None)
-
-    # Object with fake __ordeq_node__ attribute (not a Node)
-    class Fake:
-        def __call__(self):
-            pass
-
-    fake_obj = Fake()
-    fake_obj.__ordeq_node__ = "not_a_node"
-    assert not _is_node(fake_obj)
-
-    # Object with __ordeq_node__ attribute that is a Node, but not callable
-    class NotCallable:
-        __ordeq_node__ = proxy
-
-    not_callable = NotCallable()
-    assert not _is_node(not_callable)

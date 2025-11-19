@@ -6,6 +6,7 @@ from ordeq import run
 from ordeq_viz import viz
 
 print(viz(async_ios_and_nodes, fmt="mermaid"))
+print("Expect retrieve_data_2 node to complete before retrieve_data_1")
 run(async_ios_and_nodes)
 print(async_ios_and_nodes.buffer_3.load())
 
@@ -40,6 +41,7 @@ graph TB
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
+Expect retrieve_data_2 node to complete before retrieve_data_1
 Combined Data:
 
 

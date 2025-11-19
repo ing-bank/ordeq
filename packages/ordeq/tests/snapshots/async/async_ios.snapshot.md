@@ -6,6 +6,10 @@ from ordeq import run
 from ordeq_viz import viz
 
 print(viz(async_ios, fmt="mermaid"))
+print(
+    "Expect the 'process_fast_string' node to complete "
+    "before 'process_slow_string'"
+)
 run(async_ios)
 print(async_ios.combined_result.load())
 
@@ -50,6 +54,7 @@ graph TB
 	classDef io1 fill:#fc8d62
 	classDef io2 fill:#8da0cb
 
+Expect the 'process_fast_string' node to complete before 'process_slow_string'
 Combined Results:
 Result of slow data: <coroutine object AsyncStaticString.load at HASH1>
 

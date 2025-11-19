@@ -17,7 +17,7 @@ with synchronous execution.
 
 from example_async.io import AsyncStaticString, AsyncStringBuffer
 from ordeq import node
-from ordeq_common.io.string_buffer import StringBuffer
+from ordeq_common import StringBuffer
 
 slow_string_io = AsyncStaticString(
     value="This string was loaded slowly.", sleep_delay=3.0

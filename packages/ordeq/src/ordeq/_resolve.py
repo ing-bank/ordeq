@@ -212,7 +212,7 @@ def _resolve_refs_to_hooks(
 
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: Runnable,
-) -> tuple[list[FQNamed[Node]], list[ModuleType]]:
+) -> tuple[list[FQ[Node]], list[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -226,7 +226,7 @@ def _resolve_runnables_to_nodes_and_modules(
         TypeError: if a runnable is not a module and not a node
     """
     modules_and_strs: list[ModuleType | str] = []
-    nodes: list[FQNamed[Node]] = []
+    nodes: list[FQ[Node]] = []
     for runnable in runnables:
         if _is_module(runnable) or (
             isinstance(runnable, str) and not is_object_ref(runnable)
@@ -236,19 +236,19 @@ def _resolve_runnables_to_nodes_and_modules(
         elif callable(runnable):
             node = get_node(runnable)
             if node not in nodes:
-                nodes.append((Unknown, Unknown, node))
+                nodes.append(((Unknown, Unknown), node))
             else:
                 warnings.warn(
                     f"Node '{node.name}' already provided in another runnable",
                     stacklevel=2,
                 )
         elif isinstance(runnable, str):
-            module_ref, node_name, node = _resolve_object_ref_to_node(runnable)
+            fqn, node = _resolve_object_ref_to_node(runnable)
             if node not in nodes:
-                nodes.append((module_ref, node_name, node))
+                nodes.append((fqn, node))
             else:
                 warnings.warn(
-                    f"Node '{fqn_to_object_ref((module_ref, node_name))}' "
+                    f"Node '{fqn_to_object_ref(fqn)}' "
                     f"already provided in another runnable",
                     stacklevel=2,
                 )
@@ -276,7 +276,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> dict[str, Node]:
     return {name: node for node, name in nodes.items()}
 
 
-def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQNamed[Node]]:
+def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQ[Node]]:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -290,7 +290,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQNamed[Node]]:
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
         nodes.extend(
-            (module.__name__, node_name, node)
+            ((module.__name__, node_name), node)
             for node_name, node in _resolve_module_to_nodes(module).items()
         )
     return nodes
@@ -316,7 +316,7 @@ def _check_missing_ios(nodes: set[Node], ios: Catalog) -> None:
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: Runnable,
-) -> tuple[list[FQNamed[Node]], Catalog]:
+) -> tuple[list[FQ[Node]], Catalog]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:
@@ -330,14 +330,14 @@ def _resolve_runnables_to_nodes_and_ios(
     ios = {}
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
-    for module_name, _, _ in nodes:
+    for (module_name, _), _ in nodes:
         if module_name is not Unknown:
             module = _resolve_module_ref_to_module(module_name)
             ios.update({module_name: _resolve_module_to_ios(module)})
 
     for module in modules:
         nodes.extend(
-            (module.__name__, node_name, node)
+            ((module.__name__, node_name), node)
             for node_name, node in _resolve_module_to_nodes(module).items()
         )
         ios.update({module.__name__: _resolve_module_to_ios(module)})

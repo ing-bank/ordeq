@@ -39,7 +39,7 @@ def _resolve_module_ref_to_module(module_ref: ModuleRef) -> ModuleType:
     return importlib.import_module(module_ref)
 
 
-def _resolve_object_ref_to_node(ref: ObjectRef) -> FQNamed[Node]:
+def _resolve_object_ref_to_node(ref: ObjectRef) -> FQ[Node]:
     module_ref, node_name = object_ref_to_fqn(ref)
     module = _resolve_module_ref_to_module(module_ref)
     node_obj = getattr(module, node_name, None)
@@ -47,7 +47,7 @@ def _resolve_object_ref_to_node(ref: ObjectRef) -> FQNamed[Node]:
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_ref}'"
         )
-    return module_ref, node_name, get_node(node_obj)
+    return (module_ref, node_name), get_node(node_obj)
 
 
 def _resolve_fqn_to_hook(fqn: FQN) -> RunnerHook:

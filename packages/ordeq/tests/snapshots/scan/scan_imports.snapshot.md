@@ -6,6 +6,7 @@ from pprint import pprint
 import example_imports
 from ordeq._scan import scan
 
+print("Should not raise an error:")
 nodes, ios = scan(example_imports)
 print("Nodes:")
 pprint(list(nodes.items()))
@@ -17,6 +18,7 @@ pprint(list(ios.values()))
 ## Output
 
 ```text
+Should not raise an error:
 Nodes:
 []
 IOs:

@@ -10,11 +10,11 @@ from ordeq._resolve import _resolve_packages_to_modules
 
 RootType = ModuleRef | ModuleType
 
-ScannedNodes: TypeAlias = dict[Node, list[FQN]]
-ScannedIOs: TypeAlias = dict[IOIdentity, list[FQ[AnyIO]]]
+NodeToFQNs: TypeAlias = dict[Node, list[FQN]]
+IOToFQNs: TypeAlias = dict[IOIdentity, list[FQ[AnyIO]]]
 
 
-def scan(root: ModuleType) -> tuple[ScannedNodes, ScannedIOs]:
+def scan(root: ModuleType) -> tuple[NodeToFQNs, IOToFQNs]:
     modules = _resolve_packages_to_modules(root)
     nodes: dict[Node, list[FQN]] = defaultdict(list)
     ios: dict[IOIdentity, list[FQ[AnyIO]]] = defaultdict(list)

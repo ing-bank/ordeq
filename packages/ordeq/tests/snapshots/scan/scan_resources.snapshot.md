@@ -10,7 +10,7 @@ nodes, ios = scan(example_resources)
 print("Nodes:")
 pprint(list(nodes.items()))
 print("IOs:")
-pprint(list(ios.values()))
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -31,11 +31,20 @@ Nodes:
  (Node(name=example_resources.updates:reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]),
   [('example_resources.updates', 'reflect')])]
 IOs:
-[[(('example_resources.pipeline', 'csv'), CSV(path=Path('data2.csv')))],
- [(('example_resources.pipeline', 'text'), Text(path=Path('data2.csv')))],
- [(('example_resources.updates', 'csv'), CSV(path=Path('data3.csv')))],
- [(('example_resources.updates', 'csv_old'), CSV(path=Path('data3.csv')))],
- [(('example_resources.updates', 'csv_new'), CSV(path=Path('data3.csv')))]]
+[[(('example_resources.pipeline',
+    'csv'),
+   CSV(path=Path('data2.csv')))],
+ [(('example_resources.pipeline',
+    'text'),
+   Text(path=Path('data2.csv')))],
+ [(('example_resources.updates', 'csv'),
+   CSV(path=Path('data3.csv')))],
+ [(('example_resources.updates',
+    'csv_old'),
+   CSV(path=Path('data3.csv')))],
+ [(('example_resources.updates',
+    'csv_new'),
+   CSV(path=Path('data3.csv')))]]
 
 ```
 

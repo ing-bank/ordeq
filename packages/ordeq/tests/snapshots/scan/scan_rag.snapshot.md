@@ -10,7 +10,7 @@ nodes, ios = scan(example_rag_pipeline)
 print("Nodes:")
 pprint(list(nodes.items()))
 print("IOs:")
-pprint(list(ios.values()))
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -33,18 +33,38 @@ Nodes:
  (Node(name=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)]),
   [('example_rag_pipeline.rag.retrieval', 'filter_relevant')])]
 IOs:
-[[(('example_rag_pipeline.catalog', 'policies'), IO(id=ID8))],
- [(('example_rag_pipeline.catalog', 'llm_model'), IO(id=ID4))],
- [(('example_rag_pipeline.catalog', 'llm_vision_retrieval_model'),
+[[(('example_rag_pipeline.catalog',
+    'policies'),
+   IO(id=ID8))],
+ [(('example_rag_pipeline.catalog',
+    'llm_model'),
+   IO(id=ID4))],
+ [(('example_rag_pipeline.catalog',
+    'llm_vision_retrieval_model'),
    IO(id=ID6))],
- [(('example_rag_pipeline.catalog', 'pdf_documents'), IO(id=ID2))],
- [(('example_rag_pipeline.catalog', 'retrieved_pages'), IO(id=ID11))],
- [(('example_rag_pipeline.catalog', 'relevant_pages'), IO(id=ID10))],
- [(('example_rag_pipeline.catalog', 'index'), IO(id=ID7))],
- [(('example_rag_pipeline.catalog', 'questions'), IO(id=ID9))],
- [(('example_rag_pipeline.catalog', 'metrics'), IO(id=ID5))],
- [(('example_rag_pipeline.catalog', 'pdfs_documents_annotated'),
+ [(('example_rag_pipeline.catalog',
+    'pdf_documents'),
+   IO(id=ID2))],
+ [(('example_rag_pipeline.catalog',
+    'retrieved_pages'),
+   IO(id=ID11))],
+ [(('example_rag_pipeline.catalog',
+    'relevant_pages'),
+   IO(id=ID10))],
+ [(('example_rag_pipeline.catalog',
+    'index'),
+   IO(id=ID7))],
+ [(('example_rag_pipeline.catalog',
+    'questions'),
+   IO(id=ID9))],
+ [(('example_rag_pipeline.catalog',
+    'metrics'),
+   IO(id=ID5))],
+ [(('example_rag_pipeline.catalog',
+    'pdfs_documents_annotated'),
    IO(id=ID3))],
- [(('example_rag_pipeline.catalog', 'llm_answers'), IO(id=ID1))]]
+ [(('example_rag_pipeline.catalog',
+    'llm_answers'),
+   IO(id=ID1))]]
 
 ```

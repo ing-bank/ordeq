@@ -10,7 +10,7 @@ nodes, ios = scan(example_anonymous)
 print("Nodes:")
 pprint(list(nodes.items()))
 print("IOs:")
-pprint(list(ios.values()))
+pprint(list(ios.values()), width=40)
 
 ```
 

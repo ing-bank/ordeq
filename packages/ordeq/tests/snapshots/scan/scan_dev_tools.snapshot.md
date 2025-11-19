@@ -10,7 +10,7 @@ nodes, ios = scan(ordeq_dev_tools)
 print("Nodes:")
 pprint(list(nodes.items()))
 print("IOs:")
-pprint(list(ios.values()))
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -89,37 +89,53 @@ Nodes:
  (Node(name=ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools, outputs=[Text(path=Path('/data/dev_tools/ordeq_dev_tools_diagram.mmd'))]),
   [('ordeq_dev_tools.pipelines.viz_self', 'visualize_ordeq_dev_tools')])]
 IOs:
-[[(('ordeq_dev_tools.pipelines.docs_package_overview', 'package_overview'),
+[[(('ordeq_dev_tools.pipelines.docs_package_overview',
+    'package_overview'),
    TextLinesStream(path=Path('/docs/packages.md')))],
- [(('ordeq_dev_tools.pipelines.docs_update_just', 'contribution_guide'),
+ [(('ordeq_dev_tools.pipelines.docs_update_just',
+    'contribution_guide'),
    Text(path=Path('/docs/CONTRIBUTING.md')))],
- [(('ordeq_dev_tools.pipelines.docs_update_just', 'docs_file'),
+ [(('ordeq_dev_tools.pipelines.docs_update_just',
+    'docs_file'),
    Text(path=Path('/docs/CONTRIBUTING.md')))],
- [(('ordeq_dev_tools.pipelines.docs_update_just', 'updated_docs_file'),
+ [(('ordeq_dev_tools.pipelines.docs_update_just',
+    'updated_docs_file'),
    Text(path=Path('/docs/CONTRIBUTING.md')))],
- [(('ordeq_dev_tools.pipelines.generate_release_notes', 'package'),
+ [(('ordeq_dev_tools.pipelines.generate_release_notes',
+    'package'),
    Input(id=ID7))],
- [(('ordeq_dev_tools.pipelines.generate_release_notes', 'release_notes'),
+ [(('ordeq_dev_tools.pipelines.generate_release_notes',
+    'release_notes'),
    IO(id=ID21))],
- [(('ordeq_dev_tools.pipelines.generate_release_notes', 'new_tag'),
+ [(('ordeq_dev_tools.pipelines.generate_release_notes',
+    'new_tag'),
    IO(id=ID19))],
- [(('ordeq_dev_tools.pipelines.list_changed_packages', 'changed_packages'),
+ [(('ordeq_dev_tools.pipelines.list_changed_packages',
+    'changed_packages'),
    JSON(path=Path('/data/dev_tools/changed_packages.json')))],
- [(('ordeq_dev_tools.pipelines.list_dependencies', 'lock_file'),
+ [(('ordeq_dev_tools.pipelines.list_dependencies',
+    'lock_file'),
    TOML(path=Path('/uv.lock')))],
- [(('ordeq_dev_tools.pipelines.list_dependencies', 'dependencies'),
+ [(('ordeq_dev_tools.pipelines.list_dependencies',
+    'dependencies'),
    JSON(path=Path('/data/dev_tools/dependencies.json')))],
- [(('ordeq_dev_tools.pipelines.list_dependencies', 'diagram'),
+ [(('ordeq_dev_tools.pipelines.list_dependencies',
+    'diagram'),
    Text(path=Path('/data/dev_tools/dependencies_diagram.mmd')))],
- [(('ordeq_dev_tools.pipelines.list_dependencies', 'affected_dependencies'),
+ [(('ordeq_dev_tools.pipelines.list_dependencies',
+    'affected_dependencies'),
    JSON(path=Path('/data/dev_tools/affected_dependencies.json')))],
- [(('ordeq_dev_tools.pipelines.relevant_packages', 'affected_dependencies'),
+ [(('ordeq_dev_tools.pipelines.relevant_packages',
+    'affected_dependencies'),
    JSON(path=Path('/data/dev_tools/affected_dependencies.json')))],
- [(('ordeq_dev_tools.pipelines.relevant_packages', 'packages'),
+ [(('ordeq_dev_tools.pipelines.relevant_packages',
+    'packages'),
    JSON(path=Path('/data/dev_tools/changed_packages.json')))],
- [(('ordeq_dev_tools.pipelines.relevant_packages', 'relevant_packages'),
+ [(('ordeq_dev_tools.pipelines.relevant_packages',
+    'relevant_packages'),
    JSON(path=Path('/data/dev_tools/relevant_packages.json')))],
- [(('ordeq_dev_tools.pipelines.viz_self', 'ordeq_dev_tools_diagram'),
+ [(('ordeq_dev_tools.pipelines.viz_self',
+    'ordeq_dev_tools_diagram'),
    Text(path=Path('/data/dev_tools/ordeq_dev_tools_diagram.mmd')))]]
 
 ```

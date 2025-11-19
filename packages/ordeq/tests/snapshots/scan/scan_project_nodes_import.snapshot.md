@@ -10,7 +10,7 @@ nodes, ios = scan(example_project.nodes_import)
 print("Nodes:")
 pprint(list(nodes.items()))
 print("IOs:")
-pprint(list(ios.values()))
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -23,9 +23,14 @@ Nodes:
  (Node(name=example_project.nodes_import:func_b, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}),
   [('example_project.nodes_import', 'func_b')])]
 IOs:
-[[(('example_project.nodes_import', 'a'), Literal('a'))],
- [(('example_project.nodes_import', 'b'),
+[[(('example_project.nodes_import',
+    'a'),
+   Literal('a'))],
+ [(('example_project.nodes_import',
+    'b'),
    StringBuffer(_buffer=<_io.StringIO object at HASH1>))],
- [(('example_project.nodes_import', 'f'), Print())]]
+ [(('example_project.nodes_import',
+    'f'),
+   Print())]]
 
 ```

@@ -10,7 +10,7 @@ nodes, ios = scan(example_function_reuse)
 print("Nodes:")
 pprint(list(nodes.items()))
 print("IOs:")
-pprint(list(ios.values()))
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -29,17 +29,23 @@ Nodes:
  (View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
   [('example_function_reuse.nodes', 'pi')])]
 IOs:
-[[(('example_function_reuse.catalog', 'A'),
+[[(('example_function_reuse.catalog',
+    'A'),
    StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
-  (('example_function_reuse.nodes', 'A'),
+  (('example_function_reuse.nodes',
+    'A'),
    StringBuffer(_buffer=<_io.StringIO object at HASH1>))],
- [(('example_function_reuse.catalog', 'B'),
+ [(('example_function_reuse.catalog',
+    'B'),
    StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
-  (('example_function_reuse.nodes', 'B'),
+  (('example_function_reuse.nodes',
+    'B'),
    StringBuffer(_buffer=<_io.StringIO object at HASH2>))],
- [(('example_function_reuse.catalog', 'C'),
+ [(('example_function_reuse.catalog',
+    'C'),
    StringBuffer(_buffer=<_io.StringIO object at HASH3>))],
- [(('example_function_reuse.catalog', 'D'),
+ [(('example_function_reuse.catalog',
+    'D'),
    StringBuffer(_buffer=<_io.StringIO object at HASH4>))]]
 
 ```

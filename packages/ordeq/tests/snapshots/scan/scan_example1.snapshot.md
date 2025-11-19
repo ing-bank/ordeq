@@ -10,7 +10,7 @@ nodes, ios = scan(example_1)
 print("Nodes:")
 pprint(list(nodes.items()))
 print("IOs:")
-pprint(list(ios.values()))
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -37,17 +37,26 @@ IOs:
    StringBuffer(_buffer=<_io.StringIO object at HASH4>)),
   (('example_1.pipeline', 'World'),
    StringBuffer(_buffer=<_io.StringIO object at HASH4>))],
- [(('example_1.catalog', 'TestInput'), Input(id=ID1)),
-  (('example_1.pipeline', 'TestInput'), Input(id=ID1))],
- [(('example_1.catalog', 'TestOutput'), Output(id=ID2)),
-  (('example_1.pipeline', 'TestOutput'), Output(id=ID2))],
+ [(('example_1.catalog', 'TestInput'),
+   Input(id=ID1)),
+  (('example_1.pipeline', 'TestInput'),
+   Input(id=ID1))],
+ [(('example_1.catalog', 'TestOutput'),
+   Output(id=ID2)),
+  (('example_1.pipeline', 'TestOutput'),
+   Output(id=ID2))],
  [(('example_1.nodes', 'x'),
    StringBuffer(_buffer=<_io.StringIO object at HASH1>))],
  [(('example_1.nodes', 'y'),
    StringBuffer(_buffer=<_io.StringIO object at HASH2>))],
- [(('example_1.wrapped_io', 'name_generator'), NameGenerator(name='John'))],
- [(('example_1.wrapped_io', 'name_printer'), NamePrinter())],
+ [(('example_1.wrapped_io',
+    'name_generator'),
+   NameGenerator(name='John'))],
+ [(('example_1.wrapped_io',
+    'name_printer'),
+   NamePrinter())],
  [(('example_1.wrapped_io', 'message'),
-   SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),)))]]
+   SayHello(name=NameGenerator(name='John'),
+            writer=(NamePrinter(),)))]]
 
 ```

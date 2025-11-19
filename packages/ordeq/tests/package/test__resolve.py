@@ -3,11 +3,7 @@ from collections.abc import Callable
 import pytest
 from ordeq import Node, node
 from ordeq._nodes import get_node
-from ordeq._resolve import (
-    _is_node,
-    _resolve_object_ref_to_node,
-    _resolve_runnables_to_nodes,
-)
+from ordeq._resolve import _is_node, _resolve_runnables_to_nodes
 
 
 @pytest.fixture
@@ -58,13 +54,6 @@ def test_resolve_node_by_reference_not_a_node() -> None:
         r"in module 'example_1.nodes'",
     ):
         _resolve_runnables_to_nodes("example_1.nodes:i_do_not_exist")
-
-
-def test_resolve_node_by_reference_no_module() -> None:
-    with pytest.raises(
-        ValueError, match="Invalid object reference: 'invalidformat'"
-    ):
-        _resolve_object_ref_to_node("invalidformat")
 
 
 def test_is_node_proxy():

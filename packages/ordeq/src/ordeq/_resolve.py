@@ -9,15 +9,7 @@ from collections.abc import Callable, Generator
 from types import ModuleType
 from typing import TypeAlias, TypeGuard
 
-from ordeq._fqn import (
-    FQ,
-    FQN,
-    ModuleRef,
-    ObjectRef,
-    fqn_to_object_ref,
-    is_object_ref,
-    object_ref_to_fqn,
-)
+from ordeq._fqn import FQ, FQN, ModuleRef, is_object_ref, object_ref_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
 from ordeq._nodes import Node, View, _is_node, get_node
@@ -39,15 +31,15 @@ def _resolve_module_ref_to_module(module_ref: ModuleRef) -> ModuleType:
     return importlib.import_module(module_ref)
 
 
-def _resolve_object_ref_to_node(ref: ObjectRef) -> FQ[Node]:
-    module_ref, node_name = object_ref_to_fqn(ref)
+def _resolve_fqn_to_node(fqn: FQN) -> Node:
+    module_ref, node_name = fqn
     module = _resolve_module_ref_to_module(module_ref)
     node_obj = getattr(module, node_name, None)
     if node_obj is None or not _is_node(node_obj):
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_ref}'"
         )
-    return (module_ref, node_name), get_node(node_obj)
+    return get_node(node_obj)
 
 
 def _resolve_fqn_to_hook(fqn: FQN) -> RunnerHook:
@@ -243,13 +235,13 @@ def _resolve_runnables_to_nodes_and_modules(
                     stacklevel=2,
                 )
         elif isinstance(runnable, str):
-            fqn, node = _resolve_object_ref_to_node(runnable)
+            fqn = object_ref_to_fqn(runnable)
+            node = _resolve_fqn_to_node(fqn)
             if node not in nodes:
                 nodes.append((fqn, node))
             else:
                 warnings.warn(
-                    f"Node '{fqn_to_object_ref(fqn)}' "
-                    f"already provided in another runnable",
+                    f"Node '{runnable}' already provided in another runnable",
                     stacklevel=2,
                 )
         else:

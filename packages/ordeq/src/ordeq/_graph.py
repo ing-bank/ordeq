@@ -89,16 +89,16 @@ class NodeResourceGraph(Graph[Resource | Node]):
         return cls(edges=edges)
 
     @cached_property
-    def nodes(self) -> list[Node]:
-        return [node for node in self.edges if isinstance(node, Node)]
+    def nodes(self) -> set[Node]:
+        return {node for node in self.edges if isinstance(node, Node)}
 
     @cached_property
-    def resources(self) -> list[Resource]:
-        return [
+    def resources(self) -> set[Resource]:
+        return {
             resource
             for resource in self.edges
             if isinstance(resource, Resource)
-        ]
+        }
 
 
 @dataclass(frozen=True)
@@ -133,8 +133,8 @@ class NodeGraph(Graph[Node]):
         return {s for s, targets in self.edges.items() if len(targets) == 0}
 
     @cached_property
-    def nodes(self) -> list[Node]:
-        return list(self.edges.keys())
+    def nodes(self) -> set[Node]:
+        return set(self.edges.keys())
 
     # TODO: remove and replace with `viz` method
     def __repr__(self) -> str:

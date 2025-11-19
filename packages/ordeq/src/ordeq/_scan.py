@@ -1,8 +1,7 @@
 from collections import defaultdict
-
-from mypy.moduleinspect import ModuleType
-
+from types import ModuleType
 from typing import TypeAlias
+
 from ordeq._fqn import FQ, FQN, ModuleRef, fqn_to_object_ref
 from ordeq._io import AnyIO, IOIdentity, _is_io
 from ordeq._nodes import Node, _is_node, get_node
@@ -29,7 +28,8 @@ def scan(root: ModuleType) -> tuple[NodeToFQNs, IOToFQNs]:
                         # TODO: Trace the line where the aliasing happened
                         #  for more descriptive error message.
                         raise ValueError(
-                            f"Module '{module.__name__}' aliases IO '{existing_ref}' to '{name}'. "
+                            f"Module '{module.__name__}' aliases IO "
+                            f"'{existing_ref}' to '{name}'. "
                             f"IOs cannot be aliased."
                         )
                 ios[io_id].append(((module.__name__, name), obj))

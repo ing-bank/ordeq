@@ -49,6 +49,7 @@ packages/ordeq/tests/resources/runner/logging_verbosity.py:17: error: Argument 1
 packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
+packages/ordeq/tests/resources/runner/graph.py:45: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: error: No overload variant of "node" matches argument types "Literal[str]", "Literal[str]"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note: Possible overload variants:
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:7: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
@@ -57,4 +58,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: error: No 
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note: Possible overload variants:
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:18: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-Found 26 errors in 20 files (checked 232 source files)
+Found 27 errors in 20 files (checked 232 source files)

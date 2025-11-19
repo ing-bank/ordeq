@@ -32,11 +32,15 @@ def f4(i: str, j: str, k: str) -> str:
 
 pipeline = [f1, f2, f3, f4]
 
+run(*pipeline, save="none", verbose=True)
+print(R4.load())
+
 run(*pipeline, save="all", verbose=True)
 print(R4.load())
 
 run(*pipeline, save="sinks", verbose=True)
 print(R4.load())
 
-run(*pipeline, save="none", verbose=True)
-print(R4.load())
+R5 = StringBuffer()
+run(*pipeline, save="none", io={R4: R5}, verbose=True)
+print(R5.load())

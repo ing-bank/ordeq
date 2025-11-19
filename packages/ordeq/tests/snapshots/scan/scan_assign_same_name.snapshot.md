@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_imports.assign_same_name)
 print("Nodes:")
-pprint(list(nodes.items()))
+pprint(nodes)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(ios, width=40)
 
 ```
 
@@ -20,8 +20,8 @@ pprint(list(ios.values()), width=40)
 Nodes:
 []
 IOs:
-[[(('example_imports.assign_same_name',
-    'a'),
-   IO(id=ID1))]]
+[(('example_imports.assign_same_name',
+   'a'),
+  IO(id=ID1))]
 
 ```

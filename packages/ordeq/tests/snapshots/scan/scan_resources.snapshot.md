@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_resources)
 print("Nodes:")
-pprint(list(nodes.items()))
+pprint(nodes)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(ios, width=40)
 
 ```
 
@@ -18,33 +18,32 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-[(Node(name=example_resources.inline:generate, outputs=[CSV(path=Path('data1.csv'))]),
-  [('example_resources.inline', 'generate')]),
- (View(name=example_resources.inline:consume, inputs=[Text(path=Path('data1.csv'))]),
-  [('example_resources.inline', 'consume')]),
- (Node(name=example_resources.pipeline:generate, outputs=[CSV(path=Path('data2.csv'))]),
-  [('example_resources.pipeline', 'generate')]),
- (View(name=example_resources.pipeline:consume, inputs=[Text(path=Path('data2.csv'))]),
-  [('example_resources.pipeline', 'consume')]),
- (Node(name=example_resources.updates:update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))]),
-  [('example_resources.updates', 'update')]),
- (Node(name=example_resources.updates:reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]),
-  [('example_resources.updates', 'reflect')])]
+[(('example_resources.inline', 'generate'),
+  Node(name=example_resources.inline:generate, outputs=[CSV(path=Path('data1.csv'))])),
+ (('example_resources.inline', 'consume'),
+  View(name=example_resources.inline:consume, inputs=[Text(path=Path('data1.csv'))])),
+ (('example_resources.pipeline', 'generate'),
+  Node(name=example_resources.pipeline:generate, outputs=[CSV(path=Path('data2.csv'))])),
+ (('example_resources.pipeline', 'consume'),
+  View(name=example_resources.pipeline:consume, inputs=[Text(path=Path('data2.csv'))])),
+ (('example_resources.updates', 'update'),
+  Node(name=example_resources.updates:update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))])),
+ (('example_resources.updates', 'reflect'),
+  Node(name=example_resources.updates:reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]))]
 IOs:
-[[(('example_resources.pipeline',
-    'csv'),
-   CSV(path=Path('data2.csv')))],
- [(('example_resources.pipeline',
-    'text'),
-   Text(path=Path('data2.csv')))],
- [(('example_resources.updates', 'csv'),
-   CSV(path=Path('data3.csv')))],
- [(('example_resources.updates',
-    'csv_old'),
-   CSV(path=Path('data3.csv')))],
- [(('example_resources.updates',
-    'csv_new'),
-   CSV(path=Path('data3.csv')))]]
+[(('example_resources.pipeline', 'csv'),
+  CSV(path=Path('data2.csv'))),
+ (('example_resources.pipeline',
+   'text'),
+  Text(path=Path('data2.csv'))),
+ (('example_resources.updates', 'csv'),
+  CSV(path=Path('data3.csv'))),
+ (('example_resources.updates',
+   'csv_old'),
+  CSV(path=Path('data3.csv'))),
+ (('example_resources.updates',
+   'csv_new'),
+  CSV(path=Path('data3.csv')))]
 
 ```
 

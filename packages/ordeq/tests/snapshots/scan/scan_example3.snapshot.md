@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_3)
 print("Nodes:")
-pprint(list(nodes.items()))
+pprint(nodes)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(ios, width=40)
 
 ```
 
@@ -18,8 +18,8 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-[(View(name=example_3.func_defs:hello), [('example_3.nodes', 'f1')]),
- (View(name=example_3.func_defs:hello), [('example_3.nodes', 'f2')])]
+[(('example_3.nodes', 'f1'), View(name=example_3.func_defs:hello)),
+ (('example_3.nodes', 'f2'), View(name=example_3.func_defs:hello))]
 IOs:
 []
 

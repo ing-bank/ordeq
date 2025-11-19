@@ -1,19 +1,15 @@
 from collections import defaultdict
 from types import ModuleType
-from typing import TypeAlias
 
-from ordeq._fqn import FQ, FQN, fqn_to_object_ref
+from ordeq._fqn import FQ, fqn_to_object_ref
 from ordeq._io import AnyIO, IOIdentity, _is_io
 from ordeq._nodes import Node, _is_node, get_node
 from ordeq._resolve import _resolve_packages_to_modules
 
-NodeToFQNs: TypeAlias = dict[Node, list[FQN]]
-IOToFQNs: TypeAlias = dict[IOIdentity, list[FQ[AnyIO]]]
 
-
-def scan(root: ModuleType) -> tuple[NodeToFQNs, IOToFQNs]:
+def scan(root: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
     modules = _resolve_packages_to_modules(root)
-    nodes: dict[Node, list[FQN]] = defaultdict(list)
+    nodes: list[FQ[Node]] = []
     ios: dict[IOIdentity, list[FQ[AnyIO]]] = defaultdict(list)
     for module in modules:
         for name, obj in vars(module).items():
@@ -30,6 +26,5 @@ def scan(root: ModuleType) -> tuple[NodeToFQNs, IOToFQNs]:
                         )
                 ios[io_id].append(((module.__name__, name), obj))
             elif _is_node(obj):
-                node = get_node(obj)
-                nodes[node].append((module.__name__, name))
-    return dict(nodes), dict(ios)
+                nodes.append(((module.__name__, name), get_node(obj)))
+    return nodes, [fqn_io for io_list in ios.values() for fqn_io in io_list]

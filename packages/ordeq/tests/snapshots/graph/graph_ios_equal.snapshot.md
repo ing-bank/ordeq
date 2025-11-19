@@ -19,7 +19,7 @@ class Greeting(Input[str]):
         return self.value
 
     def __eq__(self, other):
-        return self.value == other.value
+        return isinstance(other, self.__class__) and self.value == other.value
 
     def __hash__(self):
         return hash(self.value)
@@ -27,6 +27,7 @@ class Greeting(Input[str]):
 
 x = Greeting("hello")
 y = Greeting("hello")
+print(x == 3)
 assert hash(x) == hash(y)
 assert x == y
 
@@ -46,6 +47,7 @@ print(graph)
 ## Output
 
 ```text
+False
 NodeIOGraph:
 io-0 --> Node:are_greetings_equal
 io-1 --> Node:are_greetings_equal

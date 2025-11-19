@@ -56,9 +56,9 @@ CustomIO2(file='/packages/ordeq/tests/resources/resources/custom_path.py', py_fi
 ## Logging
 
 ```text
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 
 ```

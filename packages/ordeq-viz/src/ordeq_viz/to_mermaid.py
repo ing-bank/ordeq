@@ -1,12 +1,11 @@
 import html
-import logging
 from collections import defaultdict
 from itertools import cycle
 from typing import Any
 
-from ordeq_viz.graph import IOData, NodeData
+from ordeq.preview import preview
 
-logger = logging.getLogger(__name__)
+from ordeq_viz.graph import IOData, NodeData
 
 
 def _filter_none(d: dict[str, Any]) -> dict[str, Any]:
@@ -85,7 +84,7 @@ def graph_to_mermaid(
 
     """
     if subgraphs:
-        logger.warning(
+        preview(
             "Subgraphs are in pre-release, "
             "functionality may break in future releases "
             "without it being considered a breaking change."

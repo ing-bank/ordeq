@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import importlib
-import logging
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import wraps
@@ -9,8 +8,7 @@ from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
 from ordeq._io import IO, AnyIO, Input, Output
-
-logger = logging.getLogger("ordeq.nodes")
+from ordeq.preview import preview
 
 T = TypeVar("T")
 FuncParams = ParamSpec("FuncParams")
@@ -330,7 +328,7 @@ def create_node(
             inputs_.append(cast("Input", input_))
 
     if not outputs:
-        logger.warning(
+        preview(
             "Creating a view, as no outputs were provided for node '%s'. "
             "Views are in pre-release, functionality may break without notice."
             " Use @node(outputs=...) to create a regular node. ",

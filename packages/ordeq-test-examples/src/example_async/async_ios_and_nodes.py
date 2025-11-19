@@ -23,8 +23,9 @@ would block the next from starting until it completed.
 
 import asyncio
 
-from example_async.io import AsyncStringBuffer
 from ordeq import node
+
+from example_async.io import AsyncStringBuffer
 
 buffer_1 = AsyncStringBuffer(sleep_delay=1.0)
 buffer_2 = AsyncStringBuffer(sleep_delay=2.0)
@@ -54,7 +55,7 @@ async def retrieve_data_2() -> str:
 @node(
     inputs=[buffer_1, buffer_2], outputs=[buffer_3]
 )  # total time to save: 3 seconds (longest input load + output save time)
-def process_data(data1: str, data2: str) -> None:
+def process_data(data1: str, data2: str) -> str:
     combined = f"Combined Data:\n{data1}\n{data2}"
     print(combined)
     return combined

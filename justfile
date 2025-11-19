@@ -131,14 +131,6 @@ docs-serve: generate-api-docs generate-package-overview
 docs-publish: docs-build
     uv run --group docs mkdocs gh-deploy --force
 
-# Run pre-commit hooks
-precommit:
-    uv run pre-commit run --all-files
-
-# Install pre-commit hooks
-precommit_install:
-    uv run pre-commit install
-
 # Install development dependencies
 install:
     uv sync --all-packages --all-groups --all-extras

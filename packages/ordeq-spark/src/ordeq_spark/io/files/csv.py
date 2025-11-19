@@ -31,7 +31,7 @@ class SparkCSV(IO[DataFrame]):
     >>> from ordeq_spark import SparkCSV
     >>> csv = SparkCSV(
     ...     path="to.json"
-    ... ).with_load_options(single_file=True)
+    ... ).with_save_options(single_file=True)
 
     ```
 

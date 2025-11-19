@@ -22,8 +22,8 @@ ValueError: Module 'resources.runner.example_module_b' contains duplicate keys f
                            ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    nodes = [node for _, _, node in _resolve_runnables_to_nodes(*runnables)]
-                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+    nodes = [node for _, node in _resolve_runnables_to_nodes(*runnables)]
+                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/run_modules.py", line LINO, in <module>
     run(example_module_a, example_module_b, verbose=True)

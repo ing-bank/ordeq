@@ -5,7 +5,7 @@ from itertools import chain
 from typing import Any
 
 from ordeq import Node
-from ordeq._fqn import FQNamed, fqn_to_object_ref
+from ordeq._fqn import FQ, fqn_to_object_ref
 from ordeq._resolve import AnyIO, Catalog
 from pydantic import BaseModel, Field
 
@@ -40,8 +40,8 @@ class IOModel(BaseModel):
     attributes: dict[str, Any] = Field(default_factory=dict)
 
     @classmethod
-    def from_io(cls, io: FQNamed[AnyIO], resource: int | None) -> "IOModel":
-        _, io_name, io_obj = io
+    def from_io(cls, io: FQ[AnyIO], resource: int | None) -> "IOModel":
+        (_, io_name), io_obj = io
         io_type = type(io_obj)
         io_type_fqn = (io_type.__module__, io_type.__name__)
         return cls(
@@ -63,9 +63,9 @@ class NodeModel(BaseModel):
 
     @classmethod
     def from_node(
-        cls, node: FQNamed[Node], io_to_fqns: dict[AnyIO, list[str]]
+        cls, node: FQ[Node], io_to_fqns: dict[AnyIO, list[str]]
     ) -> "NodeModel":
-        module_ref, node_name, node_obj = node
+        (module_ref, node_name), node_obj = node
         ins = []
         for i in node_obj.inputs:
             candidates = io_to_fqns[i]
@@ -115,7 +115,7 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls, name: str, nodes: list[FQNamed[Node]], ios: Catalog
+        cls, name: str, nodes: list[FQ[Node]], ios: Catalog
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 
@@ -140,7 +140,7 @@ class ProjectModel(BaseModel):
                     )
                 ref = fqn_to_object_ref((module_ref, io_name))
                 ref_to_io_models[ref] = IOModel.from_io(
-                    (module_ref, io_name, io),
+                    ((module_ref, io_name), io),
                     resource_to_model[resource].id
                     if resource in resource_to_model
                     else None,
@@ -150,7 +150,7 @@ class ProjectModel(BaseModel):
         # Anonymous IOs:
         # TODO: assign these names in a named graph in `ordeq`.
         idx = 0
-        for module_ref, _, node in nodes:
+        for (module_ref, _), node in nodes:
             for io_ in chain(node.inputs, node.outputs):
                 if io_ not in io_to_fqns:
                     resource = io_._resource
@@ -167,7 +167,7 @@ class ProjectModel(BaseModel):
                     fqn = f"{module_ref}:<anonymous{idx}>"
                     io_to_fqns[io_].append(f"{module_ref}:<anonymous{idx}>")  # type: ignore[index]
                     model = IOModel.from_io(
-                        (module_ref, f"<anonymous{idx}>", io_),  # type: ignore[arg-type]
+                        ((module_ref, f"<anonymous{idx}>"), io_),  # type: ignore[arg-type]
                         resource_to_model[resource].id
                         if resource in resource_to_model
                         else None,
@@ -176,10 +176,10 @@ class ProjectModel(BaseModel):
                     idx += 1
 
         refs_to_nodes = {
-            fqn_to_object_ref((module_ref, node_name)): NodeModel.from_node(
-                (module_ref, node_name, node), io_to_fqns
+            fqn_to_object_ref(fqn): NodeModel.from_node(
+                (fqn, node), io_to_fqns
             )
-            for module_ref, node_name, node in nodes
+            for fqn, node in nodes
         }
         return cls(
             name=name,

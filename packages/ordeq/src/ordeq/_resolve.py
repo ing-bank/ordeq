@@ -10,8 +10,8 @@ from types import ModuleType
 from typing import TypeAlias, TypeGuard
 
 from ordeq._fqn import (
+    FQ,
     FQN,
-    FQNamed,
     ModuleRef,
     ObjectRef,
     fqn_to_object_ref,

@@ -29,7 +29,7 @@ pprint([node.name for node in node_graph.topological_ordering])
 NodeIOGraph
 
 NodeGraph
-
+NodeGraph(edges={})
 Topological ordering
 []
 

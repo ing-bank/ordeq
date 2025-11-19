@@ -46,7 +46,7 @@ print(x4.load())
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=4, edges={Node(name=__main__:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)]): [Resource(value=CustomIO(attr=))], Node(name=__main__:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)]): [Resource(value=CustomIO(attr=))], Resource(value=CustomIO(attr=y did it)): [Node(name=__main__:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)])], Resource(value=CustomIO(attr=)): [Node(name=__main__:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])], Resource(value=CustomIO(attr=x did it)): [Node(name=__main__:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])], Resource(value=CustomIO(attr=)): []})
+NodeResourceGraph(edges={Node(name=__main__:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)]): [Resource(value=CustomIO(attr=))], Node(name=__main__:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)]): [Resource(value=CustomIO(attr=))], Resource(value=CustomIO(attr=y did it)): [Node(name=__main__:increment, inputs=[CustomIO(attr=y did it)], outputs=[CustomIO(attr=)])], Resource(value=CustomIO(attr=)): [Node(name=__main__:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])], Resource(value=CustomIO(attr=x did it)): [Node(name=__main__:decrement, inputs=[CustomIO(attr=), CustomIO(attr=x did it)], outputs=[CustomIO(attr=)])], Resource(value=CustomIO(attr=)): []})
 x says 'x says y did it ' but y says 'x did it and I know the murder weapon'  
 
 ```

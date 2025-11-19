@@ -38,11 +38,7 @@ Node:example_1.pipeline:transform_mock_input --> io-6
 Node:example_1.pipeline:transform_input --> io-7
 Node:example_1.nodes:world --> io-8
 NodeGraph
-Node:example_1.wrapped_io:hello --> Node:example_1.wrapped_io:print_message
-Node:example_1.nodes:world
-Node:example_1.pipeline:transform_input
-Node:example_1.pipeline:transform_mock_input
-Node:example_1.wrapped_io:print_message
+NodeGraph(edges={Node(name=example_1.wrapped_io:hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))]): [Node(name=example_1.wrapped_io:print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()])], Node(name=example_1.wrapped_io:print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()]): [], Node(name=example_1.pipeline:transform_mock_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [], Node(name=example_1.pipeline:transform_input, inputs=[Input(id=ID1)], outputs=[Output(id=ID2)]): [], Node(name=example_1.nodes:world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]): []})
 Topological ordering
 ['example_1.wrapped_io:hello',
  'example_1.nodes:world',

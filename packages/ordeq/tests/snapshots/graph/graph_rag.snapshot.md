@@ -50,15 +50,7 @@ io-8 --> Node:example_rag_pipeline.rag.annotation:annotate_documents
 Node:example_rag_pipeline.rag.annotation:annotate_documents --> io-9
 Node:example_rag_pipeline.rag.evaluation:evaluate_answers --> io-10
 NodeGraph
-Node:example_rag_pipeline.rag.indexer:create_vector_index --> Node:example_rag_pipeline.rag.retrieval:retrieve
-Node:example_rag_pipeline.rag.policies:generate_questions --> Node:example_rag_pipeline.rag.question_answering:question_answering
-Node:example_rag_pipeline.rag.policies:generate_questions --> Node:example_rag_pipeline.rag.retrieval:retrieve
-Node:example_rag_pipeline.rag.retrieval:retrieve --> Node:example_rag_pipeline.rag.retrieval:filter_relevant
-Node:example_rag_pipeline.rag.retrieval:filter_relevant --> Node:example_rag_pipeline.rag.question_answering:question_answering
-Node:example_rag_pipeline.rag.question_answering:question_answering --> Node:example_rag_pipeline.rag.annotation:annotate_documents
-Node:example_rag_pipeline.rag.question_answering:question_answering --> Node:example_rag_pipeline.rag.evaluation:evaluate_answers
-Node:example_rag_pipeline.rag.evaluation:evaluate_answers
-Node:example_rag_pipeline.rag.annotation:annotate_documents
+NodeGraph(edges={Node(name=example_rag_pipeline.rag.policies:generate_questions, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]): [Node(name=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(id=ID2), IO(id=ID3), IO(id=ID4)], outputs=[IO(id=ID5)]), Node(name=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(id=ID6), IO(id=ID2), IO(id=ID7)], outputs=[IO(id=ID8)])], Node(name=example_rag_pipeline.rag.indexer:create_vector_index, inputs=[IO(id=ID9), IO(id=ID7)], outputs=[IO(id=ID6)]): [Node(name=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(id=ID6), IO(id=ID2), IO(id=ID7)], outputs=[IO(id=ID8)])], Node(name=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(id=ID6), IO(id=ID2), IO(id=ID7)], outputs=[IO(id=ID8)]): [Node(name=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(id=ID8), IO(id=ID4)], outputs=[IO(id=ID3)])], Node(name=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(id=ID8), IO(id=ID4)], outputs=[IO(id=ID3)]): [Node(name=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(id=ID2), IO(id=ID3), IO(id=ID4)], outputs=[IO(id=ID5)])], Node(name=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(id=ID2), IO(id=ID3), IO(id=ID4)], outputs=[IO(id=ID5)]): [Node(name=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(id=ID5), IO(id=ID9)], outputs=[IO(id=ID10)]), Node(name=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(id=ID5), IO(id=ID4)], outputs=[IO(id=ID11)])], Node(name=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(id=ID5), IO(id=ID4)], outputs=[IO(id=ID11)]): [], Node(name=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(id=ID5), IO(id=ID9)], outputs=[IO(id=ID10)]): []})
 Topological ordering
 ['example_rag_pipeline.rag.indexer:create_vector_index',
  'example_rag_pipeline.rag.policies:generate_questions',

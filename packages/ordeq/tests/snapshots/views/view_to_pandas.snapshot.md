@@ -34,7 +34,7 @@ run(aggregate, verbose=True)
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:csv_as_df, inputs=[Literal(<__main__.MockDuckDbValues object at HASH1>)]): [Resource(value=IO(id=ID1))], View(name=__main__:aggregate, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(<__main__.MockDuckDbValues object at HASH1>)): [View(name=__main__:csv_as_df, inputs=[Literal(<__main__.MockDuckDbValues object at HASH1>)])], Resource(value=IO(id=ID1)): [View(name=__main__:aggregate, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
+NodeResourceGraph(edges={View(name=__main__:csv_as_df, inputs=[Literal(<__main__.MockDuckDbValues object at HASH1>)]): [Resource(value=IO(id=ID1))], View(name=__main__:aggregate, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(<__main__.MockDuckDbValues object at HASH1>)): [View(name=__main__:csv_as_df, inputs=[Literal(<__main__.MockDuckDbValues object at HASH1>)])], Resource(value=IO(id=ID1)): [View(name=__main__:aggregate, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
 value    6
 dtype: int64
 

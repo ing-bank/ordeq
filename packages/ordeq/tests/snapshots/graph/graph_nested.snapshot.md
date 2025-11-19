@@ -29,7 +29,7 @@ pprint([node.name for node in node_graph.topological_ordering])
 NodeIOGraph
 View:example_nested.subpackage.subsubpackage.hello:world --> io-0
 NodeGraph
-View:example_nested.subpackage.subsubpackage.hello:world
+NodeGraph(edges={View(name=example_nested.subpackage.subsubpackage.hello:world): []})
 Topological ordering
 ['example_nested.subpackage.subsubpackage.hello:world']
 

@@ -54,21 +54,17 @@ class Graph(Generic[T]):
 @dataclass(frozen=True)
 class NodeResourceGraph(Graph[Resource | Node]):
     edges: dict[Resource | Node, list[Resource | Node]]
-    nodes: set[Node]
-    resources: set[Resource]
 
     @classmethod
     def from_nodes(cls, nodes: Sequence[Node]) -> Self:
         edges: dict[Resource | Node, list[Resource | Node]] = {
             node: [] for node in nodes
         }
-        resources: set[Resource] = set()
         resource_to_node: dict[Resource, Node] = {}
 
         for node in nodes:
             for ip in node.inputs:
                 resource = Resource(ip._resource)  # noqa: SLF001 (private-member-access)
-                resources.add(resource)
                 if resource not in edges:
                     edges[resource] = []
                 edges[resource].append(node)
@@ -85,21 +81,21 @@ class NodeResourceGraph(Graph[Resource | Node]):
                     )
                     raise ValueError(msg)
 
-                resources.add(resource)
                 resource_to_node[resource] = node
                 edges[node].append(resource)
 
                 if resource not in edges:
                     edges[resource] = []
 
-        return cls(edges=edges, nodes=set(nodes), resources=resources)
+        return cls(edges=edges)
 
-    def __repr__(self):
-        return (
-            f"NodeResourceGraph(nodes={len(self.nodes)}, "
-            f"resources={len(self.resources)}, "
-            f"edges={self.edges})"
-        )
+    @cached_property
+    def nodes(self) -> set[Node]:
+        return {node for node in self.edges if isinstance(node, Node)}
+
+    @cached_property
+    def resources(self) -> set[Resource]:
+        return {res for res in self.edges if isinstance(res, Resource)}
 
 
 @dataclass(frozen=True)
@@ -125,30 +121,17 @@ class NodeGraph(Graph[Node]):
         return cls(edges=edges)
 
     @property
-    def sink_nodes(self) -> list[Node]:
+    def sink_nodes(self) -> set[Node]:
         """Finds the sink nodes, i.e., nodes without successors.
 
         Returns:
             the sink nodes
         """
-        return [s for s, targets in self.edges.items() if len(targets) == 0]
+        return {s for s, targets in self.edges.items() if len(targets) == 0}
 
     @cached_property
     def nodes(self) -> list[Node]:
         return list(self.edges.keys())
-
-    def __repr__(self) -> str:
-        lines: list[str] = []
-        for node in self.topological_ordering:
-            if self.edges[node]:
-                lines.extend(
-                    f"{type(node).__name__}:{node.name} --> "
-                    f"{type(next_node).__name__}:{next_node.name}"
-                    for next_node in self.edges[node]
-                )
-            else:
-                lines.append(f"{type(node).__name__}:{node.name}")
-        return "\n".join(lines)
 
 
 @dataclass(frozen=True)
@@ -170,6 +153,7 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
         ios: dict[IOIdentity, AnyIO] = {}
         for node in base.topological_ordering:
             nodes.add(node)
+            edges[node] = []
             for input_ in node.inputs:
                 input_id = id(input_)
                 ios[input_id] = input_
@@ -178,7 +162,9 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
                 output_id = id(output)
                 ios[output_id] = output
                 edges[node].append(output_id)
-        return cls(edges=edges, ios=ios, nodes=nodes)
+                if not output_id in edges:
+                    edges[output_id] = []
+        return cls(edges=dict(edges), ios=ios, nodes=nodes)
 
     def __repr__(self) -> str:
         # Hacky way to generate a deterministic repr of this class.

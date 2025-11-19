@@ -38,11 +38,7 @@ View:example_function_reuse.func_defs:print_input --> io-6
 View:example_function_reuse.func_defs:print_input --> io-7
 View:example_function_reuse.func_defs:print_input --> io-8
 NodeGraph
-View:example_function_reuse.func_defs:print_input
-View:example_function_reuse.func_defs:print_input
-View:example_function_reuse.func_defs:print_input
-View:example_function_reuse.func_defs:print_input
-View:example_function_reuse.nodes:pi
+NodeGraph(edges={View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [], View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [], View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]): [], View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]): [], View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): []})
 Topological ordering
 ['example_function_reuse.func_defs:print_input',
  'example_function_reuse.func_defs:print_input',

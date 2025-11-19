@@ -45,7 +45,7 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=4, edges={View(name=__main__:filter_df, inputs=[Literal(     A  B    C    D
+NodeResourceGraph(edges={View(name=__main__:filter_df, inputs=[Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0), Literal(0    False

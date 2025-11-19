@@ -48,14 +48,7 @@ Node:example_project.nodes_import:func_a --> io-11
 Node:example_project.nodes:func --> io-12
 Node:example_project.inner.nodes:func --> io-13
 NodeGraph
-View:example_project.nodes_with_view:greet --> Node:example_project.nodes_with_view:farewell
-Node:example_project.inner.nodes:func
-Node:example_project.nodes:func
-Node:example_project.nodes_import:func_a
-Node:example_project.nodes_import:func_b
-Node:example_project.nodes_import_alias:func
-Node:example_project.nodes_with_inline_io:greet
-Node:example_project.nodes_with_view:farewell
+NodeGraph(edges={View(name=example_project.nodes_with_view:greet, inputs=[Literal('Hello')]): [Node(name=example_project.nodes_with_view:farewell, inputs=[IO(id=ID1)], outputs=[Print()])], Node(name=example_project.nodes_with_view:farewell, inputs=[IO(id=ID1)], outputs=[Print()]): [], Node(name=example_project.nodes_with_inline_io:greet, inputs=[Literal('Buenos dias')], outputs=[IO(id=ID2)]): [], Node(name=example_project.nodes_import_alias:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}): [], Node(name=example_project.nodes_import:func_b, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}): [], Node(name=example_project.nodes_import:func_a, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]): [], Node(name=example_project.nodes:func, inputs=[IO(id=ID3)], outputs=[Print()], attributes={'tags': ['dummy']}): [], Node(name=example_project.inner.nodes:func, inputs=[IO(id=ID4)], outputs=[Print()], attributes={'tags': ['dummy']}): []})
 Topological ordering
 ['example_project.nodes_with_view:greet',
  'example_project.inner.nodes:func',

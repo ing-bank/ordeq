@@ -29,7 +29,7 @@ run(print_buckets, verbose=True)
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:buckets, inputs=[Literal(<__main__.Client object at HASH1>)]): [Resource(value=IO(id=ID1))], View(name=__main__:print_buckets, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(<__main__.Client object at HASH1>)): [View(name=__main__:buckets, inputs=[Literal(<__main__.Client object at HASH1>)])], Resource(value=IO(id=ID1)): [View(name=__main__:print_buckets, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
+NodeResourceGraph(edges={View(name=__main__:buckets, inputs=[Literal(<__main__.Client object at HASH1>)]): [Resource(value=IO(id=ID1))], View(name=__main__:print_buckets, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(<__main__.Client object at HASH1>)): [View(name=__main__:buckets, inputs=[Literal(<__main__.Client object at HASH1>)])], Resource(value=IO(id=ID1)): [View(name=__main__:print_buckets, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
 bucket1
 bucket2
 bucket3

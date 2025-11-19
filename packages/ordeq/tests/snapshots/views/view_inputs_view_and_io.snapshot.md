@@ -36,7 +36,7 @@ run(n, verbose=True)
 ```text
 View(name=__main__:hello)
 View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
-NodeResourceGraph(nodes=3, resources=4, edges={View(name=__main__:hello): [Resource(value=IO(id=ID1))], View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)]): [Resource(value=IO(id=ID2))], View(name=__main__:n, inputs=[IO(id=ID2)]): [Resource(value=IO(id=ID3))], Resource(value=IO(id=ID1)): [View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])], Resource(value=Literal('Jane')): [View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])], Resource(value=IO(id=ID2)): [View(name=__main__:n, inputs=[IO(id=ID2)])], Resource(value=IO(id=ID3)): []})
+NodeResourceGraph(edges={View(name=__main__:hello): [Resource(value=IO(id=ID1))], View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)]): [Resource(value=IO(id=ID2))], View(name=__main__:n, inputs=[IO(id=ID2)]): [Resource(value=IO(id=ID3))], Resource(value=IO(id=ID1)): [View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])], Resource(value=Literal('Jane')): [View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])], Resource(value=IO(id=ID2)): [View(name=__main__:n, inputs=[IO(id=ID2)])], Resource(value=IO(id=ID3)): []})
 I heard that Jane said 'Hello, World!'
 
 ```

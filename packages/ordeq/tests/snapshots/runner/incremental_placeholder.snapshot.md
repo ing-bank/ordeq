@@ -27,7 +27,7 @@ run(f, g, verbose=True)  # raises NotImplementedError
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=4, edges={Node(name=__main__:f, inputs=[Input(id=ID1), Input(id=ID2)], outputs=[IO(id=ID3)]): [Resource(value=IO(id=ID3))], Node(name=__main__:g, inputs=[IO(id=ID3)], outputs=[Output(id=ID4)]): [Resource(value=Output(id=ID4))], Resource(value=Input(id=ID1)): [Node(name=__main__:f, inputs=[Input(id=ID1), Input(id=ID2)], outputs=[IO(id=ID3)])], Resource(value=Input(id=ID2)): [Node(name=__main__:f, inputs=[Input(id=ID1), Input(id=ID2)], outputs=[IO(id=ID3)])], Resource(value=IO(id=ID3)): [Node(name=__main__:g, inputs=[IO(id=ID3)], outputs=[Output(id=ID4)])], Resource(value=Output(id=ID4)): []})
+NodeResourceGraph(edges={Node(name=__main__:f, inputs=[Input(id=ID1), Input(id=ID2)], outputs=[IO(id=ID3)]): [Resource(value=IO(id=ID3))], Node(name=__main__:g, inputs=[IO(id=ID3)], outputs=[Output(id=ID4)]): [Resource(value=Output(id=ID4))], Resource(value=Input(id=ID1)): [Node(name=__main__:f, inputs=[Input(id=ID1), Input(id=ID2)], outputs=[IO(id=ID3)])], Resource(value=Input(id=ID2)): [Node(name=__main__:f, inputs=[Input(id=ID1), Input(id=ID2)], outputs=[IO(id=ID3)])], Resource(value=IO(id=ID3)): [Node(name=__main__:g, inputs=[IO(id=ID3)], outputs=[Output(id=ID4)])], Resource(value=Output(id=ID4)): []})
 IOException: Failed to load Input(id=ID1).
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper

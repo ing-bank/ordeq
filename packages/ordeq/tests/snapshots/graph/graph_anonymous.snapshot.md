@@ -30,7 +30,7 @@ NodeIOGraph
 io-0 --> Node:example_anonymous.nodes:node_with_inline_io
 Node:example_anonymous.nodes:node_with_inline_io --> io-1
 NodeGraph
-Node:example_anonymous.nodes:node_with_inline_io
+NodeGraph(edges={Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]): []})
 Topological ordering
 ['example_anonymous.nodes:node_with_inline_io']
 

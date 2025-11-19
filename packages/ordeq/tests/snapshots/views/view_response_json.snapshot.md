@@ -26,7 +26,7 @@ run(to_yaml, verbose=True)
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:users_json, inputs=[Literal(<Response [200]>)]): [Resource(value=IO(id=ID1))], View(name=__main__:to_yaml, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(<Response [200]>)): [View(name=__main__:users_json, inputs=[Literal(<Response [200]>)])], Resource(value=IO(id=ID1)): [View(name=__main__:to_yaml, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
+NodeResourceGraph(edges={View(name=__main__:users_json, inputs=[Literal(<Response [200]>)]): [Resource(value=IO(id=ID1))], View(name=__main__:to_yaml, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(<Response [200]>)): [View(name=__main__:users_json, inputs=[Literal(<Response [200]>)])], Resource(value=IO(id=ID1)): [View(name=__main__:to_yaml, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
 Data: {'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@april.biz', 'address': {'street': 'Kulas Light', 'suite': 'Apt. 556', 'city': 'Gwenborough', 'zipcode': '92998-3874', 'geo': {'lat': '-37.3159', 'lng': '81.1496'}}, 'phone': '1-770-736-8031 x56442', 'website': 'hildegard.org', 'company': {'name': 'Romaguera-Crona', 'catchPhrase': 'Multi-layered client-server neural-net', 'bs': 'harness real-time e-markets'}}
 
 ```

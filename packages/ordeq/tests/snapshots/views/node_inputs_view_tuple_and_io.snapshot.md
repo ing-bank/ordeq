@@ -27,7 +27,7 @@ run(combine_greeting_with_ending, verbose=True)
 
 ```text
 View(name=__main__:hello)
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:hello): [Resource(value=IO(id=ID1))], Node(name=__main__:combine_greeting_with_ending, inputs=[IO(id=ID1), Literal('!!!')], outputs=[Print()]): [Resource(value=Print())], Resource(value=IO(id=ID1)): [Node(name=__main__:combine_greeting_with_ending, inputs=[IO(id=ID1), Literal('!!!')], outputs=[Print()])], Resource(value=Literal('!!!')): [Node(name=__main__:combine_greeting_with_ending, inputs=[IO(id=ID1), Literal('!!!')], outputs=[Print()])], Resource(value=Print()): []})
+NodeResourceGraph(edges={View(name=__main__:hello): [Resource(value=IO(id=ID1))], Node(name=__main__:combine_greeting_with_ending, inputs=[IO(id=ID1), Literal('!!!')], outputs=[Print()]): [Resource(value=Print())], Resource(value=IO(id=ID1)): [Node(name=__main__:combine_greeting_with_ending, inputs=[IO(id=ID1), Literal('!!!')], outputs=[Print()])], Resource(value=Literal('!!!')): [Node(name=__main__:combine_greeting_with_ending, inputs=[IO(id=ID1), Literal('!!!')], outputs=[Print()])], Resource(value=Print()): []})
 Hello world !!!
 
 ```

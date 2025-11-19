@@ -52,10 +52,10 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:second, inputs=[File]): [Resource(value=IO(id=ID1))], View(name=__main__:first, inputs=[File]): [Resource(value=IO(id=ID2))], Resource(value='path'): [View(name=__main__:second, inputs=[File]), View(name=__main__:first, inputs=[File])], Resource(value=IO(id=ID1)): [], Resource(value=IO(id=ID2)): []})
+NodeResourceGraph(edges={View(name=__main__:second, inputs=[File]): [Resource(value=IO(id=ID1))], View(name=__main__:first, inputs=[File]): [Resource(value=IO(id=ID2))], Resource(value='path'): [View(name=__main__:second, inputs=[File]), View(name=__main__:first, inputs=[File])], Resource(value=IO(id=ID1)): [], Resource(value=IO(id=ID2)): []})
 1st node: Helloooo
 2nd node: Helloooo
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:first, inputs=[File]): [Resource(value=IO(id=ID2))], View(name=__main__:second, inputs=[File]): [Resource(value=IO(id=ID1))], Resource(value='path'): [View(name=__main__:first, inputs=[File]), View(name=__main__:second, inputs=[File])], Resource(value=IO(id=ID2)): [], Resource(value=IO(id=ID1)): []})
+NodeResourceGraph(edges={View(name=__main__:first, inputs=[File]): [Resource(value=IO(id=ID2))], View(name=__main__:second, inputs=[File]): [Resource(value=IO(id=ID1))], Resource(value='path'): [View(name=__main__:first, inputs=[File]), View(name=__main__:second, inputs=[File])], Resource(value=IO(id=ID2)): [], Resource(value=IO(id=ID1)): []})
 2nd node: Helloooo
 1st node: Helloooo
 

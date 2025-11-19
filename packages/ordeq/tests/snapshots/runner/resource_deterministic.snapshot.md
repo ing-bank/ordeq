@@ -50,11 +50,11 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=2, edges={Node(name=__main__:first, outputs=[File]): [Resource(value='path')], Node(name=__main__:second, inputs=[File], outputs=[Print()]): [Resource(value=Print())], Resource(value='path'): [Node(name=__main__:second, inputs=[File], outputs=[Print()])], Resource(value=Print()): []})
+NodeResourceGraph(edges={Node(name=__main__:first, outputs=[File]): [Resource(value='path')], Node(name=__main__:second, inputs=[File], outputs=[Print()]): [Resource(value=Print())], Resource(value='path'): [Node(name=__main__:second, inputs=[File], outputs=[Print()])], Resource(value=Print()): []})
 First node
 Second node
 Hello, world!
-NodeResourceGraph(nodes=2, resources=2, edges={Node(name=__main__:first, outputs=[File]): [Resource(value='path')], Node(name=__main__:second, inputs=[File], outputs=[Print()]): [Resource(value=Print())], Resource(value='path'): [Node(name=__main__:second, inputs=[File], outputs=[Print()])], Resource(value=Print()): []})
+NodeResourceGraph(edges={Node(name=__main__:first, outputs=[File]): [Resource(value='path')], Node(name=__main__:second, inputs=[File], outputs=[Print()]): [Resource(value=Print())], Resource(value='path'): [Node(name=__main__:second, inputs=[File], outputs=[Print()])], Resource(value=Print()): []})
 First node
 Second node
 Hello, world!

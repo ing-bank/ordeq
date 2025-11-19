@@ -30,8 +30,7 @@ NodeIOGraph
 View:example_3.func_defs:hello --> io-0
 View:example_3.func_defs:hello --> io-1
 NodeGraph
-View:example_3.func_defs:hello
-View:example_3.func_defs:hello
+NodeGraph(edges={View(name=example_3.func_defs:hello): [], View(name=example_3.func_defs:hello): []})
 Topological ordering
 ['example_3.func_defs:hello', 'example_3.func_defs:hello']
 

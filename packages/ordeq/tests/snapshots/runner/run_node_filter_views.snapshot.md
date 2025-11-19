@@ -40,13 +40,13 @@ run(world, node_filter=prints, verbose=True)
 
 ```text
 Should run both `hello` and `world`:
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:hello, inputs=[Literal('Hello')], attributes={'prints': False}): [Resource(value=IO(id=ID1))], Node(name=__main__:world, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'prints': True}): [Resource(value=Print())], Resource(value=Literal('Hello')): [View(name=__main__:hello, inputs=[Literal('Hello')], attributes={'prints': False})], Resource(value=IO(id=ID1)): [Node(name=__main__:world, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'prints': True})], Resource(value=Print()): []})
+NodeResourceGraph(edges={View(name=__main__:hello, inputs=[Literal('Hello')], attributes={'prints': False}): [Resource(value=IO(id=ID1))], Node(name=__main__:world, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'prints': True}): [Resource(value=Print())], Resource(value=Literal('Hello')): [View(name=__main__:hello, inputs=[Literal('Hello')], attributes={'prints': False})], Resource(value=IO(id=ID1)): [Node(name=__main__:world, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'prints': True})], Resource(value=Print()): []})
 Saying Hello, world!!
 Hello, world!!
 Should run neither `hello` nor `world`:
-NodeResourceGraph(nodes=0, resources=0, edges={})
+NodeResourceGraph(edges={})
 Should run both `hello` and `world`:
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:hello, inputs=[Literal('Hello')], attributes={'prints': False}): [Resource(value=IO(id=ID1))], Node(name=__main__:world, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'prints': True}): [Resource(value=Print())], Resource(value=Literal('Hello')): [View(name=__main__:hello, inputs=[Literal('Hello')], attributes={'prints': False})], Resource(value=IO(id=ID1)): [Node(name=__main__:world, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'prints': True})], Resource(value=Print()): []})
+NodeResourceGraph(edges={View(name=__main__:hello, inputs=[Literal('Hello')], attributes={'prints': False}): [Resource(value=IO(id=ID1))], Node(name=__main__:world, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'prints': True}): [Resource(value=Print())], Resource(value=Literal('Hello')): [View(name=__main__:hello, inputs=[Literal('Hello')], attributes={'prints': False})], Resource(value=IO(id=ID1)): [Node(name=__main__:world, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'prints': True})], Resource(value=Print()): []})
 Saying Hello, world!!
 Hello, world!!
 

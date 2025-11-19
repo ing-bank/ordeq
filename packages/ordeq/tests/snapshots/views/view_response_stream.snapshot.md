@@ -28,7 +28,7 @@ run(printer, verbose=True)
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:users_stream, inputs=[Literal(<Response [200]>)]): [Resource(value=IO(id=ID1))], Node(name=__main__:printer, inputs=[IO(id=ID1)], outputs=[Print()]): [Resource(value=Print())], Resource(value=Literal(<Response [200]>)): [View(name=__main__:users_stream, inputs=[Literal(<Response [200]>)])], Resource(value=IO(id=ID1)): [Node(name=__main__:printer, inputs=[IO(id=ID1)], outputs=[Print()])], Resource(value=Print()): []})
+NodeResourceGraph(edges={View(name=__main__:users_stream, inputs=[Literal(<Response [200]>)]): [Resource(value=IO(id=ID1))], Node(name=__main__:printer, inputs=[IO(id=ID1)], outputs=[Print()]): [Resource(value=Print())], Resource(value=Literal(<Response [200]>)): [View(name=__main__:users_stream, inputs=[Literal(<Response [200]>)])], Resource(value=IO(id=ID1)): [Node(name=__main__:printer, inputs=[IO(id=ID1)], outputs=[Print()])], Resource(value=Print()): []})
 <generator object HTTPResponse.stream at HASH1>
 
 ```

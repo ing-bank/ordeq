@@ -26,7 +26,7 @@ run(range_to_csv, verbose=True)
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)]): [Resource(value=IO(id=ID1))], View(name=__main__:range_to_csv, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(<_duckdb.DuckDBPyConnection object at HASH1>)): [View(name=__main__:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)])], Resource(value=IO(id=ID1)): [View(name=__main__:range_to_csv, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
+NodeResourceGraph(edges={View(name=__main__:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)]): [Resource(value=IO(id=ID1))], View(name=__main__:range_to_csv, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(<_duckdb.DuckDBPyConnection object at HASH1>)): [View(name=__main__:selected_range, inputs=[Literal(<_duckdb.DuckDBPyConnection object at HASH1>)])], Resource(value=IO(id=ID1)): [View(name=__main__:range_to_csv, inputs=[IO(id=ID1)])], Resource(value=IO(id=ID2)): []})
 ┌───────┐
 │ range │
 │ int64 │

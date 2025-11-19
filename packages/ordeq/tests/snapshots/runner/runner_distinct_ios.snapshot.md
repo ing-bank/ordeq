@@ -22,7 +22,7 @@ run(func1, func2, verbose=True)
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=2, edges={Node(name=__main__:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>))], Node(name=__main__:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>))], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)): [], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>)): []})
+NodeResourceGraph(edges={Node(name=__main__:func2, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>))], Node(name=__main__:func1, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>))], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)): [], Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>)): []})
 
 ```
 

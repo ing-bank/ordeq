@@ -41,7 +41,7 @@ run(train, verbose=True)
 ## Output
 
 ```text
-NodeResourceGraph(nodes=2, resources=3, edges={View(name=__main__:split, inputs=[Literal(     A  B    C   gt
+NodeResourceGraph(edges={View(name=__main__:split, inputs=[Literal(     A  B    C   gt
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)]): [Resource(value=IO(id=ID1))], View(name=__main__:train, inputs=[IO(id=ID1)]): [Resource(value=IO(id=ID2))], Resource(value=Literal(     A  B    C   gt

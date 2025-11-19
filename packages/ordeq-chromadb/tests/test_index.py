@@ -1,6 +1,6 @@
 import chromadb
 import pytest
-from ordeq_chromadb.index import ChromaDBIndex
+from ordeq_chromadb import ChromaDBIndex
 
 
 @pytest.fixture

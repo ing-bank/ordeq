@@ -1,7 +1,12 @@
 import logging
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Self
+from typing import Any
+
+try:
+    from typing import Self  # type: ignore[attr-defined]
+except ImportError:
+    from typing_extensions import Self
 
 import chromadb
 from ordeq import Input, Output
@@ -45,14 +50,14 @@ class ChromaDBIndex(Input[chromadb.Collection], Output[dict[str, Any]]):
         return cls(client=chromadb.PersistentClient(path=str(path), **kwargs))
 
     def load(
-        self, collection_name: str | None = None, **load_options: Any
+        self, collection_name: str = "", **load_options: Any
     ) -> chromadb.Collection:
         return self.client.get_collection(collection_name, **load_options)
 
     def save(
         self,
         data: dict[str, Any],
-        collection_name: str | None = None,
+        collection_name: str = "",
         **save_options: Any,
     ) -> None:
         collection = self.client.get_or_create_collection(

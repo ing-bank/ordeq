@@ -263,7 +263,7 @@ def run(
 
     io_subs = _resolve_refs_to_subs(io or {})
     user_patches = _substitutes_modules_to_ios(io_subs)
-    patches = {**user_patches, **save_mode_patches}
+    patches = {**save_mode_patches, **user_patches}
     if patches:
         patched_nodes = _patch_nodes(*nodes_and_views, patches=patches)
         graph = NodeGraph.from_nodes(patched_nodes)

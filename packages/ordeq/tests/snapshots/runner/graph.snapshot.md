@@ -35,14 +35,36 @@ def f4(i: str, j: str, k: str) -> str:
 
 pipeline = [f1, f2, f3, f4]
 
-run(*pipeline, save="all", verbose=True)
+run(*pipeline, save="none", verbose=True)
+print("Expect R4 to be empty")
 print(R4.load())
+R4._buffer.truncate(0)
+R4._buffer.seek(0)
 
 run(*pipeline, save="sinks", verbose=True)
+print("Expect R4 to be populated")
 print(R4.load())
+R4._buffer.truncate(0)
+R4._buffer.seek(0)
+
+run(*pipeline, save="all", verbose=True)
+print("Expect R4 to be populated")
+print(R4.load())
+R4._buffer.truncate(0)
+R4._buffer.seek(0)
 
 run(*pipeline, save="none", verbose=True)
+print("Expect R4 to be empty")
 print(R4.load())
+R4._buffer.truncate(0)
+R4._buffer.seek(0)
+
+R5 = StringBuffer()
+run(*pipeline, save="none", io={R4: R5}, verbose=True)
+print("Expect R4 to be empty")
+print(R4.load())
+print("Expect R5 to be populated")
+print(R5.load())
 
 ```
 
@@ -61,6 +83,21 @@ Node:__main__:f2 --> io-4
 io-3 --> Node:__main__:f4
 io-4 --> Node:__main__:f4
 Node:__main__:f4 --> io-5
+Expect R4 to be empty
+
+io-0 --> Node:__main__:f1
+io-0 --> Node:__main__:f2
+io-1 --> Node:__main__:f1
+Node:__main__:f1 --> io-2
+io-2 --> Node:__main__:f2
+io-2 --> Node:__main__:f3
+io-2 --> Node:__main__:f4
+Node:__main__:f3 --> io-3
+Node:__main__:f2 --> io-4
+io-3 --> Node:__main__:f4
+io-4 --> Node:__main__:f4
+Node:__main__:f4 --> io-5
+Expect R4 to be populated
 Hello + world! / world! - Hello + world! + Hello + world! * 2
 io-0 --> Node:__main__:f1
 io-0 --> Node:__main__:f2
@@ -74,7 +111,8 @@ Node:__main__:f2 --> io-4
 io-3 --> Node:__main__:f4
 io-4 --> Node:__main__:f4
 Node:__main__:f4 --> io-5
-Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / world! - Hello + world! + Hello + world! * 2
+Expect R4 to be populated
+Hello + world! / world! - Hello + world! + Hello + world! * 2
 io-0 --> Node:__main__:f1
 io-0 --> Node:__main__:f2
 io-1 --> Node:__main__:f1
@@ -87,7 +125,24 @@ Node:__main__:f2 --> io-4
 io-3 --> Node:__main__:f4
 io-4 --> Node:__main__:f4
 Node:__main__:f4 --> io-5
-Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / world! - Hello + world! + Hello + world! * 2
+Expect R4 to be empty
+
+io-0 --> Node:__main__:f1
+io-0 --> Node:__main__:f2
+io-1 --> Node:__main__:f1
+Node:__main__:f1 --> io-2
+io-2 --> Node:__main__:f2
+io-2 --> Node:__main__:f3
+io-2 --> Node:__main__:f4
+Node:__main__:f3 --> io-3
+Node:__main__:f2 --> io-4
+io-3 --> Node:__main__:f4
+io-4 --> Node:__main__:f4
+Node:__main__:f4 --> io-5
+Expect R4 to be empty
+
+Expect R5 to be populated
+Hello + world! / world! - Hello + world! + Hello + world! * 2
 
 ```
 
@@ -97,28 +152,44 @@ Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / wo
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "f1" in module "__main__"
+INFO	ordeq.runner	Running node "f2" in module "__main__"
+INFO	ordeq.runner	Running node "f3" in module "__main__"
+INFO	ordeq.runner	Running node "f4" in module "__main__"
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Running node "f1" in module "__main__"
+INFO	ordeq.runner	Running node "f2" in module "__main__"
+INFO	ordeq.runner	Running node "f3" in module "__main__"
+INFO	ordeq.runner	Running node "f4" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.runner	Running node "f2" in module "__main__"
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Running node "f1" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.runner	Running node "f3" in module "__main__"
+INFO	ordeq.runner	Running node "f2" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-INFO	ordeq.runner	Running node "f4" in module "__main__"
+INFO	ordeq.runner	Running node "f3" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
+INFO	ordeq.runner	Running node "f4" in module "__main__"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "f1" in module "__main__"
 INFO	ordeq.runner	Running node "f2" in module "__main__"
 INFO	ordeq.runner	Running node "f3" in module "__main__"
 INFO	ordeq.runner	Running node "f4" in module "__main__"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node "f1" in module "__main__"
 INFO	ordeq.runner	Running node "f2" in module "__main__"
 INFO	ordeq.runner	Running node "f3" in module "__main__"
 INFO	ordeq.runner	Running node "f4" in module "__main__"
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH6>)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH7>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH7>)
 
 ```

@@ -15,9 +15,10 @@ the sum of all durations (5 seconds) as would be the case
 with synchronous execution.
 """
 
-from example_async.io import AsyncStaticString, AsyncStringBuffer
 from ordeq import node
 from ordeq_common import StringBuffer
+
+from example_async.io import AsyncStaticString, AsyncStringBuffer
 
 slow_string_io = AsyncStaticString(
     value="This string was loaded slowly.", sleep_delay=3.0

@@ -182,6 +182,20 @@ def _resolve_package_to_ios(package: ModuleType) -> Catalog:
     return {module_name: ios for module_name, ios in catalog.items() if ios}
 
 
+def _resolve_module_to_nodes(module: ModuleType) -> dict[str, Node]:
+    nodes: dict[Node, str] = {}
+    for name, obj in vars(module).items():
+        if _is_node(obj):
+            node = get_node(obj)
+            if node in nodes:
+                raise ValueError(
+                    f"Module '{module.__name__}' contains duplicate keys "
+                    f"for the same node ('{name}' and '{nodes[node]}')"
+                )
+            nodes[node] = name
+    return {name: node for node, name in nodes.items()}
+
+
 def _resolve_refs_to_hooks(
     *hooks: str | RunnerHook,
 ) -> tuple[list[RunHook], list[NodeHook]]:
@@ -252,20 +266,6 @@ def _resolve_runnables_to_nodes_and_modules(
 
     modules = list(_resolve_refs_to_modules(*modules_and_strs))
     return nodes, modules
-
-
-def _resolve_module_to_nodes(module: ModuleType) -> dict[str, Node]:
-    nodes: dict[Node, str] = {}
-    for name, obj in vars(module).items():
-        if _is_node(obj):
-            node = get_node(obj)
-            if node in nodes:
-                raise ValueError(
-                    f"Module '{module.__name__}' contains duplicate keys "
-                    f"for the same node ('{name}' and '{nodes[node]}')"
-                )
-            nodes[node] = name
-    return {name: node for node, name in nodes.items()}
 
 
 def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQ[Node]]:

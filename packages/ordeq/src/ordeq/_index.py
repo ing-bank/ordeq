@@ -18,6 +18,7 @@ def index(*modules: ModuleType) -> tuple[NodeIndex, IOIndex]:
         for name, obj in vars(module).items():
             fqn = (module.__name__, name)
             ref = fqn_to_object_ref(fqn)
+            fq_obj = (fqn, obj)
             if _is_io(obj):
                 io_id = id(obj)
                 if io_id in ios:
@@ -29,9 +30,9 @@ def index(*modules: ModuleType) -> tuple[NodeIndex, IOIndex]:
                             f"'{existing_ref}' to '{name}'. "
                             f"IOs cannot be aliased."
                         )
-                ios[io_id] = fqn, obj
-                ios[fqn] = fqn, obj
-                ios[ref] = fqn, obj
+                ios[io_id] = fq_obj
+                ios[fqn] = fq_obj
+                ios[ref] = fq_obj
             if _is_node(obj):
                 if obj in nodes:
                     existing_fqn, _ = nodes[obj]
@@ -43,8 +44,8 @@ def index(*modules: ModuleType) -> tuple[NodeIndex, IOIndex]:
                             f"Nodes cannot be aliased."
                         )
                 node = get_node(obj)
-                nodes[node] = fqn, obj
-                nodes[obj] = fqn, obj
-                nodes[fqn] = fqn, obj
-                nodes[ref] = fqn, obj
+                nodes[node] = fq_obj
+                nodes[obj] = fq_obj
+                nodes[fqn] = fq_obj
+                nodes[ref] = fq_obj
     return nodes, ios

@@ -10,7 +10,7 @@ nodes, ios = scan(example_catalogs)
 print("Nodes:")
 pprint(list(nodes.items()))
 print("IOs:")
-pprint(list(ios.values()))
+pprint(list(ios.values()), compact=True)
 
 ```
 

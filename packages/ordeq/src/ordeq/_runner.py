@@ -255,7 +255,7 @@ def run(
         save_nodes = (
             nodes
             if save == "none"
-            else [node for node in nodes if node not in graph.sink_nodes]
+            else [node for node in nodes if node not in graph.sinks]
         )
         for node in save_nodes:
             for output in node.outputs:

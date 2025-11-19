@@ -72,7 +72,7 @@ def viz(
 
     nodes, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
     # TODO: Propagate FQNs to viz
-    nodes_ = tuple(node for _, _, node in nodes)
+    nodes_ = tuple(node for _, node in nodes)
 
     nodes_ = _process_nodes(*nodes_, node_filter=node_filter)
     graph = _gather_graph(nodes_, ios)

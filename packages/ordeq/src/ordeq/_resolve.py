@@ -9,15 +9,7 @@ from collections.abc import Callable, Generator
 from types import ModuleType
 from typing import TypeAlias, TypeGuard
 
-from ordeq._fqn import (
-    FQN,
-    FQNamed,
-    ModuleRef,
-    ObjectRef,
-    fqn_to_object_ref,
-    is_object_ref,
-    object_ref_to_fqn,
-)
+from ordeq._fqn import FQ, FQN, ModuleRef, is_object_ref, object_ref_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
 from ordeq._nodes import Node, View, _is_node, get_node
@@ -39,15 +31,15 @@ def _resolve_module_ref_to_module(module_ref: ModuleRef) -> ModuleType:
     return importlib.import_module(module_ref)
 
 
-def _resolve_object_ref_to_node(ref: ObjectRef) -> FQNamed[Node]:
-    module_ref, node_name = object_ref_to_fqn(ref)
+def _resolve_fqn_to_node(fqn: FQN) -> Node:
+    module_ref, node_name = fqn
     module = _resolve_module_ref_to_module(module_ref)
     node_obj = getattr(module, node_name, None)
     if node_obj is None or not _is_node(node_obj):
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_ref}'"
         )
-    return module_ref, node_name, get_node(node_obj)
+    return get_node(node_obj)
 
 
 def _resolve_fqn_to_hook(fqn: FQN) -> RunnerHook:
@@ -212,7 +204,7 @@ def _resolve_refs_to_hooks(
 
 def _resolve_runnables_to_nodes_and_modules(
     *runnables: Runnable,
-) -> tuple[list[FQNamed[Node]], list[ModuleType]]:
+) -> tuple[list[FQ[Node]], list[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -226,7 +218,7 @@ def _resolve_runnables_to_nodes_and_modules(
         TypeError: if a runnable is not a module and not a node
     """
     modules_and_strs: list[ModuleType | str] = []
-    nodes: list[FQNamed[Node]] = []
+    nodes: list[FQ[Node]] = []
     for runnable in runnables:
         if _is_module(runnable) or (
             isinstance(runnable, str) and not is_object_ref(runnable)
@@ -236,20 +228,20 @@ def _resolve_runnables_to_nodes_and_modules(
         elif callable(runnable):
             node = get_node(runnable)
             if node not in nodes:
-                nodes.append((Unknown, Unknown, node))
+                nodes.append(((Unknown, Unknown), node))
             else:
                 warnings.warn(
                     f"Node '{node.name}' already provided in another runnable",
                     stacklevel=2,
                 )
         elif isinstance(runnable, str):
-            module_ref, node_name, node = _resolve_object_ref_to_node(runnable)
+            fqn = object_ref_to_fqn(runnable)
+            node = _resolve_fqn_to_node(fqn)
             if node not in nodes:
-                nodes.append((module_ref, node_name, node))
+                nodes.append((fqn, node))
             else:
                 warnings.warn(
-                    f"Node '{fqn_to_object_ref((module_ref, node_name))}' "
-                    f"already provided in another runnable",
+                    f"Node '{runnable}' already provided in another runnable",
                     stacklevel=2,
                 )
         else:
@@ -276,7 +268,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> dict[str, Node]:
     return {name: node for node, name in nodes.items()}
 
 
-def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQNamed[Node]]:
+def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQ[Node]]:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -290,7 +282,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQNamed[Node]]:
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
         nodes.extend(
-            (module.__name__, node_name, node)
+            ((module.__name__, node_name), node)
             for node_name, node in _resolve_module_to_nodes(module).items()
         )
     return nodes
@@ -316,7 +308,7 @@ def _check_missing_ios(nodes: set[Node], ios: Catalog) -> None:
 
 def _resolve_runnables_to_nodes_and_ios(
     *runnables: Runnable,
-) -> tuple[list[FQNamed[Node]], Catalog]:
+) -> tuple[list[FQ[Node]], Catalog]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:
@@ -330,14 +322,14 @@ def _resolve_runnables_to_nodes_and_ios(
     ios = {}
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
-    for module_name, _, _ in nodes:
+    for (module_name, _), _ in nodes:
         if module_name is not Unknown:
             module = _resolve_module_ref_to_module(module_name)
             ios.update({module_name: _resolve_module_to_ios(module)})
 
     for module in modules:
         nodes.extend(
-            (module.__name__, node_name, node)
+            ((module.__name__, node_name), node)
             for node_name, node in _resolve_module_to_nodes(module).items()
         )
         ios.update({module.__name__: _resolve_module_to_ios(module)})

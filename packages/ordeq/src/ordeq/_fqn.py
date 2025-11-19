@@ -14,7 +14,7 @@ ModuleRef: TypeAlias = Annotated[
 ]
 FQN: TypeAlias = tuple[ModuleRef, str]
 T = TypeVar("T")
-FQNamed: TypeAlias = tuple[ModuleRef, str, T]
+FQ: TypeAlias = tuple[FQN, T]
 ObjectRef: TypeAlias = Annotated[
     str, "Reference to an object: 'module.submodule.[...]:name'"
 ]

@@ -215,7 +215,7 @@ def run(
     """
 
     # TODO: Node names should be propagated to the graph/plan
-    nodes = [node for _, _, node in _resolve_runnables_to_nodes(*runnables)]
+    nodes = [node for _, node in _resolve_runnables_to_nodes(*runnables)]
 
     nodes_and_views = _process_nodes(*nodes, node_filter=node_filter)
     graph = NodeGraph.from_nodes(nodes_and_views)

@@ -29,7 +29,7 @@ class SparkJSON(IO[DataFrame]):
     >>> from ordeq_spark import SparkJSON
     >>> json = SparkJSON(
     ...     path="to.json"
-    ... ).with_load_options(single_file=True)
+    ... ).with_save_options(single_file=True)
 
     ```
 

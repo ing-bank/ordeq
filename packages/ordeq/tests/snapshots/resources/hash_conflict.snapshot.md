@@ -16,6 +16,6 @@ assert io1._resource != io2._resource  # expect different resource
 ## Logging
 
 ```text
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 
 ```

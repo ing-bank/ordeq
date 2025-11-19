@@ -1,10 +1,8 @@
-import logging
 from collections.abc import Callable
 from typing import Annotated, TypeAlias
 
 from ordeq import Node
-
-logger = logging.getLogger(__name__)
+from ordeq.preview import preview
 
 
 def _collect_views(*nodes: Node) -> tuple[Node, ...]:
@@ -53,7 +51,7 @@ def _filter_nodes(
     if not node_filter:
         return nodes
 
-    logger.warning(
+    preview(
         "Node filters are in preview mode and may change "
         "without notice in future releases."
     )

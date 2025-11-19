@@ -7,6 +7,8 @@ from copy import copy
 from functools import cached_property, reduce, wraps
 from typing import Annotated, Any, Generic, TypeAlias, TypeGuard, TypeVar
 
+from ordeq.preview import preview
+
 try:
     from typing import Self  # type: ignore[attr-defined]
 except ImportError:
@@ -404,7 +406,7 @@ class _WithResource:
     def with_resource(self, resource: Any) -> Self:
         if resource is None:
             raise ValueError("Resource cannot be None.")
-        logger.warning(
+        preview(
             "Resources are in preview mode and may change "
             "without notice in future releases."
         )

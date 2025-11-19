@@ -25,7 +25,7 @@ print(csv_text._resource)
 ## Logging
 
 ```text
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 
 ```

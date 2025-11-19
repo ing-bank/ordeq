@@ -69,7 +69,7 @@ ValueError: Intentional failure for testing.
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:fail'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:fail'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal('name')
 INFO	ordeq.runner	Running node "hello" in module "__main__"
 INFO	ordeq.runner	Running view "fail" in module "__main__"

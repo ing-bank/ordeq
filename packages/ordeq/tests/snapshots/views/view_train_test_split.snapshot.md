@@ -60,8 +60,8 @@ max    3.0  8.0
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:split'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:train'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:split'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:train'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(     A  B    C   gt
 0  foo  1  one  2.0
 1  bar  2  one  5.0

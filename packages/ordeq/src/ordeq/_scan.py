@@ -25,8 +25,6 @@ def scan(root: ModuleType) -> tuple[NodeToFQNs, IOToFQNs]:
                     fqn, _ = ios[io_id][0]
                     existing_ref = fqn_to_object_ref(fqn)
                     if name != fqn[1]:
-                        # TODO: Trace the line where the aliasing happened
-                        #  for more descriptive error message.
                         raise ValueError(
                             f"Module '{module.__name__}' aliases IO "
                             f"'{existing_ref}' to '{name}'. "

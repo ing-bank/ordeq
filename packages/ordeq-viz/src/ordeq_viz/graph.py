@@ -4,7 +4,7 @@ from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import fqn_to_object_ref
-from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph, _collect_views
+from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
 
@@ -72,7 +72,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
 
 
 def _gather_graph(
-    nodes: list[Node], ios: Catalog
+    nodes: tuple[Node, ...], ios: Catalog
 ) -> tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 
@@ -85,8 +85,7 @@ def _gather_graph(
         metadata for ios (IOData)
     """
 
-    nodes_and_views = _collect_views(*nodes)
-    node_graph = NodeGraph.from_nodes(nodes_and_views)
+    node_graph = NodeGraph.from_nodes(nodes)
     graph = NodeIOGraph.from_graph(node_graph)
 
     reverse_lookup: dict[IOIdentity, str] = {

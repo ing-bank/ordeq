@@ -42,7 +42,7 @@ Saying Hello
 
 ```text
 WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.runner	Node filters are in preview mode and may change without notice in future releases.
+WARNING	ordeq._process_nodes	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running node "hello" in module "__main__"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)

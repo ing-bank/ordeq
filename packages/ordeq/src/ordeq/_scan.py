@@ -17,7 +17,7 @@ def scan(root: ModuleType) -> tuple[NodeToFQNs, IOToFQNs]:
     modules = _resolve_packages_to_modules(root)
     nodes: dict[Node, list[FQN]] = defaultdict(list)
     ios: dict[IOIdentity, list[FQ[AnyIO]]] = defaultdict(list)
-    for module in modules:
+    for module in sorted(modules, key=lambda m: m.__name__):
         for name, obj in vars(module).items():
             if _is_io(obj):
                 io_id = id(obj)

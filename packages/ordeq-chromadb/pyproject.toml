@@ -3,7 +3,7 @@ requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ordeq_chroma"
+name = "ordeq_chromadb"
 description = "Chroma Vector Index integration for Ordeq"
 dynamic = ["version"]
 readme = "README.md"
@@ -25,16 +25,16 @@ dependencies = [
 
 [tool.ordeq-dev]
 group = "ios"
-logo_url = "https://user-images.githubusercontent.com/891664/227103090-6624bf7d-9524-4e05-9d2c-c28d5d451481.png"
+logo_url = "https://home-wordpress.deeplearning.ai/wp-content/uploads/2023/12/chroma_logotype.png"
 
 [dependency-groups]
 test = []
 
 [tool.setuptools_scm]
 root = "../../"
-version_file = "src/ordeq_chroma/_version.py"
-tag_regex = "^ordeq-chroma/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
-git_describe_command = "git describe --dirty --tags --long --match ordeq-chroma/*"
+version_file = "src/ordeq_chromadb/_version.py"
+tag_regex = "^ordeq-chromadb/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
+git_describe_command = "git describe --dirty --tags --long --match ordeq-chromadb/*"
 
 [tool.setuptools.packages.find]
 namespaces = true
@@ -42,5 +42,5 @@ where = ["src"]
 
 [tool.coverage.run]
 omit = [
-    "src/ordeq_chroma/_version.py"
+    "src/ordeq_chromadb/_version.py"
 ]

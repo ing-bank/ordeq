@@ -11,6 +11,33 @@ logger = logging.getLogger(__name__)
 
 @dataclass(frozen=True, kw_only=True)
 class ChromaDBIndex(Input[chromadb.Collection], Output[dict[str, Any]]):
+    """IO to load from and save index data using ChromaDB. Creates a
+    `chromadb.PersistentClient` by default during initialization and calls
+    `client.get_collection` under the hood.
+
+    Example usage:
+
+    ```pycon
+    >>> index = ChromaDBIndex.from_path(Path(...))
+    >>> index.save({
+    ...    "ids": [0, 1],
+    ...    "embeddings": [
+    ...       [0.1, 0.2, 0.3],
+    ...       [0.4, 0.5, 0.6]],
+    ...    "metadatas": [{"page_number": 1}, {"page_number": 2}],
+    ...    "documents": ["Document 1", "Document 2"],
+    ... }, collection_name="test_collection")
+    >>> # collection_name should not be None
+    >>> collection = index.load(
+    ...    collection_name="test_collection"
+    ... )
+    >>> results = collection.query(
+    ...    query_embeddings=[[0.1, 0.2, 0.3]],
+    ...    n_results=2
+    ... )
+    ```
+    """
+
     client: chromadb.ClientAPI
 
     @classmethod
@@ -32,6 +59,3 @@ class ChromaDBIndex(Input[chromadb.Collection], Output[dict[str, Any]]):
             collection_name, **save_options
         )
         collection.add(**data)
-
-
-# usage index = ChromaDBIndex.from_path(Path(...))

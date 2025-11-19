@@ -30,7 +30,7 @@ class SparkCSV(IO[DataFrame]):
     ```pycon
     >>> from ordeq_spark import SparkCSV
     >>> csv = SparkCSV(
-    ...     path="to.json"
+    ...     path="to.csv"
     ... ).with_save_options(single_file=True)
 
     ```

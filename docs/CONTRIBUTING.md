@@ -48,8 +48,6 @@ Available recipes:
     docs-build                # Build the documentation
     docs-serve                # Build and serve the documentation locally
     docs-publish              # Publish the documentation to GitHub Pages
-    precommit                 # Run pre-commit hooks
-    precommit_install         # Install pre-commit hooks
     install                   # Install development dependencies
     upgrade                   # Upgrade (pre-commit only)
     build PACKAGE             # Build a package
@@ -71,12 +69,6 @@ just localsetup
 ```
 
 (In case of any issues, check out the troubleshooting section below)
-
-Install the pre-commit hooks:
-
-```shell
-uv run pre-commit install
-```
 
 - When you start on a work item, create a new branch.
 - The CI pipeline will be triggered when you create a pull request.

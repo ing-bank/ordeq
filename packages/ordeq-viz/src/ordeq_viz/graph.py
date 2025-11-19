@@ -5,7 +5,12 @@ from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import fqn_to_object_ref
-from ordeq._graph import IOIdentity, NodeGraph, _collect_views, NodeResourceGraph
+from ordeq._graph import (
+    IOIdentity,
+    NodeGraph,
+    NodeResourceGraph,
+    _collect_views,
+)
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
 

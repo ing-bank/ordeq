@@ -31,11 +31,11 @@ Nodes:
  (('example_resources.updates', 'reflect'),
   Node(name=example_resources.updates:reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]))]
 IOs:
-[(('example_resources.pipeline', 'csv'), CSV(path=Path('data2.csv'))),
- (('example_resources.pipeline', 'text'), Text(path=Path('data2.csv'))),
- (('example_resources.updates', 'csv'), CSV(path=Path('data3.csv'))),
- (('example_resources.updates', 'csv_old'), CSV(path=Path('data3.csv'))),
- (('example_resources.updates', 'csv_new'), CSV(path=Path('data3.csv')))]
+[[(('example_resources.pipeline', 'csv'), CSV(path=Path('data2.csv')))],
+ [(('example_resources.pipeline', 'text'), Text(path=Path('data2.csv')))],
+ [(('example_resources.updates', 'csv'), CSV(path=Path('data3.csv')))],
+ [(('example_resources.updates', 'csv_old'), CSV(path=Path('data3.csv')))],
+ [(('example_resources.updates', 'csv_new'), CSV(path=Path('data3.csv')))]]
 
 ```
 

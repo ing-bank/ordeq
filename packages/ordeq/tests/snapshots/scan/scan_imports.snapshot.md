@@ -20,6 +20,6 @@ pprint(ios)
 Nodes:
 []
 IOs:
-[(('example_imports.catalog', 'a'), IO(id=ID1))]
+[[(('example_imports.catalog', 'a'), IO(id=ID1))]]
 
 ```

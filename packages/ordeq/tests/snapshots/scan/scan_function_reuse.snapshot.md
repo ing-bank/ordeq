@@ -29,13 +29,17 @@ Nodes:
  (('example_function_reuse.nodes', 'pi'),
   View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 IOs:
-[(('example_function_reuse.nodes', 'A'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- (('example_function_reuse.nodes', 'B'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
- (('example_function_reuse.catalog', 'C'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
- (('example_function_reuse.catalog', 'D'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH4>))]
+[[(('example_function_reuse.catalog', 'A'),
+   StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
+  (('example_function_reuse.nodes', 'A'),
+   StringBuffer(_buffer=<_io.StringIO object at HASH1>))],
+ [(('example_function_reuse.catalog', 'B'),
+   StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
+  (('example_function_reuse.nodes', 'B'),
+   StringBuffer(_buffer=<_io.StringIO object at HASH2>))],
+ [(('example_function_reuse.catalog', 'C'),
+   StringBuffer(_buffer=<_io.StringIO object at HASH3>))],
+ [(('example_function_reuse.catalog', 'D'),
+   StringBuffer(_buffer=<_io.StringIO object at HASH4>))]]
 
 ```

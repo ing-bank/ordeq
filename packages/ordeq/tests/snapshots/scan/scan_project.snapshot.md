@@ -17,7 +17,7 @@ pprint(ios)
 ## Output
 
 ```text
-ValueError: 'example_project' contains duplicate keys for the same IO ('example_project.nodes_import_alias:B' and 'example_project.nodes_import:b')
+ValueError: 'example_project' contains duplicate keys for the same IO ('example_project.nodes_import_alias:B' and 'example_project.catalog_1:b')
   File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
     raise ValueError(
     ...<3 lines>...

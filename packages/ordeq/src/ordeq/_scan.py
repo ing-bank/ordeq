@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 from mypy.moduleinspect import ModuleType
 
 from ordeq._fqn import FQ, ModuleRef, fqn_to_object_ref
@@ -11,14 +13,14 @@ RootType = ModuleRef | ModuleType
 def scan(root: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
     modules = _resolve_packages_to_modules(root)
     nodes: list[FQ[Node]] = []
-    ios: dict[IOIdentity, FQ[AnyIO]] = {}
+    ios: dict[IOIdentity, list[FQ[AnyIO]]] = defaultdict(list)
     for module in modules:
         for name, obj in vars(module).items():
             if _is_io(obj):
                 io_id = id(obj)
                 io_ref = fqn_to_object_ref((module.__name__, name))
                 if io_id in ios:
-                    fqn, _ = ios[io_id]
+                    fqn, _ = ios[io_id][0]
                     existing_ref = fqn_to_object_ref(fqn)
                     if name != fqn[1]:
                         raise ValueError(
@@ -26,7 +28,7 @@ def scan(root: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
                             f"for the same IO ('{io_ref}' and "
                             f"'{existing_ref}')"
                         )
-                ios[io_id] = ((module.__name__, name), obj)
+                ios[io_id].append(((module.__name__, name), obj))
             elif _is_node(obj):
                 nodes.append(((module.__name__, name), get_node(obj)))
     return nodes, list(ios.values())

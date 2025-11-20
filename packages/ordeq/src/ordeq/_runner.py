@@ -8,15 +8,17 @@ from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
-from ordeq._nodes import Node, View
+from ordeq._nodes import Node, View, _is_node
 from ordeq._patch import _patch_nodes
 from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
 from ordeq._resolve import (
     Runnable,
+    _is_module,
+    _resolve_callables_to_nodes,
+    _resolve_packages_to_modules,
     _resolve_refs_to_hooks,
+    _resolve_refs_to_nodes,
     _resolve_runnables_to_modules,
-    _resolve_runnables_to_nodes,
-    _resolve_runnables_to_nodes_and_modules,
 )
 from ordeq._scan import scan
 from ordeq._substitute import (
@@ -147,6 +149,19 @@ def _run_graph(
     _run_after_hooks(graph, hooks=run_hooks)
 
 
+def _validate_runnables(*runnables: Runnable) -> None:
+    for runnable in runnables:
+        if not (
+            _is_module(runnable)
+            or _is_node(runnable)
+            or isinstance(runnable, str)
+        ):
+            raise TypeError(
+                f"{runnable} is not something we can run. "
+                f"Expected a module or a node, got {type(runnable)}"
+            )
+
+
 def run(
     *runnables: Runnable,
     hooks: Sequence[RunnerHook | ObjectRef] = (),
@@ -251,13 +266,15 @@ def run(
 
     """
 
+    _validate_runnables(*runnables)
     modules = _resolve_runnables_to_modules(*runnables)
-    _, submodules = _resolve_runnables_to_nodes_and_modules(*modules)
-    _ = scan(*submodules)
+    submodules = _resolve_packages_to_modules(*modules)
+    fq_nodes, _ = scan(*submodules)
+    fq_nodes += _resolve_refs_to_nodes(*runnables)
+    fq_nodes += _resolve_callables_to_nodes(*runnables)
 
     # TODO: Node names should be propagated to the graph/plan
-    nodes = [node for _, node in _resolve_runnables_to_nodes(*runnables)]
-
+    nodes = [node for _, node in fq_nodes]
     nodes_and_views = _process_nodes(*nodes, node_filter=node_filter)
     graph = NodeGraph.from_nodes(nodes_and_views)
 

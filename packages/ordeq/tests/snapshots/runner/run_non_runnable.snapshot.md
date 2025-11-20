@@ -11,18 +11,14 @@ run(0.23)
 
 ```text
 TypeError: 0.23 is not something we can run. Expected a module or a node, got <class 'float'>
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_runnables_to_nodes_and_modules
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _validate_runnables
     raise TypeError(
     ...<2 lines>...
     )
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_runnables_to_nodes
-    nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
-                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
-
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    nodes = [node for _, node in _resolve_runnables_to_nodes(*runnables)]
-                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+    _validate_runnables(*runnables)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/run_non_runnable.py", line LINO, in <module>
     run(0.23)

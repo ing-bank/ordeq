@@ -26,7 +26,9 @@ uv pip install ordeq
 ## Integrations
 
 Ordeq integrates seamlessly with existing tooling.
-It provides integrations with many popular libraries out of the box.
+It provides out-of-the-box integrations with **25+ popular libraries**.
+In total, Ordeq offers **over 100 IOs** via these integrations.
+
 You can install them as needed.
 For example, for reading and writing data with Pandas, install the `ordeq-pandas` package:
 

@@ -341,3 +341,13 @@ def _resolve_runnables_to_nodes_and_ios(
         if ios_dict
     }
     return nodes, ios
+
+
+def _resolve_runnables_to_modules(
+    *runnables: Runnable,
+) -> Generator[ModuleType, None, None]:
+    for runnable in runnables:
+        if _is_module(runnable):
+            yield runnable
+        elif isinstance(runnable, str) and not is_object_ref(runnable):
+            yield _resolve_module_ref_to_module(runnable)

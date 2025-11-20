@@ -1,4 +1,5 @@
 from collections import defaultdict
+from collections.abc import Callable
 from types import ModuleType
 
 from ordeq._fqn import FQ, fqn_to_object_ref
@@ -7,11 +8,11 @@ from ordeq._nodes import Node, _is_node, get_node
 from ordeq._resolve import _resolve_packages_to_modules
 
 
-def scan(root: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
-    modules = _resolve_packages_to_modules(root)
-    nodes: list[FQ[Node]] = []
+def scan(*modules: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
+    modules_ = _resolve_packages_to_modules(*modules)
+    nodes: dict[Callable, list[FQ[Node]]] = defaultdict(list)
     ios: dict[IOIdentity, list[FQ[AnyIO]]] = defaultdict(list)
-    for module in modules:
+    for module in modules_:
         for name, obj in vars(module).items():
             if _is_io(obj):
                 io_id = id(obj)
@@ -26,5 +27,17 @@ def scan(root: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
                         )
                 ios[io_id].append(((module.__name__, name), obj))
             elif _is_node(obj):
-                nodes.append(((module.__name__, name), get_node(obj)))
-    return nodes, [fqn_io for io_list in ios.values() for fqn_io in io_list]
+                if obj in nodes:
+                    fqn, _ = nodes[obj][0]
+                    existing_ref = fqn_to_object_ref(fqn)
+                    if name != fqn[1]:
+                        raise ValueError(
+                            f"Module '{module.__name__}' aliases node "
+                            f"'{existing_ref}' to '{name}'. "
+                            f"Nodes cannot be aliased."
+                        )
+                nodes[obj].append(((module.__name__, name), get_node(obj)))
+    return (
+        [fq_node for node_list in nodes.values() for fq_node in node_list],
+        [fq_io for io_list in ios.values() for fq_io in io_list],
+    )

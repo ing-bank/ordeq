@@ -344,7 +344,7 @@ def _resolve_runnables_to_nodes_and_ios(
 
 def _resolve_runnables_to_modules(
     *runnables: Runnable,
-) -> Generator[ModuleRef | ModuleType, None, None]:
+) -> Generator[ModuleType]:
     for runnable in runnables:
         if isinstance(runnable, ModuleType):
             yield runnable
@@ -352,7 +352,7 @@ def _resolve_runnables_to_modules(
             yield _resolve_module_ref_to_module(runnable)
 
 
-def _resolve_callables_to_nodes(*runnables: Callable) -> Generator[FQ[Node]]:
+def _resolve_callables_to_nodes(*runnables: Runnable) -> Generator[FQ[Node]]:
     for runnable in runnables:
         if not isinstance(runnable, ModuleType) and callable(runnable):
             node = get_node(runnable)

@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 import pandas as pd
 import pytest
-from ordeq_bigquery.dataframe import BigQueryPandas
+from ordeq_bigquery import BigQueryPandas
 
 
 class MockRows:

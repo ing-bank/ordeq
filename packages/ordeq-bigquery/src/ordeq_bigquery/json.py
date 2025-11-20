@@ -1,4 +1,3 @@
-from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
 
@@ -7,21 +6,21 @@ from ordeq import IO, IOException
 
 
 @dataclass(frozen=True)
-class BigQueryJSON(IO[list[dict]]):
+class BigQueryJSON(IO[list[dict[str, Any]]]):
     """IO for loading data using a user provided query and saving data from
-    JSON-copmatible data representation.
+    JSON-compatible data representation.
 
     Args:
         table_id: BigQuery table identifier
         client: BigQuery client
-        query:
+        query: SQL query to load data, e.g. `SELECT * FROM my_table`
     """
 
     table_id: str | bigquery.Table
     client: bigquery.Client
     query: str | None = None
 
-    def load(self, **query_options) -> list[dict]:
+    def load(self, **query_options: Any) -> list[dict[str, Any]]:
         """Loads query results from BigQuery.
 
         Args:
@@ -38,7 +37,7 @@ class BigQueryJSON(IO[list[dict]]):
             >>> from google.cloud import bigquery
             >>> from ordeq_bigquery import BigQueryJSON
             >>>
-            >>> client = bigquery.Client()
+            >>> client = bigquery.Client()  # doctest: +SKIP
             >>> inp = BigQueryJSON(
             ...     query="SELECT * FROM my_table",
             ...     table_id="project.dataset.table",
@@ -51,7 +50,7 @@ class BigQueryJSON(IO[list[dict]]):
         job = self.client.query(self.query, **query_options)
         return list(job.result())
 
-    def save(self, data: Sequence[Mapping[str, Any]], **save_options) -> None:
+    def save(self, data: list[dict[str, Any]], **save_options: Any) -> None:
         """Saves JSON rows to BigQuery.
 
         Args:
@@ -65,7 +64,7 @@ class BigQueryJSON(IO[list[dict]]):
             >>> from google.cloud import bigquery
             >>> from ordeq_bigquery import BigQueryJSON
             >>>
-            >>> client = bigquery.Client()
+            >>> client = bigquery.Client()  # doctest: +SKIP
             >>> out = BigQueryJSON(
             ...     table_id="project.dataset.table", client=client
             ... )  # doctest: +SKIP

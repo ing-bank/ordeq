@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 
 import pytest
 from ordeq import IOException
-from ordeq_bigquery.json import BigQueryJSON
+from ordeq_bigquery import BigQueryJSON
 
 
 def test_load_returns_list_of_dicts() -> None:

@@ -14,7 +14,7 @@ class BigQueryPandas(IO[pd.DataFrame]):
         >>> from ordeq_bigquery import BigQueryPandas
         >>> from google.cloud import bigquery
         >>>
-        >>> client = bigquery.Client()
+        >>> client = bigquery.Client()  # doctest: +SKIP
         >>> table = BigQueryPandas(
         ...     table_id="project.dataset.table", client=client
         ... )  # doctest: +SKIP
@@ -38,7 +38,7 @@ class BigQueryPandas(IO[pd.DataFrame]):
             >>> from ordeq_bigquery import BigQueryPandas
             >>> from google.cloud import bigquery
             >>>
-            >>> client = bigquery.Client()
+            >>> client = bigquery.Client()  # doctest: +SKIP
             >>> table = BigQueryPandas(
             ...     table_id="project.dataset.table", client=client
             ... )  # doctest: +SKIP
@@ -59,7 +59,7 @@ class BigQueryPandas(IO[pd.DataFrame]):
             >>> from ordeq_bigquery import BigQueryPandas
             >>>
             >>> from google.cloud import bigquery
-            >>> client = bigquery.Client()
+            >>> client = bigquery.Client()  # doctest: +SKIP
             >>> table = BigQueryPandas(
             ...     table_id="project.dataset.table", client=client
             ... )  # doctest: +SKIP

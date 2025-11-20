@@ -68,7 +68,7 @@ def pipeline(
         }
         output_ios = {io: Buffer() for io in outputs}
 
-        run(*runnables, io={**input_ios, **output_ios}, **run_kwargs)
+        run(*runnables, io={**input_ios, **output_ios}, **run_kwargs)  # type: ignore[dict-item]
 
         output_values = [io.load() for io in output_ios.values()]
 

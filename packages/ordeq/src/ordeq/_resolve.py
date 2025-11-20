@@ -12,7 +12,7 @@ from typing import TypeAlias, TypeGuard
 from ordeq._fqn import FQ, FQN, ModuleRef, is_object_ref, object_ref_to_fqn
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
-from ordeq._nodes import Node, View, _is_node, get_node
+from ordeq._nodes import Node, _is_node, get_node
 
 Runnable: TypeAlias = ModuleType | Callable | str
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
@@ -182,8 +182,25 @@ def _resolve_package_to_ios(package: ModuleType) -> Catalog:
     return {module_name: ios for module_name, ios in catalog.items() if ios}
 
 
-def _resolve_refs_to_hooks(
-    *hooks: str | RunnerHook,
+def _resolve_hook_refs(*hooks: str | RunnerHook) -> list[RunnerHook]:
+    resolved_hooks = []
+    for hook in hooks:
+        if isinstance(hook, (NodeHook, RunHook)):
+            resolved_hooks.append(hook)
+        elif isinstance(hook, str):
+            fqn = object_ref_to_fqn(hook)
+            resolved_hook = _resolve_fqn_to_hook(fqn)
+            resolved_hooks.append(resolved_hook)
+        else:
+            raise TypeError(
+                f"{hook} is not a valid hook reference. "
+                f"Expected a RunnerHook or a string, got {type(hook)}"
+            )
+    return resolved_hooks
+
+
+def _split_runner_hooks(
+    *hooks: RunnerHook,
 ) -> tuple[list[RunHook], list[NodeHook]]:
     run_hooks = []
     node_hooks = []
@@ -192,14 +209,14 @@ def _resolve_refs_to_hooks(
             node_hooks.append(hook)
         elif isinstance(hook, RunHook):
             run_hooks.append(hook)
-        elif isinstance(hook, str):
-            fqn = object_ref_to_fqn(hook)
-            resolved_hook = _resolve_fqn_to_hook(fqn)
-            if isinstance(resolved_hook, NodeHook):
-                node_hooks.append(resolved_hook)
-            elif isinstance(resolved_hook, RunHook):
-                run_hooks.append(resolved_hook)
     return run_hooks, node_hooks
+
+
+def _resolve_refs_to_hooks(
+    *hooks: str | RunnerHook,
+) -> tuple[list[RunHook], list[NodeHook]]:
+    resolved_hooks = _resolve_hook_refs(*hooks)
+    return _split_runner_hooks(*resolved_hooks)
 
 
 def _resolve_runnables_to_nodes_and_modules(
@@ -286,24 +303,6 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQ[Node]]:
             for node_name, node in _resolve_module_to_nodes(module).items()
         )
     return nodes
-
-
-def _check_missing_ios(nodes: set[Node], ios: Catalog) -> None:
-    missing_ios: set[AnyIO | View] = set()
-    for node in nodes:
-        for inp in node.inputs:
-            if inp not in ios.values():
-                missing_ios.add(inp)
-        for out in node.outputs:
-            if out not in ios.values():
-                missing_ios.add(out)
-
-    if missing_ios:
-        raise ValueError(
-            f"The following IOs are used by nodes but not defined: "
-            f"{missing_ios}. Please include the module defining them in "
-            f"the runnables."
-        )
 
 
 def _resolve_runnables_to_nodes_and_ios(

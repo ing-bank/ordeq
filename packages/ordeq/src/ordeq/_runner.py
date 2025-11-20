@@ -273,18 +273,18 @@ def run(
     fq_nodes += _resolve_refs_to_nodes(*runnables)
     fq_nodes += _resolve_callables_to_nodes(*runnables)
 
+    fq_nodes_and_views = _process_nodes(*fq_nodes, node_filter=node_filter)
+    nodes_and_views = [node for _, node in fq_nodes_and_views]
     # TODO: Node names should be propagated to the graph/plan
-    nodes = [node for _, node in fq_nodes]
-    nodes_and_views = _process_nodes(*nodes, node_filter=node_filter)
     graph = NodeGraph.from_nodes(nodes_and_views)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
     if save in {"none", "sinks"}:
         # Replace relevant outputs with ordeq.IO, that does not save
         save_nodes = (
-            nodes
+            nodes_and_views
             if save == "none"
-            else [node for node in nodes if node not in graph.sinks]
+            else [node for node in nodes_and_views if node not in graph.sinks]
         )
         for node in save_nodes:
             for output in node.outputs:

@@ -6,25 +6,14 @@ from pathlib import Path
 from ordeq import node
 from ordeq_dev_tools.paths import ROOT_PATH, PACKAGES_PATH
 from ordeq_dev_tools.pipelines.shared import packages
-from ordeq_files import TextLinesStream
 from ordeq_toml import TOML
 
 logger = logging.getLogger(__name__)
-
-package_overview = TextLinesStream(path=ROOT_PATH / "docs" / "packages.md")
 
 
 def get_pypi_name_description_group_logo(
     pyproject_path: Path,
 ) -> tuple[str, str, str | None, str | None]:
-    """Extract the relevant attributes for the package pyproject.tomls, including logo_url from [tool.ordeq-dev].
-
-    Args:
-        pyproject_path: The path to the pyproject.toml file.
-
-    Returns:
-        A tuple containing the package name, description, group (or None), and logo_url (or None).
-    """
     data = TOML(path=pyproject_path).load()
     name = data["project"]["name"]
     description = data["project"].get("description", "")
@@ -37,15 +26,6 @@ def get_pypi_name_description_group_logo(
 
 @node(inputs=packages)
 def groups(packages: list[str]) -> None:
-    """Generate HTML table row data for each package directory, including logo
-    (if present).
-
-    Args:
-        packages: A list of package directory paths.
-
-    Returns:
-        A mapping group names to lists of package dicts.
-    """
     error = False
 
     root_pyproject = TOML(path=ROOT_PATH / "pyproject.toml").load()
@@ -63,18 +43,18 @@ def groups(packages: list[str]) -> None:
 
         if package not in sources_section:
             logger.warning(
-                f"Warning: Package '{package}' is missing from [tool.uv.sources] in root pyproject.toml."
+                f"Package '{package}' is missing from [tool.uv.sources] in root pyproject.toml."
             )
             error = True
 
         if not description:
-            logger.warning(f"Warning: Package '{package}' is missing a description.")
+            logger.warning(f"Package '{package}' is missing a description.")
             error = True
         if not group:
-            logger.warning(f"Warning: Package '{package}' is missing a group.")
+            logger.warning(f"Package '{package}' is missing a group.")
             error = True
         if not logo_url and group == "io":
-            logger.warning(f"Warning: Package '{package}' is missing a logo_url.")
+            logger.warning(f"Package '{package}' is missing a logo_url.")
             error = True
 
     if error:

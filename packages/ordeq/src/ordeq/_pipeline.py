@@ -2,7 +2,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from ordeq._io import Input, Output
+from ordeq._io import IO, Input, Output
 from ordeq._resolve import Runnable
 from ordeq._runner import run
 from ordeq.preview import preview
@@ -22,7 +22,7 @@ class Literal(Input):
 
 # Temporary buffer until unpersisting is fixed
 @dataclass(frozen=True, eq=False)
-class Buffer(Output):
+class Buffer(IO):
     value: Any = None
 
     def save(self, value: Any):

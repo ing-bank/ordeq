@@ -45,5 +45,6 @@ INFO	ordeq.runner	Running view "n1" in module "__main__"
 INFO	ordeq.runner	Running view "n2" in module "__main__"
 INFO	ordeq.runner	Running node "n3" in module "__main__"
 INFO	ordeq.io	Saving Buffer(value=None)
+INFO	ordeq.io	Loading Buffer(value=59)
 
 ```

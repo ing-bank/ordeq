@@ -70,6 +70,7 @@ graph TB
 	IO12 --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
 	IO13 --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
 	ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> IO14
+	ordeq_dev_tools.pipelines.shared:packages --> ordeq_dev_tools.pipelines.validate_pyproject:groups
 
 	subgraph s0["ordeq_dev_tools.pipelines.generate_release_notes"]
 		direction TB
@@ -129,6 +130,10 @@ graph TB
 		direction TB
 		ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages@{shape: rounded, label: "extract_relevant_packages"}
 	end
+	subgraph s9["ordeq_dev_tools.pipelines.validate_pyproject"]
+		direction TB
+		ordeq_dev_tools.pipelines.validate_pyproject:groups@{shape: subroutine, label: "groups"}
+	end
 	IO0@{shape: rect, label: "package"}
 	IO1@{shape: rect, label: "new_tag"}
 	IO10@{shape: rect, label: "package_overview"}
@@ -145,7 +150,7 @@ graph TB
 	IO9@{shape: rect, label: "diagram"}
 
 	class L0,ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag,ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes,ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section,ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages,ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies,ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies,ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram,ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group,ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools,ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages node
-	class L2,ordeq_dev_tools.pipelines.generate_release_notes:tags,ordeq_dev_tools.pipelines.generate_release_notes:latest_tag,ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag,ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes,ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files,ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits,ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs,ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels,ordeq_dev_tools.pipelines.generate_release_notes:latest_version,ordeq_dev_tools.pipelines.generate_release_notes:bump_type,ordeq_dev_tools.pipelines.generate_release_notes:bump_version,ordeq_dev_tools.pipelines.generate_release_notes:changes,ordeq_dev_tools.pipelines.shared:packages,ordeq_dev_tools.pipelines.docs_update_just:just_output,ordeq_dev_tools.pipelines.docs_update_just:docs_just_section,ordeq_dev_tools.pipelines.list_changed_packages:changed_files,ordeq_dev_tools.pipelines.docs_package_overview:groups,ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases,ordeq_dev_tools.pipelines.generate_draft_releases:new_releases,ordeq_dev_tools.pipelines.generate_draft_releases:create_releases view
+	class L2,ordeq_dev_tools.pipelines.generate_release_notes:tags,ordeq_dev_tools.pipelines.generate_release_notes:latest_tag,ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag,ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes,ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files,ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits,ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs,ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels,ordeq_dev_tools.pipelines.generate_release_notes:latest_version,ordeq_dev_tools.pipelines.generate_release_notes:bump_type,ordeq_dev_tools.pipelines.generate_release_notes:bump_version,ordeq_dev_tools.pipelines.generate_release_notes:changes,ordeq_dev_tools.pipelines.shared:packages,ordeq_dev_tools.pipelines.docs_update_just:just_output,ordeq_dev_tools.pipelines.docs_update_just:docs_just_section,ordeq_dev_tools.pipelines.list_changed_packages:changed_files,ordeq_dev_tools.pipelines.docs_package_overview:groups,ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases,ordeq_dev_tools.pipelines.generate_draft_releases:new_releases,ordeq_dev_tools.pipelines.generate_draft_releases:create_releases,ordeq_dev_tools.pipelines.validate_pyproject:groups view
 	class L00,IO1,IO2 io0
 	class L01,IO0 io1
 	class L02,IO7,IO12,IO13,IO14,IO5,IO8 io2
@@ -191,6 +196,7 @@ WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ord
 WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.generate_draft_releases:new_releases'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.generate_draft_releases:create_releases'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.list_changed_packages:changed_files'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.validate_pyproject:groups'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Subgraphs are in pre-release, functionality may break in future releases without it being considered a breaking change.
 
 ```

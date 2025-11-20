@@ -52,6 +52,8 @@ ordeq-pillow = { workspace = true }
 ordeq-polars = { workspace = true }
 ordeq-plotly-express = { workspace = true }
 ordeq-manifest = { workspace = true }
+ordeq-networkx = { workspace = true }
+ordeq-pyproject = { workspace = true }
 ordeq-pydantic = { workspace = true }
 ordeq-pymupdf = { workspace = true }
 ordeq-requests = { workspace = true }

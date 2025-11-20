@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ordeq_bigquery"
+description = "Ordeq integration for Google BigQuery"
 dynamic = ["version"]
 readme = "README.md"
 license = "MIT"

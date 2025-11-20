@@ -62,6 +62,7 @@ io-10 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
 io-11 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
 io-12 --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
 io-12 --> View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
+io-12 --> View:ordeq_dev_tools.pipelines.validate_pyproject:groups
 io-13 --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
 Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> io-14
 View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> io-17
@@ -84,15 +85,16 @@ io-22 --> Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_
 io-23 --> Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
 io-24 --> Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
 Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram --> io-25
-Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> io-26
-Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes --> io-27
-Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag --> io-28
-View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases --> io-29
-Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section --> io-30
-Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> io-31
-Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> io-32
-Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> io-33
-Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> io-34
+View:ordeq_dev_tools.pipelines.validate_pyproject:groups --> io-26
+Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> io-27
+Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes --> io-28
+Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag --> io-29
+View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases --> io-30
+Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section --> io-31
+Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> io-32
+Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> io-33
+Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> io-34
+Node:ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> io-35
 NodeGraph
 View:ordeq_dev_tools.pipelines.generate_release_notes:tags --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag
 View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version
@@ -109,6 +111,7 @@ View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> View:orde
 View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type
 View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.docs_package_overview:groups
 View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
+View:ordeq_dev_tools.pipelines.shared:packages --> View:ordeq_dev_tools.pipelines.validate_pyproject:groups
 View:ordeq_dev_tools.pipelines.docs_update_just:just_output --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
 View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
 View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
@@ -130,6 +133,7 @@ View:ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
 Node:ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
 Node:ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
 Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+View:ordeq_dev_tools.pipelines.validate_pyproject:groups
 Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
 Topological ordering
 ['ordeq_dev_tools.pipelines.generate_release_notes:tags',
@@ -161,6 +165,7 @@ Topological ordering
  'ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag',
  'ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes',
  'ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages',
+ 'ordeq_dev_tools.pipelines.validate_pyproject:groups',
  'ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram']
 
 ```
@@ -191,5 +196,6 @@ WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ord
 WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.generate_draft_releases:new_releases'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.generate_draft_releases:create_releases'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.list_changed_packages:changed_files'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'ordeq_dev_tools.pipelines.validate_pyproject:groups'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

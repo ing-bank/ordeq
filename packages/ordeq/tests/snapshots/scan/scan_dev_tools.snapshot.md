@@ -84,6 +84,10 @@ Nodes:
   Node(name=ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages, inputs=[JSON(path=Path('/data/dev_tools/changed_packages.json')), JSON(path=Path('/data/dev_tools/affected_dependencies.json'))], outputs=[JSON(path=Path('/data/dev_tools/relevant_packages.json'))])),
  (('ordeq_dev_tools.pipelines.shared', 'packages'),
   View(name=ordeq_dev_tools.pipelines.shared:packages)),
+ (('ordeq_dev_tools.pipelines.validate_pyproject', 'packages'),
+  View(name=ordeq_dev_tools.pipelines.shared:packages)),
+ (('ordeq_dev_tools.pipelines.validate_pyproject', 'groups'),
+  View(name=ordeq_dev_tools.pipelines.validate_pyproject:groups, inputs=[IO(id=ID1)])),
  (('ordeq_dev_tools.pipelines.viz_self', 'visualize_ordeq_dev_tools'),
   Node(name=ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools, outputs=[Text(path=Path('/data/dev_tools/ordeq_dev_tools_diagram.mmd'))]))]
 IOs:

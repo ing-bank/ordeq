@@ -87,6 +87,9 @@ Some of the available integrations:
         <td width="90" height="60" align="center">
             <a href="https://ing-bank.github.io/ordeq/api/ordeq_pymupdf/"><img src="https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg" alt="PyMuPDF" height="40"/><br />PyMuPDF</a>
         </td>
+                <td width="90" height="60" align="center">
+            <a href="https://ing-bank.github.io/ordeq/api/ordeq_chromadb/"><img src="https://home-wordpress.deeplearning.ai/wp-content/uploads/2023/12/chroma_logotype.png" alt="ChromaDB" height="40"/><br />ChromaDB</a>
+        </td>
     </tr>
 </table>
 

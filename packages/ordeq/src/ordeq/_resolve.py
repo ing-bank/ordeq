@@ -346,7 +346,22 @@ def _resolve_runnables_to_modules(
     *runnables: Runnable,
 ) -> Generator[ModuleRef | ModuleType, None, None]:
     for runnable in runnables:
-        if isinstance(runnable, ModuleType) or (
-            isinstance(runnable, str) and not is_object_ref(runnable)
-        ):
+        if isinstance(runnable, ModuleType):
             yield runnable
+        elif isinstance(runnable, str) and not is_object_ref(runnable):
+            yield _resolve_module_ref_to_module(runnable)
+
+
+def _resolve_callables_to_nodes(*runnables: Callable) -> Generator[FQ[Node]]:
+    for runnable in runnables:
+        if not isinstance(runnable, ModuleType) and callable(runnable):
+            node = get_node(runnable)
+            yield (Unknown, Unknown), node
+
+
+def _resolve_refs_to_nodes(*runnables) -> Generator[FQ[Node]]:
+    for runnable in runnables:
+        if isinstance(runnable, str) and is_object_ref(runnable):
+            fqn = object_ref_to_fqn(runnable)
+            node = _resolve_fqn_to_node(fqn)
+            yield fqn, node

@@ -345,9 +345,9 @@ def _resolve_runnables_to_nodes_and_ios(
 
 def _resolve_runnables_to_modules(
     *runnables: Runnable,
-) -> Generator[ModuleType, None, None]:
+) -> Generator[ModuleRef, None, None]:
     for runnable in runnables:
-        if _is_module(runnable):
+        if isinstance(runnable, ModuleType) or (
+            isinstance(runnable, str) and not is_object_ref(runnable)
+        ):
             yield runnable
-        elif isinstance(runnable, str) and not is_object_ref(runnable):
-            yield _resolve_module_ref_to_module(runnable)

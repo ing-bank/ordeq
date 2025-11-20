@@ -5,14 +5,12 @@ from types import ModuleType
 from ordeq._fqn import FQ, fqn_to_object_ref
 from ordeq._io import AnyIO, IOIdentity, _is_io
 from ordeq._nodes import Node, _is_node, get_node
-from ordeq._resolve import _resolve_packages_to_modules
 
 
 def scan(*modules: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
-    modules_ = _resolve_packages_to_modules(*modules)
     nodes: dict[Callable, list[FQ[Node]]] = defaultdict(list)
     ios: dict[IOIdentity, list[FQ[AnyIO]]] = defaultdict(list)
-    for module in modules_:
+    for module in modules:
         for name, obj in vars(module).items():
             if _is_io(obj):
                 io_id = id(obj)

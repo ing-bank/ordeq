@@ -16,6 +16,7 @@ from ordeq._resolve import (
     _resolve_refs_to_hooks,
     _resolve_runnables_to_modules,
     _resolve_runnables_to_nodes,
+    _resolve_runnables_to_nodes_and_modules,
 )
 from ordeq._scan import scan
 from ordeq._substitute import (
@@ -217,7 +218,8 @@ def run(
     """
 
     modules = _resolve_runnables_to_modules(*runnables)
-    _ = scan(*modules)
+    _, submodules = _resolve_runnables_to_nodes_and_modules(*modules)
+    _ = scan(*submodules)
 
     # TODO: Node names should be propagated to the graph/plan
     nodes = [node for _, node in _resolve_runnables_to_nodes(*runnables)]

@@ -18,7 +18,7 @@ ValueError: Module 'resources.runner.example_module_b' aliases node 'resources.r
     )
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _ = scan(*modules)
+    _ = scan(*submodules)
 
   File "/packages/ordeq/tests/resources/runner/run_modules.py", line LINO, in <module>
     run(example_module_a, example_module_b, verbose=True)

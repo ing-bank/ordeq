@@ -37,7 +37,7 @@ def groups(packages: list[str]) -> None:
         pyproject = PACKAGES_PATH / package / "pyproject.toml"
         if not pyproject.exists():
             continue
-        pypi_name, description, group, logo_url = get_pypi_name_description_group_logo(
+        _, description, group, logo_url = get_pypi_name_description_group_logo(
             pyproject
         )
 

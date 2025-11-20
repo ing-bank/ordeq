@@ -5,7 +5,6 @@ version = "0.1.0"
 
 [dependency-groups]
 dev = [
-    "pre-commit>=4.2.0",
     "rust-just>=1.42.4",
 ]
 lint = [
@@ -36,6 +35,8 @@ ordeq = { workspace = true }
 ordeq-altair = { workspace = true }
 ordeq-args = { workspace = true }
 ordeq-boto3 = { workspace = true }
+ordeq-bigquery = { workspace = true }
+ordeq-chromadb = { workspace = true }
 ordeq-common = { workspace = true }
 ordeq-cli-runner = { workspace = true }
 ordeq-duckdb = { workspace = true }
@@ -51,6 +52,8 @@ ordeq-pillow = { workspace = true }
 ordeq-polars = { workspace = true }
 ordeq-plotly-express = { workspace = true }
 ordeq-manifest = { workspace = true }
+ordeq-networkx = { workspace = true }
+ordeq-pyproject = { workspace = true }
 ordeq-pydantic = { workspace = true }
 ordeq-pymupdf = { workspace = true }
 ordeq-requests = { workspace = true }

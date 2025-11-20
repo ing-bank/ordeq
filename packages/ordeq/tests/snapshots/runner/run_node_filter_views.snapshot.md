@@ -61,14 +61,14 @@ Hello, world!!
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.runner	Node filters are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running view "hello" in module "__main__"
 INFO	ordeq.runner	Running node "world" in module "__main__"
 INFO	ordeq.io	Saving Print()
-WARNING	ordeq.runner	Node filters are in preview mode and may change without notice in future releases.
-WARNING	ordeq.runner	Node filters are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running view "hello" in module "__main__"
 INFO	ordeq.runner	Running node "world" in module "__main__"

@@ -4,7 +4,7 @@ _default:
     @just --list --unsorted
 
 # Local installation
-localsetup: install precommit_install
+localsetup: install
 
 # Linting and formatting with ruff
 ruff: lint format
@@ -131,22 +131,9 @@ docs-serve: generate-api-docs generate-package-overview
 docs-publish: docs-build
     uv run --group docs mkdocs gh-deploy --force
 
-# Run pre-commit hooks
-precommit:
-    uv run pre-commit run --all-files
-
-# Install pre-commit hooks
-precommit_install:
-    uv run pre-commit install
-
 # Install development dependencies
 install:
     uv sync --all-packages --all-groups --all-extras
-
-# Upgrade (pre-commit only)
-upgrade:
-    # TODO: keep an eye out for: https://github.com/astral-sh/uv/issues/6794
-    pre-commit autoupdate
 
 # Build a package
 build PACKAGE:

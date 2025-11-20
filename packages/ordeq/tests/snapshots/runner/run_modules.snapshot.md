@@ -11,19 +11,14 @@ run(example_module_a, example_module_b, verbose=True)
 ## Output
 
 ```text
-ValueError: Module 'resources.runner.example_module_b' contains duplicate keys for the same node ('renamed' and 'increment')
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_module_to_nodes
+ValueError: Module 'resources.runner.example_module_b' aliases node 'resources.runner.example_module_b:increment' to 'renamed'. Nodes cannot be aliased.
+  File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
     raise ValueError(
-    ...<2 lines>...
+    ...<3 lines>...
     )
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_runnables_to_nodes
-    for node_name, node in _resolve_module_to_nodes(module).items()
-                           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    nodes = [node for _, _, node in _resolve_runnables_to_nodes(*runnables)]
-                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+    _ = scan(*submodules)
 
   File "/packages/ordeq/tests/resources/runner/run_modules.py", line LINO, in <module>
     run(example_module_a, example_module_b, verbose=True)

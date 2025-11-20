@@ -30,28 +30,31 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  'example_function_reuse.catalog',
  'example_function_reuse.func_defs',
  'example_function_reuse.nodes']
-ValueError: Module 'example_function_reuse.catalog' contains duplicate keys for the same IO ('another_name' and 'A')
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_module_to_ios
-    raise ValueError(
-    ...<2 lines>...
-    )
-
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_runnables_to_nodes_and_ios
-    ios.update({module.__name__: _resolve_module_to_ios(module)})
-                                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
-
-  File "/packages/ordeq/tests/resources/resolve/resolve_function_reuse.py", line LINO, in <module>
-    nodes, ios = _resolve_runnables_to_nodes_and_ios(*runnables)
-                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
-
-  File "<frozen runpy>", line LINO, in _run_code
-
-  File "<frozen runpy>", line LINO, in _run_module_code
-
-  File "<frozen runpy>", line LINO, in run_path
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    run_path(str(file_path), run_name="__main__")
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[(('example_function_reuse.nodes', 'a'),
+  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
+ (('example_function_reuse.nodes', 'b'),
+  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
+ (('example_function_reuse.nodes', 'c'),
+  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
+ (('example_function_reuse.nodes', 'd'),
+  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
+ (('example_function_reuse.nodes', 'pi'),
+  View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
+{'example_function_reuse.catalog': {'A': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
+                                    'B': StringBuffer(_buffer=<_io.StringIO object at HASH2>),
+                                    'C': StringBuffer(_buffer=<_io.StringIO object at HASH3>),
+                                    'D': StringBuffer(_buffer=<_io.StringIO object at HASH4>)},
+ 'example_function_reuse.nodes': {'A': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
+                                  'B': StringBuffer(_buffer=<_io.StringIO object at HASH2>)}}
+[(('example_function_reuse.nodes', 'a'),
+  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
+ (('example_function_reuse.nodes', 'b'),
+  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
+ (('example_function_reuse.nodes', 'c'),
+  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
+ (('example_function_reuse.nodes', 'd'),
+  View(name=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
+ (('example_function_reuse.nodes', 'pi'),
+  View(name=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 
 ```

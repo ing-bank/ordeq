@@ -1,11 +1,9 @@
-import logging
 from collections.abc import Generator
 from dataclasses import dataclass
 
 from ordeq import IO
+from ordeq.preview import preview
 from ordeq.types import PathLike
-
-logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -45,7 +43,7 @@ class TextLinesStream(IO[Generator[str]]):
         """Don't persist since is a stream-based IO."""
 
     def __post_init__(self) -> None:
-        logger.warning(
+        preview(
             "TextLinesStream is in pre-release, "
             "functionality may break in future releases "
             "without it being considered a breaking change."

@@ -75,7 +75,7 @@ ValueError: Nodes '__main__:second' and '__main__:first' both output to Resource
 ## Logging
 
 ```text
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 
 ```

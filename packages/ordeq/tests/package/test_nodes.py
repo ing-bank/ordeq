@@ -1,6 +1,6 @@
 import pytest
 from ordeq import IO, node
-from ordeq._nodes import create_node, get_node
+from ordeq._nodes import _is_node, create_node, get_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 
@@ -116,3 +116,30 @@ class TestGetNode:
 
         with pytest.raises(ValueError, match="'my_func' is not a node"):
             get_node(my_func)
+
+
+def test_is_node():
+    def func():
+        pass
+
+    proxy = node(func)
+    assert _is_node(proxy)
+    assert not _is_node(func)
+    assert not _is_node(object)
+    assert not _is_node(None)
+
+    # Object with fake __ordeq_node__ attribute (not a Node)
+    class Fake:
+        def __call__(self):
+            pass
+
+    fake_obj = Fake()
+    fake_obj.__ordeq_node__ = "not_a_node"
+    assert not _is_node(fake_obj)
+
+    # Object with __ordeq_node__ attribute that is a Node, but not callable
+    class NotCallable:
+        __ordeq_node__ = proxy
+
+    not_callable = NotCallable()
+    assert not _is_node(not_callable)

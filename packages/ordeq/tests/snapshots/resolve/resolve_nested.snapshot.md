@@ -30,12 +30,10 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  'example_nested.subpackage',
  'example_nested.subpackage.subsubpackage',
  'example_nested.subpackage.subsubpackage.hello']
-[('example_nested.subpackage.subsubpackage.hello',
-  'world',
+[(('example_nested.subpackage.subsubpackage.hello', 'world'),
   View(name=example_nested.subpackage.subsubpackage.hello:world))]
 {}
-[('example_nested.subpackage.subsubpackage.hello',
-  'world',
+[(('example_nested.subpackage.subsubpackage.hello', 'world'),
   View(name=example_nested.subpackage.subsubpackage.hello:world))]
 
 ```

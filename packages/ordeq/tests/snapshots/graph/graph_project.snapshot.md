@@ -5,11 +5,12 @@
 from pprint import pprint
 
 import example_project
-from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
+from ordeq._graph import NodeGraph, NodeIOGraph
+from ordeq._process_nodes import _collect_views
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 fqn_nodes = _resolve_runnables_to_nodes(example_project)
-nodes = [node for _, _, node in fqn_nodes]
+nodes = [node for _, node in fqn_nodes]
 nodes_and_views = _collect_views(*nodes)
 base_graph = NodeIOGraph.from_nodes(nodes_and_views)
 print("NodeIOGraph")
@@ -71,6 +72,6 @@ Topological ordering
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'example_project.nodes_with_view:greet'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'example_project.nodes_with_view:greet'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 
 ```

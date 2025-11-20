@@ -1,20 +1,24 @@
 import logging
-from collections.abc import Callable, Sequence
+from collections.abc import Sequence
 from itertools import chain
 from types import ModuleType
-from typing import Annotated, Literal, TypeAlias, TypeVar, cast
+from typing import Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
-from ordeq._graph import NodeGraph, NodeIOGraph, _collect_views
+from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
+from ordeq._process_nodes import NodeFilter, _process_nodes
 from ordeq._resolve import (
     Runnable,
     _resolve_refs_to_hooks,
+    _resolve_runnables_to_modules,
     _resolve_runnables_to_nodes,
+    _resolve_runnables_to_nodes_and_modules,
 )
+from ordeq._scan import scan
 from ordeq._substitute import (
     _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
@@ -32,31 +36,6 @@ T = TypeVar("T")
 # - 'last', which saves the output of the last node for which no error
 # occurred. This can be useful for debugging.
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
-NodeFilter: TypeAlias = Annotated[
-    Callable[[Node], bool],
-    """Method for filtering nodes. The method should take `ordeq.Node` as
-only argument and return `bool`.
-
-Examples:
-
->>> def filter_daily(node: Node) -> bool:
-...     # Filters all nodes with `@node(..., frequency="daily")`
-...     return node.attributes.get("frequency", None) == "daily"
-
->>> def filter_spark_iceberg(node: Node) -> bool:
-...     # Filters all nodes that have use SparkIcebergTable
-...     return (
-...         SparkIcebergTable in {
-...             type(t) for t in [*node.inputs, *node.outputs]
-...         }
-...     )
-
->>> def filter_ml(node: Node) -> bool:
-...     # Filters all nodes with `@node(..., group="ml")`
-...     return node.attributes.get("group", None) == "ml"
-
-""",
-]
 
 
 def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
@@ -238,15 +217,14 @@ def run(
 
     """
 
+    modules = _resolve_runnables_to_modules(*runnables)
+    _, submodules = _resolve_runnables_to_nodes_and_modules(*modules)
+    _ = scan(*submodules)
+
     # TODO: Node names should be propagated to the graph/plan
-    nodes = [node for _, _, node in _resolve_runnables_to_nodes(*runnables)]
-    if node_filter:
-        logger.warning(
-            "Node filters are in preview mode and may change "
-            "without notice in future releases."
-        )
-        nodes = [node for node in nodes if node_filter(node)]
-    nodes_and_views = _collect_views(*nodes)
+    nodes = [node for _, node in _resolve_runnables_to_nodes(*runnables)]
+
+    nodes_and_views = _process_nodes(*nodes, node_filter=node_filter)
     graph = NodeGraph.from_nodes(nodes_and_views)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
@@ -255,7 +233,7 @@ def run(
         save_nodes = (
             nodes
             if save == "none"
-            else [node for node in nodes if node not in graph.sink_nodes]
+            else [node for node in nodes if node not in graph.sinks]
         )
         for node in save_nodes:
             for output in node.outputs:

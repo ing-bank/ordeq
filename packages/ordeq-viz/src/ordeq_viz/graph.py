@@ -1,11 +1,10 @@
-import operator
 from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import fqn_to_object_ref
-from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph, _collect_views
+from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
 
@@ -73,7 +72,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
 
 
 def _gather_graph(
-    nodes: list[Node], ios: Catalog
+    nodes: tuple[Node, ...], ios: Catalog
 ) -> tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 
@@ -86,14 +85,13 @@ def _gather_graph(
         metadata for ios (IOData)
     """
 
-    nodes_and_views = _collect_views(*nodes)
-    node_graph = NodeGraph.from_nodes(nodes_and_views)
+    node_graph = NodeGraph.from_nodes(nodes)
     graph = NodeIOGraph.from_graph(node_graph)
 
     reverse_lookup: dict[IOIdentity, str] = {
         id(io): name
-        for _, named_io in sorted(ios.items(), key=operator.itemgetter(0))
-        for name, io in sorted(named_io.items(), key=operator.itemgetter(0))
+        for named_io in ios.values()
+        for name, io in named_io.items()
     }
 
     for io_id in graph.ios:
@@ -154,9 +152,4 @@ def _gather_graph(
         )
         io_modules_[module].append(io_data[io_id])
 
-    return {
-        node_module: sorted(nodes, key=lambda n: n.id)
-        for node_module, nodes in sorted(
-            node_modules.items(), key=operator.itemgetter(0)
-        )
-    }, io_modules_
+    return node_modules, io_modules_

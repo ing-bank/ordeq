@@ -4,9 +4,10 @@
 from pprint import pprint
 
 import example_project
+from ordeq._resolve import _resolve_packages_to_modules
 from ordeq._scan import scan
 
-nodes, ios = scan(example_project)
+nodes, ios = scan(*_resolve_packages_to_modules(example_project))
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
@@ -24,8 +25,8 @@ ValueError: Module 'example_project.nodes_import_alias' aliases IO 'example_proj
     )
 
   File "/packages/ordeq/tests/resources/scan/scan_project.py", line LINO, in <module>
-    nodes, ios = scan(example_project)
-                 ~~~~^^^^^^^^^^^^^^^^^
+    nodes, ios = scan(*_resolve_packages_to_modules(example_project))
+                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 

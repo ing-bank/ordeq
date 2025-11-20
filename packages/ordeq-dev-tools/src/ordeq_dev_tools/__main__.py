@@ -19,6 +19,7 @@ COMMAND_TO_MODULE: Final[dict[str, str]] = {
     "generate_draft_releases": "generate_draft_releases",
     "docs_contributing_just": "docs_update_just",
     "docs_package_overview": "docs_package_overview",
+    "validate_pyproject": "validate_pyproject",
 }
 
 

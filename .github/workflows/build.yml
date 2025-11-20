@@ -78,6 +78,10 @@ jobs:
       - name: Check markdown formatting (mdformat)
         run: uv run just mdformat
 
+      - name: Validate pyproject.toml files
+        run: |
+          uv run --with packages/ordeq-dev-tools -m ordeq_dev_tools validate_pyproject .
+
       - name: Check typing (ty)
         run: uv run just ty
 

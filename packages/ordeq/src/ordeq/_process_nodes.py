@@ -58,6 +58,11 @@ def _filter_nodes(
     return tuple(node for node in nodes if node_filter(node))
 
 
+def _validate_nodes(*nodes: Node) -> None:
+    for node in nodes:
+        node.validate()
+
+
 def _process_nodes(
     *nodes: Node, node_filter: NodeFilter | None = None
 ) -> tuple[Node, ...]:

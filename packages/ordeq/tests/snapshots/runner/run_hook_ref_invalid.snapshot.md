@@ -16,8 +16,11 @@ ValueError: Invalid object reference: 'invalid'. Expected format 'module:name'.
     ...<2 lines>...
     )
 
-  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_refs_to_hooks
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_hook_refs
     fqn = object_ref_to_fqn(hook)
+
+  File "/packages/ordeq/src/ordeq/_resolve.py", line LINO, in _resolve_refs_to_hooks
+    resolved_hooks = _resolve_hook_refs(*hooks)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)

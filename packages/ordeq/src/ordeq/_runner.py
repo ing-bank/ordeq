@@ -2,7 +2,7 @@ import logging
 from collections.abc import Sequence
 from itertools import chain
 from types import ModuleType
-from typing import Literal, TypeAlias, TypeVar, cast
+from typing import Any, Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
@@ -10,7 +10,7 @@ from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
-from ordeq._process_nodes import NodeFilter, _process_nodes
+from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
 from ordeq._resolve import (
     Runnable,
     _resolve_refs_to_hooks,
@@ -38,19 +38,32 @@ T = TypeVar("T")
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 
-def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
-    for node_hook in hooks:
-        node_hook.before_node_run(node)
-
+def _load_inputs(inputs) -> list[Any]:
     args = []
-    for input_dataset in node.inputs:
+    for input_dataset in inputs:
         # We know at this point that all view inputs are patched by
         # sentinel IOs, so we can safely cast here.
         data = cast("Input", input_dataset).load()
         args.append(data)
+
+        # TODO: optimize persisting only when needed
         if isinstance(input_dataset, _InputCache):
             input_dataset.persist(data)
+    return args
 
+
+def _save_outputs(outputs, values) -> None:
+    for output, data in zip(outputs, values, strict=True):
+        output.save(data)
+
+        # TODO: optimize by persisting only when needed
+        if isinstance(output, _InputCache):
+            output.persist(data)
+
+
+def _run_node_func(
+    node: Node, args: list[Any], *, hooks: Sequence[NodeHook] = ()
+) -> tuple[Any, ...]:
     module_name, node_name = object_ref_to_fqn(node.name)
     node_type = "view" if isinstance(node, View) else "node"
     logger.info(
@@ -71,36 +84,24 @@ def _run_node(node: Node, *, hooks: Sequence[NodeHook] = ()) -> None:
     else:
         values = tuple(values)
 
-    # saving computed data
-    for output, data in zip(node.outputs, values, strict=True):
-        output.save(data)
+    return values
 
-        # persisting computed data only if outputs are loaded again later
-        if isinstance(output, _InputCache):
-            output.persist(data)
 
+def _run_node(node: Node, hooks: Sequence[NodeHook] = ()) -> None:
+    _save_outputs(
+        node.outputs,
+        _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
+    )
+
+
+def _run_node_before_hooks(node, hooks) -> None:
+    for node_hook in hooks:
+        node_hook.before_node_run(node)
+
+
+def _run_node_after_hooks(node, hooks) -> None:
     for node_hook in hooks:
         node_hook.after_node_run(node)
-
-
-def _run_graph(graph: NodeGraph, *, hooks: Sequence[NodeHook] = ()) -> None:
-    """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
-
-    Args:
-        graph: node graph to run
-        hooks: hooks to apply
-    """
-
-    for level in graph.topological_levels:
-        for node in level:
-            _run_node(node, hooks=hooks)
-
-    # unpersist IO objects
-    for gnode in graph.nodes:
-        io_objs = chain(gnode.inputs, gnode.outputs)
-        for io_obj in io_objs:
-            if isinstance(io_obj, _InputCache):
-                io_obj.unpersist()
 
 
 def _run_before_hooks(graph: NodeGraph, *, hooks: Sequence[RunHook]) -> None:
@@ -111,6 +112,39 @@ def _run_before_hooks(graph: NodeGraph, *, hooks: Sequence[RunHook]) -> None:
 def _run_after_hooks(graph: NodeGraph, *, hooks: Sequence[RunHook]) -> None:
     for run_hook in hooks:
         run_hook.after_run(graph)
+
+
+def _run_graph(
+    graph: NodeGraph,
+    *,
+    node_hooks: Sequence[NodeHook] = (),
+    run_hooks: Sequence[RunHook] = (),
+) -> None:
+    """Runs nodes in a graph topologically, ensuring IOs are loaded only once.
+
+    Args:
+        graph: node graph to run
+        node_hooks: node hooks to execute
+        run_hooks: run hooks to execute
+    """
+
+    _run_before_hooks(graph, hooks=run_hooks)
+
+    for level in graph.topological_levels:
+        for node in level:
+            _run_node_before_hooks(node, hooks=node_hooks)
+            _run_node(node, hooks=node_hooks)
+            _run_node_after_hooks(node, hooks=node_hooks)
+
+    # unpersist IO objects
+    # TODO: optimize by unpersisting as soon as possible
+    for gnode in graph.nodes:
+        io_objs = chain(gnode.inputs, gnode.outputs)
+        for io_obj in io_objs:
+            if isinstance(io_obj, _InputCache):
+                io_obj.unpersist()
+
+    _run_after_hooks(graph, hooks=run_hooks)
 
 
 def run(
@@ -250,12 +284,8 @@ def run(
         graph_with_io = NodeIOGraph.from_graph(graph)
         print(graph_with_io)
 
-    # Validate nodes
-    for node in graph.topological_ordering:
-        node.validate()
+    _validate_nodes(*graph.topological_ordering)
 
     run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)
 
-    _run_before_hooks(graph, hooks=run_hooks)
-    _run_graph(graph, hooks=node_hooks)
-    _run_after_hooks(graph, hooks=run_hooks)
+    _run_graph(graph, node_hooks=node_hooks, run_hooks=run_hooks)

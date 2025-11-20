@@ -19,6 +19,7 @@ ObjectRef: TypeAlias = Annotated[
     str, "Reference to an object: 'module.submodule.[...]:name'"
 ]
 AnyRef: TypeAlias = ModuleRef | ObjectRef
+Unknown: str = "unknown"
 
 
 def is_object_ref(string: str) -> TypeGuard[ObjectRef]:

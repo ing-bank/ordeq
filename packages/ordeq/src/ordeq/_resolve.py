@@ -9,14 +9,20 @@ from collections.abc import Callable, Generator
 from types import ModuleType
 from typing import TypeAlias, TypeGuard
 
-from ordeq._fqn import FQ, FQN, ModuleRef, is_object_ref, object_ref_to_fqn
+from ordeq._fqn import (
+    FQ,
+    FQN,
+    ModuleRef,
+    Unknown,
+    is_object_ref,
+    object_ref_to_fqn,
+)
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
 from ordeq._nodes import Node, _is_node, get_node
 
 Runnable: TypeAlias = ModuleType | Callable | str
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
-Unknown: str = "unknown"
 
 
 def _is_module(obj: object) -> TypeGuard[ModuleType]:

@@ -87,7 +87,7 @@ Some of the available integrations:
         <td width="90" height="60" align="center">
             <a href="https://ing-bank.github.io/ordeq/api/ordeq_pymupdf/"><img src="https://pymupdf.readthedocs.io/en/latest/_static/sidebar-logo-light.svg" alt="PyMuPDF" height="40"/><br />PyMuPDF</a>
         </td>
-                <td width="90" height="60" align="center">
+        <td width="90" height="60" align="center">
             <a href="https://ing-bank.github.io/ordeq/api/ordeq_chromadb/"><img src="https://home-wordpress.deeplearning.ai/wp-content/uploads/2023/12/chroma_logotype.png" alt="ChromaDB" height="40"/><br />ChromaDB</a>
         </td>
     </tr>
@@ -113,17 +113,20 @@ Some of the available integrations:
 
 <table>
   <tr>
-    <td width="180" height="60" align="center">
+    <td width="140" height="60" align="center">
       <a href="https://ing-bank.github.io/ordeq/guides/cloud_storage/"><img src="https://1.bp.blogspot.com/-ldXyw__3o8k/XkTq7ynek6I/AAAAAAAATvQ/BMLEAwGefP8tA9YkpVRlfhj8q01qcDWsQCLcBGAsYHQ/s1600/gcp-bucket.png" alt="Google Cloud Storage" height="40"/><br />Google Cloud Storage</a>
     </td>
-    <td width="180" height="60" align="center">
+    <td width="140" height="60" align="center">
       <a href="https://ing-bank.github.io/ordeq/guides/cloud_storage/"><img src="https://logos-world.net/wp-content/uploads/2021/02/Microsoft-Azure-Emblem.png" alt="Azure" height="40"/><br />Azure Storage Blob</a>
     </td>
-    <td width="180" height="60" align="center">
+    <td width="140" height="60" align="center">
       <a href="https://ing-bank.github.io/ordeq/guides/cloud_storage/"><img src="https://freepngdesign.com/content/uploads/images/p-1692-1-aws-s3-logo-png-transparent-logo-585854250269.png" alt="AWS S3" height="40"/><br />AWS S3</a>
     </td>
-    <td width="180" height="60" align="center">
+    <td width="140" height="60" align="center">
       <a href="https://ing-bank.github.io/ordeq/api/ordeq_boto3/"><img src="https://boto3typed.gallerycdn.vsassets.io/extensions/boto3typed/boto3-ide/0.5.4/1680224848596/Microsoft.VisualStudio.Services.Icons.Default" alt="Boto3" height="40"/><br />Boto3</a>
+    </td>
+    <td width="140" height="60" align="center">
+      <a href="https://ing-bank.github.io/ordeq/api/ordeq_bigquery/"><img src="https://estuary.dev/static/83c7d935415b78d5705349a4a0dbba6f/d537a/02_GSC_to_BQ_79b7a442c4.png" alt="Bigquery" height="40"/><br />Bigquery</a>
     </td>
   </tr>
 </table>

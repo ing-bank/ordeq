@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ordeq_bigquery"
+dynamic = ["version"]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+    { name = "Nathan Bijleveld" },
+]
+maintainers = [
+    { name = "Niels Neerhoff" },
+    { name = "Simon Brugman" },
+    { name = "Nathan Bijleveld" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq>=1.0.3",
+    "google-cloud-bigquery==3.38.0",
+]
+
+[tool.ordeq-dev]
+group = "ios"
+logo_url = "https://estuary.dev/static/83c7d935415b78d5705349a4a0dbba6f/d537a/02_GSC_to_BQ_79b7a442c4.png"
+
+[dependency-groups]
+test = [
+    "pandas",
+]
+
+[tool.setuptools_scm]
+root = "../../"
+version_file = "src/ordeq_bigquery/_version.py"
+tag_regex = "^ordeq-bigquery/(?:[\\w-]+-)?(?P<version>[vV]?\\d+(?:\\.\\d+){0,2}[^\\+]*)(?:\\+.*)?$"
+git_describe_command = "git describe --dirty --tags --long --match ordeq-bigquery/*"
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "tests"]
+addopts = "--doctest-modules"
+
+[tool.coverage.run]
+omit = [
+    "src/ordeq_bigquery/_version.py"
+]

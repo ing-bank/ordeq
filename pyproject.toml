@@ -35,6 +35,7 @@ ordeq = { workspace = true }
 ordeq-altair = { workspace = true }
 ordeq-args = { workspace = true }
 ordeq-boto3 = { workspace = true }
+ordeq-bigquery = { workspace = true }
 ordeq-chromadb = { workspace = true }
 ordeq-common = { workspace = true }
 ordeq-cli-runner = { workspace = true }

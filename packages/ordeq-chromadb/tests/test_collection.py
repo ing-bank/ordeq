@@ -1,6 +1,6 @@
 import chromadb
 import pytest
-from ordeq_chromadb import ChromaDBIndex
+from ordeq_chromadb import ChromaDBCollection
 
 
 @pytest.fixture
@@ -18,10 +18,12 @@ def data():
 
 
 def test_index(data, tmp_path):
-    index = ChromaDBIndex.from_path(tmp_path / "chroma_db")
-    index.save(data, collection_name="test_collection")
+    index = ChromaDBCollection.from_path(
+        tmp_path / "chroma_db", name="test_collection"
+    )
+    index.save(data)
 
-    collection = index.load(collection_name="test_collection")
+    collection = index.load()
 
     assert collection.count() == 3
 
@@ -29,9 +31,9 @@ def test_index(data, tmp_path):
 def test_index_ephemeral_client(data):
     client = chromadb.EphemeralClient()
 
-    index = ChromaDBIndex(client=client)
-    index.save(data, collection_name="test_collection")
+    index = ChromaDBCollection(client=client, name="test_collection")
+    index.save(data)
 
-    collection = index.load(collection_name="test_collection")
+    collection = index.load()
 
     assert collection.count() == 3

@@ -10,6 +10,7 @@ readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [
+    { name = "Nilay Karahan Afacan" },
     { name = "Niels Neerhoff" },
     { name = "Simon Brugman" },
 ]

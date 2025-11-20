@@ -1,3 +1,3 @@
-from ordeq_chromadb.index import ChromaDBIndex
+from ordeq_chromadb.collection import ChromaDBCollection
 
-__all__ = ("ChromaDBIndex",)
+__all__ = ("ChromaDBCollection",)

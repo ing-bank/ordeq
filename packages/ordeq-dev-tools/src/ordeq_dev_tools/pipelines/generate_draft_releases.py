@@ -3,8 +3,7 @@
 import json
 import logging
 
-from ordeq import node, run
-from ordeq_common import Literal, StringBuffer
+from ordeq import node, run, pipeline
 
 from ordeq_dev_tools.ios.github_release import GithubRelease
 from ordeq_dev_tools.pipelines import generate_release_notes
@@ -48,25 +47,28 @@ def draft_releases() -> list[str]:
     return []
 
 
+generate_release_notes_pipeline = pipeline(
+    generate_release_notes,
+    inputs=[
+        generate_release_notes.package,
+    ],
+    outputs=[
+        generate_release_notes.new_tag,
+        generate_release_notes.release_notes,
+    ],
+)
+
+
 @node(inputs=[packages])
-def new_releases(package_names):
-    new_release_data = {}
-    for p in package_names:
+def new_releases(package_names: list[str]) -> dict[str, str]:
+    new_release_data = []
+    for package_name in package_names:
         try:
-            new_tag = StringBuffer()
-            notes = StringBuffer()
-            run(
-                generate_release_notes,
-                io={
-                    generate_release_notes.package: Literal(p),
-                    generate_release_notes.release_notes: notes,
-                    generate_release_notes.new_tag: new_tag,
-                },
-            )
-            new_release_data[new_tag.load()] = notes.load()
+            new_release_data.append(generate_release_notes_pipeline(package_name))
         except ValueError:
-            print(f"No new release for package {p}")
-    return new_release_data
+            print(f"No new release for package {package_name}")
+
+    return dict(new_release_data)
 
 
 @node(inputs=[new_releases, draft_releases])

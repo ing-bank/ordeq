@@ -2,6 +2,7 @@ from ordeq._catalog import check_catalogs_are_consistent
 from ordeq._hook import InputHook, NodeHook, OutputHook, RunHook
 from ordeq._io import IO, Input, IOException, Output
 from ordeq._nodes import Node, View, node
+from ordeq._pipeline import pipeline
 from ordeq._runner import run
 
 __all__ = (
@@ -17,5 +18,6 @@ __all__ = (
     "View",
     "check_catalogs_are_consistent",
     "node",
+    "pipeline",
     "run",
 )

@@ -66,33 +66,31 @@ This is particularly useful when you want to reuse a pipeline for different data
 For example, Ordeq uses this pattern in the `ordeq_dev_tools` package to generate release notes for multiple packages:
 
 ```python title="main.py"
-from ordeq import node, run
-
-from ordeq_common import StringBuffer, Literal
+from ordeq import node, run, pipeline
 
 from ordeq_dev_tools.pipelines.shared import packages
 from ordeq_dev_tools.pipelines import generate_release_notes  # The pipeline to reuse
+
+
+generate_release_notes_pipeline = pipeline(
+    generate_release_notes,
+    inputs=[
+        generate_release_notes.package,
+    ],
+    outputs=[
+        generate_release_notes.new_tag,
+        generate_release_notes.release_notes,
+    ]
+)
+
 
 @node(inputs=[packages])  # packages are dynamically provided
 def new_releases(package_names: list[str]) -> dict[str, str]:
     new_release_data = {}
     for package_name in package_names:
-        # The new tag and release notes will be captured as strings here
-        new_tag = StringBuffer()
-        notes = StringBuffer()
-
         try:
-            run(
-                generate_release_notes,
-                # Map the placeholder IOs to the specific IOs for this iteration
-                io={
-                    generate_release_notes.package: Literal(package_name),
-                    generate_release_notes.release_notes: notes,
-                    generate_release_notes.new_tag: new_tag,
-                },
-            )
-            # Store the results in the dictionary
-            new_release_data[new_tag.load()] = notes.load()
+            new_tag, notes = generate_release_notes_pipeline(package_name)
+            new_release_data[new_tag] = notes
         # We crafted the nodes in the pipelines so that anywhere we know
         # that there is no new release, a ValueError is raised.
         except ValueError:

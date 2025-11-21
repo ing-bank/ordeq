@@ -7,6 +7,7 @@ Use pathlib for file operations.
 
 ## Documentation
 
+Docstrings are only needed for public functions, classes, and modules, e.g. those in `ordeq.__all__`.
 We follow the Google-style docstring convention.
 Docstring arguments and return sections should not contain any type information,
 as they should already be contained in the type hints of the function.

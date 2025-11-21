@@ -344,28 +344,27 @@ def create_node(
         else:
             inputs_.append(cast("Input", input_))
 
+    checks_: list[Input] = []
     if checks:
         preview(
             "Checks are in preview mode and may change "
             "without notice in future releases."
         )
 
-    checks_: list[Input] = []
-    for check in _sequence_to_tuple(checks):
-        if callable(check):
-            if not _is_node(check):
-                raise ValueError(
-                    f"Check '{check}' to node '{resolved_name}' is not a view"
-                )
-            view = get_node(check)
-            if not isinstance(view, View):
-                raise ValueError(
-                    f"Check '{check}' to node '{resolved_name}' is not a view"
-                )
-            # views.append(view)
-            checks_.append(view.outputs[0])
-        else:
-            checks_.append(cast("Input | Output", check))
+        for check in _sequence_to_tuple(checks):
+            if callable(check):
+                if not _is_node(check):
+                    raise ValueError(
+                        f"Check '{check}' to node '{resolved_name}' is not a view"
+                    )
+                view = get_node(check)
+                if not isinstance(view, View):
+                    raise ValueError(
+                        f"Check '{check}' to node '{resolved_name}' is not a view"
+                    )
+                checks_.append(view.outputs[0])
+            else:
+                checks_.append(cast("Input", check))
 
     if not outputs:
         return View(

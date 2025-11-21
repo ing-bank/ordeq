@@ -212,7 +212,8 @@ class View(Node[FuncParams, FuncReturns]):
         """
 
         return replace(
-            self, inputs=tuple(io.get(ip, ip) for ip in self.inputs)  # type: ignore[misc]
+            self,
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc]
         )
 
     def __repr__(self) -> str:

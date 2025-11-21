@@ -374,6 +374,7 @@ def _resolve_runnable_refs_to_runnables(
 def _resolve_callables_to_modules(
     *callables: Callable,
 ) -> Generator[ModuleType]:
+    # TODO: This should already expand views & checks.
     for callable_obj in callables:
         yield _resolve_module_ref_to_module(callable_obj.__module__)
 

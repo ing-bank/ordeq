@@ -284,7 +284,11 @@ def run(
         save_nodes = (
             nodes_and_views
             if save == "none"
-            else [node for node in nodes_and_views if node not in graph.sinks]
+            else [
+                node
+                for node in nodes_and_views
+                if node not in graph.sinks and not isinstance(node, View)
+            ]
         )
         for node in save_nodes:
             for output in node.outputs:

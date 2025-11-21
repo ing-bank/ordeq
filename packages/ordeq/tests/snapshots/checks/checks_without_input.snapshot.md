@@ -58,8 +58,6 @@ Dependent node received data: A
 
 ```text
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:my_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:dependent_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running view "my_node" in module "__main__"
 INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.runner	Running view "dependent_node" in module "__main__"

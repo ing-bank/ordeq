@@ -89,7 +89,6 @@ aBBB
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:print_result'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.runner	Running node "process_a" in module "__main__"
 INFO	ordeq.io	Loading Literal('B')

@@ -36,11 +36,3 @@ Topological ordering
 ['example_3.func_defs:hello', 'example_3.func_defs:hello']
 
 ```
-
-## Logging
-
-```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'example_3.func_defs:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-
-```

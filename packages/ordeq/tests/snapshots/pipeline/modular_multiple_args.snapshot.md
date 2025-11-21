@@ -68,8 +68,6 @@ ValueError: Expected 3 inputs, but got 2.
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:n1'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:n2'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	The pipeline function is experimental and may change in future releases.
 INFO	ordeq.io	Loading Literal(30)
 INFO	ordeq.io	Loading Literal(1)

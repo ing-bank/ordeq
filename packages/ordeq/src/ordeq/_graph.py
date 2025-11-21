@@ -80,7 +80,7 @@ class NodeResourceGraph(Graph[Resource | Node]):
 
         for node in nodes:
             for ip in node.inputs:
-                resource = Resource(ip._resource)  # noqa: SLF001 (private-member-access)
+                resource = Resource(ip._resource)
                 if resource not in edges:
                     edges[resource] = []
 
@@ -95,7 +95,7 @@ class NodeResourceGraph(Graph[Resource | Node]):
                 edges[resource].append(node)
 
             for op in node.outputs:
-                resource = Resource(op._resource)  # noqa: SLF001 (private-member-access)
+                resource = Resource(op._resource)
                 if resource in resource_to_node:
                     msg = (
                         f"Nodes '{node.name}' and "

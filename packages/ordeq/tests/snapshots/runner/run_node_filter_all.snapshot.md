@@ -42,7 +42,6 @@ Should run no nodes (node filter maps all nodes to False):
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running node "hello" in module "__main__"

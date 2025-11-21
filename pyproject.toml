@@ -241,6 +241,7 @@ split-on-trailing-comma = false
 # Rules not applicable for private examples
 "packages/ordeq-test-examples/*" = ["D103", "INP001"]
 # Rules not applicable for framework extensions
+"packages/ordeq/src/ordeq/*" = ["SLF001"]
 "packages/ordeq-viz/src/ordeq_viz/*" = ["PLC2701"]
 "packages/ordeq-manifest/src/ordeq_manifest/*" = ["SLF001"]
 

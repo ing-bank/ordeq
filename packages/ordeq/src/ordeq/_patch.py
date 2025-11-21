@@ -7,7 +7,7 @@ def _patch_nodes(
 ) -> tuple[Node, ...]:
     if patches:
         return tuple(
-            node._patch_io(patches)  # type: ignore[arg-type] # noqa: SLF001 (private access)
+            node._patch_io(patches)  # type: ignore[arg-type]
             for node in nodes
         )
     return nodes

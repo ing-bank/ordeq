@@ -39,7 +39,6 @@ Node:__main__:printer --> io-2
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:users_stream'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<Response [200]>)
 INFO	ordeq.runner	Running view "users_stream" in module "__main__"
 INFO	ordeq.runner	Running node "printer" in module "__main__"

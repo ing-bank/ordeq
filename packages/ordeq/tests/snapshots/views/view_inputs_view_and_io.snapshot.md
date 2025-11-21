@@ -49,9 +49,6 @@ I heard that Jane said 'Hello, World!'
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:hello'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:hello_from_someone'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:n'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running view "hello" in module "__main__"
 INFO	ordeq.io	Loading Literal('Jane')
 INFO	ordeq.runner	Running view "hello_from_someone" in module "__main__"

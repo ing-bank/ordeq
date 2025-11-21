@@ -23,7 +23,7 @@ doccmd-ruff-format:
 
 # Linting with ruff via doccmd
 doccmd-ruff-lint:
-    uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff check --quiet --fix" docs/ README.md
+    uv run --with doccmd doccmd --language=python --no-pad-file --no-pad-groups --command="ruff check --quiet --fix --unsafe-fixes" docs/ README.md
 
 # Combine doccmd with ruff for linting and formatting
 doccmd-fix: doccmd-ruff-format doccmd-ruff-lint
@@ -34,7 +34,7 @@ lint:
 
 # Fix linting issues with ruff
 lint-fix:
-    uv run --group lint ruff check --fix packages/ scripts/ examples/
+    uv run --group lint ruff check --fix --unsafe-fixes packages/ scripts/ examples/
 
 # Formatting with ruff
 format:

@@ -116,7 +116,7 @@ def _resolve_packages_to_modules(
                 submodule = _resolve_module_ref_to_module(subname)
                 yield from _walk(submodule)
 
-    for module in modules:
+    for module in sorted(modules, key=lambda m: m.__name__):
         yield from _walk(module)
 
 

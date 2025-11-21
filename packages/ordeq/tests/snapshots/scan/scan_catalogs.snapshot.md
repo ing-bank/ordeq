@@ -11,7 +11,7 @@ nodes, ios = scan(*_resolve_packages_to_modules(example_catalogs))
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -19,7 +19,7 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[]
+{}
 IOs:
 [(('example_catalogs.inconsistent',
    'hello'),
@@ -82,16 +82,9 @@ IOs:
  (('example_catalogs.package_overlay.ml',
    'plot'),
   IO(id=ID10)),
- (('example_catalogs.remote', 'hello'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH8>)),
  (('example_catalogs.remote_extended',
    'hello'),
   StringBuffer(_buffer=<_io.StringIO object at HASH8>)),
- (('example_catalogs.remote', 'result'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH9>)),
- (('example_catalogs.remote_extended',
-   'result'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH9>)),
  (('example_catalogs.remote_overridden',
    'result'),
   StringBuffer(_buffer=<_io.StringIO object at HASH9>)),

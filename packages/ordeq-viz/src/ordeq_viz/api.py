@@ -70,7 +70,7 @@ def viz(
             "All vizzables must be modules or references to modules."
         )
 
-    fq_nodes, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
+    fq_nodes, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)  # type: ignore[arg-type]
     fq_nodes_ = _process_nodes(*fq_nodes, node_filter=node_filter)
     # TODO: Propagate FQNs to viz
     nodes_ = tuple(node for _, node in fq_nodes_)

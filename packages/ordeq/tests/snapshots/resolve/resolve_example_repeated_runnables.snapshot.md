@@ -80,7 +80,5 @@ pprint(_resolve_runnables_to_nodes(*runnables))
 
 ```text
 UserWarning: Module 'example_1' already provided as runnable
-UserWarning: Module 'example_1.wrapped_io' already provided as runnable
-UserWarning: Module 'example_1.nodes' already provided as runnable
 UserWarning: Module 'example_1' already provided as runnable
 ```

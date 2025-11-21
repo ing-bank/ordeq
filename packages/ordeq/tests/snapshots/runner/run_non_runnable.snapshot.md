@@ -17,8 +17,8 @@ TypeError: 0.23 is not something we can run. Expected a module or a node, got <c
     )
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _validate_runnables(*runnables)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+    modules_to_run, callables_to_run = _resolve_runnable_refs_to_runnables(*runnables)
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/runner/run_non_runnable.py", line LINO, in <module>
     run(0.23)

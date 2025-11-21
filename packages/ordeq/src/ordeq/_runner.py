@@ -1,9 +1,24 @@
 import logging
-from collections.abc import Sequence
+import warnings
+from collections.abc import Generator, Sequence
 from itertools import chain
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, TypeVar, cast
 
+from ordeq._fqn import (
+    AnyRef,
+    ObjectRef,
+    Unknown,
+    fqn_to_object_ref,
+    object_ref_to_fqn,
+)
+from ordeq._fqn import (
+    FQ,
+    AnyRef,
+    ObjectRef,
+    fqn_to_object_ref,
+    object_ref_to_fqn,
+)
 from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
@@ -12,13 +27,14 @@ from ordeq._nodes import Node, View, _is_node
 from ordeq._patch import _patch_nodes
 from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
 from ordeq._resolve import (
-    Runnable,
+    AnyRunnable,
     _is_module,
-    _resolve_callables_to_nodes,
+    _resolve_callables_to_fq_nodes,
+    _resolve_callables_to_modules,
+    _resolve_modules_to_fq_nodes,
     _resolve_packages_to_modules,
     _resolve_refs_to_hooks,
-    _resolve_refs_to_nodes,
-    _resolve_runnables_to_modules,
+    _resolve_runnable_refs_to_runnables,
 )
 from ordeq._scan import scan
 from ordeq._substitute import (
@@ -149,7 +165,7 @@ def _run_graph(
     _run_after_hooks(graph, hooks=run_hooks)
 
 
-def _validate_runnables(*runnables: Runnable) -> None:
+def _validate_runnables(*runnables: AnyRunnable) -> None:
     for runnable in runnables:
         if not (
             _is_module(runnable)
@@ -162,8 +178,21 @@ def _validate_runnables(*runnables: Runnable) -> None:
             )
 
 
+def _deduplicate(*nodes: FQ[Node]) -> Generator[FQ[Node]]:
+    seen: set[Node] = set()
+    for fqn, node in nodes:
+        ref = fqn_to_object_ref(fqn)
+        if node in seen:
+            warnings.warn(
+                f"Node '{ref}' already provided in another runnable",
+                stacklevel=2,
+            )
+        seen.add(node)
+        yield fqn, node
+
+
 def run(
-    *runnables: Runnable,
+    *runnables: AnyRunnable,
     hooks: Sequence[RunnerHook | ObjectRef] = (),
     save: SaveMode = "all",
     verbose: bool = False,
@@ -267,14 +296,27 @@ def run(
     """
 
     _validate_runnables(*runnables)
-    modules = _resolve_runnables_to_modules(*runnables)
-    submodules = _resolve_packages_to_modules(*modules)
-    fq_nodes, _ = scan(*submodules)
-    fq_nodes += _resolve_refs_to_nodes(*runnables)
-    fq_nodes += _resolve_callables_to_nodes(*runnables)
-
+    modules_to_run, callables_to_run = _resolve_runnable_refs_to_runnables(
+        *runnables
+    )
+    modules = _resolve_callables_to_modules(*callables_to_run)
+    submodules = _resolve_packages_to_modules(*modules_to_run, *modules)
+    scanned_nodes, _ = scan(*submodules)
+    fq_nodes_from_callables = _resolve_callables_to_fq_nodes(
+        *callables_to_run, node_index=scanned_nodes
+    )
+    fq_nodes_from_modules = _resolve_modules_to_fq_nodes(
+        *modules_to_run, node_index=scanned_nodes
+    )
+    fq_nodes = _deduplicate(*fq_nodes_from_modules, *fq_nodes_from_callables)
     fq_nodes_and_views = _process_nodes(*fq_nodes, node_filter=node_filter)
-    nodes_and_views = [node for _, node in fq_nodes_and_views]
+
+    nodes_and_views = [
+        replace(node, name=fqn_to_object_ref(fqn))
+        if Unknown not in fqn
+        else node
+        for fqn, node in fq_nodes_and_views
+    ]
     graph = NodeGraph.from_nodes(nodes_and_views)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
@@ -295,7 +337,12 @@ def run(
     patches = {**user_patches, **save_mode_patches}
     if patches:
         fq_patched_nodes = _patch_nodes(*fq_nodes_and_views, patches=patches)
-        patched_nodes = [node for _, node in fq_patched_nodes]
+        patched_nodes = [
+            replace(node, name=fqn_to_object_ref(fqn))
+            if Unknown not in fqn
+            else node
+            for fqn, node in fq_patched_nodes
+        ]
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:

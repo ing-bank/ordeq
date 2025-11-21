@@ -11,7 +11,7 @@ nodes, ios = scan(*_resolve_packages_to_modules(example_resources))
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -19,18 +19,19 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_resources.inline', 'generate'),
-  Node(func=example_resources.inline:generate, outputs=[CSV(path=Path('data1.csv'))])),
- (('example_resources.inline', 'consume'),
-  View(func=example_resources.inline:consume, inputs=[Text(path=Path('data1.csv'))])),
- (('example_resources.pipeline', 'generate'),
-  Node(func=example_resources.pipeline:generate, outputs=[CSV(path=Path('data2.csv'))])),
- (('example_resources.pipeline', 'consume'),
-  View(func=example_resources.pipeline:consume, inputs=[Text(path=Path('data2.csv'))])),
- (('example_resources.updates', 'update'),
-  Node(func=example_resources.updates:update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))])),
- (('example_resources.updates', 'reflect'),
-  Node(func=example_resources.updates:reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]))]
+{<function consume at HASH1>: (('example_resources.inline', 'consume'),
+                                     <function consume at HASH1>),
+ <function generate at HASH2>: (('example_resources.inline', 'generate'),
+                                      <function generate at HASH2>),
+ <function consume at HASH3>: (('example_resources.pipeline', 'consume'),
+                                     <function consume at HASH3>),
+ <function generate at HASH4>: (('example_resources.pipeline',
+                                       'generate'),
+                                      <function generate at HASH4>),
+ <function update at HASH5>: (('example_resources.updates', 'update'),
+                                    <function update at HASH5>),
+ <function reflect at HASH6>: (('example_resources.updates', 'reflect'),
+                                     <function reflect at HASH6>)}
 IOs:
 [(('example_resources.pipeline', 'csv'),
   CSV(path=Path('data2.csv'))),

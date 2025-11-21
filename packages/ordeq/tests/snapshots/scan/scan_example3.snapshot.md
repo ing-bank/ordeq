@@ -11,7 +11,7 @@ nodes, ios = scan(*_resolve_packages_to_modules(example_3))
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -19,8 +19,10 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_3.nodes', 'f1'), View(func=example_3.func_defs:hello)),
- (('example_3.nodes', 'f2'), View(func=example_3.func_defs:hello))]
+{<function hello at HASH1>: (('example_3.nodes', 'f1'),
+                                   <function hello at HASH1>),
+ <function hello at HASH2>: (('example_3.nodes', 'f2'),
+                                   <function hello at HASH2>)}
 IOs:
 []
 

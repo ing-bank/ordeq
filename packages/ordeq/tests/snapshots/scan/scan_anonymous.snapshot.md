@@ -11,7 +11,7 @@ nodes, ios = scan(*_resolve_packages_to_modules(example_anonymous))
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -19,8 +19,9 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_anonymous.nodes', 'node_with_inline_io'),
-  Node(func=example_anonymous.nodes:node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]))]
+{<function node_with_inline_io at HASH1>: (('example_anonymous.nodes',
+                                                  'node_with_inline_io'),
+                                                 <function node_with_inline_io at HASH1>)}
 IOs:
 []
 

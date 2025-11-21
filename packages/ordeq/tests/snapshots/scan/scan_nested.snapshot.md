@@ -11,7 +11,7 @@ nodes, ios = scan(*_resolve_packages_to_modules(example_nested))
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -19,8 +19,9 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_nested.subpackage.subsubpackage.hello', 'world'),
-  View(func=example_nested.subpackage.subsubpackage.hello:world))]
+{<function world at HASH1>: (('example_nested.subpackage.subsubpackage.hello',
+                                    'world'),
+                                   <function world at HASH1>)}
 IOs:
 []
 

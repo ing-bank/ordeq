@@ -11,7 +11,7 @@ nodes, ios = scan(*_resolve_packages_to_modules(example_rag_pipeline))
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -19,53 +19,60 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_rag_pipeline.rag.annotation', 'annotate_documents'),
-  Node(func=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[IO(id=ID3)])),
- (('example_rag_pipeline.rag.evaluation', 'evaluate_answers'),
-  Node(func=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)])),
- (('example_rag_pipeline.rag.indexer', 'create_vector_index'),
-  Node(func=example_rag_pipeline.rag.indexer:create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)])),
- (('example_rag_pipeline.rag.policies', 'generate_questions'),
-  Node(func=example_rag_pipeline.rag.policies:generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)])),
- (('example_rag_pipeline.rag.question_answering', 'question_answering'),
-  Node(func=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)])),
- (('example_rag_pipeline.rag.retrieval', 'retrieve'),
-  Node(func=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)])),
- (('example_rag_pipeline.rag.retrieval', 'filter_relevant'),
-  Node(func=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)]))]
+{<function annotate_documents at HASH1>: (('example_rag_pipeline.rag.annotation',
+                                                 'annotate_documents'),
+                                                <function annotate_documents at HASH1>),
+ <function evaluate_answers at HASH2>: (('example_rag_pipeline.rag.evaluation',
+                                               'evaluate_answers'),
+                                              <function evaluate_answers at HASH2>),
+ <function create_vector_index at HASH3>: (('example_rag_pipeline.rag.indexer',
+                                                  'create_vector_index'),
+                                                 <function create_vector_index at HASH3>),
+ <function generate_questions at HASH4>: (('example_rag_pipeline.rag.policies',
+                                                 'generate_questions'),
+                                                <function generate_questions at HASH4>),
+ <function question_answering at HASH5>: (('example_rag_pipeline.rag.question_answering',
+                                                 'question_answering'),
+                                                <function question_answering at HASH5>),
+ <function retrieve at HASH6>: (('example_rag_pipeline.rag.retrieval',
+                                       'retrieve'),
+                                      <function retrieve at HASH6>),
+ <function filter_relevant at HASH7>: (('example_rag_pipeline.rag.retrieval',
+                                              'filter_relevant'),
+                                             <function filter_relevant at HASH7>)}
 IOs:
 [(('example_rag_pipeline.catalog',
    'policies'),
-  IO(id=ID8)),
+  IO(id=ID1)),
  (('example_rag_pipeline.catalog',
    'llm_model'),
-  IO(id=ID4)),
- (('example_rag_pipeline.catalog',
-   'llm_vision_retrieval_model'),
-  IO(id=ID6)),
- (('example_rag_pipeline.catalog',
-   'pdf_documents'),
   IO(id=ID2)),
  (('example_rag_pipeline.catalog',
+   'llm_vision_retrieval_model'),
+  IO(id=ID3)),
+ (('example_rag_pipeline.catalog',
+   'pdf_documents'),
+  IO(id=ID4)),
+ (('example_rag_pipeline.catalog',
    'retrieved_pages'),
-  IO(id=ID11)),
+  IO(id=ID5)),
  (('example_rag_pipeline.catalog',
    'relevant_pages'),
-  IO(id=ID10)),
+  IO(id=ID6)),
  (('example_rag_pipeline.catalog',
    'index'),
   IO(id=ID7)),
  (('example_rag_pipeline.catalog',
    'questions'),
-  IO(id=ID9)),
+  IO(id=ID8)),
  (('example_rag_pipeline.catalog',
    'metrics'),
-  IO(id=ID5)),
+  IO(id=ID9)),
  (('example_rag_pipeline.catalog',
    'pdfs_documents_annotated'),
-  IO(id=ID3)),
+  IO(id=ID10)),
  (('example_rag_pipeline.catalog',
    'llm_answers'),
-  IO(id=ID1))]
+  IO(id=ID11))]
 
 ```

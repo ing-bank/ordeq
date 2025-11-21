@@ -10,7 +10,7 @@ nodes, ios = scan(example_project.nodes_with_inline_io)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -18,8 +18,9 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_project.nodes_with_inline_io', 'greet'),
-  Node(func=example_project.nodes_with_inline_io:greet, inputs=[Literal('Buenos dias')], outputs=[IO(id=ID1)]))]
+{<function greet at HASH1>: (('example_project.nodes_with_inline_io',
+                                    'greet'),
+                                   <function greet at HASH1>)}
 IOs:
 []
 

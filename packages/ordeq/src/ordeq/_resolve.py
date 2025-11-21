@@ -7,12 +7,13 @@ import pkgutil
 import warnings
 from collections.abc import Callable, Generator
 from types import ModuleType
-from typing import TypeAlias, TypeGuard
+from typing import TYPE_CHECKING, TypeAlias, TypeGuard
 
 from ordeq._fqn import (
     FQ,
     FQN,
     ModuleRef,
+    ObjectRef,
     Unknown,
     is_object_ref,
     object_ref_to_fqn,
@@ -21,7 +22,12 @@ from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
 from ordeq._nodes import Node, _is_node, get_node
 
-Runnable: TypeAlias = ModuleType | Callable | str
+if TYPE_CHECKING:
+    from ordeq._scan import NodeIndex
+
+RunnableRef: TypeAlias = ObjectRef | ModuleRef
+Runnable: TypeAlias = ModuleType | Callable
+AnyRunnable: TypeAlias = RunnableRef | Runnable
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
 
 
@@ -100,20 +106,12 @@ def _resolve_packages_to_modules(
 
     def _walk(module: ModuleType):
         if module.__name__ in visited:
-            warnings.warn(
-                f"Module '{module.__name__}' already provided as runnable",
-                stacklevel=2,
-            )
             return
         visited.add(module.__name__)
         yield module
         if _is_package(module):
             for subname in _resolve_package_to_module_names(module):
                 if subname in visited:
-                    warnings.warn(
-                        f"Module '{subname}' already provided as runnable",
-                        stacklevel=2,
-                    )
                     continue
                 submodule = _resolve_module_ref_to_module(subname)
                 yield from _walk(submodule)
@@ -348,26 +346,56 @@ def _resolve_runnables_to_nodes_and_ios(
     return nodes, ios
 
 
-def _resolve_runnables_to_modules(
-    *runnables: Runnable,
-) -> Generator[ModuleType]:
+def _resolve_object_ref_to_callable(ref: str) -> Callable:
+    fqn = object_ref_to_fqn(ref)
+    module_ref, callable_name = fqn
+    module = _resolve_module_ref_to_module(module_ref)
+    return getattr(module, callable_name)
+
+
+def _resolve_runnable_refs_to_runnables(
+    *runnables: AnyRunnable,
+) -> tuple[list[ModuleType], list[Callable]]:
+    modules: list[ModuleType] = []
+    callables: list[Callable] = []
     for runnable in runnables:
         if isinstance(runnable, ModuleType):
-            yield runnable
-        elif isinstance(runnable, str) and not is_object_ref(runnable):
-            yield _resolve_module_ref_to_module(runnable)
+            modules.append(runnable)
+        elif isinstance(runnable, str):
+            if not is_object_ref(runnable):
+                modules.append(_resolve_module_ref_to_module(runnable))
+            else:
+                callables.append(_resolve_object_ref_to_callable(runnable))
+        elif callable(runnable):
+            callables.append(runnable)
+    return modules, callables
 
 
-def _resolve_callables_to_nodes(*runnables: Runnable) -> Generator[FQ[Node]]:
-    for runnable in runnables:
-        if not isinstance(runnable, ModuleType) and callable(runnable):
-            node = get_node(runnable)
+def _resolve_callables_to_modules(
+    *callables: Callable,
+) -> Generator[ModuleType]:
+    for callable_obj in callables:
+        yield _resolve_module_ref_to_module(callable_obj.__module__)
+
+
+def _resolve_callables_to_fq_nodes(
+    *callables: Callable, node_index: NodeIndex
+) -> Generator[FQ[Node]]:
+    for func in callables:
+        node = get_node(func)
+        if func in node_index:
+            fqn, _ = node_index[func]
+            yield fqn, node
+        else:
             yield (Unknown, Unknown), node
 
 
-def _resolve_refs_to_nodes(*runnables) -> Generator[FQ[Node]]:
-    for runnable in runnables:
-        if isinstance(runnable, str) and is_object_ref(runnable):
-            fqn = object_ref_to_fqn(runnable)
-            node = _resolve_fqn_to_node(fqn)
-            yield fqn, node
+def _resolve_modules_to_fq_nodes(
+    *modules: ModuleType, node_index: NodeIndex
+) -> Generator[FQ[Node]]:
+    # TODO: This can be done quicker by creating an index on module name
+    for module in modules:
+        for func, (fqn, _) in node_index.items():
+            if fqn[0].startswith(module.__name__):
+                node = get_node(func)
+                yield fqn, node

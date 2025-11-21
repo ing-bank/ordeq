@@ -10,7 +10,7 @@ nodes, ios = scan(example_imports.aliased_catalog)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -18,7 +18,7 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[]
+{}
 IOs:
 [(('example_imports.aliased_catalog',
    'a'),

@@ -345,7 +345,7 @@ def create_node(
             inputs_.append(cast("Input", input_))
 
     if checks:
-        logger.warning(
+        preview(
             "Checks are in preview mode and may change "
             "without notice in future releases."
         )

@@ -89,7 +89,6 @@ class NodeResourceGraph(Graph[Resource | Node]):
                     for check_resource in checks[resource]:
                         if check_resource not in edges:
                             edges[check_resource] = []
-                            resources.add(check_resource)
 
                         edges[check_resource].append(node)
 

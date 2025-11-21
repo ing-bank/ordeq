@@ -68,19 +68,19 @@ graph TB
 
 	IO0 --> __main__:check_store_invalid_records
 	__main__:check_store_invalid_records --> IO1
-	IO1 --> __main__:print_invalid_records
-	__main__:process_records --> __main__:print_processed_records
 	IO0 --> __main__:process_records
+	__main__:process_records --> __main__:print_processed_records
+	IO1 --> __main__:print_invalid_records
 
 	__main__:check_store_invalid_records@{shape: rounded, label: "check_store_invalid_records"}
-	__main__:print_invalid_records@{shape: subroutine, label: "print_invalid_records"}
-	__main__:print_processed_records@{shape: subroutine, label: "print_processed_records"}
 	__main__:process_records@{shape: subroutine, label: "process_records"}
+	__main__:print_processed_records@{shape: subroutine, label: "print_processed_records"}
+	__main__:print_invalid_records@{shape: subroutine, label: "print_invalid_records"}
 	IO1@{shape: rect, label: "invalid_records"}
 	IO0@{shape: rect, label: "records"}
 
 	class L0,__main__:check_store_invalid_records node
-	class L2,__main__:print_invalid_records,__main__:print_processed_records,__main__:process_records view
+	class L2,__main__:process_records,__main__:print_processed_records,__main__:print_invalid_records view
 	class L00 io0
 	class L01,IO1 io1
 	class L02,IO0 io2
@@ -100,10 +100,10 @@ Invalid Records Data: {"id":{"0":null,"1":2.0,"2":null,"3":4.0},"value":{"0":nul
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:process_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:print_invalid_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:print_processed_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:process_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:print_invalid_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:print_processed_records'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(   id  value
 0   1     10
 1   2     -5

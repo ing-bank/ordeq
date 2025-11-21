@@ -55,17 +55,17 @@ graph TB
 		L01@{shape: rect, label: "Literal"}
 	end
 
-	__main__:txs_agg --> __main__:perform_check
-	__main__:txs_agg --> __main__:print_agg
 	IO0 --> __main__:txs_agg
+	__main__:txs_agg --> __main__:print_agg
+	__main__:txs_agg --> __main__:perform_check
 
-	__main__:perform_check@{shape: subroutine, label: "perform_check"}
-	__main__:print_agg@{shape: subroutine, label: "print_agg"}
 	__main__:txs_agg@{shape: subroutine, label: "txs_agg"}
+	__main__:print_agg@{shape: subroutine, label: "print_agg"}
+	__main__:perform_check@{shape: subroutine, label: "perform_check"}
 	IO0@{shape: rect, label: "txs"}
 
 	class L0 node
-	class L2,__main__:perform_check,__main__:print_agg,__main__:txs_agg view
+	class L2,__main__:txs_agg,__main__:print_agg,__main__:perform_check view
 	class L00 io0
 	class L01,IO0 io1
 	classDef node fill:#008AD7,color:#FFF
@@ -83,19 +83,23 @@ AssertionError: Invalid countries found: US
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in inner
     return f(*args, **kwargs)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node_func
     values = node.func(*args)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node_func
     raise exc
 
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(node, hooks=hooks)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    _run_node(node, hooks=node_hooks)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_graph(graph, node_hooks=node_hooks, run_hooks=run_hooks)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/checks/check_between_saves.py", line LINO, in <module>
     run(__name__)
@@ -116,10 +120,10 @@ AssertionError: Invalid countries found: US
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:txs_agg'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:perform_check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:print_agg'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:txs_agg'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:perform_check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:print_agg'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(   id  amount   to country
 0   1     100   me      NL
 1   2     200   me      BE

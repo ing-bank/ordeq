@@ -37,12 +37,12 @@ graph TB
 
 	IO0 --> __main__:dependent_node
 
-	__main__:dependent_node@{shape: subroutine, label: "dependent_node"}
 	__main__:my_node@{shape: subroutine, label: "my_node"}
+	__main__:dependent_node@{shape: subroutine, label: "dependent_node"}
 	IO0@{shape: rect, label: "A"}
 
 	class L0 node
-	class L2,__main__:dependent_node,__main__:my_node view
+	class L2,__main__:my_node,__main__:dependent_node view
 	class L00,IO0 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
@@ -57,9 +57,9 @@ Dependent node received data: A
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:my_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:dependent_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:my_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:dependent_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running view "my_node" in module "__main__"
 INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.runner	Running view "dependent_node" in module "__main__"

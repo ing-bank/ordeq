@@ -75,8 +75,8 @@ graph TB
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:perform_check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:perform_check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(   id  amount   to country
 0   1     100   me      NL
 1   2     200   me      BE

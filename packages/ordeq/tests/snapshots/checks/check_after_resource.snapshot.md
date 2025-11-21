@@ -44,18 +44,18 @@ graph TB
 		L01@{shape: rect, label: "PolarsEagerCSV"}
 	end
 
-	IO0 --> __main__:check
-	__main__:produce --> IO1
+	__main__:produce --> IO0
+	IO1 --> __main__:check
 
-	__main__:check@{shape: subroutine, label: "check"}
 	__main__:produce@{shape: rounded, label: "produce"}
-	IO0@{shape: rect, label: "csv_polars"}
-	IO1@{shape: rect, label: "csv_pandas"}
+	__main__:check@{shape: subroutine, label: "check"}
+	IO0@{shape: rect, label: "csv_pandas"}
+	IO1@{shape: rect, label: "csv_polars"}
 
 	class L0,__main__:produce node
 	class L2,__main__:check view
-	class L00,IO1 io0
-	class L01,IO0 io1
+	class L00,IO0 io0
+	class L01,IO1 io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
@@ -75,14 +75,27 @@ shape: (3, 3)
 
 ```
 
+## Warnings
+
+```text
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+PydanticDeprecatedSince212: Using `@model_validator` with mode='after' on a classmethod is deprecated. Instead, use an instance method. See the documentation at https://docs.pydantic.dev/2.12/concepts/validators/#model-after-validator. Deprecated in Pydantic V2.12 to be removed in V3.0.
+```
 
 ## Logging
 
 ```text
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.io	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.nodes	Checks are in preview mode and may change without notice in future releases.
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:check'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running node "produce" in module "__main__"
 INFO	ordeq.io	Saving PandasCSV(path=Path('<TEMP_DIR>/my.csv'))
 INFO	ordeq.io	Loading PolarsEagerCSV(path=Path('<TEMP_DIR>/my.csv'))

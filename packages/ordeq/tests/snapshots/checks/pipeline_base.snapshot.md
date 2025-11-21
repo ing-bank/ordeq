@@ -51,30 +51,30 @@ graph TB
 		L02@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> __main__:join
+	IO0 --> __main__:process_a
+	__main__:process_a --> IO1
+	IO2 --> __main__:process_b
+	__main__:process_b --> IO3
 	IO1 --> __main__:join
-	__main__:join --> IO2
-	IO2 --> __main__:print_result
-	IO3 --> __main__:process_a
-	__main__:process_a --> IO0
-	IO4 --> __main__:process_b
-	__main__:process_b --> IO1
+	IO3 --> __main__:join
+	__main__:join --> IO4
+	IO4 --> __main__:print_result
 
-	__main__:join@{shape: rounded, label: "join"}
-	__main__:print_result@{shape: subroutine, label: "print_result"}
 	__main__:process_a@{shape: rounded, label: "process_a"}
 	__main__:process_b@{shape: rounded, label: "process_b"}
-	IO0@{shape: rect, label: "Ap"}
-	IO1@{shape: rect, label: "Bp"}
-	IO2@{shape: rect, label: "AB"}
-	IO3@{shape: rect, label: "A"}
-	IO4@{shape: rect, label: "B"}
+	__main__:join@{shape: rounded, label: "join"}
+	__main__:print_result@{shape: subroutine, label: "print_result"}
+	IO1@{shape: rect, label: "Ap"}
+	IO3@{shape: rect, label: "Bp"}
+	IO4@{shape: rect, label: "AB"}
+	IO0@{shape: rect, label: "A"}
+	IO2@{shape: rect, label: "B"}
 
-	class L0,__main__:join,__main__:process_a,__main__:process_b node
+	class L0,__main__:process_a,__main__:process_b,__main__:join node
 	class L2,__main__:print_result view
-	class L00,IO0,IO1 io0
-	class L01,IO3,IO4 io1
-	class L02,IO2 io2
+	class L00,IO1,IO3 io0
+	class L01,IO0,IO2 io1
+	class L02,IO4 io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
@@ -89,7 +89,7 @@ aBBB
 ## Logging
 
 ```text
-WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node '__main__:print_result'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
+WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:print_result'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.runner	Running node "process_a" in module "__main__"
 INFO	ordeq.io	Loading Literal('B')

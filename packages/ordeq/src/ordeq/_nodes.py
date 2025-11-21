@@ -51,7 +51,7 @@ class Node(Generic[FuncParams, FuncReturns]):
         _raise_for_invalid_outputs(self)
 
     def _patch_io(
-        self, io: dict[AnyIO | View, AnyIO]
+        self, io: dict[AnyIO, AnyIO]
     ) -> Node[FuncParams, FuncReturns]:
         """Patches the inputs and outputs of the node with the provided IO
         mapping.
@@ -200,7 +200,7 @@ class View(Node[FuncParams, FuncReturns]):
         self.validate()
 
     def _patch_io(
-        self, io: dict[Input[T] | Output[T] | View, Input[T] | Output[T]]
+        self, io: dict[AnyIO, AnyIO]
     ) -> View[FuncParams, FuncReturns]:
         """Patches the inputs  of the view with the provided IO mapping.
 
@@ -213,7 +213,7 @@ class View(Node[FuncParams, FuncReturns]):
 
         return replace(
             self,
-            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc,arg-type]
+            inputs=tuple(io.get(ip, ip) for ip in self.inputs),  # type: ignore[misc]
         )
 
     def __repr__(self) -> str:

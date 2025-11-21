@@ -64,8 +64,6 @@ b'}'
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:users_lines'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:concatenate'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.io	Loading Literal(<Response [200]>)
 INFO	ordeq.runner	Running view "users_lines" in module "__main__"
 INFO	ordeq.runner	Running view "concatenate" in module "__main__"

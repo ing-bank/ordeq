@@ -145,7 +145,7 @@ def _process_input_meta(name, bases, class_dict):
                 continue
             if (
                 param.default is inspect.Parameter.empty
-                and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                and param.kind != inspect._ParameterKind.VAR_KEYWORD
             ):
                 raise TypeError(
                     f"Argument '{argument}' of function "
@@ -230,7 +230,7 @@ def _process_output_meta(name, bases, class_dict):
                 continue
             if (
                 param.default is inspect.Parameter.empty
-                and param.kind != inspect._ParameterKind.VAR_KEYWORD  # noqa: SLF001
+                and param.kind != inspect._ParameterKind.VAR_KEYWORD
             ):
                 raise TypeError(
                     f"Argument '{argument}' of function "

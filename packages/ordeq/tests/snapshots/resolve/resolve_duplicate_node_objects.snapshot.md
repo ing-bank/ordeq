@@ -32,10 +32,3 @@ ValueError: Module 'example_duplicates.duplicate_node_objects' contains duplicat
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
-
-## Logging
-
-```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'example_duplicates.duplicate_node_objects:<lambda>'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
-
-```

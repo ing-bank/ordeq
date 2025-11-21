@@ -174,10 +174,8 @@ print(create_manifest_json(example_resources))
 ```text
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'example_resources.inline:consume'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node 'example_resources.pipeline:consume'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 

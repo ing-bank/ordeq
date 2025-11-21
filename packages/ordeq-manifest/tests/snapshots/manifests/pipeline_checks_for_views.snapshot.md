@@ -22,6 +22,7 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous0>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_for_views:Bp": {
@@ -32,6 +33,7 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous1>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_for_views:AB": {
@@ -43,6 +45,7 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous2>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_for_views:print_result": {
@@ -53,6 +56,7 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous3>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_for_views:check_a": {
@@ -64,6 +68,9 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous4>"
       ],
+      "checks": [
+        "example_checks.pipeline_checks_for_views:A"
+      ],
       "attributes": {}
     },
     "example_checks.pipeline_checks_for_views:check_ap": {
@@ -74,6 +81,9 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous5>"
       ],
+      "checks": [
+        "example_checks.pipeline_checks_for_views:<anonymous0>"
+      ],
       "attributes": {}
     },
     "example_checks.pipeline_checks_for_views:check_bp": {
@@ -83,6 +93,9 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       ],
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous6>"
+      ],
+      "checks": [
+        "example_checks.pipeline_checks_for_views:<anonymous1>"
       ],
       "attributes": {}
     },
@@ -95,6 +108,10 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous7>"
       ],
+      "checks": [
+        "example_checks.pipeline_checks_for_views:<anonymous0>",
+        "example_checks.pipeline_checks_for_views:<anonymous1>"
+      ],
       "attributes": {}
     },
     "example_checks.pipeline_checks_for_views:check_ab": {
@@ -104,6 +121,9 @@ print(create_manifest_json(example_checks.pipeline_checks_for_views))
       ],
       "outputs": [
         "example_checks.pipeline_checks_for_views:<anonymous8>"
+      ],
+      "checks": [
+        "example_checks.pipeline_checks_for_views:<anonymous2>"
       ],
       "attributes": {}
     }

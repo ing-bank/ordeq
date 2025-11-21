@@ -22,6 +22,7 @@ print(create_manifest_json(nodes_with_view))
       "outputs": [
         "example_project.nodes_with_view:<anonymous0>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_project.nodes_with_view:farewell": {
@@ -32,6 +33,7 @@ print(create_manifest_json(nodes_with_view))
       "outputs": [
         "example_project.nodes_with_view:printer"
       ],
+      "checks": [],
       "attributes": {}
     }
   },

@@ -20,6 +20,7 @@ print(create_manifest_json(example_resources))
       "outputs": [
         "example_resources.inline:<anonymous0>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_resources.inline:consume": {
@@ -30,6 +31,7 @@ print(create_manifest_json(example_resources))
       "outputs": [
         "example_resources.inline:<anonymous2>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_resources.pipeline:generate": {
@@ -38,6 +40,7 @@ print(create_manifest_json(example_resources))
       "outputs": [
         "example_resources.pipeline:csv"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_resources.pipeline:consume": {
@@ -48,6 +51,7 @@ print(create_manifest_json(example_resources))
       "outputs": [
         "example_resources.pipeline:<anonymous3>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_resources.updates:update": {
@@ -58,6 +62,7 @@ print(create_manifest_json(example_resources))
       "outputs": [
         "example_resources.updates:csv|csv_old|csv_new"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_resources.updates:reflect": {
@@ -68,6 +73,7 @@ print(create_manifest_json(example_resources))
       "outputs": [
         "example_resources.updates:<anonymous4>"
       ],
+      "checks": [],
       "attributes": {}
     }
   },

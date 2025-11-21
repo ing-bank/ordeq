@@ -22,6 +22,7 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       "outputs": [
         "example_checks.pipeline_checks_as_checks:Ap"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_as_checks:process_b": {
@@ -32,6 +33,7 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       "outputs": [
         "example_checks.pipeline_checks_as_checks:Bp"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_as_checks:join": {
@@ -43,6 +45,7 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       "outputs": [
         "example_checks.pipeline_checks_as_checks:AB"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_as_checks:print_result": {
@@ -53,6 +56,7 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       "outputs": [
         "example_checks.pipeline_checks_as_checks:<anonymous0>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_as_checks:check_a": {
@@ -64,6 +68,9 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       "outputs": [
         "example_checks.pipeline_checks_as_checks:<anonymous1>"
       ],
+      "checks": [
+        "example_checks.pipeline_checks_as_checks:A"
+      ],
       "attributes": {}
     },
     "example_checks.pipeline_checks_as_checks:check_ap": {
@@ -74,6 +81,9 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       "outputs": [
         "example_checks.pipeline_checks_as_checks:<anonymous2>"
       ],
+      "checks": [
+        "example_checks.pipeline_checks_as_checks:Ap"
+      ],
       "attributes": {}
     },
     "example_checks.pipeline_checks_as_checks:check_bp": {
@@ -83,6 +93,9 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       ],
       "outputs": [
         "example_checks.pipeline_checks_as_checks:<anonymous3>"
+      ],
+      "checks": [
+        "example_checks.pipeline_checks_as_checks:Bp"
       ],
       "attributes": {}
     },
@@ -95,6 +108,10 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       "outputs": [
         "example_checks.pipeline_checks_as_checks:<anonymous4>"
       ],
+      "checks": [
+        "example_checks.pipeline_checks_as_checks:Ap",
+        "example_checks.pipeline_checks_as_checks:Bp"
+      ],
       "attributes": {}
     },
     "example_checks.pipeline_checks_as_checks:check_ab": {
@@ -104,6 +121,9 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
       ],
       "outputs": [
         "example_checks.pipeline_checks_as_checks:<anonymous5>"
+      ],
+      "checks": [
+        "example_checks.pipeline_checks_as_checks:AB"
       ],
       "attributes": {}
     }

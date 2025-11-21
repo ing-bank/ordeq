@@ -295,7 +295,8 @@ def run(
     user_patches = _substitutes_modules_to_ios(io_subs)
     patches = {**user_patches, **save_mode_patches}
     if patches:
-        patched_nodes = _patch_nodes(*nodes_and_views, patches=patches)
+        fq_patched_nodes = _patch_nodes(*fq_nodes_and_views, patches=patches)
+        patched_nodes = [node for _, node in fq_patched_nodes]
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:

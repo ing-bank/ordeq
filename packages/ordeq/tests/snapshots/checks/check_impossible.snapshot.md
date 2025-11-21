@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
 ```text
 Expected output is an error due to impossible check
-CycleError: ('nodes are in a cycle', [Node(name=__main__:simple_node, inputs=[Literal('hello')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Resource(value=IO(id=ID1)), View(name=__main__:check_impossible, inputs=[Literal('hello'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)), Node(name=__main__:simple_node, inputs=[Literal('hello')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])])
+CycleError: ('nodes are in a cycle', [Node(func=__main__:simple_node, inputs=[Literal('hello')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Resource(value=IO(id=ID1)), View(func=__main__:check_impossible, inputs=[Literal('hello'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)), Node(func=__main__:simple_node, inputs=[Literal('hello')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])])
   File "/graphlib.py", line LINO, in prepare
     raise CycleError(f"nodes are in a cycle", cycle)
 

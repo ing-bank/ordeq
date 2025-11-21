@@ -20,7 +20,7 @@ pprint(ios, width=40)
 ```text
 Nodes:
 [(('example_nested.subpackage.subsubpackage.hello', 'world'),
-  View(name=example_nested.subpackage.subsubpackage.hello:world))]
+  View(func=example_nested.subpackage.subsubpackage.hello:world))]
 IOs:
 []
 

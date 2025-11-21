@@ -25,7 +25,7 @@ def func(x: str) -> str:
 ## Output
 
 ```text
-ValueError: Node is not hashable: Node(name=__main__:func, inputs=[Unhashable(data=['y', 'z'])], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
+ValueError: Node is not hashable: Node(func=__main__:func, inputs=[Unhashable(data=['y', 'z'])], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_if_not_hashable
     raise ValueError(f"Node is not hashable: {n}") from e
 
@@ -42,7 +42,7 @@ ValueError: Node is not hashable: Node(name=__main__:func, inputs=[Unhashable(da
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     return Node(
         func=func,
-    ...<5 lines>...
+    ...<4 lines>...
         views=tuple(views),
     )
 

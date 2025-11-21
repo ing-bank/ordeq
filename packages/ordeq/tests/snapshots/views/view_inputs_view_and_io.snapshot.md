@@ -34,8 +34,8 @@ run(n, verbose=True)
 ## Output
 
 ```text
-View(name=__main__:hello)
-View(name=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
+View(func=__main__:hello)
+View(func=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
 View:__main__:hello --> io-0
 io-0 --> View:__main__:hello_from_someone
 io-1 --> View:__main__:hello_from_someone

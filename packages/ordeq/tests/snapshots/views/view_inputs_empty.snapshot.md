@@ -17,6 +17,6 @@ print(repr(get_node(my_view)))
 ## Output
 
 ```text
-View(name=__main__:my_view)
+View(func=__main__:my_view)
 
 ```

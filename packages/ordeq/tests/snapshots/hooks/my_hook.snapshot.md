@@ -35,7 +35,7 @@ fixed_output_hook.before_output_save(StringBuffer("B"), "world")
 
 ```text
 saving data `hello` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
-running node Node(name=__main__:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
+running node Node(func=__main__:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
 saving data `world` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
 
 ```

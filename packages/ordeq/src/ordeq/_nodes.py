@@ -3,7 +3,7 @@ from __future__ import annotations
 import importlib
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
-from functools import wraps
+from functools import cached_property, wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
@@ -35,7 +35,6 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 @dataclass(frozen=True, kw_only=True)
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
-    name: str
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
     checks: tuple[AnyIO, ...] = ()
@@ -71,8 +70,12 @@ class Node(Generic[FuncParams, FuncReturns]):
             outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
         )
 
+    @cached_property
+    def name(self) -> str:
+        return infer_node_name_from_func(self.func)
+
     def __repr__(self) -> str:
-        attributes = {"name": self.name}
+        attributes = {"func": self.name}
 
         inputs = getattr(self, "inputs", None)
         if inputs:
@@ -110,7 +113,7 @@ def _raise_for_invalid_inputs(n: Node) -> None:
     except TypeError as e:
         raise ValueError(
             f"Node inputs invalid for function arguments: "
-            f"Node(name={n.name},...)"
+            f"Node(func={n.name},...)"
         ) from e
 
 
@@ -164,7 +167,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
     if len(return_types) != len(n.outputs):
         raise ValueError(
             "Node outputs invalid for return annotation: "
-            f"Node(name={n.name},...). "
+            f"Node(func={n.name},...). "
             f"Node has {len(n.outputs)} output(s), but the return type "
             f"annotation expects {len(return_types)} value(s)."
         )
@@ -219,7 +222,7 @@ class View(Node[FuncParams, FuncReturns]):
         )
 
     def __repr__(self) -> str:
-        attributes = {"name": self.name}
+        attributes = {"func": self.name}
 
         inputs = getattr(self, "inputs", None)
         if inputs:
@@ -265,7 +268,6 @@ def _is_node(obj: object) -> bool:
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     checks: Sequence[Input | Output | Callable]
@@ -281,7 +283,6 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: None = None,
     checks: Sequence[Input | Output | Callable]
@@ -296,7 +297,6 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
     checks: Sequence[Input | Output | Callable]
@@ -310,7 +310,6 @@ def create_node(
 
     Args:
         func: The function to be executed by the node.
-        name: name for the node. If not provided, inferred from func.
         inputs: The inputs to the node.
         outputs: The outputs from the node.
         checks: The checks for the node.
@@ -323,21 +322,21 @@ def create_node(
         ValueError: if any of the inputs is a callable that is not a view
     """
 
-    resolved_name = (
-        name if name is not None else infer_node_name_from_func(func)
-    )
+    func_name = infer_node_name_from_func(func)
     inputs_: list[Input] = []
     views: list[View] = []
     for input_ in _sequence_to_tuple(inputs):
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input '{input_}' to node '{resolved_name}' is not a node"
+                    f"Input '{input_}' to Node(func={func_name}, ...) "
+                    f"is not a node"
                 )
             view = get_node(input_)
             if not isinstance(view, View):
                 raise ValueError(
-                    f"Input '{input_}' to node '{resolved_name}' is not a view"
+                    f"Input '{input_}' to node Node(func={func_name}, ...) "
+                    f"is not a view"
                 )
             views.append(view)
             inputs_.append(view.outputs[0])
@@ -355,13 +354,13 @@ def create_node(
             if callable(check):
                 if not _is_node(check):
                     raise ValueError(
-                        f"Check '{check}' to node '{resolved_name}' "
+                        f"Check '{check}' to node Node(func={func_name}, ...) "
                         f"is not a node"
                     )
                 view = get_node(check)
                 if not isinstance(view, View):
                     raise ValueError(
-                        f"Check '{check}' to node '{resolved_name}' "
+                        f"Check '{check}' to node Node(func={func_name}, ...) "
                         f"is not a view"
                     )
                 checks_.append(view.outputs[0])
@@ -371,7 +370,6 @@ def create_node(
     if not outputs:
         return View(
             func=func,  # type: ignore[arg-type]
-            name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
             checks=tuple(checks_),  # type: ignore[arg-type]
@@ -380,7 +378,6 @@ def create_node(
         )
     return Node(
         func=func,
-        name=resolved_name,
         inputs=tuple(inputs_),
         outputs=_sequence_to_tuple(outputs),
         checks=tuple(checks_),  # type: ignore[arg-type]

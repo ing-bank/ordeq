@@ -27,10 +27,10 @@ print(repr(get_node(hello)))
 ## Output
 
 ```text
-ValueError: Input '<function string at HASH1>' to node '__main__:func' is not a node
+ValueError: Input '<function string at HASH1>' to Node(func=__main__:func, ...) is not a node
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
-        f"Input '{input_}' to node '{resolved_name}' is not a node"
+    ...<2 lines>...
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped

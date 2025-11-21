@@ -27,10 +27,10 @@ pprint(_resolve_runnables_to_nodes(*runnables))
 
 ```text
 ['example_3', 'example_3.func_defs', 'example_3.nodes']
-[(('example_3.nodes', 'f1'), View(name=example_3.func_defs:hello)),
- (('example_3.nodes', 'f2'), View(name=example_3.func_defs:hello))]
+[(('example_3.nodes', 'f1'), View(func=example_3.func_defs:hello)),
+ (('example_3.nodes', 'f2'), View(func=example_3.func_defs:hello))]
 {}
-[(('example_3.nodes', 'f1'), View(name=example_3.func_defs:hello)),
- (('example_3.nodes', 'f2'), View(name=example_3.func_defs:hello))]
+[(('example_3.nodes', 'f1'), View(func=example_3.func_defs:hello)),
+ (('example_3.nodes', 'f2'), View(func=example_3.func_defs:hello))]
 
 ```

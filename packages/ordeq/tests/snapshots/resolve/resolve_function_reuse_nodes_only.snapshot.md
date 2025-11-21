@@ -28,26 +28,26 @@ pprint(_resolve_runnables_to_nodes(*runnables))
 ```text
 ['example_function_reuse.nodes']
 [(('example_function_reuse.nodes', 'a'),
-  View(func=<function print_input at HASH1>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
  (('example_function_reuse.nodes', 'b'),
-  View(func=<function print_input at HASH3>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
  (('example_function_reuse.nodes', 'c'),
-  View(func=<function print_input at HASH5>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
  (('example_function_reuse.nodes', 'd'),
-  View(func=<function print_input at HASH7>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH8>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
  (('example_function_reuse.nodes', 'pi'),
-  View(func=<function pi at HASH9>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]))]
-{'example_function_reuse.nodes': {'A': StringBuffer(_buffer=<_io.StringIO object at HASH2>),
-                                  'B': StringBuffer(_buffer=<_io.StringIO object at HASH4>)}}
+  View(func=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
+{'example_function_reuse.nodes': {'A': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
+                                  'B': StringBuffer(_buffer=<_io.StringIO object at HASH2>)}}
 [(('example_function_reuse.nodes', 'a'),
-  View(func=<function print_input at HASH1>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
  (('example_function_reuse.nodes', 'b'),
-  View(func=<function print_input at HASH3>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
  (('example_function_reuse.nodes', 'c'),
-  View(func=<function print_input at HASH5>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
  (('example_function_reuse.nodes', 'd'),
-  View(func=<function print_input at HASH7>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH8>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
  (('example_function_reuse.nodes', 'pi'),
-  View(func=<function pi at HASH9>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]))]
+  View(func=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 
 ```

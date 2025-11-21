@@ -26,7 +26,7 @@ run(n, verbose=True)
 ## Output
 
 ```text
-View(func=<function hello at HASH1>)
+View(func=__main__:hello)
 View:__main__:hello --> io-0
 io-0 --> Node:__main__:n
 io-0 --> Node:__main__:n

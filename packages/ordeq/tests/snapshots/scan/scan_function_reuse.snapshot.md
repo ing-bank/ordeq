@@ -20,31 +20,31 @@ pprint(ios, width=40)
 ```text
 Nodes:
 [(('example_function_reuse.nodes', 'a'),
-  View(func=<function print_input at HASH1>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
  (('example_function_reuse.nodes', 'b'),
-  View(func=<function print_input at HASH3>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
  (('example_function_reuse.nodes', 'c'),
-  View(func=<function print_input at HASH5>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH6>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
  (('example_function_reuse.nodes', 'd'),
-  View(func=<function print_input at HASH7>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH8>)])),
+  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
  (('example_function_reuse.nodes', 'pi'),
-  View(func=<function pi at HASH9>, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]))]
+  View(func=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 IOs:
 [(('example_function_reuse.catalog',
    'A'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
+  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
  (('example_function_reuse.nodes', 'A'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
+  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
  (('example_function_reuse.catalog',
    'B'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH4>)),
+  StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
  (('example_function_reuse.nodes', 'B'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH4>)),
+  StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
  (('example_function_reuse.catalog',
    'C'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH6>)),
+  StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
  (('example_function_reuse.catalog',
    'D'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH8>))]
+  StringBuffer(_buffer=<_io.StringIO object at HASH4>))]
 
 ```

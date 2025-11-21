@@ -6,7 +6,7 @@ from graphlib import TopologicalSorter
 from itertools import chain
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import AnyIO, IOIdentity
+from ordeq._io import AnyIO, IOIdentity, Input, Output
 from ordeq._nodes import Node, View
 from ordeq._resource import Resource
 
@@ -70,7 +70,7 @@ class NodeResourceGraph(Graph[Resource | Node]):
             for check in node.checks:
                 if isinstance(check, View):
                     resource = Resource(check.outputs[0]._resource)
-                elif isinstance(check, AnyIO):
+                elif isinstance(check, (Input, Output)):
                     resource = Resource(check._resource)
                 else:
                     resource = Resource(check)

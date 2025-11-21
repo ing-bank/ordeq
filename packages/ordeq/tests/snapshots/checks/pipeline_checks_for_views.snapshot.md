@@ -29,30 +29,30 @@ graph TB
 	IO1 --> example_checks.pipeline_checks_for_views:check_a
 	IO0 --> example_checks.pipeline_checks_for_views:Ap
 	IO2 --> example_checks.pipeline_checks_for_views:Bp
-	example_checks.pipeline_checks_for_views:Ap --> example_checks.pipeline_checks_for_views:AB
-	example_checks.pipeline_checks_for_views:Bp --> example_checks.pipeline_checks_for_views:AB
-	example_checks.pipeline_checks_for_views:AB --> example_checks.pipeline_checks_for_views:check_ab
-	example_checks.pipeline_checks_for_views:AB --> example_checks.pipeline_checks_for_views:print_result
 	example_checks.pipeline_checks_for_views:Ap --> example_checks.pipeline_checks_for_views:check_ap
 	example_checks.pipeline_checks_for_views:Ap --> example_checks.pipeline_checks_for_views:check_join
 	example_checks.pipeline_checks_for_views:Bp --> example_checks.pipeline_checks_for_views:check_join
 	example_checks.pipeline_checks_for_views:Bp --> example_checks.pipeline_checks_for_views:check_bp
+	example_checks.pipeline_checks_for_views:Ap --> example_checks.pipeline_checks_for_views:AB
+	example_checks.pipeline_checks_for_views:Bp --> example_checks.pipeline_checks_for_views:AB
+	example_checks.pipeline_checks_for_views:AB --> example_checks.pipeline_checks_for_views:check_ab
+	example_checks.pipeline_checks_for_views:AB --> example_checks.pipeline_checks_for_views:print_result
 
 	example_checks.pipeline_checks_for_views:check_a@{shape: subroutine, label: "check_a"}
 	example_checks.pipeline_checks_for_views:Ap@{shape: subroutine, label: "Ap"}
 	example_checks.pipeline_checks_for_views:Bp@{shape: subroutine, label: "Bp"}
-	example_checks.pipeline_checks_for_views:AB@{shape: subroutine, label: "AB"}
-	example_checks.pipeline_checks_for_views:check_ab@{shape: subroutine, label: "check_ab"}
-	example_checks.pipeline_checks_for_views:print_result@{shape: subroutine, label: "print_result"}
 	example_checks.pipeline_checks_for_views:check_ap@{shape: subroutine, label: "check_ap"}
 	example_checks.pipeline_checks_for_views:check_join@{shape: subroutine, label: "check_join"}
 	example_checks.pipeline_checks_for_views:check_bp@{shape: subroutine, label: "check_bp"}
+	example_checks.pipeline_checks_for_views:AB@{shape: subroutine, label: "AB"}
+	example_checks.pipeline_checks_for_views:check_ab@{shape: subroutine, label: "check_ab"}
+	example_checks.pipeline_checks_for_views:print_result@{shape: subroutine, label: "print_result"}
 	IO0@{shape: rect, label: "A"}
 	IO1@{shape: rect, label: "D"}
 	IO2@{shape: rect, label: "B"}
 
 	class L0 node
-	class L2,example_checks.pipeline_checks_for_views:check_a,example_checks.pipeline_checks_for_views:Ap,example_checks.pipeline_checks_for_views:Bp,example_checks.pipeline_checks_for_views:AB,example_checks.pipeline_checks_for_views:check_ab,example_checks.pipeline_checks_for_views:print_result,example_checks.pipeline_checks_for_views:check_ap,example_checks.pipeline_checks_for_views:check_join,example_checks.pipeline_checks_for_views:check_bp view
+	class L2,example_checks.pipeline_checks_for_views:check_a,example_checks.pipeline_checks_for_views:Ap,example_checks.pipeline_checks_for_views:Bp,example_checks.pipeline_checks_for_views:check_ap,example_checks.pipeline_checks_for_views:check_join,example_checks.pipeline_checks_for_views:check_bp,example_checks.pipeline_checks_for_views:AB,example_checks.pipeline_checks_for_views:check_ab,example_checks.pipeline_checks_for_views:print_result view
 	class L00 io0
 	class L01,IO0,IO1,IO2 io1
 	classDef node fill:#008AD7,color:#FFF
@@ -80,11 +80,11 @@ INFO	ordeq.runner	Running view "check_a" in module "example_checks.pipeline_chec
 INFO	ordeq.runner	Running view "Ap" in module "example_checks.pipeline_checks_for_views"
 INFO	ordeq.io	Loading Literal('B')
 INFO	ordeq.runner	Running view "Bp" in module "example_checks.pipeline_checks_for_views"
-INFO	ordeq.runner	Running view "AB" in module "example_checks.pipeline_checks_for_views"
-INFO	ordeq.runner	Running view "check_ab" in module "example_checks.pipeline_checks_for_views"
-INFO	ordeq.runner	Running view "print_result" in module "example_checks.pipeline_checks_for_views"
 INFO	ordeq.runner	Running view "check_ap" in module "example_checks.pipeline_checks_for_views"
 INFO	ordeq.runner	Running view "check_join" in module "example_checks.pipeline_checks_for_views"
 INFO	ordeq.runner	Running view "check_bp" in module "example_checks.pipeline_checks_for_views"
+INFO	ordeq.runner	Running view "AB" in module "example_checks.pipeline_checks_for_views"
+INFO	ordeq.runner	Running view "check_ab" in module "example_checks.pipeline_checks_for_views"
+INFO	ordeq.runner	Running view "print_result" in module "example_checks.pipeline_checks_for_views"
 
 ```

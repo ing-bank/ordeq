@@ -350,13 +350,30 @@ def create_node(
             "without notice in future releases."
         )
 
+    checks_: list[Input] = []
+    for check in _sequence_to_tuple(checks):
+        if callable(check):
+            if not _is_node(check):
+                raise ValueError(
+                    f"Check '{check}' to node '{resolved_name}' is not a view"
+                )
+            view = get_node(check)
+            if not isinstance(view, View):
+                raise ValueError(
+                    f"Check '{check}' to node '{resolved_name}' is not a view"
+                )
+            # views.append(view)
+            checks_.append(view.outputs[0])
+        else:
+            checks_.append(cast("Input | Output", check))
+
     if not outputs:
         return View(
             func=func,  # type: ignore[arg-type]
             name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
-            checks=_sequence_to_tuple(checks),  # type: ignore[arg-type]
+            checks=tuple(checks_),  # type: ignore[arg-type]
             attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
             views=tuple(views),  # type: ignore[arg-type]
         )
@@ -365,7 +382,7 @@ def create_node(
         name=resolved_name,
         inputs=tuple(inputs_),
         outputs=_sequence_to_tuple(outputs),
-        checks=_sequence_to_tuple(checks),  # type: ignore[arg-type]
+        checks=tuple(checks_),  # type: ignore[arg-type]
         attributes={} if attributes is None else attributes,
         views=tuple(views),
     )

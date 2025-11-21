@@ -56,16 +56,16 @@ graph TB
 	end
 
 	IO0 --> __main__:txs_agg
-	__main__:txs_agg --> __main__:print_agg
 	__main__:txs_agg --> __main__:perform_check
+	__main__:txs_agg --> __main__:print_agg
 
 	__main__:txs_agg@{shape: subroutine, label: "txs_agg"}
-	__main__:print_agg@{shape: subroutine, label: "print_agg"}
 	__main__:perform_check@{shape: subroutine, label: "perform_check"}
+	__main__:print_agg@{shape: subroutine, label: "print_agg"}
 	IO0@{shape: rect, label: "txs"}
 
 	class L0 node
-	class L2,__main__:txs_agg,__main__:print_agg,__main__:perform_check view
+	class L2,__main__:txs_agg,__main__:perform_check,__main__:print_agg view
 	class L00 io0
 	class L01,IO0 io1
 	classDef node fill:#008AD7,color:#FFF
@@ -74,7 +74,6 @@ graph TB
 	classDef io0 fill:#66c2a5
 	classDef io1 fill:#fc8d62
 
-{"amount":{"BE":200,"NL":100,"US":300}}
 AssertionError: Invalid countries found: US
   File "/packages/ordeq/tests/resources/checks/check_between_saves.py", line LINO, in perform_check
     assert len(countries) == 0, "Invalid countries found: " + ", ".join(
@@ -126,7 +125,6 @@ INFO	ordeq.io	Loading Literal(   id  amount   to country
 1   2     200   me      BE
 2   3     300  you      US)
 INFO	ordeq.runner	Running view "txs_agg" in module "__main__"
-INFO	ordeq.runner	Running view "print_agg" in module "__main__"
 INFO	ordeq.runner	Running view "perform_check" in module "__main__"
 
 ```

@@ -53,6 +53,7 @@ print(node4.attributes)
 
 ```text
 {}
+Node(func=__main__:func2, ...)
 {'tags': ['tag1', 'tag2']}
 {'key1': 'value1'}
 {'attributes': None}

@@ -5,10 +5,21 @@ from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import cached_property, wraps
 from inspect import Signature, signature
-from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Generic,
+    ParamSpec,
+    TypeVar,
+    cast,
+    overload,
+)
 
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq.preview import preview
+
+if TYPE_CHECKING:
+    from ordeq._fqn import ObjectRef
 
 T = TypeVar("T")
 FuncParams = ParamSpec("FuncParams")
@@ -42,7 +53,7 @@ class Node(Generic[FuncParams, FuncReturns]):
     views: tuple[View, ...] = ()
 
     # Node names are assigned on run/viz from context.
-    _name: str | None = None
+    _name: ObjectRef | None = None
 
     def __post_init__(self):
         """Nodes always have to be hashable"""
@@ -101,9 +112,7 @@ class Node(Generic[FuncParams, FuncReturns]):
         return f"Node({attributes_str})"
 
     def __str__(self) -> str:
-        return (
-            f"'{self._name}'" if self._name else f"Node(func={self.func_name}, ...)"
-        )
+        return self._name or f"Node(func={self.func_name}, ...)"
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:

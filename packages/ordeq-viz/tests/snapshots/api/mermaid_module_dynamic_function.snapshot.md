@@ -49,7 +49,7 @@ Hello, world!
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view "hello" in module "example_3.func_defs"
-INFO	ordeq.runner	Running view "hello" in module "example_3.func_defs"
+INFO	ordeq.runner	Running view "f1" in module "example_3.nodes"
+INFO	ordeq.runner	Running view "f2" in module "example_3.nodes"
 
 ```

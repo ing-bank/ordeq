@@ -40,7 +40,6 @@ Saying , world!!
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:world'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running view "world" in module "__main__"

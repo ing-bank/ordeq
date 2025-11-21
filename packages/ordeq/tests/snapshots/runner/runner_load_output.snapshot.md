@@ -66,7 +66,6 @@ AttributeError: 'Example' object has no attribute 'load'
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:load_node'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running node "my_node" in module "__main__"
 INFO	ordeq.io	Saving Output(id=ID1)
 

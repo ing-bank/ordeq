@@ -32,7 +32,6 @@ This should run second
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Creating a view, as no outputs were provided for node '__main__:node_consume_none'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node. 
 INFO	ordeq.runner	Running node "node_return_none" in module "__main__"
 INFO	ordeq.runner	Running view "node_consume_none" in module "__main__"
 

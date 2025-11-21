@@ -41,6 +41,9 @@ class Node(Generic[FuncParams, FuncReturns]):
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
 
+    # Node names are assigned on run/viz from context.
+    _name: str | None = None
+
     def __post_init__(self):
         """Nodes always have to be hashable"""
         self.validate()
@@ -71,8 +74,12 @@ class Node(Generic[FuncParams, FuncReturns]):
         )
 
     @cached_property
-    def name(self) -> str:
+    def func_name(self) -> str:
         return infer_node_name_from_func(self.func)
+
+    @property
+    def name(self) -> str:
+        return self._name or self.func_name
 
     def __repr__(self) -> str:
         attributes = {"func": self.name}
@@ -93,6 +100,11 @@ class Node(Generic[FuncParams, FuncReturns]):
         attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
         return f"Node({attributes_str})"
 
+    def __str__(self) -> str:
+        return (
+            f"'{self._name}'" if self._name else f"Node(func={self.func_name}, ...)"
+        )
+
 
 def _raise_for_invalid_inputs(n: Node) -> None:
     """Raises a ValueError if the number of inputs is incompatible with
@@ -112,8 +124,7 @@ def _raise_for_invalid_inputs(n: Node) -> None:
         sign.bind(*n.inputs)
     except TypeError as e:
         raise ValueError(
-            f"Node inputs invalid for function arguments: "
-            f"Node(func={n.name},...)"
+            f"Node inputs invalid for function arguments: {n}"
         ) from e
 
 
@@ -133,7 +144,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
     if not all(are_outputs):
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
-            f"Outputs of node '{n.name}' must be of type Output, "
+            f"Outputs of node {n} must be of type Output, "
             f"got {type(not_an_output)} "
         )
 
@@ -166,8 +177,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
 
     if len(return_types) != len(n.outputs):
         raise ValueError(
-            "Node outputs invalid for return annotation: "
-            f"Node(func={n.name},...). "
+            f"Node outputs invalid for return annotation: {n}. "
             f"Node has {len(n.outputs)} output(s), but the return type "
             f"annotation expects {len(return_types)} value(s)."
         )

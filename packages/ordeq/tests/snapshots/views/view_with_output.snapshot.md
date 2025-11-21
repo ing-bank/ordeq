@@ -19,10 +19,10 @@ def say_hello(value: str) -> str:
 ## Output
 
 ```text
-ValueError: Input '<function hello at HASH1>' to node '__main__:say_hello' is not a view
+ValueError: Input '<function hello at HASH1>' to node Node(func=__main__:say_hello, ...) is not a view
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
-        f"Input '{input_}' to node '{resolved_name}' is not a view"
+    ...<2 lines>...
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped

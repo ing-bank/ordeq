@@ -19,9 +19,9 @@ pprint(ios, width=40)
 ```text
 Nodes:
 [(('example_project.nodes_import', 'func_a'),
-  Node(name=example_project.nodes_import:func_a, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])),
+  Node(func=example_project.nodes_import:func_a, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])),
  (('example_project.nodes_import', 'func_b'),
-  Node(name=example_project.nodes_import:func_b, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}))]
+  Node(func=example_project.nodes_import:func_b, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}))]
 IOs:
 [(('example_project.nodes_import', 'a'),
   Literal('a')),

@@ -31,9 +31,9 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  'example_nested.subpackage.subsubpackage',
  'example_nested.subpackage.subsubpackage.hello']
 [(('example_nested.subpackage.subsubpackage.hello', 'world'),
-  View(name=example_nested.subpackage.subsubpackage.hello:world))]
+  View(func=<function world at HASH1>))]
 {}
 [(('example_nested.subpackage.subsubpackage.hello', 'world'),
-  View(name=example_nested.subpackage.subsubpackage.hello:world))]
+  View(func=<function world at HASH1>))]
 
 ```

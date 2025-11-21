@@ -39,19 +39,19 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  'example_rag_pipeline.rag.question_answering',
  'example_rag_pipeline.rag.retrieval']
 [(('example_rag_pipeline.rag.annotation', 'annotate_documents'),
-  Node(name=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[IO(id=ID3)])),
+  Node(func=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[IO(id=ID3)])),
  (('example_rag_pipeline.rag.evaluation', 'evaluate_answers'),
-  Node(name=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)])),
+  Node(func=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)])),
  (('example_rag_pipeline.rag.indexer', 'create_vector_index'),
-  Node(name=example_rag_pipeline.rag.indexer:create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)])),
+  Node(func=example_rag_pipeline.rag.indexer:create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)])),
  (('example_rag_pipeline.rag.policies', 'generate_questions'),
-  Node(name=example_rag_pipeline.rag.policies:generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)])),
+  Node(func=example_rag_pipeline.rag.policies:generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)])),
  (('example_rag_pipeline.rag.question_answering', 'question_answering'),
-  Node(name=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)])),
+  Node(func=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)])),
  (('example_rag_pipeline.rag.retrieval', 'retrieve'),
-  Node(name=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)])),
+  Node(func=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)])),
  (('example_rag_pipeline.rag.retrieval', 'filter_relevant'),
-  Node(name=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)]))]
+  Node(func=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)]))]
 {'example_rag_pipeline.catalog': {'index': IO(id=ID7),
                                   'llm_answers': IO(id=ID1),
                                   'llm_model': IO(id=ID4),
@@ -64,19 +64,19 @@ pprint(_resolve_runnables_to_nodes(*runnables))
                                   'relevant_pages': IO(id=ID10),
                                   'retrieved_pages': IO(id=ID11)}}
 [(('example_rag_pipeline.rag.annotation', 'annotate_documents'),
-  Node(name=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[IO(id=ID3)])),
+  Node(func=example_rag_pipeline.rag.annotation:annotate_documents, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[IO(id=ID3)])),
  (('example_rag_pipeline.rag.evaluation', 'evaluate_answers'),
-  Node(name=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)])),
+  Node(func=example_rag_pipeline.rag.evaluation:evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)])),
  (('example_rag_pipeline.rag.indexer', 'create_vector_index'),
-  Node(name=example_rag_pipeline.rag.indexer:create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)])),
+  Node(func=example_rag_pipeline.rag.indexer:create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)])),
  (('example_rag_pipeline.rag.policies', 'generate_questions'),
-  Node(name=example_rag_pipeline.rag.policies:generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)])),
+  Node(func=example_rag_pipeline.rag.policies:generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)])),
  (('example_rag_pipeline.rag.question_answering', 'question_answering'),
-  Node(name=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)])),
+  Node(func=example_rag_pipeline.rag.question_answering:question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)])),
  (('example_rag_pipeline.rag.retrieval', 'retrieve'),
-  Node(name=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)])),
+  Node(func=example_rag_pipeline.rag.retrieval:retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)])),
  (('example_rag_pipeline.rag.retrieval', 'filter_relevant'),
-  Node(name=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)]))]
+  Node(func=example_rag_pipeline.rag.retrieval:filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)]))]
 
 ```
 

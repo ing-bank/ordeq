@@ -26,7 +26,7 @@ run(combine_greeting_with_ending, verbose=True)
 ## Output
 
 ```text
-View(name=__main__:hello)
+View(func=<function hello at HASH1>)
 View:__main__:hello --> io-1
 io-0 --> Node:__main__:combine_greeting_with_ending
 io-1 --> Node:__main__:combine_greeting_with_ending

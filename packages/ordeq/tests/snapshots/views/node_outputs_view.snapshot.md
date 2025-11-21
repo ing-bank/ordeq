@@ -37,7 +37,7 @@ ValueError: Outputs of node '__main__:say_hello' must be of type Output, got <cl
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     return Node(
         func=func,
-    ...<5 lines>...
+    ...<4 lines>...
         views=tuple(views),
     )
 

@@ -20,7 +20,7 @@ pprint(ios, width=40)
 ```text
 Nodes:
 [(('example_anonymous.nodes', 'node_with_inline_io'),
-  Node(name=example_anonymous.nodes:node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]))]
+  Node(func=example_anonymous.nodes:node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]))]
 IOs:
 []
 

@@ -32,12 +32,7 @@ assert hash(x) == hash(y)
 assert x == y
 
 graph = NodeIOGraph.from_nodes([
-    Node(
-        func=operator.eq,
-        inputs=(x, y),
-        outputs=(Print(),),
-        name="are_greetings_equal",
-    )
+    Node(func=operator.eq, inputs=(x, y), outputs=(Print(),))
 ])
 print("NodeIOGraph:")
 print(graph)
@@ -49,8 +44,8 @@ print(graph)
 ```text
 False
 NodeIOGraph:
-io-0 --> Node:are_greetings_equal
-io-1 --> Node:are_greetings_equal
-Node:are_greetings_equal --> io-2
+io-0 --> Node:_operator:eq
+io-1 --> Node:_operator:eq
+Node:_operator:eq --> io-2
 
 ```

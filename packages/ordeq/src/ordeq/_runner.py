@@ -6,16 +6,10 @@ from types import ModuleType
 from typing import Any, Literal, TypeAlias, TypeVar, cast
 
 from ordeq._fqn import (
-    AnyRef,
-    ObjectRef,
-    Unknown,
-    fqn_to_object_ref,
-    object_ref_to_fqn,
-)
-from ordeq._fqn import (
     FQ,
     AnyRef,
     ObjectRef,
+    Unknown,
     fqn_to_object_ref,
     object_ref_to_fqn,
 )

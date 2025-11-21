@@ -9,9 +9,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_references))
 print("Nodes:")
-pprint(nodes)
+pprint(nodes, width=200)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
@@ -21,20 +21,10 @@ pprint(list(ios.values()), width=40)
 Nodes:
 {}
 IOs:
-[(('example_references.io_references',
-   'test_io'),
-  Input(id=ID1)),
- (('example_references.io_references',
-   'nested_test_io'),
-  Input(id=ID2)),
- (('example_references.io_references',
-   'world'),
-  Literal('World!')),
- (('example_references.io_references',
-   'named_test_io'),
-  Input(id=ID3)),
- (('example_references.io_references',
-   'named_nested_test_io'),
-  Input(id=ID4))]
+[('example_references.io_references', 'test_io'),
+ ('example_references.io_references', 'nested_test_io'),
+ ('example_references.io_references', 'world'),
+ ('example_references.io_references', 'named_test_io'),
+ ('example_references.io_references', 'named_nested_test_io')]
 
 ```

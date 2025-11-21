@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_imports.local_import_made_global)
 print("Nodes:")
-pprint(nodes)
+pprint(nodes, width=200)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
@@ -20,8 +20,6 @@ pprint(list(ios.values()), width=40)
 Nodes:
 {}
 IOs:
-[(('example_imports.local_import_made_global',
-   'a'),
-  IO(id=ID1))]
+[('example_imports.local_import_made_global', 'a')]
 
 ```

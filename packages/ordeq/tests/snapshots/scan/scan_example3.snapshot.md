@@ -9,9 +9,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_3))
 print("Nodes:")
-pprint(nodes)
+pprint(nodes, width=200)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
@@ -19,10 +19,7 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{<function hello at HASH1>: (('example_3.nodes', 'f1'),
-                                   <function hello at HASH1>),
- <function hello at HASH2>: (('example_3.nodes', 'f2'),
-                                   <function hello at HASH2>)}
+{<function hello at HASH1>: ('example_3.nodes', 'f1'), <function hello at HASH2>: ('example_3.nodes', 'f2')}
 IOs:
 []
 

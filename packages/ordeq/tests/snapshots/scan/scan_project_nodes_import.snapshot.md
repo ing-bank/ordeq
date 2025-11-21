@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_project.nodes_import)
 print("Nodes:")
-pprint(nodes)
+pprint(nodes, width=200)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
@@ -18,16 +18,8 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{<function func_a at HASH1>: (('example_project.nodes_import', 'func_a'),
-                                    <function func_a at HASH1>),
- <function func_b at HASH2>: (('example_project.nodes_import', 'func_b'),
-                                    <function func_b at HASH2>)}
+{<function func_b at HASH1>: ('example_project.nodes_import', 'func_b'), <function func_a at HASH2>: ('example_project.nodes_import', 'func_a')}
 IOs:
-[(('example_project.nodes_import', 'a'),
-  Literal('a')),
- (('example_project.nodes_import', 'b'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
- (('example_project.nodes_import', 'f'),
-  Print())]
+[('example_project.nodes_import', 'a'), ('example_project.nodes_import', 'b'), ('example_project.nodes_import', 'f')]
 
 ```

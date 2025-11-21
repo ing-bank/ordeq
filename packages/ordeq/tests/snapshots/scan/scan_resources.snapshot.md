@@ -9,9 +9,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_resources))
 print("Nodes:")
-pprint(nodes)
+pprint(nodes, width=200)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
@@ -19,33 +19,18 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{<function generate at HASH1>: (('example_resources.pipeline',
-                                       'generate'),
-                                      <function generate at HASH1>),
- <function generate at HASH2>: (('example_resources.inline', 'generate'),
-                                      <function generate at HASH2>),
- <function update at HASH3>: (('example_resources.updates', 'update'),
-                                    <function update at HASH3>),
- <function consume at HASH4>: (('example_resources.pipeline', 'consume'),
-                                     <function consume at HASH4>),
- <function reflect at HASH5>: (('example_resources.updates', 'reflect'),
-                                     <function reflect at HASH5>),
- <function consume at HASH6>: (('example_resources.inline', 'consume'),
-                                     <function consume at HASH6>)}
+{<function reflect at HASH1>: ('example_resources.updates', 'reflect'),
+ <function generate at HASH2>: ('example_resources.pipeline', 'generate'),
+ <function generate at HASH3>: ('example_resources.inline', 'generate'),
+ <function update at HASH4>: ('example_resources.updates', 'update'),
+ <function consume at HASH5>: ('example_resources.pipeline', 'consume'),
+ <function consume at HASH6>: ('example_resources.inline', 'consume')}
 IOs:
-[(('example_resources.pipeline', 'csv'),
-  CSV(path=Path('data2.csv'))),
- (('example_resources.pipeline',
-   'text'),
-  Text(path=Path('data2.csv'))),
- (('example_resources.updates', 'csv'),
-  CSV(path=Path('data3.csv'))),
- (('example_resources.updates',
-   'csv_old'),
-  CSV(path=Path('data3.csv'))),
- (('example_resources.updates',
-   'csv_new'),
-  CSV(path=Path('data3.csv')))]
+[('example_resources.pipeline', 'csv'),
+ ('example_resources.pipeline', 'text'),
+ ('example_resources.updates', 'csv'),
+ ('example_resources.updates', 'csv_old'),
+ ('example_resources.updates', 'csv_new')]
 
 ```
 

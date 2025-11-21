@@ -9,9 +9,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_1))
 print("Nodes:")
-pprint(nodes)
+pprint(nodes, width=200)
 print("IOs:")
-pprint(list(ios.values()), width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
@@ -19,40 +19,20 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{<function transform_input at HASH1>: (('example_1.pipeline',
-                                              'transform_input'),
-                                             <function transform_input at HASH1>),
- <function world at HASH2>: (('example_1.nodes', 'world'),
-                                   <function world at HASH2>),
- <function transform_mock_input at HASH3>: (('example_1.pipeline',
-                                                   'transform_mock_input'),
-                                                  <function transform_mock_input at HASH3>),
- <function hello at HASH4>: (('example_1.wrapped_io', 'hello'),
-                                   <function hello at HASH4>),
- <function print_message at HASH5>: (('example_1.wrapped_io',
-                                            'print_message'),
-                                           <function print_message at HASH5>)}
+{<function transform_input at HASH1>: ('example_1.pipeline', 'transform_input'),
+ <function world at HASH2>: ('example_1.nodes', 'world'),
+ <function transform_mock_input at HASH3>: ('example_1.pipeline', 'transform_mock_input'),
+ <function hello at HASH4>: ('example_1.wrapped_io', 'hello'),
+ <function print_message at HASH5>: ('example_1.wrapped_io', 'print_message')}
 IOs:
-[(('example_1.pipeline', 'Hello'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH6>)),
- (('example_1.pipeline', 'World'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH7>)),
- (('example_1.pipeline', 'TestInput'),
-  Input(id=ID1)),
- (('example_1.pipeline', 'TestOutput'),
-  Output(id=ID2)),
- (('example_1.nodes', 'x'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH8>)),
- (('example_1.nodes', 'y'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH9>)),
- (('example_1.wrapped_io',
-   'name_generator'),
-  NameGenerator(name='John')),
- (('example_1.wrapped_io',
-   'name_printer'),
-  NamePrinter()),
- (('example_1.wrapped_io', 'message'),
-  SayHello(name=NameGenerator(name='John'),
-           writer=(NamePrinter(),)))]
+[('example_1.pipeline', 'Hello'),
+ ('example_1.pipeline', 'World'),
+ ('example_1.pipeline', 'TestInput'),
+ ('example_1.pipeline', 'TestOutput'),
+ ('example_1.nodes', 'x'),
+ ('example_1.nodes', 'y'),
+ ('example_1.wrapped_io', 'name_generator'),
+ ('example_1.wrapped_io', 'name_printer'),
+ ('example_1.wrapped_io', 'message')]
 
 ```

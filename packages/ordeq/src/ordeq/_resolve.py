@@ -384,8 +384,8 @@ def _resolve_callables_to_fq_nodes(
     for func in callables:
         node = get_node(func)
         if func in node_index:
-            fqn, _ = node_index[func]
-            yield fqn, node
+            fqn = node_index[func]
+            yield fqn, get_node(func)
         else:
             yield (Unknown, Unknown), node
 
@@ -395,7 +395,7 @@ def _resolve_modules_to_fq_nodes(
 ) -> Generator[FQ[Node]]:
     # TODO: This can be done quicker by creating an index on module name
     for module in modules:
-        for func, (fqn, _) in node_index.items():
+        for func, fqn in node_index.items():
             if fqn[0].startswith(module.__name__):
                 node = get_node(func)
                 yield fqn, node

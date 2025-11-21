@@ -50,6 +50,18 @@ class Graph(Generic[T]):
         """
         return {v for v, targets in self.edges.items() if len(targets) == 0}
 
+    @cached_property
+    def sources(self) -> set[T]:
+        """Finds the source vertices, i.e., those without predecessors.
+
+        Returns:
+            set of the source vertices
+        """
+        all_targets = {
+            target for targets in self.edges.values() for target in targets
+        }
+        return {v for v in self.edges if v not in all_targets}
+
 
 @dataclass(frozen=True)
 class NodeResourceGraph(Graph[Resource | Node]):

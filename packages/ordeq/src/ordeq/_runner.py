@@ -284,15 +284,12 @@ def run(
         save_nodes = (
             nodes_and_views
             if save == "none"
-            else [
-                node
-                for node in nodes_and_views
-                if node not in graph.sinks and not isinstance(node, View)
-            ]
+            else [node for node in nodes_and_views if node not in graph.sinks]
         )
         for node in save_nodes:
-            for output in node.outputs:
-                save_mode_patches[output] = IO()
+            if not isinstance(node, View):
+                for output in node.outputs:
+                    save_mode_patches[output] = IO()
 
     io_subs = _resolve_refs_to_subs(io or {})
     user_patches = _substitutes_modules_to_ios(io_subs)

@@ -9,7 +9,6 @@ from ordeq._fqn import (
     FQ,
     AnyRef,
     ObjectRef,
-    Unknown,
     fqn_to_object_ref,
     object_ref_to_fqn,
 )
@@ -306,10 +305,10 @@ def run(
     fq_nodes_and_views = _process_nodes(*fq_nodes, node_filter=node_filter)
 
     nodes_and_views = [
-        replace(node, name=fqn_to_object_ref(fqn))
-        if Unknown not in fqn
+        replace(node, name=fqn_to_object_ref(scanned_nodes[node.func]))
+        if node.func in scanned_nodes
         else node
-        for fqn, node in fq_nodes_and_views
+        for _, node in fq_nodes_and_views
     ]
     graph = NodeGraph.from_nodes(nodes_and_views)
 
@@ -331,13 +330,12 @@ def run(
     patches = {**user_patches, **save_mode_patches}
     if patches:
         fq_patched_nodes = _patch_nodes(*fq_nodes_and_views, patches=patches)
-        patched_nodes = [
-            replace(node, name=fqn_to_object_ref(fqn))
-            if Unknown not in fqn
+        graph = NodeGraph.from_nodes([
+            replace(node, name=fqn_to_object_ref(scanned_nodes[node.func]))
+            if node.func in scanned_nodes
             else node
-            for fqn, node in fq_patched_nodes
-        ]
-        graph = NodeGraph.from_nodes(patched_nodes)
+            for _, node in fq_patched_nodes
+        ])
 
     if verbose:
         graph_with_io = NodeIOGraph.from_graph(graph)

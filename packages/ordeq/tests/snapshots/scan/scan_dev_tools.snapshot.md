@@ -19,9 +19,9 @@ pprint(list(ios.values()), width=200)
 
 ```text
 Nodes:
-{<function groups at HASH1>: ('ordeq_dev_tools.pipelines.docs_package_overview', 'groups'),
- <function just_output at HASH2>: ('ordeq_dev_tools.pipelines.docs_update_just', 'just_output'),
- <function write_html_table_by_group at HASH3>: ('ordeq_dev_tools.pipelines.docs_package_overview', 'write_html_table_by_group'),
+{<function write_html_table_by_group at HASH1>: ('ordeq_dev_tools.pipelines.docs_package_overview', 'write_html_table_by_group'),
+ <function groups at HASH2>: ('ordeq_dev_tools.pipelines.docs_package_overview', 'groups'),
+ <function just_output at HASH3>: ('ordeq_dev_tools.pipelines.docs_update_just', 'just_output'),
  <function docs_just_section at HASH4>: ('ordeq_dev_tools.pipelines.docs_update_just', 'docs_just_section'),
  <function update_docs_with_just_section at HASH5>: ('ordeq_dev_tools.pipelines.docs_update_just', 'update_docs_with_just_section'),
  <function packages at HASH6>: ('ordeq_dev_tools.pipelines.validate_pyproject', 'packages'),

@@ -19,12 +19,12 @@ pprint(list(ios.values()), width=200)
 
 ```text
 Nodes:
-{<function reflect at HASH1>: ('example_resources.updates', 'reflect'),
- <function generate at HASH2>: ('example_resources.pipeline', 'generate'),
- <function generate at HASH3>: ('example_resources.inline', 'generate'),
- <function update at HASH4>: ('example_resources.updates', 'update'),
- <function consume at HASH5>: ('example_resources.pipeline', 'consume'),
- <function consume at HASH6>: ('example_resources.inline', 'consume')}
+{<function consume at HASH1>: ('example_resources.pipeline', 'consume'),
+ <function reflect at HASH2>: ('example_resources.updates', 'reflect'),
+ <function update at HASH3>: ('example_resources.updates', 'update'),
+ <function consume at HASH4>: ('example_resources.inline', 'consume'),
+ <function generate at HASH5>: ('example_resources.inline', 'generate'),
+ <function generate at HASH6>: ('example_resources.pipeline', 'generate')}
 IOs:
 [('example_resources.pipeline', 'csv'),
  ('example_resources.pipeline', 'text'),

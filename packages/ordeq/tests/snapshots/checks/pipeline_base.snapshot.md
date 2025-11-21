@@ -1,40 +1,15 @@
 ## Resource
 
 ```python
-from ordeq import IO, node, run
-from ordeq_common import Literal, StringBuffer
+from example_checks import pipeline_base
+from ordeq import run
 from ordeq_viz import viz
 
-A = Literal("A")
-B = Literal("B")
-Ap = IO[str]()
-Bp = IO[str]()
-AB = StringBuffer()
-
-
-@node(inputs=A, outputs=Ap)
-def process_a(data: str) -> str:
-    return data.lower()
-
-
-@node(inputs=B, outputs=Bp)
-def process_b(data: str) -> str:
-    return data * 3
-
-
-@node(inputs=[Ap, Bp], outputs=AB)
-def join(a: str, b: str) -> str:
-    return a + b
-
-
-@node(inputs=AB)
-def print_result(data: str) -> None:
-    print(data)
-
-
 if __name__ == "__main__":
-    print(viz(__name__, fmt="mermaid"))
-    run(__name__)
+    print(viz(pipeline_base, fmt="mermaid"))
+
+    print("Expected output is 'aBBB'")
+    run(pipeline_base)
 
 ```
 
@@ -51,27 +26,27 @@ graph TB
 		L02@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> __main__:process_a
-	__main__:process_a --> IO1
-	IO2 --> __main__:process_b
-	__main__:process_b --> IO3
-	IO1 --> __main__:join
-	IO3 --> __main__:join
-	__main__:join --> IO4
-	IO4 --> __main__:print_result
+	IO0 --> example_checks.pipeline_base:process_a
+	example_checks.pipeline_base:process_a --> IO1
+	IO2 --> example_checks.pipeline_base:process_b
+	example_checks.pipeline_base:process_b --> IO3
+	IO1 --> example_checks.pipeline_base:join
+	IO3 --> example_checks.pipeline_base:join
+	example_checks.pipeline_base:join --> IO4
+	IO4 --> example_checks.pipeline_base:print_result
 
-	__main__:process_a@{shape: rounded, label: "process_a"}
-	__main__:process_b@{shape: rounded, label: "process_b"}
-	__main__:join@{shape: rounded, label: "join"}
-	__main__:print_result@{shape: subroutine, label: "print_result"}
+	example_checks.pipeline_base:process_a@{shape: rounded, label: "process_a"}
+	example_checks.pipeline_base:process_b@{shape: rounded, label: "process_b"}
+	example_checks.pipeline_base:join@{shape: rounded, label: "join"}
+	example_checks.pipeline_base:print_result@{shape: subroutine, label: "print_result"}
 	IO1@{shape: rect, label: "Ap"}
 	IO3@{shape: rect, label: "Bp"}
 	IO4@{shape: rect, label: "AB"}
 	IO0@{shape: rect, label: "A"}
 	IO2@{shape: rect, label: "B"}
 
-	class L0,__main__:process_a,__main__:process_b,__main__:join node
-	class L2,__main__:print_result view
+	class L0,example_checks.pipeline_base:process_a,example_checks.pipeline_base:process_b,example_checks.pipeline_base:join node
+	class L2,example_checks.pipeline_base:print_result view
 	class L00,IO1,IO3 io0
 	class L01,IO0,IO2 io1
 	class L02,IO4 io2
@@ -82,6 +57,7 @@ graph TB
 	classDef io1 fill:#fc8d62
 	classDef io2 fill:#8da0cb
 
+Expected output is 'aBBB'
 aBBB
 
 ```
@@ -90,11 +66,11 @@ aBBB
 
 ```text
 INFO	ordeq.io	Loading Literal('A')
-INFO	ordeq.runner	Running node "process_a" in module "__main__"
+INFO	ordeq.runner	Running node "process_a" in module "example_checks.pipeline_base"
 INFO	ordeq.io	Loading Literal('B')
-INFO	ordeq.runner	Running node "process_b" in module "__main__"
-INFO	ordeq.runner	Running node "join" in module "__main__"
+INFO	ordeq.runner	Running node "process_b" in module "example_checks.pipeline_base"
+INFO	ordeq.runner	Running node "join" in module "example_checks.pipeline_base"
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running view "print_result" in module "__main__"
+INFO	ordeq.runner	Running view "print_result" in module "example_checks.pipeline_base"
 
 ```

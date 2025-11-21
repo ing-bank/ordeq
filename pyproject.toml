@@ -239,7 +239,7 @@ split-on-trailing-comma = false
 "examples/integration-marimo/*" = ["PLC0415", "E501", "INP001"]
 "examples/testing-nodes/tests/test_pipeline.py" = ["E402"]
 # Rules not applicable for private examples
-"packages/ordeq-test-examples/*" = ["D103", "INP001"]
+"packages/ordeq-test-examples/*" = ["D103", "INP001", "S101"]
 # Rules not applicable for framework extensions
 "packages/ordeq/src/ordeq/*" = ["SLF001"]
 "packages/ordeq-viz/src/ordeq_viz/*" = ["PLC2701"]

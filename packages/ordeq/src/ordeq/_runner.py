@@ -1,10 +1,17 @@
 import logging
 from collections.abc import Sequence
+from dataclasses import replace
 from itertools import chain
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, TypeVar, cast
 
-from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
+from ordeq._fqn import (
+    AnyRef,
+    ObjectRef,
+    Unknown,
+    fqn_to_object_ref,
+    object_ref_to_fqn,
+)
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
@@ -274,8 +281,12 @@ def run(
     fq_nodes += _resolve_callables_to_nodes(*runnables)
 
     fq_nodes_and_views = _process_nodes(*fq_nodes, node_filter=node_filter)
-    nodes_and_views = [node for _, node in fq_nodes_and_views]
-    # TODO: Node names should be propagated to the graph/plan
+    nodes_and_views = [
+        replace(node, name=fqn_to_object_ref(fqn))
+        if Unknown not in fqn
+        else node
+        for fqn, node in fq_nodes_and_views
+    ]
     graph = NodeGraph.from_nodes(nodes_and_views)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
@@ -296,7 +307,12 @@ def run(
     patches = {**user_patches, **save_mode_patches}
     if patches:
         fq_patched_nodes = _patch_nodes(*fq_nodes_and_views, patches=patches)
-        patched_nodes = [node for _, node in fq_patched_nodes]
+        patched_nodes = [
+            replace(node, name=fqn_to_object_ref(fqn))
+            if Unknown not in fqn
+            else node
+            for fqn, node in fq_patched_nodes
+        ]
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:

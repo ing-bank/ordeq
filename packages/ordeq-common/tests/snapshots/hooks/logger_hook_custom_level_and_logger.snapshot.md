@@ -77,12 +77,12 @@ ValueError: Intentional failure for testing.
 ## Logging
 
 ```text
-ERROR	custom_logger	Called 'before_node_run' with args: (Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
+ERROR	custom_logger	Called 'before_node_run' with args: (Node(func=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
 INFO	ordeq.io	Loading Literal('name')
 INFO	ordeq.runner	Running node "hello" in module "__main__"
-ERROR	custom_logger	Called 'after_node_run' with args: (Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
-ERROR	custom_logger	Called 'before_node_run' with args: (View(name=__main__:fail),)
+ERROR	custom_logger	Called 'after_node_run' with args: (Node(func=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
+ERROR	custom_logger	Called 'before_node_run' with args: (View(func=__main__:fail),)
 INFO	ordeq.runner	Running view "fail" in module "__main__"
-ERROR	custom_logger	Called 'on_node_call_error' with args: (View(name=__main__:fail), ValueError('Intentional failure for testing.'))
+ERROR	custom_logger	Called 'on_node_call_error' with args: (View(func=__main__:fail), ValueError('Intentional failure for testing.'))
 
 ```

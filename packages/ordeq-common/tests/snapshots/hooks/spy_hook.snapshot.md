@@ -28,7 +28,7 @@ print(spy.called_with)
 ## Output
 
 ```text
-[('before_node_run', Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)])), ('after_node_run', Node(name=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]))]
+[('before_node_run', Node(func=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)])), ('after_node_run', Node(func=__main__:hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]))]
 ValueError: Intentional failure for testing.
   File "/packages/ordeq-common/tests/resources/hooks/spy_hook.py", line LINO, in fail
     raise ValueError("Intentional failure for testing.")

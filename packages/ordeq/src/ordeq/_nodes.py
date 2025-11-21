@@ -332,7 +332,7 @@ def create_node(
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input '{input_}' to node '{resolved_name}' is not a view"
+                    f"Input '{input_}' to node '{resolved_name}' is not a node"
                 )
             view = get_node(input_)
             if not isinstance(view, View):
@@ -355,12 +355,14 @@ def create_node(
             if callable(check):
                 if not _is_node(check):
                     raise ValueError(
-                        f"Check '{check}' to node '{resolved_name}' is not a view"
+                        f"Check '{check}' to node '{resolved_name}' "
+                        f"is not a node"
                     )
                 view = get_node(check)
                 if not isinstance(view, View):
                     raise ValueError(
-                        f"Check '{check}' to node '{resolved_name}' is not a view"
+                        f"Check '{check}' to node '{resolved_name}' "
+                        f"is not a view"
                     )
                 checks_.append(view.outputs[0])
             else:

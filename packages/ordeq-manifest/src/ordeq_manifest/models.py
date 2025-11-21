@@ -114,7 +114,6 @@ class NodeModel(BaseModel):
                 else:
                     checks.append(module_ref + ":" + "|".join(candidates))
 
-
         return cls(
             name=node_name,
             inputs=ins,  # type: ignore[index,arg-type]

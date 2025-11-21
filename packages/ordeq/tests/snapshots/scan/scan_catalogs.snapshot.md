@@ -9,7 +9,7 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_catalogs))
 print("Nodes:")
-pprint(nodes, width=200)
+pprint(list(nodes.values()), width=200)
 print("IOs:")
 pprint(list(ios.values()), width=200)
 
@@ -19,7 +19,7 @@ pprint(list(ios.values()), width=200)
 
 ```text
 Nodes:
-{}
+[]
 IOs:
 [('example_catalogs.inconsistent', 'hello'),
  ('example_catalogs.local', 'hello'),

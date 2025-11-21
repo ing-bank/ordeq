@@ -8,7 +8,7 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_imports.import_different_package)
 print("Nodes:")
-pprint(nodes, width=200)
+pprint(list(nodes.values()), width=200)
 print("IOs:")
 pprint(list(ios.values()), width=200)
 
@@ -18,7 +18,7 @@ pprint(list(ios.values()), width=200)
 
 ```text
 Nodes:
-{}
+[]
 IOs:
 [('example_imports.import_different_package', 'Hello')]
 

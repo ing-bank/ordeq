@@ -9,7 +9,7 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_resources))
 print("Nodes:")
-pprint(nodes, width=200)
+pprint(list(nodes.values()), width=200)
 print("IOs:")
 pprint(list(ios.values()), width=200)
 
@@ -19,12 +19,12 @@ pprint(list(ios.values()), width=200)
 
 ```text
 Nodes:
-{<function consume at HASH1>: ('example_resources.pipeline', 'consume'),
- <function reflect at HASH2>: ('example_resources.updates', 'reflect'),
- <function update at HASH3>: ('example_resources.updates', 'update'),
- <function consume at HASH4>: ('example_resources.inline', 'consume'),
- <function generate at HASH5>: ('example_resources.inline', 'generate'),
- <function generate at HASH6>: ('example_resources.pipeline', 'generate')}
+[('example_resources.inline', 'generate'),
+ ('example_resources.inline', 'consume'),
+ ('example_resources.pipeline', 'generate'),
+ ('example_resources.pipeline', 'consume'),
+ ('example_resources.updates', 'update'),
+ ('example_resources.updates', 'reflect')]
 IOs:
 [('example_resources.pipeline', 'csv'),
  ('example_resources.pipeline', 'text'),

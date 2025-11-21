@@ -9,7 +9,7 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_1))
 print("Nodes:")
-pprint(nodes, width=200)
+pprint(list(nodes.values()), width=200)
 print("IOs:")
 pprint(list(ios.values()), width=200)
 
@@ -19,11 +19,7 @@ pprint(list(ios.values()), width=200)
 
 ```text
 Nodes:
-{<function transform_input at HASH1>: ('example_1.pipeline', 'transform_input'),
- <function world at HASH2>: ('example_1.nodes', 'world'),
- <function transform_mock_input at HASH3>: ('example_1.pipeline', 'transform_mock_input'),
- <function hello at HASH4>: ('example_1.wrapped_io', 'hello'),
- <function print_message at HASH5>: ('example_1.wrapped_io', 'print_message')}
+[('example_1.nodes', 'world'), ('example_1.pipeline', 'transform_input'), ('example_1.pipeline', 'transform_mock_input'), ('example_1.wrapped_io', 'hello'), ('example_1.wrapped_io', 'print_message')]
 IOs:
 [('example_1.pipeline', 'Hello'),
  ('example_1.pipeline', 'World'),

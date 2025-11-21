@@ -9,7 +9,7 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_rag_pipeline))
 print("Nodes:")
-pprint(nodes, width=200)
+pprint(list(nodes.values()), width=200)
 print("IOs:")
 pprint(list(ios.values()), width=200)
 
@@ -19,13 +19,13 @@ pprint(list(ios.values()), width=200)
 
 ```text
 Nodes:
-{<function filter_relevant at HASH1>: ('example_rag_pipeline.rag.retrieval', 'filter_relevant'),
- <function retrieve at HASH2>: ('example_rag_pipeline.rag.retrieval', 'retrieve'),
- <function question_answering at HASH3>: ('example_rag_pipeline.rag.question_answering', 'question_answering'),
- <function generate_questions at HASH4>: ('example_rag_pipeline.rag.policies', 'generate_questions'),
- <function annotate_documents at HASH5>: ('example_rag_pipeline.rag.annotation', 'annotate_documents'),
- <function create_vector_index at HASH6>: ('example_rag_pipeline.rag.indexer', 'create_vector_index'),
- <function evaluate_answers at HASH7>: ('example_rag_pipeline.rag.evaluation', 'evaluate_answers')}
+[('example_rag_pipeline.rag.annotation', 'annotate_documents'),
+ ('example_rag_pipeline.rag.evaluation', 'evaluate_answers'),
+ ('example_rag_pipeline.rag.indexer', 'create_vector_index'),
+ ('example_rag_pipeline.rag.policies', 'generate_questions'),
+ ('example_rag_pipeline.rag.question_answering', 'question_answering'),
+ ('example_rag_pipeline.rag.retrieval', 'retrieve'),
+ ('example_rag_pipeline.rag.retrieval', 'filter_relevant')]
 IOs:
 [('example_rag_pipeline.catalog', 'policies'),
  ('example_rag_pipeline.catalog', 'llm_model'),

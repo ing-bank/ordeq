@@ -1,6 +1,7 @@
 import logging
 import warnings
 from collections.abc import Generator, Sequence
+from dataclasses import replace
 from itertools import chain
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, TypeVar, cast
@@ -12,7 +13,6 @@ from ordeq._fqn import (
     fqn_to_object_ref,
     object_ref_to_fqn,
 )
-from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
@@ -305,7 +305,7 @@ def run(
     fq_nodes_and_views = _process_nodes(*fq_nodes, node_filter=node_filter)
 
     nodes_and_views = [
-        replace(node, name=fqn_to_object_ref(scanned_nodes[node.func]))
+        replace(node, _name=fqn_to_object_ref(scanned_nodes[node.func]))
         if node.func in scanned_nodes
         else node
         for _, node in fq_nodes_and_views
@@ -331,7 +331,7 @@ def run(
     if patches:
         fq_patched_nodes = _patch_nodes(*fq_nodes_and_views, patches=patches)
         graph = NodeGraph.from_nodes([
-            replace(node, name=fqn_to_object_ref(scanned_nodes[node.func]))
+            replace(node, _name=fqn_to_object_ref(scanned_nodes[node.func]))
             if node.func in scanned_nodes
             else node
             for _, node in fq_patched_nodes

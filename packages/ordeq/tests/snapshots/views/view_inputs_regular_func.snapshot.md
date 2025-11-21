@@ -27,17 +27,20 @@ print(repr(get_node(hello)))
 ## Output
 
 ```text
-ValueError: Input '<function string at HASH1>' to node '__main__:func' is not a view
+ValueError: Input '<function string at HASH1>' to node '__main__:func' is not a node
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
-        f"Input '{input_}' to node '{resolved_name}' is not a view"
+        f"Input '{input_}' to node '{resolved_name}' is not a node"
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
     inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
                            ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        inner, inputs=inputs, outputs=outputs, attributes=attributes
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        inner,
+        ^^^^^^
+    ...<3 lines>...
+        attributes=attributes,
+        ^^^^^^^^^^^^^^^^^^^^^^
     )
     ^
 

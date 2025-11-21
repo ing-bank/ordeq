@@ -1,20 +1,36 @@
 ## Resource
 
 ```python
-from ordeq import node
-from ordeq_common import Literal
+from typing import Any
+
+from ordeq import IO, node, run
+from ordeq_viz import viz
+from pandas import DataFrame
+
+txs = IO[Any]()
+txs_agg = IO[Any]()
 
 
-@node(inputs=[Literal("a"), Literal("b")])
-def my_node(*, a, b):
-    print(f"a: {a}, b: {b}")
+@node(checks=txs_agg)
+def perform_check(txs_agg: DataFrame) -> None:
+    assert txs_agg.count() > 1000
+
+
+@node(inputs=txs, outputs=txs_agg)
+def agg_txs(txs: DataFrame) -> DataFrame:
+    return txs.groupBy(...).agg(...)
+
+
+if __name__ == "__main__":
+    print(viz(__name__, fmt="mermaid"))
+    run(__name__)
 
 ```
 
 ## Output
 
 ```text
-ValueError: Node inputs invalid for function arguments: Node(name=__main__:my_node,...)
+ValueError: Node inputs invalid for function arguments: Node(name=__main__:perform_check,...)
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
     raise ValueError(
     ...<2 lines>...
@@ -48,9 +64,9 @@ ValueError: Node inputs invalid for function arguments: Node(name=__main__:my_no
     )
     ^
 
-  File "/packages/ordeq/tests/resources/nodes/node_kwarg_only.py", line LINO, in <module>
-    @node(inputs=[Literal("a"), Literal("b")])
-     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/packages/ordeq/tests/resources/checks/check_after_save.py", line LINO, in <module>
+    @node(checks=txs_agg)
+     ~~~~^^^^^^^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 
@@ -61,5 +77,20 @@ ValueError: Node inputs invalid for function arguments: Node(name=__main__:my_no
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+```
+
+## Logging
+
+```text
+WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
+
+```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/checks/check_after_save.py:18:12: error[call-non-callable] Object of type `Series[Any]` is not callable
+Found 1 diagnostic
 
 ```

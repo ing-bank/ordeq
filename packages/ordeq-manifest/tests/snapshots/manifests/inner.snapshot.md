@@ -22,6 +22,7 @@ print(create_manifest_json(inner))
       "outputs": [
         "example_project.inner.nodes:y"
       ],
+      "checks": [],
       "attributes": {
         "tags": [
           "dummy"

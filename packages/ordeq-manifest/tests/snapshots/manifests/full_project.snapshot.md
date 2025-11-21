@@ -22,6 +22,7 @@ print(create_manifest_json(example_project))
       "outputs": [
         "example_project.inner.nodes:y"
       ],
+      "checks": [],
       "attributes": {
         "tags": [
           "dummy"
@@ -36,6 +37,7 @@ print(create_manifest_json(example_project))
       "outputs": [
         "example_project.nodes:y"
       ],
+      "checks": [],
       "attributes": {
         "tags": [
           "dummy"
@@ -51,6 +53,7 @@ print(create_manifest_json(example_project))
       "outputs": [
         "example_project.nodes_import:f"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_project.nodes_import:func_b": {
@@ -62,6 +65,7 @@ print(create_manifest_json(example_project))
       "outputs": [
         "example_project.catalog_2:g"
       ],
+      "checks": [],
       "attributes": {
         "tags": {
           "viz": "orange"
@@ -77,6 +81,7 @@ print(create_manifest_json(example_project))
       "outputs": [
         "example_project.nodes_import_alias:h"
       ],
+      "checks": [],
       "attributes": {
         "tags": {
           "key": "threshold",
@@ -92,6 +97,7 @@ print(create_manifest_json(example_project))
       "outputs": [
         "example_project.nodes_with_inline_io:<anonymous1>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_project.nodes_with_view:greet": {
@@ -102,6 +108,7 @@ print(create_manifest_json(example_project))
       "outputs": [
         "example_project.nodes_with_view:<anonymous2>"
       ],
+      "checks": [],
       "attributes": {}
     },
     "example_project.nodes_with_view:farewell": {
@@ -112,6 +119,7 @@ print(create_manifest_json(example_project))
       "outputs": [
         "example_project.nodes_with_view:printer"
       ],
+      "checks": [],
       "attributes": {}
     }
   },

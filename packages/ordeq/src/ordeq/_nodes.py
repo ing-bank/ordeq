@@ -8,6 +8,7 @@ from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
 from ordeq._io import IO, AnyIO, Input, Output
+from ordeq.preview import preview
 
 T = TypeVar("T")
 FuncParams = ParamSpec("FuncParams")
@@ -37,6 +38,7 @@ class Node(Generic[FuncParams, FuncReturns]):
     name: str
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
+    checks: tuple[AnyIO, ...] = ()
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
 
@@ -266,6 +268,11 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns]: ...
 
@@ -277,6 +284,11 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> View[FuncParams, FuncReturns]: ...
 
@@ -287,6 +299,11 @@ def create_node(
     name: str | None = None,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     attributes: dict[str, Any] | None = None,
 ) -> Node[FuncParams, FuncReturns] | View[FuncParams, FuncReturns]:
     """Creates a Node instance.
@@ -296,6 +313,7 @@ def create_node(
         name: name for the node. If not provided, inferred from func.
         inputs: The inputs to the node.
         outputs: The outputs from the node.
+        checks: The checks for the node.
         attributes: Optional attributes for the node.
 
     Returns:
@@ -314,7 +332,7 @@ def create_node(
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input '{input_}' to node '{resolved_name}' is not a view"
+                    f"Input '{input_}' to node '{resolved_name}' is not a node"
                 )
             view = get_node(input_)
             if not isinstance(view, View):
@@ -326,12 +344,37 @@ def create_node(
         else:
             inputs_.append(cast("Input", input_))
 
+    checks_: list[Input] = []
+    if checks:
+        preview(
+            "Checks are in preview mode and may change "
+            "without notice in future releases."
+        )
+
+        for check in _sequence_to_tuple(checks):
+            if callable(check):
+                if not _is_node(check):
+                    raise ValueError(
+                        f"Check '{check}' to node '{resolved_name}' "
+                        f"is not a node"
+                    )
+                view = get_node(check)
+                if not isinstance(view, View):
+                    raise ValueError(
+                        f"Check '{check}' to node '{resolved_name}' "
+                        f"is not a view"
+                    )
+                checks_.append(view.outputs[0])
+            else:
+                checks_.append(cast("Input", check))
+
     if not outputs:
         return View(
             func=func,  # type: ignore[arg-type]
             name=resolved_name,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]
             outputs=(IO(),),  # type: ignore[arg-type]
+            checks=tuple(checks_),  # type: ignore[arg-type]
             attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
             views=tuple(views),  # type: ignore[arg-type]
         )
@@ -340,6 +383,7 @@ def create_node(
         name=resolved_name,
         inputs=tuple(inputs_),
         outputs=_sequence_to_tuple(outputs),
+        checks=tuple(checks_),  # type: ignore[arg-type]
         attributes={} if attributes is None else attributes,
         views=tuple(views),
     )
@@ -356,6 +400,11 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     **attributes: Any,
 ) -> Callable[FuncParams, FuncReturns]: ...
 
@@ -365,6 +414,11 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable = not_passed,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     **attributes: Any,
 ) -> Callable[
     [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
@@ -376,6 +430,11 @@ def node(
     *,
     inputs: Sequence[Input | Callable] | Input | Callable | None = None,
     outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output | Callable]
+    | Input
+    | Output
+    | Callable
+    | None = None,
     **attributes: Any,
 ) -> (
     Callable[
@@ -443,6 +502,7 @@ def node(
         func: function of the node
         inputs: sequence of inputs
         outputs: sequence of outputs
+        checks: sequence of checks
         attributes: additional attributes to assign to the node
 
     Returns:
@@ -482,7 +542,11 @@ def node(
                 return f(*args, **kwargs)
 
             inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                inner, inputs=inputs, outputs=outputs, attributes=attributes
+                inner,
+                inputs=inputs,
+                outputs=outputs,
+                checks=checks,
+                attributes=attributes,
             )
             return inner
 
@@ -496,6 +560,10 @@ def node(
         return func(*args, **kwargs)
 
     wrapper.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-        wrapper, inputs=inputs, outputs=outputs, attributes=attributes
+        wrapper,
+        inputs=inputs,
+        outputs=outputs,
+        checks=checks,
+        attributes=attributes,
     )
     return wrapper

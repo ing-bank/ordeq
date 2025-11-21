@@ -28,6 +28,7 @@ with NamedTemporaryFile() as file:
       "outputs": [
         "example_project.inner.nodes:y"
       ],
+      "checks": [],
       "attributes": {
         "tags": [
           "dummy"

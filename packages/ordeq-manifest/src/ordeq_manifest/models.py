@@ -59,6 +59,7 @@ class NodeModel(BaseModel):
     name: str
     inputs: list[str] = Field(default_factory=list)
     outputs: list[str] = Field(default_factory=list)
+    checks: list[str] = Field(default_factory=list)
     attributes: dict[str, Any] = Field(default_factory=dict)
 
     @classmethod
@@ -97,10 +98,27 @@ class NodeModel(BaseModel):
                 else:
                     outs.append(module_ref + ":" + "|".join(candidates))
 
+        checks = []
+        for check in node_obj.checks:
+            candidates = io_to_fqns[check]
+            if len(candidates) == 1:
+                checks.append(candidates[0])
+            else:
+                candidates = [
+                    c.removeprefix(module_ref + ":")
+                    for c in candidates
+                    if c.startswith(module_ref + ":")
+                ]
+                if len(candidates) == 1:
+                    checks.append(module_ref + ":" + candidates[0])
+                else:
+                    checks.append(module_ref + ":" + "|".join(candidates))
+
         return cls(
             name=node_name,
             inputs=ins,  # type: ignore[index,arg-type]
             outputs=outs,
+            checks=checks,
             attributes=node_obj.attributes,
         )
 

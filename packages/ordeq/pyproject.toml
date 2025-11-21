@@ -35,6 +35,8 @@ test = [
     "types-requests",
     "ordeq-test-examples",
     "ordeq-dev-tools",
+    "ordeq-polars",
+    "ordeq-pandas",
 ]
 
 [tool.setuptools_scm]

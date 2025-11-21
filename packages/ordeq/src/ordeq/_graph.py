@@ -6,8 +6,8 @@ from graphlib import TopologicalSorter
 from itertools import chain
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import AnyIO, IOIdentity
-from ordeq._nodes import Node
+from ordeq._io import AnyIO, Input, IOIdentity, Output
+from ordeq._nodes import Node, View
 from ordeq._resource import Resource
 
 try:
@@ -62,11 +62,36 @@ class NodeResourceGraph(Graph[Resource | Node]):
         }
         resource_to_node: dict[Resource, Node] = {}
 
+        # if node.checks contains an resource, then this node precedes node(s)
+        # with that input that do not have it as a check.
+        # add edges from check resource to node(s) with that input
+        checks: dict[Resource, list[Resource]] = defaultdict(list)
+        for node in nodes:
+            for check in node.checks:
+                if isinstance(check, View):
+                    resource = Resource(check.outputs[0]._resource)
+                elif isinstance(check, (Input, Output)):
+                    resource = Resource(check._resource)
+                else:
+                    resource = Resource(check)
+
+                for output in node.outputs:
+                    checks[resource].append(Resource(output._resource))
+
         for node in nodes:
             for ip in node.inputs:
                 resource = Resource(ip._resource)
                 if resource not in edges:
                     edges[resource] = []
+
+                # link checks
+                if resource in checks and node.checks == ():
+                    for check_resource in checks[resource]:
+                        if check_resource not in edges:
+                            edges[check_resource] = []
+
+                        edges[check_resource].append(node)
+
                 edges[resource].append(node)
 
             for op in node.outputs:

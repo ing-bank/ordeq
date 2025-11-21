@@ -22,6 +22,7 @@ print(create_manifest_json(nodes_with_inline_io))
       "outputs": [
         "example_project.nodes_with_inline_io:<anonymous1>"
       ],
+      "checks": [],
       "attributes": {}
     }
   },

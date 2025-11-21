@@ -9,14 +9,14 @@ def test_run_regular_node():
     a = StringBuffer("a")
     b = StringBuffer("b")
     node = create_node(inputs=(a,), outputs=(b,), func=lambda x: x + x)
-    _run_node(node, hooks=())
+    _run_node(node)
     assert b.load() == "baa"
 
 
 def test_run_node_with_zero_inputs():
     b = StringBuffer("b")
     node = create_node(inputs=(), outputs=(b,), func=lambda: "something")
-    _run_node(node, hooks=())
+    _run_node(node)
     assert b.load() == "bsomething"
 
 

@@ -36,19 +36,23 @@ ValueError: Intentional failure for testing.
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapper
     return func(*args, **kwargs)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node_func
     values = node.func(*args)
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node_func
     raise exc
 
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
-    _run_node(node, hooks=hooks)
-    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+    _run_node(node, hooks=node_hooks)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, hooks=node_hooks)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_graph(graph, node_hooks=node_hooks, run_hooks=run_hooks)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq-common/tests/resources/hooks/spy_hook.py", line LINO, in <module>
     run(fail, hooks=[spy])

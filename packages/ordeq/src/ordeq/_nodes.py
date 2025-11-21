@@ -8,6 +8,7 @@ from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeVar, cast, overload
 
 from ordeq._io import IO, AnyIO, Input, Output
+from ordeq.preview import preview
 
 T = TypeVar("T")
 FuncParams = ParamSpec("FuncParams")

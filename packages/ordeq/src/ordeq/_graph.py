@@ -69,14 +69,14 @@ class NodeResourceGraph(Graph[Resource | Node]):
         for node in nodes:
             for check in node.checks:
                 if isinstance(check, View):
-                    resource = Resource(check.outputs[0]._resource)  # noqa: SLF001 (private-member-access)
+                    resource = Resource(check.outputs[0]._resource)
                 elif isinstance(check, AnyIO):
-                    resource = Resource(check._resource)  # noqa: SLF001 (private-member-access)
+                    resource = Resource(check._resource)
                 else:
                     resource = Resource(check)
 
                 for output in node.outputs:
-                    checks[resource].append(Resource(output._resource))  # noqa: SLF001 (private-member-access)
+                    checks[resource].append(Resource(output._resource))
 
         for node in nodes:
             for ip in node.inputs:

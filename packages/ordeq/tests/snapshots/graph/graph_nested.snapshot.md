@@ -26,11 +26,38 @@ pprint([node.name for node in node_graph.topological_ordering])
 ## Output
 
 ```text
-NodeIOGraph
-View:example_nested.subpackage.subsubpackage.hello:world --> io-0
-NodeGraph
-View:example_nested.subpackage.subsubpackage.hello:world
-Topological ordering
-['example_nested.subpackage.subsubpackage.hello:world']
+Relativistic mass
+ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' and 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' both output to Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)). Nodes cannot output to the same resource.
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    raise ValueError(msg)
+
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    return cls.from_graph(NodeResourceGraph.from_nodes(nodes))
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    return cls.from_graph(NodeGraph.from_nodes(nodes))
+                          ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+
+  File "/packages/ordeq/tests/resources/graph/graph_nested.py", line LINO, in <module>
+    base_graph = NodeIOGraph.from_nodes(nodes)
+
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+```
+
+## Logging
+
+```text
+INFO	ordeq.runner	Running node "world_relative" in module "example_nested.subpackage.subsubpackage.hello_relative"
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

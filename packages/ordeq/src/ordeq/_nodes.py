@@ -93,7 +93,7 @@ class Node(Generic[FuncParams, FuncReturns]):
         return self._name or self.func_name
 
     def __repr__(self) -> str:
-        attributes = {"func": self.name}
+        attributes = {"func": self.func_name}
 
         inputs = getattr(self, "inputs", None)
         if inputs:

@@ -1,10 +1,11 @@
 from ordeq import node
 
+from example_1.catalog import World
+
 from .catalog import (  # ty: ignore[unresolved-import]
     Hello,
     TestInput,
     TestOutput,
-    World,
 )
 
 

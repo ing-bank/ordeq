@@ -30,10 +30,10 @@ if __name__ == "__main__":
 ## Output
 
 ```text
-ValueError: Node inputs invalid for function arguments: Node(func=__main__:perform_check,...)
+ValueError: Node inputs invalid for function arguments: Node(func=__main__:perform_check, ...)
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
     raise ValueError(
-    ...<2 lines>...
+        f"Node inputs invalid for function arguments: {n}"
     ) from e
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate

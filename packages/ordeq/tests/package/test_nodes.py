@@ -1,5 +1,5 @@
 import pytest
-from ordeq import IO, node
+from ordeq import IO, Node, node
 from ordeq._nodes import _is_node, create_node, get_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
@@ -143,3 +143,17 @@ def test_is_node():
 
     not_callable = NotCallable()
     assert not _is_node(not_callable)
+
+
+def test_str():
+    assert (
+        str(
+            Node(
+                func=lambda x: x,
+                _name="module:name",
+                inputs=(StringBuffer("input1"),),
+                outputs=(StringBuffer("output1"),),
+            )
+        )
+        == "module:name"
+    )

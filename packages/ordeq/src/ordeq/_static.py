@@ -22,7 +22,7 @@ def _module_to_imports(module: ModuleType) -> dict[str, str]:
                 parent = module.__name__.rsplit(".", node.level)[0]
                 module_name = parent + f".{node.module}"
             else:
-                module_name = node.module
+                module_name = node.module or ""
 
             for alias in node.names:
                 if alias.name == "*":

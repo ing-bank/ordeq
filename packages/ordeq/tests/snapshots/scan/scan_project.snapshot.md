@@ -9,16 +9,16 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_project))
 print("Nodes:")
-pprint(nodes)
+pprint(list(nodes.values()), width=200)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
 ## Output
 
 ```text
-ValueError: Module 'example_project.nodes_import_alias' aliases IO 'example_project.catalog_1:b' to 'B'. IOs cannot be aliased.
+ValueError: Module 'example_project.nodes_import_alias' aliases IO 'example_project.nodes_import:b' to 'B'. IOs cannot be aliased.
   File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
     raise ValueError(
     ...<3 lines>...

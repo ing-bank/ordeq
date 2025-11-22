@@ -9,9 +9,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(*_resolve_packages_to_modules(example_nested))
 print("Nodes:")
-pprint(nodes)
+pprint(list(nodes.values()), width=200)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
@@ -19,8 +19,7 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_nested.subpackage.subsubpackage.hello', 'world'),
-  View(func=example_nested.subpackage.subsubpackage.hello:world))]
+[('example_nested.subpackage.subsubpackage.hello', 'world')]
 IOs:
 []
 

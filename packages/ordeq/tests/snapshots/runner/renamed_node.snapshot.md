@@ -15,17 +15,29 @@ run(renamed, verbose=True)
 ## Output
 
 ```text
-io-0 --> Node:resources.runner.example_module_b:increment
-Node:resources.runner.example_module_b:increment --> io-1
+ValueError: Module 'resources.runner.example_module_b' aliases node 'resources.runner.example_module_b:increment' to 'renamed'. Nodes cannot be aliased.
+  File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
+    raise ValueError(
+    ...<3 lines>...
+    )
 
-```
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    scanned_nodes, _ = scan(*submodules)
+                       ~~~~^^^^^^^^^^^^^
 
-## Logging
+  File "/packages/ordeq/tests/resources/runner/renamed_node.py", line LINO, in <module>
+    run(renamed, verbose=True)
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^
 
-```text
-INFO	ordeq.io	Loading Literal(12345)
-INFO	ordeq.runner	Running node "increment" in module "resources.runner.example_module_b"
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 

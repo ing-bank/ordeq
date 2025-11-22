@@ -8,9 +8,9 @@ from ordeq._scan import scan
 
 nodes, ios = scan(example_project.nodes_import)
 print("Nodes:")
-pprint(nodes)
+pprint(list(nodes.values()), width=200)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=200)
 
 ```
 
@@ -18,16 +18,8 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_project.nodes_import', 'func_a'),
-  Node(func=example_project.nodes_import:func_a, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()])),
- (('example_project.nodes_import', 'func_b'),
-  Node(func=example_project.nodes_import:func_b, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}))]
+[('example_project.nodes_import', 'func_a'), ('example_project.nodes_import', 'func_b')]
 IOs:
-[(('example_project.nodes_import', 'a'),
-  Literal('a')),
- (('example_project.nodes_import', 'b'),
-  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- (('example_project.nodes_import', 'f'),
-  Print())]
+[('example_project.nodes_import', 'a'), ('example_project.nodes_import', 'b'), ('example_project.nodes_import', 'f')]
 
 ```

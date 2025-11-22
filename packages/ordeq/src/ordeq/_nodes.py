@@ -35,6 +35,7 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 @dataclass(frozen=True, kw_only=True)
 class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
+    _name: str | None = None
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
     checks: tuple[AnyIO, ...] = ()
@@ -50,6 +51,14 @@ class Node(Generic[FuncParams, FuncReturns]):
         _raise_if_not_hashable(self)
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
+
+    @cached_property
+    def func_name(self) -> str:
+        return infer_node_name_from_func(self.func)
+
+    @property
+    def name(self) -> str:
+        return self._name or self.func_name
 
     def _patch_io(
         self, io: dict[AnyIO, AnyIO]
@@ -70,12 +79,11 @@ class Node(Generic[FuncParams, FuncReturns]):
             outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
         )
 
-    @cached_property
-    def name(self) -> str:
-        return infer_node_name_from_func(self.func)
-
     def __repr__(self) -> str:
-        attributes = {"func": self.name}
+        if self._name:
+            attributes = {"name": self._name}
+        else:
+            attributes = {"func": self.func_name}
 
         inputs = getattr(self, "inputs", None)
         if inputs:
@@ -113,7 +121,7 @@ def _raise_for_invalid_inputs(n: Node) -> None:
     except TypeError as e:
         raise ValueError(
             f"Node inputs invalid for function arguments: "
-            f"Node(func={n.name},...)"
+            f"Node(func={n.func_name},...)"
         ) from e
 
 
@@ -133,8 +141,8 @@ def _raise_for_invalid_outputs(n: Node) -> None:
     if not all(are_outputs):
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
-            f"Outputs of node '{n.name}' must be of type Output, "
-            f"got {type(not_an_output)} "
+            f"Outputs of node Node(func={n.func_name}) must be of type Output,"
+            f" got {type(not_an_output)} "
         )
 
     func = n.func
@@ -222,7 +230,10 @@ class View(Node[FuncParams, FuncReturns]):
         )
 
     def __repr__(self) -> str:
-        attributes = {"func": self.name}
+        if self._name:
+            attributes = {"name": self._name}
+        else:
+            attributes = {"func": self.func_name}
 
         inputs = getattr(self, "inputs", None)
         if inputs:

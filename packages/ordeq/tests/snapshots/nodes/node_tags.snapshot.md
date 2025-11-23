@@ -53,7 +53,7 @@ print(node4.attributes)
 
 ```text
 {}
-Node(func=__main__:func2, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)], attributes={'tags': ['tag1', 'tag2']})
+Node(func=__main__:func2, ...)
 {'tags': ['tag1', 'tag2']}
 {'key1': 'value1'}
 {'attributes': None}

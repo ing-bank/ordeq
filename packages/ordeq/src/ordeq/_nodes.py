@@ -516,9 +516,9 @@ def node(
 
         def wrapped(
             f: Callable[FuncParams, FuncReturns],
-        ) -> Callable[FuncParams, FuncReturns]:
+        ) -> Node[FuncParams, FuncReturns]:
             @wraps(f)
-            def inner(*args, **kwargs):
+            def inner(*args: FuncParams.args, **kwargs: FuncParams.kwargs):
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
@@ -537,7 +537,7 @@ def node(
     # else: we are called as node(func, inputs=...)
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: FuncParams.args, **kwargs: FuncParams.kwargs) -> FuncReturns:
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 

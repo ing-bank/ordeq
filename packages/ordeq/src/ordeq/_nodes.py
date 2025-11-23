@@ -245,10 +245,6 @@ class View(Node[FuncParams, FuncReturns]):
         return f"View({attributes_str})"
 
 
-def _as_node(obj: Callable | Node) -> Node:
-    return cast("Node", obj)
-
-
 def _is_node(obj: object) -> TypeGuard[Node]:
     return isinstance(obj, Node)
 
@@ -321,7 +317,7 @@ def create_node(
                     f"Input '{input_}' to Node(func={func_name}, ...) "
                     f"is not a node"
                 )
-            view = _as_node(input_)
+            view = input_
             if not isinstance(view, View):
                 raise ValueError(
                     f"Input '{input_}' to node Node(func={func_name}, ...) "
@@ -346,7 +342,7 @@ def create_node(
                         f"Check '{check}' to node Node(func={func_name}, ...) "
                         f"is not a node"
                     )
-                view = _as_node(check)
+                view = check
                 if not isinstance(view, View):
                     raise ValueError(
                         f"Check '{check}' to node Node(func={func_name}, ...) "
@@ -392,7 +388,7 @@ def node(
     | Callable
     | None = None,
     **attributes: Any,
-) -> Callable[FuncParams, FuncReturns]: ...
+) -> Node[FuncParams, FuncReturns]: ...
 
 
 @overload
@@ -407,7 +403,7 @@ def node(
     | None = None,
     **attributes: Any,
 ) -> Callable[
-    [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
+    [Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]
 ]: ...
 
 
@@ -424,9 +420,9 @@ def node(
     **attributes: Any,
 ) -> (
     Callable[
-        [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
+        [Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]
     ]
-    | Callable[FuncParams, FuncReturns]
+    | Node[FuncParams, FuncReturns]
 ):
     """Decorator that creates a node from a function. When a node is run,
     the inputs are loaded and passed to the function. The returned values

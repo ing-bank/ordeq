@@ -2,7 +2,6 @@
 
 ```python
 from ordeq import Node, NodeHook, Output, OutputHook, node
-from ordeq._nodes import _as_node
 from ordeq_common import StringBuffer
 
 
@@ -26,7 +25,7 @@ untyped_hook = MyUntypedOutputHook()
 untyped_hook.before_output_save(StringBuffer("A"), "hello")
 
 fixed_output_hook = MyFixedOutputHook()
-fixed_output_hook.before_node_run(_as_node(func))
+fixed_output_hook.before_node_run(func)
 fixed_output_hook.before_output_save(StringBuffer("B"), "world")
 
 ```

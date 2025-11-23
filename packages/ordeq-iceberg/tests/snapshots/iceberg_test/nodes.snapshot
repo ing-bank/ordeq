@@ -1,0 +1,8 @@
+Logging:
+WARNING	ordeq.nodes	Creating a view, as no outputs were provided for node 'nodes:load_table'. Views are in pre-release, functionality may break without notice. Use @node(outputs=...) to create a regular node.
+
+Typing:
+packages/ordeq-iceberg/tests/resources/iceberg_test/nodes.py:4: error: Skipping analyzing "resources.iceberg_test.catalog": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+packages/ordeq-iceberg/tests/resources/iceberg_test/nodes.py:4: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+packages/ordeq-iceberg/tests/resources/iceberg_test/nodes.py:13: error: Missing return statement  [return]
+Found 2 errors in 1 file (checked 1 source file)

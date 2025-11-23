@@ -45,7 +45,7 @@ packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" alrea
 packages/ordeq/tests/resources/views/view_takes_node_output.py:4: error: Need type annotation for "placeholder"  [var-annotated]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:6: error: Need type annotation for "b"  [var-annotated]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:8: error: Need type annotation for "B"  [var-annotated]
-packages/ordeq/tests/resources/runner/logging_verbosity.py:17: error: Argument 1 to "from_nodes" of "NodeGraph" has incompatible type "set[Node[Any, Any]]"; expected "Sequence[Node[Any, Any]]"  [arg-type]
+packages/ordeq/tests/resources/runner/logging_verbosity.py:16: error: Argument 1 to "from_nodes" of "NodeGraph" has incompatible type "set[Callable[..., Any]]"; expected "Sequence[Node[Any, Any]]"  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*list[function]"; expected Module | Callable[..., Any] | str  [arg-type]
@@ -63,4 +63,4 @@ packages/ordeq/tests/resources/checks/check_after_resource.py:16: error: No over
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note: Possible overload variants:
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any] | Callable[..., Any]] | Input[Any] | Output[Any] | Callable[..., Any] | None = ..., **attributes: Any) -> Callable[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any] | Callable[..., Any]] | Input[Any] | Output[Any] | Callable[..., Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]]
-Found 29 errors in 23 files (checked 275 source files)
+Found 29 errors in 23 files (checked 276 source files)

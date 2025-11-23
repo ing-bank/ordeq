@@ -40,15 +40,11 @@ ValueError: Outputs of node '__main__:func' must be of type Output, got <class '
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
-    inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    node_ = create_node(
         inner,
-        ^^^^^^
     ...<3 lines>...
         attributes=attributes,
-        ^^^^^^^^^^^^^^^^^^^^^^
     )
-    ^
 
   File "/packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py", line LINO, in <module>
     @node(inputs=x, outputs=x)  # outputs should be of type Output or IO

@@ -18,7 +18,7 @@ def say_hello() -> str:
 ## Output
 
 ```text
-ValueError: Outputs of node '__main__:say_hello' must be of type Output, got <class 'function'> 
+ValueError: Outputs of node '__main__:say_hello' must be of type Output, got <class 'ordeq._nodes.View'> 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_outputs
     raise ValueError(
     ...<2 lines>...
@@ -42,15 +42,11 @@ ValueError: Outputs of node '__main__:say_hello' must be of type Output, got <cl
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
-    inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    node_ = create_node(
         inner,
-        ^^^^^^
     ...<3 lines>...
         attributes=attributes,
-        ^^^^^^^^^^^^^^^^^^^^^^
     )
-    ^
 
   File "/packages/ordeq/tests/resources/views/node_outputs_view.py", line LINO, in <module>
     @node(outputs=hello)

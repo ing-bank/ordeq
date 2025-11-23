@@ -16,10 +16,10 @@ pprint(_resolve_module_globals(example_namespace.namespace))
 {'B': IO(id=ID1),
  'a': IO(id=ID1),
  'ios': [IO(id=ID1), IO(id=ID1)],
- 'node_with_inline_io': <function node_with_inline_io at HASH1>,
- 'node_with_list_input': <function node_with_list_input at HASH2>,
- 'node_with_node_input': <function node_with_node_input at HASH3>,
- 'x': <function hello at HASH4>,
- 'y': <function hello at HASH5>}
+ 'node_with_inline_io': Node(func=example_namespace.namespace:node_with_inline_io, inputs=[IO(id=ID2)], outputs=[IO(id=ID3)]),
+ 'node_with_list_input': Node(func=example_namespace.namespace:node_with_list_input, inputs=[IO(id=ID1), IO(id=ID1)], outputs=[IO(id=ID4)]),
+ 'node_with_node_input': Node(func=example_namespace.namespace:node_with_node_input, inputs=[IO(id=ID5)], outputs=[IO(id=ID6)]),
+ 'x': View(func=example_namespace.other:hello),
+ 'y': View(func=example_namespace.other:hello)}
 
 ```

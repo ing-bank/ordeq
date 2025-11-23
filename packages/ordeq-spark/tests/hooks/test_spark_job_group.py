@@ -3,7 +3,7 @@ from io import StringIO
 from typing import Any
 
 from ordeq import IO, node
-from ordeq._nodes import get_node
+from ordeq._nodes import _as_node
 from ordeq_spark import SparkJobGroupHook
 
 
@@ -28,4 +28,4 @@ def test_spark_hook(spark):
         return "world"
 
     hook = SparkJobGroupHook()
-    hook.before_node_run(get_node(hello))
+    hook.before_node_run(_as_node(hello))

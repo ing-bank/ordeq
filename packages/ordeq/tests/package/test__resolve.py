@@ -2,7 +2,6 @@ from collections.abc import Callable
 
 import pytest
 from ordeq import Node
-from ordeq._nodes import get_node
 from ordeq._resolve import _resolve_runnables_to_nodes
 
 
@@ -28,13 +27,13 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
     Returns:
         a set of expected node objects
     """
-    return {get_node(f) for f in expected_example_nodes}
+    return set(expected_example_nodes)
 
 
 def test_gather_nodes_from_module():
     from example_1 import nodes as mod
 
-    assert get_node(mod.world) is not None
+    assert mod.world is not None
 
 
 def test_resolve_node_by_reference(expected_example_node_objects) -> None:
@@ -42,7 +41,7 @@ def test_resolve_node_by_reference(expected_example_node_objects) -> None:
     from example_1.nodes import world  # ty: ignore[unresolved-import]
 
     nodes = _resolve_runnables_to_nodes("example_1.nodes:world")
-    assert nodes == [(("example_1.nodes", "world"), get_node(world))]
+    assert nodes == [(("example_1.nodes", "world"), world)]
 
 
 def test_resolve_node_by_reference_not_a_node() -> None:

@@ -1,7 +1,5 @@
 import json
 
-from ordeq._nodes import get_node
-
 from ordeq_viz.graph import _gather_graph
 from ordeq_viz.to_kedro_viz import graph_to_kedro_viz
 
@@ -11,7 +9,7 @@ def test_kedro(tmp_path):
 
     graph_to_kedro_viz(
         _gather_graph(
-            nodes=[get_node(mod.world)], ios={"...": {"x": mod.x, "y": mod.y}}
+            nodes=[mod.world], ios={"...": {"x": mod.x, "y": mod.y}}
         ),
         output_directory=tmp_path / "viz",
     )

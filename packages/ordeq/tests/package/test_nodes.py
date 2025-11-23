@@ -1,6 +1,6 @@
 import pytest
 from ordeq import IO, node
-from ordeq._nodes import _is_node, create_node, get_node
+from ordeq._nodes import _is_node, create_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 
@@ -98,24 +98,6 @@ def test_it_raises_for_invalid_outputs(func, outputs: tuple[IO]):
             func=func, inputs=(StringBuffer("a"),), outputs=outputs
         )
         _run_node(n, hooks=())
-
-
-class TestGetNode:
-    def test_it_gets_registered_node(self):
-        @node(inputs=[StringBuffer("a")], outputs=[StringBuffer("b")])
-        def my_func(a: str) -> str:
-            return a
-
-        node_obj = get_node(my_func)
-        assert node_obj is not None
-        assert node_obj.func == my_func
-
-    def test_it_raises_node_not_found(self):
-        def my_func(a: str) -> str:
-            return a
-
-        with pytest.raises(ValueError, match="'my_func' is not a node"):
-            get_node(my_func)
 
 
 def test_is_node():

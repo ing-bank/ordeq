@@ -537,7 +537,9 @@ def node(
     # else: we are called as node(func, inputs=...)
 
     @wraps(func)
-    def wrapper(*args: FuncParams.args, **kwargs: FuncParams.kwargs) -> FuncReturns:
+    def wrapper(
+        *args: FuncParams.args, **kwargs: FuncParams.kwargs
+    ) -> FuncReturns:
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 

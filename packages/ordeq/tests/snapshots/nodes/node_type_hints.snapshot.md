@@ -1,7 +1,10 @@
 ## Resource
 
 ```python
+import inspect
+
 from ordeq import node
+from ordeq._nodes import _is_node
 from ordeq_common import StringBuffer
 
 
@@ -10,24 +13,22 @@ from ordeq_common import StringBuffer
     outputs=[StringBuffer("z"), StringBuffer("1")],
 )
 def func(x: str, y: str) -> tuple[str, str]:
-    """A really nice node"""
-
     return f"{x} + {y}", y
 
 
-print(func.__doc__)
+print(type(func))
 print(func)
-print(func.__annotations__)
-print(func.__module__)
+print(inspect.get_annotations(func))
+print(_is_node(func))
 
 ```
 
 ## Output
 
 ```text
-A really nice node
+<class 'ordeq._nodes.Node'>
 Node(func=__main__:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
-ordeq._nodes
+True
 
 ```

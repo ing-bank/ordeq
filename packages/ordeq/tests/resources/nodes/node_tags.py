@@ -1,5 +1,5 @@
 from ordeq import node
-from ordeq._nodes import get_node
+from ordeq._nodes import _as_node
 from ordeq_common import StringBuffer
 
 x = StringBuffer("x")
@@ -13,7 +13,7 @@ def func1(x: str, y: str) -> tuple[str, str]:
     return f"{x} + {y}", y
 
 
-node1 = get_node(func1)
+node1 = _as_node(func1)
 print(node1.attributes)
 
 
@@ -22,7 +22,7 @@ def func2(x: str, y: str) -> tuple[str, str]:
     return f"{x} + {y}", y
 
 
-node2 = get_node(func2)
+node2 = _as_node(func2)
 print(node2)
 print(node2.attributes)
 
@@ -32,7 +32,7 @@ def func3(x: str, y: str) -> tuple[str, str]:
     return f"{x} + {y}", y
 
 
-node3 = get_node(func3)
+node3 = _as_node(func3)
 print(node3.attributes)
 
 
@@ -41,5 +41,5 @@ def func4(x: str, y: str) -> tuple[str, str]:
     return f"{x} + {y}", y
 
 
-node4 = get_node(func4)
+node4 = _as_node(func4)
 print(node4.attributes)

@@ -41,15 +41,11 @@ ValueError: Outputs of node Node(func=__main__:say_hello, ...) must be of type O
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
-    inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    node_ = create_node(
         inner,
-        ^^^^^^
     ...<3 lines>...
         attributes=attributes,
-        ^^^^^^^^^^^^^^^^^^^^^^
     )
-    ^
 
   File "/packages/ordeq/tests/resources/views/node_outputs_regular_func.py", line LINO, in <module>
     @node(outputs=hello)

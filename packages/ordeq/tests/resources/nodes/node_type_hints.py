@@ -1,4 +1,7 @@
+import inspect
+
 from ordeq import node
+from ordeq._nodes import _is_node
 from ordeq_common import StringBuffer
 
 
@@ -7,12 +10,10 @@ from ordeq_common import StringBuffer
     outputs=[StringBuffer("z"), StringBuffer("1")],
 )
 def func(x: str, y: str) -> tuple[str, str]:
-    """A really nice node"""
-
     return f"{x} + {y}", y
 
 
-print(func.__doc__)
+print(type(func))
 print(func)
-print(func.__annotations__)
-print(func.__module__)
+print(inspect.get_annotations(func))
+print(_is_node(func))

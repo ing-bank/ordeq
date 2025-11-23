@@ -19,7 +19,7 @@ from ordeq._fqn import (
 )
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
-from ordeq._nodes import Node, _is_node, get_node
+from ordeq._nodes import Node, _as_node, _is_node
 
 Runnable: TypeAlias = ModuleType | Callable | str
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
@@ -45,7 +45,7 @@ def _resolve_fqn_to_node(fqn: FQN) -> Node:
         raise ValueError(
             f"Node '{node_name}' not found in module '{module_ref}'"
         )
-    return get_node(node_obj)
+    return _as_node(node_obj)
 
 
 def _resolve_fqn_to_hook(fqn: FQN) -> RunnerHook:
@@ -249,7 +249,7 @@ def _resolve_runnables_to_nodes_and_modules(
             # mypy false positive
             modules_and_strs.append(runnable)  # type: ignore[arg-type]
         elif callable(runnable):
-            node = get_node(runnable)
+            node = _as_node(runnable)
             if node not in nodes:
                 nodes.append(((Unknown, Unknown), node))
             else:
@@ -281,7 +281,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> dict[str, Node]:
     nodes: dict[Node, str] = {}
     for name, obj in vars(module).items():
         if _is_node(obj):
-            node = get_node(obj)
+            node = _as_node(obj)
             if node in nodes:
                 raise ValueError(
                     f"Module '{module.__name__}' contains duplicate keys "
@@ -361,7 +361,7 @@ def _resolve_runnables_to_modules(
 def _resolve_callables_to_nodes(*runnables: Runnable) -> Generator[FQ[Node]]:
     for runnable in runnables:
         if not isinstance(runnable, ModuleType) and callable(runnable):
-            node = get_node(runnable)
+            node = _as_node(runnable)
             yield (Unknown, Unknown), node
 
 

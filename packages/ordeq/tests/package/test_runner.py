@@ -1,6 +1,6 @@
 from ordeq import node
 from ordeq._graph import NodeGraph
-from ordeq._nodes import create_node, get_node
+from ordeq._nodes import create_node
 from ordeq._runner import _run_graph, _run_node, run
 from ordeq_common import StringBuffer
 
@@ -27,7 +27,7 @@ def test_run_graph_all():
     minus = node(func=lambda x, y: f"({x} - {y})", inputs=(c, d), outputs=(e,))
     square = node(func=lambda x: f"({x})^2", inputs=(e,), outputs=(f,))
 
-    nodes = {get_node(plus), get_node(minus), get_node(square)}
+    nodes = {plus, minus, square}
     _run_graph(NodeGraph.from_nodes(nodes))
     assert c.load() == "c(a + b)"
     assert e.load() == "e(c(a + b) - d)"
@@ -38,7 +38,7 @@ def test_run_graph_two():
     a, b, c, d, e = [StringBuffer(x) for x in "abcde"]
     plus = node(func=lambda x, y: f"({x} + {y})", inputs=(a, b), outputs=(c,))
     minus = node(func=lambda x, y: f"({x} - {y})", inputs=(c, d), outputs=(e,))
-    nodes = {get_node(plus), get_node(minus)}
+    nodes = {plus, minus}
     _run_graph(NodeGraph.from_nodes(nodes))
     assert c.load() == "c(a + b)"
     assert e.load() == "e(c(a + b) - d)"
@@ -47,7 +47,7 @@ def test_run_graph_two():
 def test_run_graph_one():
     a, b, c = [StringBuffer(x) for x in "abc"]
     plus = node(func=lambda x, y: f"({x} + {y})", inputs=(a, b), outputs=(c,))
-    nodes = [get_node(plus)]
+    nodes = [plus]
     _run_graph(NodeGraph.from_nodes(nodes))
     assert c.load() == "c(a + b)"
 

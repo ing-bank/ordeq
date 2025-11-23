@@ -37,15 +37,11 @@ ValueError: Node inputs invalid for function arguments: Node(func=__main__:func,
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in node
-    wrapper.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                             ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    node_ = create_node(
         wrapper,
-        ^^^^^^^^
     ...<3 lines>...
         attributes=attributes,
-        ^^^^^^^^^^^^^^^^^^^^^^
     )
-    ^
 
   File "/packages/ordeq/tests/resources/runner/node_late_binding.py", line LINO, in <module>
     @node

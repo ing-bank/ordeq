@@ -2,7 +2,6 @@
 
 ```python
 from ordeq import node, run
-from ordeq._nodes import get_node
 from ordeq_common import Literal, Print
 
 
@@ -11,7 +10,7 @@ def hello() -> tuple[str, str]:
     return "Hello", "world"
 
 
-print(repr(get_node(hello)))
+print(repr(hello))
 
 
 @node(inputs=[hello, Literal("!!!")], outputs=Print())

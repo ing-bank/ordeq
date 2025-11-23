@@ -5,21 +5,10 @@ from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import cached_property, wraps
 from inspect import Signature, signature
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Generic,
-    ParamSpec,
-    TypeVar,
-    cast,
-    overload,
-)
+from typing import Any, Generic, ParamSpec, TypeGuard, TypeVar, cast, overload
 
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq.preview import preview
-
-if TYPE_CHECKING:
-    from ordeq._fqn import ObjectRef
 
 T = TypeVar("T")
 FuncParams = ParamSpec("FuncParams")
@@ -45,15 +34,16 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 
 @dataclass(frozen=True, kw_only=True)
 class Node(Generic[FuncParams, FuncReturns]):
+    @property
+    def __doc__(self) -> str | None:  # type: ignore[override]
+        return self.func.__doc__
+
     func: Callable[FuncParams, FuncReturns]
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
     checks: tuple[AnyIO, ...] = ()
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
-
-    # Node names are assigned on run/viz from context.
-    _name: ObjectRef | None = None
 
     def __post_init__(self):
         """Nodes always have to be hashable"""
@@ -85,15 +75,14 @@ class Node(Generic[FuncParams, FuncReturns]):
         )
 
     @cached_property
-    def func_name(self) -> str:
+    def name(self) -> str:
         return infer_node_name_from_func(self.func)
 
-    @property
-    def name(self) -> str:
-        return self._name or self.func_name
+    def __call__(self, *args, **kwargs) -> FuncReturns:
+        return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
 
     def __repr__(self) -> str:
-        attributes = {"func": self.func_name}
+        attributes = {"func": self.name}
 
         inputs = getattr(self, "inputs", None)
         if inputs:
@@ -256,31 +245,12 @@ class View(Node[FuncParams, FuncReturns]):
         return f"View({attributes_str})"
 
 
-def get_node(func: Callable) -> Node:
-    """Gets the node from a callable created with the `@node` decorator.
-
-    Args:
-        func: a callable created with the `@node` decorator
-
-    Returns:
-        the node associated with the callable
-
-    Raises:
-        ValueError: if the callable was not created with the `@node` decorator
-    """
-
-    try:
-        return func.__ordeq_node__  # type: ignore[attr-defined]
-    except AttributeError as e:
-        raise ValueError(f"'{func.__name__}' is not a node") from e
+def _as_node(obj: Callable | Node) -> Node:
+    return cast("Node", obj)
 
 
-def _is_node(obj: object) -> bool:
-    return (
-        callable(obj)
-        and hasattr(obj, "__ordeq_node__")
-        and isinstance(obj.__ordeq_node__, Node)
-    )
+def _is_node(obj: object) -> TypeGuard[Node]:
+    return isinstance(obj, Node)
 
 
 @overload
@@ -351,7 +321,7 @@ def create_node(
                     f"Input '{input_}' to Node(func={func_name}, ...) "
                     f"is not a node"
                 )
-            view = get_node(input_)
+            view = _as_node(input_)
             if not isinstance(view, View):
                 raise ValueError(
                     f"Input '{input_}' to node Node(func={func_name}, ...) "
@@ -376,7 +346,7 @@ def create_node(
                         f"Check '{check}' to node Node(func={func_name}, ...) "
                         f"is not a node"
                     )
-                view = get_node(check)
+                view = _as_node(check)
                 if not isinstance(view, View):
                     raise ValueError(
                         f"Check '{check}' to node Node(func={func_name}, ...) "
@@ -557,14 +527,15 @@ def node(
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
+            node_ = create_node(
                 inner,
                 inputs=inputs,
                 outputs=outputs,
                 checks=checks,
                 attributes=attributes,
             )
-            return inner
+            node_.__dict__["__annotations__"] = f.__annotations__  # noqa: RUF063
+            return node_
 
         return wrapped
 
@@ -575,11 +546,14 @@ def node(
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    wrapper.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
+    node_ = create_node(
         wrapper,
         inputs=inputs,
         outputs=outputs,
         checks=checks,
         attributes=attributes,
     )
-    return wrapper
+
+    node_.__dict__["__annotations__"] = func.__annotations__  # noqa: RUF063
+
+    return node_

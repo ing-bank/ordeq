@@ -5,7 +5,7 @@ from __future__ import annotations
 import importlib
 import pkgutil
 import warnings
-from collections.abc import Callable, Generator
+from collections.abc import Generator
 from types import ModuleType
 from typing import TypeAlias, TypeGuard
 

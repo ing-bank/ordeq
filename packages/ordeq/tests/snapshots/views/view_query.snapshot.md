@@ -46,11 +46,9 @@ View:__main__:range_to_csv --> io-2
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'selected_range' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
-DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'range_to_csv' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)

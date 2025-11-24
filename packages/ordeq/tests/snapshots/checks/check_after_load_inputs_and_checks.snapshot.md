@@ -78,13 +78,10 @@ DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'agg_txs' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
-DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
-DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)

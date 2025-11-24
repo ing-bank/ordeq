@@ -43,11 +43,9 @@ bucket3
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'buckets' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
-DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'print_buckets' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)

@@ -30,7 +30,6 @@ View:View(func=__main__:noop, ...) --> io-4
 
 ```text
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'increment' in module 'resources.runner.example_module_a'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)

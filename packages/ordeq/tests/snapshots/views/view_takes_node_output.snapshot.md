@@ -53,7 +53,7 @@ IOException: Failed to load IO(id=ID1).
     raise IOException(msg) from exc
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _load_inputs
-    data = cast("Input", input_dataset).load()
+    data = cast("Input", input_io).load()
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     args = _load_inputs(node.inputs)
@@ -88,17 +88,13 @@ IOException: Failed to load IO(id=ID1).
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID3)
-DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
-DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 INFO	ordeq.runner	Running node 'hello_from_someone' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'what_i_heard' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
-DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 INFO	ordeq.runner	Running view 'sink' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID5)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)

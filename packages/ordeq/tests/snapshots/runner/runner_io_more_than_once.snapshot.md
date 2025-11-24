@@ -55,14 +55,11 @@ Node:__main__:decrement --> io-2
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'decrement' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
@@ -71,14 +68,11 @@ DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object a
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
-DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
-DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 INFO	ordeq.runner	Running node 'decrement' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)

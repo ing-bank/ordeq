@@ -2,7 +2,7 @@ import pandas as pd
 from ordeq import Input, node, run
 from ordeq_viz import viz
 
-txs = Input(
+txs = Input[pd.DataFrame](
     pd.DataFrame({
         "id": [1, 2, 3],
         "amount": [100, 200, 300],

@@ -4,7 +4,7 @@ import pandas as pd
 from ordeq import IO, Input, node, run
 from ordeq_viz import viz
 
-txs = Input(
+txs = Input[pd.DataFrame](
     pd.DataFrame({
         "id": [1, 2, 3],
         "amount": [100, 200, 300],
@@ -13,7 +13,7 @@ txs = Input(
     })
 )
 txs_agg = IO[Any]()
-threshold = Input(100)
+threshold = Input[int](100)
 
 
 @node(inputs=[txs_agg, threshold], checks=txs_agg)

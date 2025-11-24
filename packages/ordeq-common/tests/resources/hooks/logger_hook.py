@@ -4,7 +4,7 @@ from ordeq_common import LoggerHook
 logger = LoggerHook()
 
 
-@node(inputs=Input("name"), outputs=IO())
+@node(inputs=Input[str]("name"), outputs=IO())
 def hello(name: str) -> str:
     return f"Hello, {name}!"
 

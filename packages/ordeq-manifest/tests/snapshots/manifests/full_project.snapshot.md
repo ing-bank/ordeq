@@ -304,3 +304,13 @@ print(create_manifest_json(example_project))
 }
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
+DEBUG	ordeq.io	Persisting data for Input(id=ID4)
+
+```

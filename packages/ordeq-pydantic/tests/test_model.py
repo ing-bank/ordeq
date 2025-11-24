@@ -11,7 +11,7 @@ class MyModel(BaseModel):
 
 
 def test_model(tmp_path):
-    example = Input({"hello": "hello", "world": "world"})
+    example = Input[dict[str, str]]({"hello": "hello", "world": "world"})
     dataset = PydanticModel(io=example, model_type=MyModel)
 
     loaded_model = dataset.load()

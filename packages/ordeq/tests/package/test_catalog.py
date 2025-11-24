@@ -36,11 +36,11 @@ class FakeModule(ModuleType):
                 "something_else": 4  # not an IO
             },
         ),
-        ({"hello": StringBuffer()}, {"hello": Input("hello")}),
+        ({"hello": StringBuffer()}, {"hello": Input[str]("hello")}),
         (
             {"hello": StringBuffer(), "result": StringBuffer()},
             {
-                "hello": Input("hello"),
+                "hello": Input[str]("hello"),
                 "result": StringBuffer(),
                 "something_else": 4,  # not an IO
             },

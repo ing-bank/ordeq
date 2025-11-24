@@ -12,7 +12,7 @@ def hello() -> str:
 print(repr(hello))
 
 
-@node(inputs=[Input("Jane"), hello])
+@node(inputs=[Input[str]("Jane"), hello])
 def hello_from_someone(name: str, v: str) -> str:
     return f"{name} said '{v}'"
 

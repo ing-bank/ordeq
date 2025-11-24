@@ -3,7 +3,7 @@
 ```python
 from ordeq import Input, node
 
-x = Input("X")
+x = Input[str]("X")
 
 
 @node(inputs=x, outputs=x)  # outputs should be of type Output or IO

@@ -6,7 +6,7 @@ from typing import TypeAlias
 import pandas as pd
 from ordeq import Input, node, run
 
-dataframe = Input(
+dataframe = Input[pd.DataFrame](
     pd.DataFrame({
         "A": ["foo", "bar", "foo"],
         "B": [1, 2, 3],

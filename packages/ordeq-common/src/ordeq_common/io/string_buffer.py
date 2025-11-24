@@ -45,7 +45,7 @@ class StringBuffer(IO[str]):
     >>> from ordeq import node, run, Input
     >>> result = StringBuffer()
     >>> @node(
-    ...     inputs=[StringBuffer("Hello"), Input("you")],
+    ...     inputs=[StringBuffer("Hello"), Input[str]("you")],
     ...     outputs=result
     ... )
     ... def greet(greeting: str, name: str) -> str:

@@ -10,7 +10,7 @@ def hello() -> tuple[str, str]:
 print(repr(hello))
 
 
-@node(inputs=[hello, Input("!!!")], outputs=Print())
+@node(inputs=[hello, Input[str]("!!!")], outputs=Print())
 def combine_greeting_with_ending(greeting: tuple[str, str], e: str):
     return f"{' '.join(greeting)} {e}"
 

@@ -82,9 +82,9 @@ def Match(io: Input[Tkey] | None = None) -> MatchOnLoad | MatchOnSave:
     >>> import os
     >>> Country = (
     ...     Match(EnvironmentVariable("COUNTRY"))
-    ...     .Case("NL", Input("Netherlands"))
-    ...     .Case("BE", Input("Belgium"))
-    ...     .Default(Input("Unknown"))
+    ...     .Case("NL", Input[str]("Netherlands"))
+    ...     .Case("BE", Input[str]("Belgium"))
+    ...     .Default(Input[str]("Unknown"))
     ... )
     >>> os.environ["COUNTRY"] = "NL"
     >>> Country.load()

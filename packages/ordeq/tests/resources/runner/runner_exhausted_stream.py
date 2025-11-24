@@ -20,7 +20,7 @@ class Stream(IO[Generator[str, None, None]]):
 
 x1 = Stream(["1", "2", "3"])
 x2 = Stream()
-x3 = Input("2")
+x3 = Input[str]("2")
 x4 = Stream()
 
 

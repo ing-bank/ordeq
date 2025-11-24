@@ -5,8 +5,8 @@ from ordeq_common import Match
 
 def test_wraps_match_on_load():
     ev = EnvironmentVariable("COUNTRY")
-    s1 = Input("Netherlands")
-    s2 = Input("Belgium")
+    s1 = Input[str]("Netherlands")
+    s2 = Input[str]("Belgium")
     country = Match(ev).Case("NL", s1).Case("BE", s2)
     assert country.references == {"io": [ev], "cases": [s1, s2]}
 

@@ -2,7 +2,7 @@ from ordeq import Input, node
 from ordeq._runner import run
 from ordeq_common import StringBuffer
 
-x1 = Input(1)
+x1 = Input[int](1)
 x2 = StringBuffer()
 x3 = StringBuffer("2")
 x4 = StringBuffer()
@@ -23,8 +23,8 @@ run(increment, decrement, verbose=True)
 print(x4.load())
 
 # provide alternative IO when running the pipeline
-p1 = Input(2)
-p3 = Input("33")
+p1 = Input[int](2)
+p3 = Input[str]("33")
 p4 = StringBuffer()
 run(increment, decrement, io={x1: p1, x3: p3, x4: p4}, verbose=True)
 

@@ -16,7 +16,7 @@ class Print(Output[Any]):
     >>> from ordeq_common import Print
     >>> from ordeq import node, run, Input
     >>> @node(
-    ...     inputs=Input("hello, world!"),
+    ...     inputs=Input[str]("hello, world!"),
     ...     outputs=Print()
     ... )
     ... def print_message(message: str) -> str:
@@ -27,7 +27,7 @@ class Print(Output[Any]):
 
     >>> import sys
     >>> @node(
-    ...     inputs=Input("error message"),
+    ...     inputs=Input[str]("error message"),
     ...     outputs=Print().with_save_options(file=sys.stderr)
     ... )
     ... def log_error(message: str) -> str:

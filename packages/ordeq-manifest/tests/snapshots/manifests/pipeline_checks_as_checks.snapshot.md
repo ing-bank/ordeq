@@ -222,6 +222,9 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.

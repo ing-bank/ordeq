@@ -1,7 +1,7 @@
 from ordeq import Input, node, run
 from ordeq_viz import viz
 
-A = Input("A")
+A = Input[str]("A")
 
 
 @node(checks=[A])

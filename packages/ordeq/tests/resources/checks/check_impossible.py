@@ -1,7 +1,7 @@
 from ordeq import Input, node, run
 from ordeq_common import StringBuffer
 
-hello = Input("hello")
+hello = Input[str]("hello")
 world = StringBuffer()
 
 

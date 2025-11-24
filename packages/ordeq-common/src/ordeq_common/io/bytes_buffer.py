@@ -45,7 +45,8 @@ class BytesBuffer(IO[bytes]):
     >>> from ordeq import node, run, Input
     >>> result = BytesBuffer()
     >>> @node(
-    ...     inputs=[BytesBuffer(b"Hello"), Input(b"you")], outputs=result
+    ...     inputs=[BytesBuffer(b"Hello"), Input[bytes](b"you")],
+    ...     outputs=result
     ... )
     ... def greet(greeting: bytes, name: bytes) -> bytes:
     ...     return greeting + b" to " + name + b"!"

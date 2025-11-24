@@ -2,7 +2,7 @@
 from ordeq import Input, node
 from ordeq_common import StringBuffer
 
-x1 = Input(12345)
+x1 = Input[int](12345)
 x2 = StringBuffer()
 x3 = StringBuffer("12345")
 x4 = StringBuffer()

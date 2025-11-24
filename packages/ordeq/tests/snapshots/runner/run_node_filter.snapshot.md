@@ -4,7 +4,7 @@
 from ordeq import Input, Node, node, run
 from ordeq_common import StringBuffer
 
-greeting = Input("Hello")
+greeting = Input[str]("Hello")
 buffer = StringBuffer()
 
 

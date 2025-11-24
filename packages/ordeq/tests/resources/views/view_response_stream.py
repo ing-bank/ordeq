@@ -5,7 +5,7 @@ from ordeq import Input, node, run
 from ordeq_common import Print
 
 response = requests.get("https://jsonplaceholder.typicode.com/users/1")  # noqa: S113 (call without timeout)
-users_response = Input(response)
+users_response = Input[requests.Response](response)
 
 
 @node(inputs=users_response)

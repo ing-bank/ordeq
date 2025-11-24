@@ -10,7 +10,7 @@ def hello() -> str:
 print(repr(hello))
 
 
-@node(inputs=[Input("Jane"), hello], outputs=Print())
+@node(inputs=[Input[str]("Jane"), hello], outputs=Print())
 def n(name: str, greeting: str) -> str:
     return f"{name} said '{greeting}'"
 

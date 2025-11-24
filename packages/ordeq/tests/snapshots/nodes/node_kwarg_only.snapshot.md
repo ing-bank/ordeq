@@ -4,7 +4,7 @@
 from ordeq import Input, node
 
 
-@node(inputs=[Input("a"), Input("b")])
+@node(inputs=[Input[str]("a"), Input[str]("b")])
 def my_node(*, a, b):
     print(f"a: {a}, b: {b}")
 
@@ -42,8 +42,8 @@ ValueError: Inputs invalid for function arguments: 'my_node' in module '__main__
     )
 
   File "/packages/ordeq/tests/resources/nodes/node_kwarg_only.py", line LINO, in <module>
-    @node(inputs=[Input("a"), Input("b")])
-     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    @node(inputs=[Input[str]("a"), Input[str]("b")])
+     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 

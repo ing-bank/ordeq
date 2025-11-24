@@ -501,7 +501,7 @@ class Input(
 
     ```python
     >>> from ordeq import Input
-    >>> run(greet, io={name: Input("Alice")})
+    >>> run(greet, io={name: Input[str]("Alice")})
     >>> greeting.load()
     'Hello, Alice!'
     ```
@@ -656,7 +656,7 @@ class IO(Input[T], Output[T]):
     >>> from ordeq_common import StringBuffer
 
     >>> hello = StringBuffer("hi")
-    >>> name = Input("Bob")
+    >>> name = Input[str]("Bob")
     >>> greeting = IO[str]()
     >>> greeting_capitalized = StringBuffer()
 

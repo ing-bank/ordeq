@@ -1,6 +1,6 @@
 from ordeq import Input, node, run
 
-hello_io = Input("Hello")
+hello_io = Input[str]("Hello")
 
 
 @node(inputs=hello_io)
@@ -13,4 +13,4 @@ def n(v: tuple[str, ...]):
     print(f"Node received '{' '.join(v)}'")
 
 
-run(n, verbose=True, io={hello_io: Input("Buenos dias")})
+run(n, verbose=True, io={hello_io: Input[str]("Buenos dias")})

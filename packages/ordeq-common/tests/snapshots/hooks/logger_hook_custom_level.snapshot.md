@@ -9,7 +9,7 @@ from ordeq_common import LoggerHook
 logger = LoggerHook(level=logging.CRITICAL)
 
 
-@node(inputs=Input("name"), outputs=IO())
+@node(inputs=Input[str]("name"), outputs=IO())
 def hello(name: str) -> str:
     return f"Hello, {name}!"
 
@@ -71,9 +71,15 @@ ValueError: Intentional failure for testing.
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 CRITICAL	LoggerHook	Called 'before_node_run' with args: (Node(module=__main__, name=hello, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]),)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 CRITICAL	LoggerHook	Called 'after_node_run' with args: (Node(module=__main__, name=hello, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]),)
+DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 CRITICAL	LoggerHook	Called 'before_node_run' with args: (View(func=__main__:fail),)
 INFO	ordeq.runner	Running view View(func=__main__:fail, ...)
 CRITICAL	LoggerHook	Called 'on_node_call_error' with args: (View(func=__main__:fail), ValueError('Intentional failure for testing.'))

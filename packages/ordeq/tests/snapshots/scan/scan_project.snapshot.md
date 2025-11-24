@@ -39,3 +39,18 @@ ValueError: Module 'example_project.nodes_import_alias' aliases IO 'example_proj
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
+
+## Warnings
+
+```text
+UserWarning: Module 'example_project.catalog_1' already provided as runnable
+UserWarning: Module 'example_project.catalog_2' already provided as runnable
+UserWarning: Module 'example_project.inner' already provided as runnable
+UserWarning: Module 'example_project.inner.nodes' already provided as runnable
+UserWarning: Module 'example_project.misc' already provided as runnable
+UserWarning: Module 'example_project.nodes' already provided as runnable
+UserWarning: Module 'example_project.nodes_import' already provided as runnable
+UserWarning: Module 'example_project.nodes_import_alias' already provided as runnable
+UserWarning: Module 'example_project.nodes_with_inline_io' already provided as runnable
+UserWarning: Module 'example_project.nodes_with_view' already provided as runnable
+```

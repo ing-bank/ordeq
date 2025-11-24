@@ -57,8 +57,7 @@ IOException: Failed to load IO(id=ID1).
     data = cast("Input", input_dataset).load()
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
-                              ~~~~~~~~~~~~^^^^^^^^^^^^^
+    args = _load_inputs(node.inputs)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     _run_node(node, hooks=node_hooks)

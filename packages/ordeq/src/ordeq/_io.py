@@ -377,6 +377,12 @@ class _InputCache(_BaseInput[Tin]):
     """Class that adds caching to an Input."""
 
     _data: Tin
+    _unpersist: bool = True
+
+    def __init__(self, value: Any = None):
+        super().__init__()
+        if type(self).__name__ in {"Input", "IO"} and value is not None:
+            self.persist(value)
 
     def load_wrapper(self, load_func, *args, **kwargs) -> Tin:
         if not hasattr(self, "_data"):
@@ -386,7 +392,13 @@ class _InputCache(_BaseInput[Tin]):
     def persist(self, data: Tin) -> None:
         self.__dict__["_data"] = data
 
+    def retain(self) -> Self:
+        self._unpersist = False
+        return self
+
     def unpersist(self) -> None:
+        if not self._unpersist:
+            return
         if "_data" in self.__dict__:
             del self.__dict__["_data"]
 

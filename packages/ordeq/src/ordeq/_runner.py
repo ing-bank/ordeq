@@ -87,10 +87,9 @@ def _run_node_func(
 
 
 def _run_node(node: Node, hooks: Sequence[NodeHook] = ()) -> None:
-    _save_outputs(
-        node.outputs,
-        _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
-    )
+    args = _load_inputs(node.inputs)
+    results = _run_node_func(node, args=args, hooks=hooks)
+    _save_outputs(node.outputs, results)
 
 
 def _run_node_before_hooks(node, hooks) -> None:

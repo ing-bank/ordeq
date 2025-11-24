@@ -65,14 +65,8 @@ string argument expected, got 'coroutine'
     ~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    _save_outputs(
-    ~~~~~~~~~~~~~^
-        node.outputs,
-        ^^^^^^^^^^^^^
-        _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
+    _save_outputs(node.outputs, results)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     _run_node(node, hooks=node_hooks)

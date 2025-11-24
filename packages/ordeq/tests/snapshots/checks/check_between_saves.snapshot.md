@@ -89,8 +89,7 @@ AssertionError: Invalid countries found: US
     raise exc
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
-    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    results = _run_node_func(node, args=args, hooks=hooks)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     _run_node(node, hooks=node_hooks)

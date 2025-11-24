@@ -7,8 +7,8 @@ from ordeq._io import IOIdentity, _is_io
 from ordeq._nodes import Node, _is_node
 from ordeq._resolve import _resolve_packages_to_modules
 
-NodeFQNs: TypeAlias = dict[Node, FQN]
-IOFQNs: TypeAlias = dict[IOIdentity, FQN]
+NodeFQNs: TypeAlias = dict[Node, list[FQN]]
+IOFQNs: TypeAlias = dict[IOIdentity, list[FQN]]
 
 
 def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:

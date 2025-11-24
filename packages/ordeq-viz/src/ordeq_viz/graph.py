@@ -1,4 +1,5 @@
 from collections import defaultdict
+from collections.abc import Sequence
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -72,7 +73,7 @@ def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
 
 
 def _gather_graph(
-    nodes: tuple[Node, ...], ios: Catalog
+    nodes: Sequence[Node], ios: Catalog
 ) -> tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]]:
     """Build a graph of nodes and datasets from pipeline (set of nodes)
 

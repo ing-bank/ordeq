@@ -30,31 +30,21 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  'example_function_reuse.catalog',
  'example_function_reuse.func_defs',
  'example_function_reuse.nodes']
-[(FQN(module='example_function_reuse.nodes', name='a'),
-  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
- (FQN(module='example_function_reuse.nodes', name='b'),
-  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
- (FQN(module='example_function_reuse.nodes', name='c'),
-  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
- (FQN(module='example_function_reuse.nodes', name='d'),
-  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
- (FQN(module='example_function_reuse.nodes', name='pi'),
-  View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
+[View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]),
+ View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])]
 {'example_function_reuse.catalog': {'A': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
                                     'B': StringBuffer(_buffer=<_io.StringIO object at HASH2>),
                                     'C': StringBuffer(_buffer=<_io.StringIO object at HASH3>),
                                     'D': StringBuffer(_buffer=<_io.StringIO object at HASH4>)},
  'example_function_reuse.nodes': {'A': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
                                   'B': StringBuffer(_buffer=<_io.StringIO object at HASH2>)}}
-[(FQN(module='example_function_reuse.nodes', name='a'),
-  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
- (FQN(module='example_function_reuse.nodes', name='b'),
-  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
- (FQN(module='example_function_reuse.nodes', name='c'),
-  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
- (FQN(module='example_function_reuse.nodes', name='d'),
-  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
- (FQN(module='example_function_reuse.nodes', name='pi'),
-  View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
+[View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]),
+ View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])]
 
 ```

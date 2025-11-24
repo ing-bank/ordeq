@@ -144,7 +144,7 @@ def _run_graph(
     _run_after_hooks(graph, hooks=run_hooks)
 
 
-def _validate_runnables(*runnables: Runnable) -> None:
+def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
     for runnable in runnables:
         if not (
             _is_module(runnable)

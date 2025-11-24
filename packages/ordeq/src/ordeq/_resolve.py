@@ -302,7 +302,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[Node]:
 
 
 def _resolve_runnables_to_nodes_and_ios(
-    *runnables: Runnable,
+    *runnables: Runnable | RunnableRef,
 ) -> tuple[list[Node], Catalog]:
     """Collects nodes and IOs from the provided runnables.
 
@@ -371,9 +371,10 @@ def _resolve_runnable_refs_to_runnables(
             modules.append(runnable)
         elif _is_node(runnable):
             nodes.append(runnable)
-        elif is_object_ref(runnable):
-            fqn = FQN.from_ref(runnable)
-            nodes.append(_resolve_fqn_to_node(fqn))
-        else:
-            modules.append(_resolve_module_ref_to_module(runnable))
+        elif isinstance(runnable, str):
+            if is_object_ref(runnable):
+                fqn = FQN.from_ref(runnable)
+                nodes.append(_resolve_fqn_to_node(fqn))
+            else:
+                modules.append(_resolve_module_ref_to_module(runnable))
     return modules, nodes

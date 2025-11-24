@@ -35,7 +35,7 @@ print(create_manifest_json(example_references))
     },
     "example_references.io_references:world": {
       "name": "world",
-      "type": "ordeq_common.io.literal:Literal",
+      "type": "ordeq._io:Input",
       "resource": null,
       "references": [],
       "attributes": {}
@@ -61,5 +61,14 @@ print(create_manifest_json(example_references))
   },
   "resources": []
 }
+
+```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 
 ```

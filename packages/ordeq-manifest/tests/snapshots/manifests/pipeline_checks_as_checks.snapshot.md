@@ -131,14 +131,14 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
   "ios": {
     "example_checks.pipeline_checks_as_checks:A": {
       "name": "A",
-      "type": "ordeq_common.io.literal:Literal",
+      "type": "ordeq._io:Input",
       "resource": null,
       "references": [],
       "attributes": {}
     },
     "example_checks.pipeline_checks_as_checks:B": {
       "name": "B",
-      "type": "ordeq_common.io.literal:Literal",
+      "type": "ordeq._io:Input",
       "resource": null,
       "references": [],
       "attributes": {}
@@ -166,7 +166,7 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
     },
     "example_checks.pipeline_checks_as_checks:D": {
       "name": "D",
-      "type": "ordeq_common.io.literal:Literal",
+      "type": "ordeq._io:Input",
       "resource": null,
       "references": [],
       "attributes": {}
@@ -222,6 +222,9 @@ print(create_manifest_json(example_checks.pipeline_checks_as_checks))
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.

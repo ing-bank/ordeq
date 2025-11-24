@@ -76,14 +76,15 @@ def Match(io: Input[Tkey] | None = None) -> MatchOnLoad | MatchOnSave:
     Example:
 
     ```pycon
-    >>> from ordeq_common import Literal, Match
+    >>> from ordeq import Input
+    >>> from ordeq_common import Match
     >>> from ordeq_args import EnvironmentVariable
     >>> import os
     >>> Country = (
     ...     Match(EnvironmentVariable("COUNTRY"))
-    ...     .Case("NL", Literal("Netherlands"))
-    ...     .Case("BE", Literal("Belgium"))
-    ...     .Default(Literal("Unknown"))
+    ...     .Case("NL", Input[str]("Netherlands"))
+    ...     .Case("BE", Input[str]("Belgium"))
+    ...     .Default(Input[str]("Unknown"))
     ... )
     >>> os.environ["COUNTRY"] = "NL"
     >>> Country.load()

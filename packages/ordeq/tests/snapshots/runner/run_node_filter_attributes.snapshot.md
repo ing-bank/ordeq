@@ -1,10 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import Node, node, run
-from ordeq_common import Literal, StringBuffer
+from ordeq import Input, Node, node, run
+from ordeq_common import StringBuffer
 
-greeting = Literal("Hello")
+greeting = Input[str]("Hello")
 buffer = StringBuffer()
 
 
@@ -40,12 +40,13 @@ Saying , world!!
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running view 'world' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```

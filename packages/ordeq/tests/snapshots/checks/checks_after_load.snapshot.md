@@ -2,11 +2,10 @@
 
 ```python
 import pandas as pd
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 from ordeq_viz import viz
 
-txs = Literal(
+txs = Input[pd.DataFrame](
     pd.DataFrame({
         "id": [1, 2, 3],
         "amount": [100, 200, 300],
@@ -45,7 +44,7 @@ graph TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
 		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
+		L01@{shape: rect, label: "Input"}
 	end
 
 	IO0 --> __main__:perform_check
@@ -74,32 +73,19 @@ graph TB
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal(   id  amount   to
-0   1     100   me
-1   2     200   me
-2   3     300  you)
-DEBUG	ordeq.io	Persisting data for Literal(   id  amount   to
-0   1     100   me
-1   2     200   me
-2   3     300  you)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Literal(   id  amount   to
-0   1     100   me
-1   2     200   me
-2   3     300  you)
-INFO	ordeq.runner	Running view 'txs_agg' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
-INFO	ordeq.runner	Running view 'print_agg' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+INFO	ordeq.runner	Running view 'txs_agg' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for Literal(   id  amount   to
-0   1     100   me
-1   2     200   me
-2   3     300  you)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
+INFO	ordeq.runner	Running view 'print_agg' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 
 ```

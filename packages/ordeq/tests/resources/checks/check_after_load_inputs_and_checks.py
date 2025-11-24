@@ -1,11 +1,10 @@
 from typing import Any
 
 import pandas as pd
-from ordeq import IO, node, run
-from ordeq_common import Literal
+from ordeq import IO, Input, node, run
 from ordeq_viz import viz
 
-txs = Literal(
+txs = Input[pd.DataFrame](
     pd.DataFrame({
         "id": [1, 2, 3],
         "amount": [100, 200, 300],
@@ -14,7 +13,7 @@ txs = Literal(
     })
 )
 txs_agg = IO[Any]()
-threshold = Literal(100)
+threshold = Input[int](100)
 
 
 @node(inputs=[txs_agg, threshold], checks=txs_agg)

@@ -57,13 +57,23 @@ Node:example_project.nodes_import_alias:func
 Node:example_project.nodes_with_inline_io:greet
 Node:example_project.nodes_with_view:farewell
 Topological ordering
-(View(module=example_project.nodes_with_view, name=greet, inputs=[Literal('Hello')]),
- Node(module=example_project.inner.nodes, name=func, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'tags': ['dummy']}),
- Node(module=example_project.nodes, name=func, inputs=[IO(id=ID2)], outputs=[Print()], attributes={'tags': ['dummy']}),
- Node(module=example_project.nodes_import, name=func_a, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]),
- Node(module=example_project.nodes_import, name=func_b, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}),
- Node(module=example_project.nodes_import_alias, name=func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}),
- Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Literal('Buenos dias')], outputs=[IO(id=ID3)]),
- Node(module=example_project.nodes_with_view, name=farewell, inputs=[IO(id=ID4)], outputs=[Print()]))
+(View(module=example_project.nodes_with_view, name=greet, inputs=[Input(id=ID1)]),
+ Node(module=example_project.inner.nodes, name=func, inputs=[IO(id=ID2)], outputs=[Print()], attributes={'tags': ['dummy']}),
+ Node(module=example_project.nodes, name=func, inputs=[IO(id=ID3)], outputs=[Print()], attributes={'tags': ['dummy']}),
+ Node(module=example_project.nodes_import, name=func_a, inputs=[Input(id=ID4), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]),
+ Node(module=example_project.nodes_import, name=func_b, inputs=[Input(id=ID4), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}),
+ Node(module=example_project.nodes_import_alias, name=func, inputs=[Input(id=ID4), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}),
+ Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Input(id=ID5)], outputs=[IO(id=ID6)]),
+ Node(module=example_project.nodes_with_view, name=farewell, inputs=[IO(id=ID7)], outputs=[Print()]))
+
+```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID4)
+DEBUG	ordeq.io	Persisting data for Input(id=ID8)
+DEBUG	ordeq.io	Persisting data for Input(id=ID5)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 
 ```

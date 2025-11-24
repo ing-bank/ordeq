@@ -14,6 +14,6 @@ print(
 ## Output
 
 ```text
-{StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>): StringBuffer(_buffer=<_io.StringIO object at HASH4>), Literal('ohSoSecret!@#'): Literal('ohSoSecret!@#'), IO(id=ID1): IO(id=ID2), IO(id=ID3): StringBuffer(_buffer=<_io.StringIO object at HASH5>), IO(id=ID4): IO(id=ID5), JSON(path=Path('predictions-base.json')): JSON(path=Path('predictions-overlay.json')), IO(id=ID6): IO(id=ID7), IO(id=ID8): IO(id=ID9)}
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>): StringBuffer(_buffer=<_io.StringIO object at HASH4>), Input(id=ID1): Input(id=ID2), IO(id=ID3): IO(id=ID4), IO(id=ID5): StringBuffer(_buffer=<_io.StringIO object at HASH5>), IO(id=ID6): IO(id=ID7), JSON(path=Path('predictions-base.json')): JSON(path=Path('predictions-overlay.json')), IO(id=ID8): IO(id=ID9), IO(id=ID10): IO(id=ID11)}
 
 ```

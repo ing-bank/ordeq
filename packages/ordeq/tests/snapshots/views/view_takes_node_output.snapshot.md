@@ -1,15 +1,14 @@
 ## Resource
 
 ```python
-from ordeq import IO, node, run
-from ordeq_common import Literal
+from ordeq import IO, Input, node, run
 
-placeholder = IO()
+placeholder = IO[str]()
 
-hello = Literal("Hello")
+hello = Input[str]("Hello")
 
 
-@node(inputs=[Literal("Jane"), hello], outputs=placeholder)
+@node(inputs=[Input[str]("Jane"), hello], outputs=placeholder)
 def hello_from_someone(name: str, v: str) -> str:
     return f"{name} said '{v}'"
 
@@ -86,23 +85,21 @@ IOException: Failed to load IO(id=ID1).
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal('Jane')
-DEBUG	ordeq.io	Persisting data for Literal('Jane')
-INFO	ordeq.io	Loading Literal('Hello')
-DEBUG	ordeq.io	Persisting data for Literal('Hello')
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID3)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
 INFO	ordeq.runner	Running node 'hello_from_someone' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'what_i_heard' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
 INFO	ordeq.runner	Running view 'sink' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for Literal('Jane')
-DEBUG	ordeq.io	Unpersisting data for Literal('Hello')
+DEBUG	ordeq.io	Persisting data for IO(id=ID5)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
 INFO	ordeq.io	Loading IO(id=ID1)
 
 ```

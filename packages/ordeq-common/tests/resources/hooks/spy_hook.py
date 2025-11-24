@@ -1,10 +1,10 @@
-from ordeq import IO, node, run
-from ordeq_common import Literal, SpyHook
+from ordeq import IO, Input, node, run
+from ordeq_common import SpyHook
 
 spy = SpyHook()
 
 
-@node(inputs=Literal("name"), outputs=IO())
+@node(inputs=Input[str]("name"), outputs=IO())
 def hello(name: str) -> str:
     return f"Hello, {name}!"
 

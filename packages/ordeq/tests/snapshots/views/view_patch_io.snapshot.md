@@ -1,10 +1,9 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
-hello_io = Literal("Hello")
+hello_io = Input[str]("Hello")
 
 
 @node(inputs=hello_io)
@@ -17,7 +16,7 @@ def n(v: tuple[str, ...]):
     print(f"Node received '{' '.join(v)}'")
 
 
-run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
+run(n, verbose=True, io={hello_io: Input[str]("Buenos dias")})
 
 ```
 
@@ -35,15 +34,15 @@ Node received 'Buenos dias World!'
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal('Buenos dias')
-DEBUG	ordeq.io	Persisting data for Literal('Buenos dias')
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
 INFO	ordeq.runner	Running view 'hello_world' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
 INFO	ordeq.runner	Running view 'n' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for Literal('Buenos dias')
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 
 ```

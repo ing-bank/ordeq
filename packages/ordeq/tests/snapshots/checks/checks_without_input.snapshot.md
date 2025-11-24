@@ -1,11 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 from ordeq_viz import viz
 
-A = Literal("A")
+A = Input[str]("A")
 
 
 @node(checks=[A])
@@ -32,7 +31,7 @@ graph TB
 		direction TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "Literal"}
+		L00@{shape: rect, label: "Input"}
 	end
 
 	IO0 --> __main__:dependent_node
@@ -57,15 +56,14 @@ Dependent node received data: A
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.runner	Running view 'my_node' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-INFO	ordeq.io	Loading Literal('A')
-DEBUG	ordeq.io	Persisting data for Literal('A')
-INFO	ordeq.runner	Running view 'dependent_node' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for Literal('A')
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+INFO	ordeq.runner	Running view 'dependent_node' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

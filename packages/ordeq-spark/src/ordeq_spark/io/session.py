@@ -24,7 +24,7 @@ class SparkSession(Input[pyspark.sql.SparkSession]):
 
     ```pycon
     >>> from ordeq import node, Input
-    >>> items = Input({'id': [1, 2, 3], 'value': ['a', 'b', 'c']})
+    >>> items = Input[dict]({'id': [1, 2, 3], 'value': ['a', 'b', 'c']})
     >>> @node(
     ...     inputs=[items, spark_session],
     ...     outputs=[],

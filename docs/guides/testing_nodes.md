@@ -162,7 +162,7 @@ We can tell the runner to use the alternative IO instead of the actual IO, as sh
             io={
                 catalog.txs: txs,
                 catalog.clients: clients,
-                catalog.date: Input("2023-12-30"),
+                catalog.date: Input[str]("2023-12-30"),
                 catalog.txs_and_clients: txs_and_clients,
             },
         )
@@ -205,7 +205,7 @@ Here is a example of the test package with a test catalog:
     # Directory for test data:
     TEST_RESOURCES_DIR = Path(__file__).resolve().parent.parent / "tests-resources"
 
-    date = Input("2023-12-30")
+    date = Input[str]("2023-12-30")
     txs = PolarsEagerCSV(path=TEST_RESOURCES_DIR / "txs.csv")
     clients = PolarsEagerCSV(path=TEST_RESOURCES_DIR / "clients.csv")
     txs_and_clients = PolarsEagerCSV(

@@ -38,7 +38,7 @@ class IcebergTable(Input[Table]):
     @property
     def _catalog_value(self) -> Catalog:
         if isinstance(self.catalog, Input):
-            return self.catalog.load()
+            return self.catalog.load()  # type: ignore[return-value]
         return self.catalog
 
     def load(self, **load_options) -> Table:

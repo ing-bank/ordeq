@@ -37,7 +37,6 @@ DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at 
 INFO	ordeq.runner	Running view View(func=__main__:noop, ...)
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node 'decrement' in module 'resources.runner.example_module_a'

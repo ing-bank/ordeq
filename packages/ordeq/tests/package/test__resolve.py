@@ -41,7 +41,7 @@ def test_resolve_node_by_reference(expected_example_node_objects) -> None:
     from example_1.nodes import world  # ty: ignore[unresolved-import]
 
     nodes = _resolve_runnables_to_nodes("example_1.nodes:world")
-    assert nodes == [(("example_1.nodes", "world"), world)]
+    assert nodes == [world]
 
 
 def test_resolve_node_by_reference_not_a_node() -> None:

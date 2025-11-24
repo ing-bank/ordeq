@@ -383,6 +383,7 @@ class _InputCache(_BaseInput[Tin]):
         super().__init__()
         if type(self).__name__ in {"Input", "IO"} and value is not None:
             self.persist(value)
+            self.retain()
 
     def load_wrapper(self, load_func, *args, **kwargs) -> Tin:
         if not hasattr(self, "_data"):

@@ -129,10 +129,7 @@ DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_checks_as_checks'
 DEBUG	ordeq.io	Persisting data for IO(id=ID11)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID6)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID9)

@@ -87,9 +87,7 @@ DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 
 ```

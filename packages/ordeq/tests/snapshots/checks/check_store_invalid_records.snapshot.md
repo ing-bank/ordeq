@@ -118,7 +118,6 @@ DEBUG	ordeq.io	Loading cached data for JSON(path=Path('<TEMP_DIR>/invalid_record
 DEBUG	ordeq.io	Persisting data for JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
 INFO	ordeq.runner	Running view 'print_invalid_records' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)

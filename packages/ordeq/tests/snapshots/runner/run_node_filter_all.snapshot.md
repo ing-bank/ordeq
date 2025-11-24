@@ -53,7 +53,6 @@ DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running view 'world' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.

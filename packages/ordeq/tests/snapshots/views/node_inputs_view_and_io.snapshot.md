@@ -47,6 +47,5 @@ DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
 
 ```

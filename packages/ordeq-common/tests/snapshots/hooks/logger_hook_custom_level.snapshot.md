@@ -78,7 +78,6 @@ DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 CRITICAL	LoggerHook	Called 'after_node_run' with args: (Node(module=__main__, name=hello, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]),)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 CRITICAL	LoggerHook	Called 'before_node_run' with args: (View(func=__main__:fail),)
 INFO	ordeq.runner	Running view View(func=__main__:fail, ...)

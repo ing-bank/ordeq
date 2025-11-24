@@ -35,7 +35,6 @@ DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at 
 INFO	ordeq.runner	Running node 'decrement' in module 'resources.runner.example_module_a'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)

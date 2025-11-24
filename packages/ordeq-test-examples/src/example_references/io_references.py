@@ -11,10 +11,10 @@ class MyIO(Input[str]):
 
 
 # unnamed
-test_io = MyIO(other_io=Input("World!"))
-nested_test_io = MyIO(other_io=MyIO(other_io=Input("World!")))
+test_io = MyIO(other_io=Input[str]("World!"))
+nested_test_io = MyIO(other_io=MyIO(other_io=Input[str]("World!")))
 
 # named
-world = Input("World!")
+world = Input[str]("World!")
 named_test_io = MyIO(other_io=world)
 named_nested_test_io = MyIO(other_io=MyIO(other_io=world))

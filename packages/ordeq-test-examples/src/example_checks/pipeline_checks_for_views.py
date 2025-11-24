@@ -1,7 +1,7 @@
 from ordeq import Input, node
 
-A = Input("A")
-B = Input("B")
+A = Input[str]("A")
+B = Input[str]("B")
 
 
 @node(inputs=A)
@@ -25,7 +25,7 @@ def print_result(data: str) -> None:
 
 
 # Additional checks
-D = Input("D")
+D = Input[str]("D")
 
 
 @node(inputs=[A, D], checks=[A])

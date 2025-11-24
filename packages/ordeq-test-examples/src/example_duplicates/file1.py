@@ -2,7 +2,7 @@ from typing import Any
 
 from ordeq import IO, Input, node
 
-x_value = Input(3)
+x_value = Input[int](3)
 y_value = IO[Any]()
 
 

@@ -1,7 +1,7 @@
 from ordeq import Input, node
 from ordeq_common import Print
 
-greeting = Input("Hello")
+greeting = Input[str]("Hello")
 printer = Print()
 
 

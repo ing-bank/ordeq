@@ -1,7 +1,7 @@
 from ordeq import Input, node
 
-A = Input("A")
-B = Input("B")
+A = Input[str]("A")
+B = Input[str]("B")
 
 
 @node(inputs=A)

@@ -5,4 +5,4 @@ from ordeq import Input
 from example_catalogs.remote import *  # noqa: F403 (import all definitions)
 
 # This overrides the base catalog:
-hello: Input[str] = Input("Hey I am overriding the hello IO")
+hello = Input[str]("Hey I am overriding the hello IO")

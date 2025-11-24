@@ -1,7 +1,7 @@
 from ordeq import Input
 from ordeq_common import Print, StringBuffer
 
-d = Input("a")
+d = Input[str]("a")
 e = StringBuffer("b")
 
 # Multiple nodes cannot share the same output

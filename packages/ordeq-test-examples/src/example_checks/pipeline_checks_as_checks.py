@@ -1,8 +1,8 @@
 from ordeq import IO, Input, node
 from ordeq_common import StringBuffer
 
-A = Input("A")
-B = Input("B")
+A = Input[str]("A")
+B = Input[str]("B")
 Ap = IO[str]()
 Bp = IO[str]()
 AB = StringBuffer()
@@ -29,7 +29,7 @@ def print_result(data: str) -> None:
 
 
 # Additional checks
-D = Input("D")
+D = Input[str]("D")
 
 
 @node(inputs=[A, D], checks=[A])

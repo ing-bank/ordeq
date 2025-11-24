@@ -11,15 +11,19 @@ class BigQueryPandas(IO[pd.DataFrame]):
     """BigQueryTable extension for loading and saving pandas DataFrames.
 
     Example:
-        >>> from ordeq_bigquery import BigQueryPandas
-        >>> from google.cloud import bigquery
-        >>>
-        >>> client = bigquery.Client()  # doctest: +SKIP
-        >>> table = BigQueryPandas(
-        ...     table_id="project.dataset.table", client=client
-        ... )  # doctest: +SKIP
-        >>> df = table.load()  # doctest: +SKIP
-        >>> table.save(df)  # doctest: +SKIP
+
+    ```pycon
+    >>> from ordeq_bigquery import BigQueryPandas
+    >>> from google.cloud import bigquery
+    >>>
+    >>> client = bigquery.Client()  # doctest: +SKIP
+    >>> table = BigQueryPandas(
+    ...     table_id="project.dataset.table", client=client
+    ... )  # doctest: +SKIP
+    >>> df = table.load()  # doctest: +SKIP
+    >>> table.save(df)  # doctest: +SKIP
+
+    ```
     """
 
     table_id: str | bigquery.Table
@@ -35,14 +39,18 @@ class BigQueryPandas(IO[pd.DataFrame]):
             A pandas DataFrame containing the table data.
 
         Example:
-            >>> from ordeq_bigquery import BigQueryPandas
-            >>> from google.cloud import bigquery
-            >>>
-            >>> client = bigquery.Client()  # doctest: +SKIP
-            >>> table = BigQueryPandas(
-            ...     table_id="project.dataset.table", client=client
-            ... )  # doctest: +SKIP
-            >>> df = table.load()  # doctest: +SKIP
+
+        ```pycon
+        >>> from ordeq_bigquery import BigQueryPandas
+        >>> from google.cloud import bigquery
+        >>>
+        >>> client = bigquery.Client()  # doctest: +SKIP
+        >>> table = BigQueryPandas(
+        ...     table_id="project.dataset.table", client=client
+        ... )  # doctest: +SKIP
+        >>> df = table.load()  # doctest: +SKIP
+
+        ```
         """
         table = self.client.get_table(self.table_id)
         return self.client.list_rows(table).to_dataframe(**load_options)
@@ -55,16 +63,20 @@ class BigQueryPandas(IO[pd.DataFrame]):
             **save_options: Options passed to `load_table_from_dataframe`.
 
         Example:
-            >>> import pandas as pd
-            >>> from ordeq_bigquery import BigQueryPandas
-            >>>
-            >>> from google.cloud import bigquery
-            >>> client = bigquery.Client()  # doctest: +SKIP
-            >>> table = BigQueryPandas(
-            ...     table_id="project.dataset.table", client=client
-            ... )  # doctest: +SKIP
-            >>> df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
-            >>> table.save(df)  # doctest: +SKIP
+
+        ```pycon
+        >>> import pandas as pd
+        >>> from ordeq_bigquery import BigQueryPandas
+        >>>
+        >>> from google.cloud import bigquery
+        >>> client = bigquery.Client()  # doctest: +SKIP
+        >>> table = BigQueryPandas(
+        ...     table_id="project.dataset.table", client=client
+        ... )  # doctest: +SKIP
+        >>> df = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+        >>> table.save(df)  # doctest: +SKIP
+
+        ```
         """
         self.client.load_table_from_dataframe(
             dataframe=df, destination=self.table_id, **save_options

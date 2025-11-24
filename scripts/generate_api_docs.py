@@ -13,6 +13,8 @@ similar, but I find these unnecessary for our use case.
 import shutil
 from pathlib import Path
 
+from ordeq_toml import TOML
+
 ROOT_DIR = Path(__file__).parent.parent
 PACKAGES_DIR = ROOT_DIR / "packages"
 PACKAGE_DIRS = PACKAGES_DIR.glob("*")
@@ -36,6 +38,20 @@ def clear_api_docs() -> None:
             item.unlink()
 
 
+def is_ios_group(package_dir: Path) -> bool:
+    pyproject_path = package_dir / "pyproject.toml"
+    if not pyproject_path.exists():
+        return False
+
+    try:
+        data = TOML(path=pyproject_path).load()
+        tool_section = data.get("tool", {})
+        ordeq_dev_section = tool_section.get("ordeq-dev", {})
+        return ordeq_dev_section.get("group") == "ios"
+    except Exception:
+        return False
+
+
 def packages():
     for package_dir in sorted(PACKAGE_DIRS):
         if package_dir.name not in {
@@ -49,29 +65,49 @@ def packages():
 def generate_api_docs():
     for package_dir in packages():
         package_src = package_dir / "src"
-        for module in sorted(package_src.rglob("*.py")):
-            module_path = module.relative_to(package_src).with_suffix("")
-            parts = tuple(module_path.parts)
 
-            if parts[-1] in {"__main__", "_version", "__init__"}:
-                continue
+        if is_ios_group(package_dir):
+            # Generate single file for ios packages
+            # Find the main module directory (should be only one)
+            module_dirs = [
+                d
+                for d in package_src.iterdir()
+                if d.is_dir() and not d.name.endswith(".egg-info")
+            ]
+            if module_dirs:
+                main_module = module_dirs[
+                    0
+                ]  # Take the first (should be only one)
+                module_name = main_module.name
 
-            module_name = parts[-1]
-            # Avoid reserved name 'index.md' in MkDocs (ordeq-faiss/index.py)
-            if module_name == "index":
-                output_name = "index_module"
-            else:
+                # Create single documentation file
+                full_doc_path = API_DIR / f"{module_name}.md"
+                full_doc_path.parent.mkdir(parents=True, exist_ok=True)
+
+                with full_doc_path.open(mode="w") as fh:
+                    print(f"---\ntitle: {module_name}\n---", file=fh)
+                    print(f"::: {module_name}", file=fh)
+        else:
+            # Existing behavior for non-ios packages
+            for module in sorted(package_src.rglob("*.py")):
+                module_path = module.relative_to(package_src).with_suffix("")
+                parts = tuple(module_path.parts)
+
+                if parts[-1] in {"__main__", "_version", "__init__"}:
+                    continue
+
+                module_name = parts[-1]
                 output_name = module_name
 
-            full_doc_path = API_DIR / module_path.with_name(
-                f"{output_name}.md"
-            )
-            full_doc_path.parent.mkdir(parents=True, exist_ok=True)
+                full_doc_path = API_DIR / module_path.with_name(
+                    f"{output_name}.md"
+                )
+                full_doc_path.parent.mkdir(parents=True, exist_ok=True)
 
-            with full_doc_path.open(mode="w") as fh:
-                print(f"---\ntitle: {module_name}.py\n---", file=fh)
-                identifier = ".".join(parts)
-                print("::: " + identifier, file=fh)
+                with full_doc_path.open(mode="w") as fh:
+                    print(f"---\ntitle: {module_name}.py\n---", file=fh)
+                    identifier = ".".join(parts)
+                    print("::: " + identifier, file=fh)
 
 
 def generate_api_readmes() -> None:

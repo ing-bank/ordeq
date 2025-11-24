@@ -213,18 +213,19 @@ def _process_output_meta(name, bases, class_dict):
             raise TypeError(msg)
 
         sig = inspect.signature(save_method)
-        has_data_argument = False
-        for idx, (argument, param) in enumerate(sig.parameters.items()):
+        seen_data = False
+        for argument, param in sig.parameters.items():
             if argument in {"self", "cls"}:
                 continue
 
-            has_data_argument = True
+            if not seen_data:
+                seen_data = True
+                continue  # Skip the data parameter itself
 
             # Ensure all arguments (except the first two, self/cls and data)
             # have default values
             if (
-                idx > 2
-                and param.default is inspect.Parameter.empty
+                param.default is inspect.Parameter.empty
                 and param.kind != inspect._ParameterKind.VAR_KEYWORD
             ):
                 raise TypeError(
@@ -232,7 +233,7 @@ def _process_output_meta(name, bases, class_dict):
                     f"'{save_method.__name__}' has no default value."
                 )
 
-        if not has_data_argument:
+        if not seen_data:
             raise TypeError("Save method requires a data parameter.")
 
         if (

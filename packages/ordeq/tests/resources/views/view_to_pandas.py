@@ -10,7 +10,7 @@ class MockDuckDbValues:
         return pd.DataFrame(self.data, columns=["value"])
 
 
-csv = Input(MockDuckDbValues((1, 2, 3)))
+csv = Input[MockDuckDbValues](MockDuckDbValues((1, 2, 3)))
 
 
 @node(inputs=csv)

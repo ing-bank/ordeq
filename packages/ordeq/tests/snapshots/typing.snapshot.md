@@ -8,8 +8,6 @@ packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     d
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any] | Callable[..., Any]] | Input[Any] | Output[Any] | Callable[..., Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]]
 packages/ordeq/tests/resources/runner/runner_load_output.py:17: error: List item 0 has incompatible type "Example"; expected "Input[Any] | Callable[..., Any]"  [list-item]
 packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Node[Any, Any] | str  [arg-type]
-packages/ordeq/tests/resources/runner/run_main.py:5: error: Need type annotation for "io1"  [var-annotated]
-packages/ordeq/tests/resources/runner/run_main.py:6: error: Need type annotation for "io2"  [var-annotated]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: error: No overload variant of "node" matches argument types "Input[str]", "Input[str]"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: note: Possible overload variants:
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any] | Callable[..., Any]] | Input[Any] | Output[Any] | Callable[..., Any] | None = ..., **attributes: Any) -> Node[FuncParams, FuncReturns]
@@ -55,7 +53,6 @@ packages/ordeq/tests/resources/runner/logging_verbosity.py:16: error: Argument 1
 packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
-packages/ordeq/tests/resources/views/view_to_pandas.py:13: error: Need type annotation for "csv"  [var-annotated]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:11: error: Need type annotation for "dataframe"  [var-annotated]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:13: error: Need type annotation for "fltr"  [var-annotated]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]
@@ -69,4 +66,4 @@ packages/ordeq/tests/resources/checks/check_after_resource.py:16: error: No over
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note: Possible overload variants:
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any] | Callable[..., Any]] | Input[Any] | Output[Any] | Callable[..., Any] | None = ..., **attributes: Any) -> Node[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/checks/check_after_resource.py:16: note:     def node(*, inputs: Sequence[Input[Any] | Callable[..., Any]] | Input[Any] | Callable[..., Any] = ..., outputs: Sequence[Output[Any]] | Output[Any] | None = ..., checks: Sequence[Input[Any] | Output[Any] | Callable[..., Any]] | Input[Any] | Output[Any] | Callable[..., Any] | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]]
-Found 35 errors in 25 files (checked 283 source files)
+Found 32 errors in 23 files (checked 283 source files)

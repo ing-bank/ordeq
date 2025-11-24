@@ -44,7 +44,7 @@ from ordeq import IO, Input, node
 
 name_str = IO()
 greeting = IO()
-is_excited = Input(False)
+is_excited = Input[bool](False)
 
 
 @node(inputs=[name_str, is_excited], outputs=greeting)

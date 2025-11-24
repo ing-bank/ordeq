@@ -51,7 +51,7 @@ class TestNode:
 )
 def test_it_raises_for_invalid_inputs(inputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
-        ValueError, match="Node inputs invalid for function arguments"
+        ValueError, match="Inputs invalid for function arguments"
     ):
         n = create_node(
             func=lambda _: _, inputs=inputs, outputs=(StringBuffer("c"),)
@@ -92,7 +92,7 @@ def method_w_2_ret(a: str) -> tuple[str, str]:
 )
 def test_it_raises_for_invalid_outputs(func, outputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
-        ValueError, match="Node outputs invalid for return annotation"
+        ValueError, match="Outputs invalid for return annotation"
     ):
         n = create_node(
             func=func, inputs=(StringBuffer("a"),), outputs=outputs

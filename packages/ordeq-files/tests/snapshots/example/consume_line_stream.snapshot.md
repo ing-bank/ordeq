@@ -52,11 +52,11 @@ Third line
 
 ```text
 WARNING	ordeq.preview	TextLinesStream is in pre-release, functionality may break in future releases without it being considered a breaking change.
-INFO	ordeq.runner	Running node "write_to_line_stream" in module "__main__"
+INFO	ordeq.runner	Running node 'write_to_line_stream' in module '__main__'
 INFO	ordeq.io	Saving TextLinesStream(path=Path('<TEMP_DIR>/consume_line_stream.txt'))
 INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/consume_line_stream.txt'))
-INFO	ordeq.runner	Running view "count_lines" in module "__main__"
+INFO	ordeq.runner	Running view 'count_lines' in module '__main__'
 INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/consume_line_stream.txt'))
-INFO	ordeq.runner	Running view "show_lines" in module "__main__"
+INFO	ordeq.runner	Running view 'show_lines' in module '__main__'
 
 ```

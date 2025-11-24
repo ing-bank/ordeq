@@ -80,8 +80,8 @@ INFO	ordeq.io	Loading Literal(   id  amount   to country
 0   1     100   me      NL
 1   2     200   me      BE
 2   3     300  you      US)
-INFO	ordeq.runner	Running node '__main__:agg_txs'
+INFO	ordeq.runner	Running node 'agg_txs' in module '__main__'
 INFO	ordeq.io	Loading Literal(100)
-INFO	ordeq.runner	Running view '__main__:perform_check'
+INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
 
 ```

@@ -33,7 +33,7 @@ print(inner_func)
 ```text
 Should print 'XX':
 XX
-__main__:func
-__main__:inner
+'func' in module '__main__'
+'inner' in module '__main__'
 
 ```

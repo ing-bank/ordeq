@@ -18,7 +18,7 @@ def say_hello() -> str:
 ## Output
 
 ```text
-ValueError: Outputs of '__main__:say_hello' must be of type Output, got <class 'ordeq._nodes.View'> 
+ValueError: Outputs of 'say_hello' in module '__main__' must be of type Output, got <class 'ordeq._nodes.View'> 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_outputs
     raise ValueError(
     ...<2 lines>...

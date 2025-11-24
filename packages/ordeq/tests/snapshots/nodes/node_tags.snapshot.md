@@ -48,7 +48,7 @@ print(func4.attributes)
 
 ```text
 {}
-__main__:func2
+'func2' in module '__main__'
 {'tags': ['tag1', 'tag2']}
 {'key1': 'value1'}
 {'attributes': None}

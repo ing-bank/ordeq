@@ -53,7 +53,7 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 
 ```text
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node '__main__:reverse'
+INFO	ordeq.runner	Running node 'reverse' in module '__main__'
 INFO	ordeq.io	Saving File
 INFO	ordeq.io	Loading File
 

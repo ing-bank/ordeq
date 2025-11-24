@@ -76,15 +76,15 @@ WARNING	ordeq.preview	Checks are in preview mode and may change without notice i
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.io	Loading Literal('D')
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:check_a'
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:Ap'
+INFO	ordeq.runner	Running view 'check_a' in module 'example_checks.pipeline_checks_for_views'
+INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_checks_for_views'
 INFO	ordeq.io	Loading Literal('B')
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:Bp'
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:check_ap'
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:check_join'
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:check_bp'
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:AB'
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:check_ab'
-INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_for_views:print_result'
+INFO	ordeq.runner	Running view 'Bp' in module 'example_checks.pipeline_checks_for_views'
+INFO	ordeq.runner	Running view 'check_ap' in module 'example_checks.pipeline_checks_for_views'
+INFO	ordeq.runner	Running view 'check_join' in module 'example_checks.pipeline_checks_for_views'
+INFO	ordeq.runner	Running view 'check_bp' in module 'example_checks.pipeline_checks_for_views'
+INFO	ordeq.runner	Running view 'AB' in module 'example_checks.pipeline_checks_for_views'
+INFO	ordeq.runner	Running view 'check_ab' in module 'example_checks.pipeline_checks_for_views'
+INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_checks_for_views'
 
 ```

@@ -55,8 +55,8 @@ View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels --> io-8
 io-8 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type
 View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type --> io-10
 View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version --> io-11
-View:View(func=ordeq_dev_tools.pipelines.shared:packages) --> io-12
-View:View(func=ordeq_dev_tools.pipelines.docs_update_just:just_output) --> io-13
+View:View(func=ordeq_dev_tools.pipelines.shared:packages, ...) --> io-12
+View:View(func=ordeq_dev_tools.pipelines.docs_update_just:just_output, ...) --> io-13
 io-9 --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
 io-10 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
 io-11 --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
@@ -67,11 +67,11 @@ io-13 --> View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
 Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> io-14
 View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> io-17
 View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version --> io-18
-View:View(func=ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases) --> io-19
+View:View(func=ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases, ...) --> io-19
 View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> io-20
 View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> io-21
 View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> io-23
-View:View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files) --> io-24
+View:View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files, ...) --> io-24
 io-14 --> Node:ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies
 io-14 --> Node:ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
 io-15 --> Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
@@ -109,18 +109,18 @@ View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits --> View:
 View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs
 View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> View:ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs
 View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels --> View:ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels
-View:View(func=ordeq_dev_tools.pipelines.shared:packages) --> View:View(func=ordeq_dev_tools.pipelines.shared:packages)
-View:View(func=ordeq_dev_tools.pipelines.shared:packages) --> View:View(func=ordeq_dev_tools.pipelines.shared:packages)
-View:View(func=ordeq_dev_tools.pipelines.shared:packages) --> View:View(func=ordeq_dev_tools.pipelines.shared:packages)
-View:View(func=ordeq_dev_tools.pipelines.docs_update_just:just_output) --> View:View(func=ordeq_dev_tools.pipelines.docs_update_just:just_output)
+View:View(func=ordeq_dev_tools.pipelines.shared:packages, ...) --> View:View(func=ordeq_dev_tools.pipelines.shared:packages, ...)
+View:View(func=ordeq_dev_tools.pipelines.shared:packages, ...) --> View:View(func=ordeq_dev_tools.pipelines.shared:packages, ...)
+View:View(func=ordeq_dev_tools.pipelines.shared:packages, ...) --> View:View(func=ordeq_dev_tools.pipelines.shared:packages, ...)
+View:View(func=ordeq_dev_tools.pipelines.docs_update_just:just_output, ...) --> View:View(func=ordeq_dev_tools.pipelines.docs_update_just:just_output, ...)
 View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_version
 View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type --> View:ordeq_dev_tools.pipelines.generate_release_notes:bump_type
-View:View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files) --> Node:View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files)
+View:View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files, ...) --> Node:View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files, ...)
 Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
 Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
 View:ordeq_dev_tools.pipelines.docs_package_overview:groups --> Node:ordeq_dev_tools.pipelines.docs_package_overview:groups
 View:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> Node:ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
-View:View(func=ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases) --> View:View(func=ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases)
+View:View(func=ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases, ...) --> View:View(func=ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases, ...)
 View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> View:ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
 View:ordeq_dev_tools.pipelines.generate_release_notes:bump_version --> Node:ordeq_dev_tools.pipelines.generate_release_notes:bump_version
 View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> Node:ordeq_dev_tools.pipelines.generate_release_notes:changes

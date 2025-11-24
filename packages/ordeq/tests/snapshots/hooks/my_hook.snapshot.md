@@ -12,7 +12,7 @@ class MyUntypedOutputHook(OutputHook):
 
 class MyFixedOutputHook(MyUntypedOutputHook, NodeHook):
     def before_node_run(self, node: Node) -> None:
-        print(f"Running node '{node}'")
+        print(f"Running node {node}")
 
 
 @node(inputs=StringBuffer("a"), outputs=StringBuffer("b"))
@@ -34,7 +34,7 @@ fixed_output_hook.before_output_save(StringBuffer("B"), "world")
 
 ```text
 saving data `hello` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
-Running node '__main__:func'
+Running node 'func' in module '__main__'
 saving data `world` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
 
 ```

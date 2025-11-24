@@ -33,7 +33,7 @@ if __name__ == "__main__":
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node '__main__:node_return_tuple'
-INFO	ordeq.runner	Running view '__main__:node_consume_tuple'
+INFO	ordeq.runner	Running node 'node_return_tuple' in module '__main__'
+INFO	ordeq.runner	Running view 'node_consume_tuple' in module '__main__'
 
 ```

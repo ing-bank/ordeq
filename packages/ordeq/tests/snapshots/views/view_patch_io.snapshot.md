@@ -36,7 +36,7 @@ Node received 'Buenos dias World!'
 
 ```text
 INFO	ordeq.io	Loading Literal('Buenos dias')
-INFO	ordeq.runner	Running view '__main__:hello_world'
-INFO	ordeq.runner	Running view '__main__:n'
+INFO	ordeq.runner	Running view 'hello_world' in module '__main__'
+INFO	ordeq.runner	Running view 'n' in module '__main__'
 
 ```

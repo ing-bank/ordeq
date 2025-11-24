@@ -43,7 +43,7 @@ Saying Hello
 ```text
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('Hello')
-INFO	ordeq.runner	Running node '__main__:hello'
+INFO	ordeq.runner	Running node 'hello' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

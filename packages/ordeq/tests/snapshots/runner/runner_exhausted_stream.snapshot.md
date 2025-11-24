@@ -71,15 +71,15 @@ Node:__main__:multiply --> io-3
 
 ```text
 INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-INFO	ordeq.runner	Running node '__main__:increment'
+INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
 INFO	ordeq.io	Loading Literal('2')
-INFO	ordeq.runner	Running node '__main__:multiply'
+INFO	ordeq.runner	Running node 'multiply' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
 INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-INFO	ordeq.runner	Running node '__main__:increment'
+INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Loading Literal('2')
-INFO	ordeq.runner	Running node '__main__:multiply'
+INFO	ordeq.runner	Running node 'multiply' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
 
 ```

@@ -45,27 +45,9 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:View(func=__main__:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])
-io-1 --> View:View(func=__main__:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])
-View:View(func=__main__:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)]) --> io-2
+io-0 --> View:View(func=__main__:filter_df, ...)
+io-1 --> View:View(func=__main__:filter_df, ...)
+View:View(func=__main__:filter_df, ...) --> io-2
 io-2 --> View:__main__:group_by
 View:__main__:group_by --> io-3
      A   B   D
@@ -84,13 +66,7 @@ INFO	ordeq.io	Loading Literal(0    False
 1    False
 2    False
 Name: B, dtype: bool)
-INFO	ordeq.runner	Running view 'View(func=__main__:filter_df, inputs=[Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0), Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)])'
-INFO	ordeq.runner	Running view '__main__:group_by'
+INFO	ordeq.runner	Running view View(func=__main__:filter_df, ...)
+INFO	ordeq.runner	Running view 'group_by' in module '__main__'
 
 ```

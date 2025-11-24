@@ -79,8 +79,8 @@ INFO	ordeq.io	Loading Literal(   id  amount   to
 0   1     100   me
 1   2     200   me
 2   3     300  you)
-INFO	ordeq.runner	Running view '__main__:perform_check'
-INFO	ordeq.runner	Running view '__main__:txs_agg'
-INFO	ordeq.runner	Running view '__main__:print_agg'
+INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
+INFO	ordeq.runner	Running view 'txs_agg' in module '__main__'
+INFO	ordeq.runner	Running view 'print_agg' in module '__main__'
 
 ```

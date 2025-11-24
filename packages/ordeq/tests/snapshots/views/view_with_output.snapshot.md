@@ -19,7 +19,7 @@ def say_hello(value: str) -> str:
 ## Output
 
 ```text
-ValueError: Input '__main__:hello' to node Node(func=__main__:say_hello, ...) is not a view
+ValueError: Input 'hello' in module '__main__' to node Node(func=__main__:say_hello, ...) is not a view
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
     ...<2 lines>...

@@ -27,9 +27,9 @@ pprint(node_graph.topological_ordering)
 
 ```text
 NodeIOGraph
-View:View(func=example_nested.subpackage.subsubpackage.hello:world) --> io-0
+View:View(func=example_nested.subpackage.subsubpackage.hello:world, ...) --> io-0
 NodeGraph
-View:View(func=example_nested.subpackage.subsubpackage.hello:world)
+View:View(func=example_nested.subpackage.subsubpackage.hello:world, ...)
 Topological ordering
 (View(func=example_nested.subpackage.subsubpackage.hello:world),)
 

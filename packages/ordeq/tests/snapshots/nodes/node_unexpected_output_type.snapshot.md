@@ -16,7 +16,7 @@ def func(data: str) -> str:
 ## Output
 
 ```text
-ValueError: Outputs of '__main__:func' must be of type Output, got <class 'ordeq_common.io.literal.Literal'> 
+ValueError: Outputs of 'func' in module '__main__' must be of type Output, got <class 'ordeq_common.io.literal.Literal'> 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_outputs
     raise ValueError(
     ...<2 lines>...

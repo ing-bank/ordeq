@@ -44,9 +44,9 @@ Finished analyzing buffer_2 after 2 seconds.
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node 'example_async.sync_nodes:write_buffer_1'
+INFO	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.sync_nodes'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node 'example_async.sync_nodes:write_buffer_2'
+INFO	ordeq.runner	Running node 'write_buffer_2' in module 'example_async.sync_nodes'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

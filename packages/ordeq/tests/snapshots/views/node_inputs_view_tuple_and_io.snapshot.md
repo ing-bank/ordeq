@@ -26,7 +26,7 @@ run(combine_greeting_with_ending, verbose=True)
 
 ```text
 View(func=__main__:hello)
-View:View(func=__main__:hello) --> io-1
+View:View(func=__main__:hello, ...) --> io-1
 io-0 --> Node:__main__:combine_greeting_with_ending
 io-1 --> Node:__main__:combine_greeting_with_ending
 Node:__main__:combine_greeting_with_ending --> io-2
@@ -37,9 +37,9 @@ Hello world !!!
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view 'View(func=__main__:hello)'
+INFO	ordeq.runner	Running view View(func=__main__:hello, ...)
 INFO	ordeq.io	Loading Literal('!!!')
-INFO	ordeq.runner	Running node '__main__:combine_greeting_with_ending'
+INFO	ordeq.runner	Running node 'combine_greeting_with_ending' in module '__main__'
 INFO	ordeq.io	Saving Print()
 
 ```

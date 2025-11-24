@@ -67,7 +67,7 @@ def _run_node_func(
     node: Node, args: list[Any], *, hooks: Sequence[NodeHook] = ()
 ) -> tuple[Any, ...]:
     node_type = "view" if isinstance(node, View) else "node"
-    logger.info("Running %s '%s'", node_type, node)
+    logger.info("Running %s %s", node_type, node)
 
     try:
         values = node.func(*args)

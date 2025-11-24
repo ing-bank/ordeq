@@ -30,11 +30,9 @@ if __name__ == "__main__":
 ## Output
 
 ```text
-ValueError: Inputs invalid for function arguments: '__main__:perform_check'
+ValueError: Inputs invalid for function arguments: 'perform_check' in module '__main__'
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
-    raise ValueError(
-        f"Inputs invalid for function arguments: '{n}'"
-    ) from e
+    raise ValueError(f"Inputs invalid for function arguments: {n}") from e
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
     _raise_for_invalid_inputs(self)

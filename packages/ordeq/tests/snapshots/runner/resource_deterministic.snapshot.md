@@ -70,15 +70,15 @@ Hello, world!
 ```text
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
-INFO	ordeq.runner	Running node '__main__:first'
+INFO	ordeq.runner	Running node 'first' in module '__main__'
 INFO	ordeq.io	Saving File
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node '__main__:second'
+INFO	ordeq.runner	Running node 'second' in module '__main__'
 INFO	ordeq.io	Saving Print()
-INFO	ordeq.runner	Running node '__main__:first'
+INFO	ordeq.runner	Running node 'first' in module '__main__'
 INFO	ordeq.io	Saving File
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running node '__main__:second'
+INFO	ordeq.runner	Running node 'second' in module '__main__'
 INFO	ordeq.io	Saving Print()
 
 ```

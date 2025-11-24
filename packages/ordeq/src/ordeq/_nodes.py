@@ -88,6 +88,12 @@ class Node(Generic[FuncParams, FuncReturns]):
     def func_name(self) -> str:
         return infer_node_name_from_func(self.func)
 
+    @property
+    def ref(self) -> str:
+        if self.is_fq:
+            return f"{self.module}:{self.name}"
+        return f"{self.__class__.__name__}(func={self.func_name}, ...)"
+
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
 
@@ -115,8 +121,8 @@ class Node(Generic[FuncParams, FuncReturns]):
 
     def __str__(self) -> str:
         if self.is_fq:
-            return f"{self.module}:{self.name}"
-        return repr(self)
+            return f"'{self.name}' in module '{self.module}'"
+        return f"{self.__class__.__name__}(func={self.func_name}, ...)"
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:
@@ -136,9 +142,7 @@ def _raise_for_invalid_inputs(n: Node) -> None:
     try:
         sign.bind(*n.inputs)
     except TypeError as e:
-        raise ValueError(
-            f"Inputs invalid for function arguments: '{n}'"
-        ) from e
+        raise ValueError(f"Inputs invalid for function arguments: {n}") from e
 
 
 def _raise_for_invalid_outputs(n: Node) -> None:
@@ -157,7 +161,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
     if not all(are_outputs):
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
-            f"Outputs of '{n}' must be of type Output, "
+            f"Outputs of {n} must be of type Output, "
             f"got {type(not_an_output)} "
         )
 
@@ -190,7 +194,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
 
     if len(return_types) != len(n.outputs):
         raise ValueError(
-            f"Outputs invalid for return annotation: '{n}'. "
+            f"Outputs invalid for return annotation: {n}. "
             f"Node has {len(n.outputs)} output(s), but the return type "
             f"annotation expects {len(return_types)} value(s)."
         )
@@ -209,7 +213,7 @@ def _raise_if_not_hashable(n: Node) -> None:
     try:
         hash(n)
     except TypeError as e:
-        raise ValueError(f"Node is not hashable: '{n}'") from e
+        raise ValueError(f"Node is not hashable: {n}") from e
 
 
 def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
@@ -340,13 +344,13 @@ def create_node(
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input '{input_}' to Node(func={func_name}, ...) "
+                    f"Input {input_} to Node(func={func_name}, ...) "
                     f"is not a node"
                 )
             view = input_
             if not isinstance(view, View):
                 raise ValueError(
-                    f"Input '{input_}' to node Node(func={func_name}, ...) "
+                    f"Input {input_} to node Node(func={func_name}, ...) "
                     f"is not a view"
                 )
             views.append(view)
@@ -365,13 +369,13 @@ def create_node(
             if callable(check):
                 if not _is_node(check):
                     raise ValueError(
-                        f"Check '{check}' to node Node(func={func_name}, ...) "
+                        f"Check {check} to node Node(func={func_name}, ...) "
                         f"is not a node"
                     )
                 view = check
                 if not isinstance(view, View):
                     raise ValueError(
-                        f"Check '{check}' to node Node(func={func_name}, ...) "
+                        f"Check {check} to node Node(func={func_name}, ...) "
                         f"is not a view"
                     )
                 checks_.append(view.outputs[0])

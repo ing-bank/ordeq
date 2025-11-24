@@ -27,7 +27,7 @@ print(_is_node(func))
 
 ```text
 <class 'ordeq._nodes.Node'>
-__main__:func
+'func' in module '__main__'
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
 True
 

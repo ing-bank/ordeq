@@ -43,9 +43,9 @@ assert v3 == 186
 ```text
 WARNING	ordeq.preview	The pipeline function is experimental and may change in future releases.
 INFO	ordeq.io	Loading Literal(30)
-INFO	ordeq.runner	Running view '__main__:n1'
-INFO	ordeq.runner	Running view '__main__:n2'
-INFO	ordeq.runner	Running node '__main__:n3'
+INFO	ordeq.runner	Running view 'n1' in module '__main__'
+INFO	ordeq.runner	Running view 'n2' in module '__main__'
+INFO	ordeq.runner	Running node 'n3' in module '__main__'
 INFO	ordeq.io	Saving Buffer(value=None)
 INFO	ordeq.io	Saving Buffer(value=None)
 INFO	ordeq.io	Saving Buffer(value=None)

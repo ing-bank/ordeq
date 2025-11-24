@@ -38,7 +38,7 @@ Data: {'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@a
 
 ```text
 INFO	ordeq.io	Loading Literal(<Response [200]>)
-INFO	ordeq.runner	Running view '__main__:users_json'
-INFO	ordeq.runner	Running view '__main__:to_yaml'
+INFO	ordeq.runner	Running view 'users_json' in module '__main__'
+INFO	ordeq.runner	Running view 'to_yaml' in module '__main__'
 
 ```

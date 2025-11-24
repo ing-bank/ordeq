@@ -19,6 +19,9 @@ print(func.__doc__)
 print(func)
 print(func.__annotations__)
 print(func.__module__)
+print("Should all print long representation:")
+print(f"{func!r}")
+print(repr(func))
 
 ```
 
@@ -26,8 +29,11 @@ print(func.__module__)
 
 ```text
 A really nice node
-__main__:func
+'func' in module '__main__'
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
 ordeq._nodes
+Should all print long representation:
+Node(module=__main__, name=func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
+Node(module=__main__, name=func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
 
 ```

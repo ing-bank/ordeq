@@ -14,13 +14,13 @@ from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
 from ordeq._resolve import (
     Runnable,
     _is_module,
-    _resolve_callables_to_nodes,
+    _resolve_modules_to_nodes,
     _resolve_packages_to_modules,
     _resolve_refs_to_hooks,
     _resolve_refs_to_nodes,
     _resolve_runnables_to_modules,
+    _resolve_runnables_to_nodes,
 )
-from ordeq._scan import scan
 from ordeq._substitute import (
     _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
@@ -253,7 +253,7 @@ def run(
     >>> from ordeq import Node
     >>> import pipeline
     >>> def filter_daily_frequency(node: Node) -> bool:
-    ...     # Filters the nodes with attribute "frequency' set to daily
+    ...     # Filters the nodes with attribute "frequency" set to daily
     ...     # e.g.: @node(..., frequency="daily")
     ...     return node.attributes.get("frequency", None) == "daily"
     >>> run(pipeline, filter=filter_daily_frequency)
@@ -265,12 +265,11 @@ def run(
     _validate_runnables(*runnables)
     modules = _resolve_runnables_to_modules(*runnables)
     submodules = _resolve_packages_to_modules(*modules)
-    fq_nodes, _ = scan(*submodules)
-    fq_nodes += _resolve_refs_to_nodes(*runnables)
-    fq_nodes += _resolve_callables_to_nodes(*runnables)
+    nodes = _resolve_modules_to_nodes(*submodules)
+    nodes += _resolve_refs_to_nodes(*runnables)
+    nodes += _resolve_runnables_to_nodes(*runnables)
 
-    fq_nodes_and_views = _process_nodes(*fq_nodes, node_filter=node_filter)
-    nodes_and_views = [node for _, node in fq_nodes_and_views]
+    nodes_and_views = _process_nodes(*nodes, node_filter=node_filter)
     graph = NodeGraph.from_nodes(nodes_and_views)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
@@ -290,8 +289,7 @@ def run(
     user_patches = _substitutes_modules_to_ios(io_subs)
     patches = {**user_patches, **save_mode_patches}
     if patches:
-        fq_patched_nodes = _patch_nodes(*fq_nodes_and_views, patches=patches)
-        patched_nodes = [node for _, node in fq_patched_nodes]
+        patched_nodes = _patch_nodes(*nodes_and_views, patches=patches)
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:

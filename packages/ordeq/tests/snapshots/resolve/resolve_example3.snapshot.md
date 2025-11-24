@@ -27,14 +27,8 @@ pprint(_resolve_runnables_to_nodes(*runnables))
 
 ```text
 ['example_3', 'example_3.func_defs', 'example_3.nodes']
-[(FQN(module='example_3.nodes', name='f1'),
-  View(func=example_3.func_defs:hello)),
- (FQN(module='example_3.nodes', name='f2'),
-  View(func=example_3.func_defs:hello))]
+[View(func=example_3.func_defs:hello), View(func=example_3.func_defs:hello)]
 {}
-[(FQN(module='example_3.nodes', name='f1'),
-  View(func=example_3.func_defs:hello)),
- (FQN(module='example_3.nodes', name='f2'),
-  View(func=example_3.func_defs:hello))]
+[View(func=example_3.func_defs:hello), View(func=example_3.func_defs:hello)]
 
 ```

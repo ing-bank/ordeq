@@ -92,10 +92,10 @@ print(create_manifest_json(example_project))
     "example_project.nodes_with_inline_io:greet": {
       "name": "greet",
       "inputs": [
-        "example_project.nodes_with_view:<anonymous0>"
+        "example_project.nodes_with_inline_io:<anonymous0>"
       ],
       "outputs": [
-        "example_project.nodes_with_view:<anonymous1>"
+        "example_project.nodes_with_inline_io:<anonymous1>"
       ],
       "checks": [],
       "attributes": {}
@@ -278,14 +278,14 @@ print(create_manifest_json(example_project))
       "references": [],
       "attributes": {}
     },
-    "example_project.nodes_with_view:<anonymous0>": {
+    "example_project.nodes_with_inline_io:<anonymous0>": {
       "name": "<anonymous0>",
       "type": "ordeq._io:Input",
       "resource": null,
       "references": [],
       "attributes": {}
     },
-    "example_project.nodes_with_view:<anonymous1>": {
+    "example_project.nodes_with_inline_io:<anonymous1>": {
       "name": "<anonymous1>",
       "type": "ordeq._io:IO",
       "resource": null,

@@ -1,4 +1,3 @@
-from typing import cast
 
 import pyiceberg.types as T
 import pytest

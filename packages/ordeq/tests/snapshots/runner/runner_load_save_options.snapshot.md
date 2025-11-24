@@ -59,10 +59,10 @@ x says 'x says y did it ' but y says 'x did it and I know the murder weapon'
 
 ```text
 INFO	ordeq.io	Loading CustomIO(attr=y did it)
-INFO	ordeq.runner	Running node "increment" in module "__main__"
+INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving CustomIO(attr=)
 INFO	ordeq.io	Loading CustomIO(attr=x did it)
-INFO	ordeq.runner	Running node "decrement" in module "__main__"
+INFO	ordeq.runner	Running node 'decrement' in module '__main__'
 INFO	ordeq.io	Saving CustomIO(attr=)
 INFO	ordeq.io	Loading CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
 

@@ -16,7 +16,7 @@ def func(data: str) -> str:
 ## Output
 
 ```text
-ValueError: Outputs of node Node(func=__main__:func, ...) must be of type Output, got <class 'ordeq_common.io.literal.Literal'> 
+ValueError: Outputs of 'func' in module '__main__' must be of type Output, got <class 'ordeq_common.io.literal.Literal'> 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_outputs
     raise ValueError(
     ...<2 lines>...
@@ -35,20 +35,16 @@ ValueError: Outputs of node Node(func=__main__:func, ...) must be of type Output
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     return Node(
         func=func,
-    ...<4 lines>...
-        views=tuple(views),
+    ...<6 lines>...
+        name=name,
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
-    inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    node_ = create_node(
         inner,
-        ^^^^^^
-    ...<3 lines>...
-        attributes=attributes,
-        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        name=f.__name__,
     )
-    ^
 
   File "/packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py", line LINO, in <module>
     @node(inputs=x, outputs=x)  # outputs should be of type Output or IO

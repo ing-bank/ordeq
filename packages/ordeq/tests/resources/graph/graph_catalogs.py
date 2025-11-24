@@ -16,4 +16,4 @@ print("NodeGraph")
 print(node_graph)
 
 print("Topological ordering")
-pprint([node.name for node in node_graph.topological_ordering])
+pprint(node_graph.topological_ordering)

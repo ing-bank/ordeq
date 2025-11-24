@@ -19,7 +19,7 @@ pprint(ios, width=40)
 ```text
 Nodes:
 [(('example_project.nodes_import_alias', 'func'),
-  Node(func=example_project.nodes_import_alias:func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}))]
+  Node(module=example_project.nodes_import_alias, name=func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}))]
 IOs:
 [(('example_project.nodes_import_alias',
    'a'),

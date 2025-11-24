@@ -28,7 +28,7 @@ run(__name__)
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "hello" in module "__main__"
-INFO	ordeq.runner	Running node "greet" in module "__main__"
+INFO	ordeq.runner	Running node 'hello' in module '__main__'
+INFO	ordeq.runner	Running node 'greet' in module '__main__'
 
 ```

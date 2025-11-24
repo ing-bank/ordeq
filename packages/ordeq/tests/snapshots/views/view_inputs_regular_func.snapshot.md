@@ -2,7 +2,6 @@
 
 ```python
 from ordeq import node
-from ordeq._nodes import get_node
 from ordeq_common import Print
 
 
@@ -20,29 +19,25 @@ def hello(data: str) -> None:
     print(data)
 
 
-print(repr(get_node(hello)))
+print(repr(hello))
 
 ```
 
 ## Output
 
 ```text
-ValueError: Input '<function string at HASH1>' to Node(func=__main__:func, ...) is not a node
+ValueError: Input <function string at HASH1> to Node(func=__main__:func, ...) is not a node
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
     ...<2 lines>...
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
-    inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
-                           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    node_ = create_node(
         inner,
-        ^^^^^^
-    ...<3 lines>...
-        attributes=attributes,
-        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        name=f.__name__,
     )
-    ^
 
   File "/packages/ordeq/tests/resources/views/view_inputs_regular_func.py", line LINO, in <module>
     @node(inputs=string)

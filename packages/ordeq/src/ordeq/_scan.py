@@ -4,7 +4,7 @@ from types import ModuleType
 
 from ordeq._fqn import FQ, fqn_to_object_ref
 from ordeq._io import AnyIO, IOIdentity, _is_io
-from ordeq._nodes import Node, _is_node, get_node
+from ordeq._nodes import Node, _is_node
 
 
 def scan(*modules: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
@@ -34,7 +34,7 @@ def scan(*modules: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
                             f"'{existing_ref}' to '{name}'. "
                             f"Nodes cannot be aliased."
                         )
-                nodes[obj].append(((module.__name__, name), get_node(obj)))
+                nodes[obj].append(((module.__name__, name), obj))
     return (
         [fq_node for node_list in nodes.values() for fq_node in node_list],
         [fq_io for io_list in ios.values() for fq_io in io_list],

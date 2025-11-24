@@ -18,6 +18,6 @@ run(func)
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running view "func" in module "__main__"
+INFO	ordeq.runner	Running view 'func' in module '__main__'
 
 ```

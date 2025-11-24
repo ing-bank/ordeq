@@ -81,9 +81,9 @@ shape: (3, 3)
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.runner	Running node "produce" in module "__main__"
+INFO	ordeq.runner	Running node 'produce' in module '__main__'
 INFO	ordeq.io	Saving PandasCSV(path=Path('<TEMP_DIR>/my.csv'))
 INFO	ordeq.io	Loading PolarsEagerCSV(path=Path('<TEMP_DIR>/my.csv'))
-INFO	ordeq.runner	Running view "check" in module "__main__"
+INFO	ordeq.runner	Running view 'check' in module '__main__'
 
 ```

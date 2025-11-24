@@ -4,7 +4,7 @@ from itertools import chain
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, TypeVar, cast
 
-from ordeq._fqn import AnyRef, ObjectRef, object_ref_to_fqn
+from ordeq._fqn import AnyRef, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
@@ -66,11 +66,8 @@ def _save_outputs(outputs, values) -> None:
 def _run_node_func(
     node: Node, args: list[Any], *, hooks: Sequence[NodeHook] = ()
 ) -> tuple[Any, ...]:
-    module_name, node_name = object_ref_to_fqn(node.name)
     node_type = "view" if isinstance(node, View) else "node"
-    logger.info(
-        'Running %s "%s" in module "%s"', node_type, node_name, module_name
-    )
+    logger.info("Running %s %s", node_type, node)
 
     try:
         values = node.func(*args)

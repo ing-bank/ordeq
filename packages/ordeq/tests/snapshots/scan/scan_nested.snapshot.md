@@ -20,9 +20,9 @@ pprint(ios, width=40)
 ```text
 Nodes:
 [(('example_nested.__main__', 'world_relative'),
-  Node(func=example_nested.subpackage.subsubpackage.hello_relative:world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
+  Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
  (('example_nested.subpackage.subsubpackage.hello_relative', 'world_relative'),
-  Node(func=example_nested.subpackage.subsubpackage.hello_relative:world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
+  Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
  (('example_nested.subpackage.subsubpackage.hello', 'world'),
   View(func=example_nested.subpackage.subsubpackage.hello:world))]
 IOs:

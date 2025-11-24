@@ -45,9 +45,9 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:__main__:filter_df
-io-1 --> View:__main__:filter_df
-View:__main__:filter_df --> io-2
+io-0 --> View:View(func=__main__:filter_df, ...)
+io-1 --> View:View(func=__main__:filter_df, ...)
+View:View(func=__main__:filter_df, ...) --> io-2
 io-2 --> View:__main__:group_by
 View:__main__:group_by --> io-3
      A   B   D
@@ -66,7 +66,7 @@ INFO	ordeq.io	Loading Literal(0    False
 1    False
 2    False
 Name: B, dtype: bool)
-INFO	ordeq.runner	Running view "filter_df" in module "__main__"
-INFO	ordeq.runner	Running view "group_by" in module "__main__"
+INFO	ordeq.runner	Running view View(func=__main__:filter_df, ...)
+INFO	ordeq.runner	Running view 'group_by' in module '__main__'
 
 ```

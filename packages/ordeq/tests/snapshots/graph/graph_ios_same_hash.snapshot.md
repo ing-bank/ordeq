@@ -38,8 +38,8 @@ print(graph)
 
 ```text
 NodeIOGraph:
-io-0 --> Node:_operator:eq
-io-1 --> Node:_operator:eq
-Node:_operator:eq --> io-2
+io-0 --> Node:Node(func=_operator:eq, ...)
+io-1 --> Node:Node(func=_operator:eq, ...)
+Node:Node(func=_operator:eq, ...) --> io-2
 
 ```

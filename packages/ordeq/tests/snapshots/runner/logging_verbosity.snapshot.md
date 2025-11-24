@@ -5,7 +5,6 @@ import logging
 
 from ordeq import node
 from ordeq._graph import NodeGraph
-from ordeq._nodes import get_node
 from ordeq._runner import _run_graph
 from ordeq_common import StringBuffer
 
@@ -16,7 +15,7 @@ plus = node(func=lambda x, y: f"{x} + {y}", inputs=(A, B), outputs=(C,))
 minus = node(func=lambda x, y: f"{x} - {y}", inputs=(C, D), outputs=(E,))
 square = node(func=lambda x: f"({x})^2", inputs=(E,), outputs=(F,))
 
-nodes = {get_node(n) for n in (plus, minus, square)}
+nodes = {plus, minus, square}
 _run_graph(NodeGraph.from_nodes(nodes))
 
 ```
@@ -26,12 +25,12 @@ _run_graph(NodeGraph.from_nodes(nodes))
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "<lambda>" in module "__main__"
+INFO	ordeq.runner	Running node Node(func=__main__:<lambda>, ...)
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.runner	Running node "<lambda>" in module "__main__"
+INFO	ordeq.runner	Running node Node(func=__main__:<lambda>, ...)
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-INFO	ordeq.runner	Running node "<lambda>" in module "__main__"
+INFO	ordeq.runner	Running node Node(func=__main__:<lambda>, ...)
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
 
 ```

@@ -57,10 +57,10 @@ aBBB
 
 ```text
 INFO	ordeq.io	Loading Literal('A')
-INFO	ordeq.runner	Running view "Ap" in module "example_checks.pipeline_views"
+INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_views'
 INFO	ordeq.io	Loading Literal('B')
-INFO	ordeq.runner	Running view "Bp" in module "example_checks.pipeline_views"
-INFO	ordeq.runner	Running view "AB" in module "example_checks.pipeline_views"
-INFO	ordeq.runner	Running view "print_result" in module "example_checks.pipeline_views"
+INFO	ordeq.runner	Running view 'Bp' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Running view 'AB' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_views'
 
 ```

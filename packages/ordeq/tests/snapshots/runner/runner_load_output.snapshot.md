@@ -66,7 +66,7 @@ AttributeError: 'Example' object has no attribute 'load'
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "my_node" in module "__main__"
+INFO	ordeq.runner	Running node 'my_node' in module '__main__'
 INFO	ordeq.io	Saving Output(id=ID1)
 
 ```

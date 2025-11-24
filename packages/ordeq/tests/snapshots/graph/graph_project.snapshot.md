@@ -21,7 +21,7 @@ print("NodeGraph")
 print(node_graph)
 
 print("Topological ordering")
-pprint([node.name for node in node_graph.topological_ordering])
+pprint(node_graph.topological_ordering)
 
 ```
 
@@ -49,7 +49,7 @@ Node:example_project.nodes_import:func_a --> io-11
 Node:example_project.nodes:func --> io-12
 Node:example_project.inner.nodes:func --> io-13
 NodeGraph
-View:example_project.nodes_with_view:greet --> Node:example_project.nodes_with_view:farewell
+View:example_project.nodes_with_view:greet --> Node:example_project.nodes_with_view:greet
 Node:example_project.inner.nodes:func
 Node:example_project.nodes:func
 Node:example_project.nodes_import:func_a
@@ -58,13 +58,13 @@ Node:example_project.nodes_import_alias:func
 Node:example_project.nodes_with_inline_io:greet
 Node:example_project.nodes_with_view:farewell
 Topological ordering
-['example_project.nodes_with_view:greet',
- 'example_project.inner.nodes:func',
- 'example_project.nodes:func',
- 'example_project.nodes_import:func_a',
- 'example_project.nodes_import:func_b',
- 'example_project.nodes_import_alias:func',
- 'example_project.nodes_with_inline_io:greet',
- 'example_project.nodes_with_view:farewell']
+(View(module=example_project.nodes_with_view, name=greet, inputs=[Literal('Hello')]),
+ Node(module=example_project.inner.nodes, name=func, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'tags': ['dummy']}),
+ Node(module=example_project.nodes, name=func, inputs=[IO(id=ID2)], outputs=[Print()], attributes={'tags': ['dummy']}),
+ Node(module=example_project.nodes_import, name=func_a, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]),
+ Node(module=example_project.nodes_import, name=func_b, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}),
+ Node(module=example_project.nodes_import_alias, name=func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}),
+ Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Literal('Buenos dias')], outputs=[IO(id=ID3)]),
+ Node(module=example_project.nodes_with_view, name=farewell, inputs=[IO(id=ID4)], outputs=[Print()]))
 
 ```

@@ -54,15 +54,15 @@ Node:__main__:decrement --> io-2
 
 ```text
 INFO	ordeq.io	Loading Literal(1)
-INFO	ordeq.runner	Running node "increment" in module "__main__"
+INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "decrement" in module "__main__"
+INFO	ordeq.runner	Running node 'decrement' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading Literal(200)
-INFO	ordeq.runner	Running node "increment" in module "__main__"
+INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "decrement" in module "__main__"
+INFO	ordeq.runner	Running node 'decrement' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 

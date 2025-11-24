@@ -20,9 +20,9 @@ run(show_message, verbose=True)
 ## Output
 
 ```text
-View:__main__:print_message --> io-0
+View:View(func=__main__:print_message, ...) --> io-0
 Hello from printer
-View:__main__:print_message --> io-0
+View:View(func=__main__:print_message, ...) --> io-0
 Hello from printer
 
 ```
@@ -30,7 +30,7 @@ Hello from printer
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view "print_message" in module "__main__"
-INFO	ordeq.runner	Running view "print_message" in module "__main__"
+INFO	ordeq.runner	Running view View(func=__main__:print_message, ...)
+INFO	ordeq.runner	Running view View(func=__main__:print_message, ...)
 
 ```

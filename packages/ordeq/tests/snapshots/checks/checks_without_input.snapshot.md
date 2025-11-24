@@ -58,8 +58,8 @@ Dependent node received data: A
 
 ```text
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.runner	Running view "my_node" in module "__main__"
+INFO	ordeq.runner	Running view 'my_node' in module '__main__'
 INFO	ordeq.io	Loading Literal('A')
-INFO	ordeq.runner	Running view "dependent_node" in module "__main__"
+INFO	ordeq.runner	Running view 'dependent_node' in module '__main__'
 
 ```

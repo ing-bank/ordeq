@@ -372,8 +372,8 @@ def _resolve_runnable_refs_to_runnables(
         elif _is_node(runnable):
             nodes.append(runnable)
         elif is_object_ref(runnable):
-            FQN.from_ref(runnable)
-            nodes.append(_resolve_fqn_to_node(runnable))
+            fqn = FQN.from_ref(runnable)
+            nodes.append(_resolve_fqn_to_node(fqn))
         else:
             modules.append(_resolve_module_ref_to_module(runnable))
     return modules, nodes

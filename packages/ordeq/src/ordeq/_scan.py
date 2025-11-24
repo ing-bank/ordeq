@@ -1,39 +1,40 @@
 from collections import defaultdict
-from collections.abc import Callable
 from types import ModuleType
+from typing import TypeAlias
 
-from ordeq._fqn import FQ, FQN
-from ordeq._io import AnyIO, IOIdentity, _is_io
+from ordeq._fqn import FQN
+from ordeq._io import IOIdentity, _is_io
 from ordeq._nodes import Node, _is_node
+from ordeq._resolve import _resolve_packages_to_modules
+
+NodeFQNs: TypeAlias = dict[Node, FQN]
+IOFQNs: TypeAlias = dict[IOIdentity, FQN]
 
 
-def scan(*modules: ModuleType) -> tuple[list[FQ[Node]], list[FQ[AnyIO]]]:
-    nodes: dict[Callable, list[FQ[Node]]] = defaultdict(list)
-    ios: dict[IOIdentity, list[FQ[AnyIO]]] = defaultdict(list)
-    for module in modules:
+def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:
+    node_fqns: NodeFQNs = defaultdict(list)
+    io_fqns: IOFQNs = defaultdict(list)
+    for module in _resolve_packages_to_modules(*modules):
         for name, obj in vars(module).items():
             if _is_io(obj):
                 io_id = id(obj)
-                if io_id in ios:
-                    existing_fqn, _ = ios[io_id][0]
+                if io_id in io_fqns:
+                    existing_fqn = io_fqns[io_id][0]
                     if name != existing_fqn.name:
                         raise ValueError(
                             f"Module '{module.__name__}' aliases IO "
                             f"'{existing_fqn.ref}' to '{name}'. "
                             f"IOs cannot be aliased."
                         )
-                ios[io_id].append((FQN(module.__name__, name), obj))
+                io_fqns[io_id].append(FQN(module.__name__, name))
             elif _is_node(obj):
-                if obj in nodes:
-                    existing_fqn, _ = nodes[obj][0]
+                if obj in node_fqns:
+                    existing_fqn = node_fqns[obj][0]
                     if name != existing_fqn.name:
                         raise ValueError(
                             f"Module '{module.__name__}' aliases node "
                             f"'{existing_fqn.ref}' to '{name}'. "
                             f"Nodes cannot be aliased."
                         )
-                nodes[obj].append((FQN(module.__name__, name), obj))
-    return (
-        [fq_node for node_list in nodes.values() for fq_node in node_list],
-        [fq_io for io_list in ios.values() for fq_io in io_list],
-    )
+                node_fqns[obj].append(FQN(module.__name__, name))
+    return dict(node_fqns), dict(io_fqns)

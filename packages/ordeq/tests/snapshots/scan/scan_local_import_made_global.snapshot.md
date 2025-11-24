@@ -4,13 +4,13 @@
 from pprint import pprint
 
 import example_imports.local_import_made_global
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(example_imports.local_import_made_global)
+nodes, ios = _scan_fqns(example_imports.local_import_made_global)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -18,9 +18,8 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[]
+{}
 IOs:
-[(FQN(module='example_imports.local_import_made_global', name='a'),
-  IO(id=ID1))]
+[[FQN(module='example_imports.local_import_made_global', name='a')]]
 
 ```

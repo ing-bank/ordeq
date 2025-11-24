@@ -4,14 +4,13 @@
 from pprint import pprint
 
 import example_anonymous
-from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(*_resolve_packages_to_modules(example_anonymous))
+nodes, ios = _scan_fqns(example_anonymous)
 print("Nodes:")
 pprint(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -19,8 +18,7 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(FQN(module='example_anonymous.nodes', name='node_with_inline_io'),
-  Node(module=example_anonymous.nodes, name=node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]))]
+{Node(module=example_anonymous.nodes, name=node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]): [FQN(module='example_anonymous.nodes', name='node_with_inline_io')]}
 IOs:
 []
 

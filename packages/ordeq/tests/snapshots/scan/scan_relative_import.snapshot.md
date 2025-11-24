@@ -2,10 +2,10 @@
 
 ```python
 import example_imports.relative_import
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
 print("Should raise an error:")
-_ = scan(example_imports.relative_import)
+_ = _scan_fqns(example_imports.relative_import)
 
 ```
 
@@ -14,13 +14,13 @@ _ = scan(example_imports.relative_import)
 ```text
 Should raise an error:
 ValueError: Module 'example_imports.relative_import' aliases IO 'example_imports.relative_import:a' to 'b'. IOs cannot be aliased.
-  File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
+  File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in _scan_fqns
     raise ValueError(
     ...<3 lines>...
     )
 
   File "/packages/ordeq/tests/resources/scan/scan_relative_import.py", line LINO, in <module>
-    _ = scan(example_imports.relative_import)
+    _ = _scan_fqns(example_imports.relative_import)
 
   File "<frozen runpy>", line LINO, in _run_code
 

@@ -38,7 +38,13 @@ Hello, World! == Hello, World!'
 
 ```text
 INFO	ordeq.runner	Running view View(func=__main__:hello, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 
 ```

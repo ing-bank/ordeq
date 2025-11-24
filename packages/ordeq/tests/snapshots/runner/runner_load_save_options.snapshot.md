@@ -59,11 +59,21 @@ x says 'x says y did it ' but y says 'x did it and I know the murder weapon'
 
 ```text
 INFO	ordeq.io	Loading CustomIO(attr=y did it)
+DEBUG	ordeq.io	Persisting data for CustomIO(attr=y did it)
 INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving CustomIO(attr=)
+DEBUG	ordeq.io	Persisting data for CustomIO(attr=x says y did it  !)
+DEBUG	ordeq.io	Loading cached data for CustomIO(attr=x says y did it  !)
+DEBUG	ordeq.io	Persisting data for CustomIO(attr=x says y did it  !)
 INFO	ordeq.io	Loading CustomIO(attr=x did it)
+DEBUG	ordeq.io	Persisting data for CustomIO(attr=x did it)
 INFO	ordeq.runner	Running node 'decrement' in module '__main__'
 INFO	ordeq.io	Saving CustomIO(attr=)
+DEBUG	ordeq.io	Persisting data for CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
+DEBUG	ordeq.io	Unpersisting data for CustomIO(attr=y did it)
+DEBUG	ordeq.io	Unpersisting data for CustomIO(attr=x says y did it  !)
+DEBUG	ordeq.io	Unpersisting data for CustomIO(attr=x did it)
+DEBUG	ordeq.io	Unpersisting data for CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
 INFO	ordeq.io	Loading CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
 
 ```

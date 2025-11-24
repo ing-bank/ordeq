@@ -387,9 +387,11 @@ class _InputCache(_BaseInput[Tin]):
     def load_wrapper(self, load_func, *args, **kwargs) -> Tin:
         if not hasattr(self, "_data"):
             return load_func(*args, **kwargs)
+        logger.debug("Loading cached data for %s", self)
         return self._data
 
     def persist(self, data: Tin) -> None:
+        logger.debug("Persisting data for %s", self)
         self.__dict__["_data"] = data
 
     def retain(self) -> Self:
@@ -400,6 +402,7 @@ class _InputCache(_BaseInput[Tin]):
         if not self._unpersist:
             return
         if "_data" in self.__dict__:
+            logger.debug("Unpersisting data for %s", self)
             del self.__dict__["_data"]
 
 

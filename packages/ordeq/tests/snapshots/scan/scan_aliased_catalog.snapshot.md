@@ -20,8 +20,7 @@ pprint(ios, width=40)
 Nodes:
 []
 IOs:
-[(('example_imports.aliased_catalog',
-   'a'),
+[(FQN(module='example_imports.aliased_catalog', name='a'),
   IO(id=ID1))]
 
 ```

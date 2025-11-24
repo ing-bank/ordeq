@@ -12,7 +12,7 @@ from typing import TypeAlias, TypeGuard
 from ordeq._fqn import (
     FQ,
     FQN,
-    ModuleRef,
+    ModuleName,
     Unknown,
     is_object_ref,
     object_ref_to_fqn,
@@ -33,7 +33,7 @@ def _is_package(module: ModuleType) -> TypeGuard[ModuleType]:
     return hasattr(module, "__path__")
 
 
-def _resolve_module_ref_to_module(module_ref: ModuleRef) -> ModuleType:
+def _resolve_module_ref_to_module(module_ref: ModuleName) -> ModuleType:
     return importlib.import_module(module_ref)
 
 

@@ -21,20 +21,15 @@ pprint(ios, width=40)
 Nodes:
 []
 IOs:
-[(('example_references.io_references',
-   'test_io'),
+[(FQN(module='example_references.io_references', name='test_io'),
   Input(id=ID1)),
- (('example_references.io_references',
-   'nested_test_io'),
+ (FQN(module='example_references.io_references', name='nested_test_io'),
   Input(id=ID2)),
- (('example_references.io_references',
-   'world'),
+ (FQN(module='example_references.io_references', name='world'),
   Literal('World!')),
- (('example_references.io_references',
-   'named_test_io'),
+ (FQN(module='example_references.io_references', name='named_test_io'),
   Input(id=ID3)),
- (('example_references.io_references',
-   'named_nested_test_io'),
+ (FQN(module='example_references.io_references', name='named_nested_test_io'),
   Input(id=ID4))]
 
 ```

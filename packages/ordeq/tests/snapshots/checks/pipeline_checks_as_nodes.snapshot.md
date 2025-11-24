@@ -79,17 +79,17 @@ aBBB
 
 ```text
 INFO	ordeq.io	Loading Literal('A')
-INFO	ordeq.runner	Running node "process_a" in module "example_checks.pipeline_checks_as_nodes"
+INFO	ordeq.runner	Running node 'example_checks.pipeline_checks_as_nodes:process_a'
 INFO	ordeq.io	Loading Literal('B')
-INFO	ordeq.runner	Running node "process_b" in module "example_checks.pipeline_checks_as_nodes"
-INFO	ordeq.runner	Running node "join" in module "example_checks.pipeline_checks_as_nodes"
+INFO	ordeq.runner	Running node 'example_checks.pipeline_checks_as_nodes:process_b'
+INFO	ordeq.runner	Running node 'example_checks.pipeline_checks_as_nodes:join'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading Literal('D')
-INFO	ordeq.runner	Running view "check_a" in module "example_checks.pipeline_checks_as_nodes"
-INFO	ordeq.runner	Running view "check_ab" in module "example_checks.pipeline_checks_as_nodes"
-INFO	ordeq.runner	Running view "print_result" in module "example_checks.pipeline_checks_as_nodes"
-INFO	ordeq.runner	Running view "check_ap" in module "example_checks.pipeline_checks_as_nodes"
-INFO	ordeq.runner	Running view "check_join" in module "example_checks.pipeline_checks_as_nodes"
-INFO	ordeq.runner	Running view "check_bp" in module "example_checks.pipeline_checks_as_nodes"
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_nodes:check_a'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_nodes:check_ab'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_nodes:print_result'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_nodes:check_ap'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_nodes:check_join'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_nodes:check_bp'
 
 ```

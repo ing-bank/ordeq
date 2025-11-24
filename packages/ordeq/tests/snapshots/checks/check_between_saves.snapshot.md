@@ -124,7 +124,7 @@ INFO	ordeq.io	Loading Literal(   id  amount   to country
 0   1     100   me      NL
 1   2     200   me      BE
 2   3     300  you      US)
-INFO	ordeq.runner	Running view "txs_agg" in module "__main__"
-INFO	ordeq.runner	Running view "perform_check" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:txs_agg'
+INFO	ordeq.runner	Running view '__main__:perform_check'
 
 ```

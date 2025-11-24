@@ -73,12 +73,12 @@ View:__main__:second --> io-3
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running view "first" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:first'
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running view "second" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:second'
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running view "second" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:second'
 INFO	ordeq.io	Loading File
-INFO	ordeq.runner	Running view "first" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:first'
 
 ```

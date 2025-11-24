@@ -15,7 +15,7 @@ class MixedHook(NodeHook, OutputHook):
     def before_output_save(self, output: Output, data) -> None:
         if self.node is not None:
             print(
-                f"Hook: before saving output of node {self.node.name} "
+                f"Hook: before saving output of node {self.node} "
                 f"with data: {data}"
             )
 

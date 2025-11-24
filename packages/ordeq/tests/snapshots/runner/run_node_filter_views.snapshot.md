@@ -63,14 +63,14 @@ Hello, world!!
 ```text
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('Hello')
-INFO	ordeq.runner	Running view "hello" in module "__main__"
-INFO	ordeq.runner	Running node "world" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:hello'
+INFO	ordeq.runner	Running node '__main__:world'
 INFO	ordeq.io	Saving Print()
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('Hello')
-INFO	ordeq.runner	Running view "hello" in module "__main__"
-INFO	ordeq.runner	Running node "world" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:hello'
+INFO	ordeq.runner	Running node '__main__:world'
 INFO	ordeq.io	Saving Print()
 
 ```

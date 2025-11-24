@@ -90,7 +90,7 @@ RuntimeWarning: coroutine 'write_buffer_2' was never awaited
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "write_buffer_2" in module "example_async.mixed_graph"
+INFO	ordeq.runner	Running node 'example_async.mixed_graph:write_buffer_2'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

@@ -46,7 +46,7 @@ View:__main__:range_to_csv --> io-2
 
 ```text
 INFO	ordeq.io	Loading Literal(<_duckdb.DuckDBPyConnection object at HASH1>)
-INFO	ordeq.runner	Running view "selected_range" in module "__main__"
-INFO	ordeq.runner	Running view "range_to_csv" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:selected_range'
+INFO	ordeq.runner	Running view '__main__:range_to_csv'
 
 ```

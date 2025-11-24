@@ -40,8 +40,8 @@ Node:__main__:printer --> io-2
 
 ```text
 INFO	ordeq.io	Loading Literal(<Response [200]>)
-INFO	ordeq.runner	Running view "users_stream" in module "__main__"
-INFO	ordeq.runner	Running node "printer" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:users_stream'
+INFO	ordeq.runner	Running node '__main__:printer'
 INFO	ordeq.io	Saving Print()
 
 ```

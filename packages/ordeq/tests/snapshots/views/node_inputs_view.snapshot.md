@@ -26,7 +26,7 @@ run(n, verbose=True)
 
 ```text
 View(func=__main__:hello)
-View:__main__:hello --> io-0
+View:View(func=__main__:hello) --> io-0
 io-0 --> Node:__main__:n
 Node:__main__:n --> io-1
 She said 'Hello, World!'
@@ -36,8 +36,8 @@ She said 'Hello, World!'
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view "hello" in module "__main__"
-INFO	ordeq.runner	Running node "n" in module "__main__"
+INFO	ordeq.runner	Running view 'View(func=__main__:hello)'
+INFO	ordeq.runner	Running node '__main__:n'
 INFO	ordeq.io	Saving Print()
 
 ```

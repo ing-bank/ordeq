@@ -28,7 +28,7 @@ Nodes:
  (('example_function_reuse.nodes', 'd'),
   View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
  (('example_function_reuse.nodes', 'pi'),
-  View(func=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
+  View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 IOs:
 [(('example_function_reuse.catalog',
    'A'),

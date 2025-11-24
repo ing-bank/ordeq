@@ -64,8 +64,8 @@ INFO	ordeq.io	Loading Literal(     A  B    C   gt
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)
-INFO	ordeq.runner	Running view "split" in module "__main__"
-INFO	ordeq.runner	Running view "train" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:split'
+INFO	ordeq.runner	Running view '__main__:train'
 
 ```
 

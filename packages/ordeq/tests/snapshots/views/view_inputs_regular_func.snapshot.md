@@ -35,8 +35,8 @@ ValueError: Input '<function string at HASH1>' to Node(func=__main__:func, ...) 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
     node_ = create_node(
         inner,
-    ...<3 lines>...
-        attributes=attributes,
+    ...<5 lines>...
+        name=f.__name__,
     )
 
   File "/packages/ordeq/tests/resources/views/view_inputs_regular_func.py", line LINO, in <module>

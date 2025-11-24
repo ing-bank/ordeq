@@ -26,6 +26,6 @@ a: a, b: b
 ```text
 INFO	ordeq.io	Loading Literal('a')
 INFO	ordeq.io	Loading Literal('b')
-INFO	ordeq.runner	Running view "my_node" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:my_node'
 
 ```

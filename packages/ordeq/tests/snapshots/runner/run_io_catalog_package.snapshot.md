@@ -36,9 +36,9 @@ HELLO FROM REMOTE!, world!!
 
 ```text
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node "uppercase" in module "__main__"
+INFO	ordeq.runner	Running node '__main__:uppercase'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running node "add_world" in module "__main__"
+INFO	ordeq.runner	Running node '__main__:add_world'
 INFO	ordeq.io	Saving Print()
 
 ```

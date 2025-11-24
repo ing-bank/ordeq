@@ -110,8 +110,8 @@ class NodeResourceGraph(Graph[Resource | Node]):
                 resource = Resource(op._resource)
                 if resource in resource_to_node:
                     msg = (
-                        f"Nodes '{node.name}' and "
-                        f"'{resource_to_node[resource].name}' "
+                        f"Nodes '{node}' and "
+                        f"'{resource_to_node[resource]}' "
                         f"both output to {resource!r}. "
                         f"Nodes cannot output to the same resource."
                     )
@@ -170,12 +170,12 @@ class NodeGraph(Graph[Node]):
         for node in self.topological_ordering:
             if self.edges[node]:
                 lines.extend(
-                    f"{type(node).__name__}:{node.name} --> "
-                    f"{type(next_node).__name__}:{next_node.name}"
+                    f"{type(node).__name__}:{node} --> "
+                    f"{type(next_node).__name__}:{node}"
                     for next_node in self.edges[node]
                 )
             else:
-                lines.append(f"{type(node).__name__}:{node.name}")
+                lines.append(f"{type(node).__name__}:{node}")
         return "\n".join(lines)
 
 
@@ -215,10 +215,7 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
         # This should move to a separate named graph class.
         lines: list[str] = []
         names: dict[IOIdentity | Node, str] = {
-            **{
-                node: f"{type(node).__name__}:{node.name}"
-                for node in self.nodes
-            },
+            **{node: f"{type(node).__name__}:{node}" for node in self.nodes},
             **{
                 io: f"io-{i}"
                 for i, io in enumerate(

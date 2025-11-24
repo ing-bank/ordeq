@@ -3,7 +3,7 @@ from __future__ import annotations
 import importlib
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
-from functools import cached_property, wraps
+from functools import wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeGuard, TypeVar, cast, overload
 
@@ -45,6 +45,12 @@ class Node(Generic[FuncParams, FuncReturns]):
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
 
+    # The node module and name is assigned:
+    # 1. from the function if the node is created via the @node decorator
+    # 2. otherwise, if possible, from the run/viz context
+    module: str | None = None
+    name: str | None = None
+
     def __post_init__(self):
         """Nodes always have to be hashable"""
         self.validate()
@@ -74,15 +80,18 @@ class Node(Generic[FuncParams, FuncReturns]):
             outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
         )
 
-    @cached_property
-    def name(self) -> str:
-        return infer_node_name_from_func(self.func)
+    @property
+    def is_fq(self) -> bool:
+        return self.name is not None and self.module is not None
 
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
 
     def __repr__(self) -> str:
-        attributes = {"func": self.name}
+        if self.is_fq:
+            attributes = {"module": self.module, "name": self.name}
+        else:
+            attributes = {"func": infer_node_name_from_func(self.func)}
 
         inputs = getattr(self, "inputs", None)
         if inputs:
@@ -101,7 +110,9 @@ class Node(Generic[FuncParams, FuncReturns]):
         return f"Node({attributes_str})"
 
     def __str__(self) -> str:
-        return self._name or f"Node(func={self.func_name}, ...)"
+        if self.is_fq:
+            return f"{self.module}:{self.name}"
+        return repr(self)
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:
@@ -122,7 +133,7 @@ def _raise_for_invalid_inputs(n: Node) -> None:
         sign.bind(*n.inputs)
     except TypeError as e:
         raise ValueError(
-            f"Node inputs invalid for function arguments: {n}"
+            f"Inputs invalid for function arguments: '{n}'"
         ) from e
 
 
@@ -142,7 +153,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
     if not all(are_outputs):
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
-            f"Outputs of node {n} must be of type Output, "
+            f"Outputs of '{n}' must be of type Output, "
             f"got {type(not_an_output)} "
         )
 
@@ -175,7 +186,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
 
     if len(return_types) != len(n.outputs):
         raise ValueError(
-            f"Node outputs invalid for return annotation: {n}. "
+            f"Outputs invalid for return annotation: '{n}'. "
             f"Node has {len(n.outputs)} output(s), but the return type "
             f"annotation expects {len(return_types)} value(s)."
         )
@@ -194,7 +205,7 @@ def _raise_if_not_hashable(n: Node) -> None:
     try:
         hash(n)
     except TypeError as e:
-        raise ValueError(f"Node is not hashable: {n}") from e
+        raise ValueError(f"Node is not hashable: '{n}'") from e
 
 
 def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
@@ -230,7 +241,10 @@ class View(Node[FuncParams, FuncReturns]):
         )
 
     def __repr__(self) -> str:
-        attributes = {"func": self.name}
+        if self.name and self.module:
+            attributes = {"module": self.module, "name": self.name}
+        else:
+            attributes = {"func": infer_node_name_from_func(self.func)}
 
         inputs = getattr(self, "inputs", None)
         if inputs:
@@ -261,6 +275,8 @@ def create_node(
     | Callable
     | None = None,
     attributes: dict[str, Any] | None = None,
+    module: str | None = None,
+    name: str | None = None,
 ) -> Node[FuncParams, FuncReturns]: ...
 
 
@@ -276,6 +292,8 @@ def create_node(
     | Callable
     | None = None,
     attributes: dict[str, Any] | None = None,
+    module: str | None = None,
+    name: str | None = None,
 ) -> View[FuncParams, FuncReturns]: ...
 
 
@@ -290,6 +308,8 @@ def create_node(
     | Callable
     | None = None,
     attributes: dict[str, Any] | None = None,
+    module: str | None = None,
+    name: str | None = None,
 ) -> Node[FuncParams, FuncReturns] | View[FuncParams, FuncReturns]:
     """Creates a Node instance.
 
@@ -299,6 +319,8 @@ def create_node(
         outputs: The outputs from the node.
         checks: The checks for the node.
         attributes: Optional attributes for the node.
+        module: Module name for the node.
+        name: Name for the node.
 
     Returns:
         A Node instance.
@@ -360,6 +382,8 @@ def create_node(
             checks=tuple(checks_),  # type: ignore[arg-type]
             attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
             views=tuple(views),  # type: ignore[arg-type]
+            module=module,  # type: ignore[arg-type]
+            name=name,  # type: ignore[arg-type]
         )
     return Node(
         func=func,
@@ -368,6 +392,8 @@ def create_node(
         checks=tuple(checks_),  # type: ignore[arg-type]
         attributes={} if attributes is None else attributes,
         views=tuple(views),
+        module=module,
+        name=name,
     )
 
 
@@ -529,13 +555,15 @@ def node(
                 outputs=outputs,
                 checks=checks,
                 attributes=attributes,
+                module=f.__module__,
+                name=f.__name__,
             )
             node_.__dict__["__annotations__"] = f.__annotations__  # noqa: RUF063
             return node_
 
         return wrapped
 
-    # else: we are called as node(func, inputs=...)
+    # else: we are called as node(func, inputs=...) or @node (without kwargs)
 
     @wraps(func)
     def wrapper(

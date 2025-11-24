@@ -89,9 +89,9 @@ IOException: Failed to load IO(id=ID1).
 ```text
 INFO	ordeq.io	Loading Literal('Jane')
 INFO	ordeq.io	Loading Literal('Hello')
-INFO	ordeq.runner	Running node "hello_from_someone" in module "__main__"
-INFO	ordeq.runner	Running view "what_i_heard" in module "__main__"
-INFO	ordeq.runner	Running view "sink" in module "__main__"
+INFO	ordeq.runner	Running node '__main__:hello_from_someone'
+INFO	ordeq.runner	Running view '__main__:what_i_heard'
+INFO	ordeq.runner	Running view '__main__:sink'
 INFO	ordeq.io	Loading IO(id=ID1)
 
 ```

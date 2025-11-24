@@ -27,7 +27,7 @@ print(_is_node(func))
 
 ```text
 <class 'ordeq._nodes.Node'>
-Node(func=__main__:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
+__main__:func
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
 True
 

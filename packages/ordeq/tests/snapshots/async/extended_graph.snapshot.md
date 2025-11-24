@@ -107,7 +107,7 @@ RuntimeWarning: coroutine 'write_A' was never awaited
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "write_A" in module "example_async.extended_graph"
+INFO	ordeq.runner	Running node 'example_async.extended_graph:write_A'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

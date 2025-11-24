@@ -18,7 +18,7 @@ class MixedHook(NodeHook, OutputHook):
     def before_output_save(self, output: Output, data) -> None:
         if self.node is not None:
             print(
-                f"Hook: before saving output of node {self.node.name} "
+                f"Hook: before saving output of node {self.node} "
                 f"with data: {data}"
             )
 
@@ -47,7 +47,7 @@ saving! Hello, World!
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "my_node" in module "__main__"
+INFO	ordeq.runner	Running node '__main__:my_node'
 INFO	ordeq.io	Saving Output(id=ID1)
 
 ```

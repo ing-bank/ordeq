@@ -26,7 +26,7 @@ print(func.__module__)
 
 ```text
 A really nice node
-Node(func=__main__:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
+__main__:func
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
 ordeq._nodes
 

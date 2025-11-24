@@ -33,7 +33,7 @@ print(inner_func)
 ```text
 Should print 'XX':
 XX
-Node(func=__main__:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
-Node(func=__main__:inner, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+__main__:func
+__main__:inner
 
 ```

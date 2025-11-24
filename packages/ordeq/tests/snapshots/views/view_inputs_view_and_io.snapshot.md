@@ -34,8 +34,8 @@ run(n, verbose=True)
 
 ```text
 View(func=__main__:hello)
-View(func=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
-View:__main__:hello --> io-0
+View(module=__main__, name=hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
+View:View(func=__main__:hello) --> io-0
 io-0 --> View:__main__:hello_from_someone
 io-1 --> View:__main__:hello_from_someone
 View:__main__:hello_from_someone --> io-2
@@ -48,9 +48,9 @@ I heard that Jane said 'Hello, World!'
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view "hello" in module "__main__"
+INFO	ordeq.runner	Running view 'View(func=__main__:hello)'
 INFO	ordeq.io	Loading Literal('Jane')
-INFO	ordeq.runner	Running view "hello_from_someone" in module "__main__"
-INFO	ordeq.runner	Running view "n" in module "__main__"
+INFO	ordeq.runner	Running view '__main__:hello_from_someone'
+INFO	ordeq.runner	Running view '__main__:n'
 
 ```

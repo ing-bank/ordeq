@@ -16,6 +16,6 @@ print(repr(my_view))
 ## Output
 
 ```text
-View(func=__main__:my_view)
+View(module=__main__, name=my_view)
 
 ```

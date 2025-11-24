@@ -85,16 +85,16 @@ WARNING	ordeq.preview	Checks are in preview mode and may change without notice i
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.io	Loading Literal('D')
-INFO	ordeq.runner	Running view "check_a" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running node "process_a" in module "example_checks.pipeline_checks_as_checks"
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_checks:check_a'
+INFO	ordeq.runner	Running node 'example_checks.pipeline_checks_as_checks:process_a'
 INFO	ordeq.io	Loading Literal('B')
-INFO	ordeq.runner	Running node "process_b" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running view "check_ap" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running view "check_join" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running view "check_bp" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running node "join" in module "example_checks.pipeline_checks_as_checks"
+INFO	ordeq.runner	Running node 'example_checks.pipeline_checks_as_checks:process_b'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_checks:check_ap'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_checks:check_join'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_checks:check_bp'
+INFO	ordeq.runner	Running node 'example_checks.pipeline_checks_as_checks:join'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running view "check_ab" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running view "print_result" in module "example_checks.pipeline_checks_as_checks"
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_checks:check_ab'
+INFO	ordeq.runner	Running view 'example_checks.pipeline_checks_as_checks:print_result'
 
 ```

@@ -383,6 +383,7 @@ class _InputCache(_BaseInput[Tin]):
         super().__init__()
         if type(self).__name__ in {"Input", "IO"} and value is not None:
             self.persist(value)
+            self.retain()
 
     @property
     def is_persisted(self) -> bool:
@@ -504,8 +505,8 @@ class Input(
     To use the `greet` node, we need to provide an actual input. For instance:
 
     ```python
-    >>> from ordeq_common import Literal
-    >>> run(greet, io={name: Literal("Alice")})
+    >>> from ordeq import Input
+    >>> run(greet, io={name: Input[str]("Alice")})
     >>> greeting.load()
     'Hello, Alice!'
     ```
@@ -657,10 +658,10 @@ class IO(Input[T], Output[T]):
 
     ```python
     >>> from ordeq import Input, node
-    >>> from ordeq_common import StringBuffer, Literal
+    >>> from ordeq_common import StringBuffer
 
     >>> hello = StringBuffer("hi")
-    >>> name = Literal("Bob")
+    >>> name = Input[str]("Bob")
     >>> greeting = IO[str]()
     >>> greeting_capitalized = StringBuffer()
 

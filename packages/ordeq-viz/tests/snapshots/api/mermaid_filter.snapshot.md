@@ -24,7 +24,7 @@ graph TB
 		direction TB
 		L0@{shape: rounded, label: "Node"}
 		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
+		L01@{shape: rect, label: "Input"}
 		L02@{shape: rect, label: "Print"}
 		L03@{shape: rect, label: "StringBuffer"}
 	end
@@ -73,6 +73,10 @@ graph TB
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
+DEBUG	ordeq.io	Persisting data for Input(id=ID4)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 
 ```

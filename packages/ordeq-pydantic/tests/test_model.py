@@ -1,4 +1,4 @@
-from ordeq_common import Literal
+from ordeq import Input
 from ordeq_pydantic import PydanticModel
 from ordeq_toml import TOML
 from ordeq_yaml import YAML
@@ -11,7 +11,7 @@ class MyModel(BaseModel):
 
 
 def test_model(tmp_path):
-    example = Literal({"hello": "hello", "world": "world"})
+    example = Input[dict[str, str]]({"hello": "hello", "world": "world"})
     dataset = PydanticModel(io=example, model_type=MyModel)
 
     loaded_model = dataset.load()

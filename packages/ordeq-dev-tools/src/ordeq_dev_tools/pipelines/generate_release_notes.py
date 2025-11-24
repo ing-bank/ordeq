@@ -12,9 +12,9 @@ from packaging.version import Version
 from ordeq_dev_tools.utils import run_command
 
 # Inputs and outputs for the modular pipeline
-package: Input[str] = Input()
-release_notes: IO[str] = IO()
-new_tag: IO[str] = IO()
+package = Input[str]()
+release_notes = IO[str]()
+new_tag = IO[str]()
 
 
 @node(inputs=package)

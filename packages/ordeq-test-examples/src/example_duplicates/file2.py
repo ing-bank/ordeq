@@ -1,9 +1,8 @@
 from typing import Any
 
-from ordeq import IO, node
-from ordeq_common import Literal
+from ordeq import IO, Input, node
 
-x_value = Literal(3)
+x_value = Input[int](3)
 y_value = IO[Any]()
 
 

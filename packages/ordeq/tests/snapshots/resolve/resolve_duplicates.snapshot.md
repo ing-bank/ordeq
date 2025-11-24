@@ -62,3 +62,11 @@ ValueError: Module 'example_duplicates.duplicate_import_alias' contains duplicat
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+
+```

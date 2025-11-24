@@ -1,7 +1,7 @@
-from ordeq import Node, node, run
-from ordeq_common import Literal, Print
+from ordeq import Input, Node, node, run
+from ordeq_common import Print
 
-greeting = Literal("Hello")
+greeting = Input[str]("Hello")
 
 
 @node(inputs=greeting, prints=False)

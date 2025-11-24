@@ -41,11 +41,12 @@ class BytesBuffer(IO[bytes]):
 
     ```pycon
     >>> from ordeq_args import CommandLineArg
-    >>> from ordeq_common import BytesBuffer, Literal
-    >>> from ordeq import node, run
+    >>> from ordeq_common import BytesBuffer
+    >>> from ordeq import node, run, Input
     >>> result = BytesBuffer()
     >>> @node(
-    ...     inputs=[BytesBuffer(b"Hello"), Literal(b"you")], outputs=result
+    ...     inputs=[BytesBuffer(b"Hello"), Input[bytes](b"you")],
+    ...     outputs=result
     ... )
     ... def greet(greeting: bytes, name: bytes) -> bytes:
     ...     return greeting + b" to " + name + b"!"

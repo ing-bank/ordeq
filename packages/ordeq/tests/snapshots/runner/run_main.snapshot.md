@@ -5,8 +5,8 @@ import logging
 
 from ordeq import IO, node, run
 
-io1 = IO()
-io2 = IO()
+io1 = IO[str]()
+io2 = IO[str]()
 
 
 @node(outputs=io1)

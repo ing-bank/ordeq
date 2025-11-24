@@ -15,12 +15,12 @@ pprint(ios)
 ## Output
 
 ```text
-{'example_catalogs.package_base.creds': {'secret': Literal('ohSoSecret!@#')},
- 'example_catalogs.package_base.etl': {'clients': IO(id=ID1),
-                                       'txs': IO(id=ID2)},
- 'example_catalogs.package_base.ml': {'metrics': IO(id=ID3),
-                                      'model': IO(id=ID4),
-                                      'plot': IO(id=ID5),
+{'example_catalogs.package_base.creds': {'secret': Input(id=ID1)},
+ 'example_catalogs.package_base.etl': {'clients': IO(id=ID2),
+                                       'txs': IO(id=ID3)},
+ 'example_catalogs.package_base.ml': {'metrics': IO(id=ID4),
+                                      'model': IO(id=ID5),
+                                      'plot': IO(id=ID6),
                                       'predictions': JSON(path=Path('predictions-base.json'))}}
 
 ```

@@ -60,7 +60,6 @@ First, we create a `tests` package and a test module with the following content:
 === "tests/test_pipeline.py"
 
     ```python
-
     import polars as pl
     from testing_nodes.pipeline import join_txs_and_clients
 
@@ -140,8 +139,7 @@ We can tell the runner to use the alternative IO instead of the actual IO, as sh
     from pathlib import Path
 
     import polars as pl
-    from ordeq import run
-    from ordeq_common import Literal
+    from ordeq import Input, run
     from ordeq_polars import PolarsEagerCSV
     from testing_nodes import catalog
     from testing_nodes.pipeline import join_txs_and_clients
@@ -164,7 +162,7 @@ We can tell the runner to use the alternative IO instead of the actual IO, as sh
             io={
                 catalog.txs: txs,
                 catalog.clients: clients,
-                catalog.date: Literal("2023-12-30"),
+                catalog.date: Input[str]("2023-12-30"),
                 catalog.txs_and_clients: txs_and_clients,
             },
         )
@@ -201,13 +199,13 @@ Here is a example of the test package with a test catalog:
     ```python
     from pathlib import Path
 
-    from ordeq_common import Literal
+    from ordeq import Input
     from ordeq_polars import PolarsEagerCSV
 
     # Directory for test data:
     TEST_RESOURCES_DIR = Path(__file__).resolve().parent.parent / "tests-resources"
 
-    date = Literal("2023-12-30")
+    date = Input[str]("2023-12-30")
     txs = PolarsEagerCSV(path=TEST_RESOURCES_DIR / "txs.csv")
     clients = PolarsEagerCSV(path=TEST_RESOURCES_DIR / "clients.csv")
     txs_and_clients = PolarsEagerCSV(
@@ -289,6 +287,7 @@ Next, we run this pipeline from the tests, and check the output:
     import polars as pl
     import test_catalog
     import testing_nodes
+    from ordeq import run
 
 
     def test_pipeline():

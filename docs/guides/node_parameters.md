@@ -40,12 +40,11 @@ def greet(name: str) -> str:
 Instead, use an IO for the `excited` parameter:
 
 ```python
-from ordeq import IO, node
-from ordeq_common import Literal
+from ordeq import IO, Input, node
 
 name_str = IO()
 greeting = IO()
-is_excited = Literal(False)
+is_excited = Input[bool](False)
 
 
 @node(inputs=[name_str, is_excited], outputs=greeting)

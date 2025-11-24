@@ -19,7 +19,7 @@ graph TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
 		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
+		L01@{shape: rect, label: "Input"}
 		L02@{shape: rect, label: "Print"}
 		L03@{shape: rect, label: "StringBuffer"}
 	end

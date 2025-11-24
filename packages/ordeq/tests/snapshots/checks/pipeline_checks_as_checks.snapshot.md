@@ -22,7 +22,7 @@ graph TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
 		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
+		L01@{shape: rect, label: "Input"}
 		L02@{shape: rect, label: "StringBuffer"}
 	end
 
@@ -78,56 +78,53 @@ aBBB
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal('A')
-DEBUG	ordeq.io	Persisting data for Literal('A')
-INFO	ordeq.io	Loading Literal('D')
-DEBUG	ordeq.io	Persisting data for Literal('D')
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID3)
 INFO	ordeq.runner	Running view 'check_a' in module 'example_checks.pipeline_checks_as_checks'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Literal('A')
-INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_checks_as_checks'
-DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-INFO	ordeq.io	Loading Literal('B')
-DEBUG	ordeq.io	Persisting data for Literal('B')
-INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_checks_as_checks'
-DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
-INFO	ordeq.runner	Running view 'check_ap' in module 'example_checks.pipeline_checks_as_checks'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
-INFO	ordeq.runner	Running view 'check_join' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_checks_as_checks'
 DEBUG	ordeq.io	Persisting data for IO(id=ID5)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
-INFO	ordeq.runner	Running view 'check_bp' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
+INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_checks_as_checks'
 DEBUG	ordeq.io	Persisting data for IO(id=ID6)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID5)
+INFO	ordeq.runner	Running view 'check_ap' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID7)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID5)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID6)
+INFO	ordeq.runner	Running view 'check_join' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID8)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID6)
+INFO	ordeq.runner	Running view 'check_bp' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID9)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID5)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID6)
 INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running view 'check_ab' in module 'example_checks.pipeline_checks_as_checks'
-DEBUG	ordeq.io	Persisting data for IO(id=ID7)
+DEBUG	ordeq.io	Persisting data for IO(id=ID10)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_checks_as_checks'
-DEBUG	ordeq.io	Persisting data for IO(id=ID8)
-DEBUG	ordeq.io	Unpersisting data for Literal('A')
-DEBUG	ordeq.io	Unpersisting data for Literal('D')
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for Literal('B')
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO(id=ID11)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID6)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID7)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID9)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID8)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID7)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID10)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID11)
 
 ```

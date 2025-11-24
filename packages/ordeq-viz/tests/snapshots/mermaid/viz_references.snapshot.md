@@ -19,3 +19,12 @@ graph TB
 
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
+
+```

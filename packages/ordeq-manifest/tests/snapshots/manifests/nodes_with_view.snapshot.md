@@ -40,7 +40,7 @@ print(create_manifest_json(nodes_with_view))
   "ios": {
     "example_project.nodes_with_view:greeting": {
       "name": "greeting",
-      "type": "ordeq_common.io.literal:Literal",
+      "type": "ordeq._io:Input",
       "resource": null,
       "references": [],
       "attributes": {}

@@ -1,8 +1,7 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 
 @node
@@ -13,7 +12,7 @@ def hello() -> str:
 print(repr(hello))
 
 
-@node(inputs=[Literal("Jane"), hello])
+@node(inputs=[Input[str]("Jane"), hello])
 def hello_from_someone(name: str, v: str) -> str:
     return f"{name} said '{v}'"
 
@@ -34,7 +33,7 @@ run(n, verbose=True)
 
 ```text
 View(func=__main__:hello)
-View(module=__main__, name=hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
+View(module=__main__, name=hello_from_someone, inputs=[Input(id=ID1), IO(id=ID2)])
 View:View(func=__main__:hello, ...) --> io-0
 io-0 --> View:__main__:hello_from_someone
 io-1 --> View:__main__:hello_from_someone
@@ -48,19 +47,18 @@ I heard that Jane said 'Hello, World!'
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running view View(func=__main__:hello, ...)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-INFO	ordeq.io	Loading Literal('Jane')
-DEBUG	ordeq.io	Persisting data for Literal('Jane')
-DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-INFO	ordeq.runner	Running view 'hello_from_someone' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
-INFO	ordeq.runner	Running view 'n' in module '__main__'
+INFO	ordeq.runner	Running view 'hello_from_someone' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for Literal('Jane')
+DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
+INFO	ordeq.runner	Running view 'n' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 
 ```

@@ -6,12 +6,11 @@ import typing
 from pathlib import Path
 
 import pandas as pd
-from ordeq import IO, node, run
-from ordeq_common import Literal
+from ordeq import IO, Input, node, run
 from ordeq_files import JSON
 from ordeq_viz import viz
 
-records = Literal(
+records = Input[pd.DataFrame](
     pd.DataFrame({"id": [1, 2, 3, 4], "value": [10, -5, 20, -1]})
 )
 invalid_records = JSON(
@@ -62,8 +61,8 @@ graph TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
 		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "JSON"}
-		L02@{shape: rect, label: "Literal"}
+		L01@{shape: rect, label: "Input"}
+		L02@{shape: rect, label: "JSON"}
 	end
 
 	IO0 --> __main__:check_store_invalid_records
@@ -82,8 +81,8 @@ graph TB
 	class L0,__main__:check_store_invalid_records node
 	class L2,__main__:process_records,__main__:print_processed_records,__main__:print_invalid_records view
 	class L00 io0
-	class L01,IO1 io1
-	class L02,IO0 io2
+	class L01,IO0 io1
+	class L02,IO1 io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
@@ -100,41 +99,24 @@ Invalid Records Data: {"id":{"0":null,"1":2.0,"2":null,"3":4.0},"value":{"0":nul
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal(   id  value
-0   1     10
-1   2     -5
-2   3     20
-3   4     -1)
-DEBUG	ordeq.io	Persisting data for Literal(   id  value
-0   1     10
-1   2     -5
-2   3     20
-3   4     -1)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'check_store_invalid_records' in module '__main__'
 INFO	ordeq.io	Saving JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
 DEBUG	ordeq.io	Persisting data for JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
-DEBUG	ordeq.io	Loading cached data for Literal(   id  value
-0   1     10
-1   2     -5
-2   3     20
-3   4     -1)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'process_records' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-INFO	ordeq.runner	Running view 'print_processed_records' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+INFO	ordeq.runner	Running view 'print_processed_records' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Loading cached data for JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
 INFO	ordeq.runner	Running view 'print_invalid_records' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for Literal(   id  value  processed_value
-0   1     10               20
-1   2     -5              -10
-2   3     20               40
-3   4     -1               -2)
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 
 ```

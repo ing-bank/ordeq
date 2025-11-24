@@ -2,10 +2,9 @@
 
 ```python
 import pandas as pd
-from ordeq import Output, node, run
-from ordeq_common import Literal
+from ordeq import Input, Output, node, run
 
-dataframe = Literal(
+dataframe = Input[pd.DataFrame](
     pd.DataFrame({
         "A": ["foo", "bar", "foo"],
         "B": [1, 2, 3],
@@ -56,23 +55,13 @@ Node:__main__:group_by --> io-2
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)
-DEBUG	ordeq.io	Persisting data for Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view View(func=__main__:cast, ...)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
 INFO	ordeq.runner	Running node 'group_by' in module '__main__'
-INFO	ordeq.io	Saving Output(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+INFO	ordeq.io	Saving Output(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```

@@ -76,7 +76,6 @@ ValueError: Intentional failure for testing.
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 CRITICAL	custom_logger	Called 'before_node_run' with args: (Node(module=__main__, name=hello, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]),)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 CRITICAL	custom_logger	Called 'after_node_run' with args: (Node(module=__main__, name=hello, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]),)

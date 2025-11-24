@@ -4,20 +4,25 @@ from unittest.mock import MagicMock, patch
 import pyiceberg.types as T
 import pytest
 from ordeq import IOException
+from ordeq_iceberg import (
+    IcebergCatalog,
+    IcebergTableCreate,
+    IfTableExistsSaveOptions,
+)
 from pyiceberg.catalog import CatalogType
 from pyiceberg.catalog.memory import InMemoryCatalog
-
-from ordeq_iceberg import IcebergCatalog, IcebergTableCreate, IfTableExistsSaveOptions
 
 
 @pytest.fixture(scope="module")
 def catalog_io() -> IcebergCatalog:
-    return IcebergCatalog(name="test_catalog", catalog_type=CatalogType.IN_MEMORY)
+    return IcebergCatalog(
+        name="test_catalog", catalog_type=CatalogType.IN_MEMORY
+    )
 
 
 @pytest.fixture(scope="module")
 def catalog(catalog_io) -> InMemoryCatalog:
-    catalog = cast(InMemoryCatalog, catalog_io.load())
+    catalog = cast("InMemoryCatalog", catalog_io.load())
     catalog.create_namespace("test_namespace")
     return catalog
 
@@ -80,7 +85,7 @@ def test_create_existing_table_raises(catalog: InMemoryCatalog):
     table_create.save(None)
     with pytest.raises(
         IOException,
-        match="Table 'test_namespace.test_table_existing' already exists",
+        match=r"Table 'test_namespace.test_table_existing' already exists",
     ):
         table_create.save(None)
 

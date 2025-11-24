@@ -1,11 +1,9 @@
-
 import pyiceberg.types as T
 import pytest
+from ordeq_iceberg import IcebergCatalog, IcebergTable
 from pyiceberg.catalog.sql import SqlCatalog
 from pyiceberg.schema import Schema
 from pyiceberg.table import Table
-
-from ordeq_iceberg import IcebergCatalog, IcebergTable
 
 
 @pytest.fixture(scope="module")
@@ -19,8 +17,7 @@ def create_test_table(sql_catalog: SqlCatalog) -> Table:
         )
     )
     return sql_catalog.create_table(
-        identifier="test_namespace.test_table",
-        schema=schema,
+        identifier="test_namespace.test_table", schema=schema
     )
 
 

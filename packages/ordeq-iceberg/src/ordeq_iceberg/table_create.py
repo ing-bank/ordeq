@@ -40,8 +40,18 @@ class IcebergTableCreate(Output[None]):
     ...     table_name="my_table",
     ...     namespace="my_namespace",
     ...     schema=Schema(
-    ...         NestedField(field_id=1, required=True, name="id", field_type=IntegerType()),
-    ...         NestedField(field_id=2, required=True, name="name", field_type=StringType()),
+    ...         NestedField(
+    ...            field_id=1,
+    ...            required=True,
+    ...            name="id",
+    ...            field_type=IntegerType()
+    ...        ),
+    ...         NestedField(
+    ...            field_id=2,
+    ...            required=True,
+    ...            name="name",
+    ...            field_type=StringType()
+    ...        ),
     ...     ),
     ...     if_exists=IfTableExistsSaveOptions.DROP,
     ... )
@@ -55,7 +65,12 @@ class IcebergTableCreate(Output[None]):
     eg:
 
     ```pycon
-    >>> from ordeq_iceberg import IcebergTable, IcebergTableCreate, IcebergCatalog
+    >>> from ordeq_iceberg import (
+    ...     IcebergTableCreate,
+    ...     IcebergTable,
+    ...     IcebergCatalog,
+    ...     IfTableExistsSaveOptions,
+    ... )
     >>> from pyiceberg.schema import Schema, NestedField
     >>> from pyiceberg.catalog import CatalogType
     >>> from pyiceberg.types import StringType, IntegerType
@@ -68,8 +83,18 @@ class IcebergTableCreate(Output[None]):
     ...     table_name="my_table",
     ...     namespace="my_namespace",
     ...     schema=Schema(
-    ...         NestedField(field_id=1, required=True, name="id", field_type=IntegerType()),
-    ...         NestedField(field_id=2, required=True, name="name", field_type=StringType()),
+    ...         NestedField(
+    ...            field_id=1,
+    ...            required=True,
+    ...            name="id",
+    ...            field_type=IntegerType()
+    ...        ),
+    ...         NestedField(
+    ...            field_id=2,
+    ...            required=True,
+    ...            name="name",
+    ...            field_type=StringType()
+    ...        ),
     ...     ),
     ...     if_exists=IfTableExistsSaveOptions.DROP,
     ... ) @ my_table_resource_name
@@ -109,14 +134,17 @@ class IcebergTableCreate(Output[None]):
         """Create the table in the catalog with the provided schema.
 
         Raises:
-            IcebergIOError: If the schema is not provided when creating a new table
+            IcebergIOError:
+                If the schema is not provided when creating a new table
             IcebergTableAlreadyExistsError: If the table already exists and
                 `if_exists` is set to RAISE
         """
         catalog = self._catalog_value
         schema = self.schema or save_options.pop("schema", None)
         if schema is None:
-            raise IcebergIOError("Schema must be provided to create a new table.")
+            raise IcebergIOError(
+                "Schema must be provided to create a new table."
+            )
         if isinstance(schema, StructType):
             schema = Schema(*schema.fields)
         table_exists = self.table_exists()

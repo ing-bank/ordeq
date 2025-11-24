@@ -14,7 +14,9 @@ IOFQNs: TypeAlias = dict[IOIdentity, list[FQN]]
 def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:
     node_fqns: NodeFQNs = defaultdict(list)
     io_fqns: IOFQNs = defaultdict(list)
-    for module in sorted(_resolve_packages_to_modules(*modules), key=lambda m: m.__name__):
+    for module in sorted(
+        _resolve_packages_to_modules(*modules), key=lambda m: m.__name__
+    ):
         for name, obj in vars(module).items():
             if _is_io(obj):
                 io_id = id(obj)

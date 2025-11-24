@@ -391,6 +391,18 @@ class _InputCache(_BaseInput[Tin]):
             del self.__dict__["_data"]
 
 
+class _WithName:
+    _module: str | None = None
+    _name: str | None = None
+
+    @property
+    def _fqn(self) -> tuple[str | None, str | None]:
+        return self._module, self._name
+
+    def __str__(self):
+        return repr(self) if self._name is None else f"'{self._name}'"
+
+
 class _WithAttributes:
     _attributes: dict[str, Any] | None = None
 
@@ -428,6 +440,7 @@ class Input(
     _InputReferences[Tin],
     _InputCache[Tin],
     _WithResource,
+    _WithName,
     _WithAttributes,
     Generic[Tin],
     metaclass=_IOMeta,
@@ -568,6 +581,7 @@ class Output(
     _OutputHooks[Tout],
     _OutputReferences[Tout],
     _WithResource,
+    _WithName,
     _WithAttributes,
     Generic[Tout],
     metaclass=_IOMeta,

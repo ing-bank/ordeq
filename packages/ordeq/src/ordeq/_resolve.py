@@ -335,28 +335,9 @@ def _resolve_runnables_to_nodes_and_ios(
     return nodes, ios
 
 
-def _resolve_runnables_to_modules(
-    *runnables: Runnable,
-) -> Generator[ModuleType]:
-    for runnable in runnables:
-        if isinstance(runnable, ModuleType):
-            yield runnable
-        elif isinstance(runnable, str) and not is_object_ref(runnable):
-            yield _resolve_module_ref_to_module(runnable)
-
-
-def _resolve_refs_to_nodes(*runnables) -> list[Node]:
-    nodes: list[Node] = []
-    for runnable in runnables:
-        if isinstance(runnable, str) and is_object_ref(runnable):
-            fqn = FQN.from_ref(runnable)
-            nodes.append(_resolve_fqn_to_node(fqn))
-    return nodes
-
-
 def _resolve_modules_to_nodes(*modules: ModuleType) -> list[Node]:
     nodes: list[Node] = []
-    for module in modules:
+    for module in _resolve_packages_to_modules(*modules):
         nodes.extend(_resolve_module_to_nodes(module).values())
     return nodes
 

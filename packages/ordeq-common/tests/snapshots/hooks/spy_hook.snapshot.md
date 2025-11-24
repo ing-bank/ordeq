@@ -74,7 +74,7 @@ ValueError: Intentional failure for testing.
 
 ```text
 INFO	ordeq.io	Loading Literal('name')
-INFO	ordeq.runner	Running node '__main__:hello'
-INFO	ordeq.runner	Running view 'View(func=__main__:fail)'
+INFO	ordeq.runner	Running node 'hello' in module '__main__'
+INFO	ordeq.runner	Running view View(func=__main__:fail, ...)
 
 ```

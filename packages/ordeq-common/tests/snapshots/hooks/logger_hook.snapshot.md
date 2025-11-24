@@ -72,10 +72,10 @@ ValueError: Intentional failure for testing.
 ```text
 INFO	LoggerHook	Called 'before_node_run' with args: (Node(module=__main__, name=hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
 INFO	ordeq.io	Loading Literal('name')
-INFO	ordeq.runner	Running node '__main__:hello'
+INFO	ordeq.runner	Running node 'hello' in module '__main__'
 INFO	LoggerHook	Called 'after_node_run' with args: (Node(module=__main__, name=hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
 INFO	LoggerHook	Called 'before_node_run' with args: (View(func=__main__:fail),)
-INFO	ordeq.runner	Running view 'View(func=__main__:fail)'
+INFO	ordeq.runner	Running view View(func=__main__:fail, ...)
 INFO	LoggerHook	Called 'on_node_call_error' with args: (View(func=__main__:fail), ValueError('Intentional failure for testing.'))
 
 ```

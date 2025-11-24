@@ -1,0 +1,97 @@
+## Resource
+
+```python
+import pyiceberg.types as T
+from ordeq import node, run
+from ordeq_common import Literal
+from pyiceberg.catalog import Catalog, CatalogType
+from pyiceberg.table import Table
+
+from ordeq_iceberg import (
+    IcebergCatalog,
+    IcebergTable,
+    IcebergTableCreate,
+    IfTableExistsSaveOptions,
+)
+
+# Catalog
+
+my_catalog = IcebergCatalog(name="test_catalog", catalog_type=CatalogType.IN_MEMORY)
+
+test_namespace = Literal[str]("test_namespace")
+test_table_name = "test_table"
+
+table_resource = f"{test_table_name}.{test_namespace.value}"
+
+my_table = (
+    IcebergTable(
+        catalog=my_catalog, table_name=test_table_name, namespace=test_namespace.value
+    )
+    @ table_resource
+)
+
+my_table_create = (
+    IcebergTableCreate(
+        catalog=my_catalog,
+        table_name=test_table_name,
+        namespace=test_namespace.value,
+        schema=T.StructType(
+            T.NestedField(1, "id", T.IntegerType(), required=True),
+            T.NestedField(2, "data", T.StringType(), required=False),
+        ),  # Schema is required for saving
+        if_exists=IfTableExistsSaveOptions.DROP,
+    )
+    @ table_resource
+)
+
+# Nodes
+
+
+@node(inputs=[my_catalog, test_namespace], outputs=[my_table_create])
+def create_save_table(catalog: Catalog, namespace: str) -> Catalog:
+    catalog.create_namespace(namespace)
+
+
+@node(inputs=[my_table])
+def load_table(created_table: Table):
+    print(f"Table loaded from Input object: '{created_table}'")
+
+
+run(create_save_table, load_table)
+
+```
+
+## Output
+
+```text
+Table loaded from Input object: 'test_table(
+  1: id: required int,
+  2: data: optional string
+),
+partition by: [],
+sort order: [],
+snapshot: null'
+
+```
+
+## Logging
+
+```text
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
+INFO	ordeq.io	Loading IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>)
+INFO	ordeq.io	Loading Literal('test_namespace')
+INFO	ordeq.runner	Running node "create_save_table" in module "__main__"
+INFO	ordeq.io	Saving IcebergTableCreate(catalog=IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>), table_name='test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=ID1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=ID2, name='data', field_type=StringType(), required=False),)), if_exists=<IfTableExistsSaveOptions.DROP: 'drop'>)
+INFO	ordeq.io	Loading IcebergTable(catalog=IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>), table_name='test_table', namespace='test_namespace')
+INFO	ordeq.runner	Running view "load_table" in module "__main__"
+
+```
+
+## Typing
+
+```text
+packages/ordeq-iceberg/tests/resources/iceberg_test/create_and_load.py:48:60: error[invalid-return-type] Function always implicitly returns `None`, which is not assignable to return type `Catalog`
+Found 1 diagnostic
+
+```

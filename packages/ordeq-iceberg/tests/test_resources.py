@@ -24,8 +24,10 @@ SNAPSHOT_DIR = TESTS_DIR / "snapshots"
 def test_resource(
     file_path: Path, snapshot_path: Path, capsys, caplog, recwarn
 ) -> None:
+    # Ignore ResourceWarnings about unclosed DB connections
+    warns = [w for w in recwarn if not issubclass(w.category, ResourceWarning)]
     diff = compare_resources_against_snapshots(
-        file_path, snapshot_path, caplog, capsys, recwarn
+        file_path, snapshot_path, caplog, capsys, warns
     )
     if diff:
         pytest.fail(f"Output does not match snapshot:\n{diff}")

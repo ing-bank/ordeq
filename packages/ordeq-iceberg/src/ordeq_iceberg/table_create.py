@@ -2,11 +2,12 @@ from dataclasses import dataclass
 from enum import StrEnum
 
 from ordeq import Output
+from pyiceberg.catalog import Catalog
 from pyiceberg.schema import Schema
 from pyiceberg.types import StructType
 
 from ordeq_iceberg.catalog import IcebergCatalog
-from ordeq_iceberg.errors import IcebergTableAlreadyExistsError
+from ordeq_iceberg.errors import IcebergIOError, IcebergTableAlreadyExistsError
 
 
 class IfTableExistsSaveOptions(StrEnum):
@@ -79,7 +80,7 @@ class IcebergTableCreate(Output[None]):
     ... ) @ my_table_resource_name
     """
 
-    catalog: IcebergCatalog
+    catalog: IcebergCatalog | Catalog
     table_name: str
     namespace: str
     schema: Schema | StructType
@@ -94,22 +95,28 @@ class IcebergTableCreate(Output[None]):
     def table_identifier(self) -> str:
         return f"{self.namespace}.{self.table_name}"
 
+    @property
+    def _catalog_value(self) -> Catalog:
+        if isinstance(self.catalog, IcebergCatalog):
+            return self.catalog.load()
+        return self.catalog
+
     def table_exists(self) -> bool:
-        catalog = self.catalog.load()
+        catalog = self._catalog_value
         return catalog.table_exists(self.table_identifier)
 
     def save(self, _: None = None, **save_options) -> None:
         """Create the table in the catalog with the provided schema.
 
         Raises:
-            ValueError: If the schema is not provided when creating a new table
+            IOException: If the schema is not provided when creating a new table
             IcebergTableAlreadyExistsError: If the table already exists and
                 `if_exists` is set to RAISE
         """
-        catalog = self.catalog.load()
+        catalog = self._catalog_value
         schema = self.schema or save_options.pop("schema", None)
         if schema is None:
-            raise ValueError("Schema must be provided to create a new table.")
+            raise IcebergIOError("Schema must be provided to create a new table.")
         if isinstance(schema, StructType):
             schema = Schema(*schema.fields)
         table_exists = self.table_exists()

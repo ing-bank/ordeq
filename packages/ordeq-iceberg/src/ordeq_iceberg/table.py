@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from ordeq import Input
+from pyiceberg.catalog import Catalog
 from pyiceberg.table import Table
 
 from ordeq_iceberg.catalog import IcebergCatalog
@@ -29,7 +30,7 @@ class IcebergTable(Input[Table]):
 
     """
 
-    catalog: IcebergCatalog
+    catalog: IcebergCatalog | Catalog
     table_name: str
     namespace: str
 
@@ -37,15 +38,14 @@ class IcebergTable(Input[Table]):
     def table_identifier(self) -> str:
         return f"{self.namespace}.{self.table_name}"
 
-    def table_exists(self) -> bool:
-        catalog = self.catalog.load()
-        return catalog.table_exists(self.table_identifier)
-
     def load(self, **load_options) -> Table:
         """Load the table instance from the catalog
 
         Returns:
             Table: The loaded Iceberg table instance
         """
-        catalog = self.catalog.load()
+        if isinstance(self.catalog, IcebergCatalog):
+            catalog = self.catalog.load()
+        else:
+            catalog = self.catalog
         return catalog.load_table(self.table_identifier, **load_options)

@@ -1,13 +1,12 @@
 from dataclasses import dataclass
 from enum import StrEnum
 
-from ordeq import Output
+from ordeq import Input, Output
 from pyiceberg.catalog import Catalog
 from pyiceberg.schema import Schema
 from pyiceberg.types import StructType
 
-from ordeq_iceberg.catalog import IcebergCatalog
-from ordeq_iceberg.errors import IcebergIOError, IcebergTableAlreadyExistsError
+from ordeq_iceberg.errors import IcebergTableAlreadyExistsError
 
 
 class IfTableExistsSaveOptions(StrEnum):
@@ -105,7 +104,7 @@ class IcebergTableCreate(Output[None]):
     ... ) @ my_table_resource_name
     """
 
-    catalog: IcebergCatalog | Catalog
+    catalog: Input[Catalog] | Catalog
     table_name: str
     namespace: str
     schema: Schema | StructType
@@ -122,9 +121,15 @@ class IcebergTableCreate(Output[None]):
 
     @property
     def _catalog_value(self) -> Catalog:
-        if isinstance(self.catalog, IcebergCatalog):
+        if isinstance(self.catalog, Input):
             return self.catalog.load()
         return self.catalog
+
+    @property
+    def _schema_value(self) -> Schema:
+        if isinstance(self.schema, StructType):
+            return Schema(*self.schema.fields)
+        return self.schema
 
     def table_exists(self) -> bool:
         catalog = self._catalog_value
@@ -134,19 +139,10 @@ class IcebergTableCreate(Output[None]):
         """Create the table in the catalog with the provided schema.
 
         Raises:
-            IcebergIOError:
-                If the schema is not provided when creating a new table
             IcebergTableAlreadyExistsError: If the table already exists and
                 `if_exists` is set to RAISE
         """
         catalog = self._catalog_value
-        schema = self.schema or save_options.pop("schema", None)
-        if schema is None:
-            raise IcebergIOError(
-                "Schema must be provided to create a new table."
-            )
-        if isinstance(schema, StructType):
-            schema = Schema(*schema.fields)
         table_exists = self.table_exists()
         if table_exists:
             match self.if_exists:
@@ -159,5 +155,7 @@ class IcebergTableCreate(Output[None]):
                         f"Table '{self.table_identifier}' already exists."
                     )
         catalog.create_table(
-            identifier=self.table_identifier, schema=schema, **save_options
+            identifier=self.table_identifier,
+            schema=self._schema_value,
+            **save_options,
         )

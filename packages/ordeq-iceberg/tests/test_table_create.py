@@ -11,6 +11,7 @@ from ordeq_iceberg import (
 )
 from pyiceberg.catalog import CatalogType
 from pyiceberg.catalog.memory import InMemoryCatalog
+from pyiceberg.schema import NestedField, Schema
 
 
 @pytest.fixture(scope="module")
@@ -59,16 +60,24 @@ def test_create_table_with_catalog_io(sql_catalog_io: IcebergCatalog):
     catalog.close()
 
 
-def test_create_table_without_schema_raises(catalog: InMemoryCatalog):
+def test_create_table_with_iceberg_schema(catalog: InMemoryCatalog):
+    schema = Schema(
+        NestedField(
+            field_id=1, name="id", field_type=T.IntegerType(), required=True
+        ),
+        NestedField(
+            field_id=2, name="data", field_type=T.StringType(), required=False
+        ),
+    )
     table_create = IcebergTableCreate(
         catalog=catalog,
-        table_name="test_table_no_schema",
+        table_name="test_table_schema",
         namespace="test_namespace",
-        schema=None,
+        schema=schema,
         if_exists=IfTableExistsSaveOptions.DROP,
     )
-    with pytest.raises(IOException, match="Schema must be provided"):
-        table_create.save(None)
+    table_create.save(None)
+    assert catalog.table_exists("test_namespace.test_table_schema")
 
 
 def test_create_existing_table_raises(catalog: InMemoryCatalog):

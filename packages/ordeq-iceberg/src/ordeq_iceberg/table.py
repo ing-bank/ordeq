@@ -4,8 +4,6 @@ from ordeq import Input
 from pyiceberg.catalog import Catalog
 from pyiceberg.table import Table
 
-from ordeq_iceberg.catalog import IcebergCatalog
-
 
 @dataclass(frozen=True, kw_only=True)
 class IcebergTable(Input[Table]):
@@ -29,7 +27,7 @@ class IcebergTable(Input[Table]):
 
     """
 
-    catalog: IcebergCatalog | Catalog
+    catalog: Input[Catalog] | Catalog
     table_name: str
     namespace: str
 
@@ -37,14 +35,17 @@ class IcebergTable(Input[Table]):
     def table_identifier(self) -> str:
         return f"{self.namespace}.{self.table_name}"
 
+    @property
+    def _catalog_value(self) -> Catalog:
+        if isinstance(self.catalog, Input):
+            return self.catalog.load()
+        return self.catalog
+
     def load(self, **load_options) -> Table:
         """Load the table instance from the catalog
 
         Returns:
             The loaded Iceberg table instance
         """
-        if isinstance(self.catalog, IcebergCatalog):
-            catalog = self.catalog.load()
-        else:
-            catalog = self.catalog
+        catalog = self._catalog_value
         return catalog.load_table(self.table_identifier, **load_options)

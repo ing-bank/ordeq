@@ -14,8 +14,7 @@ See the [introduction][intro] for an easy-to-follow example of how Ordeq can hel
 
 ## Installation
 
-Ordeq is available under MIT license.
-Please refer to the [license] and [notice] for more details.
+Ordeq is lightweight with **0 dependencies**.
 
 To install Ordeq, run:
 
@@ -159,6 +158,11 @@ To learn more about Ordeq, check out the following resources:
 Ordeq builds upon design choices and ideas from [Kedro] and other frameworks.
 It has been developed at ING, with contributions from various individuals.
 Please refer to the [acknowledgements] section in the documentation for more details.
+
+## License
+
+Ordeq is available under the MIT license.
+Please refer to the [license] and [notice] for more details.
 
 [acknowledgements]: https://ing-bank.github.io/ordeq/contributing/acknowledgements/
 [api-ref]: https://ing-bank.github.io/ordeq/api/ordeq/

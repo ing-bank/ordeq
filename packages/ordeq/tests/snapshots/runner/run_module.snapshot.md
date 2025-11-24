@@ -28,7 +28,6 @@ INFO	ordeq.runner	Running node 'increment' in module 'resources.runner.example_m
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node 'decrement' in module 'resources.runner.example_module_a'

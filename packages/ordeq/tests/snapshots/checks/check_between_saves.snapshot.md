@@ -130,7 +130,6 @@ DEBUG	ordeq.io	Persisting data for Literal(   id  amount   to country
 INFO	ordeq.runner	Running view 'txs_agg' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
 
 ```

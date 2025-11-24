@@ -51,7 +51,6 @@ DEBUG	ordeq.io	Persisting data for Literal(<__main__.MockDuckDbValues object at 
 INFO	ordeq.runner	Running view 'csv_as_df' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'aggregate' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for Literal(<__main__.MockDuckDbValues object at HASH1>)

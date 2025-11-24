@@ -67,7 +67,6 @@ DEBUG	ordeq.io	Persisting data for Literal('Hello')
 INFO	ordeq.runner	Running view 'hello' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'world' in module '__main__'
 INFO	ordeq.io	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for Literal('Hello')
@@ -79,7 +78,6 @@ DEBUG	ordeq.io	Persisting data for Literal('Hello')
 INFO	ordeq.runner	Running view 'hello' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'world' in module '__main__'
 INFO	ordeq.io	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for Literal('Hello')

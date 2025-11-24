@@ -42,7 +42,6 @@ DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.io	Loading Literal('Jane')
 DEBUG	ordeq.io	Persisting data for Literal('Jane')
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)

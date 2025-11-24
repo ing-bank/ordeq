@@ -135,9 +135,6 @@ def _process_input_meta(name, bases, class_dict):
             )
             raise TypeError(msg)
 
-        if isinstance(load_method, staticmethod):
-            raise ValueError("Load method cannot be static.")
-
         # Ensure all arguments (except self/cls) have default values
         sig = inspect.signature(load_method)
         for argument, param in sig.parameters.items():
@@ -215,19 +212,18 @@ def _process_output_meta(name, bases, class_dict):
             )
             raise TypeError(msg)
 
-        if isinstance(save_method, staticmethod):
-            raise ValueError("Save method cannot be static.")
-
         sig = inspect.signature(save_method)
-        if len(sig.parameters) < 2:
-            raise TypeError("Save method requires a data parameter.")
-
-        # Ensure all arguments (except the first two, self/cls and data)
-        # have default values
-        for i, (argument, param) in enumerate(sig.parameters.items()):
-            # Skip self/cls and data
-            if i < 2:
+        seen_data = False
+        for argument, param in sig.parameters.items():
+            if argument in {"self", "cls"}:
                 continue
+
+            if not seen_data:
+                seen_data = True
+                continue  # Skip the data parameter itself
+
+            # Ensure all arguments (except the first two, self/cls and data)
+            # have default values
             if (
                 param.default is inspect.Parameter.empty
                 and param.kind != inspect._ParameterKind.VAR_KEYWORD
@@ -236,6 +232,9 @@ def _process_output_meta(name, bases, class_dict):
                     f"Argument '{argument}' of function "
                     f"'{save_method.__name__}' has no default value."
                 )
+
+        if not seen_data:
+            raise TypeError("Save method requires a data parameter.")
 
         if (
             sig.return_annotation != inspect.Signature.empty

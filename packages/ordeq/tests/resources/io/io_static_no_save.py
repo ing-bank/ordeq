@@ -1,15 +1,11 @@
-## Resource
-
-```python
 from ordeq import Output
 
 
 class ExampleStaticIO(Output[str]):
     @staticmethod
-    def save(data: str) -> None:
-        print(data)
+    def save(hello: str, world: str) -> None:
+        print(f"{hello}, {world}!")
 
 
+print("Expect error")
 _ = ExampleStaticIO()
-
-```

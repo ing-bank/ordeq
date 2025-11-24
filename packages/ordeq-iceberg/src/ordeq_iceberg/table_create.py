@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enum import StrEnum
+from enum import Enum
 
 from ordeq import Input, Output
 from pyiceberg.catalog import Catalog
@@ -9,7 +9,7 @@ from pyiceberg.types import StructType
 from ordeq_iceberg.errors import IcebergTableAlreadyExistsError
 
 
-class IfTableExistsSaveOptions(StrEnum):
+class IfTableExistsSaveOptions(Enum):
     """Options for handling existing tables when saving."""
 
     DROP = "drop"
@@ -109,7 +109,7 @@ class IcebergTableCreate(Output[None]):
     namespace: str
     schema: Schema | StructType
     """Schema to use when creating the table"""
-    if_exists: IfTableExistsSaveOptions | None = None
+    if_exists: IfTableExistsSaveOptions | str | None = None
     """What to do if the table already exists.
     None (default) lets the underlying catalog handle
     the situation (usually raises an error).
@@ -146,11 +146,20 @@ class IcebergTableCreate(Output[None]):
         table_exists = self.table_exists()
         if table_exists:
             match self.if_exists:
-                case IfTableExistsSaveOptions.IGNORE:
+                case (
+                    IfTableExistsSaveOptions.IGNORE
+                    | IfTableExistsSaveOptions.IGNORE.value
+                ):
                     return
-                case IfTableExistsSaveOptions.DROP:
+                case (
+                    IfTableExistsSaveOptions.DROP
+                    | IfTableExistsSaveOptions.DROP.value
+                ):
                     catalog.drop_table(self.table_identifier)
-                case IfTableExistsSaveOptions.RAISE:
+                case (
+                    IfTableExistsSaveOptions.RAISE
+                    | IfTableExistsSaveOptions.RAISE.value
+                ):
                     raise IcebergTableAlreadyExistsError(
                         f"Table '{self.table_identifier}' already exists."
                     )

@@ -116,7 +116,14 @@ def test_create_existing_table_ignore(catalog: InMemoryCatalog):
     assert catalog.table_exists("test_namespace.test_table_no_action")
 
 
-def test_create_existing_table_drop(catalog: InMemoryCatalog):
+@patch("ordeq_iceberg.table_create.IcebergTableCreate._catalog_value")
+@patch("ordeq_iceberg.table_create.IcebergTableCreate.table_exists")
+def test_create_existing_table_drop(
+    mock_table_exists: MagicMock,
+    mock_catalog: MagicMock,
+    catalog: InMemoryCatalog,
+):
+    mock_table_exists.return_value = True
     table_create = IcebergTableCreate(
         catalog=catalog,
         table_name="test_table_drop",
@@ -128,9 +135,8 @@ def test_create_existing_table_drop(catalog: InMemoryCatalog):
         if_exists=IfTableExistsSaveOptions.DROP,
     )
     table_create.save(None)
-    # Second save should drop and recreate the table without raising
-    table_create.save(None)
-    assert catalog.table_exists("test_namespace.test_table_drop")
+    mock_catalog.drop_table.assert_called_once()
+    mock_catalog.create_table.assert_called_once()
 
 
 @patch("ordeq_iceberg.table_create.IcebergTableCreate._catalog_value")
@@ -151,4 +157,27 @@ def test_create_existing_table_if_exists_null(
     )
     table_create.save(None)
     mock_table_exists.assert_called_once()
+    mock_catalog.create_table.assert_called_once()
+
+
+@patch("ordeq_iceberg.table_create.IcebergTableCreate._catalog_value")
+@patch("ordeq_iceberg.table_create.IcebergTableCreate.table_exists")
+def test_if_exists_drop_as_string(
+    mock_table_exists: MagicMock,
+    mock_catalog: MagicMock,
+    catalog: InMemoryCatalog,
+):
+    mock_table_exists.return_value = True
+    table_create = IcebergTableCreate(
+        catalog=catalog,
+        table_name="test_table_if_exists_str",
+        namespace="test_namespace",
+        schema=T.StructType(
+            T.NestedField(1, "id", T.IntegerType(), required=True),
+            T.NestedField(2, "data", T.StringType(), required=False),
+        ),
+        if_exists="drop",
+    )
+    table_create.save(None)
+    mock_catalog.drop_table.assert_called_once()
     mock_catalog.create_table.assert_called_once()

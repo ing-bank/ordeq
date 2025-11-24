@@ -45,7 +45,7 @@ my_table_create = (
 
 
 @node(inputs=[my_catalog, test_namespace], outputs=[my_table_create])
-def create_save_table(catalog: Catalog, namespace: str) -> Catalog:
+def create_save_table(catalog: Catalog, namespace: str) -> None:
     catalog.create_namespace(namespace)
 
 

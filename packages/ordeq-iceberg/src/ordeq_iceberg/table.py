@@ -15,7 +15,6 @@ class IcebergTable(Input[Table]):
 
     ```pycon
     >>> from ordeq_iceberg import IcebergTable, IcebergCatalog
-    >>> from pathlib import Path
     >>> catalog = IcebergCatalog(
     ...     name="my_catalog",
     ...     catalog_type="IN_MEMORY"
@@ -42,7 +41,7 @@ class IcebergTable(Input[Table]):
         """Load the table instance from the catalog
 
         Returns:
-            Table: The loaded Iceberg table instance
+            The loaded Iceberg table instance
         """
         if isinstance(self.catalog, IcebergCatalog):
             catalog = self.catalog.load()

@@ -40,12 +40,12 @@ class IcebergTableCreate(Output[None]):
     ...     table_name="my_table",
     ...     namespace="my_namespace",
     ...     schema=Schema(
-    ...         NestedField(1, True, "id", IntegerType()),
-    ...         NestedField(2, True, "name", StringType()),
+    ...         NestedField(field_id=1, required=True, name="id", field_type=IntegerType()),
+    ...         NestedField(field_id=2, required=True, name="name", field_type=StringType()),
     ...     ),
     ...     if_exists=IfTableExistsSaveOptions.DROP,
     ... )
-    >>> table_create.save()
+
     ```
 
     If using for an Ordeq pipeline where you need to control both
@@ -68,8 +68,8 @@ class IcebergTableCreate(Output[None]):
     ...     table_name="my_table",
     ...     namespace="my_namespace",
     ...     schema=Schema(
-    ...         NestedField(1, True, "id", IntegerType()),
-    ...         NestedField(2, True, "name", StringType()),
+    ...         NestedField(field_id=1, required=True, name="id", field_type=IntegerType()),
+    ...         NestedField(field_id=2, required=True, name="name", field_type=StringType()),
     ...     ),
     ...     if_exists=IfTableExistsSaveOptions.DROP,
     ... ) @ my_table_resource_name
@@ -109,7 +109,7 @@ class IcebergTableCreate(Output[None]):
         """Create the table in the catalog with the provided schema.
 
         Raises:
-            IOException: If the schema is not provided when creating a new table
+            IcebergIOError: If the schema is not provided when creating a new table
             IcebergTableAlreadyExistsError: If the table already exists and
                 `if_exists` is set to RAISE
         """

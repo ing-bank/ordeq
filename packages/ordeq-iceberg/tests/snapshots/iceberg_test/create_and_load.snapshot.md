@@ -48,7 +48,7 @@ my_table_create = (
 
 
 @node(inputs=[my_catalog, test_namespace], outputs=[my_table_create])
-def create_save_table(catalog: Catalog, namespace: str) -> Catalog:
+def create_save_table(catalog: Catalog, namespace: str) -> None:
     catalog.create_namespace(namespace)
 
 
@@ -85,13 +85,5 @@ INFO	ordeq.runner	Running node "create_save_table" in module "__main__"
 INFO	ordeq.io	Saving IcebergTableCreate(catalog=IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>), table_name='test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=ID1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=ID2, name='data', field_type=StringType(), required=False),)), if_exists=<IfTableExistsSaveOptions.DROP: 'drop'>)
 INFO	ordeq.io	Loading IcebergTable(catalog=IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>), table_name='test_table', namespace='test_namespace')
 INFO	ordeq.runner	Running view "load_table" in module "__main__"
-
-```
-
-## Typing
-
-```text
-packages/ordeq-iceberg/tests/resources/iceberg_test/create_and_load.py:48:60: error[invalid-return-type] Function always implicitly returns `None`, which is not assignable to return type `Catalog`
-Found 1 diagnostic
 
 ```

@@ -13,7 +13,7 @@ class IcebergCatalog(Input[Catalog]):
     ```pycon
     >>> from pyiceberg.catalog import CatalogType
     >>> iceberg_catalog = IcebergCatalog(
-    ...     name="my_catalog", catalog_type=CatalogType.HIVE
+    ...     name="my_catalog", catalog_type=CatalogType.IN_MEMORY
     ... )
     >>> catalog = iceberg_catalog.load()
 

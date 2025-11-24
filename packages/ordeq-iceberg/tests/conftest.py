@@ -2,6 +2,7 @@ from collections.abc import Generator
 from pathlib import Path
 from tempfile import gettempdir
 from typing import cast
+from shutil import rmtree
 
 import pytest
 from pyiceberg.catalog import CatalogType
@@ -56,7 +57,7 @@ def sql_catalog_io() -> Generator[IcebergCatalog]:
     yield catalog_io
     catalog.close()
     (catalog_path / "iceberg.db").unlink(missing_ok=True)
-    (catalog_path / "warehouse").rmdir()
+    rmtree(catalog_path / "warehouse", ignore_errors=True)
     catalog_path.rmdir()
 
 

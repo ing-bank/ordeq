@@ -54,7 +54,13 @@ run(create_save_table, load_table)
 ## Output
 
 ```text
-Table loaded from Input object: 'None'
+Table loaded from Input object: 'test_table(
+  1: id: required int,
+  2: data: optional string
+),
+partition by: [],
+sort order: [],
+snapshot: null'
 
 ```
 
@@ -65,6 +71,7 @@ INFO	ordeq.io	Loading IcebergCatalog(name='test_catalog', catalog_type=<CatalogT
 INFO	ordeq.io	Loading Literal('test_namespace')
 INFO	ordeq.runner	Running node 'create_save_table' in module '__main__'
 INFO	ordeq.io	Saving IcebergTable(catalog=IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>), table_name='test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=ID1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=ID2, name='data', field_type=StringType(), required=False),)), if_exists=<IfTableExistsSaveOptions.DROP: 'drop'>)
+INFO	ordeq.io	Loading IcebergTable(catalog=IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>), table_name='test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=ID1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=ID2, name='data', field_type=StringType(), required=False),)), if_exists=<IfTableExistsSaveOptions.DROP: 'drop'>)
 INFO	ordeq.runner	Running view 'load_table' in module '__main__'
 
 ```

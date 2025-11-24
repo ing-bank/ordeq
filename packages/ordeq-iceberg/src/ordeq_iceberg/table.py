@@ -28,7 +28,10 @@ class IcebergTable(Input[Table], Output[None]):
     Example:
 
     ```pycon
-    >>> from ordeq_iceberg import IcebergTable, IcebergCatalog
+    >>> import pyiceberg.types as T
+    >>> from ordeq_iceberg import (
+    ...     IcebergTable, IcebergCatalog, IfTableExistsSaveOptions
+    ... )
     >>> catalog = IcebergCatalog(
     ...     name="my_catalog",
     ...     catalog_type="IN_MEMORY"
@@ -36,7 +39,12 @@ class IcebergTable(Input[Table], Output[None]):
     >>> table = IcebergTable(
     ...     catalog=catalog,
     ...     table_name="my_table",
-    ...     namespace="my_namespace"
+    ...     namespace="my_namespace",
+    ...     schema=T.StructType(
+    ...         T.NestedField(1, "id", T.IntegerType(), required=True),
+    ...         T.NestedField(2, "data", T.StringType(), required=False),
+    ...     ),
+    ...     if_exists=IfTableExistsSaveOptions.DROP,
     ... )
 
     ```
@@ -75,6 +83,10 @@ class IcebergTable(Input[Table], Output[None]):
     def table_exists(self) -> bool:
         catalog = self._catalog_value
         return catalog.table_exists(self.table_identifier)
+
+    def persist(self, _) -> None:
+        """Don't persist the table, since it returns
+        different types when loading and saving."""
 
     def load(self, **load_options) -> Table:
         """Load the table instance from the catalog

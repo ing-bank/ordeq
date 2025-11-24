@@ -220,7 +220,7 @@ def _resolve_refs_to_hooks(
 
 
 def _resolve_runnables_to_nodes_and_modules(
-    *runnables: Runnable,
+    *runnables: Runnable | RunnableRef,
 ) -> tuple[list[Node], list[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 

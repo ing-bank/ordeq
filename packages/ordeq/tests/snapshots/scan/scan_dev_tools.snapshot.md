@@ -8,7 +8,7 @@ from ordeq._scan import _scan_fqns
 
 nodes, ios = _scan_fqns(ordeq_dev_tools)
 print("Nodes:")
-pprint(sorted(nodes, key=lambda n: (nodes[n], n.ref)), width=40)
+pprint(sorted(nodes, key=lambda n: n.ref), width=40)
 print("IOs:")
 pprint(list(ios.values()), width=40)
 
@@ -18,14 +18,15 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-[View(module=ordeq_dev_tools.pipelines.docs_package_overview, name=groups, inputs=[IO(id=ID1)]),
+[View(func=ordeq_dev_tools.pipelines.docs_update_just:just_output),
+ View(func=ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases),
+ View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files),
  View(func=ordeq_dev_tools.pipelines.shared:packages),
+ View(module=ordeq_dev_tools.pipelines.docs_package_overview, name=groups, inputs=[IO(id=ID1)]),
  Node(module=ordeq_dev_tools.pipelines.docs_package_overview, name=write_html_table_by_group, inputs=[IO(id=ID2)], outputs=[TextLinesStream(path=Path('/docs/packages.md'))]),
  View(module=ordeq_dev_tools.pipelines.docs_update_just, name=docs_just_section, inputs=[IO(id=ID3)]),
- View(func=ordeq_dev_tools.pipelines.docs_update_just:just_output),
  Node(module=ordeq_dev_tools.pipelines.docs_update_just, name=update_docs_with_just_section, inputs=[Text(path=Path('/docs/CONTRIBUTING.md')), IO(id=ID4)], outputs=[Text(path=Path('/docs/CONTRIBUTING.md'))]),
  View(module=ordeq_dev_tools.pipelines.generate_draft_releases, name=create_releases, inputs=[IO(id=ID5), IO(id=ID6)]),
- View(func=ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases),
  View(module=ordeq_dev_tools.pipelines.generate_draft_releases, name=new_releases, inputs=[IO(id=ID1)]),
  View(module=ordeq_dev_tools.pipelines.generate_release_notes, name=bump_type, inputs=[IO(id=ID7)]),
  View(module=ordeq_dev_tools.pipelines.generate_release_notes, name=bump_version, inputs=[IO(id=ID8), IO(id=ID9)]),
@@ -41,7 +42,6 @@ Nodes:
  View(module=ordeq_dev_tools.pipelines.generate_release_notes, name=relevant_commits, inputs=[IO(id=ID13), IO(id=ID21), Input(id=ID17)]),
  View(module=ordeq_dev_tools.pipelines.generate_release_notes, name=relevant_prs, inputs=[IO(id=ID10)]),
  View(module=ordeq_dev_tools.pipelines.generate_release_notes, name=tags, inputs=[Input(id=ID17)]),
- View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files),
  Node(module=ordeq_dev_tools.pipelines.list_changed_packages, name=extract_changed_packages, inputs=[IO(id=ID22)], outputs=[JSON(path=Path('/data/dev_tools/changed_packages.json'))]),
  Node(module=ordeq_dev_tools.pipelines.list_dependencies, name=compute_affected_dependencies, inputs=[JSON(path=Path('/data/dev_tools/dependencies.json'))], outputs=[JSON(path=Path('/data/dev_tools/affected_dependencies.json'))]),
  Node(module=ordeq_dev_tools.pipelines.list_dependencies, name=generate_mermaid_diagram, inputs=[JSON(path=Path('/data/dev_tools/dependencies.json'))], outputs=[Text(path=Path('/data/dev_tools/dependencies_diagram.mmd'))]),

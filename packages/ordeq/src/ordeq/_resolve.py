@@ -9,12 +9,13 @@ from collections.abc import Generator
 from types import ModuleType
 from typing import TypeAlias, TypeGuard
 
-from ordeq._fqn import FQN, ModuleName, is_object_ref
+from ordeq._fqn import FQN, ModuleName, ObjectRef, is_object_ref
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
 from ordeq._nodes import Node, _is_node
 
-Runnable: TypeAlias = ModuleType | Node | str
+RunnableRef: TypeAlias = ObjectRef | ModuleName
+Runnable: TypeAlias = ModuleType | Node
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
 
 
@@ -358,3 +359,21 @@ def _resolve_modules_to_nodes(*modules: ModuleType) -> list[Node]:
     for module in modules:
         nodes.extend(_resolve_module_to_nodes(module).values())
     return nodes
+
+
+def _resolve_runnable_refs_to_runnables(
+    *runnables: RunnableRef | Runnable,
+) -> tuple[list[ModuleType], list[Node]]:
+    modules: list[ModuleType] = []
+    nodes: list[Node] = []
+    for runnable in runnables:
+        if _is_module(runnable):
+            modules.append(runnable)
+        elif _is_node(runnable):
+            nodes.append(runnable)
+        elif is_object_ref(runnable):
+            FQN.from_ref(runnable)
+            nodes.append(_resolve_fqn_to_node(runnable))
+        else:
+            modules.append(_resolve_module_ref_to_module(runnable))
+    return modules, nodes

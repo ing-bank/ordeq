@@ -4,7 +4,7 @@ Loading multiple files in memory for processing at the same time can be problema
 When processing batches of files, such as partitioned parquet files in Polars
 or a directory of PDF files, we may run out of memory, and generally consume more resources than required.
 
-The [`Iterate`](../api/ordeq_common/io/iterate.md) dataset can help executing the same logic to multiple datasets,
+The [`Iterate`](../api/ordeq_common.md#ordeq_common.Iterate) dataset can help executing the same logic to multiple datasets,
 without the need to load them all in memory first.
 
 Instead, `Iterate` makes use of Python generators to process the datasets one by one.
@@ -33,7 +33,7 @@ def generate_json_contents(
         yield {"content": content}
 ```
 
-The [`TextLinesStream`](../api/ordeq_files/text_lines_stream.md) dataset from `ordeq-files` also supports lazy processing of text files line-by-line using a generator. This is particularly useful for processing large text files that may not fit into memory all at once.
+The [`TextLinesStream`](../api/ordeq_files.md#ordeq_files.TextLinesStream) dataset from `ordeq-files` also supports lazy processing of text files line-by-line using a generator. This is particularly useful for processing large text files that may not fit into memory all at once.
 
 It can also be used to write lines to a text file in a memory-efficient manner.
 

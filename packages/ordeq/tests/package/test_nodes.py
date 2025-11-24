@@ -1,6 +1,6 @@
 import pytest
-from ordeq import IO, Node, node
-from ordeq._nodes import _is_node, create_node, get_node
+from ordeq import IO, node
+from ordeq._nodes import _is_node, create_node
 from ordeq._runner import _run_node
 from ordeq_common.io.string_buffer import StringBuffer
 
@@ -51,7 +51,7 @@ class TestNode:
 )
 def test_it_raises_for_invalid_inputs(inputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
-        ValueError, match="Node inputs invalid for function arguments"
+        ValueError, match="Inputs invalid for function arguments"
     ):
         n = create_node(
             func=lambda _: _, inputs=inputs, outputs=(StringBuffer("c"),)
@@ -92,30 +92,12 @@ def method_w_2_ret(a: str) -> tuple[str, str]:
 )
 def test_it_raises_for_invalid_outputs(func, outputs: tuple[IO]):
     with pytest.raises(  # noqa: PT012
-        ValueError, match="Node outputs invalid for return annotation"
+        ValueError, match="Outputs invalid for return annotation"
     ):
         n = create_node(
             func=func, inputs=(StringBuffer("a"),), outputs=outputs
         )
         _run_node(n, hooks=())
-
-
-class TestGetNode:
-    def test_it_gets_registered_node(self):
-        @node(inputs=[StringBuffer("a")], outputs=[StringBuffer("b")])
-        def my_func(a: str) -> str:
-            return a
-
-        node_obj = get_node(my_func)
-        assert node_obj is not None
-        assert node_obj.func == my_func
-
-    def test_it_raises_node_not_found(self):
-        def my_func(a: str) -> str:
-            return a
-
-        with pytest.raises(ValueError, match="'my_func' is not a node"):
-            get_node(my_func)
 
 
 def test_is_node():
@@ -143,17 +125,3 @@ def test_is_node():
 
     not_callable = NotCallable()
     assert not _is_node(not_callable)
-
-
-def test_str():
-    assert (
-        str(
-            Node(
-                func=lambda x: x,
-                _name="module:name",
-                inputs=(StringBuffer("input1"),),
-                outputs=(StringBuffer("output1"),),
-            )
-        )
-        == "module:name"
-    )

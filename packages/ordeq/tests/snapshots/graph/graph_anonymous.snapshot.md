@@ -19,7 +19,7 @@ print("NodeGraph")
 print(node_graph)
 
 print("Topological ordering")
-pprint([node.name for node in node_graph.topological_ordering])
+pprint(node_graph.topological_ordering)
 
 ```
 
@@ -32,6 +32,6 @@ Node:example_anonymous.nodes:node_with_inline_io --> io-1
 NodeGraph
 Node:example_anonymous.nodes:node_with_inline_io
 Topological ordering
-['example_anonymous.nodes:node_with_inline_io']
+(Node(module=example_anonymous.nodes, name=node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]),)
 
 ```

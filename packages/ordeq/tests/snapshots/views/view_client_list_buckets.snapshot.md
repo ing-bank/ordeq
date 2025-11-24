@@ -43,7 +43,7 @@ bucket3
 
 ```text
 INFO	ordeq.io	Loading Literal(<__main__.Client object at HASH1>)
-INFO	ordeq.runner	Running view "buckets" in module "__main__"
-INFO	ordeq.runner	Running view "print_buckets" in module "__main__"
+INFO	ordeq.runner	Running view 'buckets' in module '__main__'
+INFO	ordeq.runner	Running view 'print_buckets' in module '__main__'
 
 ```

@@ -20,8 +20,7 @@ pprint(ios, width=40)
 Nodes:
 []
 IOs:
-[(('example_imports.local_import_made_global',
-   'a'),
+[(FQN(module='example_imports.local_import_made_global', name='a'),
   IO(id=ID1))]
 
 ```

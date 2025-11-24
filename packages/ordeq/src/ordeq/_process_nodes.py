@@ -2,7 +2,7 @@ from collections.abc import Callable
 from typing import Annotated, TypeAlias
 
 from ordeq import Node
-from ordeq._fqn import FQ, Unknown
+from ordeq._fqn import FQ, FQN, Unknown
 from ordeq._nodes import View
 from ordeq.preview import preview
 
@@ -18,10 +18,10 @@ def _collect_views(*nodes: FQ[Node]) -> tuple[FQ[Node], ...]:
             if not isinstance(node, View):
                 all_nodes[fqn, node] = None
             else:
-                fq_view = (Unknown, Unknown), node
+                fq_view = FQN(Unknown, Unknown), node
                 all_nodes[fq_view] = None
             for view in node.views:
-                _collect(((Unknown, Unknown), view))
+                _collect((FQN(Unknown, Unknown), view))
 
     _collect(*nodes)
     return tuple(all_nodes.keys())

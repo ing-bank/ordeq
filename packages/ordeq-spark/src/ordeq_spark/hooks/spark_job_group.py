@@ -42,4 +42,4 @@ class SparkJobGroupHook(NodeHook):
             RuntimeError: if the Spark session is not active
         """  # noqa: DOC502 (docstring-extraneous-exception)
 
-        _set_job_group(node.name)
+        _set_job_group(str(node))

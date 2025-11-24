@@ -66,11 +66,11 @@ aBBB
 
 ```text
 INFO	ordeq.io	Loading Literal('A')
-INFO	ordeq.runner	Running node "process_a" in module "example_checks.pipeline_base"
+INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_base'
 INFO	ordeq.io	Loading Literal('B')
-INFO	ordeq.runner	Running node "process_b" in module "example_checks.pipeline_base"
-INFO	ordeq.runner	Running node "join" in module "example_checks.pipeline_base"
+INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_base'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running view "print_result" in module "example_checks.pipeline_base"
+INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_base'
 
 ```

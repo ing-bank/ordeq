@@ -20,8 +20,7 @@ pprint(ios, width=40)
 Nodes:
 []
 IOs:
-[(('example_imports.import_different_package',
-   'Hello'),
+[(FQN(module='example_imports.import_different_package', name='Hello'),
   StringBuffer(_buffer=<_io.StringIO object at HASH1>))]
 
 ```

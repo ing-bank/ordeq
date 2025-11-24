@@ -3,23 +3,13 @@ from __future__ import annotations
 import importlib
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
-from functools import cached_property, wraps
+from functools import wraps
 from inspect import Signature, signature
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    Generic,
-    ParamSpec,
-    TypeVar,
-    cast,
-    overload,
-)
+from typing import Any, Generic, ParamSpec, TypeGuard, TypeVar, cast, overload
 
+from ordeq._fqn import FQN
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq.preview import preview
-
-if TYPE_CHECKING:
-    from ordeq._fqn import ObjectRef
 
 T = TypeVar("T")
 FuncParams = ParamSpec("FuncParams")
@@ -45,6 +35,10 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 
 @dataclass(frozen=True, kw_only=True)
 class Node(Generic[FuncParams, FuncReturns]):
+    @property
+    def __doc__(self) -> str | None:  # type: ignore[override]
+        return self.func.__doc__
+
     func: Callable[FuncParams, FuncReturns]
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
@@ -52,8 +46,11 @@ class Node(Generic[FuncParams, FuncReturns]):
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
 
-    # Node names are assigned on run/viz from context.
-    _name: ObjectRef | None = None
+    # The node module and name is assigned:
+    # 1. from the function if the node is created via the @node decorator
+    # 2. otherwise, if possible, from the run/viz context
+    module: str | None = None
+    name: str | None = None
 
     def __post_init__(self):
         """Nodes always have to be hashable"""
@@ -84,16 +81,34 @@ class Node(Generic[FuncParams, FuncReturns]):
             outputs=tuple(io.get(op, op) for op in self.outputs),  # type: ignore[misc,arg-type]
         )
 
-    @cached_property
+    @property
+    def is_fq(self) -> bool:
+        return self.name is not None and self.module is not None
+
+    @property
     def func_name(self) -> str:
         return infer_node_name_from_func(self.func)
 
     @property
-    def name(self) -> str:
-        return self._name or self.func_name
+    def ref(self) -> str:
+        if self.is_fq:
+            return format(self.fqn, "ref")
+        return f"{self.__class__.__name__}(func={self.func_name}, ...)"
+
+    @property
+    def fqn(self) -> FQN | None:
+        if self.is_fq:
+            return FQN(module=self.module, name=self.name)  # type: ignore[arg-type]
+        return None
+
+    def __call__(self, *args, **kwargs) -> FuncReturns:
+        return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
 
     def __repr__(self) -> str:
-        attributes = {"func": self.func_name}
+        if self.is_fq:
+            attributes = {"module": self.module, "name": self.name}
+        else:
+            attributes = {"func": self.func_name}
 
         inputs = getattr(self, "inputs", None)
         if inputs:
@@ -112,7 +127,9 @@ class Node(Generic[FuncParams, FuncReturns]):
         return f"Node({attributes_str})"
 
     def __str__(self) -> str:
-        return self._name or f"Node(func={self.func_name}, ...)"
+        if self.is_fq:
+            return format(self.fqn, "desc")
+        return f"{self.__class__.__name__}(func={self.func_name}, ...)"
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:
@@ -132,9 +149,7 @@ def _raise_for_invalid_inputs(n: Node) -> None:
     try:
         sign.bind(*n.inputs)
     except TypeError as e:
-        raise ValueError(
-            f"Node inputs invalid for function arguments: {n}"
-        ) from e
+        raise ValueError(f"Inputs invalid for function arguments: {n}") from e
 
 
 def _raise_for_invalid_outputs(n: Node) -> None:
@@ -153,7 +168,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
     if not all(are_outputs):
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
-            f"Outputs of node {n} must be of type Output, "
+            f"Outputs of {n} must be of type Output, "
             f"got {type(not_an_output)} "
         )
 
@@ -186,7 +201,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
 
     if len(return_types) != len(n.outputs):
         raise ValueError(
-            f"Node outputs invalid for return annotation: {n}. "
+            f"Outputs invalid for return annotation: {n}. "
             f"Node has {len(n.outputs)} output(s), but the return type "
             f"annotation expects {len(return_types)} value(s)."
         )
@@ -241,7 +256,10 @@ class View(Node[FuncParams, FuncReturns]):
         )
 
     def __repr__(self) -> str:
-        attributes = {"func": self.name}
+        if self.name and self.module:
+            attributes = {"module": self.module, "name": self.name}
+        else:
+            attributes = {"func": infer_node_name_from_func(self.func)}
 
         inputs = getattr(self, "inputs", None)
         if inputs:
@@ -256,31 +274,8 @@ class View(Node[FuncParams, FuncReturns]):
         return f"View({attributes_str})"
 
 
-def get_node(func: Callable) -> Node:
-    """Gets the node from a callable created with the `@node` decorator.
-
-    Args:
-        func: a callable created with the `@node` decorator
-
-    Returns:
-        the node associated with the callable
-
-    Raises:
-        ValueError: if the callable was not created with the `@node` decorator
-    """
-
-    try:
-        return func.__ordeq_node__  # type: ignore[attr-defined]
-    except AttributeError as e:
-        raise ValueError(f"'{func.__name__}' is not a node") from e
-
-
-def _is_node(obj: object) -> bool:
-    return (
-        callable(obj)
-        and hasattr(obj, "__ordeq_node__")
-        and isinstance(obj.__ordeq_node__, Node)
-    )
+def _is_node(obj: object) -> TypeGuard[Node]:
+    return isinstance(obj, Node)
 
 
 @overload
@@ -295,6 +290,8 @@ def create_node(
     | Callable
     | None = None,
     attributes: dict[str, Any] | None = None,
+    module: str | None = None,
+    name: str | None = None,
 ) -> Node[FuncParams, FuncReturns]: ...
 
 
@@ -310,6 +307,8 @@ def create_node(
     | Callable
     | None = None,
     attributes: dict[str, Any] | None = None,
+    module: str | None = None,
+    name: str | None = None,
 ) -> View[FuncParams, FuncReturns]: ...
 
 
@@ -324,6 +323,8 @@ def create_node(
     | Callable
     | None = None,
     attributes: dict[str, Any] | None = None,
+    module: str | None = None,
+    name: str | None = None,
 ) -> Node[FuncParams, FuncReturns] | View[FuncParams, FuncReturns]:
     """Creates a Node instance.
 
@@ -333,6 +334,8 @@ def create_node(
         outputs: The outputs from the node.
         checks: The checks for the node.
         attributes: Optional attributes for the node.
+        module: Module name for the node.
+        name: Name for the node.
 
     Returns:
         A Node instance.
@@ -348,13 +351,13 @@ def create_node(
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input '{input_}' to Node(func={func_name}, ...) "
+                    f"Input {input_} to Node(func={func_name}, ...) "
                     f"is not a node"
                 )
-            view = get_node(input_)
+            view = input_
             if not isinstance(view, View):
                 raise ValueError(
-                    f"Input '{input_}' to node Node(func={func_name}, ...) "
+                    f"Input {input_} to node Node(func={func_name}, ...) "
                     f"is not a view"
                 )
             views.append(view)
@@ -373,13 +376,13 @@ def create_node(
             if callable(check):
                 if not _is_node(check):
                     raise ValueError(
-                        f"Check '{check}' to node Node(func={func_name}, ...) "
+                        f"Check {check} to node Node(func={func_name}, ...) "
                         f"is not a node"
                     )
-                view = get_node(check)
+                view = check
                 if not isinstance(view, View):
                     raise ValueError(
-                        f"Check '{check}' to node Node(func={func_name}, ...) "
+                        f"Check {check} to node Node(func={func_name}, ...) "
                         f"is not a view"
                     )
                 checks_.append(view.outputs[0])
@@ -394,6 +397,8 @@ def create_node(
             checks=tuple(checks_),  # type: ignore[arg-type]
             attributes={} if attributes is None else attributes,  # type: ignore[arg-type]
             views=tuple(views),  # type: ignore[arg-type]
+            module=module,  # type: ignore[arg-type]
+            name=name,  # type: ignore[arg-type]
         )
     return Node(
         func=func,
@@ -402,6 +407,8 @@ def create_node(
         checks=tuple(checks_),  # type: ignore[arg-type]
         attributes={} if attributes is None else attributes,
         views=tuple(views),
+        module=module,
+        name=name,
     )
 
 
@@ -422,7 +429,7 @@ def node(
     | Callable
     | None = None,
     **attributes: Any,
-) -> Callable[FuncParams, FuncReturns]: ...
+) -> Node[FuncParams, FuncReturns]: ...
 
 
 @overload
@@ -437,7 +444,7 @@ def node(
     | None = None,
     **attributes: Any,
 ) -> Callable[
-    [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
+    [Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]
 ]: ...
 
 
@@ -454,9 +461,9 @@ def node(
     **attributes: Any,
 ) -> (
     Callable[
-        [Callable[FuncParams, FuncReturns]], Callable[FuncParams, FuncReturns]
+        [Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]
     ]
-    | Callable[FuncParams, FuncReturns]
+    | Node[FuncParams, FuncReturns]
 ):
     """Decorator that creates a node from a function. When a node is run,
     the inputs are loaded and passed to the function. The returned values
@@ -551,35 +558,43 @@ def node(
 
         def wrapped(
             f: Callable[FuncParams, FuncReturns],
-        ) -> Callable[FuncParams, FuncReturns]:
+        ) -> Node[FuncParams, FuncReturns]:
             @wraps(f)
-            def inner(*args, **kwargs):
+            def inner(*args: FuncParams.args, **kwargs: FuncParams.kwargs):
                 # Purpose of this inner is to create a new function from `f`
                 return f(*args, **kwargs)
 
-            inner.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
+            node_ = create_node(
                 inner,
                 inputs=inputs,
                 outputs=outputs,
                 checks=checks,
                 attributes=attributes,
+                module=f.__module__,
+                name=f.__name__,
             )
-            return inner
+            node_.__dict__["__annotations__"] = f.__annotations__  # noqa: RUF063
+            return node_
 
         return wrapped
 
-    # else: we are called as node(func, inputs=...)
+    # else: we are called as node(func, inputs=...) or @node (without kwargs)
 
     @wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(
+        *args: FuncParams.args, **kwargs: FuncParams.kwargs
+    ) -> FuncReturns:
         # The purpose of this wrapper is to create a new function from `func`
         return func(*args, **kwargs)
 
-    wrapper.__ordeq_node__ = create_node(  # type: ignore[attr-defined]
+    node_ = create_node(
         wrapper,
         inputs=inputs,
         outputs=outputs,
         checks=checks,
         attributes=attributes,
     )
-    return wrapper
+
+    node_.__dict__["__annotations__"] = func.__annotations__  # noqa: RUF063
+
+    return node_

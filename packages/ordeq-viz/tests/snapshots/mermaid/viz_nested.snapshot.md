@@ -13,30 +13,40 @@ print(diagram)
 ## Output
 
 ```text
-graph TB
-	subgraph legend["Legend"]
-		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-	end
+Relativistic mass
+ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' and 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' both output to Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)). Nodes cannot output to the same resource.
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    raise ValueError(msg)
 
+  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
+    return cls.from_graph(NodeResourceGraph.from_nodes(nodes))
+                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
 
-	subgraph s0["example_nested.subpackage.subsubpackage.hello"]
-		direction TB
-		example_nested.subpackage.subsubpackage.hello:world@{shape: subroutine, label: "world"}
-	end
+  File "/packages/ordeq-viz/src/ordeq_viz/graph.py", line LINO, in _gather_graph
+    node_graph = NodeGraph.from_nodes(nodes)
 
-	class L0 node
-	class L2,example_nested.subpackage.subsubpackage.hello:world view
-	classDef node fill:#008AD7,color:#FFF
-	classDef view fill:#00C853,color:#FFF
+  File "/packages/ordeq-viz/src/ordeq_viz/api.py", line LINO, in viz
+    graph = _gather_graph(nodes_, ios)
 
+  File "/packages/ordeq-viz/tests/resources/mermaid/viz_nested.py", line LINO, in <module>
+    diagram = viz(example_nested, fmt="mermaid", subgraphs=True)
+
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
 ## Logging
 
 ```text
-WARNING	ordeq.preview	Subgraphs are in pre-release, functionality may break in future releases without it being considered a breaking change.
+INFO	ordeq.runner	Running node 'world_relative' in module 'example_nested.subpackage.subsubpackage.hello_relative'
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

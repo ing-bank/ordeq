@@ -30,11 +30,11 @@ run(n, verbose=True)
 ## Output
 
 ```text
-View:__main__:conditional --> io-0
+View:View(func=__main__:conditional, ...) --> io-0
 io-0 --> Node:__main__:n
 Node:__main__:n --> io-1
 Higher value!
-View:__main__:conditional --> io-0
+View:View(func=__main__:conditional, ...) --> io-0
 io-0 --> Node:__main__:n
 Node:__main__:n --> io-1
 None
@@ -44,11 +44,11 @@ None
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view "conditional" in module "__main__"
-INFO	ordeq.runner	Running node "n" in module "__main__"
+INFO	ordeq.runner	Running view View(func=__main__:conditional, ...)
+INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
-INFO	ordeq.runner	Running view "conditional" in module "__main__"
-INFO	ordeq.runner	Running node "n" in module "__main__"
+INFO	ordeq.runner	Running view View(func=__main__:conditional, ...)
+INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
 
 ```

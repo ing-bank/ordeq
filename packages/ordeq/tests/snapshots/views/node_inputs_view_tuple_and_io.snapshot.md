@@ -2,7 +2,6 @@
 
 ```python
 from ordeq import node, run
-from ordeq._nodes import get_node
 from ordeq_common import Literal, Print
 
 
@@ -11,7 +10,7 @@ def hello() -> tuple[str, str]:
     return "Hello", "world"
 
 
-print(repr(get_node(hello)))
+print(repr(hello))
 
 
 @node(inputs=[hello, Literal("!!!")], outputs=Print())
@@ -27,7 +26,7 @@ run(combine_greeting_with_ending, verbose=True)
 
 ```text
 View(func=__main__:hello)
-View:__main__:hello --> io-1
+View:View(func=__main__:hello, ...) --> io-1
 io-0 --> Node:__main__:combine_greeting_with_ending
 io-1 --> Node:__main__:combine_greeting_with_ending
 Node:__main__:combine_greeting_with_ending --> io-2
@@ -38,9 +37,9 @@ Hello world !!!
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view "hello" in module "__main__"
+INFO	ordeq.runner	Running view View(func=__main__:hello, ...)
 INFO	ordeq.io	Loading Literal('!!!')
-INFO	ordeq.runner	Running node "combine_greeting_with_ending" in module "__main__"
+INFO	ordeq.runner	Running node 'combine_greeting_with_ending' in module '__main__'
 INFO	ordeq.io	Saving Print()
 
 ```

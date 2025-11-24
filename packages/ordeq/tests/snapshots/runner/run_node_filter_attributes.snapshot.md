@@ -42,6 +42,6 @@ Saying , world!!
 ```text
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running view "world" in module "__main__"
+INFO	ordeq.runner	Running view 'world' in module '__main__'
 
 ```

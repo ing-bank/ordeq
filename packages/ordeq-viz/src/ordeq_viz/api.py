@@ -3,7 +3,7 @@ from pathlib import Path
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, overload
 
-from ordeq._fqn import ModuleRef
+from ordeq._fqn import ModuleName
 from ordeq._process_nodes import _process_nodes
 from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq._runner import NodeFilter
@@ -13,7 +13,7 @@ from ordeq_viz.to_kedro_viz import graph_to_kedro_viz
 from ordeq_viz.to_mermaid import graph_to_mermaid
 from ordeq_viz.to_mermaid_md import graph_to_mermaid_md
 
-Vizzable: TypeAlias = ModuleRef | ModuleType
+Vizzable: TypeAlias = ModuleName | ModuleType
 
 
 logger = logging.getLogger("ordeq.viz")

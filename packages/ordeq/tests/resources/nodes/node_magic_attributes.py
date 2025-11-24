@@ -13,6 +13,9 @@ def func(x: str, y: str) -> tuple[str, str]:
 
 
 print(func.__doc__)
+print(func)
 print(func.__annotations__)
-print(func.__name__)
 print(func.__module__)
+print("Should all print long representation:")
+print(f"{func!r}")
+print(repr(func))

@@ -2,7 +2,6 @@
 
 ```python
 from ordeq import node, run
-from ordeq._nodes import get_node
 from ordeq_common import Literal
 
 
@@ -11,7 +10,7 @@ def hello() -> str:
     return "Hello, World!"
 
 
-print(repr(get_node(hello)))
+print(repr(hello))
 
 
 @node(inputs=[Literal("Jane"), hello])
@@ -19,7 +18,7 @@ def hello_from_someone(name: str, v: str) -> str:
     return f"{name} said '{v}'"
 
 
-print(repr(get_node(hello_from_someone)))
+print(repr(hello_from_someone))
 
 
 @node(inputs=hello_from_someone)
@@ -35,8 +34,8 @@ run(n, verbose=True)
 
 ```text
 View(func=__main__:hello)
-View(func=__main__:hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
-View:__main__:hello --> io-0
+View(module=__main__, name=hello_from_someone, inputs=[Literal('Jane'), IO(id=ID1)])
+View:View(func=__main__:hello, ...) --> io-0
 io-0 --> View:__main__:hello_from_someone
 io-1 --> View:__main__:hello_from_someone
 View:__main__:hello_from_someone --> io-2
@@ -49,9 +48,9 @@ I heard that Jane said 'Hello, World!'
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view "hello" in module "__main__"
+INFO	ordeq.runner	Running view View(func=__main__:hello, ...)
 INFO	ordeq.io	Loading Literal('Jane')
-INFO	ordeq.runner	Running view "hello_from_someone" in module "__main__"
-INFO	ordeq.runner	Running view "n" in module "__main__"
+INFO	ordeq.runner	Running view 'hello_from_someone' in module '__main__'
+INFO	ordeq.runner	Running view 'n' in module '__main__'
 
 ```

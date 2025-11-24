@@ -5,7 +5,7 @@ from itertools import chain
 from typing import Any
 
 from ordeq import Node
-from ordeq._fqn import FQ, fqn_to_object_ref
+from ordeq._fqn import FQ, FQN, fqn_to_object_ref
 from ordeq._resolve import AnyIO, Catalog
 from pydantic import BaseModel, Field
 
@@ -158,7 +158,7 @@ class ProjectModel(BaseModel):
                     )
                 ref = fqn_to_object_ref((module_ref, io_name))
                 ref_to_io_models[ref] = IOModel.from_io(
-                    ((module_ref, io_name), io),
+                    (FQN(module_ref, io_name), io),
                     resource_to_model[resource].id
                     if resource in resource_to_model
                     else None,

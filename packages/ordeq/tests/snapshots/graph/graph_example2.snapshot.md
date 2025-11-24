@@ -19,7 +19,7 @@ print("NodeGraph")
 print(node_graph)
 
 print("Topological ordering")
-pprint([node.name for node in node_graph.topological_ordering])
+pprint(node_graph.topological_ordering)
 
 ```
 
@@ -32,6 +32,6 @@ Node:example_2.nodes:transform_input_2 --> io-1
 NodeGraph
 Node:example_2.nodes:transform_input_2
 Topological ordering
-['example_2.nodes:transform_input_2']
+(Node(module=example_2.nodes, name=transform_input_2, inputs=[Input(id=ID1)], outputs=[Output(id=ID2)]),)
 
 ```

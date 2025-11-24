@@ -20,8 +20,7 @@ pprint(ios, width=40)
 Nodes:
 []
 IOs:
-[(('example_imports.assign_same_name',
-   'a'),
+[(FQN(module='example_imports.assign_same_name', name='a'),
   IO(id=ID1))]
 
 ```

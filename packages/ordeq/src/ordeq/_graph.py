@@ -110,8 +110,8 @@ class NodeResourceGraph(Graph[Resource | Node]):
                 resource = Resource(op._resource)
                 if resource in resource_to_node:
                     msg = (
-                        f"Nodes '{node.name}' and "
-                        f"'{resource_to_node[resource].name}' "
+                        f"Nodes '{node.ref}' and "
+                        f"'{resource_to_node[resource].ref}' "
                         f"both output to {resource!r}. "
                         f"Nodes cannot output to the same resource."
                     )
@@ -170,12 +170,12 @@ class NodeGraph(Graph[Node]):
         for node in self.topological_ordering:
             if self.edges[node]:
                 lines.extend(
-                    f"{type(node).__name__}:{node.name} --> "
-                    f"{type(next_node).__name__}:{next_node.name}"
+                    f"{type(node).__name__}:{node.ref} --> "
+                    f"{type(next_node).__name__}:{node.ref}"
                     for next_node in self.edges[node]
                 )
             else:
-                lines.append(f"{type(node).__name__}:{node.name}")
+                lines.append(f"{type(node).__name__}:{node.ref}")
         return "\n".join(lines)
 
 
@@ -216,7 +216,7 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
         lines: list[str] = []
         names: dict[IOIdentity | Node, str] = {
             **{
-                node: f"{type(node).__name__}:{node.name}"
+                node: f"{type(node).__name__}:{node.ref}"
                 for node in self.nodes
             },
             **{

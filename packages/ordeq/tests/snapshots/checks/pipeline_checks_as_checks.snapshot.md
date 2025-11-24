@@ -85,16 +85,16 @@ WARNING	ordeq.preview	Checks are in preview mode and may change without notice i
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.io	Loading Literal('D')
-INFO	ordeq.runner	Running view "check_a" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running node "process_a" in module "example_checks.pipeline_checks_as_checks"
+INFO	ordeq.runner	Running view 'check_a' in module 'example_checks.pipeline_checks_as_checks'
+INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.io	Loading Literal('B')
-INFO	ordeq.runner	Running node "process_b" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running view "check_ap" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running view "check_join" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running view "check_bp" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running node "join" in module "example_checks.pipeline_checks_as_checks"
+INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_checks_as_checks'
+INFO	ordeq.runner	Running view 'check_ap' in module 'example_checks.pipeline_checks_as_checks'
+INFO	ordeq.runner	Running view 'check_join' in module 'example_checks.pipeline_checks_as_checks'
+INFO	ordeq.runner	Running view 'check_bp' in module 'example_checks.pipeline_checks_as_checks'
+INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running view "check_ab" in module "example_checks.pipeline_checks_as_checks"
-INFO	ordeq.runner	Running view "print_result" in module "example_checks.pipeline_checks_as_checks"
+INFO	ordeq.runner	Running view 'check_ab' in module 'example_checks.pipeline_checks_as_checks'
+INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_checks_as_checks'
 
 ```

@@ -20,17 +20,17 @@ pprint(ios, width=40)
 ```text
 Nodes:
 [(('example_resources.inline', 'generate'),
-  Node(func=example_resources.inline:generate, outputs=[CSV(path=Path('data1.csv'))])),
+  Node(module=example_resources.inline, name=generate, outputs=[CSV(path=Path('data1.csv'))])),
  (('example_resources.inline', 'consume'),
-  View(func=example_resources.inline:consume, inputs=[Text(path=Path('data1.csv'))])),
+  View(module=example_resources.inline, name=consume, inputs=[Text(path=Path('data1.csv'))])),
  (('example_resources.pipeline', 'generate'),
-  Node(func=example_resources.pipeline:generate, outputs=[CSV(path=Path('data2.csv'))])),
+  Node(module=example_resources.pipeline, name=generate, outputs=[CSV(path=Path('data2.csv'))])),
  (('example_resources.pipeline', 'consume'),
-  View(func=example_resources.pipeline:consume, inputs=[Text(path=Path('data2.csv'))])),
+  View(module=example_resources.pipeline, name=consume, inputs=[Text(path=Path('data2.csv'))])),
  (('example_resources.updates', 'update'),
-  Node(func=example_resources.updates:update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))])),
+  Node(module=example_resources.updates, name=update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))])),
  (('example_resources.updates', 'reflect'),
-  Node(func=example_resources.updates:reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]))]
+  Node(module=example_resources.updates, name=reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]))]
 IOs:
 [(('example_resources.pipeline', 'csv'),
   CSV(path=Path('data2.csv'))),

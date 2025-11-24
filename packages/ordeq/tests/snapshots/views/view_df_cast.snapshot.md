@@ -54,7 +54,7 @@ INFO	ordeq.io	Loading Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)
-INFO	ordeq.runner	Running view "df_casted" in module "__main__"
-INFO	ordeq.runner	Running view "group_by" in module "__main__"
+INFO	ordeq.runner	Running view 'df_casted' in module '__main__'
+INFO	ordeq.runner	Running view 'group_by' in module '__main__'
 
 ```

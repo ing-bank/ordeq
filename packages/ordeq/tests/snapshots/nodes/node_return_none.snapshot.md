@@ -32,7 +32,7 @@ This should run second
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "node_return_none" in module "__main__"
-INFO	ordeq.runner	Running view "node_consume_none" in module "__main__"
+INFO	ordeq.runner	Running node 'node_return_none' in module '__main__'
+INFO	ordeq.runner	Running view 'node_consume_none' in module '__main__'
 
 ```

@@ -47,7 +47,7 @@ dtype: int64
 
 ```text
 INFO	ordeq.io	Loading Literal(<__main__.MockDuckDbValues object at HASH1>)
-INFO	ordeq.runner	Running view "csv_as_df" in module "__main__"
-INFO	ordeq.runner	Running view "aggregate" in module "__main__"
+INFO	ordeq.runner	Running view 'csv_as_df' in module '__main__'
+INFO	ordeq.runner	Running view 'aggregate' in module '__main__'
 
 ```

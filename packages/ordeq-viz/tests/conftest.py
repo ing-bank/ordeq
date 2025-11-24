@@ -2,7 +2,6 @@ from collections.abc import Callable
 
 import pytest
 from ordeq import Node
-from ordeq._nodes import get_node
 from ordeq._resolve import Catalog
 
 
@@ -61,4 +60,4 @@ def expected_example_node_objects(expected_example_nodes) -> set[Node]:
     Returns:
         a set of expected node objects
     """
-    return {get_node(f) for f in expected_example_nodes}
+    return set(expected_example_nodes)

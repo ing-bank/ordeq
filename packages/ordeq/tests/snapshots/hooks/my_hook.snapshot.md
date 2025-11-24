@@ -2,7 +2,6 @@
 
 ```python
 from ordeq import Node, NodeHook, Output, OutputHook, node
-from ordeq._nodes import get_node
 from ordeq_common import StringBuffer
 
 
@@ -13,7 +12,7 @@ class MyUntypedOutputHook(OutputHook):
 
 class MyFixedOutputHook(MyUntypedOutputHook, NodeHook):
     def before_node_run(self, node: Node) -> None:
-        print(f"running node {node!r}")
+        print(f"Running node {node}")
 
 
 @node(inputs=StringBuffer("a"), outputs=StringBuffer("b"))
@@ -26,7 +25,7 @@ untyped_hook = MyUntypedOutputHook()
 untyped_hook.before_output_save(StringBuffer("A"), "hello")
 
 fixed_output_hook = MyFixedOutputHook()
-fixed_output_hook.before_node_run(get_node(func))
+fixed_output_hook.before_node_run(func)
 fixed_output_hook.before_output_save(StringBuffer("B"), "world")
 
 ```
@@ -35,7 +34,7 @@ fixed_output_hook.before_output_save(StringBuffer("B"), "world")
 
 ```text
 saving data `hello` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
-running node Node(func=__main__:func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])
+Running node 'func' in module '__main__'
 saving data `world` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
 
 ```

@@ -19,7 +19,7 @@ print("NodeGraph")
 print(node_graph)
 
 print("Topological ordering")
-pprint([node.name for node in node_graph.topological_ordering])
+pprint(node_graph.topological_ordering)
 
 ```
 
@@ -57,7 +57,7 @@ ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "world_relative" in module "example_nested.subpackage.subsubpackage.hello_relative"
+INFO	ordeq.runner	Running node 'world_relative' in module 'example_nested.subpackage.subsubpackage.hello_relative'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

@@ -43,8 +43,8 @@ run(group_by, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:__main__:cast
-View:__main__:cast --> io-1
+io-0 --> View:View(func=__main__:cast, ...)
+View:View(func=__main__:cast, ...) --> io-1
 io-1 --> Node:__main__:group_by
 Node:__main__:group_by --> io-2
      A    B    D
@@ -60,8 +60,8 @@ INFO	ordeq.io	Loading Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)
-INFO	ordeq.runner	Running view "cast" in module "__main__"
-INFO	ordeq.runner	Running node "group_by" in module "__main__"
+INFO	ordeq.runner	Running view View(func=__main__:cast, ...)
+INFO	ordeq.runner	Running node 'group_by' in module '__main__'
 INFO	ordeq.io	Saving Output(id=ID1)
 
 ```

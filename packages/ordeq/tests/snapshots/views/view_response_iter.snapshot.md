@@ -65,7 +65,7 @@ b'}'
 
 ```text
 INFO	ordeq.io	Loading Literal(<Response [200]>)
-INFO	ordeq.runner	Running view "users_lines" in module "__main__"
-INFO	ordeq.runner	Running view "concatenate" in module "__main__"
+INFO	ordeq.runner	Running view 'users_lines' in module '__main__'
+INFO	ordeq.runner	Running view 'concatenate' in module '__main__'
 
 ```

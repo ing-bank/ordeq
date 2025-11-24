@@ -1,5 +1,4 @@
 from ordeq import node, run
-from ordeq._nodes import get_node
 from ordeq_common import Print
 
 
@@ -8,7 +7,7 @@ def hello() -> str:
     return "Hello, World!"
 
 
-print(repr(get_node(hello)))
+print(repr(hello))
 
 
 @node(inputs=hello, outputs=Print())

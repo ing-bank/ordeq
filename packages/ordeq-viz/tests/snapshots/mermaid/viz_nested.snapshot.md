@@ -46,7 +46,7 @@ ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "world_relative" in module "example_nested.subpackage.subsubpackage.hello_relative"
+INFO	ordeq.runner	Running node 'world_relative' in module 'example_nested.subpackage.subsubpackage.hello_relative'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

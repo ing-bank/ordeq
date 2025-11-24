@@ -60,11 +60,11 @@ RuntimeWarning: coroutine 'AsyncStringBuffer.load' was never awaited
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node "retrieve_data_1" in module "example_async.async_ios_and_nodes"
+INFO	ordeq.runner	Running node 'retrieve_data_1' in module 'example_async.async_ios_and_nodes'
 INFO	ordeq.io	Saving AsyncStringBuffer(_buffer=<_io.StringIO object at HASH2>, sleep_delay=1.0)
-INFO	ordeq.runner	Running node "retrieve_data_2" in module "example_async.async_ios_and_nodes"
+INFO	ordeq.runner	Running node 'retrieve_data_2' in module 'example_async.async_ios_and_nodes'
 INFO	ordeq.io	Saving AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=2.0)
-INFO	ordeq.runner	Running node "process_data" in module "example_async.async_ios_and_nodes"
+INFO	ordeq.runner	Running node 'process_data' in module 'example_async.async_ios_and_nodes'
 INFO	ordeq.io	Saving AsyncStringBuffer(_buffer=<_io.StringIO object at HASH4>, sleep_delay=1.0)
 INFO	ordeq.io	Loading AsyncStringBuffer(_buffer=<_io.StringIO object at HASH4>, sleep_delay=1.0)
 

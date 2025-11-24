@@ -1,10 +1,10 @@
-from pprint import pprint
+from pprint import pp
 
 import example_project.nodes_import_alias
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(example_project.nodes_import_alias)
+nodes, ios = _scan_fqns(example_project.nodes_import_alias)
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)

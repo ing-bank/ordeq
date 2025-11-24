@@ -1,17 +1,16 @@
 ## Resource
 
 ```python
-from pprint import pprint
+from pprint import pp
 
 import example_resources
-from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(*_resolve_packages_to_modules(example_resources))
+nodes, ios = _scan_fqns(example_resources)
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)
 
 ```
 
@@ -19,29 +18,18 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(FQN(module='example_resources.inline', name='generate'),
-  Node(module=example_resources.inline, name=generate, outputs=[CSV(path=Path('data1.csv'))])),
- (FQN(module='example_resources.inline', name='consume'),
-  View(module=example_resources.inline, name=consume, inputs=[Text(path=Path('data1.csv'))])),
- (FQN(module='example_resources.pipeline', name='generate'),
-  Node(module=example_resources.pipeline, name=generate, outputs=[CSV(path=Path('data2.csv'))])),
- (FQN(module='example_resources.pipeline', name='consume'),
-  View(module=example_resources.pipeline, name=consume, inputs=[Text(path=Path('data2.csv'))])),
- (FQN(module='example_resources.updates', name='update'),
-  Node(module=example_resources.updates, name=update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))])),
- (FQN(module='example_resources.updates', name='reflect'),
-  Node(module=example_resources.updates, name=reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]))]
+{Node(module=example_resources.inline, name=generate, outputs=[CSV(path=Path('data1.csv'))]): [FQN(module='example_resources.inline', name='generate')],
+ View(module=example_resources.inline, name=consume, inputs=[Text(path=Path('data1.csv'))]): [FQN(module='example_resources.inline', name='consume')],
+ Node(module=example_resources.pipeline, name=generate, outputs=[CSV(path=Path('data2.csv'))]): [FQN(module='example_resources.pipeline', name='generate')],
+ View(module=example_resources.pipeline, name=consume, inputs=[Text(path=Path('data2.csv'))]): [FQN(module='example_resources.pipeline', name='consume')],
+ Node(module=example_resources.updates, name=update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))]): [FQN(module='example_resources.updates', name='update')],
+ Node(module=example_resources.updates, name=reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]): [FQN(module='example_resources.updates', name='reflect')]}
 IOs:
-[(FQN(module='example_resources.pipeline', name='csv'),
-  CSV(path=Path('data2.csv'))),
- (FQN(module='example_resources.pipeline', name='text'),
-  Text(path=Path('data2.csv'))),
- (FQN(module='example_resources.updates', name='csv'),
-  CSV(path=Path('data3.csv'))),
- (FQN(module='example_resources.updates', name='csv_old'),
-  CSV(path=Path('data3.csv'))),
- (FQN(module='example_resources.updates', name='csv_new'),
-  CSV(path=Path('data3.csv')))]
+[[FQN(module='example_resources.pipeline', name='csv')],
+ [FQN(module='example_resources.pipeline', name='text')],
+ [FQN(module='example_resources.updates', name='csv')],
+ [FQN(module='example_resources.updates', name='csv_old')],
+ [FQN(module='example_resources.updates', name='csv_new')]]
 
 ```
 

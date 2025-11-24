@@ -1,16 +1,16 @@
 ## Resource
 
 ```python
-from pprint import pprint
+from pprint import pp
 
 import example_imports.aliased_catalog
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(example_imports.aliased_catalog)
+nodes, ios = _scan_fqns(example_imports.aliased_catalog)
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)
 
 ```
 
@@ -18,9 +18,8 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[]
+{}
 IOs:
-[(FQN(module='example_imports.aliased_catalog', name='a'),
-  IO(id=ID1))]
+[[FQN(module='example_imports.aliased_catalog', name='a')]]
 
 ```

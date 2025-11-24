@@ -1,16 +1,16 @@
 ## Resource
 
 ```python
-from pprint import pprint
+from pprint import pp
 
 import example_project.nodes_with_inline_io
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(example_project.nodes_with_inline_io)
+nodes, ios = _scan_fqns(example_project.nodes_with_inline_io)
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)
 
 ```
 
@@ -18,8 +18,7 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(FQN(module='example_project.nodes_with_inline_io', name='greet'),
-  Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]))]
+{Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]): [FQN(module='example_project.nodes_with_inline_io', name='greet')]}
 IOs:
 []
 

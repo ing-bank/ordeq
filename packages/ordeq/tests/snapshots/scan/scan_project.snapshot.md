@@ -1,17 +1,17 @@
 ## Resource
 
 ```python
-from pprint import pprint
+from pprint import pp
 
 import example_project
 from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(*_resolve_packages_to_modules(example_project))
+nodes, ios = _scan_fqns(*_resolve_packages_to_modules(example_project))
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)
 
 ```
 
@@ -19,14 +19,14 @@ pprint(ios, width=40)
 
 ```text
 ValueError: Module 'example_project.nodes_import_alias' aliases IO 'example_project.catalog_1:b' to 'B'. IOs cannot be aliased.
-  File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
+  File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in _scan_fqns
     raise ValueError(
     ...<3 lines>...
     )
 
   File "/packages/ordeq/tests/resources/scan/scan_project.py", line LINO, in <module>
-    nodes, ios = scan(*_resolve_packages_to_modules(example_project))
-                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    nodes, ios = _scan_fqns(*_resolve_packages_to_modules(example_project))
+                 ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 

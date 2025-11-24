@@ -5,6 +5,6 @@ from ordeq._scan import _scan_fqns
 
 nodes, ios = _scan_fqns(example_2)
 print("Nodes:")
-pprint(sorted(nodes, key=lambda n: n.ref), width=40)
+pprint(nodes, width=40)
 print("IOs:")
 pprint(list(ios.values()), width=40)

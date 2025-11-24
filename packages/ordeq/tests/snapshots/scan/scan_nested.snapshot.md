@@ -8,7 +8,7 @@ from ordeq._scan import _scan_fqns
 
 nodes, ios = _scan_fqns(example_nested)
 print("Nodes:")
-pprint(sorted(nodes, key=lambda n: n.ref), width=40)
+pprint(nodes, width=40)
 print("IOs:")
 pprint(list(ios.values()), width=40)
 
@@ -18,8 +18,9 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-[View(func=example_nested.subpackage.subsubpackage.hello:world),
- Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])]
+{Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [FQN(module='example_nested.__main__', name='world_relative'),
+                                                                                                                                                                  FQN(module='example_nested.subpackage.subsubpackage.hello_relative', name='world_relative')],
+ View(func=example_nested.subpackage.subsubpackage.hello:world): [FQN(module='example_nested.subpackage.subsubpackage.hello', name='world')]}
 IOs:
 [[FQN(module='example_nested.catalog', name='message'),
   FQN(module='example_nested.subpackage.subsubpackage.hello_relative', name='message')]]

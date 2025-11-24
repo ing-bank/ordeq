@@ -9,7 +9,7 @@ from ordeq._scan import _scan_fqns
 
 nodes, ios = _scan_fqns(*_resolve_packages_to_modules(example_project))
 print("Nodes:")
-pprint(sorted(nodes, key=lambda n: n.ref), width=40)
+pprint(nodes, width=40)
 print("IOs:")
 pprint(list(ios.values()), width=40)
 
@@ -38,19 +38,4 @@ ValueError: Module 'example_project.nodes_import_alias' aliases IO 'example_proj
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-```
-
-## Warnings
-
-```text
-UserWarning: Module 'example_project.catalog_1' already provided as runnable
-UserWarning: Module 'example_project.catalog_2' already provided as runnable
-UserWarning: Module 'example_project.inner' already provided as runnable
-UserWarning: Module 'example_project.inner.nodes' already provided as runnable
-UserWarning: Module 'example_project.misc' already provided as runnable
-UserWarning: Module 'example_project.nodes' already provided as runnable
-UserWarning: Module 'example_project.nodes_import' already provided as runnable
-UserWarning: Module 'example_project.nodes_import_alias' already provided as runnable
-UserWarning: Module 'example_project.nodes_with_inline_io' already provided as runnable
-UserWarning: Module 'example_project.nodes_with_view' already provided as runnable
 ```

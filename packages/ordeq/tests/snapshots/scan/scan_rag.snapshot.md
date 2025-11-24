@@ -8,7 +8,7 @@ from ordeq._scan import _scan_fqns
 
 nodes, ios = _scan_fqns(example_rag_pipeline)
 print("Nodes:")
-pprint(sorted(nodes, key=lambda n: n.ref), width=40)
+pprint(nodes, width=40)
 print("IOs:")
 pprint(list(ios.values()), width=40)
 
@@ -18,13 +18,13 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-[Node(module=example_rag_pipeline.rag.annotation, name=annotate_documents, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[IO(id=ID3)]),
- Node(module=example_rag_pipeline.rag.evaluation, name=evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)]),
- Node(module=example_rag_pipeline.rag.indexer, name=create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)]),
- Node(module=example_rag_pipeline.rag.policies, name=generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)]),
- Node(module=example_rag_pipeline.rag.question_answering, name=question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)]),
- Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)]),
- Node(module=example_rag_pipeline.rag.retrieval, name=retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)])]
+{Node(module=example_rag_pipeline.rag.indexer, name=create_vector_index, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[IO(id=ID3)]): [FQN(module='example_rag_pipeline.rag.indexer', name='create_vector_index')],
+ Node(module=example_rag_pipeline.rag.annotation, name=annotate_documents, inputs=[IO(id=ID4), IO(id=ID1)], outputs=[IO(id=ID5)]): [FQN(module='example_rag_pipeline.rag.annotation', name='annotate_documents')],
+ Node(module=example_rag_pipeline.rag.evaluation, name=evaluate_answers, inputs=[IO(id=ID4), IO(id=ID6)], outputs=[IO(id=ID7)]): [FQN(module='example_rag_pipeline.rag.evaluation', name='evaluate_answers')],
+ Node(module=example_rag_pipeline.rag.policies, name=generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)]): [FQN(module='example_rag_pipeline.rag.policies', name='generate_questions')],
+ Node(module=example_rag_pipeline.rag.question_answering, name=question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID6)], outputs=[IO(id=ID4)]): [FQN(module='example_rag_pipeline.rag.question_answering', name='question_answering')],
+ Node(module=example_rag_pipeline.rag.retrieval, name=retrieve, inputs=[IO(id=ID3), IO(id=ID9), IO(id=ID2)], outputs=[IO(id=ID11)]): [FQN(module='example_rag_pipeline.rag.retrieval', name='retrieve')],
+ Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID11), IO(id=ID6)], outputs=[IO(id=ID10)]): [FQN(module='example_rag_pipeline.rag.retrieval', name='filter_relevant')]}
 IOs:
 [[FQN(module='example_rag_pipeline.catalog', name='policies')],
  [FQN(module='example_rag_pipeline.catalog', name='llm_model')],

@@ -33,19 +33,19 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  'example_nested.subpackage.subsubpackage',
  'example_nested.subpackage.subsubpackage.hello',
  'example_nested.subpackage.subsubpackage.hello_relative']
-[(('example_nested.__main__', 'world_relative'),
+[(FQN(module='example_nested.__main__', name='world_relative'),
   Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
- (('example_nested.subpackage.subsubpackage.hello', 'world'),
+ (FQN(module='example_nested.subpackage.subsubpackage.hello', name='world'),
   View(func=example_nested.subpackage.subsubpackage.hello:world)),
- (('example_nested.subpackage.subsubpackage.hello_relative', 'world_relative'),
+ (FQN(module='example_nested.subpackage.subsubpackage.hello_relative', name='world_relative'),
   Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 {'example_nested.catalog': {'message': StringBuffer(_buffer=<_io.StringIO object at HASH1>)},
  'example_nested.subpackage.subsubpackage.hello_relative': {'message': StringBuffer(_buffer=<_io.StringIO object at HASH1>)}}
-[(('example_nested.__main__', 'world_relative'),
+[(FQN(module='example_nested.__main__', name='world_relative'),
   Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
- (('example_nested.subpackage.subsubpackage.hello', 'world'),
+ (FQN(module='example_nested.subpackage.subsubpackage.hello', name='world'),
   View(func=example_nested.subpackage.subsubpackage.hello:world)),
- (('example_nested.subpackage.subsubpackage.hello_relative', 'world_relative'),
+ (FQN(module='example_nested.subpackage.subsubpackage.hello_relative', name='world_relative'),
   Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 
 ```

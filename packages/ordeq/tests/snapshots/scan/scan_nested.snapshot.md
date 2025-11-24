@@ -19,9 +19,16 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(FQN(module='example_nested.subpackage.subsubpackage.hello', name='world'),
+[(FQN(module='example_nested.__main__', name='world_relative'),
+  Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
+ (FQN(module='example_nested.subpackage.subsubpackage.hello_relative', name='world_relative'),
+  Node(module=example_nested.subpackage.subsubpackage.hello_relative, name=world_relative, outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
+ (FQN(module='example_nested.subpackage.subsubpackage.hello', name='world'),
   View(func=example_nested.subpackage.subsubpackage.hello:world))]
 IOs:
-[]
+[(FQN(module='example_nested.catalog', name='message'),
+  StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
+ (FQN(module='example_nested.subpackage.subsubpackage.hello_relative', name='message'),
+  StringBuffer(_buffer=<_io.StringIO object at HASH1>))]
 
 ```

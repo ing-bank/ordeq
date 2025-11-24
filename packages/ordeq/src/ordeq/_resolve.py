@@ -9,14 +9,7 @@ from collections.abc import Generator
 from types import ModuleType
 from typing import TypeAlias, TypeGuard
 
-from ordeq._fqn import (
-    FQ,
-    FQN,
-    ModuleName,
-    Unknown,
-    is_object_ref,
-    object_ref_to_fqn,
-)
+from ordeq._fqn import FQ, FQN, ModuleName, Unknown, is_object_ref
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
 from ordeq._nodes import Node, _is_node
@@ -194,7 +187,7 @@ def _resolve_hook_refs(*hooks: str | RunnerHook) -> list[RunnerHook]:
         if isinstance(hook, (NodeHook, RunHook)):
             resolved_hooks.append(hook)
         elif isinstance(hook, str):
-            fqn = object_ref_to_fqn(hook)
+            fqn = FQN.from_ref(hook)
             resolved_hook = _resolve_fqn_to_hook(fqn)
             resolved_hooks.append(resolved_hook)
         else:
@@ -251,14 +244,14 @@ def _resolve_runnables_to_nodes_and_modules(
         elif callable(runnable):
             node = runnable
             if node not in nodes:
-                nodes.append(((Unknown, Unknown), node))
+                nodes.append((FQN(Unknown, Unknown), node))
             else:
                 warnings.warn(
                     f"Node '{node.name}' already provided in another runnable",
                     stacklevel=2,
                 )
         elif isinstance(runnable, str):
-            fqn = object_ref_to_fqn(runnable)
+            fqn = FQN.from_ref(runnable)
             node = _resolve_fqn_to_node(fqn)
             if node not in nodes:
                 nodes.append((fqn, node))
@@ -304,7 +297,7 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQ[Node]]:
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
         nodes.extend(
-            ((module.__name__, node_name), node)
+            (FQN(module.__name__, node_name), node)
             for node_name, node in _resolve_module_to_nodes(module).items()
         )
     return nodes
@@ -333,7 +326,7 @@ def _resolve_runnables_to_nodes_and_ios(
 
     for module in modules:
         nodes.extend(
-            ((module.__name__, node_name), node)
+            (FQN(module.__name__, node_name), node)
             for node_name, node in _resolve_module_to_nodes(module).items()
         )
         ios.update({module.__name__: _resolve_module_to_ios(module)})
@@ -360,12 +353,12 @@ def _resolve_runnables_to_modules(
 def _resolve_callables_to_nodes(*runnables: Runnable) -> Generator[FQ[Node]]:
     for runnable in runnables:
         if not isinstance(runnable, ModuleType) and _is_node(runnable):
-            yield (Unknown, Unknown), runnable
+            yield FQN(Unknown, Unknown), runnable
 
 
 def _resolve_refs_to_nodes(*runnables) -> Generator[FQ[Node]]:
     for runnable in runnables:
         if isinstance(runnable, str) and is_object_ref(runnable):
-            fqn = object_ref_to_fqn(runnable)
+            fqn = FQN.from_ref(runnable)
             node = _resolve_fqn_to_node(fqn)
             yield fqn, node

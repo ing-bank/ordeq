@@ -28,7 +28,7 @@ Nodes:
  (FQN(module='example_function_reuse.nodes', name='d'),
   View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
  (FQN(module='example_function_reuse.nodes', name='pi'),
-  View(func=example_function_reuse.nodes:pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
+  View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 IOs:
 [(FQN(module='example_function_reuse.catalog', name='A'),
   StringBuffer(_buffer=<_io.StringIO object at HASH1>)),

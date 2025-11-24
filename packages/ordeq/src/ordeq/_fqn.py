@@ -92,7 +92,7 @@ class FQN(NamedTuple):
     def __str__(self) -> str:
         return format(self, "ref")
 
-    def __format__(self, format_spec: Literal["ref", "desc"] = "ref") -> str:
+    def __format__(self, format_spec: Literal["ref", "desc"] = "ref") -> str:  # type: ignore[override]
         if format_spec == "ref":
             return self.ref
         return f"'{self.name}' in module '{self.module}'"

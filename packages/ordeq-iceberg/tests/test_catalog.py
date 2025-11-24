@@ -1,12 +1,13 @@
 from unittest.mock import patch
 
-from pyiceberg.catalog import CatalogType
-
 from ordeq_iceberg import IcebergCatalog
+from pyiceberg.catalog import CatalogType
 
 
 def test_load_catalog_with_literal_catalog_type():
-    catalog_input = IcebergCatalog(name="test_catalog", catalog_type="in-memory")
+    catalog_input = IcebergCatalog(
+        name="test_catalog", catalog_type="in-memory"
+    )
     catalog = catalog_input.load()
     assert catalog.name == "test_catalog"
 

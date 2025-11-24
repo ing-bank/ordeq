@@ -2383,15 +2383,6 @@ wheels = [
 ]
 
 [[package]]
-name = "mypy-boto3-glue"
-version = "1.41.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/16/9d/411f05824e8275fcd42eac713020bf581a91061c602476e7ac529ea90c67/mypy_boto3_glue-1.41.1.tar.gz", hash = "sha256:91eeb9890e6784fcd31259e87013b66ac01fcb953918c3b4b570930c83ee7ae4", size = 127655, upload-time = "2025-11-20T20:37:55.375Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/b6/b3/968d6469889d4169abb69581f5e345dfb4f2ebba3968b261072d281e6d6d/mypy_boto3_glue-1.41.1-py3-none-any.whl", hash = "sha256:ecee6b64de2cf4977f46f3d990d0015a23975e91ab47c3d8a58a7423dbaf6388", size = 136200, upload-time = "2025-11-20T20:37:53.547Z" },
-]
-
-[[package]]
 name = "mypy-boto3-s3"
 version = "1.41.1"
 source = { registry = "https://pypi.org/simple" }
@@ -2999,13 +2990,9 @@ dependencies = [
 ]
 
 [package.dev-dependencies]
-dev = [
-    { name = "mypy-boto3-glue" },
-]
 test = [
     { name = "ordeq-common" },
     { name = "ordeq-dev-tools" },
-    { name = "ordeq-test-examples" },
     { name = "ordeq-test-utils" },
     { name = "pytest" },
 ]
@@ -3018,11 +3005,9 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "mypy-boto3-glue", specifier = ">=1.40.39" }]
 test = [
     { name = "ordeq-common", editable = "packages/ordeq-common" },
     { name = "ordeq-dev-tools", editable = "packages/ordeq-dev-tools" },
-    { name = "ordeq-test-examples", editable = "packages/ordeq-test-examples" },
     { name = "ordeq-test-utils", editable = "packages/ordeq-test-utils" },
     { name = "pytest" },
 ]

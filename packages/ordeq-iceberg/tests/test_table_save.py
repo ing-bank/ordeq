@@ -6,7 +6,7 @@ import pytest
 from ordeq import IOException
 from ordeq_iceberg import (
     IcebergCatalog,
-    IcebergTableCreate,
+    IcebergTable,
     IfTableExistsSaveOptions,
 )
 from pyiceberg.catalog import CatalogType
@@ -29,7 +29,7 @@ def catalog(catalog_io) -> InMemoryCatalog:
 
 
 def test_create_table(catalog: InMemoryCatalog):
-    table_create = IcebergTableCreate(
+    table_create = IcebergTable(
         catalog=catalog,
         table_name="test_table",
         namespace="test_namespace",
@@ -45,7 +45,7 @@ def test_create_table(catalog: InMemoryCatalog):
 
 def test_create_table_with_catalog_io(sql_catalog_io: IcebergCatalog):
     catalog = sql_catalog_io.load()
-    table_create = IcebergTableCreate(
+    table_create = IcebergTable(
         catalog=sql_catalog_io,
         table_name="test_table_io",
         namespace="test_namespace",
@@ -69,7 +69,7 @@ def test_create_table_with_iceberg_schema(catalog: InMemoryCatalog):
             field_id=2, name="data", field_type=T.StringType(), required=False
         ),
     )
-    table_create = IcebergTableCreate(
+    table_create = IcebergTable(
         catalog=catalog,
         table_name="test_table_schema",
         namespace="test_namespace",
@@ -81,7 +81,7 @@ def test_create_table_with_iceberg_schema(catalog: InMemoryCatalog):
 
 
 def test_create_existing_table_raises(catalog: InMemoryCatalog):
-    table_create = IcebergTableCreate(
+    table_create = IcebergTable(
         catalog=catalog,
         table_name="test_table_existing",
         namespace="test_namespace",
@@ -100,7 +100,7 @@ def test_create_existing_table_raises(catalog: InMemoryCatalog):
 
 
 def test_create_existing_table_ignore(catalog: InMemoryCatalog):
-    table_create = IcebergTableCreate(
+    table_create = IcebergTable(
         catalog=catalog,
         table_name="test_table_no_action",
         namespace="test_namespace",
@@ -116,15 +116,15 @@ def test_create_existing_table_ignore(catalog: InMemoryCatalog):
     assert catalog.table_exists("test_namespace.test_table_no_action")
 
 
-@patch("ordeq_iceberg.table_create.IcebergTableCreate._catalog_value")
-@patch("ordeq_iceberg.table_create.IcebergTableCreate.table_exists")
+@patch("ordeq_iceberg.table.IcebergTable._catalog_value")
+@patch("ordeq_iceberg.table.IcebergTable.table_exists")
 def test_create_existing_table_drop(
     mock_table_exists: MagicMock,
     mock_catalog: MagicMock,
     catalog: InMemoryCatalog,
 ):
     mock_table_exists.return_value = True
-    table_create = IcebergTableCreate(
+    table_create = IcebergTable(
         catalog=catalog,
         table_name="test_table_drop",
         namespace="test_namespace",
@@ -139,13 +139,13 @@ def test_create_existing_table_drop(
     mock_catalog.create_table.assert_called_once()
 
 
-@patch("ordeq_iceberg.table_create.IcebergTableCreate._catalog_value")
-@patch("ordeq_iceberg.table_create.IcebergTableCreate.table_exists")
+@patch("ordeq_iceberg.table.IcebergTable._catalog_value")
+@patch("ordeq_iceberg.table.IcebergTable.table_exists")
 def test_create_existing_table_if_exists_null(
     mock_table_exists: MagicMock, mock_catalog: MagicMock
 ):
     mock_table_exists.return_value = True
-    table_create = IcebergTableCreate(
+    table_create = IcebergTable(
         catalog=mock_catalog,
         table_name="test_table_if_exists_null",
         namespace="test_namespace",
@@ -160,15 +160,15 @@ def test_create_existing_table_if_exists_null(
     mock_catalog.create_table.assert_called_once()
 
 
-@patch("ordeq_iceberg.table_create.IcebergTableCreate._catalog_value")
-@patch("ordeq_iceberg.table_create.IcebergTableCreate.table_exists")
+@patch("ordeq_iceberg.table.IcebergTable._catalog_value")
+@patch("ordeq_iceberg.table.IcebergTable.table_exists")
 def test_if_exists_drop_as_string(
     mock_table_exists: MagicMock,
     mock_catalog: MagicMock,
     catalog: InMemoryCatalog,
 ):
     mock_table_exists.return_value = True
-    table_create = IcebergTableCreate(
+    table_create = IcebergTable(
         catalog=catalog,
         table_name="test_table_if_exists_str",
         namespace="test_namespace",

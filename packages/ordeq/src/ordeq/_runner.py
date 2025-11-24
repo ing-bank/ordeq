@@ -16,7 +16,6 @@ from ordeq._resolve import (
     RunnableRef,
     _is_module,
     _resolve_modules_to_nodes,
-    _resolve_packages_to_modules,
     _resolve_refs_to_hooks,
     _resolve_runnable_refs_to_runnables,
 )
@@ -263,9 +262,7 @@ def run(
 
     _validate_runnables(*runnables)
     modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
-    submodules = _resolve_packages_to_modules(*modules)
-    nodes += _resolve_modules_to_nodes(*submodules)
-
+    nodes += _resolve_modules_to_nodes(*modules)
     nodes_and_views = _process_nodes(*nodes, node_filter=node_filter)
     graph = NodeGraph.from_nodes(nodes_and_views)
 

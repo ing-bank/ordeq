@@ -5,7 +5,15 @@ import logging
 from collections.abc import Callable, Hashable, Sequence
 from copy import copy
 from functools import cached_property, reduce, wraps
-from typing import Annotated, Any, Generic, TypeAlias, TypeGuard, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Annotated,
+    Any,
+    Generic,
+    TypeAlias,
+    TypeGuard,
+    TypeVar,
+)
 
 from ordeq.preview import preview
 
@@ -15,6 +23,9 @@ except ImportError:
     from typing_extensions import Self
 
 from ordeq._hook import InputHook, OutputHook
+
+if TYPE_CHECKING:
+    from ordeq._fqn import FQN
 
 logger = logging.getLogger("ordeq.io")
 
@@ -418,8 +429,18 @@ class _WithName:
     def _fqn(self) -> tuple[str | None, str | None]:
         return self._module, self._name
 
-    def __str__(self):
-        return repr(self) if self._name is None else f"'{self._name}'"
+    def _set_fqn(self, fqn: FQN) -> None:
+        self.__dict__["_module"] = fqn.module
+        self.__dict__["_name"] = fqn.name
+
+    @property
+    def is_fq(self) -> bool:
+        return self._module is not None and self._name is not None
+
+    def __str__(self) -> str:
+        if self.is_fq:
+            return f"'{self._name}' in module '{self._module}'"
+        return repr(self)
 
 
 class _WithAttributes:

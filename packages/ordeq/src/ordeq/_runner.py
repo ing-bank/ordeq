@@ -10,6 +10,7 @@ from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
 from ordeq._nodes import Node, View, _is_node
 from ordeq._patch import _patch_nodes
+from ordeq._process_ios import _process_ios
 from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
 from ordeq._resolve import (
     Runnable,
@@ -265,10 +266,11 @@ def run(
     _validate_runnables(*runnables)
     modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
     nodes += _resolve_modules_to_nodes(*modules)
-    node_fqns, _ = _scan_fqns(*modules)
+    node_fqns, io_fqns = _scan_fqns(*modules)
     nodes_processed = _process_nodes(
         *nodes, node_filter=node_filter, node_fqns=node_fqns
     )
+    _process_ios(*nodes_processed, io_fqns=io_fqns)
     graph = NodeGraph.from_nodes(nodes_processed)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}

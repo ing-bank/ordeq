@@ -54,16 +54,36 @@ Node:__main__:decrement --> io-2
 
 ```text
 INFO	ordeq.io	Loading Literal(1)
+DEBUG	ordeq.io	Persisting data for Literal(1)
 INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Loading cached data for Literal(1)
+DEBUG	ordeq.io	Persisting data for Literal(1)
 INFO	ordeq.runner	Running node 'decrement' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Unpersisting data for Literal(1)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading Literal(200)
+DEBUG	ordeq.io	Persisting data for Literal(200)
 INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Loading cached data for Literal(200)
+DEBUG	ordeq.io	Persisting data for Literal(200)
 INFO	ordeq.runner	Running node 'decrement' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Unpersisting data for Literal(200)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

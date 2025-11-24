@@ -57,7 +57,11 @@ INFO	ordeq.runner	Running node 'write_to_line_stream' in module '__main__'
 INFO	ordeq.io	Saving TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
 INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
 INFO	ordeq.runner	Running view 'count_lines' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
 INFO	ordeq.runner	Running view 'show_lines' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```

@@ -72,13 +72,27 @@ RuntimeWarning: coroutine 'AsyncStaticString.load' was never awaited
 
 ```text
 INFO	ordeq.io	Loading AsyncStaticString(value='This string was loaded slowly.', sleep_delay=3.0)
+DEBUG	ordeq.io	Persisting data for AsyncStaticString(value='This string was loaded slowly.', sleep_delay=3.0)
 INFO	ordeq.runner	Running node 'process_slow_string' in module 'example_async.async_ios'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.io	Loading AsyncStaticString(value='This string was loaded quickly!', sleep_delay=2.0)
+DEBUG	ordeq.io	Persisting data for AsyncStaticString(value='This string was loaded quickly!', sleep_delay=2.0)
 INFO	ordeq.runner	Running node 'process_fast_string' in module 'example_async.async_ios'
 INFO	ordeq.io	Saving AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=1.0)
+DEBUG	ordeq.io	Persisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=1.0)
+DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Loading cached data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=1.0)
+DEBUG	ordeq.io	Persisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=1.0)
 INFO	ordeq.runner	Running node 'combine_results' in module 'example_async.async_ios'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+DEBUG	ordeq.io	Unpersisting data for AsyncStaticString(value='This string was loaded quickly!', sleep_delay=2.0)
+DEBUG	ordeq.io	Unpersisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=1.0)
+DEBUG	ordeq.io	Unpersisting data for AsyncStaticString(value='This string was loaded slowly.', sleep_delay=3.0)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 
 ```

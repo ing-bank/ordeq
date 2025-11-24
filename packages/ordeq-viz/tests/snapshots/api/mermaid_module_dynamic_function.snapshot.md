@@ -50,6 +50,10 @@ Hello, world!
 
 ```text
 INFO	ordeq.runner	Running view View(func=example_3.func_defs:hello, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view View(func=example_3.func_defs:hello, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```

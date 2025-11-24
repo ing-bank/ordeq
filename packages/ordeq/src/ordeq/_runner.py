@@ -136,7 +136,7 @@ def _run_graph(
 
     # unpersist IO objects
     # TODO: optimize by unpersisting as soon as possible
-    for gnode in graph.nodes:
+    for gnode in graph.edges.keys():
         io_objs = chain(gnode.inputs, gnode.outputs)
         for io_obj in io_objs:
             if isinstance(io_obj, _InputCache):

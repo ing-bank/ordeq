@@ -79,8 +79,32 @@ INFO	ordeq.io	Loading Literal(   id  amount   to
 0   1     100   me
 1   2     200   me
 2   3     300  you)
+DEBUG	ordeq.io	Persisting data for Literal(   id  amount   to
+0   1     100   me
+1   2     200   me
+2   3     300  you)
 INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Literal(   id  amount   to
+0   1     100   me
+1   2     200   me
+2   3     300  you)
+DEBUG	ordeq.io	Persisting data for Literal(   id  amount   to
+0   1     100   me
+1   2     200   me
+2   3     300  you)
 INFO	ordeq.runner	Running view 'txs_agg' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'print_agg' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for Literal(   id  amount   to
+0   1     100   me
+1   2     200   me
+2   3     300  you)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

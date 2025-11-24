@@ -182,10 +182,10 @@ class ProjectModel(BaseModel):
                             )
                         )
                     # same module as node
-                    fqn = f"{module_ref}:<anonymous{idx}>"
-                    io_to_fqns[io_].append(f"{module_ref}:<anonymous{idx}>")  # type: ignore[index]
+                    fqn = f"{node.module}:<anonymous{idx}>"
+                    io_to_fqns[io_].append(f"{node.module}:<anonymous{idx}>")  # type: ignore[index]
                     model = IOModel.from_io(
-                        ((module_ref, f"<anonymous{idx}>"), io_),  # type: ignore[arg-type]
+                        ((node.module, f"<anonymous{idx}>"), io_),  # type: ignore[arg-type]
                         resource_to_model[resource].id
                         if resource in resource_to_model
                         else None,

@@ -18,7 +18,7 @@ print(create_manifest_json(example_resources))
       "name": "generate",
       "inputs": [],
       "outputs": [
-        "example_resources.updates:<anonymous0>"
+        "example_resources.inline:<anonymous0>"
       ],
       "checks": [],
       "attributes": {}
@@ -26,10 +26,10 @@ print(create_manifest_json(example_resources))
     "example_resources.inline:consume": {
       "name": "consume",
       "inputs": [
-        "example_resources.updates:<anonymous1>"
+        "example_resources.inline:<anonymous1>"
       ],
       "outputs": [
-        "example_resources.updates:<anonymous2>"
+        "example_resources.inline:<anonymous2>"
       ],
       "checks": [],
       "attributes": {}
@@ -49,7 +49,7 @@ print(create_manifest_json(example_resources))
         "example_resources.pipeline:text"
       ],
       "outputs": [
-        "example_resources.updates:<anonymous3>"
+        "example_resources.pipeline:<anonymous3>"
       ],
       "checks": [],
       "attributes": {}
@@ -113,28 +113,28 @@ print(create_manifest_json(example_resources))
       "references": [],
       "attributes": {}
     },
-    "example_resources.updates:<anonymous0>": {
+    "example_resources.inline:<anonymous0>": {
       "name": "<anonymous0>",
       "type": "ordeq_files.csv:CSV",
       "resource": 3,
       "references": [],
       "attributes": {}
     },
-    "example_resources.updates:<anonymous1>": {
+    "example_resources.inline:<anonymous1>": {
       "name": "<anonymous1>",
       "type": "ordeq_files.text:Text",
       "resource": 3,
       "references": [],
       "attributes": {}
     },
-    "example_resources.updates:<anonymous2>": {
+    "example_resources.inline:<anonymous2>": {
       "name": "<anonymous2>",
       "type": "ordeq._io:IO",
       "resource": null,
       "references": [],
       "attributes": {}
     },
-    "example_resources.updates:<anonymous3>": {
+    "example_resources.pipeline:<anonymous3>": {
       "name": "<anonymous3>",
       "type": "ordeq._io:IO",
       "resource": null,

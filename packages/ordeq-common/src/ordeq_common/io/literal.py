@@ -30,7 +30,7 @@ class Literal(Input[T]):
 
     def __new__(cls, *args, **kwargs):
         warnings.warn(
-            "Literal is deprecated and will be removed in a future release."
+            "Literal is deprecated and will be removed in a future release. "
             "Use `ordeq.Input` instead, e.g. `Literal(3)` -> `Input(3)`.",
             DeprecationWarning,
             stacklevel=2,

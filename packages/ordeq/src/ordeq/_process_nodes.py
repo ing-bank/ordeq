@@ -1,7 +1,9 @@
-from collections.abc import Callable
+from collections.abc import Callable, Generator
+from dataclasses import replace
 from typing import Annotated, TypeAlias
 
 from ordeq import Node
+from ordeq._scan import NodeFQNs
 from ordeq.preview import preview
 
 
@@ -66,8 +68,22 @@ def _validate_nodes(*nodes: Node) -> None:
         node.validate()
 
 
+def _assign_fqns(*nodes: Node, node_fqns: NodeFQNs) -> Generator[Node]:
+    for node in nodes:
+        if not node.is_fq and node in node_fqns and len(node_fqns[node]) == 1:
+            fqn = node_fqns[node][0]
+            yield replace(node, name=fqn.name, module=fqn.module)
+        else:
+            yield node
+
+
 def _process_nodes(
-    *nodes: Node, node_filter: NodeFilter | None = None
+    *nodes: Node,
+    node_filter: NodeFilter | None = None,
+    node_fqns: NodeFQNs | None = None,
 ) -> tuple[Node, ...]:
     filtered_nodes = _filter_nodes(*nodes, node_filter=node_filter)
-    return tuple(_collect_views(*filtered_nodes))
+    nodes_and_views = _collect_views(*filtered_nodes)
+    if node_fqns:
+        return tuple(_assign_fqns(*nodes_and_views, node_fqns=node_fqns))
+    return nodes_and_views

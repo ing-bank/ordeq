@@ -21,3 +21,10 @@ def decrement(x: str, y: str) -> str:
     return f"{int(x) - int(y)}"
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+
+```

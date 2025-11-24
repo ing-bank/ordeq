@@ -10,3 +10,10 @@ def func(x: str) -> str:
     return x
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+
+```

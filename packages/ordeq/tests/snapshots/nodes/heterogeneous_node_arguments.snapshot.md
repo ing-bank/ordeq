@@ -20,3 +20,10 @@ print(func("a", 4))
 a4
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+
+```

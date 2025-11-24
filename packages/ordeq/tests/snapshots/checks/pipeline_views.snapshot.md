@@ -56,9 +56,31 @@ aBBB
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 INFO	ordeq.runner	Running view 'Bp' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 INFO	ordeq.runner	Running view 'AB' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Persisting data for IO(id=ID5)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID5)
+DEBUG	ordeq.io	Persisting data for IO(id=ID5)
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Persisting data for IO(id=ID6)
+DEBUG	ordeq.io	Unpersisting data for Input(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
+DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID6)
 
 ```

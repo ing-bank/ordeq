@@ -63,7 +63,19 @@ b'}'
 ## Logging
 
 ```text
+DEBUG	urllib3.connectionpool	Starting new HTTPS connection (1): jsonplaceholder.typicode.com:443
+DEBUG	urllib3.connectionpool	https://jsonplaceholder.typicode.com:443 "GET /users/1 HTTP/1.1" 200 None
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'users_lines' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'concatenate' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

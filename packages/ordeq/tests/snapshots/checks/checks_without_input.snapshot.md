@@ -56,8 +56,16 @@ Dependent node received data: A
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.runner	Running view 'my_node' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'dependent_node' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

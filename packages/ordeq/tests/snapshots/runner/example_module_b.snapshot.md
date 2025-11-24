@@ -24,3 +24,10 @@ def decrement(x: str, y: str) -> str:
 renamed = increment
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+
+```

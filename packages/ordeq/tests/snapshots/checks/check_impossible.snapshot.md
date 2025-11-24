@@ -76,6 +76,7 @@ CycleError: ('nodes are in a cycle', [Node(module=__main__, name=simple_node, in
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 
 ```

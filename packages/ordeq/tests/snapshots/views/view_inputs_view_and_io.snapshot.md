@@ -47,8 +47,22 @@ I heard that Jane said 'Hello, World!'
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running view View(func=__main__:hello, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'hello_from_someone' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 INFO	ordeq.runner	Running view 'n' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for Input(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 
 ```

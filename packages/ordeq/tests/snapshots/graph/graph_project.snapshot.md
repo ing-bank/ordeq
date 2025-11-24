@@ -68,3 +68,13 @@ Topological ordering
  Node(module=example_project.nodes_with_view, name=farewell, inputs=[IO(id=ID7)], outputs=[Print()]))
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID4)
+DEBUG	ordeq.io	Persisting data for Input(id=ID8)
+DEBUG	ordeq.io	Persisting data for Input(id=ID5)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+
+```

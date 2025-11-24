@@ -60,3 +60,10 @@ ValueError: Outputs of 'func' in module '__main__' must be of type Output, got <
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+
+```

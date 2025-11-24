@@ -84,6 +84,10 @@ class Node(Generic[FuncParams, FuncReturns]):
     def is_fq(self) -> bool:
         return self.name is not None and self.module is not None
 
+    @property
+    def func_name(self) -> str:
+        return infer_node_name_from_func(self.func)
+
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
 
@@ -91,7 +95,7 @@ class Node(Generic[FuncParams, FuncReturns]):
         if self.is_fq:
             attributes = {"module": self.module, "name": self.name}
         else:
-            attributes = {"func": infer_node_name_from_func(self.func)}
+            attributes = {"func": self.func_name}
 
         inputs = getattr(self, "inputs", None)
         if inputs:

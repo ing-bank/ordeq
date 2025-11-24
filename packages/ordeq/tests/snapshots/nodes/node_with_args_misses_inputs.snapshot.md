@@ -17,10 +17,10 @@ run(func)
 ## Output
 
 ```text
-ValueError: Node inputs invalid for function arguments: Node(func=__main__:func, ...)
+ValueError: Inputs invalid for function arguments: '__main__:func'
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
     raise ValueError(
-        f"Node inputs invalid for function arguments: {n}"
+        f"Inputs invalid for function arguments: '{n}'"
     ) from e
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
@@ -36,15 +36,15 @@ ValueError: Node inputs invalid for function arguments: Node(func=__main__:func,
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     return Node(
         func=func,
-    ...<4 lines>...
-        views=tuple(views),
+    ...<6 lines>...
+        name=name,
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
     node_ = create_node(
         inner,
-    ...<3 lines>...
-        attributes=attributes,
+    ...<5 lines>...
+        name=f.__name__,
     )
 
   File "/packages/ordeq/tests/resources/nodes/node_with_args_misses_inputs.py", line LINO, in <module>

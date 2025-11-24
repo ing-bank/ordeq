@@ -32,15 +32,15 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  'example_1.nodes',
  'example_1.pipeline',
  'example_1.wrapped_io']
-[(('example_1.nodes', 'world'),
+[(FQN(module='example_1.nodes', name='world'),
   Node(module=example_1.nodes, name=world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
- (('example_1.pipeline', 'transform_input'),
+ (FQN(module='example_1.pipeline', name='transform_input'),
   Node(module=example_1.pipeline, name=transform_input, inputs=[Input(id=ID1)], outputs=[Output(id=ID2)])),
- (('example_1.pipeline', 'transform_mock_input'),
+ (FQN(module='example_1.pipeline', name='transform_mock_input'),
   Node(module=example_1.pipeline, name=transform_mock_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
- (('example_1.wrapped_io', 'hello'),
+ (FQN(module='example_1.wrapped_io', name='hello'),
   Node(module=example_1.wrapped_io, name=hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])),
- (('example_1.wrapped_io', 'print_message'),
+ (FQN(module='example_1.wrapped_io', name='print_message'),
   Node(module=example_1.wrapped_io, name=print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()]))]
 {'example_1.catalog': {'Hello': StringBuffer(_buffer=<_io.StringIO object at HASH3>),
                        'TestInput': Input(id=ID1),
@@ -56,15 +56,15 @@ pprint(_resolve_runnables_to_nodes(*runnables))
                                               writer=(NamePrinter(),)),
                           'name_generator': NameGenerator(name='John'),
                           'name_printer': NamePrinter()}}
-[(('example_1.nodes', 'world'),
+[(FQN(module='example_1.nodes', name='world'),
   Node(module=example_1.nodes, name=world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
- (('example_1.pipeline', 'transform_input'),
+ (FQN(module='example_1.pipeline', name='transform_input'),
   Node(module=example_1.pipeline, name=transform_input, inputs=[Input(id=ID1)], outputs=[Output(id=ID2)])),
- (('example_1.pipeline', 'transform_mock_input'),
+ (FQN(module='example_1.pipeline', name='transform_mock_input'),
   Node(module=example_1.pipeline, name=transform_mock_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
- (('example_1.wrapped_io', 'hello'),
+ (FQN(module='example_1.wrapped_io', name='hello'),
   Node(module=example_1.wrapped_io, name=hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])),
- (('example_1.wrapped_io', 'print_message'),
+ (FQN(module='example_1.wrapped_io', name='print_message'),
   Node(module=example_1.wrapped_io, name=print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()]))]
 
 ```

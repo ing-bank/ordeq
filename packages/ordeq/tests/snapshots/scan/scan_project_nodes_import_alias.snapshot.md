@@ -18,17 +18,14 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_project.nodes_import_alias', 'func'),
+[(FQN(module='example_project.nodes_import_alias', name='func'),
   Node(module=example_project.nodes_import_alias, name=func, inputs=[Literal('a'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}))]
 IOs:
-[(('example_project.nodes_import_alias',
-   'a'),
+[(FQN(module='example_project.nodes_import_alias', name='a'),
   Literal('a')),
- (('example_project.nodes_import_alias',
-   'B'),
+ (FQN(module='example_project.nodes_import_alias', name='B'),
   StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- (('example_project.nodes_import_alias',
-   'h'),
+ (FQN(module='example_project.nodes_import_alias', name='h'),
   Print())]
 
 ```

@@ -19,31 +19,28 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_resources.inline', 'generate'),
+[(FQN(module='example_resources.inline', name='generate'),
   Node(module=example_resources.inline, name=generate, outputs=[CSV(path=Path('data1.csv'))])),
- (('example_resources.inline', 'consume'),
+ (FQN(module='example_resources.inline', name='consume'),
   View(module=example_resources.inline, name=consume, inputs=[Text(path=Path('data1.csv'))])),
- (('example_resources.pipeline', 'generate'),
+ (FQN(module='example_resources.pipeline', name='generate'),
   Node(module=example_resources.pipeline, name=generate, outputs=[CSV(path=Path('data2.csv'))])),
- (('example_resources.pipeline', 'consume'),
+ (FQN(module='example_resources.pipeline', name='consume'),
   View(module=example_resources.pipeline, name=consume, inputs=[Text(path=Path('data2.csv'))])),
- (('example_resources.updates', 'update'),
+ (FQN(module='example_resources.updates', name='update'),
   Node(module=example_resources.updates, name=update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))])),
- (('example_resources.updates', 'reflect'),
+ (FQN(module='example_resources.updates', name='reflect'),
   Node(module=example_resources.updates, name=reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]))]
 IOs:
-[(('example_resources.pipeline', 'csv'),
+[(FQN(module='example_resources.pipeline', name='csv'),
   CSV(path=Path('data2.csv'))),
- (('example_resources.pipeline',
-   'text'),
+ (FQN(module='example_resources.pipeline', name='text'),
   Text(path=Path('data2.csv'))),
- (('example_resources.updates', 'csv'),
+ (FQN(module='example_resources.updates', name='csv'),
   CSV(path=Path('data3.csv'))),
- (('example_resources.updates',
-   'csv_old'),
+ (FQN(module='example_resources.updates', name='csv_old'),
   CSV(path=Path('data3.csv'))),
- (('example_resources.updates',
-   'csv_new'),
+ (FQN(module='example_resources.updates', name='csv_new'),
   CSV(path=Path('data3.csv')))]
 
 ```

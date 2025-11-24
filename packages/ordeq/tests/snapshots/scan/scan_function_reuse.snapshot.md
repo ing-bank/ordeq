@@ -19,32 +19,28 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_function_reuse.nodes', 'a'),
+[(FQN(module='example_function_reuse.nodes', name='a'),
   View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])),
- (('example_function_reuse.nodes', 'b'),
+ (FQN(module='example_function_reuse.nodes', name='b'),
   View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)])),
- (('example_function_reuse.nodes', 'c'),
+ (FQN(module='example_function_reuse.nodes', name='c'),
   View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)])),
- (('example_function_reuse.nodes', 'd'),
+ (FQN(module='example_function_reuse.nodes', name='d'),
   View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)])),
- (('example_function_reuse.nodes', 'pi'),
+ (FQN(module='example_function_reuse.nodes', name='pi'),
   View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))]
 IOs:
-[(('example_function_reuse.catalog',
-   'A'),
+[(FQN(module='example_function_reuse.catalog', name='A'),
   StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- (('example_function_reuse.nodes', 'A'),
+ (FQN(module='example_function_reuse.nodes', name='A'),
   StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- (('example_function_reuse.catalog',
-   'B'),
+ (FQN(module='example_function_reuse.catalog', name='B'),
   StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
- (('example_function_reuse.nodes', 'B'),
+ (FQN(module='example_function_reuse.nodes', name='B'),
   StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
- (('example_function_reuse.catalog',
-   'C'),
+ (FQN(module='example_function_reuse.catalog', name='C'),
   StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
- (('example_function_reuse.catalog',
-   'D'),
+ (FQN(module='example_function_reuse.catalog', name='D'),
   StringBuffer(_buffer=<_io.StringIO object at HASH4>))]
 
 ```

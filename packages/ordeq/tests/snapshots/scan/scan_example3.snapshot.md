@@ -19,8 +19,10 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_3.nodes', 'f1'), View(func=example_3.func_defs:hello)),
- (('example_3.nodes', 'f2'), View(func=example_3.func_defs:hello))]
+[(FQN(module='example_3.nodes', name='f1'),
+  View(func=example_3.func_defs:hello)),
+ (FQN(module='example_3.nodes', name='f2'),
+  View(func=example_3.func_defs:hello))]
 IOs:
 []
 

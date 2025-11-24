@@ -18,7 +18,7 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(('example_project.nodes_with_inline_io', 'greet'),
+[(FQN(module='example_project.nodes_with_inline_io', name='greet'),
   Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Literal('Buenos dias')], outputs=[IO(id=ID1)]))]
 IOs:
 []

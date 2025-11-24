@@ -62,11 +62,33 @@ INFO	ordeq.io	Loading Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)
+DEBUG	ordeq.io	Persisting data for Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)
 INFO	ordeq.io	Loading Literal(0    False
 1    False
 2    False
 Name: B, dtype: bool)
+DEBUG	ordeq.io	Persisting data for Literal(0    False
+1    False
+2    False
+Name: B, dtype: bool)
 INFO	ordeq.runner	Running view View(func=__main__:filter_df, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'group_by' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)
+DEBUG	ordeq.io	Unpersisting data for Literal(0    False
+1    False
+2    False
+Name: B, dtype: bool)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```

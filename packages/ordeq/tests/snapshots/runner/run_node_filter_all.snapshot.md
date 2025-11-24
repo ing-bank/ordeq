@@ -44,9 +44,17 @@ Should run no nodes (node filter maps all nodes to False):
 ```text
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 INFO	ordeq.io	Loading Literal('Hello')
+DEBUG	ordeq.io	Persisting data for Literal('Hello')
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running view 'world' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for Literal('Hello')
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 
 ```

@@ -60,8 +60,20 @@ INFO	ordeq.io	Loading Literal(     A  B    C    D
 0  foo  1  one  2.0
 1  bar  2  one  5.0
 2  foo  3  two  8.0)
+DEBUG	ordeq.io	Persisting data for Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)
 INFO	ordeq.runner	Running view View(func=__main__:cast, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'group_by' in module '__main__'
-INFO	ordeq.io	Saving Output(id=ID1)
+INFO	ordeq.io	Saving Output(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for Literal(     A  B    C    D
+0  foo  1  one  2.0
+1  bar  2  one  5.0
+2  foo  3  two  8.0)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 
 ```

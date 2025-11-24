@@ -87,10 +87,24 @@ IOException: Failed to load IO(id=ID1).
 
 ```text
 INFO	ordeq.io	Loading Literal('Jane')
+DEBUG	ordeq.io	Persisting data for Literal('Jane')
 INFO	ordeq.io	Loading Literal('Hello')
+DEBUG	ordeq.io	Persisting data for Literal('Hello')
 INFO	ordeq.runner	Running node 'hello_from_someone' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'what_i_heard' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'sink' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for Literal('Jane')
+DEBUG	ordeq.io	Unpersisting data for Literal('Hello')
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 INFO	ordeq.io	Loading IO(id=ID1)
 
 ```

@@ -24,8 +24,12 @@ Node:resources.runner.example_module_b:increment --> io-1
 
 ```text
 INFO	ordeq.io	Loading Literal(12345)
+DEBUG	ordeq.io	Persisting data for Literal(12345)
 INFO	ordeq.runner	Running node 'increment' in module 'resources.runner.example_module_b'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for Literal(12345)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```
 

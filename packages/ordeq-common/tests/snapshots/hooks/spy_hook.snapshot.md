@@ -73,7 +73,11 @@ ValueError: Intentional failure for testing.
 
 ```text
 INFO	ordeq.io	Loading Literal('name')
+DEBUG	ordeq.io	Persisting data for Literal('name')
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for Literal('name')
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view View(func=__main__:fail, ...)
 
 ```

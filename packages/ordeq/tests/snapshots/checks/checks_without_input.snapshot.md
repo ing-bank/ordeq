@@ -59,7 +59,13 @@ Dependent node received data: A
 ```text
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.runner	Running view 'my_node' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.io	Loading Literal('A')
+DEBUG	ordeq.io	Persisting data for Literal('A')
 INFO	ordeq.runner	Running view 'dependent_node' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for Literal('A')
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```

@@ -4,14 +4,13 @@
 from pprint import pprint
 
 import example_references
-from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(*_resolve_packages_to_modules(example_references))
+nodes, ios = _scan_fqns(example_references)
 print("Nodes:")
-pprint(nodes)
+pprint([node for node in sorted(nodes, key=lambda n: (nodes[n], n.ref))], width=40)
 print("IOs:")
-pprint(ios, width=40)
+pprint(list(ios.values()), width=40)
 
 ```
 
@@ -21,15 +20,10 @@ pprint(ios, width=40)
 Nodes:
 []
 IOs:
-[(FQN(module='example_references.io_references', name='test_io'),
-  Input(id=ID1)),
- (FQN(module='example_references.io_references', name='nested_test_io'),
-  Input(id=ID2)),
- (FQN(module='example_references.io_references', name='world'),
-  Input(id=ID3)),
- (FQN(module='example_references.io_references', name='named_test_io'),
-  Input(id=ID4)),
- (FQN(module='example_references.io_references', name='named_nested_test_io'),
-  Input(id=ID5))]
+[[FQN(module='example_references.io_references', name='test_io')],
+ [FQN(module='example_references.io_references', name='nested_test_io')],
+ [FQN(module='example_references.io_references', name='world')],
+ [FQN(module='example_references.io_references', name='named_test_io')],
+ [FQN(module='example_references.io_references', name='named_nested_test_io')]]
 
 ```

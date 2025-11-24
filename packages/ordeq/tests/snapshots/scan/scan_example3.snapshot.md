@@ -8,7 +8,7 @@ from ordeq._scan import _scan_fqns
 
 nodes, ios = _scan_fqns(example_3)
 print("Nodes:")
-pprint(nodes)
+pprint([node for node in sorted(nodes, key=lambda n: (nodes[n], n.ref))], width=40)
 print("IOs:")
 pprint(list(ios.values()), width=40)
 
@@ -18,8 +18,8 @@ pprint(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{View(func=example_3.func_defs:hello): [FQN(module='example_3.nodes', name='f1')],
- View(func=example_3.func_defs:hello): [FQN(module='example_3.nodes', name='f2')]}
+[View(func=example_3.func_defs:hello),
+ View(func=example_3.func_defs:hello)]
 IOs:
 []
 

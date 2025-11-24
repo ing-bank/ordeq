@@ -7,6 +7,7 @@ from functools import wraps
 from inspect import Signature, signature
 from typing import Any, Generic, ParamSpec, TypeGuard, TypeVar, cast, overload
 
+from ordeq._fqn import FQN
 from ordeq._io import IO, AnyIO, Input, Output
 from ordeq.preview import preview
 
@@ -91,8 +92,14 @@ class Node(Generic[FuncParams, FuncReturns]):
     @property
     def ref(self) -> str:
         if self.is_fq:
-            return f"{self.module}:{self.name}"
+            return format(self.fqn, "ref")
         return f"{self.__class__.__name__}(func={self.func_name}, ...)"
+
+    @property
+    def fqn(self) -> FQN | None:
+        if self.is_fq:
+            return FQN(module=self.module, name=self.name)  # type: ignore[arg-type]
+        return None
 
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
@@ -121,7 +128,7 @@ class Node(Generic[FuncParams, FuncReturns]):
 
     def __str__(self) -> str:
         if self.is_fq:
-            return f"'{self.name}' in module '{self.module}'"
+            return format(self.fqn, "desc")
         return f"{self.__class__.__name__}(func={self.func_name}, ...)"
 
 

@@ -42,7 +42,6 @@ INFO	ordeq.runner	Running node 'transform_mock_input' in module 'example_1.pipel
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 DEBUG	ordeq.io	Loading cached data for SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))
-DEBUG	ordeq.io	Persisting data for SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))
 INFO	ordeq.runner	Running node 'print_message' in module 'example_1.wrapped_io'
 INFO	ordeq.io	Saving NamePrinter()
 DEBUG	ordeq.io	Unpersisting data for NameGenerator(name='John')

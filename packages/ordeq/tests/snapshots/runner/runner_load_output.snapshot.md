@@ -32,8 +32,8 @@ run(my_node, load_node)
 saving! Hello, World!
 AttributeError: 'Example' object has no attribute 'load'
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _load_inputs
-    data = cast("Input", input_dataset).load()
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    data = cast("Input", input_io).load()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     args = _load_inputs(node.inputs)

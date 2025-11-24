@@ -58,7 +58,6 @@ DEBUG	ordeq.io	Persisting data for Literal(     A  B    C    D
 INFO	ordeq.runner	Running view 'df_selected' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'group_by' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for Literal(     A  B    C    D

@@ -40,7 +40,6 @@ DEBUG	ordeq.io	Persisting data for Literal('Buenos dias')
 INFO	ordeq.runner	Running view 'hello_world' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'n' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for Literal('Buenos dias')

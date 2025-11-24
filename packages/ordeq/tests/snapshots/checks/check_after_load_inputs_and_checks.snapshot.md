@@ -87,7 +87,6 @@ DEBUG	ordeq.io	Persisting data for Literal(   id  amount   to country
 INFO	ordeq.runner	Running node 'agg_txs' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.io	Loading Literal(100)
 DEBUG	ordeq.io	Persisting data for Literal(100)
 INFO	ordeq.runner	Running view 'perform_check' in module '__main__'

@@ -119,19 +119,12 @@ DEBUG	ordeq.io	Loading cached data for Literal(   id  value
 1   2     -5
 2   3     20
 3   4     -1)
-DEBUG	ordeq.io	Persisting data for Literal(   id  value
-0   1     10
-1   2     -5
-2   3     20
-3   4     -1)
 INFO	ordeq.runner	Running view 'process_records' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'print_processed_records' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Loading cached data for JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
-DEBUG	ordeq.io	Persisting data for JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
 INFO	ordeq.runner	Running view 'print_invalid_records' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for Literal(   id  value  processed_value

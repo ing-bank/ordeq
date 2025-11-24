@@ -64,7 +64,6 @@ INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving CustomIO(attr=)
 DEBUG	ordeq.io	Persisting data for CustomIO(attr=x says y did it  !)
 DEBUG	ordeq.io	Loading cached data for CustomIO(attr=x says y did it  !)
-DEBUG	ordeq.io	Persisting data for CustomIO(attr=x says y did it  !)
 INFO	ordeq.io	Loading CustomIO(attr=x did it)
 DEBUG	ordeq.io	Persisting data for CustomIO(attr=x did it)
 INFO	ordeq.runner	Running node 'decrement' in module '__main__'

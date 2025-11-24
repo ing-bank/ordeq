@@ -47,7 +47,6 @@ DEBUG	ordeq.io	Persisting data for Literal(<__main__.Client object at HASH1>)
 INFO	ordeq.runner	Running view 'buckets' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'print_buckets' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for Literal(<__main__.Client object at HASH1>)

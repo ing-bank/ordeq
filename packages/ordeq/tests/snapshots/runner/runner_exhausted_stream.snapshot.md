@@ -76,7 +76,6 @@ INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
 DEBUG	ordeq.io	Persisting data for Stream(data=['2', '3', '4'])
 DEBUG	ordeq.io	Loading cached data for Stream(data=['2', '3', '4'])
-DEBUG	ordeq.io	Persisting data for Stream(data=['2', '3', '4'])
 INFO	ordeq.io	Loading Literal('2')
 DEBUG	ordeq.io	Persisting data for Literal('2')
 INFO	ordeq.runner	Running node 'multiply' in module '__main__'
@@ -91,7 +90,6 @@ DEBUG	ordeq.io	Persisting data for Stream(data=['1', '2', '3'])
 INFO	ordeq.runner	Running node 'increment' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.io	Loading Literal('2')
 DEBUG	ordeq.io	Persisting data for Literal('2')
 INFO	ordeq.runner	Running node 'multiply' in module '__main__'

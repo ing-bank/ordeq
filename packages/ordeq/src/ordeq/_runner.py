@@ -13,13 +13,12 @@ from ordeq._patch import _patch_nodes
 from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
 from ordeq._resolve import (
     Runnable,
+    RunnableRef,
     _is_module,
     _resolve_modules_to_nodes,
     _resolve_packages_to_modules,
     _resolve_refs_to_hooks,
-    _resolve_refs_to_nodes,
-    _resolve_runnables_to_modules,
-    _resolve_runnables_to_nodes,
+    _resolve_runnable_refs_to_runnables,
 )
 from ordeq._substitute import (
     _resolve_refs_to_subs,
@@ -145,7 +144,7 @@ def _run_graph(
     _run_after_hooks(graph, hooks=run_hooks)
 
 
-def _validate_runnables(*runnables: Runnable) -> None:
+def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
     for runnable in runnables:
         if not (
             _is_module(runnable)
@@ -159,7 +158,7 @@ def _validate_runnables(*runnables: Runnable) -> None:
 
 
 def run(
-    *runnables: Runnable,
+    *runnables: Runnable | RunnableRef,
     hooks: Sequence[RunnerHook | ObjectRef] = (),
     save: SaveMode = "all",
     verbose: bool = False,
@@ -263,11 +262,9 @@ def run(
     """
 
     _validate_runnables(*runnables)
-    modules = _resolve_runnables_to_modules(*runnables)
+    modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
     submodules = _resolve_packages_to_modules(*modules)
-    nodes = _resolve_modules_to_nodes(*submodules)
-    nodes += _resolve_refs_to_nodes(*runnables)
-    nodes += _resolve_runnables_to_nodes(*runnables)
+    nodes += _resolve_modules_to_nodes(*submodules)
 
     nodes_and_views = _process_nodes(*nodes, node_filter=node_filter)
     graph = NodeGraph.from_nodes(nodes_and_views)

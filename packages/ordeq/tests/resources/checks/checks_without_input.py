@@ -1,8 +1,7 @@
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 from ordeq_viz import viz
 
-A = Literal("A")
+A = Input("A")
 
 
 @node(checks=[A])

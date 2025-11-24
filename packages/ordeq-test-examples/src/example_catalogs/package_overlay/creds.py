@@ -1,3 +1,3 @@
-from ordeq_common import Literal
+from ordeq import Input
 
-secret = Literal("ohSoSecret!@#")
+secret = Input("ohSoSecret!@#")

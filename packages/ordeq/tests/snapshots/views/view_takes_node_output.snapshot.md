@@ -1,15 +1,14 @@
 ## Resource
 
 ```python
-from ordeq import IO, node, run
-from ordeq_common import Literal
+from ordeq import IO, Input, node, run
 
 placeholder = IO()
 
-hello = Literal("Hello")
+hello = Input("Hello")
 
 
-@node(inputs=[Literal("Jane"), hello], outputs=placeholder)
+@node(inputs=[Input("Jane"), hello], outputs=placeholder)
 def hello_from_someone(name: str, v: str) -> str:
     return f"{name} said '{v}'"
 
@@ -86,8 +85,6 @@ IOException: Failed to load IO(id=ID1).
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal('Jane')
-INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running node 'hello_from_someone' in module '__main__'
 INFO	ordeq.runner	Running view 'what_i_heard' in module '__main__'
 INFO	ordeq.runner	Running view 'sink' in module '__main__'

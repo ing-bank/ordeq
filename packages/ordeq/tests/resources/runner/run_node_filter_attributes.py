@@ -1,7 +1,7 @@
-from ordeq import Node, node, run
-from ordeq_common import Literal, StringBuffer
+from ordeq import Input, Node, node, run
+from ordeq_common import StringBuffer
 
-greeting = Literal("Hello")
+greeting = Input("Hello")
 buffer = StringBuffer()
 
 

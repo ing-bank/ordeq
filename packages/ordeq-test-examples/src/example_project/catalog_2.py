@@ -1,6 +1,7 @@
-from ordeq_common import Literal, Print, StringBuffer
+from ordeq import Input
+from ordeq_common import Print, StringBuffer
 
-d = Literal("a")
+d = Input("a")
 e = StringBuffer("b")
 
 # Multiple nodes cannot share the same output

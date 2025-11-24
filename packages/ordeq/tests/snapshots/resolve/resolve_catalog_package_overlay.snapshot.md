@@ -15,12 +15,12 @@ pprint(ios)
 ## Output
 
 ```text
-{'example_catalogs.package_overlay.creds': {'secret': Literal('ohSoSecret!@#')},
+{'example_catalogs.package_overlay.creds': {'secret': Input(id=ID1)},
  'example_catalogs.package_overlay.etl': {'clients': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
-                                          'txs': IO(id=ID1)},
- 'example_catalogs.package_overlay.ml': {'metrics': IO(id=ID2),
-                                         'model': IO(id=ID3),
-                                         'plot': IO(id=ID4),
+                                          'txs': IO(id=ID2)},
+ 'example_catalogs.package_overlay.ml': {'metrics': IO(id=ID3),
+                                         'model': IO(id=ID4),
+                                         'plot': IO(id=ID5),
                                          'predictions': JSON(path=Path('predictions-overlay.json'))}}
 
 ```

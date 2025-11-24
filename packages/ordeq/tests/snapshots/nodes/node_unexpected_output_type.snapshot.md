@@ -1,10 +1,9 @@
 ## Resource
 
 ```python
-from ordeq import node
-from ordeq_common import Literal
+from ordeq import Input, node
 
-x = Literal("X")
+x = Input("X")
 
 
 @node(inputs=x, outputs=x)  # outputs should be of type Output or IO
@@ -16,7 +15,7 @@ def func(data: str) -> str:
 ## Output
 
 ```text
-ValueError: Outputs of 'func' in module '__main__' must be of type Output, got <class 'ordeq_common.io.literal.Literal'> 
+ValueError: Outputs of 'func' in module '__main__' must be of type Output, got <class 'ordeq._io.Input'> 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_outputs
     raise ValueError(
     ...<2 lines>...

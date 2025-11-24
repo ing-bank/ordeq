@@ -1,11 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 from ordeq_viz import viz
 
-A = Literal("A")
+A = Input("A")
 
 
 @node(checks=[A])
@@ -32,7 +31,7 @@ graph TB
 		direction TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "Literal"}
+		L00@{shape: rect, label: "Input"}
 	end
 
 	IO0 --> __main__:dependent_node
@@ -59,7 +58,6 @@ Dependent node received data: A
 ```text
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.runner	Running view 'my_node' in module '__main__'
-INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.runner	Running view 'dependent_node' in module '__main__'
 
 ```

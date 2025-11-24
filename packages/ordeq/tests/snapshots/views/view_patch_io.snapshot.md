@@ -1,10 +1,9 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
-hello_io = Literal("Hello")
+hello_io = Input("Hello")
 
 
 @node(inputs=hello_io)
@@ -17,7 +16,7 @@ def n(v: tuple[str, ...]):
     print(f"Node received '{' '.join(v)}'")
 
 
-run(n, verbose=True, io={hello_io: Literal("Buenos dias")})
+run(n, verbose=True, io={hello_io: Input("Buenos dias")})
 
 ```
 
@@ -35,7 +34,6 @@ Node received 'Buenos dias World!'
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal('Buenos dias')
 INFO	ordeq.runner	Running view 'hello_world' in module '__main__'
 INFO	ordeq.runner	Running view 'n' in module '__main__'
 

@@ -1,10 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal, StringBuffer
+from ordeq import Input, node, run
+from ordeq_common import StringBuffer
 
-hello = Literal("hello")
+hello = Input("hello")
 world = StringBuffer()
 
 
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
 ```text
 Expected output is an error due to impossible check
-CycleError: ('nodes are in a cycle', [Node(module=__main__, name=simple_node, inputs=[Literal('hello')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Resource(value=IO(id=ID1)), View(module=__main__, name=check_impossible, inputs=[Literal('hello'), StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)), Node(module=__main__, name=simple_node, inputs=[Literal('hello')], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])])
+CycleError: ('nodes are in a cycle', [Node(module=__main__, name=simple_node, inputs=[Input(id=ID1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Resource(value=IO(id=ID2)), View(module=__main__, name=check_impossible, inputs=[Input(id=ID1), StringBuffer(_buffer=<_io.StringIO object at HASH1>)]), Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)), Node(module=__main__, name=simple_node, inputs=[Input(id=ID1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])])
   File "/graphlib.py", line LINO, in prepare
     raise CycleError(f"nodes are in a cycle", cycle)
 

@@ -26,10 +26,10 @@ IOs:
  (FQN(module='example_references.io_references', name='nested_test_io'),
   Input(id=ID2)),
  (FQN(module='example_references.io_references', name='world'),
-  Literal('World!')),
- (FQN(module='example_references.io_references', name='named_test_io'),
   Input(id=ID3)),
+ (FQN(module='example_references.io_references', name='named_test_io'),
+  Input(id=ID4)),
  (FQN(module='example_references.io_references', name='named_nested_test_io'),
-  Input(id=ID4))]
+  Input(id=ID5))]
 
 ```

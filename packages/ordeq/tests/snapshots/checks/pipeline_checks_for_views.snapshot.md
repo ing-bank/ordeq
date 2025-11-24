@@ -22,7 +22,7 @@ graph TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
 		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
+		L01@{shape: rect, label: "Input"}
 	end
 
 	IO0 --> example_checks.pipeline_checks_for_views:check_a
@@ -74,11 +74,8 @@ WARNING	ordeq.preview	Checks are in preview mode and may change without notice i
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal('A')
-INFO	ordeq.io	Loading Literal('D')
 INFO	ordeq.runner	Running view 'check_a' in module 'example_checks.pipeline_checks_for_views'
 INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_checks_for_views'
-INFO	ordeq.io	Loading Literal('B')
 INFO	ordeq.runner	Running view 'Bp' in module 'example_checks.pipeline_checks_for_views'
 INFO	ordeq.runner	Running view 'check_ap' in module 'example_checks.pipeline_checks_for_views'
 INFO	ordeq.runner	Running view 'check_join' in module 'example_checks.pipeline_checks_for_views'

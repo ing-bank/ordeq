@@ -1,8 +1,7 @@
-from ordeq import node
-from ordeq_common import Literal
+from ordeq import Input, node
 
-A = Literal("A")
-B = Literal("B")
+A = Input("A")
+B = Input("B")
 
 
 @node(inputs=A)

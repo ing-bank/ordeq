@@ -1,8 +1,8 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal, Print
+from ordeq import Input, node, run
+from ordeq_common import Print
 
 
 @node
@@ -13,7 +13,7 @@ def hello() -> str:
 print(repr(hello))
 
 
-@node(inputs=[Literal("Jane"), hello], outputs=Print())
+@node(inputs=[Input("Jane"), hello], outputs=Print())
 def n(name: str, greeting: str) -> str:
     return f"{name} said '{greeting}'"
 
@@ -38,7 +38,6 @@ Jane said 'Hello, World!'
 
 ```text
 INFO	ordeq.runner	Running view View(func=__main__:hello, ...)
-INFO	ordeq.io	Loading Literal('Jane')
 INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
 

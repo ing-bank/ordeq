@@ -2,11 +2,10 @@
 
 ```python
 import duckdb
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 db = duckdb.connect(":memory:")
-connection = Literal(db)
+connection = Input(db)
 
 
 @node(inputs=connection)
@@ -45,7 +44,6 @@ View:__main__:range_to_csv --> io-2
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal(<_duckdb.DuckDBPyConnection object at HASH1>)
 INFO	ordeq.runner	Running view 'selected_range' in module '__main__'
 INFO	ordeq.runner	Running view 'range_to_csv' in module '__main__'
 

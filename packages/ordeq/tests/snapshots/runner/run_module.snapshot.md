@@ -22,7 +22,6 @@ Node:resources.runner.example_module_a:decrement --> io-3
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal(12345)
 INFO	ordeq.runner	Running node 'increment' in module 'resources.runner.example_module_a'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)

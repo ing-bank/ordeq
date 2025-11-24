@@ -2,8 +2,8 @@ from types import ModuleType
 
 import pytest
 from ordeq._catalog import check_catalogs_are_consistent
-from ordeq._io import AnyIO
-from ordeq_common import Literal, StringBuffer
+from ordeq._io import AnyIO, Input
+from ordeq_common import StringBuffer
 
 
 class FakeModule(ModuleType):
@@ -36,11 +36,11 @@ class FakeModule(ModuleType):
                 "something_else": 4  # not an IO
             },
         ),
-        ({"hello": StringBuffer()}, {"hello": Literal("hello")}),
+        ({"hello": StringBuffer()}, {"hello": Input("hello")}),
         (
             {"hello": StringBuffer(), "result": StringBuffer()},
             {
-                "hello": Literal("hello"),
+                "hello": Input("hello"),
                 "result": StringBuffer(),
                 "something_else": 4,  # not an IO
             },

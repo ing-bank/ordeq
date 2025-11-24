@@ -4,11 +4,10 @@
 from typing import Any
 
 import pandas as pd
-from ordeq import IO, node, run
-from ordeq_common import Literal
+from ordeq import IO, Input, node, run
 from ordeq_viz import viz
 
-txs = Literal(
+txs = Input(
     pd.DataFrame({
         "id": [1, 2, 3],
         "amount": [100, 200, 300],
@@ -17,7 +16,7 @@ txs = Literal(
     })
 )
 txs_agg = IO[Any]()
-threshold = Literal(100)
+threshold = Input(100)
 
 
 @node(inputs=[txs_agg, threshold], checks=txs_agg)
@@ -45,7 +44,7 @@ graph TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
 		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
+		L01@{shape: rect, label: "Input"}
 	end
 
 	IO0 --> __main__:agg_txs
@@ -76,12 +75,7 @@ graph TB
 
 ```text
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal(   id  amount   to country
-0   1     100   me      NL
-1   2     200   me      BE
-2   3     300  you      US)
 INFO	ordeq.runner	Running node 'agg_txs' in module '__main__'
-INFO	ordeq.io	Loading Literal(100)
 INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
 
 ```

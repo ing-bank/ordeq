@@ -1,10 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import Node, node, run
-from ordeq_common import Literal, StringBuffer
+from ordeq import Input, Node, node, run
+from ordeq_common import StringBuffer
 
-greeting = Literal("Hello")
+greeting = Input("Hello")
 buffer = StringBuffer()
 
 
@@ -42,7 +42,6 @@ Saying Hello
 
 ```text
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal('Hello')
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 

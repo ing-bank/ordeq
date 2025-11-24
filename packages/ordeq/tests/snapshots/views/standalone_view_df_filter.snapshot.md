@@ -2,8 +2,7 @@
 
 ```python
 import pandas as pd
-from ordeq import Output, node, run
-from ordeq_common import Literal
+from ordeq import Input, Output, node, run
 
 df = pd.DataFrame({
     "A": ["foo", "bar", "foo"],
@@ -12,9 +11,9 @@ df = pd.DataFrame({
     "D": [2.0, 5.0, 8.0],
 })
 
-dataframe = Literal(df)
+dataframe = Input(df)
 
-fltr = Literal(df["B"] > 4)
+fltr = Input(df["B"] > 4)
 
 
 def filter_df(df: pd.DataFrame, condition: str) -> pd.DataFrame:
@@ -58,14 +57,6 @@ View:__main__:group_by --> io-3
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal(     A  B    C    D
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)
-INFO	ordeq.io	Loading Literal(0    False
-1    False
-2    False
-Name: B, dtype: bool)
 INFO	ordeq.runner	Running view View(func=__main__:filter_df, ...)
 INFO	ordeq.runner	Running view 'group_by' in module '__main__'
 

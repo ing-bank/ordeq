@@ -1,9 +1,8 @@
 from collections.abc import Generator
 from dataclasses import dataclass, field
 
-from ordeq import IO, node
+from ordeq import IO, Input, node
 from ordeq._runner import run
-from ordeq_common import Literal
 
 
 @dataclass(eq=False)
@@ -21,7 +20,7 @@ class Stream(IO[Generator[str, None, None]]):
 
 x1 = Stream(["1", "2", "3"])
 x2 = Stream()
-x3 = Literal("2")
+x3 = Input("2")
 x4 = Stream()
 
 

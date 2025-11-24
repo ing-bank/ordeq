@@ -3,14 +3,11 @@ import typing
 from pathlib import Path
 
 import pandas as pd
-from ordeq import IO, node, run
-from ordeq_common import Literal
+from ordeq import IO, Input, node, run
 from ordeq_files import JSON
 from ordeq_viz import viz
 
-records = Literal(
-    pd.DataFrame({"id": [1, 2, 3, 4], "value": [10, -5, 20, -1]})
-)
+records = Input(pd.DataFrame({"id": [1, 2, 3, 4], "value": [10, -5, 20, -1]}))
 invalid_records = JSON(
     path=Path(tempfile.gettempdir()) / "invalid_records.json"
 )

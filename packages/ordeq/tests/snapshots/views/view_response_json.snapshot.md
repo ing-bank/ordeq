@@ -2,11 +2,10 @@
 
 ```python
 import requests
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 response = requests.get("https://jsonplaceholder.typicode.com/users/1")  # noqa: S113 (call without timeout)
-users_response = Literal(response)
+users_response = Input(response)
 
 
 @node(inputs=users_response)
@@ -37,7 +36,6 @@ Data: {'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@a
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal(<Response [200]>)
 INFO	ordeq.runner	Running view 'users_json' in module '__main__'
 INFO	ordeq.runner	Running view 'to_yaml' in module '__main__'
 

@@ -1,9 +1,8 @@
 import duckdb
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 db = duckdb.connect(":memory:")
-connection = Literal(db)
+connection = Input(db)
 
 
 @node(inputs=connection)

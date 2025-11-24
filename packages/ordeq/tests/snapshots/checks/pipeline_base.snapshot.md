@@ -22,7 +22,7 @@ graph TB
 		L0@{shape: rounded, label: "Node"}
 		L2@{shape: subroutine, label: "View"}
 		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
+		L01@{shape: rect, label: "Input"}
 		L02@{shape: rect, label: "StringBuffer"}
 	end
 
@@ -65,9 +65,7 @@ aBBB
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal('A')
 INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_base'
-INFO	ordeq.io	Loading Literal('B')
 INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_base'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)

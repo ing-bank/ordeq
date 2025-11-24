@@ -1,11 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import node
-from ordeq_common import Literal
+from ordeq import Input, node
 
 
-@node(inputs=[Literal("a"), Literal("b")])
+@node(inputs=[Input("a"), Input("b")])
 def my_node(*, a, b):
     print(f"a: {a}, b: {b}")
 
@@ -43,8 +42,8 @@ ValueError: Inputs invalid for function arguments: 'my_node' in module '__main__
     )
 
   File "/packages/ordeq/tests/resources/nodes/node_kwarg_only.py", line LINO, in <module>
-    @node(inputs=[Literal("a"), Literal("b")])
-     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    @node(inputs=[Input("a"), Input("b")])
+     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 

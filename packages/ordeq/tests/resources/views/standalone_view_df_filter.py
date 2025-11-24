@@ -1,6 +1,5 @@
 import pandas as pd
-from ordeq import Output, node, run
-from ordeq_common import Literal
+from ordeq import Input, Output, node, run
 
 df = pd.DataFrame({
     "A": ["foo", "bar", "foo"],
@@ -9,9 +8,9 @@ df = pd.DataFrame({
     "D": [2.0, 5.0, 8.0],
 })
 
-dataframe = Literal(df)
+dataframe = Input(df)
 
-fltr = Literal(df["B"] > 4)
+fltr = Input(df["B"] > 4)
 
 
 def filter_df(df: pd.DataFrame, condition: str) -> pd.DataFrame:

@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
 import pytest
-from ordeq import IOException
-from ordeq_common import Dataclass, Literal
+from ordeq import Input, IOException
+from ordeq_common import Dataclass
 
 
 @dataclass
@@ -13,12 +13,10 @@ class Fruit:
 
 def test_it_loads():
     assert Dataclass(
-        Literal({"name": "banana", "colour": "yellow"}), Fruit
+        Input({"name": "banana", "colour": "yellow"}), Fruit
     ).load() == Fruit(name="banana", colour="yellow")
 
 
 def test_it_errors_for_invalid_data():
     with pytest.raises(IOException, match="unexpected keyword"):
-        Dataclass(
-            Literal({"name": "banana", "weight_gr": "100g"}), Fruit
-        ).load()
+        Dataclass(Input({"name": "banana", "weight_gr": "100g"}), Fruit).load()

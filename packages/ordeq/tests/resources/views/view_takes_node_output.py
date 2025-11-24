@@ -1,12 +1,11 @@
-from ordeq import IO, node, run
-from ordeq_common import Literal
+from ordeq import IO, Input, node, run
 
 placeholder = IO()
 
-hello = Literal("Hello")
+hello = Input("Hello")
 
 
-@node(inputs=[Literal("Jane"), hello], outputs=placeholder)
+@node(inputs=[Input("Jane"), hello], outputs=placeholder)
 def hello_from_someone(name: str, v: str) -> str:
     return f"{name} said '{v}'"
 

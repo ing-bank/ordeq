@@ -1,8 +1,7 @@
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 
-@node(inputs=[Literal("a"), Literal("b")])
+@node(inputs=[Input("a"), Input("b")])
 def my_node(a, /, b):
     print(f"a: {a}, b: {b}")
 

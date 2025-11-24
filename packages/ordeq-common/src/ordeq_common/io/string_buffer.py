@@ -41,11 +41,11 @@ class StringBuffer(IO[str]):
 
     ```pycon
     >>> from ordeq_args import CommandLineArg
-    >>> from ordeq_common import StringBuffer, Literal
-    >>> from ordeq import node, run
+    >>> from ordeq_common import StringBuffer
+    >>> from ordeq import node, run, Input
     >>> result = StringBuffer()
     >>> @node(
-    ...     inputs=[StringBuffer("Hello"), Literal("you")],
+    ...     inputs=[StringBuffer("Hello"), Input("you")],
     ...     outputs=result
     ... )
     ... def greet(greeting: str, name: str) -> str:

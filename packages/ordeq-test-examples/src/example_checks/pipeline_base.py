@@ -1,8 +1,8 @@
-from ordeq import IO, node
-from ordeq_common import Literal, StringBuffer
+from ordeq import IO, Input, node
+from ordeq_common import StringBuffer
 
-A = Literal("A")
-B = Literal("B")
+A = Input("A")
+B = Input("B")
 Ap = IO[str]()
 Bp = IO[str]()
 AB = StringBuffer()

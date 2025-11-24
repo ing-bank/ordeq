@@ -4,10 +4,9 @@
 from typing import TypeAlias
 
 import pandas as pd
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
-dataframe = Literal(
+dataframe = Input(
     pd.DataFrame({
         "A": ["foo", "bar", "foo"],
         "B": [1, 2, 3],
@@ -60,10 +59,6 @@ max    3.0  8.0
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal(     A  B    C   gt
-0  foo  1  one  2.0
-1  bar  2  one  5.0
-2  foo  3  two  8.0)
 INFO	ordeq.runner	Running view 'split' in module '__main__'
 INFO	ordeq.runner	Running view 'train' in module '__main__'
 
@@ -72,7 +67,7 @@ INFO	ordeq.runner	Running view 'train' in module '__main__'
 ## Typing
 
 ```text
-packages/ordeq/tests/resources/views/view_train_test_split.py:25:12: error[invalid-return-type] Return type does not match returned value: expected `tuple[DataFrame, DataFrame]`, found `tuple[Series[Any], Series[Any]]`
+packages/ordeq/tests/resources/views/view_train_test_split.py:24:12: error[invalid-return-type] Return type does not match returned value: expected `tuple[DataFrame, DataFrame]`, found `tuple[Series[Any], Series[Any]]`
 Found 1 diagnostic
 
 ```

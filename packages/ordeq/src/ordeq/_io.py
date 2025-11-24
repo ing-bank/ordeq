@@ -497,8 +497,8 @@ class Input(
     To use the `greet` node, we need to provide an actual input. For instance:
 
     ```python
-    >>> from ordeq_common import Literal
-    >>> run(greet, io={name: Literal("Alice")})
+    >>> from ordeq import Input
+    >>> run(greet, io={name: Input("Alice")})
     >>> greeting.load()
     'Hello, Alice!'
     ```
@@ -650,10 +650,10 @@ class IO(Input[T], Output[T]):
 
     ```python
     >>> from ordeq import Input, node
-    >>> from ordeq_common import StringBuffer, Literal
+    >>> from ordeq_common import StringBuffer
 
     >>> hello = StringBuffer("hi")
-    >>> name = Literal("Bob")
+    >>> name = Input("Bob")
     >>> greeting = IO[str]()
     >>> greeting_capitalized = StringBuffer()
 

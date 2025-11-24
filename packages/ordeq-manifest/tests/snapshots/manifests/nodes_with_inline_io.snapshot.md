@@ -29,7 +29,7 @@ print(create_manifest_json(nodes_with_inline_io))
   "ios": {
     "example_project.nodes_with_inline_io:<anonymous0>": {
       "name": "<anonymous0>",
-      "type": "ordeq_common.io.literal:Literal",
+      "type": "ordeq._io:Input",
       "resource": null,
       "references": [],
       "attributes": {}

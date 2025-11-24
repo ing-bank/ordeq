@@ -1,5 +1,4 @@
 from ordeq import Input
-from ordeq_common import Literal
 
 
 class MyIO(Input[str]):
@@ -12,10 +11,10 @@ class MyIO(Input[str]):
 
 
 # unnamed
-test_io = MyIO(other_io=Literal("World!"))
-nested_test_io = MyIO(other_io=MyIO(other_io=Literal("World!")))
+test_io = MyIO(other_io=Input("World!"))
+nested_test_io = MyIO(other_io=MyIO(other_io=Input("World!")))
 
 # named
-world = Literal("World!")
+world = Input("World!")
 named_test_io = MyIO(other_io=world)
 named_nested_test_io = MyIO(other_io=MyIO(other_io=world))

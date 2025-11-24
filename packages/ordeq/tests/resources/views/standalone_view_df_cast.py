@@ -1,8 +1,7 @@
 import pandas as pd
-from ordeq import Output, node, run
-from ordeq_common import Literal
+from ordeq import Input, Output, node, run
 
-dataframe = Literal(
+dataframe = Input(
     pd.DataFrame({
         "A": ["foo", "bar", "foo"],
         "B": [1, 2, 3],

@@ -1,6 +1,5 @@
 import pandas as pd
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 
 class MockDuckDbValues:
@@ -11,7 +10,7 @@ class MockDuckDbValues:
         return pd.DataFrame(self.data, columns=["value"])
 
 
-csv = Literal(MockDuckDbValues((1, 2, 3)))
+csv = Input(MockDuckDbValues((1, 2, 3)))
 
 
 @node(inputs=csv)

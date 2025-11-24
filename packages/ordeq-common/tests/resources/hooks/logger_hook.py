@@ -1,10 +1,10 @@
-from ordeq import IO, node, run
-from ordeq_common import Literal, LoggerHook
+from ordeq import IO, Input, node, run
+from ordeq_common import LoggerHook
 
 logger = LoggerHook()
 
 
-@node(inputs=Literal("name"), outputs=IO())
+@node(inputs=Input("name"), outputs=IO())
 def hello(name: str) -> str:
     return f"Hello, {name}!"
 

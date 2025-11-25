@@ -111,8 +111,8 @@ class Node(Generic[FuncParams, FuncReturns]):
         return None
 
     @property
-    def type(self) -> Literal["Node", "View"]:
-        return type(self).__name__  # type: ignore[invalid-return-type]
+    def type_name(self) -> Literal["Node", "View"]:
+        return type(self).__name__  # type: ignore[return-value]
 
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]

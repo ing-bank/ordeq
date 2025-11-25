@@ -82,14 +82,14 @@ WARNING	ordeq.preview	Resources are in preview mode and may change without notic
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.runner	Running node 'produce' in module '__main__'
-INFO	ordeq.io	Saving 'csv_pandas' in module '__main__'
-DEBUG	ordeq.io	Persisting data for 'csv_pandas' in module '__main__'
-INFO	ordeq.io	Loading 'csv_polars' in module '__main__'
-DEBUG	ordeq.io	Persisting data for 'csv_polars' in module '__main__'
+INFO	ordeq.io	Saving PandasCSV(path=Path('<TEMP_DIR>/my.csv'))
+DEBUG	ordeq.io	Persisting data for PandasCSV(path=Path('<TEMP_DIR>/my.csv'))
+INFO	ordeq.io	Loading PolarsEagerCSV(path=Path('<TEMP_DIR>/my.csv'))
+DEBUG	ordeq.io	Persisting data for PolarsEagerCSV(path=Path('<TEMP_DIR>/my.csv'))
 INFO	ordeq.runner	Running view 'check' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for 'csv_pandas' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for 'csv_polars' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for PandasCSV(path=Path('<TEMP_DIR>/my.csv'))
+DEBUG	ordeq.io	Unpersisting data for PolarsEagerCSV(path=Path('<TEMP_DIR>/my.csv'))
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 
 ```

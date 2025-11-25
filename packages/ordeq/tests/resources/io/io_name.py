@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 
 from ordeq import IO, Input, Output
+from ordeq._fqn import FQN
 
-a = Input()
-b = Output()
-c = IO()
+a = Input[str]()
+b = Output[str]()
+c = IO[str]()
 
 assert a._name is None
 assert b._name is None
@@ -13,6 +14,8 @@ assert c._name is None
 a.__dict__["_name"] = "input_a"
 print("Expect input_a")
 print(a._name)
+print("Expect Input(id=...):")
+print(a)
 
 
 @dataclass(frozen=True)
@@ -27,9 +30,9 @@ class ExampleIO(IO[str]):
 example_io = ExampleIO()
 assert example_io._name is None
 
-example_io.__dict__["_name"] = "example_io"
-print("Expect example_io")
-print(example_io._name)
+example_io._set_fqn(FQN(__name__, "_example"))
+print(f"Expect 'example_io' in '{__name__}':")
+print(example_io)
 
 print("Check if logging outputs name on load and save:")
 example_io.load()

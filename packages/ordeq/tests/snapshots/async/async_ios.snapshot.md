@@ -27,27 +27,27 @@ graph TB
 		L02@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> example_async.async_ios:process_slow_string
-	example_async.async_ios:process_slow_string --> IO1
-	IO2 --> example_async.async_ios:process_fast_string
-	example_async.async_ios:process_fast_string --> IO3
-	IO1 --> example_async.async_ios:combine_results
-	IO3 --> example_async.async_ios:combine_results
-	example_async.async_ios:combine_results --> IO4
+	example_async.async_ios:slow_string_io --> example_async.async_ios:process_slow_string
+	example_async.async_ios:process_slow_string --> example_async.async_ios:slow_result
+	example_async.async_ios:fast_string_io --> example_async.async_ios:process_fast_string
+	example_async.async_ios:process_fast_string --> example_async.async_ios:fast_result
+	example_async.async_ios:slow_result --> example_async.async_ios:combine_results
+	example_async.async_ios:fast_result --> example_async.async_ios:combine_results
+	example_async.async_ios:combine_results --> example_async.async_ios:combined_result
 
 	example_async.async_ios:process_slow_string@{shape: rounded, label: "process_slow_string"}
 	example_async.async_ios:process_fast_string@{shape: rounded, label: "process_fast_string"}
 	example_async.async_ios:combine_results@{shape: rounded, label: "combine_results"}
-	IO1@{shape: rect, label: "slow_result"}
-	IO3@{shape: rect, label: "fast_result"}
-	IO0@{shape: rect, label: "slow_string_io"}
-	IO2@{shape: rect, label: "fast_string_io"}
-	IO4@{shape: rect, label: "combined_result"}
+	example_async.async_ios:fast_result@{shape: rect, label: "fast_result"}
+	example_async.async_ios:slow_result@{shape: rect, label: "slow_result"}
+	example_async.async_ios:combined_result@{shape: rect, label: "combined_result"}
+	example_async.async_ios:fast_string_io@{shape: rect, label: "fast_string_io"}
+	example_async.async_ios:slow_string_io@{shape: rect, label: "slow_string_io"}
 
 	class L0,example_async.async_ios:process_slow_string,example_async.async_ios:process_fast_string,example_async.async_ios:combine_results node
-	class L00,IO0,IO2 io0
-	class L01,IO3 io1
-	class L02,IO1,IO4 io2
+	class L00,example_async.async_ios:fast_string_io,example_async.async_ios:slow_string_io io0
+	class L01,example_async.async_ios:fast_result io1
+	class L02,example_async.async_ios:slow_result,example_async.async_ios:combined_result io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

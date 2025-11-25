@@ -23,15 +23,15 @@ graph TB
 		L00@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> example_1.nodes:world
-	example_1.nodes:world --> IO1
+	example_1.nodes:x --> example_1.nodes:world
+	example_1.nodes:world --> example_1.nodes:y
 
 	example_1.nodes:world@{shape: rounded, label: "world"}
-	IO0@{shape: rect, label: "x"}
-	IO1@{shape: rect, label: "y"}
+	example_1.nodes:x@{shape: rect, label: "x"}
+	example_1.nodes:y@{shape: rect, label: "y"}
 
 	class L0,example_1.nodes:world node
-	class L00,IO0,IO1 io0
+	class L00,example_1.nodes:x,example_1.nodes:y io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

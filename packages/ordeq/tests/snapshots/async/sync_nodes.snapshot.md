@@ -20,16 +20,16 @@ graph TB
 		L00@{shape: rect, label: "StringBuffer"}
 	end
 
-	example_async.sync_nodes:write_buffer_1 --> IO0
-	example_async.sync_nodes:write_buffer_2 --> IO1
+	example_async.sync_nodes:write_buffer_1 --> example_async.sync_nodes:buffer_1
+	example_async.sync_nodes:write_buffer_2 --> example_async.sync_nodes:buffer_2
 
 	example_async.sync_nodes:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.sync_nodes:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
-	IO0@{shape: rect, label: "buffer_1"}
-	IO1@{shape: rect, label: "buffer_2"}
+	example_async.sync_nodes:buffer_1@{shape: rect, label: "buffer_1"}
+	example_async.sync_nodes:buffer_2@{shape: rect, label: "buffer_2"}
 
 	class L0,example_async.sync_nodes:write_buffer_1,example_async.sync_nodes:write_buffer_2 node
-	class L00,IO0,IO1 io0
+	class L00,example_async.sync_nodes:buffer_1,example_async.sync_nodes:buffer_2 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

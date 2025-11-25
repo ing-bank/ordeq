@@ -34,15 +34,15 @@ graph TB
 		L00@{shape: rect, label: "Input"}
 	end
 
-	IO0 --> __main__:dependent_node
+	__main__:A --> __main__:dependent_node
 
 	__main__:my_node@{shape: subroutine, label: "my_node"}
 	__main__:dependent_node@{shape: subroutine, label: "dependent_node"}
-	IO0@{shape: rect, label: "A"}
+	__main__:A@{shape: rect, label: "A"}
 
 	class L0 node
 	class L2,__main__:my_node,__main__:dependent_node view
-	class L00,IO0 io0
+	class L00,__main__:A io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

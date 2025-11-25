@@ -31,22 +31,22 @@ graph TB
 		L02@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> example_1.nodes:world
-	example_1.nodes:world --> IO1
-	IO2 --> example_2.nodes:transform_input_2
-	example_2.nodes:transform_input_2 --> IO3
+	example_1.nodes:x --> example_1.nodes:world
+	example_1.nodes:world --> example_1.nodes:y
+	example_2.nodes:TestInput2 --> example_2.nodes:transform_input_2
+	example_2.nodes:transform_input_2 --> example_2.nodes:TestOutput2
 
 	example_1.nodes:world@{shape: rounded, label: "world"}
 	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
-	IO0@{shape: rect, label: "x"}
-	IO1@{shape: rect, label: "y"}
-	IO2@{shape: rect, label: "TestInput2"}
-	IO3@{shape: rect, label: "TestOutput2"}
+	example_1.nodes:x@{shape: rect, label: "x"}
+	example_1.nodes:y@{shape: rect, label: "y"}
+	example_2.nodes:TestInput2@{shape: rect, label: "TestInput2"}
+	example_2.nodes:TestOutput2@{shape: rect, label: "TestOutput2"}
 
 	class L0,example_1.nodes:world,example_2.nodes:transform_input_2 node
-	class L00,IO2 io0
-	class L01,IO3 io1
-	class L02,IO0,IO1 io2
+	class L00,example_2.nodes:TestInput2 io0
+	class L01,example_2.nodes:TestOutput2 io1
+	class L02,example_1.nodes:x,example_1.nodes:y io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

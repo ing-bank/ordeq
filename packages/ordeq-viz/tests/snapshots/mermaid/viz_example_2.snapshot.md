@@ -21,19 +21,19 @@ graph TB
 		L01@{shape: rect, label: "Output"}
 	end
 
-	IO0 --> example_2.nodes:transform_input_2
-	example_2.nodes:transform_input_2 --> IO1
+	example_2.nodes:TestInput2 --> example_2.nodes:transform_input_2
+	example_2.nodes:transform_input_2 --> example_2.nodes:TestOutput2
 
 	subgraph s0["example_2.nodes"]
 		direction TB
 		example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
 	end
-	IO0@{shape: rect, label: "TestInput2"}
-	IO1@{shape: rect, label: "TestOutput2"}
+	example_2.nodes:TestInput2@{shape: rect, label: "TestInput2"}
+	example_2.nodes:TestOutput2@{shape: rect, label: "TestOutput2"}
 
 	class L0,example_2.nodes:transform_input_2 node
-	class L00,IO0 io0
-	class L01,IO1 io1
+	class L00,example_2.nodes:TestInput2 io0
+	class L01,example_2.nodes:TestOutput2 io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

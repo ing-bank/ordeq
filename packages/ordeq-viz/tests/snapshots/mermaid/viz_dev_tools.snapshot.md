@@ -26,51 +26,51 @@ graph TB
 		L05@{shape: rect, label: "TextLinesStream"}
 	end
 
-	IO0 --> ordeq_dev_tools.pipelines.generate_release_notes:tags
-	ordeq_dev_tools.pipelines.generate_release_notes:tags --> ordeq_dev_tools.pipelines.generate_release_notes:latest_tag
-	ordeq_dev_tools.pipelines.generate_release_notes:latest_tag --> ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag
-	ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag --> ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes
-	ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes --> ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files
-	ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes --> ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
-	ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files --> ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
-	IO0 --> ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
-	ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits --> ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs
-	ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels
-	ordeq_dev_tools.pipelines.generate_release_notes:latest_tag --> ordeq_dev_tools.pipelines.generate_release_notes:latest_version
-	ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels --> ordeq_dev_tools.pipelines.generate_release_notes:bump_type
-	ordeq_dev_tools.pipelines.generate_release_notes:latest_version --> ordeq_dev_tools.pipelines.generate_release_notes:bump_version
-	ordeq_dev_tools.pipelines.generate_release_notes:bump_type --> ordeq_dev_tools.pipelines.generate_release_notes:bump_version
-	ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits --> ordeq_dev_tools.pipelines.generate_release_notes:changes
-	ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag --> ordeq_dev_tools.pipelines.generate_release_notes:changes
-	ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs --> ordeq_dev_tools.pipelines.generate_release_notes:changes
-	IO0 --> ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
-	ordeq_dev_tools.pipelines.generate_release_notes:bump_version --> ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
-	ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag --> IO1
-	ordeq_dev_tools.pipelines.generate_release_notes:changes --> ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
-	ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes --> IO2
-	ordeq_dev_tools.pipelines.docs_update_just:just_output --> ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
-	IO3 --> ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
-	ordeq_dev_tools.pipelines.docs_update_just:docs_just_section --> ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
-	ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section --> IO4
-	ordeq_dev_tools.pipelines.list_changed_packages:changed_files --> ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
-	ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> IO5
-	IO6 --> ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
-	ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> IO7
-	IO7 --> ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies
-	ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> IO8
-	IO7 --> ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
-	ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram --> IO9
-	ordeq_dev_tools.pipelines.shared:packages --> ordeq_dev_tools.pipelines.docs_package_overview:groups
-	ordeq_dev_tools.pipelines.docs_package_overview:groups --> ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
-	ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> IO10
-	ordeq_dev_tools.pipelines.shared:packages --> ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
-	ordeq_dev_tools.pipelines.generate_draft_releases:new_releases --> ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
-	ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases --> ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
-	ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> IO11
-	IO12 --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
-	IO13 --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
-	ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> IO14
-	ordeq_dev_tools.pipelines.shared:packages --> ordeq_dev_tools.pipelines.validate_pyproject:groups
+	ordeq_dev_tools.pipelines.generate_release_notes:package --> ordeq_dev_tools.pipelines.generate_release_notes:tags
+	unknown_44 --> ordeq_dev_tools.pipelines.generate_release_notes:latest_tag
+	unknown_46 --> ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag
+	unknown_48 --> ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes
+	unknown_50 --> ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files
+	unknown_52 --> ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
+	unknown_53 --> ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
+	ordeq_dev_tools.pipelines.generate_release_notes:package --> ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits
+	unknown_55 --> ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs
+	unknown_57 --> ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels
+	unknown_61 --> ordeq_dev_tools.pipelines.generate_release_notes:latest_version
+	unknown_63 --> ordeq_dev_tools.pipelines.generate_release_notes:bump_type
+	unknown_73 --> ordeq_dev_tools.pipelines.generate_release_notes:bump_version
+	unknown_74 --> ordeq_dev_tools.pipelines.generate_release_notes:bump_version
+	unknown_76 --> ordeq_dev_tools.pipelines.generate_release_notes:changes
+	unknown_77 --> ordeq_dev_tools.pipelines.generate_release_notes:changes
+	unknown_78 --> ordeq_dev_tools.pipelines.generate_release_notes:changes
+	ordeq_dev_tools.pipelines.generate_release_notes:package --> ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
+	unknown_86 --> ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag
+	ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag --> ordeq_dev_tools.pipelines.generate_release_notes:new_tag
+	unknown_87 --> ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes
+	ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes --> ordeq_dev_tools.pipelines.generate_release_notes:release_notes
+	unknown_68 --> ordeq_dev_tools.pipelines.docs_update_just:docs_just_section
+	ordeq_dev_tools.pipelines.docs_update_just:docs_file --> ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+	unknown_82 --> ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section
+	ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section --> ordeq_dev_tools.pipelines.docs_update_just:updated_docs_file
+	unknown_80 --> ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages
+	ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages --> ordeq_dev_tools.pipelines.list_changed_packages:changed_packages
+	ordeq_dev_tools.pipelines.list_dependencies:lock_file --> ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
+	ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> ordeq_dev_tools.pipelines.list_dependencies:dependencies
+	ordeq_dev_tools.pipelines.list_dependencies:dependencies --> ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies
+	ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> ordeq_dev_tools.pipelines.list_dependencies:affected_dependencies
+	ordeq_dev_tools.pipelines.list_dependencies:dependencies --> ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
+	ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram --> ordeq_dev_tools.pipelines.list_dependencies:diagram
+	unknown_66 --> ordeq_dev_tools.pipelines.docs_package_overview:groups
+	unknown_81 --> ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
+	ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> ordeq_dev_tools.pipelines.docs_package_overview:package_overview
+	unknown_71 --> ordeq_dev_tools.pipelines.generate_draft_releases:new_releases
+	unknown_83 --> ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+	unknown_84 --> ordeq_dev_tools.pipelines.generate_draft_releases:create_releases
+	ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> ordeq_dev_tools.pipelines.viz_self:ordeq_dev_tools_diagram
+	ordeq_dev_tools.pipelines.relevant_packages:packages --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+	ordeq_dev_tools.pipelines.relevant_packages:affected_dependencies --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
+	ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> ordeq_dev_tools.pipelines.relevant_packages:relevant_packages
+	unknown_88 --> ordeq_dev_tools.pipelines.validate_pyproject:groups
 
 	subgraph s0["ordeq_dev_tools.pipelines.generate_release_notes"]
 		direction TB
@@ -109,7 +109,7 @@ graph TB
 		ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies@{shape: rounded, label: "parse_dependencies"}
 		ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies@{shape: rounded, label: "compute_affected_dependencies"}
 		ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram@{shape: rounded, label: "generate_mermaid_diagram"}
-		IO7@{shape: rect, label: "dependencies"}
+		ordeq_dev_tools.pipelines.list_dependencies:dependencies@{shape: rect, label: "dependencies"}
 	end
 	subgraph s5["ordeq_dev_tools.pipelines.docs_package_overview"]
 		direction TB
@@ -134,29 +134,55 @@ graph TB
 		direction TB
 		ordeq_dev_tools.pipelines.validate_pyproject:groups@{shape: subroutine, label: "groups"}
 	end
-	IO0@{shape: rect, label: "package"}
-	IO1@{shape: rect, label: "new_tag"}
-	IO10@{shape: rect, label: "package_overview"}
-	IO11@{shape: rect, label: "ordeq_dev_tools_diagram"}
-	IO12@{shape: rect, label: "packages"}
-	IO13@{shape: rect, label: "affected_dependencies"}
-	IO14@{shape: rect, label: "relevant_packages"}
-	IO2@{shape: rect, label: "release_notes"}
-	IO3@{shape: rect, label: "docs_file"}
-	IO4@{shape: rect, label: "updated_docs_file"}
-	IO5@{shape: rect, label: "changed_packages"}
-	IO6@{shape: rect, label: "lock_file"}
-	IO8@{shape: rect, label: "affected_dependencies"}
-	IO9@{shape: rect, label: "diagram"}
+	ordeq_dev_tools.pipelines.docs_package_overview:package_overview@{shape: rect, label: "package_overview"}
+	ordeq_dev_tools.pipelines.docs_update_just:docs_file@{shape: rect, label: "docs_file"}
+	ordeq_dev_tools.pipelines.docs_update_just:updated_docs_file@{shape: rect, label: "updated_docs_file"}
+	ordeq_dev_tools.pipelines.generate_release_notes:new_tag@{shape: rect, label: "new_tag"}
+	ordeq_dev_tools.pipelines.generate_release_notes:package@{shape: rect, label: "package"}
+	ordeq_dev_tools.pipelines.generate_release_notes:release_notes@{shape: rect, label: "release_notes"}
+	ordeq_dev_tools.pipelines.list_changed_packages:changed_packages@{shape: rect, label: "changed_packages"}
+	ordeq_dev_tools.pipelines.list_dependencies:affected_dependencies@{shape: rect, label: "affected_dependencies"}
+	ordeq_dev_tools.pipelines.list_dependencies:diagram@{shape: rect, label: "diagram"}
+	ordeq_dev_tools.pipelines.list_dependencies:lock_file@{shape: rect, label: "lock_file"}
+	ordeq_dev_tools.pipelines.relevant_packages:affected_dependencies@{shape: rect, label: "affected_dependencies"}
+	ordeq_dev_tools.pipelines.relevant_packages:packages@{shape: rect, label: "packages"}
+	ordeq_dev_tools.pipelines.relevant_packages:relevant_packages@{shape: rect, label: "relevant_packages"}
+	ordeq_dev_tools.pipelines.viz_self:ordeq_dev_tools_diagram@{shape: rect, label: "ordeq_dev_tools_diagram"}
+	unknown_44@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_46@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_48@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_50@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_52@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_53@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_55@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_57@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_61@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_63@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_66@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_68@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_71@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_73@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_74@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_76@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_77@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_78@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_80@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_81@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_82@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_83@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_84@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_86@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_87@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_88@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0,ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag,ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes,ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section,ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages,ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies,ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies,ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram,ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group,ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools,ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages node
 	class L2,ordeq_dev_tools.pipelines.generate_release_notes:tags,ordeq_dev_tools.pipelines.generate_release_notes:latest_tag,ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag,ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes,ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files,ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits,ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs,ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels,ordeq_dev_tools.pipelines.generate_release_notes:latest_version,ordeq_dev_tools.pipelines.generate_release_notes:bump_type,ordeq_dev_tools.pipelines.generate_release_notes:bump_version,ordeq_dev_tools.pipelines.generate_release_notes:changes,ordeq_dev_tools.pipelines.shared:packages,ordeq_dev_tools.pipelines.docs_update_just:just_output,ordeq_dev_tools.pipelines.docs_update_just:docs_just_section,ordeq_dev_tools.pipelines.list_changed_packages:changed_files,ordeq_dev_tools.pipelines.docs_package_overview:groups,ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases,ordeq_dev_tools.pipelines.generate_draft_releases:new_releases,ordeq_dev_tools.pipelines.generate_draft_releases:create_releases,ordeq_dev_tools.pipelines.validate_pyproject:groups view
-	class L00,IO1,IO2 io0
-	class L01,IO0 io1
-	class L02,IO7,IO12,IO13,IO14,IO5,IO8 io2
-	class L03,IO6 io3
-	class L04,IO11,IO3,IO4,IO9 io4
-	class L05,IO10 io5
+	class L00,ordeq_dev_tools.pipelines.generate_release_notes:new_tag,ordeq_dev_tools.pipelines.generate_release_notes:release_notes,unknown_44,unknown_46,unknown_48,unknown_50,unknown_52,unknown_53,unknown_55,unknown_57,unknown_61,unknown_63,unknown_66,unknown_68,unknown_71,unknown_73,unknown_74,unknown_76,unknown_77,unknown_78,unknown_80,unknown_81,unknown_82,unknown_83,unknown_84,unknown_86,unknown_87,unknown_88 io0
+	class L01,ordeq_dev_tools.pipelines.generate_release_notes:package io1
+	class L02,ordeq_dev_tools.pipelines.list_dependencies:dependencies,ordeq_dev_tools.pipelines.list_changed_packages:changed_packages,ordeq_dev_tools.pipelines.list_dependencies:affected_dependencies,ordeq_dev_tools.pipelines.relevant_packages:affected_dependencies,ordeq_dev_tools.pipelines.relevant_packages:packages,ordeq_dev_tools.pipelines.relevant_packages:relevant_packages io2
+	class L03,ordeq_dev_tools.pipelines.list_dependencies:lock_file io3
+	class L04,ordeq_dev_tools.pipelines.docs_update_just:docs_file,ordeq_dev_tools.pipelines.docs_update_just:updated_docs_file,ordeq_dev_tools.pipelines.list_dependencies:diagram,ordeq_dev_tools.pipelines.viz_self:ordeq_dev_tools_diagram io4
+	class L05,ordeq_dev_tools.pipelines.docs_package_overview:package_overview io5
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

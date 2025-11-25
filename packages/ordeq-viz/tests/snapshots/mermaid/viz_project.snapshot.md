@@ -24,24 +24,24 @@ graph TB
 		L03@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> example_project.nodes_with_view:greet
-	example_project.nodes_with_view:greet --> example_project.nodes_with_view:farewell
-	example_project.nodes_with_view:farewell --> IO1
-	IO2 --> example_project.inner.nodes:func
-	example_project.inner.nodes:func --> IO3
-	IO4 --> example_project.nodes:func
-	example_project.nodes:func --> IO5
-	IO6 --> example_project.nodes_import:func_a
-	IO7 --> example_project.nodes_import:func_a
-	example_project.nodes_import:func_a --> IO8
-	IO6 --> example_project.nodes_import:func_b
-	IO7 --> example_project.nodes_import:func_b
-	example_project.nodes_import:func_b --> IO9
-	IO6 --> example_project.nodes_import_alias:func
-	IO7 --> example_project.nodes_import_alias:func
-	example_project.nodes_import_alias:func --> IO10
-	IO11 --> example_project.nodes_with_inline_io:greet
-	example_project.nodes_with_inline_io:greet --> IO12
+	example_project.nodes_with_view:greeting --> example_project.nodes_with_view:greet
+	unknown_113 --> example_project.nodes_with_view:farewell
+	example_project.nodes_with_view:farewell --> example_project.nodes_with_view:printer
+	example_project.inner.nodes:x --> example_project.inner.nodes:func
+	example_project.inner.nodes:func --> example_project.inner.nodes:y
+	example_project.nodes:x --> example_project.nodes:func
+	example_project.nodes:func --> example_project.nodes:y
+	unknown_103 --> example_project.nodes_import:func_a
+	unknown_104 --> example_project.nodes_import:func_a
+	example_project.nodes_import:func_a --> unknown_105
+	unknown_106 --> example_project.nodes_import:func_b
+	unknown_107 --> example_project.nodes_import:func_b
+	example_project.nodes_import:func_b --> example_project.catalog_2:g
+	unknown_108 --> example_project.nodes_import_alias:func
+	unknown_109 --> example_project.nodes_import_alias:func
+	example_project.nodes_import_alias:func --> unknown_110
+	unknown_111 --> example_project.nodes_with_inline_io:greet
+	example_project.nodes_with_inline_io:greet --> unknown_112
 
 	example_project.nodes_with_view:greet@{shape: subroutine, label: "greet"}
 	example_project.nodes_with_view:farewell@{shape: rounded, label: "farewell"}
@@ -51,26 +51,31 @@ graph TB
 	example_project.nodes_import:func_b@{shape: rounded, label: "func_b"}
 	example_project.nodes_import_alias:func@{shape: rounded, label: "func"}
 	example_project.nodes_with_inline_io:greet@{shape: rounded, label: "greet"}
-	IO0@{shape: rect, label: "greeting"}
-	IO1@{shape: rect, label: "printer"}
-	IO10@{shape: rect, label: "h"}
-	IO11@{shape: rect, label: "&lt;anonymous&gt;"}
-	IO12@{shape: rect, label: "&lt;anonymous&gt;"}
-	IO2@{shape: rect, label: "x"}
-	IO3@{shape: rect, label: "y"}
-	IO4@{shape: rect, label: "x"}
-	IO5@{shape: rect, label: "y"}
-	IO6@{shape: rect, label: "a"}
-	IO7@{shape: rect, label: "b"}
-	IO8@{shape: rect, label: "f"}
-	IO9@{shape: rect, label: "g"}
+	example_project.catalog_2:g@{shape: rect, label: "g"}
+	example_project.inner.nodes:x@{shape: rect, label: "x"}
+	example_project.inner.nodes:y@{shape: rect, label: "y"}
+	example_project.nodes:x@{shape: rect, label: "x"}
+	example_project.nodes:y@{shape: rect, label: "y"}
+	example_project.nodes_with_view:greeting@{shape: rect, label: "greeting"}
+	example_project.nodes_with_view:printer@{shape: rect, label: "printer"}
+	unknown_103@{shape: rect, label: "a"}
+	unknown_104@{shape: rect, label: "b"}
+	unknown_105@{shape: rect, label: "f"}
+	unknown_106@{shape: rect, label: "a"}
+	unknown_107@{shape: rect, label: "b"}
+	unknown_108@{shape: rect, label: "a"}
+	unknown_109@{shape: rect, label: "b"}
+	unknown_110@{shape: rect, label: "h"}
+	unknown_111@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_112@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_113@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0,example_project.nodes_with_view:farewell,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_a,example_project.nodes_import:func_b,example_project.nodes_import_alias:func,example_project.nodes_with_inline_io:greet node
 	class L2,example_project.nodes_with_view:greet view
-	class L00,IO12,IO2,IO4 io0
-	class L01,IO0,IO11,IO6 io1
-	class L02,IO1,IO10,IO3,IO5,IO8,IO9 io2
-	class L03,IO7 io3
+	class L00,example_project.inner.nodes:x,example_project.nodes:x,unknown_112,unknown_113 io0
+	class L01,example_project.nodes_with_view:greeting,unknown_103,unknown_106,unknown_108,unknown_111 io1
+	class L02,example_project.catalog_2:g,example_project.inner.nodes:y,example_project.nodes:y,example_project.nodes_with_view:printer,unknown_105,unknown_110 io2
+	class L03,unknown_104,unknown_107,unknown_109 io3
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

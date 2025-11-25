@@ -54,19 +54,21 @@ graph TB
 		L01@{shape: rect, label: "Input"}
 	end
 
-	IO0 --> __main__:txs_agg
-	__main__:txs_agg --> __main__:perform_check
-	__main__:txs_agg --> __main__:print_agg
+	__main__:txs --> __main__:txs_agg
+	unknown_3 --> __main__:perform_check
+	unknown_5 --> __main__:print_agg
 
 	__main__:txs_agg@{shape: subroutine, label: "txs_agg"}
 	__main__:perform_check@{shape: subroutine, label: "perform_check"}
 	__main__:print_agg@{shape: subroutine, label: "print_agg"}
-	IO0@{shape: rect, label: "txs"}
+	__main__:txs@{shape: rect, label: "txs"}
+	unknown_3@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_5@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0 node
 	class L2,__main__:txs_agg,__main__:perform_check,__main__:print_agg view
-	class L00 io0
-	class L01,IO0 io1
+	class L00,unknown_3,unknown_5 io0
+	class L01,__main__:txs io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

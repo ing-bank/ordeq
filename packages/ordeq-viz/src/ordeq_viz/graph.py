@@ -16,22 +16,25 @@ class NodeData:
     node: Node
     name: str
     module: str
-    inputs: list[int]
-    outputs: list[int]
+    inputs: list[str]
+    outputs: list[str]
     view: bool
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass
 class IOData:
-    id: int
+    id: str
     dataset: AnyIO
     name: str
     type: str
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
-def _add_io_data(dataset: AnyIO, io_data, store: bool) -> int:
+n_unknown = 0
+
+
+def _add_io_data(dataset: AnyIO, io_data, store: bool) -> str:
     """Add IOData for a dataset to the io_data dictionary.
 
     Args:
@@ -42,7 +45,13 @@ def _add_io_data(dataset: AnyIO, io_data, store: bool) -> int:
     Returns:
         The ID of the dataset in the io_data dictionary.
     """
-    dataset_id: IOIdentity = id(dataset)
+    global n_unknown  # noqa: PLW0603
+    if dataset.is_fq:
+        dataset_id = FQN(*dataset._fqn).ref  # noqa: SLF001
+    else:
+        dataset_id = f"unknown_{n_unknown}"
+        n_unknown += 1
+
     if store:
         if dataset_id not in io_data:
             io_data[dataset_id] = IOData(
@@ -55,7 +64,12 @@ def _add_io_data(dataset: AnyIO, io_data, store: bool) -> int:
         # Handle wrapped datasets
         for wrapped_attribute in dataset.references.values():
             for wrapped_dataset in wrapped_attribute:
-                wrapped_id = id(wrapped_dataset)
+                if wrapped_dataset.is_fq:
+                    wrapped_id = FQN(*wrapped_dataset._fqn).ref  # noqa: SLF001
+                else:
+                    wrapped_id = f"unknown_{n_unknown}"
+                    n_unknown += 1
+
                 if wrapped_id not in io_data:
                     io_data[wrapped_id] = IOData(
                         id=wrapped_id,

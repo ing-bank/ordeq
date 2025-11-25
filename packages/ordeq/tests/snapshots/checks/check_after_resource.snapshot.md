@@ -44,18 +44,18 @@ graph TB
 		L01@{shape: rect, label: "PolarsEagerCSV"}
 	end
 
-	__main__:produce --> IO0
-	IO1 --> __main__:check
+	__main__:produce --> __main__:csv_pandas
+	__main__:csv_polars --> __main__:check
 
 	__main__:produce@{shape: rounded, label: "produce"}
 	__main__:check@{shape: subroutine, label: "check"}
-	IO0@{shape: rect, label: "csv_pandas"}
-	IO1@{shape: rect, label: "csv_polars"}
+	__main__:csv_pandas@{shape: rect, label: "csv_pandas"}
+	__main__:csv_polars@{shape: rect, label: "csv_polars"}
 
 	class L0,__main__:produce node
 	class L2,__main__:check view
-	class L00,IO0 io0
-	class L01,IO1 io1
+	class L00,__main__:csv_pandas io0
+	class L01,__main__:csv_polars io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

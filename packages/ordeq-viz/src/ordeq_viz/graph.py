@@ -5,7 +5,7 @@ from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import FQN
-from ordeq._graph import IOIdentity, NodeGraph
+from ordeq._graph import NodeGraph
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
 
@@ -44,19 +44,8 @@ class UnknownCounter:
 def _add_io_data(
     dataset: AnyIO, io_data, store: bool, unknown_counter: UnknownCounter
 ) -> str:
-    """Add IOData for a dataset to the io_data dictionary.
-
-    Args:
-        dataset: the dataset (Input or Output)
-        io_data: a dictionary to store IOData objects
-        store: whether to store the IOData object
-        unknown_counter: counter for generating unknown dataset IDs
-
-    Returns:
-        The ID of the dataset in the io_data dictionary.
-    """
     if dataset.is_fq:
-        dataset_id = dataset.fqn.ref
+        dataset_id = dataset.fqn.ref  # type: ignore[union-attr]
     else:
         dataset_id = unknown_counter.next_id()
 
@@ -73,7 +62,7 @@ def _add_io_data(
         for wrapped_attribute in dataset.references.values():
             for wrapped_dataset in wrapped_attribute:
                 if wrapped_dataset.is_fq:
-                    wrapped_id = wrapped_dataset.fqn.ref
+                    wrapped_id = wrapped_dataset.fqn.ref  # type: ignore[union-attr]
                 else:
                     wrapped_id = unknown_counter.next_id()
 
@@ -92,7 +81,7 @@ def _gather_graph(
 ) -> tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]]:
     node_graph = NodeGraph.from_nodes(nodes)
 
-    io_data: dict[IOIdentity, IOData] = {}
+    io_data: dict[str, IOData] = {}
     unknown_counter = UnknownCounter()
 
     node_modules = defaultdict(list)

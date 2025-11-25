@@ -16,24 +16,24 @@ run(mixed_graph)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "StringBuffer"}
 	end
 
-	example_async.mixed_graph:write_buffer_2 --> IO0
-	example_async.mixed_graph:write_buffer_1 --> IO1
-	IO0 --> example_async.mixed_graph:process_buffer
-	example_async.mixed_graph:process_buffer --> IO2
+	example_async.mixed_graph:write_buffer_2 --> example_async.mixed_graph:buffer_2
+	example_async.mixed_graph:write_buffer_1 --> example_async.mixed_graph:buffer_1
+	example_async.mixed_graph:buffer_2 --> example_async.mixed_graph:process_buffer
+	example_async.mixed_graph:process_buffer --> example_async.mixed_graph:processed_buffer
 
 	example_async.mixed_graph:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
 	example_async.mixed_graph:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.mixed_graph:process_buffer@{shape: rounded, label: "process_buffer"}
-	IO0@{shape: rect, label: "buffer_2"}
-	IO1@{shape: rect, label: "buffer_1"}
-	IO2@{shape: rect, label: "processed_buffer"}
+	example_async.mixed_graph:buffer_2@{shape: rect, label: "buffer_2"}
+	example_async.mixed_graph:buffer_1@{shape: rect, label: "buffer_1"}
+	example_async.mixed_graph:processed_buffer@{shape: rect, label: "processed_buffer"}
 
-	class L0,example_async.mixed_graph:write_buffer_2,example_async.mixed_graph:write_buffer_1,example_async.mixed_graph:process_buffer node
-	class L00,IO0,IO1,IO2 io0
+	class node_type,example_async.mixed_graph:write_buffer_2,example_async.mixed_graph:write_buffer_1,example_async.mixed_graph:process_buffer node
+	class io_type_0,example_async.mixed_graph:buffer_2,example_async.mixed_graph:buffer_1,example_async.mixed_graph:processed_buffer io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

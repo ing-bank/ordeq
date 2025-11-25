@@ -80,7 +80,7 @@ def viz(
         *vizzables, context=context_, node_filter=node_filter
     )
 
-    graph = _gather_graph(nodes, {})
+    graph = _gather_graph(nodes)
 
     match fmt:
         case "kedro-viz":

@@ -45,12 +45,6 @@ def _make_mermaid_header(
     return "\n".join(header_lines) + "\n"
 
 
-def _hash_to_str(obj_id: int, io_names: dict[int, str]) -> str:
-    if obj_id not in io_names:
-        io_names[obj_id] = f"IO{len(io_names)}"
-    return io_names[obj_id]
-
-
 def graph_to_mermaid(
     graph: tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]],
     legend: bool = True,
@@ -89,7 +83,6 @@ def graph_to_mermaid(
             "functionality may break in future releases "
             "without it being considered a breaking change."
         )
-    io_names: dict[int, str] = {}
 
     node_modules, io_modules = graph
 
@@ -109,9 +102,9 @@ def graph_to_mermaid(
         for node in nodes_in_module
         if node.view
     ]
-    io2view = {hash(view.outputs[0]): view for view in views}
+    io2view = {view.outputs[0]: view for view in views}
     io_modules = {
-        module: [ds for ds in datasets if hash(ds.id) not in io2view]
+        module: [ds for ds in datasets if ds.id not in io2view]
         for module, datasets in io_modules.items()
     }
 
@@ -146,7 +139,10 @@ def graph_to_mermaid(
     )
 
     class_definitions = {}
-    if node_data:
+
+    has_nodes = node_data and len(node_data) > len(views)
+
+    if has_nodes:
         class_definitions["node"] = "fill:#008AD7,color:#FFF"
     if dataset_data:
         class_definitions["io"] = "fill:#FFD43B"
@@ -169,25 +165,25 @@ def graph_to_mermaid(
     if legend and node_data:
         data += '\tsubgraph legend["Legend"]\n'
         data += "\t\tdirection TB\n"
-        data += f'\t\tL0@{{shape: {node_shape}, label: "Node"}}\n'
-        if views:
-            data += f'\t\tL2@{{shape: {view_shape}, label: "View"}}\n'
+        if has_nodes:
+            data += f'\t\tnode_type@{{shape: {node_shape}, label: "Node"}}\n'
+            class_assignments["node"].append("node_type")
 
-        class_assignments["node"].append("L0")
         if views:
-            class_assignments["view"].append("L2")
+            data += f'\t\tview_type@{{shape: {view_shape}, label: "View"}}\n'
+            class_assignments["view"].append("view_type")
 
         if dataset_data:
             if not use_dataset_styles:
-                data += f'\t\tL1@{{shape: {io_shape}, label: "IO"}}\n'
-                class_assignments["io"].append("L1")
+                data += f'\t\tio_type@{{shape: {io_shape}, label: "IO"}}\n'
+                class_assignments["io"].append("io_type")
             else:
                 for dataset_type, idx in dataset_type_to_id.items():
                     data += (
-                        f"\t\tL0{idx}@{{shape: {io_shape}, "
+                        f"\t\tio_type_{idx}@{{shape: {io_shape}, "
                         f'label: "{dataset_type}"}}\n'
                     )
-                    class_assignments[f"io{idx}"].append("L0" + str(idx))
+                    class_assignments[f"io{idx}"].append("io_type_" + str(idx))
         data += "\tend\n"
         data += "\n"
 
@@ -199,15 +195,11 @@ def graph_to_mermaid(
                 view_node = io2view[dataset_id]
                 data += f"\t{view_node.id} --> {node.id}\n"
             else:
-                data += (
-                    f"\t{_hash_to_str(dataset_id, io_names)} --> {node.id}\n"
-                )
+                data += f"\t{dataset_id} --> {node.id}\n"
 
         if not node.view:
             for dataset_id in node.outputs:
-                data += (
-                    f"\t{node.id} --> {_hash_to_str(dataset_id, io_names)}\n"
-                )
+                data += f"\t{node.id} --> {dataset_id}\n"
 
     data += "\n"
 
@@ -227,39 +219,31 @@ def graph_to_mermaid(
                 f"@{{shape: {shape}, "
                 f'label: "{html.escape(node.name)}"}}\n'
             )
-            style = "node" if not node.view else "view"
-            class_assignments[style].append(str(node.id))
+            class_name = "node" if not node.view else "view"
+            class_assignments[class_name].append(node.id)
 
-        for io in sorted(
-            io_modules.get(module, []),
-            key=lambda io: _hash_to_str(io.id, io_names),
-        ):
-            if use_dataset_styles:
-                class_assignments[f"io{dataset_type_to_id[io.type]}"].append(
-                    _hash_to_str(io.id, io_names)
-                )
-            else:
-                class_assignments["io"].append(_hash_to_str(io.id, io_names))
-
+        for io in sorted(io_modules.get(module, []), key=lambda io: io.id):
+            class_name = (
+                f"io{dataset_type_to_id[io.type]}"
+                if use_dataset_styles
+                else "io"
+            )
+            class_assignments[class_name].append(io.id)
             data += (
-                f"{tabs}{_hash_to_str(io.id, io_names)}"
+                f"{tabs}{io.id}"
                 f'@{{shape: {io_shape}, label: "{html.escape(io.name)}"}}\n'
             )
         if subgraphs:
             data += "\tend\n"
 
-    for io in sorted(
-        io_modules.get(None, []), key=lambda io: _hash_to_str(io.id, io_names)
-    ):
-        if use_dataset_styles:
-            class_assignments[f"io{dataset_type_to_id[io.type]}"].append(
-                _hash_to_str(io.id, io_names)
-            )
-        else:
-            class_assignments["io"].append(_hash_to_str(io.id, io_names))
+    for io in sorted(io_modules.get(None, []), key=lambda io: io.id):
+        class_name = (
+            f"io{dataset_type_to_id[io.type]}" if use_dataset_styles else "io"
+        )
+        class_assignments[class_name].append(io.id)
 
         data += (
-            f"\t{_hash_to_str(io.id, io_names)}"
+            f"\t{io.id}"
             f'@{{shape: {io_shape}, label: "{html.escape(io.name)}"}}\n'
         )
 

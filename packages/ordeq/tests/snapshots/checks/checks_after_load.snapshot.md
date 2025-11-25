@@ -41,26 +41,23 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Input"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
 	end
 
-	IO0 --> __main__:perform_check
-	IO0 --> __main__:txs_agg
+	__main__:txs --> __main__:perform_check
+	__main__:txs --> __main__:txs_agg
 	__main__:txs_agg --> __main__:print_agg
 
 	__main__:perform_check@{shape: subroutine, label: "perform_check"}
 	__main__:txs_agg@{shape: subroutine, label: "txs_agg"}
 	__main__:print_agg@{shape: subroutine, label: "print_agg"}
-	IO0@{shape: rect, label: "txs"}
+	__main__:txs@{shape: rect, label: "txs"}
 
-	class L0 node
-	class L2,__main__:perform_check,__main__:txs_agg,__main__:print_agg view
-	class L00 io0
-	class L01,IO0 io1
-	classDef node fill:#008AD7,color:#FFF
+	class view_type,__main__:perform_check,__main__:txs_agg,__main__:print_agg view
+	class io_type_0 io0
+	class io_type_1,__main__:txs io1
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
 	classDef io0 fill:#66c2a5

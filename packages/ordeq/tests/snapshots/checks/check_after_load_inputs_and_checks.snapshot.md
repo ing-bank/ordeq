@@ -41,27 +41,27 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Input"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
 	end
 
-	IO0 --> __main__:agg_txs
-	__main__:agg_txs --> IO1
-	IO1 --> __main__:perform_check
-	IO2 --> __main__:perform_check
+	__main__:txs --> __main__:agg_txs
+	__main__:agg_txs --> __main__:txs_agg
+	__main__:txs_agg --> __main__:perform_check
+	__main__:threshold --> __main__:perform_check
 
 	__main__:agg_txs@{shape: rounded, label: "agg_txs"}
 	__main__:perform_check@{shape: subroutine, label: "perform_check"}
-	IO1@{shape: rect, label: "txs_agg"}
-	IO0@{shape: rect, label: "txs"}
-	IO2@{shape: rect, label: "threshold"}
+	__main__:txs_agg@{shape: rect, label: "txs_agg"}
+	__main__:threshold@{shape: rect, label: "threshold"}
+	__main__:txs@{shape: rect, label: "txs"}
 
-	class L0,__main__:agg_txs node
-	class L2,__main__:perform_check view
-	class L00,IO1 io0
-	class L01,IO0,IO2 io1
+	class node_type,__main__:agg_txs node
+	class view_type,__main__:perform_check view
+	class io_type_0,__main__:txs_agg io0
+	class io_type_1,__main__:threshold,__main__:txs io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

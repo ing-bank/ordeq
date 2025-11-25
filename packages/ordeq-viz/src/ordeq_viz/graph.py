@@ -12,7 +12,7 @@ from ordeq._resolve import Catalog
 
 @dataclass
 class NodeData:
-    id: int | str
+    id: str
     node: Node
     name: str
     module: str
@@ -47,7 +47,7 @@ def _add_io_data(dataset: AnyIO, io_data, store: bool) -> str:
     """
     global n_unknown  # noqa: PLW0603
     if dataset.is_fq:
-        dataset_id = FQN(*dataset._fqn).ref  # noqa: SLF001
+        dataset_id = FQN(*dataset._fqn).ref  # noqa: SLF001  # type: ignore[arg-type]
     else:
         dataset_id = f"unknown_{n_unknown}"
         n_unknown += 1
@@ -65,7 +65,7 @@ def _add_io_data(dataset: AnyIO, io_data, store: bool) -> str:
         for wrapped_attribute in dataset.references.values():
             for wrapped_dataset in wrapped_attribute:
                 if wrapped_dataset.is_fq:
-                    wrapped_id = FQN(*wrapped_dataset._fqn).ref  # noqa: SLF001
+                    wrapped_id = FQN(*wrapped_dataset._fqn).ref  # noqa: SLF001  # type: ignore[arg-type]
                 else:
                     wrapped_id = f"unknown_{n_unknown}"
                     n_unknown += 1

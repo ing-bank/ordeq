@@ -46,7 +46,7 @@ ModuleNotFoundError: No module named 'example_catalogs.remote.hello'; 'example_c
               ~~~~~~~~~~~~~~~~~~^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    io_subs = _resolve_refs_to_subs(io or {})
+    resolved_subs = _resolve_refs_to_subs(io or {})
 
   File "/packages/ordeq/tests/resources/runner/run_io_wrong_io_reference.py", line LINO, in <module>
     run(uppercase, io={catalog.hello: "example_catalogs.remote.hello"})

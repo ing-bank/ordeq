@@ -246,37 +246,42 @@ def run(
     ```
 
     """
-    context_ = [_resolve_module_name_to_module(context)] if context else []
-
-    nodes_processed = process_nodes_and_ios(
-        *runnables, context=context_, node_filter=node_filter
+    resolved_context = (
+        _resolve_module_name_to_module(context) if context else None
     )
-    graph = NodeGraph.from_nodes(nodes_processed)
+    resolved_run_hooks, resolved_node_hooks = _resolve_refs_to_hooks(*hooks)
+    resolved_subs = _resolve_refs_to_subs(io or {})
+
+    nodes = process_nodes_and_ios(
+        *runnables,
+        context=[resolved_context] if resolved_context else [],
+        node_filter=node_filter,
+    )
+    graph = NodeGraph.from_nodes(nodes)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
     if save in {"none", "sinks"}:
         # Replace relevant outputs with ordeq.IO, that does not save
         save_nodes = (
-            nodes_processed
+            nodes
             if save == "none"
-            else [node for node in nodes_processed if node not in graph.sinks]
+            else [node for node in nodes if node not in graph.sinks]
         )
         for node in save_nodes:
             if not isinstance(node, View):
                 for output in node.outputs:
                     save_mode_patches[output] = IO()
 
-    io_subs = _resolve_refs_to_subs(io or {})
-    user_patches = _substitutes_modules_to_ios(io_subs)
+    user_patches = _substitutes_modules_to_ios(resolved_subs)
     patches = {**user_patches, **save_mode_patches}
     if patches:
-        patched_nodes = _patch_nodes(*nodes_processed, patches=patches)
+        patched_nodes = _patch_nodes(*nodes, patches=patches)
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:
         graph_with_io = NodeIOGraph.from_graph(graph)
         print(graph_with_io)
 
-    run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)
-
-    _run_graph(graph, node_hooks=node_hooks, run_hooks=run_hooks)
+    _run_graph(
+        graph, node_hooks=resolved_node_hooks, run_hooks=resolved_run_hooks
+    )

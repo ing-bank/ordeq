@@ -63,8 +63,12 @@ IOException: Failed to load IO(id=ID1).
     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, node_hooks=node_hooks, run_hooks=run_hooks)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_graph(
+    ~~~~~~~~~~^
+        graph, node_hooks=resolved_node_hooks, run_hooks=resolved_run_hooks
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
 
   File "/packages/ordeq/tests/resources/views/view_takes_node_output.py", line LINO, in <module>
     run(sink, verbose=True)

@@ -101,6 +101,11 @@ class Node(Generic[FuncParams, FuncReturns]):
             return FQN(module=self.module, name=self.name)  # type: ignore[arg-type]
         return None
 
+    @property
+    def type_fqn(self) -> FQN:
+        t = type(self)
+        return FQN(t.__module__, t.__name__)
+
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
 

@@ -142,7 +142,8 @@ def _resolve_refs_to_modules(
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "
-                f"Expected a module or a string, got {type(runnable)}"
+                f"Expected a module or a string, got "
+                f"{type(runnable).__name__}"
             )
 
     # Then, for each module or package, if it's a package, resolve to all its
@@ -194,7 +195,8 @@ def _resolve_hook_refs(*hooks: str | RunnerHook) -> list[RunnerHook]:
         else:
             raise TypeError(
                 f"{hook} is not a valid hook reference. "
-                f"Expected a RunnerHook or a string, got {type(hook)}"
+                f"Expected a RunnerHook or a string, got "
+                f"{type(hook).__name__}"
             )
     return resolved_hooks
 
@@ -264,7 +266,8 @@ def _resolve_runnables_to_nodes_and_modules(
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "
-                f"Expected a module or a node, got {type(runnable)}"
+                f"Expected a module or a node, got "
+                f"{type(runnable).__name__}"
             )
 
     modules = list(_resolve_refs_to_modules(*modules_and_strs))

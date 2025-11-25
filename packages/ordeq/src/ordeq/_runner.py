@@ -153,7 +153,8 @@ def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
         ):
             raise TypeError(
                 f"{runnable} is not something we can run. "
-                f"Expected a module or a node, got {type(runnable)}"
+                f"Expected a module or a node, got "
+                f"{type(runnable).__name__}"
             )
 
 

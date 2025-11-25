@@ -30,10 +30,10 @@ graph TB
 	example_1.wrapped_io:print_message --> example_1.wrapped_io:name_printer
 	example_1.nodes:x --> example_1.nodes:world
 	example_1.nodes:world --> example_1.nodes:y
-	unknown_23 --> example_1.pipeline:transform_input
-	example_1.pipeline:transform_input --> unknown_24
-	unknown_25 --> example_1.pipeline:transform_mock_input
-	example_1.pipeline:transform_mock_input --> unknown_26
+	unknown_0 --> example_1.pipeline:transform_input
+	example_1.pipeline:transform_input --> unknown_1
+	unknown_2 --> example_1.pipeline:transform_mock_input
+	example_1.pipeline:transform_mock_input --> unknown_3
 
 	example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
 	example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
@@ -45,18 +45,18 @@ graph TB
 	example_1.nodes:y@{shape: rect, label: "y"}
 	example_1.wrapped_io:name_generator@{shape: rect, label: "name_generator"}
 	example_1.wrapped_io:name_printer@{shape: rect, label: "name_printer"}
-	unknown_23@{shape: rect, label: "TestInput"}
-	unknown_24@{shape: rect, label: "TestOutput"}
-	unknown_25@{shape: rect, label: "Hello"}
-	unknown_26@{shape: rect, label: "World"}
+	unknown_0@{shape: rect, label: "TestInput"}
+	unknown_1@{shape: rect, label: "TestOutput"}
+	unknown_2@{shape: rect, label: "Hello"}
+	unknown_3@{shape: rect, label: "World"}
 
 	class L0,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input node
-	class L00,unknown_23 io0
-	class L01,unknown_24 io1
+	class L00,unknown_0 io0
+	class L01,unknown_1 io1
 	class L02,example_1.wrapped_io:name_generator io2
 	class L03,example_1.wrapped_io:name_printer io3
 	class L04,example_1.wrapped_io:message io4
-	class L05,example_1.nodes:x,example_1.nodes:y,unknown_25,unknown_26 io5
+	class L05,example_1.nodes:x,example_1.nodes:y,unknown_2,unknown_3 io5
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

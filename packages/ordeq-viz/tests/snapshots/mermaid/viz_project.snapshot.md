@@ -25,23 +25,23 @@ graph TB
 	end
 
 	example_project.nodes_with_view:greeting --> example_project.nodes_with_view:greet
-	unknown_113 --> example_project.nodes_with_view:farewell
+	unknown_11 --> example_project.nodes_with_view:farewell
 	example_project.nodes_with_view:farewell --> example_project.nodes_with_view:printer
 	example_project.inner.nodes:x --> example_project.inner.nodes:func
 	example_project.inner.nodes:func --> example_project.inner.nodes:y
 	example_project.nodes:x --> example_project.nodes:func
 	example_project.nodes:func --> example_project.nodes:y
-	unknown_103 --> example_project.nodes_import:func_a
-	unknown_104 --> example_project.nodes_import:func_a
-	example_project.nodes_import:func_a --> unknown_105
-	unknown_106 --> example_project.nodes_import:func_b
-	unknown_107 --> example_project.nodes_import:func_b
+	unknown_1 --> example_project.nodes_import:func_a
+	unknown_2 --> example_project.nodes_import:func_a
+	example_project.nodes_import:func_a --> unknown_3
+	unknown_4 --> example_project.nodes_import:func_b
+	unknown_5 --> example_project.nodes_import:func_b
 	example_project.nodes_import:func_b --> example_project.catalog_2:g
-	unknown_108 --> example_project.nodes_import_alias:func
-	unknown_109 --> example_project.nodes_import_alias:func
-	example_project.nodes_import_alias:func --> unknown_110
-	unknown_111 --> example_project.nodes_with_inline_io:greet
-	example_project.nodes_with_inline_io:greet --> unknown_112
+	unknown_6 --> example_project.nodes_import_alias:func
+	unknown_7 --> example_project.nodes_import_alias:func
+	example_project.nodes_import_alias:func --> unknown_8
+	unknown_9 --> example_project.nodes_with_inline_io:greet
+	example_project.nodes_with_inline_io:greet --> unknown_10
 
 	example_project.nodes_with_view:greet@{shape: subroutine, label: "greet"}
 	example_project.nodes_with_view:farewell@{shape: rounded, label: "farewell"}
@@ -58,24 +58,24 @@ graph TB
 	example_project.nodes:y@{shape: rect, label: "y"}
 	example_project.nodes_with_view:greeting@{shape: rect, label: "greeting"}
 	example_project.nodes_with_view:printer@{shape: rect, label: "printer"}
-	unknown_103@{shape: rect, label: "a"}
-	unknown_104@{shape: rect, label: "b"}
-	unknown_105@{shape: rect, label: "f"}
-	unknown_106@{shape: rect, label: "a"}
-	unknown_107@{shape: rect, label: "b"}
-	unknown_108@{shape: rect, label: "a"}
-	unknown_109@{shape: rect, label: "b"}
-	unknown_110@{shape: rect, label: "h"}
-	unknown_111@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_112@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_113@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_1@{shape: rect, label: "a"}
+	unknown_10@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_11@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_2@{shape: rect, label: "b"}
+	unknown_3@{shape: rect, label: "f"}
+	unknown_4@{shape: rect, label: "a"}
+	unknown_5@{shape: rect, label: "b"}
+	unknown_6@{shape: rect, label: "a"}
+	unknown_7@{shape: rect, label: "b"}
+	unknown_8@{shape: rect, label: "h"}
+	unknown_9@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0,example_project.nodes_with_view:farewell,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_a,example_project.nodes_import:func_b,example_project.nodes_import_alias:func,example_project.nodes_with_inline_io:greet node
 	class L2,example_project.nodes_with_view:greet view
-	class L00,example_project.inner.nodes:x,example_project.nodes:x,unknown_112,unknown_113 io0
-	class L01,example_project.nodes_with_view:greeting,unknown_103,unknown_106,unknown_108,unknown_111 io1
-	class L02,example_project.catalog_2:g,example_project.inner.nodes:y,example_project.nodes:y,example_project.nodes_with_view:printer,unknown_105,unknown_110 io2
-	class L03,unknown_104,unknown_107,unknown_109 io3
+	class L00,example_project.inner.nodes:x,example_project.nodes:x,unknown_10,unknown_11 io0
+	class L01,example_project.nodes_with_view:greeting,unknown_1,unknown_4,unknown_6,unknown_9 io1
+	class L02,example_project.catalog_2:g,example_project.inner.nodes:y,example_project.nodes:y,example_project.nodes_with_view:printer,unknown_3,unknown_8 io2
+	class L03,unknown_2,unknown_5,unknown_7 io3
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

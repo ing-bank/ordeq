@@ -31,26 +31,34 @@ class IOData:
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
-n_unknown = 0
+class UnknownCounter:
+    def __init__(self) -> None:
+        self._count = 0
+
+    def next_id(self) -> str:
+        current_id = f"unknown_{self._count}"
+        self._count += 1
+        return current_id
 
 
-def _add_io_data(dataset: AnyIO, io_data, store: bool) -> str:
+def _add_io_data(
+    dataset: AnyIO, io_data, store: bool, unknown_counter: UnknownCounter
+) -> str:
     """Add IOData for a dataset to the io_data dictionary.
 
     Args:
         dataset: the dataset (Input or Output)
         io_data: a dictionary to store IOData objects
         store: whether to store the IOData object
+        unknown_counter: counter for generating unknown dataset IDs
 
     Returns:
         The ID of the dataset in the io_data dictionary.
     """
-    global n_unknown  # noqa: PLW0603
     if dataset.is_fq:
-        dataset_id = FQN(*dataset._fqn).ref  # noqa: SLF001  # type: ignore[arg-type]
+        dataset_id = dataset.fqn.ref
     else:
-        dataset_id = f"unknown_{n_unknown}"
-        n_unknown += 1
+        dataset_id = unknown_counter.next_id()
 
     if store:
         if dataset_id not in io_data:
@@ -65,10 +73,9 @@ def _add_io_data(dataset: AnyIO, io_data, store: bool) -> str:
         for wrapped_attribute in dataset.references.values():
             for wrapped_dataset in wrapped_attribute:
                 if wrapped_dataset.is_fq:
-                    wrapped_id = FQN(*wrapped_dataset._fqn).ref  # noqa: SLF001  # type: ignore[arg-type]
+                    wrapped_id = wrapped_dataset.fqn.ref
                 else:
-                    wrapped_id = f"unknown_{n_unknown}"
-                    n_unknown += 1
+                    wrapped_id = unknown_counter.next_id()
 
                 if wrapped_id not in io_data:
                     io_data[wrapped_id] = IOData(
@@ -83,32 +90,30 @@ def _add_io_data(dataset: AnyIO, io_data, store: bool) -> str:
 def _gather_graph(
     nodes: Sequence[Node], ios: Catalog
 ) -> tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]]:
-    """Build a graph of nodes and datasets from pipeline (set of nodes)
-
-    Args:
-        nodes: nodes
-        ios: ios
-
-    Returns:
-        metadata for nodes (NodeData)
-        metadata for ios (IOData)
-    """
-
     node_graph = NodeGraph.from_nodes(nodes)
 
     io_data: dict[IOIdentity, IOData] = {}
+    unknown_counter = UnknownCounter()
 
     node_modules = defaultdict(list)
     io_input_modules = defaultdict(set)
     io_output_modules = defaultdict(set)
     for line in node_graph.topological_ordering:
         inputs = [
-            _add_io_data(input_dataset, io_data, store=True)
+            _add_io_data(
+                input_dataset,
+                io_data,
+                store=True,
+                unknown_counter=unknown_counter,
+            )
             for input_dataset in line.inputs
         ]
         outputs = [
             _add_io_data(
-                output_dataset, io_data, store=not isinstance(line, View)
+                output_dataset,
+                io_data,
+                store=not isinstance(line, View),
+                unknown_counter=unknown_counter,
             )
             for output_dataset in line.outputs
         ]

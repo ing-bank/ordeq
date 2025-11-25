@@ -27,9 +27,9 @@ graph TB
 
 	example_checks.pipeline_views:A --> example_checks.pipeline_views:Ap
 	example_checks.pipeline_views:B --> example_checks.pipeline_views:Bp
-	unknown_49 --> example_checks.pipeline_views:AB
-	unknown_50 --> example_checks.pipeline_views:AB
-	unknown_52 --> example_checks.pipeline_views:print_result
+	unknown_2 --> example_checks.pipeline_views:AB
+	unknown_3 --> example_checks.pipeline_views:AB
+	unknown_5 --> example_checks.pipeline_views:print_result
 
 	example_checks.pipeline_views:Ap@{shape: subroutine, label: "Ap"}
 	example_checks.pipeline_views:Bp@{shape: subroutine, label: "Bp"}
@@ -37,13 +37,13 @@ graph TB
 	example_checks.pipeline_views:print_result@{shape: subroutine, label: "print_result"}
 	example_checks.pipeline_views:A@{shape: rect, label: "A"}
 	example_checks.pipeline_views:B@{shape: rect, label: "B"}
-	unknown_49@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_50@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_52@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_2@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_3@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_5@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0 node
 	class L2,example_checks.pipeline_views:Ap,example_checks.pipeline_views:Bp,example_checks.pipeline_views:AB,example_checks.pipeline_views:print_result view
-	class L00,unknown_49,unknown_50,unknown_52 io0
+	class L00,unknown_2,unknown_3,unknown_5 io0
 	class L01,example_checks.pipeline_views:A,example_checks.pipeline_views:B io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B

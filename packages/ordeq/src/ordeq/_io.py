@@ -416,8 +416,10 @@ class _WithName:
     _name: str | None = None
 
     @property
-    def _fqn(self) -> tuple[str | None, str | None]:
-        return self._module, self._name
+    def fqn(self) -> FQN | None:
+        if self.is_fq:
+            return FQN(module=self._module, name=self._name)  # type: ignore[arg-type]
+        return None
 
     def _set_fqn(self, fqn: FQN) -> None:
         self.__dict__["_module"] = fqn.module

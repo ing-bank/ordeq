@@ -39,12 +39,12 @@ graph TB
 	example_1.wrapped_io:print_message --> example_1.wrapped_io:name_printer
 	example_1.nodes:x --> example_1.nodes:world
 	example_1.nodes:world --> example_1.nodes:y
-	unknown_8 --> example_1.pipeline:transform_input
-	example_1.pipeline:transform_input --> unknown_9
-	unknown_10 --> example_1.pipeline:transform_mock_input
-	example_1.pipeline:transform_mock_input --> unknown_11
-	unknown_12 --> example_2.nodes:transform_input_2
-	example_2.nodes:transform_input_2 --> unknown_13
+	unknown_0 --> example_1.pipeline:transform_input
+	example_1.pipeline:transform_input --> unknown_1
+	unknown_2 --> example_1.pipeline:transform_mock_input
+	example_1.pipeline:transform_mock_input --> unknown_3
+	unknown_4 --> example_2.nodes:transform_input_2
+	example_2.nodes:transform_input_2 --> unknown_5
 
 	example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
 	example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
@@ -57,22 +57,22 @@ graph TB
 	example_1.nodes:y@{shape: rect, label: "y"}
 	example_1.wrapped_io:name_generator@{shape: rect, label: "name_generator"}
 	example_1.wrapped_io:name_printer@{shape: rect, label: "name_printer"}
-	unknown_10@{shape: rect, label: "Hello"}
-	unknown_11@{shape: rect, label: "World"}
-	unknown_12@{shape: rect, label: "TestInput2"}
-	unknown_13@{shape: rect, label: "TestOutput2"}
-	unknown_8@{shape: rect, label: "TestInput"}
-	unknown_9@{shape: rect, label: "TestOutput"}
+	unknown_0@{shape: rect, label: "TestInput"}
+	unknown_1@{shape: rect, label: "TestOutput"}
+	unknown_2@{shape: rect, label: "Hello"}
+	unknown_3@{shape: rect, label: "World"}
+	unknown_4@{shape: rect, label: "TestInput2"}
+	unknown_5@{shape: rect, label: "TestOutput2"}
 
 	class L0,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input,example_2.nodes:transform_input_2 node
-	class L00,unknown_12 io0
-	class L01,unknown_8 io1
-	class L02,unknown_9 io2
+	class L00,unknown_4 io0
+	class L01,unknown_0 io1
+	class L02,unknown_1 io2
 	class L03,example_1.wrapped_io:name_generator io3
 	class L04,example_1.wrapped_io:name_printer io4
-	class L05,unknown_13 io5
+	class L05,unknown_5 io5
 	class L06,example_1.wrapped_io:message io6
-	class L07,example_1.nodes:x,example_1.nodes:y,unknown_10,unknown_11 io7
+	class L07,example_1.nodes:x,example_1.nodes:y,unknown_2,unknown_3 io7
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

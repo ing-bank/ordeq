@@ -33,12 +33,12 @@ graph TB
 	example_project.inner.nodes:func --> example_project.inner.nodes:y
 	example_project.nodes:x --> example_project.nodes:func
 	example_project.nodes:func --> example_project.nodes:y
-	unknown_18 --> example_project.nodes_import:func_b
-	unknown_19 --> example_project.nodes_import:func_b
+	unknown_0 --> example_project.nodes_import:func_b
+	unknown_1 --> example_project.nodes_import:func_b
 	example_project.nodes_import:func_b --> example_project.catalog_2:g
-	unknown_20 --> example_project.nodes_import_alias:func
-	unknown_21 --> example_project.nodes_import_alias:func
-	example_project.nodes_import_alias:func --> unknown_22
+	unknown_2 --> example_project.nodes_import_alias:func
+	unknown_3 --> example_project.nodes_import_alias:func
+	example_project.nodes_import_alias:func --> unknown_4
 
 	example_project.inner.nodes:func@{shape: rounded, label: "func"}
 	example_project.nodes:func@{shape: rounded, label: "func"}
@@ -49,17 +49,17 @@ graph TB
 	example_project.inner.nodes:y@{shape: rect, label: "y"}
 	example_project.nodes:x@{shape: rect, label: "x"}
 	example_project.nodes:y@{shape: rect, label: "y"}
-	unknown_18@{shape: rect, label: "a"}
-	unknown_19@{shape: rect, label: "b"}
-	unknown_20@{shape: rect, label: "a"}
-	unknown_21@{shape: rect, label: "b"}
-	unknown_22@{shape: rect, label: "h"}
+	unknown_0@{shape: rect, label: "a"}
+	unknown_1@{shape: rect, label: "b"}
+	unknown_2@{shape: rect, label: "a"}
+	unknown_3@{shape: rect, label: "b"}
+	unknown_4@{shape: rect, label: "h"}
 
 	class L0,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_b,example_project.nodes_import_alias:func node
 	class L00,example_project.inner.nodes:x,example_project.nodes:x io0
-	class L01,unknown_18,unknown_20 io1
-	class L02,example_project.catalog_2:g,example_project.inner.nodes:y,example_project.nodes:y,unknown_22 io2
-	class L03,unknown_19,unknown_21 io3
+	class L01,unknown_0,unknown_2 io1
+	class L02,example_project.catalog_2:g,example_project.inner.nodes:y,example_project.nodes:y,unknown_4 io2
+	class L03,unknown_1,unknown_3 io3
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

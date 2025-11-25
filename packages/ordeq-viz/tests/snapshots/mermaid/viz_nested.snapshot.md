@@ -22,7 +22,7 @@ graph TB
 		L00@{shape: rect, label: "StringBuffer"}
 	end
 
-	example_nested.subpackage.subsubpackage.hello_relative:world_relative --> unknown_96
+	example_nested.subpackage.subsubpackage.hello_relative:world_relative --> unknown_0
 
 	subgraph s0["example_nested.subpackage.subsubpackage.hello_relative"]
 		direction TB
@@ -32,11 +32,11 @@ graph TB
 		direction TB
 		example_nested.subpackage.subsubpackage.hello:world@{shape: subroutine, label: "world"}
 	end
-	unknown_96@{shape: rect, label: "message"}
+	unknown_0@{shape: rect, label: "message"}
 
 	class L0,example_nested.subpackage.subsubpackage.hello_relative:world_relative node
 	class L2,example_nested.subpackage.subsubpackage.hello:world view
-	class L00,unknown_96 io0
+	class L00,unknown_0 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

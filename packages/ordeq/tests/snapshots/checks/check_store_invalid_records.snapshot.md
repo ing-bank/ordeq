@@ -68,7 +68,7 @@ graph TB
 	__main__:records --> __main__:check_store_invalid_records
 	__main__:check_store_invalid_records --> __main__:invalid_records
 	__main__:records --> __main__:process_records
-	unknown_8 --> __main__:print_processed_records
+	unknown_1 --> __main__:print_processed_records
 	__main__:invalid_records --> __main__:print_invalid_records
 
 	__main__:check_store_invalid_records@{shape: rounded, label: "check_store_invalid_records"}
@@ -77,11 +77,11 @@ graph TB
 	__main__:print_invalid_records@{shape: subroutine, label: "print_invalid_records"}
 	__main__:invalid_records@{shape: rect, label: "invalid_records"}
 	__main__:records@{shape: rect, label: "records"}
-	unknown_8@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_1@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0,__main__:check_store_invalid_records node
 	class L2,__main__:process_records,__main__:print_processed_records,__main__:print_invalid_records view
-	class L00,unknown_8 io0
+	class L00,unknown_1 io0
 	class L01,__main__:records io1
 	class L02,__main__:invalid_records io2
 	classDef node fill:#008AD7,color:#FFF

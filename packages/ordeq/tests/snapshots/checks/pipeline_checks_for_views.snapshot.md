@@ -29,14 +29,14 @@ graph TB
 	example_checks.pipeline_checks_for_views:D --> example_checks.pipeline_checks_for_views:check_a
 	example_checks.pipeline_checks_for_views:A --> example_checks.pipeline_checks_for_views:Ap
 	example_checks.pipeline_checks_for_views:B --> example_checks.pipeline_checks_for_views:Bp
-	unknown_33 --> example_checks.pipeline_checks_for_views:check_ap
-	unknown_35 --> example_checks.pipeline_checks_for_views:check_join
-	unknown_36 --> example_checks.pipeline_checks_for_views:check_join
-	unknown_38 --> example_checks.pipeline_checks_for_views:check_bp
-	unknown_40 --> example_checks.pipeline_checks_for_views:AB
-	unknown_41 --> example_checks.pipeline_checks_for_views:AB
-	unknown_43 --> example_checks.pipeline_checks_for_views:check_ab
-	unknown_45 --> example_checks.pipeline_checks_for_views:print_result
+	unknown_3 --> example_checks.pipeline_checks_for_views:check_ap
+	unknown_5 --> example_checks.pipeline_checks_for_views:check_join
+	unknown_6 --> example_checks.pipeline_checks_for_views:check_join
+	unknown_8 --> example_checks.pipeline_checks_for_views:check_bp
+	unknown_10 --> example_checks.pipeline_checks_for_views:AB
+	unknown_11 --> example_checks.pipeline_checks_for_views:AB
+	unknown_13 --> example_checks.pipeline_checks_for_views:check_ab
+	unknown_15 --> example_checks.pipeline_checks_for_views:print_result
 
 	example_checks.pipeline_checks_for_views:check_a@{shape: subroutine, label: "check_a"}
 	example_checks.pipeline_checks_for_views:Ap@{shape: subroutine, label: "Ap"}
@@ -50,18 +50,18 @@ graph TB
 	example_checks.pipeline_checks_for_views:A@{shape: rect, label: "A"}
 	example_checks.pipeline_checks_for_views:B@{shape: rect, label: "B"}
 	example_checks.pipeline_checks_for_views:D@{shape: rect, label: "D"}
-	unknown_33@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_35@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_36@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_38@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_40@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_41@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_43@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_45@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_10@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_11@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_13@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_15@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_3@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_5@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_6@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_8@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0 node
 	class L2,example_checks.pipeline_checks_for_views:check_a,example_checks.pipeline_checks_for_views:Ap,example_checks.pipeline_checks_for_views:Bp,example_checks.pipeline_checks_for_views:check_ap,example_checks.pipeline_checks_for_views:check_join,example_checks.pipeline_checks_for_views:check_bp,example_checks.pipeline_checks_for_views:AB,example_checks.pipeline_checks_for_views:check_ab,example_checks.pipeline_checks_for_views:print_result view
-	class L00,unknown_33,unknown_35,unknown_36,unknown_38,unknown_40,unknown_41,unknown_43,unknown_45 io0
+	class L00,unknown_10,unknown_11,unknown_13,unknown_15,unknown_3,unknown_5,unknown_6,unknown_8 io0
 	class L01,example_checks.pipeline_checks_for_views:A,example_checks.pipeline_checks_for_views:B,example_checks.pipeline_checks_for_views:D io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B

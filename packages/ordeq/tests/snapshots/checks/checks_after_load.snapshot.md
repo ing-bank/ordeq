@@ -49,17 +49,17 @@ graph TB
 
 	__main__:txs --> __main__:perform_check
 	__main__:txs --> __main__:txs_agg
-	unknown_13 --> __main__:print_agg
+	unknown_2 --> __main__:print_agg
 
 	__main__:perform_check@{shape: subroutine, label: "perform_check"}
 	__main__:txs_agg@{shape: subroutine, label: "txs_agg"}
 	__main__:print_agg@{shape: subroutine, label: "print_agg"}
 	__main__:txs@{shape: rect, label: "txs"}
-	unknown_13@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_2@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class L0 node
 	class L2,__main__:perform_check,__main__:txs_agg,__main__:print_agg view
-	class L00,unknown_13 io0
+	class L00,unknown_2 io0
 	class L01,__main__:txs io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B

@@ -12,7 +12,7 @@ class MyUntypedOutputHook(OutputHook):
 
 class MyFixedOutputHook(MyUntypedOutputHook, NodeHook):
     def before_node_run(self, node: Node) -> None:
-        print(f"Running node {node}")
+        print(f"Running {node}")
 
 
 @node(inputs=StringBuffer("a"), outputs=StringBuffer("b"))

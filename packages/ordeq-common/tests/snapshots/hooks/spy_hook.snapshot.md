@@ -77,6 +77,6 @@ DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
-INFO	ordeq.runner	Running view View(func=__main__:fail, ...)
+INFO	ordeq.runner	Running View(func=__main__:fail, ...)
 
 ```

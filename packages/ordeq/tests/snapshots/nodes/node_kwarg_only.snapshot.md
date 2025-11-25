@@ -13,9 +13,11 @@ def my_node(*, a, b):
 ## Output
 
 ```text
-ValueError: Inputs invalid for function arguments: 'my_node' in module '__main__'
+ValueError: Inputs invalid for function arguments of view 'my_node' in module '__main__'
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
-    raise ValueError(f"Inputs invalid for function arguments: {n}") from e
+    raise ValueError(
+        f"Inputs invalid for function arguments of {n}"
+    ) from e
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
     _raise_for_invalid_inputs(self)

@@ -170,12 +170,12 @@ class NodeGraph(Graph[Node]):
         for node in self.topological_ordering:
             if self.edges[node]:
                 lines.extend(
-                    f"{type(node).__name__}:{node.ref} --> "
-                    f"{type(next_node).__name__}:{node.ref}"
+                    f"{node.type_fqn.name}:{node.ref} --> "
+                    f"{next_node.type_fqn.name}:{node.ref}"
                     for next_node in self.edges[node]
                 )
             else:
-                lines.append(f"{type(node).__name__}:{node.ref}")
+                lines.append(f"{node.type_fqn.name}:{node.ref}")
         return "\n".join(lines)
 
 
@@ -216,8 +216,7 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
         lines: list[str] = []
         names: dict[IOIdentity | Node, str] = {
             **{
-                node: f"{type(node).__name__}:{node.ref}"
-                for node in self.nodes
+                node: f"{node.type_fqn.name}:{node.ref}" for node in self.nodes
             },
             **{
                 io: f"io-{i}"

@@ -19,6 +19,7 @@ from ordeq._resolve import (
     _resolve_refs_to_hooks,
     _resolve_runnable_refs_to_runnables,
 )
+from ordeq._scan import _scan_fqns
 from ordeq._substitute import (
     _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
@@ -263,16 +264,19 @@ def run(
     _validate_runnables(*runnables)
     modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
     nodes += _resolve_modules_to_nodes(*modules)
-    nodes_and_views = _process_nodes(*nodes, node_filter=node_filter)
-    graph = NodeGraph.from_nodes(nodes_and_views)
+    node_fqns, _ = _scan_fqns(*modules)
+    nodes_processed = _process_nodes(
+        *nodes, node_filter=node_filter, node_fqns=node_fqns
+    )
+    graph = NodeGraph.from_nodes(nodes_processed)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
     if save in {"none", "sinks"}:
         # Replace relevant outputs with ordeq.IO, that does not save
         save_nodes = (
-            nodes_and_views
+            nodes_processed
             if save == "none"
-            else [node for node in nodes_and_views if node not in graph.sinks]
+            else [node for node in nodes_processed if node not in graph.sinks]
         )
         for node in save_nodes:
             if not isinstance(node, View):
@@ -283,7 +287,7 @@ def run(
     user_patches = _substitutes_modules_to_ios(io_subs)
     patches = {**user_patches, **save_mode_patches}
     if patches:
-        patched_nodes = _patch_nodes(*nodes_and_views, patches=patches)
+        patched_nodes = _patch_nodes(*nodes_processed, patches=patches)
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:

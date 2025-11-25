@@ -4,7 +4,7 @@ from itertools import chain
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, TypeVar, cast
 
-from ordeq._fqn import AnyRef, ObjectRef
+from ordeq._fqn import AnyRef, ModuleName, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
@@ -16,6 +16,7 @@ from ordeq._resolve import (
     Runnable,
     RunnableRef,
     _is_module,
+    _resolve_module_name_to_module,
     _resolve_modules_to_nodes,
     _resolve_refs_to_hooks,
     _resolve_runnable_refs_to_runnables,
@@ -167,7 +168,7 @@ def run(
     io: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType]
     | None = None,
     node_filter: NodeFilter | None = None,
-    context: ModuleType | None = None,
+    context: ModuleType | ModuleName | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -268,7 +269,7 @@ def run(
     _validate_runnables(*runnables)
     modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
     nodes += _resolve_modules_to_nodes(*modules)
-    context_ = [context] if context else []
+    context_ = _resolve_module_name_to_module(context) if context else []
     node_fqns, io_fqns = _scan_fqns(*context_, *modules)
     nodes_processed = _process_nodes(
         *nodes, node_filter=node_filter, node_fqns=node_fqns

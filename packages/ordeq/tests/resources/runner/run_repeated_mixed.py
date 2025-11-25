@@ -9,4 +9,4 @@ def func1() -> str:
     return "Hello"
 
 
-run(__name__, func1, verbose=True)
+run(__name__, func1)

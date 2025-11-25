@@ -12,14 +12,7 @@ def func1() -> str:
     return "Hello"
 
 
-run(__name__, func1, verbose=True)
-
-```
-
-## Output
-
-```text
-Node:__main__:func1 --> io-0
+run(__name__, func1)
 
 ```
 

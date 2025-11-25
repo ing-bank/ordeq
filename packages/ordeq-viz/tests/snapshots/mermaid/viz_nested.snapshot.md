@@ -17,9 +17,9 @@ Relativistic mass
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_nested.subpackage.subsubpackage.hello_relative:world_relative --> unknown_0
@@ -34,9 +34,9 @@ graph TB
 	end
 	unknown_0@{shape: rect, label: "message"}
 
-	class L0,example_nested.subpackage.subsubpackage.hello_relative:world_relative node
-	class L2,example_nested.subpackage.subsubpackage.hello:world view
-	class L00,unknown_0 io0
+	class node_type,example_nested.subpackage.subsubpackage.hello_relative:world_relative node
+	class view_type,example_nested.subpackage.subsubpackage.hello:world view
+	class io_type_0,unknown_0 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

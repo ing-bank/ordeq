@@ -19,17 +19,16 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Input"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
 	end
 
 	example_checks.pipeline_views:A --> example_checks.pipeline_views:Ap
 	example_checks.pipeline_views:B --> example_checks.pipeline_views:Bp
-	unknown_2 --> example_checks.pipeline_views:AB
-	unknown_3 --> example_checks.pipeline_views:AB
-	unknown_5 --> example_checks.pipeline_views:print_result
+	example_checks.pipeline_views:Ap --> example_checks.pipeline_views:AB
+	example_checks.pipeline_views:Bp --> example_checks.pipeline_views:AB
+	example_checks.pipeline_views:AB --> example_checks.pipeline_views:print_result
 
 	example_checks.pipeline_views:Ap@{shape: subroutine, label: "Ap"}
 	example_checks.pipeline_views:Bp@{shape: subroutine, label: "Bp"}
@@ -37,15 +36,11 @@ graph TB
 	example_checks.pipeline_views:print_result@{shape: subroutine, label: "print_result"}
 	example_checks.pipeline_views:A@{shape: rect, label: "A"}
 	example_checks.pipeline_views:B@{shape: rect, label: "B"}
-	unknown_2@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_3@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_5@{shape: rect, label: "&lt;anonymous&gt;"}
 
-	class L0 node
-	class L2,example_checks.pipeline_views:Ap,example_checks.pipeline_views:Bp,example_checks.pipeline_views:AB,example_checks.pipeline_views:print_result view
-	class L00,unknown_2,unknown_3,unknown_5 io0
-	class L01,example_checks.pipeline_views:A,example_checks.pipeline_views:B io1
-	classDef node fill:#008AD7,color:#FFF
+	class node_type node
+	class view_type,example_checks.pipeline_views:Ap,example_checks.pipeline_views:Bp,example_checks.pipeline_views:AB,example_checks.pipeline_views:print_result view
+	class io_type_0 io0
+	class io_type_1,example_checks.pipeline_views:A,example_checks.pipeline_views:B io1
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
 	classDef io0 fill:#66c2a5

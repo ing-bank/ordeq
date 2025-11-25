@@ -21,10 +21,10 @@ print(async_ios.combined_result.load())
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "AsyncStaticString"}
-		L01@{shape: rect, label: "AsyncStringBuffer"}
-		L02@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "AsyncStaticString"}
+		io_type_1@{shape: rect, label: "AsyncStringBuffer"}
+		io_type_2@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_async.async_ios:slow_string_io --> example_async.async_ios:process_slow_string
@@ -44,10 +44,10 @@ graph TB
 	example_async.async_ios:fast_string_io@{shape: rect, label: "fast_string_io"}
 	example_async.async_ios:slow_string_io@{shape: rect, label: "slow_string_io"}
 
-	class L0,example_async.async_ios:process_slow_string,example_async.async_ios:process_fast_string,example_async.async_ios:combine_results node
-	class L00,example_async.async_ios:fast_string_io,example_async.async_ios:slow_string_io io0
-	class L01,example_async.async_ios:fast_result io1
-	class L02,example_async.async_ios:slow_result,example_async.async_ios:combined_result io2
+	class node_type,example_async.async_ios:process_slow_string,example_async.async_ios:process_fast_string,example_async.async_ios:combine_results node
+	class io_type_0,example_async.async_ios:fast_string_io,example_async.async_ios:slow_string_io io0
+	class io_type_1,example_async.async_ios:fast_result io1
+	class io_type_2,example_async.async_ios:slow_result,example_async.async_ios:combined_result io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

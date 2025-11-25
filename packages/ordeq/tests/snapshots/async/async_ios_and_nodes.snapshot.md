@@ -18,8 +18,8 @@ print(async_ios_and_nodes.buffer_3.load())
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "AsyncStringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "AsyncStringBuffer"}
 	end
 
 	example_async.async_ios_and_nodes:retrieve_data_1 --> example_async.async_ios_and_nodes:buffer_1
@@ -35,8 +35,8 @@ graph TB
 	example_async.async_ios_and_nodes:buffer_2@{shape: rect, label: "buffer_2"}
 	example_async.async_ios_and_nodes:buffer_3@{shape: rect, label: "buffer_3"}
 
-	class L0,example_async.async_ios_and_nodes:retrieve_data_1,example_async.async_ios_and_nodes:retrieve_data_2,example_async.async_ios_and_nodes:process_data node
-	class L00,example_async.async_ios_and_nodes:buffer_1,example_async.async_ios_and_nodes:buffer_2,example_async.async_ios_and_nodes:buffer_3 io0
+	class node_type,example_async.async_ios_and_nodes:retrieve_data_1,example_async.async_ios_and_nodes:retrieve_data_2,example_async.async_ios_and_nodes:process_data node
+	class io_type_0,example_async.async_ios_and_nodes:buffer_1,example_async.async_ios_and_nodes:buffer_2,example_async.async_ios_and_nodes:buffer_3 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

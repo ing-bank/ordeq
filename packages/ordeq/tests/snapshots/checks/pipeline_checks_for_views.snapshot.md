@@ -19,24 +19,23 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Input"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
 	end
 
 	example_checks.pipeline_checks_for_views:A --> example_checks.pipeline_checks_for_views:check_a
 	example_checks.pipeline_checks_for_views:D --> example_checks.pipeline_checks_for_views:check_a
 	example_checks.pipeline_checks_for_views:A --> example_checks.pipeline_checks_for_views:Ap
 	example_checks.pipeline_checks_for_views:B --> example_checks.pipeline_checks_for_views:Bp
-	unknown_3 --> example_checks.pipeline_checks_for_views:check_ap
-	unknown_5 --> example_checks.pipeline_checks_for_views:check_join
-	unknown_6 --> example_checks.pipeline_checks_for_views:check_join
-	unknown_8 --> example_checks.pipeline_checks_for_views:check_bp
-	unknown_10 --> example_checks.pipeline_checks_for_views:AB
-	unknown_11 --> example_checks.pipeline_checks_for_views:AB
-	unknown_13 --> example_checks.pipeline_checks_for_views:check_ab
-	unknown_15 --> example_checks.pipeline_checks_for_views:print_result
+	example_checks.pipeline_checks_for_views:Ap --> example_checks.pipeline_checks_for_views:check_ap
+	example_checks.pipeline_checks_for_views:Ap --> example_checks.pipeline_checks_for_views:check_join
+	example_checks.pipeline_checks_for_views:Bp --> example_checks.pipeline_checks_for_views:check_join
+	example_checks.pipeline_checks_for_views:Bp --> example_checks.pipeline_checks_for_views:check_bp
+	example_checks.pipeline_checks_for_views:Ap --> example_checks.pipeline_checks_for_views:AB
+	example_checks.pipeline_checks_for_views:Bp --> example_checks.pipeline_checks_for_views:AB
+	example_checks.pipeline_checks_for_views:AB --> example_checks.pipeline_checks_for_views:check_ab
+	example_checks.pipeline_checks_for_views:AB --> example_checks.pipeline_checks_for_views:print_result
 
 	example_checks.pipeline_checks_for_views:check_a@{shape: subroutine, label: "check_a"}
 	example_checks.pipeline_checks_for_views:Ap@{shape: subroutine, label: "Ap"}
@@ -50,20 +49,11 @@ graph TB
 	example_checks.pipeline_checks_for_views:A@{shape: rect, label: "A"}
 	example_checks.pipeline_checks_for_views:B@{shape: rect, label: "B"}
 	example_checks.pipeline_checks_for_views:D@{shape: rect, label: "D"}
-	unknown_10@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_11@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_13@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_15@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_3@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_5@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_6@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_8@{shape: rect, label: "&lt;anonymous&gt;"}
 
-	class L0 node
-	class L2,example_checks.pipeline_checks_for_views:check_a,example_checks.pipeline_checks_for_views:Ap,example_checks.pipeline_checks_for_views:Bp,example_checks.pipeline_checks_for_views:check_ap,example_checks.pipeline_checks_for_views:check_join,example_checks.pipeline_checks_for_views:check_bp,example_checks.pipeline_checks_for_views:AB,example_checks.pipeline_checks_for_views:check_ab,example_checks.pipeline_checks_for_views:print_result view
-	class L00,unknown_10,unknown_11,unknown_13,unknown_15,unknown_3,unknown_5,unknown_6,unknown_8 io0
-	class L01,example_checks.pipeline_checks_for_views:A,example_checks.pipeline_checks_for_views:B,example_checks.pipeline_checks_for_views:D io1
-	classDef node fill:#008AD7,color:#FFF
+	class node_type node
+	class view_type,example_checks.pipeline_checks_for_views:check_a,example_checks.pipeline_checks_for_views:Ap,example_checks.pipeline_checks_for_views:Bp,example_checks.pipeline_checks_for_views:check_ap,example_checks.pipeline_checks_for_views:check_join,example_checks.pipeline_checks_for_views:check_bp,example_checks.pipeline_checks_for_views:AB,example_checks.pipeline_checks_for_views:check_ab,example_checks.pipeline_checks_for_views:print_result view
+	class io_type_0 io0
+	class io_type_1,example_checks.pipeline_checks_for_views:A,example_checks.pipeline_checks_for_views:B,example_checks.pipeline_checks_for_views:D io1
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
 	classDef io0 fill:#66c2a5

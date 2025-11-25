@@ -22,15 +22,15 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "Input"}
-		L01@{shape: rect, label: "MockInput"}
-		L02@{shape: rect, label: "MockOutput"}
-		L03@{shape: rect, label: "NameGenerator"}
-		L04@{shape: rect, label: "NamePrinter"}
-		L05@{shape: rect, label: "Output"}
-		L06@{shape: rect, label: "SayHello"}
-		L07@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "Input"}
+		io_type_1@{shape: rect, label: "MockInput"}
+		io_type_2@{shape: rect, label: "MockOutput"}
+		io_type_3@{shape: rect, label: "NameGenerator"}
+		io_type_4@{shape: rect, label: "NamePrinter"}
+		io_type_5@{shape: rect, label: "Output"}
+		io_type_6@{shape: rect, label: "SayHello"}
+		io_type_7@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_1.wrapped_io:name_generator --> example_1.wrapped_io:hello
@@ -64,15 +64,15 @@ graph TB
 	unknown_4@{shape: rect, label: "TestInput2"}
 	unknown_5@{shape: rect, label: "TestOutput2"}
 
-	class L0,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input,example_2.nodes:transform_input_2 node
-	class L00,unknown_4 io0
-	class L01,unknown_0 io1
-	class L02,unknown_1 io2
-	class L03,example_1.wrapped_io:name_generator io3
-	class L04,example_1.wrapped_io:name_printer io4
-	class L05,unknown_5 io5
-	class L06,example_1.wrapped_io:message io6
-	class L07,example_1.nodes:x,example_1.nodes:y,unknown_2,unknown_3 io7
+	class node_type,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input,example_2.nodes:transform_input_2 node
+	class io_type_0,unknown_4 io0
+	class io_type_1,unknown_0 io1
+	class io_type_2,unknown_1 io2
+	class io_type_3,example_1.wrapped_io:name_generator io3
+	class io_type_4,example_1.wrapped_io:name_printer io4
+	class io_type_5,unknown_5 io5
+	class io_type_6,example_1.wrapped_io:message io6
+	class io_type_7,example_1.nodes:x,example_1.nodes:y,unknown_2,unknown_3 io7
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

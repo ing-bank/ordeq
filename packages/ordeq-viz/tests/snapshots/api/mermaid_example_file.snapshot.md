@@ -21,13 +21,13 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "MockInput"}
-		L01@{shape: rect, label: "MockOutput"}
-		L02@{shape: rect, label: "NameGenerator"}
-		L03@{shape: rect, label: "NamePrinter"}
-		L04@{shape: rect, label: "SayHello"}
-		L05@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "MockInput"}
+		io_type_1@{shape: rect, label: "MockOutput"}
+		io_type_2@{shape: rect, label: "NameGenerator"}
+		io_type_3@{shape: rect, label: "NamePrinter"}
+		io_type_4@{shape: rect, label: "SayHello"}
+		io_type_5@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_1.wrapped_io:name_generator --> example_1.wrapped_io:hello
@@ -56,13 +56,13 @@ graph TB
 	unknown_2@{shape: rect, label: "Hello"}
 	unknown_3@{shape: rect, label: "World"}
 
-	class L0,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input node
-	class L00,unknown_0 io0
-	class L01,unknown_1 io1
-	class L02,example_1.wrapped_io:name_generator io2
-	class L03,example_1.wrapped_io:name_printer io3
-	class L04,example_1.wrapped_io:message io4
-	class L05,example_1.nodes:x,example_1.nodes:y,unknown_2,unknown_3 io5
+	class node_type,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input node
+	class io_type_0,unknown_0 io0
+	class io_type_1,unknown_1 io1
+	class io_type_2,example_1.wrapped_io:name_generator io2
+	class io_type_3,example_1.wrapped_io:name_printer io3
+	class io_type_4,example_1.wrapped_io:message io4
+	class io_type_5,example_1.nodes:x,example_1.nodes:y,unknown_2,unknown_3 io5
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

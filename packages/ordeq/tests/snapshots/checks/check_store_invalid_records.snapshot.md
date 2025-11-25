@@ -58,17 +58,17 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Input"}
-		L02@{shape: rect, label: "JSON"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
+		io_type_2@{shape: rect, label: "JSON"}
 	end
 
 	__main__:records --> __main__:check_store_invalid_records
 	__main__:check_store_invalid_records --> __main__:invalid_records
 	__main__:records --> __main__:process_records
-	unknown_1 --> __main__:print_processed_records
+	__main__:process_records --> __main__:print_processed_records
 	__main__:invalid_records --> __main__:print_invalid_records
 
 	__main__:check_store_invalid_records@{shape: rounded, label: "check_store_invalid_records"}
@@ -77,13 +77,12 @@ graph TB
 	__main__:print_invalid_records@{shape: subroutine, label: "print_invalid_records"}
 	__main__:invalid_records@{shape: rect, label: "invalid_records"}
 	__main__:records@{shape: rect, label: "records"}
-	unknown_1@{shape: rect, label: "&lt;anonymous&gt;"}
 
-	class L0,__main__:check_store_invalid_records node
-	class L2,__main__:process_records,__main__:print_processed_records,__main__:print_invalid_records view
-	class L00,unknown_1 io0
-	class L01,__main__:records io1
-	class L02,__main__:invalid_records io2
+	class node_type,__main__:check_store_invalid_records node
+	class view_type,__main__:process_records,__main__:print_processed_records,__main__:print_invalid_records view
+	class io_type_0 io0
+	class io_type_1,__main__:records io1
+	class io_type_2,__main__:invalid_records io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

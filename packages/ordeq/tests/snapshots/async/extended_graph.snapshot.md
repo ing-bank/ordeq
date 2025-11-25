@@ -16,8 +16,8 @@ run(extended_graph)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_async.extended_graph:write_A --> example_async.extended_graph:A
@@ -49,8 +49,8 @@ graph TB
 	example_async.extended_graph:F@{shape: rect, label: "F"}
 	example_async.extended_graph:G@{shape: rect, label: "G"}
 
-	class L0,example_async.extended_graph:write_A,example_async.extended_graph:write_B,example_async.extended_graph:write_D,example_async.extended_graph:write_E,example_async.extended_graph:write_C,example_async.extended_graph:write_F,example_async.extended_graph:write_G node
-	class L00,example_async.extended_graph:A,example_async.extended_graph:B,example_async.extended_graph:C,example_async.extended_graph:D,example_async.extended_graph:E,example_async.extended_graph:F,example_async.extended_graph:G io0
+	class node_type,example_async.extended_graph:write_A,example_async.extended_graph:write_B,example_async.extended_graph:write_D,example_async.extended_graph:write_E,example_async.extended_graph:write_C,example_async.extended_graph:write_F,example_async.extended_graph:write_G node
+	class io_type_0,example_async.extended_graph:A,example_async.extended_graph:B,example_async.extended_graph:C,example_async.extended_graph:D,example_async.extended_graph:E,example_async.extended_graph:F,example_async.extended_graph:G io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

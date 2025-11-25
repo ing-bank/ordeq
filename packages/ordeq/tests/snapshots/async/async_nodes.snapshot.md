@@ -16,8 +16,8 @@ run(async_nodes)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_async.async_nodes:write_buffer_1 --> example_async.async_nodes:buffer_1
@@ -28,8 +28,8 @@ graph TB
 	example_async.async_nodes:buffer_1@{shape: rect, label: "buffer_1"}
 	example_async.async_nodes:buffer_2@{shape: rect, label: "buffer_2"}
 
-	class L0,example_async.async_nodes:write_buffer_1,example_async.async_nodes:write_buffer_2 node
-	class L00,example_async.async_nodes:buffer_1,example_async.async_nodes:buffer_2 io0
+	class node_type,example_async.async_nodes:write_buffer_1,example_async.async_nodes:write_buffer_2 node
+	class io_type_0,example_async.async_nodes:buffer_1,example_async.async_nodes:buffer_2 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

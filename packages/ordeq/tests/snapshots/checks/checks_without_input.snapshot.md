@@ -29,9 +29,8 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "Input"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "Input"}
 	end
 
 	__main__:A --> __main__:dependent_node
@@ -40,10 +39,9 @@ graph TB
 	__main__:dependent_node@{shape: subroutine, label: "dependent_node"}
 	__main__:A@{shape: rect, label: "A"}
 
-	class L0 node
-	class L2,__main__:my_node,__main__:dependent_node view
-	class L00,__main__:A io0
-	classDef node fill:#008AD7,color:#FFF
+	class node_type node
+	class view_type,__main__:my_node,__main__:dependent_node view
+	class io_type_0,__main__:A io0
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
 	classDef io0 fill:#66c2a5

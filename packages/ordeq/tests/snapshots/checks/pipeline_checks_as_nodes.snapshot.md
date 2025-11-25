@@ -19,11 +19,11 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Input"}
-		L02@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
+		io_type_2@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_checks.pipeline_checks_as_nodes:A --> example_checks.pipeline_checks_as_nodes:process_a
@@ -58,11 +58,11 @@ graph TB
 	example_checks.pipeline_checks_as_nodes:B@{shape: rect, label: "B"}
 	example_checks.pipeline_checks_as_nodes:D@{shape: rect, label: "D"}
 
-	class L0,example_checks.pipeline_checks_as_nodes:process_a,example_checks.pipeline_checks_as_nodes:process_b,example_checks.pipeline_checks_as_nodes:join node
-	class L2,example_checks.pipeline_checks_as_nodes:check_a,example_checks.pipeline_checks_as_nodes:check_ab,example_checks.pipeline_checks_as_nodes:print_result,example_checks.pipeline_checks_as_nodes:check_ap,example_checks.pipeline_checks_as_nodes:check_join,example_checks.pipeline_checks_as_nodes:check_bp view
-	class L00,example_checks.pipeline_checks_as_nodes:Ap,example_checks.pipeline_checks_as_nodes:Bp io0
-	class L01,example_checks.pipeline_checks_as_nodes:A,example_checks.pipeline_checks_as_nodes:B,example_checks.pipeline_checks_as_nodes:D io1
-	class L02,example_checks.pipeline_checks_as_nodes:AB io2
+	class node_type,example_checks.pipeline_checks_as_nodes:process_a,example_checks.pipeline_checks_as_nodes:process_b,example_checks.pipeline_checks_as_nodes:join node
+	class view_type,example_checks.pipeline_checks_as_nodes:check_a,example_checks.pipeline_checks_as_nodes:check_ab,example_checks.pipeline_checks_as_nodes:print_result,example_checks.pipeline_checks_as_nodes:check_ap,example_checks.pipeline_checks_as_nodes:check_join,example_checks.pipeline_checks_as_nodes:check_bp view
+	class io_type_0,example_checks.pipeline_checks_as_nodes:Ap,example_checks.pipeline_checks_as_nodes:Bp io0
+	class io_type_1,example_checks.pipeline_checks_as_nodes:A,example_checks.pipeline_checks_as_nodes:B,example_checks.pipeline_checks_as_nodes:D io1
+	class io_type_2,example_checks.pipeline_checks_as_nodes:AB io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

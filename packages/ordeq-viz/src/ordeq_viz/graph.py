@@ -32,13 +32,20 @@ class IOData:
 
 
 class UnknownCounter:
+    unknown_ids: dict[int, str]
+
     def __init__(self) -> None:
         self._count = 0
+        self.unknown_ids = {}
 
-    def next_id(self) -> str:
-        current_id = f"unknown_{self._count}"
-        self._count += 1
-        return current_id
+    def next_id(self, obj) -> str:
+        obj_id = id(obj)
+        if obj_id not in self.unknown_ids:
+            current_id = f"unknown_{self._count}"
+            self._count += 1
+            self.unknown_ids[obj_id] = current_id
+            return current_id
+        return self.unknown_ids[obj_id]
 
 
 def _add_io_data(
@@ -47,7 +54,7 @@ def _add_io_data(
     if dataset.is_fq:
         dataset_id = dataset.fqn.ref  # type: ignore[union-attr]
     else:
-        dataset_id = unknown_counter.next_id()
+        dataset_id = unknown_counter.next_id(dataset)
 
     if store:
         if dataset_id not in io_data:
@@ -64,7 +71,7 @@ def _add_io_data(
                 if wrapped_dataset.is_fq:
                     wrapped_id = wrapped_dataset.fqn.ref  # type: ignore[union-attr]
                 else:
-                    wrapped_id = unknown_counter.next_id()
+                    wrapped_id = unknown_counter.next_id(dataset)
 
                 if wrapped_id not in io_data:
                     io_data[wrapped_id] = IOData(

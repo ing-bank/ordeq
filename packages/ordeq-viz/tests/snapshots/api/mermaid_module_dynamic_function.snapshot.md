@@ -28,17 +28,15 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
+		view_type@{shape: subroutine, label: "View"}
 	end
 
 
 	example_3.nodes:f1@{shape: subroutine, label: "f1"}
 	example_3.nodes:f2@{shape: subroutine, label: "f2"}
 
-	class L0 node
-	class L2,example_3.nodes:f1,example_3.nodes:f2 view
-	classDef node fill:#008AD7,color:#FFF
+	class node_type node
+	class view_type,example_3.nodes:f1,example_3.nodes:f2 view
 	classDef view fill:#00C853,color:#FFF
 
 Hello, world!

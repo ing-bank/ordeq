@@ -25,10 +25,10 @@ with tempfile.TemporaryDirectory() as tmpdirname:
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "Input"}
-		L01@{shape: rect, label: "Output"}
-		L02@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "Input"}
+		io_type_1@{shape: rect, label: "Output"}
+		io_type_2@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_1.nodes:x --> example_1.nodes:world
@@ -43,10 +43,10 @@ graph TB
 	example_2.nodes:TestInput2@{shape: rect, label: "TestInput2"}
 	example_2.nodes:TestOutput2@{shape: rect, label: "TestOutput2"}
 
-	class L0,example_1.nodes:world,example_2.nodes:transform_input_2 node
-	class L00,example_2.nodes:TestInput2 io0
-	class L01,example_2.nodes:TestOutput2 io1
-	class L02,example_1.nodes:x,example_1.nodes:y io2
+	class node_type,example_1.nodes:world,example_2.nodes:transform_input_2 node
+	class io_type_0,example_2.nodes:TestInput2 io0
+	class io_type_1,example_2.nodes:TestOutput2 io1
+	class io_type_2,example_1.nodes:x,example_1.nodes:y io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

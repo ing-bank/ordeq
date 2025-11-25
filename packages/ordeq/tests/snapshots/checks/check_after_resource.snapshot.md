@@ -38,10 +38,10 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "PandasCSV"}
-		L01@{shape: rect, label: "PolarsEagerCSV"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "PandasCSV"}
+		io_type_1@{shape: rect, label: "PolarsEagerCSV"}
 	end
 
 	__main__:produce --> __main__:csv_pandas
@@ -52,10 +52,10 @@ graph TB
 	__main__:csv_pandas@{shape: rect, label: "csv_pandas"}
 	__main__:csv_polars@{shape: rect, label: "csv_polars"}
 
-	class L0,__main__:produce node
-	class L2,__main__:check view
-	class L00,__main__:csv_pandas io0
-	class L01,__main__:csv_polars io1
+	class node_type,__main__:produce node
+	class view_type,__main__:check view
+	class io_type_0,__main__:csv_pandas io0
+	class io_type_1,__main__:csv_polars io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

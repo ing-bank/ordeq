@@ -16,16 +16,16 @@ print(diagram)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Input"}
-		L02@{shape: rect, label: "Print"}
-		L03@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
+		io_type_2@{shape: rect, label: "Print"}
+		io_type_3@{shape: rect, label: "StringBuffer"}
 	end
 
 	example_project.nodes_with_view:greeting --> example_project.nodes_with_view:greet
-	unknown_11 --> example_project.nodes_with_view:farewell
+	example_project.nodes_with_view:greet --> example_project.nodes_with_view:farewell
 	example_project.nodes_with_view:farewell --> example_project.nodes_with_view:printer
 	example_project.inner.nodes:x --> example_project.inner.nodes:func
 	example_project.inner.nodes:func --> example_project.inner.nodes:y
@@ -34,14 +34,14 @@ graph TB
 	unknown_1 --> example_project.nodes_import:func_a
 	unknown_2 --> example_project.nodes_import:func_a
 	example_project.nodes_import:func_a --> unknown_3
-	unknown_4 --> example_project.nodes_import:func_b
-	unknown_5 --> example_project.nodes_import:func_b
+	unknown_1 --> example_project.nodes_import:func_b
+	unknown_2 --> example_project.nodes_import:func_b
 	example_project.nodes_import:func_b --> example_project.catalog_2:g
-	unknown_6 --> example_project.nodes_import_alias:func
-	unknown_7 --> example_project.nodes_import_alias:func
-	example_project.nodes_import_alias:func --> unknown_8
-	unknown_9 --> example_project.nodes_with_inline_io:greet
-	example_project.nodes_with_inline_io:greet --> unknown_10
+	unknown_1 --> example_project.nodes_import_alias:func
+	unknown_2 --> example_project.nodes_import_alias:func
+	example_project.nodes_import_alias:func --> unknown_4
+	unknown_5 --> example_project.nodes_with_inline_io:greet
+	example_project.nodes_with_inline_io:greet --> unknown_6
 
 	example_project.nodes_with_view:greet@{shape: subroutine, label: "greet"}
 	example_project.nodes_with_view:farewell@{shape: rounded, label: "farewell"}
@@ -59,23 +59,18 @@ graph TB
 	example_project.nodes_with_view:greeting@{shape: rect, label: "greeting"}
 	example_project.nodes_with_view:printer@{shape: rect, label: "printer"}
 	unknown_1@{shape: rect, label: "a"}
-	unknown_10@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_11@{shape: rect, label: "&lt;anonymous&gt;"}
 	unknown_2@{shape: rect, label: "b"}
 	unknown_3@{shape: rect, label: "f"}
-	unknown_4@{shape: rect, label: "a"}
-	unknown_5@{shape: rect, label: "b"}
-	unknown_6@{shape: rect, label: "a"}
-	unknown_7@{shape: rect, label: "b"}
-	unknown_8@{shape: rect, label: "h"}
-	unknown_9@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_4@{shape: rect, label: "h"}
+	unknown_5@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_6@{shape: rect, label: "&lt;anonymous&gt;"}
 
-	class L0,example_project.nodes_with_view:farewell,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_a,example_project.nodes_import:func_b,example_project.nodes_import_alias:func,example_project.nodes_with_inline_io:greet node
-	class L2,example_project.nodes_with_view:greet view
-	class L00,example_project.inner.nodes:x,example_project.nodes:x,unknown_10,unknown_11 io0
-	class L01,example_project.nodes_with_view:greeting,unknown_1,unknown_4,unknown_6,unknown_9 io1
-	class L02,example_project.catalog_2:g,example_project.inner.nodes:y,example_project.nodes:y,example_project.nodes_with_view:printer,unknown_3,unknown_8 io2
-	class L03,unknown_2,unknown_5,unknown_7 io3
+	class node_type,example_project.nodes_with_view:farewell,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_a,example_project.nodes_import:func_b,example_project.nodes_import_alias:func,example_project.nodes_with_inline_io:greet node
+	class view_type,example_project.nodes_with_view:greet view
+	class io_type_0,example_project.inner.nodes:x,example_project.nodes:x,unknown_6 io0
+	class io_type_1,example_project.nodes_with_view:greeting,unknown_1,unknown_5 io1
+	class io_type_2,example_project.catalog_2:g,example_project.inner.nodes:y,example_project.nodes:y,example_project.nodes_with_view:printer,unknown_3,unknown_4 io2
+	class io_type_3,unknown_2 io3
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

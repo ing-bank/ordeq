@@ -137,12 +137,12 @@ class Node(Generic[FuncParams, FuncReturns]):
             attributes["attributes"] = repr(self.attributes)
 
         attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
-        return f"Node({attributes_str})"
+        return f"{self.type_name}({attributes_str})"
 
     def __str__(self) -> str:
         if self.is_fq:
-            return format(self.fqn, "desc")
-        return f"{self.__class__.__name__}(func={self.func_name}, ...)"
+            return f"{self.type_name.lower()} {self.fqn:desc}"
+        return f"{self.type_name}(func={self.func_name}, ...)"
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:
@@ -162,7 +162,9 @@ def _raise_for_invalid_inputs(n: Node) -> None:
     try:
         sign.bind(*n.inputs)
     except TypeError as e:
-        raise ValueError(f"Inputs invalid for function arguments: {n}") from e
+        raise ValueError(
+            f"Inputs invalid for function arguments of {n}"
+        ) from e
 
 
 def _raise_for_invalid_outputs(n: Node) -> None:
@@ -182,7 +184,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
             f"Outputs of {n} must be of type Output, "
-            f"got {type(not_an_output)} "
+            f"got {type(not_an_output).__name__} "
         )
 
     func = n.func
@@ -233,7 +235,7 @@ def _raise_if_not_hashable(n: Node) -> None:
     try:
         hash(n)
     except TypeError as e:
-        raise ValueError(f"Node is not hashable: {n}") from e
+        raise ValueError(f"{n} is not hashable") from e
 
 
 def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
@@ -364,14 +366,14 @@ def create_node(
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input {input_} to Node(func={func_name}, ...) "
-                    f"is not a node"
+                    f"Input to Node(func={func_name}, ...) is not a node "
+                    f"(got {type(input_).__name__})"
                 )
             view = input_
             if not isinstance(view, View):
                 raise ValueError(
-                    f"Input {input_} to node Node(func={func_name}, ...) "
-                    f"is not a view"
+                    f"Input to Node(func={func_name}, ...) is not a view "
+                    f"(got {type(view).__name__})"
                 )
             views.append(view)
             inputs_.append(view.outputs[0])

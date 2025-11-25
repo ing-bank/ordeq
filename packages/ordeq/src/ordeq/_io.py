@@ -5,15 +5,7 @@ import logging
 from collections.abc import Callable, Hashable, Sequence
 from copy import copy
 from functools import cached_property, reduce, wraps
-from typing import (
-    TYPE_CHECKING,
-    Annotated,
-    Any,
-    Generic,
-    TypeAlias,
-    TypeGuard,
-    TypeVar,
-)
+from typing import Annotated, Any, Generic, TypeAlias, TypeGuard, TypeVar
 
 from ordeq.preview import preview
 
@@ -22,10 +14,8 @@ try:
 except ImportError:
     from typing_extensions import Self
 
+from ordeq._fqn import FQN
 from ordeq._hook import InputHook, OutputHook
-
-if TYPE_CHECKING:
-    from ordeq._fqn import FQN
 
 logger = logging.getLogger("ordeq.io")
 
@@ -433,6 +423,9 @@ class _WithName:
         self.__dict__["_module"] = fqn.module
         self.__dict__["_name"] = fqn.name
 
+    def _set_name(self, name: str) -> None:
+        self.__dict__["_name"] = name
+
     @property
     def is_fq(self) -> bool:
         return self._module is not None and self._name is not None
@@ -450,6 +443,13 @@ class _WithAttributes:
         new_instance = copy(self)
         new_instance.__dict__["_attributes"] = attributes
         return new_instance
+
+
+class _WithTypeFQN:
+    @property
+    def type_fqn(self) -> FQN:
+        t = type(self)
+        return FQN(t.__module__, t.__name__)
 
 
 class _WithResource:
@@ -482,6 +482,7 @@ class Input(
     _WithResource,
     _WithName,
     _WithAttributes,
+    _WithTypeFQN,
     Generic[Tin],
     metaclass=_IOMeta,
 ):
@@ -623,6 +624,7 @@ class Output(
     _WithResource,
     _WithName,
     _WithAttributes,
+    _WithTypeFQN,
     Generic[Tout],
     metaclass=_IOMeta,
 ):

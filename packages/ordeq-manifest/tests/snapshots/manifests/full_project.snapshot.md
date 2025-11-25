@@ -76,7 +76,7 @@ print(create_manifest_json(example_project))
       "name": "func",
       "inputs": [
         "example_project.nodes_import_alias:a",
-        "example_project.nodes_import_alias:B"
+        "example_project.nodes_import_alias:b"
       ],
       "outputs": [
         "example_project.nodes_import_alias:h"
@@ -250,8 +250,8 @@ print(create_manifest_json(example_project))
       "references": [],
       "attributes": {}
     },
-    "example_project.nodes_import_alias:B": {
-      "name": "B",
+    "example_project.nodes_import_alias:b": {
+      "name": "b",
       "type": "ordeq_common.io.string_buffer:StringBuffer",
       "resource": null,
       "references": [],

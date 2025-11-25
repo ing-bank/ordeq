@@ -170,7 +170,7 @@ class ProjectModel(BaseModel):
         for node in nodes:
             for io_ in chain(node.inputs, node.outputs):
                 if io_ not in io_to_fqns:
-                    resource = io_._resource
+                    resource = io_._resource  # type: ignore[attr-defined]
                     if (
                         resource not in resource_to_model
                         and resource is not io_

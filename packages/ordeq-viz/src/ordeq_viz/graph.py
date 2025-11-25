@@ -1,7 +1,7 @@
 from collections import defaultdict
 from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import Any, cast
+from typing import Any
 
 from ordeq import Node, View
 from ordeq._fqn import FQN
@@ -55,7 +55,7 @@ def _add_io_data(dataset: AnyIO, io_data, store: bool) -> int:
         # Handle wrapped datasets
         for wrapped_attribute in dataset.references.values():
             for wrapped_dataset in wrapped_attribute:
-                wrapped_id = hash(wrapped_dataset)
+                wrapped_id = id(wrapped_dataset)
                 if wrapped_id not in io_data:
                     io_data[wrapped_id] = IOData(
                         id=wrapped_id,
@@ -99,12 +99,7 @@ def _gather_graph(
             for output_dataset in line.outputs
         ]
 
-        if line.is_fq:
-            node_fqn = cast("FQN", line.fqn)
-        else:
-            node_module = line.func.__module__
-            node_name = line.func.__name__
-            node_fqn = FQN(node_module, node_name)
+        node_fqn = line.fqn or FQN(line.func.__module__, line.func.__name__)
 
         node_data = NodeData(
             id=node_fqn.ref,

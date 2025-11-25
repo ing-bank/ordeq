@@ -1,7 +1,7 @@
 from collections import defaultdict
 from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import Any
+from typing import Any, cast
 
 from ordeq import Node, View
 from ordeq._fqn import FQN
@@ -123,7 +123,7 @@ def _gather_graph(
         ]
 
         if line.is_fq:
-            node_fqn = line.fqn
+            node_fqn = cast("FQN", line.fqn)
         else:
             node_module = line.func.__module__
             node_name = line.func.__name__

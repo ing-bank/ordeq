@@ -22,10 +22,10 @@ logger = logging.getLogger("ordeq.viz")
 @overload
 def viz(
     *vizzables: Vizzable,
-    context: Vizzable | None = None,
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path,
     node_filter: NodeFilter | None = None,
+    context: ModuleType | None = None,
     **options: Any,
 ) -> None: ...
 
@@ -33,10 +33,10 @@ def viz(
 @overload
 def viz(
     *vizzables: Vizzable,
-    context: Vizzable | None = None,
     fmt: Literal["mermaid", "mermaid-md"],
     output: None = None,
     node_filter: NodeFilter | None = None,
+    context: ModuleType | None = None,
     **options: Any,
 ) -> str: ...
 
@@ -46,7 +46,7 @@ def viz(
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path | None = None,
     node_filter: NodeFilter | None = None,
-    context: Vizzable | None = None,
+    context: ModuleType | None = None,
     **options: Any,
 ) -> str | None:
     """Visualize the pipeline from the provided packages, modules, or nodes

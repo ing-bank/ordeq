@@ -1,3 +1,4 @@
+from types import ModuleType
 from typing import TYPE_CHECKING
 
 from ordeq._nodes import Node, View
@@ -8,7 +9,7 @@ from ordeq._resolve import (
     Runnable,
     _resolve_modules_to_nodes,
     _resolve_runnable_refs_to_runnables,
-    _validate_runnables,
+    _validate_runnables, RunnableRef,
 )
 from ordeq._scan import _scan_fqns
 
@@ -17,8 +18,8 @@ if TYPE_CHECKING:
 
 
 def process_nodes_and_ios(
-    *runnables: Runnable,
-    context: list[Runnable],
+    *runnables: Runnable | RunnableRef,
+    context: list[ModuleType],
     node_filter: NodeFilter | None = None,
 ) -> tuple[Node, ...]:
     _validate_runnables(*runnables)

@@ -29,7 +29,7 @@ print(repr(hello))
 ValueError: Input to Node(func=__main__:func, ...) is not a node (got function)
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
-        f"Input to Node(func={func_name}, ...) is not a node (got {type(input_).__name__})"
+    ...<2 lines>...
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped

@@ -137,12 +137,12 @@ class Node(Generic[FuncParams, FuncReturns]):
             attributes["attributes"] = repr(self.attributes)
 
         attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
-        return f"Node({attributes_str})"
+        return f"{self.type_name}({attributes_str})"
 
     def __str__(self) -> str:
         if self.is_fq:
-            return f"{self.type.lower()} {self.fqn:desc}"
-        return f"{self.type}(func={self.func_name}, ...)"
+            return f"{self.type_name.lower()} {self.fqn:desc}"
+        return f"{self.type_name}(func={self.func_name}, ...)"
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:
@@ -162,7 +162,9 @@ def _raise_for_invalid_inputs(n: Node) -> None:
     try:
         sign.bind(*n.inputs)
     except TypeError as e:
-        raise ValueError(f"Inputs invalid for function arguments of {n}") from e
+        raise ValueError(
+            f"Inputs invalid for function arguments of {n}"
+        ) from e
 
 
 def _raise_for_invalid_outputs(n: Node) -> None:
@@ -364,12 +366,14 @@ def create_node(
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input to Node(func={func_name}, ...) is not a node (got {type(input_).__name__})"
+                    f"Input to Node(func={func_name}, ...) is not a node "
+                    f"(got {type(input_).__name__})"
                 )
             view = input_
             if not isinstance(view, View):
                 raise ValueError(
-                    f"Input to Node(func={func_name}, ...) is not a view (got {type(view).__name__})"
+                    f"Input to Node(func={func_name}, ...) is not a view "
+                    f"(got {type(view).__name__})"
                 )
             views.append(view)
             inputs_.append(view.outputs[0])

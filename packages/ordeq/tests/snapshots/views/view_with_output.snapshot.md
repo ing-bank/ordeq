@@ -22,7 +22,7 @@ def say_hello(value: str) -> str:
 ValueError: Input to Node(func=__main__:say_hello, ...) is not a view (got Node)
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
-        f"Input to Node(func={func_name}, ...) is not a view (got {type(view).__name__})"
+    ...<2 lines>...
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped

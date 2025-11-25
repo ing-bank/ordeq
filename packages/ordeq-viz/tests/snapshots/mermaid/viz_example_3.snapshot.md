@@ -26,7 +26,6 @@ graph TB
 		example_3.nodes:f2@{shape: subroutine, label: "f2"}
 	end
 
-	class node_type node
 	class view_type,example_3.nodes:f1,example_3.nodes:f2 view
 	classDef view fill:#00C853,color:#FFF
 

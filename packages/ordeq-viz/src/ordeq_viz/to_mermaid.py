@@ -167,11 +167,10 @@ def graph_to_mermaid(
         data += "\t\tdirection TB\n"
         if has_nodes:
             data += f'\t\tnode_type@{{shape: {node_shape}, label: "Node"}}\n'
+            class_assignments["node"].append("node_type")
+
         if views:
             data += f'\t\tview_type@{{shape: {view_shape}, label: "View"}}\n'
-
-        class_assignments["node"].append("node_type")
-        if views:
             class_assignments["view"].append("view_type")
 
         if dataset_data:

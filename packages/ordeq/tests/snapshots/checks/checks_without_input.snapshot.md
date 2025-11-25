@@ -39,7 +39,6 @@ graph TB
 	__main__:dependent_node@{shape: subroutine, label: "dependent_node"}
 	__main__:A@{shape: rect, label: "A"}
 
-	class node_type node
 	class view_type,__main__:my_node,__main__:dependent_node view
 	class io_type_0,__main__:A io0
 	classDef io fill:#FFD43B

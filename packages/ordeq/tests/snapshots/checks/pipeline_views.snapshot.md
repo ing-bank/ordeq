@@ -37,7 +37,6 @@ graph TB
 	example_checks.pipeline_views:A@{shape: rect, label: "A"}
 	example_checks.pipeline_views:B@{shape: rect, label: "B"}
 
-	class node_type node
 	class view_type,example_checks.pipeline_views:Ap,example_checks.pipeline_views:Bp,example_checks.pipeline_views:AB,example_checks.pipeline_views:print_result view
 	class io_type_0 io0
 	class io_type_1,example_checks.pipeline_views:A,example_checks.pipeline_views:B io1

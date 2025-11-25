@@ -62,7 +62,6 @@ graph TB
 	__main__:print_agg@{shape: subroutine, label: "print_agg"}
 	__main__:txs@{shape: rect, label: "txs"}
 
-	class node_type node
 	class view_type,__main__:txs_agg,__main__:perform_check,__main__:print_agg view
 	class io_type_0 io0
 	class io_type_1,__main__:txs io1

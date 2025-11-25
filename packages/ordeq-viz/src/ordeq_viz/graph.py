@@ -7,7 +7,6 @@ from ordeq import Node, View
 from ordeq._fqn import FQN
 from ordeq._graph import NodeGraph
 from ordeq._io import AnyIO
-from ordeq._resolve import Catalog
 
 
 @dataclass
@@ -84,7 +83,7 @@ def _add_io_data(
 
 
 def _gather_graph(
-    nodes: Sequence[Node], ios: Catalog
+    nodes: Sequence[Node],
 ) -> tuple[dict[str, list[NodeData]], dict[str | None, list[IOData]]]:
     node_graph = NodeGraph.from_nodes(nodes)
 

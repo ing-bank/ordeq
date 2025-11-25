@@ -50,7 +50,6 @@ graph TB
 	example_checks.pipeline_checks_for_views:B@{shape: rect, label: "B"}
 	example_checks.pipeline_checks_for_views:D@{shape: rect, label: "D"}
 
-	class node_type node
 	class view_type,example_checks.pipeline_checks_for_views:check_a,example_checks.pipeline_checks_for_views:Ap,example_checks.pipeline_checks_for_views:Bp,example_checks.pipeline_checks_for_views:check_ap,example_checks.pipeline_checks_for_views:check_join,example_checks.pipeline_checks_for_views:check_bp,example_checks.pipeline_checks_for_views:AB,example_checks.pipeline_checks_for_views:check_ab,example_checks.pipeline_checks_for_views:print_result view
 	class io_type_0 io0
 	class io_type_1,example_checks.pipeline_checks_for_views:A,example_checks.pipeline_checks_for_views:B,example_checks.pipeline_checks_for_views:D io1

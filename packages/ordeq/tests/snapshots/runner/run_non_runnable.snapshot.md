@@ -10,10 +10,10 @@ run(0.23)
 ## Output
 
 ```text
-TypeError: 0.23 is not something we can run. Expected a module or a node, got <class 'float'>
+TypeError: 0.23 is not something we can run. Expected a module or a node, got float
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _validate_runnables
     raise TypeError(
-    ...<2 lines>...
+    ...<3 lines>...
     )
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run

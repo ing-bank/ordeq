@@ -1,41 +1,63 @@
 ## Resource
 
 ```python
-from ordeq._runner import run
+# ruff: noqa E402 (import not at top of file)
 import example_nested
+from ordeq._runner import run
 
 run("example_nested.subpackage.subsubpackage.hello:world", verbose=True)
 
 print("Should assign FQNs from context:")
-run("example_nested.subpackage.subsubpackage.hello:world", verbose=True, context=example_nested)
+run(
+    "example_nested.subpackage.subsubpackage.hello:world",
+    verbose=True,
+    context=example_nested,
+)
 
 import example_nested.subpackage
 
 print("Should assign FQNs from context:")
-run("example_nested.subpackage.subsubpackage.hello:world", verbose=True, context=example_nested.subpackage)
+run(
+    "example_nested.subpackage.subsubpackage.hello:world",
+    verbose=True,
+    context=example_nested.subpackage,
+)
 
 import example_nested.subpackage.subsubpackage
 
 print("Should assign FQNs from context:")
-run("example_nested.subpackage.subsubpackage.hello:world", verbose=True,
-    context=example_nested.subpackage.subsubpackage)
+run(
+    "example_nested.subpackage.subsubpackage.hello:world",
+    verbose=True,
+    context=example_nested.subpackage.subsubpackage,
+)
 
 import example_nested.subpackage.subsubpackage.hello
 
 print("Should assign FQNs from context:")
-run("example_nested.subpackage.subsubpackage.hello:world", verbose=True,
-    context=example_nested.subpackage.subsubpackage.hello)
+run(
+    "example_nested.subpackage.subsubpackage.hello:world",
+    verbose=True,
+    context=example_nested.subpackage.subsubpackage.hello,
+)
 
 import example_nested.subpackage.subsubpackage.hello_relative
 
 print("FQNs not found in context:")
-run("example_nested.subpackage.subsubpackage.hello:world", verbose=True,
-    context=example_nested.subpackage.subsubpackage.hello_relative)
+run(
+    "example_nested.subpackage.subsubpackage.hello:world",
+    verbose=True,
+    context=example_nested.subpackage.subsubpackage.hello_relative,
+)
 
 import example_nested.catalog
 
 print("FQNs not found in context:")
-run("example_nested.subpackage.subsubpackage.hello:world", verbose=True, context=example_nested.catalog)
+run(
+    "example_nested.subpackage.subsubpackage.hello:world",
+    verbose=True,
+    context=example_nested.catalog,
+)
 
 ```
 

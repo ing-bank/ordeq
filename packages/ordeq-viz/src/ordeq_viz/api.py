@@ -5,6 +5,7 @@ from typing import Any, Literal, TypeAlias, overload
 
 from ordeq._fqn import ModuleName
 from ordeq._process_nodes_and_ios import process_nodes_and_ios
+from ordeq._resolve import _resolve_module_name_to_module
 from ordeq._runner import NodeFilter
 
 from ordeq_viz.graph import _gather_graph
@@ -24,7 +25,7 @@ def viz(
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path,
     node_filter: NodeFilter | None = None,
-    context: ModuleType | None = None,
+    context: ModuleType | ModuleName | None = None,
     **options: Any,
 ) -> None: ...
 
@@ -35,7 +36,7 @@ def viz(
     fmt: Literal["mermaid", "mermaid-md"],
     output: None = None,
     node_filter: NodeFilter | None = None,
-    context: ModuleType | None = None,
+    context: ModuleType | ModuleName | None = None,
     **options: Any,
 ) -> str: ...
 
@@ -45,7 +46,7 @@ def viz(
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path | None = None,
     node_filter: NodeFilter | None = None,
-    context: ModuleType | None = None,
+    context: ModuleType | ModuleName | None = None,
     **options: Any,
 ) -> str | None:
     """Visualize the pipeline from the provided packages, modules, or nodes
@@ -74,7 +75,7 @@ def viz(
             "All vizzables must be modules or references to modules."
         )
 
-    context_ = [context] if context else []
+    context_ = [_resolve_module_name_to_module(context)] if context else []
     nodes = process_nodes_and_ios(
         *vizzables, context=context_, node_filter=node_filter
     )

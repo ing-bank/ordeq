@@ -4,7 +4,7 @@ from itertools import chain
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, TypeVar, cast
 
-from ordeq._fqn import AnyRef, ObjectRef
+from ordeq._fqn import AnyRef, ModuleName, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
@@ -12,7 +12,12 @@ from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
 from ordeq._process_nodes import NodeFilter
 from ordeq._process_nodes_and_ios import process_nodes_and_ios
-from ordeq._resolve import Runnable, RunnableRef, _resolve_refs_to_hooks
+from ordeq._resolve import (
+    Runnable,
+    RunnableRef,
+    _resolve_module_name_to_module,
+    _resolve_refs_to_hooks,
+)
 from ordeq._substitute import (
     _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
@@ -145,7 +150,7 @@ def run(
     io: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType]
     | None = None,
     node_filter: NodeFilter | None = None,
-    context: ModuleType | None = None,
+    context: ModuleType | ModuleName | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -242,7 +247,7 @@ def run(
     ```
 
     """
-    context_ = [context] if context else []
+    context_ = [_resolve_module_name_to_module(context)] if context else []
 
     nodes_processed = process_nodes_and_ios(
         *runnables, context=context_, node_filter=node_filter

@@ -376,3 +376,17 @@ def _resolve_runnable_refs_to_runnables(
             else:
                 modules.append(_resolve_module_ref_to_module(runnable))
     return modules, nodes
+
+
+def _resolve_module_name_to_module(
+    module: ModuleType | ModuleName,
+) -> ModuleType:
+    if _is_module(module):
+        return module
+    if isinstance(module, str):
+        return _resolve_module_ref_to_module(module)
+    raise TypeError(
+        f"'{module}' is not a valid module. "
+        f"Expected a ModuleType or a string, got "
+        f"{type(module).__name__}"
+    )

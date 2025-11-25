@@ -5,7 +5,6 @@ from typing import Any, Literal, TypeAlias, overload
 
 from ordeq._fqn import ModuleName
 from ordeq._process_nodes_and_ios import process_nodes_and_ios
-from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq._runner import NodeFilter
 
 from ordeq_viz.graph import _gather_graph
@@ -80,10 +79,7 @@ def viz(
         *vizzables, context=context_, node_filter=node_filter
     )
 
-    # TODO: replace with proper IO processing
-    _, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
-
-    graph = _gather_graph(nodes, ios)
+    graph = _gather_graph(nodes, {})
 
     match fmt:
         case "kedro-viz":

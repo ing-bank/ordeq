@@ -450,10 +450,7 @@ class _WithName(_WithTypeFQN):
 
     def __str__(self) -> str:
         if self.is_fq:
-            return (
-                f"{self.type_fqn.name} '{self._name}' "
-                f"in module '{self._module}'"
-            )
+            return f"{self.type_fqn.name} {self._fqn:desc}"
         return repr(self)
 
 

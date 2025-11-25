@@ -25,9 +25,9 @@ def func(x: str) -> str:
 ## Output
 
 ```text
-ValueError: Node is not hashable: 'func' in module '__main__'
+ValueError: node 'func' in module '__main__' is not hashable
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_if_not_hashable
-    raise ValueError(f"Node is not hashable: {n}") from e
+    raise ValueError(f"{n} is not hashable") from e
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
     _raise_if_not_hashable(self)

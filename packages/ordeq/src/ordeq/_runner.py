@@ -268,8 +268,8 @@ def run(
     _validate_runnables(*runnables)
     modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
     nodes += _resolve_modules_to_nodes(*modules)
-    context_ = ([context] if context else []) + modules
-    node_fqns, io_fqns = _scan_fqns(*context_)
+    context_ = [context] if context else []
+    node_fqns, io_fqns = _scan_fqns(*context_, *modules)
     nodes_processed = _process_nodes(
         *nodes, node_filter=node_filter, node_fqns=node_fqns
     )

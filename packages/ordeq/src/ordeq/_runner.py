@@ -167,6 +167,7 @@ def run(
     io: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType]
     | None = None,
     node_filter: NodeFilter | None = None,
+    context: ModuleType | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -179,6 +180,7 @@ def run(
         verbose: Whether to print the node graph.
         io: Mapping of IO objects to their run-time substitutes.
         node_filter: Method to filter nodes.
+        context: Module to use as context for resolving string references.
 
     Arguments `runnables`, `hooks` and `io` also support string references.
     Each string reference should be formatted `module.submodule.[...]`
@@ -266,7 +268,9 @@ def run(
     _validate_runnables(*runnables)
     modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
     nodes += _resolve_modules_to_nodes(*modules)
-    node_fqns, io_fqns = _scan_fqns(*modules)
+    node_fqns, io_fqns = _scan_fqns(
+        *(([context] if context else []) + modules)
+    )
     nodes_processed = _process_nodes(
         *nodes, node_filter=node_filter, node_fqns=node_fqns
     )

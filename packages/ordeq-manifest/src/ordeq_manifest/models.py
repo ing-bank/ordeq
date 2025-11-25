@@ -42,11 +42,10 @@ class IOModel(BaseModel):
     @classmethod
     def from_io(cls, io: FQ[AnyIO], resource: int | None) -> "IOModel":
         (_, io_name), io_obj = io
-        io_type = type(io_obj)
-        io_type_fqn = (io_type.__module__, io_type.__name__)
+        io_type_fqn = io_obj.type_fqn
         return cls(
             name=io_name,
-            type=fqn_to_object_ref(io_type_fqn),
+            type=str(io_type_fqn),
             references=list(io_obj.references.keys()),
             attributes=io_obj._attributes or {},
             resource=resource,

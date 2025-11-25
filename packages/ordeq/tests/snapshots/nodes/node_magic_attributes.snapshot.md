@@ -29,7 +29,7 @@ print(repr(func))
 
 ```text
 A really nice node
-'func' in module '__main__'
+node 'func' in module '__main__'
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
 ordeq._nodes
 Should all print long representation:

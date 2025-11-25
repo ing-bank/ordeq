@@ -33,7 +33,7 @@ DEBUG	ordeq.io	Loading cached data for 'x1' in module 'resources.runner.example_
 INFO	ordeq.runner	Running node 'increment' in module 'resources.runner.example_module_a'
 INFO	ordeq.io	Saving 'x2' in module 'resources.runner.example_module_a'
 DEBUG	ordeq.io	Persisting data for 'x2' in module 'resources.runner.example_module_a'
-INFO	ordeq.runner	Running view View(func=__main__:noop, ...)
+INFO	ordeq.runner	Running View(func=__main__:noop, ...)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for 'x2' in module 'resources.runner.example_module_a'
 INFO	ordeq.io	Loading 'x3' in module 'resources.runner.example_module_a'

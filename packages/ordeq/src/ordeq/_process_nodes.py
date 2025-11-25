@@ -8,9 +8,6 @@ from ordeq.preview import preview
 
 
 def _collect_views(*nodes: Node) -> tuple[Node, ...]:
-    # Views are granted an "unknown" FQN for consistency with other nodes.
-    # TODO: see if the view appears in the scanned modules,
-    #  and assign the correct FQN.
     all_nodes: dict[Node, None] = {}
 
     def _collect(*nodes_: Node) -> None:

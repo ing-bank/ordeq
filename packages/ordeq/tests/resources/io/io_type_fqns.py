@@ -1,5 +1,5 @@
-from ordeq_common import Print
 from ordeq import IO, Input
+from ordeq_common import Print
 
 p = Print()
 

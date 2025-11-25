@@ -7,9 +7,10 @@ from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
 from ordeq._resolve import (
     Catalog,
     Runnable,
+    RunnableRef,
     _resolve_modules_to_nodes,
     _resolve_runnable_refs_to_runnables,
-    _validate_runnables, RunnableRef,
+    _validate_runnables,
 )
 from ordeq._scan import _scan_fqns
 

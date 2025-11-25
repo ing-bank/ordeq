@@ -23,19 +23,19 @@ Node:resources.runner.example_module_a:decrement --> io-3
 
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for 'x1' in module 'resources.runner.example_module_a'
+DEBUG	ordeq.io	Loading cached data for Input 'x1' in module 'resources.runner.example_module_a'
 INFO	ordeq.runner	Running node 'increment' in module 'resources.runner.example_module_a'
-INFO	ordeq.io	Saving 'x2' in module 'resources.runner.example_module_a'
-DEBUG	ordeq.io	Persisting data for 'x2' in module 'resources.runner.example_module_a'
-DEBUG	ordeq.io	Loading cached data for 'x2' in module 'resources.runner.example_module_a'
-INFO	ordeq.io	Loading 'x3' in module 'resources.runner.example_module_a'
-DEBUG	ordeq.io	Persisting data for 'x3' in module 'resources.runner.example_module_a'
+INFO	ordeq.io	Saving StringBuffer 'x2' in module 'resources.runner.example_module_a'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'x2' in module 'resources.runner.example_module_a'
+DEBUG	ordeq.io	Loading cached data for StringBuffer 'x2' in module 'resources.runner.example_module_a'
+INFO	ordeq.io	Loading StringBuffer 'x3' in module 'resources.runner.example_module_a'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'x3' in module 'resources.runner.example_module_a'
 INFO	ordeq.runner	Running node 'decrement' in module 'resources.runner.example_module_a'
-INFO	ordeq.io	Saving 'x4' in module 'resources.runner.example_module_a'
-DEBUG	ordeq.io	Persisting data for 'x4' in module 'resources.runner.example_module_a'
-DEBUG	ordeq.io	Unpersisting data for 'x2' in module 'resources.runner.example_module_a'
-DEBUG	ordeq.io	Unpersisting data for 'x3' in module 'resources.runner.example_module_a'
-DEBUG	ordeq.io	Unpersisting data for 'x4' in module 'resources.runner.example_module_a'
+INFO	ordeq.io	Saving StringBuffer 'x4' in module 'resources.runner.example_module_a'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'x4' in module 'resources.runner.example_module_a'
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'x2' in module 'resources.runner.example_module_a'
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'x3' in module 'resources.runner.example_module_a'
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'x4' in module 'resources.runner.example_module_a'
 
 ```
 

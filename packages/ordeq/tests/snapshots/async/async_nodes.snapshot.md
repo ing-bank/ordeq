@@ -34,7 +34,7 @@ graph TB
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
-IOException: Failed to save 'buffer_1' in module 'example_async.async_nodes'.
+IOException: Failed to save StringBuffer 'buffer_1' in module 'example_async.async_nodes'.
 string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
@@ -81,6 +81,6 @@ RuntimeWarning: coroutine 'write_buffer_1' was never awaited
 
 ```text
 INFO	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.async_nodes'
-INFO	ordeq.io	Saving 'buffer_1' in module 'example_async.async_nodes'
+INFO	ordeq.io	Saving StringBuffer 'buffer_1' in module 'example_async.async_nodes'
 
 ```

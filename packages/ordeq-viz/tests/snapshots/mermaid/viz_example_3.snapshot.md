@@ -21,14 +21,14 @@ graph TB
 	end
 
 
-	subgraph s0["example_3.func_defs"]
+	subgraph s0["example_3.nodes"]
 		direction TB
-		example_3.func_defs:hello@{shape: subroutine, label: "hello"}
-		example_3.func_defs:hello@{shape: subroutine, label: "hello"}
+		example_3.nodes:f1@{shape: subroutine, label: "f1"}
+		example_3.nodes:f2@{shape: subroutine, label: "f2"}
 	end
 
 	class L0 node
-	class L2,example_3.func_defs:hello,example_3.func_defs:hello view
+	class L2,example_3.nodes:f1,example_3.nodes:f2 view
 	classDef node fill:#008AD7,color:#FFF
 	classDef view fill:#00C853,color:#FFF
 

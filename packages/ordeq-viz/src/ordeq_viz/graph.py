@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from ordeq import Node, View
-from ordeq._fqn import fqn_to_object_ref
+from ordeq._fqn import FQN
 from ordeq._graph import IOIdentity, NodeGraph, NodeIOGraph
 from ordeq._io import AnyIO
 from ordeq._resolve import Catalog
@@ -31,7 +31,7 @@ class IOData:
     attributes: dict[str, Any] = field(default_factory=dict)
 
 
-def _add_io_data(dataset, reverse_lookup, io_data, store: bool) -> int:
+def _add_io_data(dataset: AnyIO, reverse_lookup, io_data, store: bool) -> int:
     """Add IOData for a dataset to the io_data dictionary.
 
     Args:
@@ -121,23 +121,29 @@ def _gather_graph(
             )
             for output_dataset in line.outputs
         ]
-        # TODO: use resolved name on the NamedGraph when available
-        node_module = line.func.__module__
+
+        if line.is_fq:
+            node_fqn = line.fqn
+        else:
+            node_module = line.func.__module__
+            node_name = line.func.__name__
+            node_fqn = FQN(node_module, node_name)
+
         node_data = NodeData(
-            id=fqn_to_object_ref((node_module, line.func.__name__)),
+            id=node_fqn.ref,
             node=line,
-            name=line.func.__name__,
-            module=node_module,
+            name=node_fqn.name,
+            module=node_fqn.module,
             inputs=inputs,
             outputs=outputs,
             view=isinstance(line, View),
         )
         for io_id in inputs:
-            io_input_modules[io_id].add(node_module)
+            io_input_modules[io_id].add(node_fqn.module)
         if not node_data.view:
             for io_id in outputs:
-                io_output_modules[io_id].add(node_module)
-        node_modules[node_module].append(node_data)
+                io_output_modules[io_id].add(node_fqn.module)
+        node_modules[node_fqn.module].append(node_data)
 
     io_modules_ = defaultdict(list)
     for io_id in set(io_input_modules.keys()) | set(io_output_modules.keys()):

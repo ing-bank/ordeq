@@ -8,19 +8,11 @@ from ordeq._fqn import AnyRef, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
-from ordeq._nodes import Node, View, _is_node
+from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
-from ordeq._process_ios import _process_ios
-from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
-from ordeq._resolve import (
-    Runnable,
-    RunnableRef,
-    _is_module,
-    _resolve_modules_to_nodes,
-    _resolve_refs_to_hooks,
-    _resolve_runnable_refs_to_runnables,
-)
-from ordeq._scan import _scan_fqns
+from ordeq._process_nodes import NodeFilter
+from ordeq._process_nodes_and_ios import process_nodes_and_ios
+from ordeq._resolve import Runnable, RunnableRef, _resolve_refs_to_hooks
 from ordeq._substitute import (
     _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
@@ -145,20 +137,6 @@ def _run_graph(
     _run_after_hooks(graph, hooks=run_hooks)
 
 
-def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
-    for runnable in runnables:
-        if not (
-            _is_module(runnable)
-            or _is_node(runnable)
-            or isinstance(runnable, str)
-        ):
-            raise TypeError(
-                f"{runnable} is not something we can run. "
-                f"Expected a module or a node, got "
-                f"{type(runnable).__name__}"
-            )
-
-
 def run(
     *runnables: Runnable | RunnableRef,
     hooks: Sequence[RunnerHook | ObjectRef] = (),
@@ -263,14 +241,9 @@ def run(
 
     """
 
-    _validate_runnables(*runnables)
-    modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
-    nodes += _resolve_modules_to_nodes(*modules)
-    node_fqns, io_fqns = _scan_fqns(*modules)
-    nodes_processed = _process_nodes(
-        *nodes, node_filter=node_filter, node_fqns=node_fqns
+    nodes_processed = process_nodes_and_ios(
+        *runnables, node_filter=node_filter
     )
-    _process_ios(*nodes_processed, io_fqns=io_fqns)
     graph = NodeGraph.from_nodes(nodes_processed)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
@@ -296,8 +269,6 @@ def run(
     if verbose:
         graph_with_io = NodeIOGraph.from_graph(graph)
         print(graph_with_io)
-
-    _validate_nodes(*graph.topological_ordering)
 
     run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)
 

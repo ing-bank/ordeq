@@ -4,7 +4,7 @@ from types import ModuleType
 from typing import Any, Literal, TypeAlias, overload
 
 from ordeq._fqn import ModuleName
-from ordeq._process_nodes import _process_nodes
+from ordeq._process_nodes_and_ios import process_nodes_and_ios
 from ordeq._resolve import _resolve_runnables_to_nodes_and_ios
 from ordeq._runner import NodeFilter
 
@@ -70,9 +70,12 @@ def viz(
             "All vizzables must be modules or references to modules."
         )
 
-    nodes, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
-    nodes_ = _process_nodes(*nodes, node_filter=node_filter)
-    graph = _gather_graph(nodes_, ios)
+    nodes = process_nodes_and_ios(*vizzables, node_filter=node_filter)
+
+    # TODO: replace with proper IO processing
+    _, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)
+
+    graph = _gather_graph(nodes, ios)
 
     match fmt:
         case "kedro-viz":

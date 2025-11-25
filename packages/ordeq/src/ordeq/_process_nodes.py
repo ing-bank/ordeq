@@ -68,7 +68,7 @@ def _validate_nodes(*nodes: Node) -> None:
         node.validate()
 
 
-def _assign_fqns(*nodes: Node, node_fqns: NodeFQNs) -> Generator[Node]:
+def _assign_node_fqns(*nodes: Node, node_fqns: NodeFQNs) -> Generator[Node]:
     for node in nodes:
         if not node.is_fq and node in node_fqns and len(node_fqns[node]) == 1:
             fqn = node_fqns[node][0]
@@ -85,5 +85,7 @@ def _process_nodes(
     filtered_nodes = _filter_nodes(*nodes, node_filter=node_filter)
     nodes_and_views = _collect_views(*filtered_nodes)
     if node_fqns:
-        return tuple(_assign_fqns(*nodes_and_views, node_fqns=node_fqns))
+        nodes_and_views = tuple(
+            _assign_node_fqns(*nodes_and_views, node_fqns=node_fqns)
+        )
     return nodes_and_views

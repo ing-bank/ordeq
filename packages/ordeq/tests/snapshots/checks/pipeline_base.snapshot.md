@@ -67,23 +67,23 @@ aBBB
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for 'A' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_base'
-DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for 'Ap' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for 'B' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_base'
-DEBUG	ordeq.io	Persisting data for IO(id=ID4)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
+DEBUG	ordeq.io	Persisting data for 'Bp' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for 'Ap' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for 'Bp' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_base'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Saving 'AB' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Persisting data for 'AB' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for 'AB' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_base'
-DEBUG	ordeq.io	Persisting data for IO(id=ID5)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for 'Bp' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Unpersisting data for 'Ap' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Unpersisting data for 'AB' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
 
 ```

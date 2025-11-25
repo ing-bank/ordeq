@@ -29,11 +29,11 @@ run(__name__)
 
 ```text
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for 'io1' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for 'io1' in module '__main__'
 INFO	ordeq.runner	Running node 'greet' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for 'io2' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for 'io1' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for 'io2' in module '__main__'
 
 ```

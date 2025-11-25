@@ -61,19 +61,19 @@ RuntimeWarning: coroutine 'AsyncStringBuffer.load' was never awaited
 
 ```text
 INFO	ordeq.runner	Running node 'retrieve_data_1' in module 'example_async.async_ios_and_nodes'
-INFO	ordeq.io	Saving AsyncStringBuffer(_buffer=<_io.StringIO object at HASH2>, sleep_delay=1.0)
-DEBUG	ordeq.io	Persisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH2>, sleep_delay=1.0)
+INFO	ordeq.io	Saving 'buffer_1' in module 'example_async.async_ios_and_nodes'
+DEBUG	ordeq.io	Persisting data for 'buffer_1' in module 'example_async.async_ios_and_nodes'
 INFO	ordeq.runner	Running node 'retrieve_data_2' in module 'example_async.async_ios_and_nodes'
-INFO	ordeq.io	Saving AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=2.0)
-DEBUG	ordeq.io	Persisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=2.0)
-DEBUG	ordeq.io	Loading cached data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH2>, sleep_delay=1.0)
-DEBUG	ordeq.io	Loading cached data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=2.0)
+INFO	ordeq.io	Saving 'buffer_2' in module 'example_async.async_ios_and_nodes'
+DEBUG	ordeq.io	Persisting data for 'buffer_2' in module 'example_async.async_ios_and_nodes'
+DEBUG	ordeq.io	Loading cached data for 'buffer_1' in module 'example_async.async_ios_and_nodes'
+DEBUG	ordeq.io	Loading cached data for 'buffer_2' in module 'example_async.async_ios_and_nodes'
 INFO	ordeq.runner	Running node 'process_data' in module 'example_async.async_ios_and_nodes'
-INFO	ordeq.io	Saving AsyncStringBuffer(_buffer=<_io.StringIO object at HASH4>, sleep_delay=1.0)
-DEBUG	ordeq.io	Persisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH4>, sleep_delay=1.0)
-DEBUG	ordeq.io	Unpersisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH3>, sleep_delay=2.0)
-DEBUG	ordeq.io	Unpersisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH2>, sleep_delay=1.0)
-DEBUG	ordeq.io	Unpersisting data for AsyncStringBuffer(_buffer=<_io.StringIO object at HASH4>, sleep_delay=1.0)
-INFO	ordeq.io	Loading AsyncStringBuffer(_buffer=<_io.StringIO object at HASH4>, sleep_delay=1.0)
+INFO	ordeq.io	Saving 'buffer_3' in module 'example_async.async_ios_and_nodes'
+DEBUG	ordeq.io	Persisting data for 'buffer_3' in module 'example_async.async_ios_and_nodes'
+DEBUG	ordeq.io	Unpersisting data for 'buffer_2' in module 'example_async.async_ios_and_nodes'
+DEBUG	ordeq.io	Unpersisting data for 'buffer_1' in module 'example_async.async_ios_and_nodes'
+DEBUG	ordeq.io	Unpersisting data for 'buffer_3' in module 'example_async.async_ios_and_nodes'
+INFO	ordeq.io	Loading 'buffer_3' in module 'example_async.async_ios_and_nodes'
 
 ```

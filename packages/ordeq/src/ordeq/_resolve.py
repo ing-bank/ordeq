@@ -23,6 +23,20 @@ def _is_module(obj: object) -> TypeGuard[ModuleType]:
     return isinstance(obj, ModuleType)
 
 
+def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
+    for runnable in runnables:
+        if not (
+            _is_module(runnable)
+            or _is_node(runnable)
+            or isinstance(runnable, str)
+        ):
+            raise TypeError(
+                f"{runnable} is not something we can run. "
+                f"Expected a module or a node, got "
+                f"{type(runnable).__name__}"
+            )
+
+
 def _is_package(module: ModuleType) -> TypeGuard[ModuleType]:
     return hasattr(module, "__path__")
 

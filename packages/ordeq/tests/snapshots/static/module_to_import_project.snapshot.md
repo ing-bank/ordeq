@@ -22,7 +22,7 @@ example_project.inner.nodes {'IO': 'ordeq', 'node': 'ordeq', 'Print': 'ordeq_com
 example_project.misc {}
 example_project.nodes {'IO': 'ordeq', 'node': 'ordeq', 'Print': 'ordeq_common'}
 example_project.nodes_import {'node': 'ordeq', 'a': 'example_project.catalog_1', 'b': 'example_project.catalog_1', 'f': 'example_project.catalog_2', 'catalog_1': 'example_project', 'catalog_2': 'example_project'}
-example_project.nodes_import_alias {'node': 'ordeq', 'a': 'example_project.catalog_1', 'B': 'example_project.catalog_1', 'h': 'example_project.catalog_2'}
+example_project.nodes_import_alias {'node': 'ordeq', 'a': 'example_project.catalog_1', 'b': 'example_project.catalog_1', 'h': 'example_project.catalog_2'}
 example_project.nodes_with_inline_io {'IO': 'ordeq', 'Input': 'ordeq', 'node': 'ordeq'}
 example_project.nodes_with_view {'Input': 'ordeq', 'node': 'ordeq', 'Print': 'ordeq_common'}
 

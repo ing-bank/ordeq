@@ -423,6 +423,9 @@ class _WithName:
         self.__dict__["_module"] = fqn.module
         self.__dict__["_name"] = fqn.name
 
+    def _set_name(self, name: str) -> None:
+        self.__dict__["_name"] = name
+
     @property
     def is_fq(self) -> bool:
         return self._module is not None and self._name is not None

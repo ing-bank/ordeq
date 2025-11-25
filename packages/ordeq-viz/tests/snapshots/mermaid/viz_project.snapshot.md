@@ -61,7 +61,7 @@ graph TB
 	IO4@{shape: rect, label: "x"}
 	IO5@{shape: rect, label: "y"}
 	IO6@{shape: rect, label: "a"}
-	IO7@{shape: rect, label: "B"}
+	IO7@{shape: rect, label: "b"}
 	IO8@{shape: rect, label: "f"}
 	IO9@{shape: rect, label: "g"}
 

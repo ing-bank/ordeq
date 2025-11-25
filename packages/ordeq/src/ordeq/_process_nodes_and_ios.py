@@ -5,6 +5,7 @@ from ordeq._process_ios import _process_ios
 from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
 from ordeq._resolve import (
     Catalog,
+    Runnable,
     _resolve_modules_to_nodes,
     _resolve_runnable_refs_to_runnables,
     _validate_runnables,
@@ -16,12 +17,14 @@ if TYPE_CHECKING:
 
 
 def process_nodes_and_ios(
-    *runnables, node_filter: NodeFilter | None = None
+    *runnables: Runnable,
+    context: list[Runnable],
+    node_filter: NodeFilter | None = None,
 ) -> tuple[Node, ...]:
     _validate_runnables(*runnables)
     modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
     nodes += _resolve_modules_to_nodes(*modules)
-    node_fqns, io_fqns = _scan_fqns(*modules)
+    node_fqns, io_fqns = _scan_fqns(*context, *modules)
     nodes_processed = _process_nodes(
         *nodes, node_filter=node_filter, node_fqns=node_fqns
     )

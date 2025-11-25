@@ -22,7 +22,7 @@ TypeError: 0.23 is not something we can run. Expected a module or a node, got fl
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     nodes_processed = process_nodes_and_ios(
-        *runnables, node_filter=node_filter
+        *runnables, context=context_, node_filter=node_filter
     )
 
   File "/packages/ordeq/tests/resources/runner/run_non_runnable.py", line LINO, in <module>

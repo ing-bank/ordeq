@@ -22,6 +22,7 @@ logger = logging.getLogger("ordeq.viz")
 @overload
 def viz(
     *vizzables: Vizzable,
+    context: Vizzable | None = None,
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path,
     node_filter: NodeFilter | None = None,
@@ -32,6 +33,7 @@ def viz(
 @overload
 def viz(
     *vizzables: Vizzable,
+    context: Vizzable | None = None,
     fmt: Literal["mermaid", "mermaid-md"],
     output: None = None,
     node_filter: NodeFilter | None = None,
@@ -44,6 +46,7 @@ def viz(
     fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
     output: Path | None = None,
     node_filter: NodeFilter | None = None,
+    context: Vizzable | None = None,
     **options: Any,
 ) -> str | None:
     """Visualize the pipeline from the provided packages, modules, or nodes
@@ -53,6 +56,8 @@ def viz(
         fmt: Format of the output visualization, ("kedro-viz" or "mermaid").
         output: output file or directory where the viz will be saved.
         node_filter: Optional filter to apply to nodes before visualization.
+        context: additional modules or references to modules to use as
+            context for resolving nodes and IOs.
         options: Additional options for the visualization functions.
 
     Returns:
@@ -70,7 +75,10 @@ def viz(
             "All vizzables must be modules or references to modules."
         )
 
-    nodes = process_nodes_and_ios(*vizzables, node_filter=node_filter)
+    context_ = [context] if context else []
+    nodes = process_nodes_and_ios(
+        *vizzables, context=context_, node_filter=node_filter
+    )
 
     # TODO: replace with proper IO processing
     _, ios = _resolve_runnables_to_nodes_and_ios(*vizzables)

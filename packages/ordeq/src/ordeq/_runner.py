@@ -242,9 +242,10 @@ def run(
     ```
 
     """
+    context_ = [context] if context else []
 
     nodes_processed = process_nodes_and_ios(
-        *runnables, node_filter=node_filter
+        *runnables, context=context_, node_filter=node_filter
     )
     graph = NodeGraph.from_nodes(nodes_processed)
 

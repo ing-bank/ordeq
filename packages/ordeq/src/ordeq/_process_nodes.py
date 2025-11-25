@@ -1,3 +1,4 @@
+import warnings
 from collections.abc import Callable, Generator
 from dataclasses import replace
 from typing import Annotated, TypeAlias
@@ -74,15 +75,28 @@ def _assign_node_fqns(*nodes: Node, node_fqns: NodeFQNs) -> Generator[Node]:
             yield node
 
 
+def _deduplicate_nodes(*nodes: Node) -> Generator[Node]:
+    seen: set[Node] = set()
+    for node in nodes:
+        if node in seen:
+            warnings.warn(
+                f"{node} was provided more than once. Duplicates are ignored.",
+                stacklevel=2,
+            )
+        seen.add(node)
+        yield node
+
+
 def _process_nodes(
     *nodes: Node,
     node_filter: NodeFilter | None = None,
     node_fqns: NodeFQNs | None = None,
 ) -> tuple[Node, ...]:
-    filtered_nodes = _filter_nodes(*nodes, node_filter=node_filter)
-    nodes_and_views = _collect_views(*filtered_nodes)
+    nodes_deduplicated = _deduplicate_nodes(*nodes)
+    nodes_filtered = _filter_nodes(
+        *nodes_deduplicated, node_filter=node_filter
+    )
+    nodes_and_views = _collect_views(*nodes_filtered)
     if node_fqns:
-        nodes_and_views = tuple(
-            _assign_node_fqns(*nodes_and_views, node_fqns=node_fqns)
-        )
+        return tuple(_assign_node_fqns(*nodes_and_views, node_fqns=node_fqns))
     return nodes_and_views

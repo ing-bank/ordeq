@@ -65,12 +65,3 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  Node(module=example_1.wrapped_io, name=print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()])]
 
 ```
-
-## Warnings
-
-```text
-UserWarning: Module 'example_1' already provided as runnable
-UserWarning: Module 'example_1.wrapped_io' already provided as runnable
-UserWarning: Module 'example_1.nodes' already provided as runnable
-UserWarning: Module 'example_1' already provided as runnable
-```

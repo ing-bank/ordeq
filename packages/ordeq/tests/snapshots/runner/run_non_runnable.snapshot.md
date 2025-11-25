@@ -17,8 +17,7 @@ TypeError: 0.23 is not something we can run. Expected a module or a node, got fl
     )
 
   File "/packages/ordeq/src/ordeq/_process_nodes_and_ios.py", line LINO, in process_nodes_and_ios
-    _validate_runnables(*runnables)
-    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+    runnables_deduplicated = _deduplicate_runnables(*runnables_validated)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
     nodes_processed = process_nodes_and_ios(

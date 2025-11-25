@@ -8,6 +8,7 @@ from ordeq._resolve import (
     Catalog,
     Runnable,
     RunnableRef,
+    _deduplicate_runnables,
     _resolve_modules_to_nodes,
     _resolve_runnable_refs_to_runnables,
     _validate_runnables,
@@ -23,8 +24,11 @@ def process_nodes_and_ios(
     context: list[ModuleType],
     node_filter: NodeFilter | None = None,
 ) -> tuple[Node, ...]:
-    _validate_runnables(*runnables)
-    modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
+    runnables_validated = _validate_runnables(*runnables)
+    runnables_deduplicated = _deduplicate_runnables(*runnables_validated)
+    modules, nodes = _resolve_runnable_refs_to_runnables(
+        *runnables_deduplicated
+    )
     nodes += _resolve_modules_to_nodes(*modules)
     node_fqns, io_fqns = _scan_fqns(*context, *modules)
     nodes_processed = _process_nodes(

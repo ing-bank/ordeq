@@ -65,9 +65,3 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)])]
 
 ```
-
-## Warnings
-
-```text
-UserWarning: Module 'example_rag_pipeline.rag' already provided as runnable
-```

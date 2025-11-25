@@ -23,7 +23,9 @@ def _is_module(obj: object) -> TypeGuard[ModuleType]:
     return isinstance(obj, ModuleType)
 
 
-def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
+def _validate_runnables(
+    *runnables: Runnable | RunnableRef,
+) -> Generator[Runnable | RunnableRef]:
     for runnable in runnables:
         if not (
             _is_module(runnable)
@@ -35,6 +37,23 @@ def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
                 f"Expected a module or a node, got "
                 f"{type(runnable).__name__}"
             )
+        yield runnable
+
+
+def _deduplicate_runnables(
+    *runnables: Runnable | RunnableRef,
+) -> Generator[RunnableRef | Runnable]:
+    seen: set[Runnable | RunnableRef] = set()
+    for runnable in runnables:
+        runnable_ = runnable if not _is_module(runnable) else runnable.__name__
+        if runnable_ in seen:
+            warnings.warn(
+                f"{runnable_} was provided more than once. "
+                f"Duplicates are ignored.",
+                stacklevel=2,
+            )
+        seen.add(runnable_)
+        yield runnable
 
 
 def _is_package(module: ModuleType) -> TypeGuard[ModuleType]:
@@ -108,20 +127,12 @@ def _resolve_packages_to_modules(
 
     def _walk(module: ModuleType):
         if module.__name__ in visited:
-            warnings.warn(
-                f"Module '{module.__name__}' already provided as runnable",
-                stacklevel=2,
-            )
             return
         visited.add(module.__name__)
         yield module
         if _is_package(module):
             for subname in _resolve_package_to_module_names(module):
                 if subname in visited:
-                    warnings.warn(
-                        f"Module '{subname}' already provided as runnable",
-                        stacklevel=2,
-                    )
                     continue
                 submodule = _resolve_module_ref_to_module(subname)
                 yield from _walk(submodule)
@@ -136,23 +147,9 @@ def _resolve_refs_to_modules(
     modules: list[ModuleType] = []
     for runnable in runnables:
         if _is_module(runnable):
-            if runnable not in modules:
-                modules.append(runnable)
-            else:
-                warnings.warn(
-                    f"Module '{runnable.__name__}' already provided as "
-                    f"runnable",
-                    stacklevel=2,
-                )
+            modules.append(runnable)
         elif isinstance(runnable, str):
-            mod = _resolve_module_ref_to_module(runnable)
-            if mod not in modules:
-                modules.append(mod)
-            else:
-                warnings.warn(
-                    f"Module '{runnable}' already provided as runnable",
-                    stacklevel=2,
-                )
+            modules.append(_resolve_module_ref_to_module(runnable))
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "
@@ -259,24 +256,11 @@ def _resolve_runnables_to_nodes_and_modules(
             # mypy false positive
             modules_and_strs.append(runnable)  # type: ignore[arg-type]
         elif _is_node(runnable):
-            if runnable not in nodes:
-                nodes.append(runnable)
-            else:
-                warnings.warn(
-                    f"Node '{runnable.ref}' already provided in another "
-                    f"runnable",
-                    stacklevel=2,
-                )
+            nodes.append(runnable)
         elif isinstance(runnable, str):
             fqn = FQN.from_ref(runnable)
             node = _resolve_fqn_to_node(fqn)
-            if node not in nodes:
-                nodes.append(node)
-            else:
-                warnings.warn(
-                    f"Node '{node.ref}' already provided in another runnable",
-                    stacklevel=2,
-                )
+            nodes.append(node)
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "

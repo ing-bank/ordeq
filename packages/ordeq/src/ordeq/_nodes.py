@@ -5,7 +5,16 @@ from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import wraps
 from inspect import Signature, signature
-from typing import Any, Generic, ParamSpec, TypeGuard, TypeVar, cast, overload
+from typing import (
+    Any,
+    Generic,
+    Literal,
+    ParamSpec,
+    TypeGuard,
+    TypeVar,
+    cast,
+    overload,
+)
 
 from ordeq._fqn import FQN
 from ordeq._io import IO, AnyIO, Input, Output
@@ -102,9 +111,8 @@ class Node(Generic[FuncParams, FuncReturns]):
         return None
 
     @property
-    def type_fqn(self) -> FQN:
-        t = type(self)
-        return FQN(t.__module__, t.__name__)
+    def type(self) -> Literal["Node", "View"]:
+        return type(self).__name__  # type: ignore[invalid-return-type]
 
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]

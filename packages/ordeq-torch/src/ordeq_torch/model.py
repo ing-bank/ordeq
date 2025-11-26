@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 import torch.nn
@@ -45,7 +45,7 @@ class TorchModel(IO[torch.nn.Module]):
     path: PathLike
     model_class: type[torch.nn.Module] | None = None
     model_args: tuple[Any, ...] = ()
-    model_kwargs: dict[str, Any] | None = None
+    model_kwargs: dict[str, Any] = field(default_factory=dict)
 
     def load(self, **load_options: Any) -> torch.nn.Module:
         """Load a PyTorch model by instantiating the model class and loading
@@ -68,7 +68,7 @@ class TorchModel(IO[torch.nn.Module]):
         if self.model_class is None:
             raise ValueError("model_class must be provided to load a model.")
 
-        model = self.model_class(*self.model_args, **(self.model_kwargs or {}))
+        model = self.model_class(*self.model_args, **self.model_kwargs)
         state_dict = torch.load(self.path, weights_only=True, **load_options)
         model.load_state_dict(state_dict)
         model.eval()

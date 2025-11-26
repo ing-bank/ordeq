@@ -66,10 +66,19 @@ snapshot: null'
 
 ```text
 INFO	ordeq.io	Loading IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>)
+DEBUG	ordeq.io	Persisting data for IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>)
 INFO	ordeq.io	Loading Literal('test_namespace')
+DEBUG	ordeq.io	Persisting data for Literal('test_namespace')
 INFO	ordeq.runner	Running node 'create_save_table' in module '__main__'
 INFO	ordeq.io	Saving IcebergTable(catalog=IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>), table_name='test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=ID1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=ID2, name='data', field_type=StringType(), required=False),)), if_exists=<IfTableExistsSaveOptions.DROP: 'drop'>)
+DEBUG	ordeq.io	Loading cached data for IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>)
+DEBUG	ordeq.io	Loading cached data for IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>)
 INFO	ordeq.io	Loading IcebergTable(catalog=IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>), table_name='test_table', namespace='test_namespace', schema=StructType(fields=(NestedField(field_id=ID1, name='id', field_type=IntegerType(), required=True), NestedField(field_id=ID2, name='data', field_type=StringType(), required=False),)), if_exists=<IfTableExistsSaveOptions.DROP: 'drop'>)
+DEBUG	ordeq.io	Loading cached data for IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>)
 INFO	ordeq.runner	Running view 'load_table' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IcebergCatalog(name='test_catalog', catalog_type=<CatalogType.IN_MEMORY: 'in-memory'>)
+DEBUG	ordeq.io	Unpersisting data for Literal('test_namespace')
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

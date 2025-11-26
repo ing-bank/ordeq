@@ -55,7 +55,7 @@ graph TB
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
-IOException: Failed to save 'A' in module 'example_async.extended_graph'.
+IOException: Failed to save StringBuffer 'A' in module 'example_async.extended_graph'.
 string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
@@ -102,6 +102,6 @@ RuntimeWarning: coroutine 'write_A' was never awaited
 
 ```text
 INFO	ordeq.runner	Running node 'write_A' in module 'example_async.extended_graph'
-INFO	ordeq.io	Saving 'A' in module 'example_async.extended_graph'
+INFO	ordeq.io	Saving StringBuffer 'A' in module 'example_async.extended_graph'
 
 ```

@@ -411,7 +411,23 @@ class _InputCache(_BaseInput[Tin]):
             del self.__dict__["_data"]
 
 
-class _WithName:
+class _WithAttributes:
+    _attributes: dict[str, Any] | None = None
+
+    def with_attributes(self, **attributes) -> Self:
+        new_instance = copy(self)
+        new_instance.__dict__["_attributes"] = attributes
+        return new_instance
+
+
+class _WithTypeFQN:
+    @property
+    def type_fqn(self) -> FQN:
+        t = type(self)
+        return FQN(t.__module__, t.__name__)
+
+
+class _WithName(_WithTypeFQN):
     _module: str | None = None
     _name: str | None = None
 
@@ -434,24 +450,8 @@ class _WithName:
 
     def __str__(self) -> str:
         if self.is_fq:
-            return f"'{self._name}' in module '{self._module}'"
+            return f"{self.type_fqn.name} {self.fqn:desc}"
         return repr(self)
-
-
-class _WithAttributes:
-    _attributes: dict[str, Any] | None = None
-
-    def with_attributes(self, **attributes) -> Self:
-        new_instance = copy(self)
-        new_instance.__dict__["_attributes"] = attributes
-        return new_instance
-
-
-class _WithTypeFQN:
-    @property
-    def type_fqn(self) -> FQN:
-        t = type(self)
-        return FQN(t.__module__, t.__name__)
 
 
 class _WithResource:
@@ -484,7 +484,6 @@ class Input(
     _WithResource,
     _WithName,
     _WithAttributes,
-    _WithTypeFQN,
     Generic[Tin],
     metaclass=_IOMeta,
 ):
@@ -626,7 +625,6 @@ class Output(
     _WithResource,
     _WithName,
     _WithAttributes,
-    _WithTypeFQN,
     Generic[Tout],
     metaclass=_IOMeta,
 ):

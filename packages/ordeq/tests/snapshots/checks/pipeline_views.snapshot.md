@@ -55,10 +55,10 @@ aBBB
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
-DEBUG	ordeq.io	Loading cached data for 'A' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Loading cached data for 'B' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'Bp' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID3)

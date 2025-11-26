@@ -74,14 +74,14 @@ WARNING	ordeq.preview	Checks are in preview mode and may change without notice i
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-DEBUG	ordeq.io	Loading cached data for 'A' in module 'example_checks.pipeline_checks_for_views'
-DEBUG	ordeq.io	Loading cached data for 'D' in module 'example_checks.pipeline_checks_for_views'
+DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_checks_for_views'
+DEBUG	ordeq.io	Loading cached data for Input 'D' in module 'example_checks.pipeline_checks_for_views'
 INFO	ordeq.runner	Running view 'check_a' in module 'example_checks.pipeline_checks_for_views'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
-DEBUG	ordeq.io	Loading cached data for 'A' in module 'example_checks.pipeline_checks_for_views'
+DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_checks_for_views'
 INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_checks_for_views'
 DEBUG	ordeq.io	Persisting data for IO(id=ID5)
-DEBUG	ordeq.io	Loading cached data for 'B' in module 'example_checks.pipeline_checks_for_views'
+DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_checks_for_views'
 INFO	ordeq.runner	Running view 'Bp' in module 'example_checks.pipeline_checks_for_views'
 DEBUG	ordeq.io	Persisting data for IO(id=ID6)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID5)

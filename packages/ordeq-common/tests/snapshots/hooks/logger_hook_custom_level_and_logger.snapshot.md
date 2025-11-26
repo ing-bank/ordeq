@@ -54,8 +54,12 @@ ValueError: Intentional failure for testing.
     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, node_hooks=node_hooks, run_hooks=run_hooks)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_graph(
+    ~~~~~~~~~~^
+        graph, node_hooks=resolved_node_hooks, run_hooks=resolved_run_hooks
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
 
   File "/packages/ordeq-common/tests/resources/hooks/logger_hook_custom_level_and_logger.py", line LINO, in <module>
     run(fail, hooks=[logger])

@@ -55,7 +55,7 @@ CycleError: ('nodes are in a cycle', [Node(module=__main__, name=simple_node, in
            ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    graph = NodeGraph.from_nodes(nodes_processed)
+    graph = NodeGraph.from_nodes(nodes)
 
   File "/packages/ordeq/tests/resources/checks/check_impossible.py", line LINO, in <module>
     run(__name__)

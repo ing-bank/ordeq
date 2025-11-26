@@ -454,10 +454,17 @@ class _WithName(_WithTypeFQN):
         return repr(self)
 
 
-class _WithResource:
-    _resource_: Hashable = None
+ResourceType: TypeAlias = Annotated[
+    Hashable,
+    """Any hashable object that is used to identify an IO resource.
+    Examples: pathlib.Path, str.""",
+]
 
-    def with_resource(self, resource: Any) -> Self:
+
+class _WithResource:
+    _resource_: ResourceType = None
+
+    def with_resource(self, resource: ResourceType) -> Self:
         if resource is None:
             raise ValueError("Resource cannot be None.")
         preview(
@@ -469,10 +476,10 @@ class _WithResource:
         return new_instance
 
     @property
-    def _resource(self) -> Hashable:
+    def _resource(self) -> ResourceType:
         return self._resource_ or self
 
-    def __matmul__(self, resource: Any) -> Self:
+    def __matmul__(self, resource: ResourceType) -> Self:
         return self.with_resource(resource)
 
 

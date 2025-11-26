@@ -18,8 +18,6 @@ my_catalog = IcebergCatalog(
 test_namespace = Literal[str]("test_namespace")
 test_table_name = "test_table"
 
-table_resource = f"{test_table_name}.{test_namespace.value}"
-
 my_table = IcebergTable(
     catalog=my_catalog,
     table_name=test_table_name,

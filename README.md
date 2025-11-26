@@ -161,7 +161,7 @@ Read more in the [documentation](https://ing-bank.github.io/ordeq/guides/run_and
 The following figure shows an example Ordeq pipeline of a Retrieval-Augmented Generation (RAG) pipeline visualized with Mermaid:
 
 <a href="https://ing-bank.github.io/ordeq/guides/run_and_viz/#viz">
-    <img src="./docs/_static/ordeq_example_pipeline.svg" width="800px" alt="RAG pipeline" />
+    <img src="https://github.com/ing-bank/ordeq/raw/main/docs/_static/ordeq_example_pipeline.svg" width="800px" alt="RAG pipeline" />
 </a>
 
 ## Acknowledgements

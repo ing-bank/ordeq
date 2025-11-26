@@ -17,7 +17,7 @@ from typing import (
 )
 
 from ordeq._fqn import FQN
-from ordeq._io import IO, AnyIO, Input, Output
+from ordeq._io import IO, AnyIO, Input, Output, ResourceType
 from ordeq.preview import preview
 
 T = TypeVar("T")
@@ -51,7 +51,7 @@ class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
-    checks: tuple[AnyIO, ...] = ()
+    checks: tuple[AnyIO | ResourceType, ...] = ()
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
 
@@ -303,6 +303,7 @@ def create_node(
     | Input
     | Output
     | Callable
+    | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
     module: str | None = None,
@@ -320,6 +321,7 @@ def create_node(
     | Input
     | Output
     | Callable
+    | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
     module: str | None = None,
@@ -336,6 +338,7 @@ def create_node(
     | Input
     | Output
     | Callable
+    | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
     module: str | None = None,
@@ -442,6 +445,7 @@ def node(
     | Input
     | Output
     | Callable
+    | ResourceType
     | None = None,
     **attributes: Any,
 ) -> Node[FuncParams, FuncReturns]: ...
@@ -456,6 +460,7 @@ def node(
     | Input
     | Output
     | Callable
+    | ResourceType
     | None = None,
     **attributes: Any,
 ) -> Callable[
@@ -472,6 +477,7 @@ def node(
     | Input
     | Output
     | Callable
+    | ResourceType
     | None = None,
     **attributes: Any,
 ) -> (

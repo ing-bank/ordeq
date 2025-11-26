@@ -97,21 +97,25 @@ class NodeModel(BaseModel):
                 else:
                     outs.append(module_name + ":" + "|".join(candidates))
 
-        checks = []
+        checks: list[str] = []
         for check in node.checks:
-            candidates = io_to_fqns[check]
-            if len(candidates) == 1:
-                checks.append(candidates[0])
+            if check not in io_to_fqns:
+                checks.append(str(check))
+                continue
             else:
-                candidates = [
-                    c.removeprefix(module_name + ":")
-                    for c in candidates
-                    if c.startswith(module_name + ":")
-                ]
+                candidates = io_to_fqns[check]  # type: ignore[index]
                 if len(candidates) == 1:
-                    checks.append(module_name + ":" + candidates[0])
+                    checks.append(candidates[0])
                 else:
-                    checks.append(module_name + ":" + "|".join(candidates))
+                    candidates = [
+                        c.removeprefix(module_name + ":")
+                        for c in candidates
+                        if c.startswith(module_name + ":")
+                    ]
+                    if len(candidates) == 1:
+                        checks.append(module_name + ":" + candidates[0])
+                    else:
+                        checks.append(module_name + ":" + "|".join(candidates))
 
         return cls(
             name=node_name,

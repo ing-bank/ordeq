@@ -12,6 +12,7 @@ from ordeq_viz.graph import _gather_graph
 from ordeq_viz.to_kedro_viz import graph_to_kedro_viz
 from ordeq_viz.to_mermaid import graph_to_mermaid
 from ordeq_viz.to_mermaid_md import graph_to_mermaid_md
+from ordeq_viz.to_mermaidchart_url import graph_to_mermaidchart_url
 
 Vizzable: TypeAlias = ModuleName | ModuleType
 
@@ -22,7 +23,7 @@ logger = logging.getLogger("ordeq.viz")
 @overload
 def viz(
     *vizzables: Vizzable,
-    fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
+    fmt: Literal["kedro-viz", "mermaid", "mermaid-md", "mermaidchart-url"],
     output: Path,
     node_filter: NodeFilter | None = None,
     context: ModuleType | ModuleName | None = None,
@@ -33,7 +34,7 @@ def viz(
 @overload
 def viz(
     *vizzables: Vizzable,
-    fmt: Literal["mermaid", "mermaid-md"],
+    fmt: Literal["mermaid", "mermaid-md", "mermaidchart-url"],
     output: None = None,
     node_filter: NodeFilter | None = None,
     context: ModuleType | ModuleName | None = None,
@@ -43,7 +44,7 @@ def viz(
 
 def viz(
     *vizzables: Vizzable,
-    fmt: Literal["kedro-viz", "mermaid", "mermaid-md"],
+    fmt: Literal["kedro-viz", "mermaid", "mermaid-md", "mermaidchart-url"],
     output: Path | None = None,
     node_filter: NodeFilter | None = None,
     context: ModuleType | ModuleName | None = None,
@@ -53,7 +54,8 @@ def viz(
 
     Args:
         vizzables: modules or references to modules to visualize.
-        fmt: Format of the output visualization, ("kedro-viz" or "mermaid").
+        fmt: Format of the output visualization, ("kedro-viz", "mermaid",
+            "mermaid-md" or "mermaidchart-url").
         output: output file or directory where the viz will be saved.
         node_filter: Optional filter to apply to nodes before visualization.
         context: additional modules or references to modules to use as
@@ -101,4 +103,6 @@ def viz(
                 output.write_text(result, encoding="utf8")
                 return None
             return result
+        case "mermaidchart-url":
+            return graph_to_mermaidchart_url(graph, **options)
     return None

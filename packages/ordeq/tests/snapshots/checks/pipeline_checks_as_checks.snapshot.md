@@ -51,11 +51,11 @@ graph TB
 	example_checks.pipeline_checks_as_checks:join@{shape: rounded, label: "join"}
 	example_checks.pipeline_checks_as_checks:check_ab@{shape: subroutine, label: "check_ab"}
 	example_checks.pipeline_checks_as_checks:print_result@{shape: subroutine, label: "print_result"}
-	example_checks.pipeline_checks_as_checks:A@{shape: rect, label: "A"}
 	example_checks.pipeline_checks_as_checks:AB@{shape: rect, label: "AB"}
 	example_checks.pipeline_checks_as_checks:Ap@{shape: rect, label: "Ap"}
-	example_checks.pipeline_checks_as_checks:B@{shape: rect, label: "B"}
 	example_checks.pipeline_checks_as_checks:Bp@{shape: rect, label: "Bp"}
+	example_checks.pipeline_checks_as_checks:A@{shape: rect, label: "A"}
+	example_checks.pipeline_checks_as_checks:B@{shape: rect, label: "B"}
 	example_checks.pipeline_checks_as_checks:D@{shape: rect, label: "D"}
 
 	class node_type,example_checks.pipeline_checks_as_checks:process_a,example_checks.pipeline_checks_as_checks:process_b,example_checks.pipeline_checks_as_checks:join node

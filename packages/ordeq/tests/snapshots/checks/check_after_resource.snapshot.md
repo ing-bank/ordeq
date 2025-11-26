@@ -49,8 +49,8 @@ graph TB
 
 	__main__:produce@{shape: rounded, label: "produce"}
 	__main__:check@{shape: subroutine, label: "check"}
-	__main__:csv_polars@{shape: rect, label: "csv_polars"}
 	__main__:csv_pandas@{shape: rect, label: "csv_pandas"}
+	__main__:csv_polars@{shape: rect, label: "csv_polars"}
 
 	class node_type,__main__:produce node
 	class view_type,__main__:check view

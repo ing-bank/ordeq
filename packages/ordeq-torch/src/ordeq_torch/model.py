@@ -7,7 +7,7 @@ from ordeq.types import PathLike
 
 
 @dataclass(frozen=True, kw_only=True)
-class TorchModel(IO):
+class TorchModel(IO[torch.nn.Module]):
     """IO class for reading and writing PyTorch models using state
     dictionaries.
 
@@ -45,7 +45,7 @@ class TorchModel(IO):
     path: PathLike
     model_class: type[torch.nn.Module] | None = None
     model_args: tuple[Any, ...] = ()
-    model_kwargs: dict[str, Any] = None
+    model_kwargs: dict[str, Any] | None = None
 
     def load(self, **load_options: Any) -> torch.nn.Module:
         """Load a PyTorch model by instantiating the model class and loading

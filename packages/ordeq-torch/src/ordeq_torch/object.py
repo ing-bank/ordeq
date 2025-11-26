@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Any
 
-import torch.nn
+import torch
 from ordeq import IO
 from ordeq.types import PathLike
 

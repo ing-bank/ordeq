@@ -226,8 +226,8 @@ def test_torch_object_mixed_python_types(tmp_path: Path) -> None:
     assert loaded_data["nested"]["none"] is None
 
     for orig, loaded in zip(
-        original_data["nested"]["tensor_list"],
-        loaded_data["nested"]["tensor_list"],
+        original_data["nested"]["tensor_list"],  # ty: ignore[non-subscriptable]
+        loaded_data["nested"]["tensor_list"],  # ty: ignore[non-subscriptable]
         strict=False,
     ):
         assert torch.equal(orig, loaded)

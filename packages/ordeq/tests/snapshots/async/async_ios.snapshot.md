@@ -39,10 +39,10 @@ graph TB
 	example_async.async_ios:process_fast_string@{shape: rounded, label: "process_fast_string"}
 	example_async.async_ios:combine_results@{shape: rounded, label: "combine_results"}
 	example_async.async_ios:fast_result@{shape: rect, label: "fast_result"}
-	example_async.async_ios:slow_result@{shape: rect, label: "slow_result"}
-	example_async.async_ios:combined_result@{shape: rect, label: "combined_result"}
 	example_async.async_ios:fast_string_io@{shape: rect, label: "fast_string_io"}
+	example_async.async_ios:slow_result@{shape: rect, label: "slow_result"}
 	example_async.async_ios:slow_string_io@{shape: rect, label: "slow_string_io"}
+	example_async.async_ios:combined_result@{shape: rect, label: "combined_result"}
 
 	class node_type,example_async.async_ios:process_slow_string,example_async.async_ios:process_fast_string,example_async.async_ios:combine_results node
 	class io_type_0,example_async.async_ios:fast_string_io,example_async.async_ios:slow_string_io io0

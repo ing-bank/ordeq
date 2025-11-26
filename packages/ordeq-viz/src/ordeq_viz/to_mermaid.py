@@ -203,7 +203,21 @@ def graph_to_mermaid(
     indent = 2 if subgraphs else 1
     tabs = "\t" * indent
 
-    for idx, (module, nodes_in_module) in enumerate(node_modules.items()):
+    modules = list(node_modules.keys())
+    for module in io_modules:
+        if module is None:
+            continue
+        if module not in modules:
+            modules.append(module)
+    idx = 0
+    for module in modules:
+        if module is None:
+            continue
+        nodes_in_module = node_modules.get(module, [])
+        ios_in_module = io_modules.get(module, [])
+        if not nodes_in_module and not ios_in_module:
+            continue
+
         if subgraphs:
             data += f'\tsubgraph s{idx}["{module}"]\n'
             data += f"{tabs}direction TB\n"
@@ -229,6 +243,8 @@ def graph_to_mermaid(
             )
         if subgraphs:
             data += "\tend\n"
+
+        idx += 1
 
     for io in sorted(io_modules.get(None, []), key=lambda io: io.id):
         class_name = (

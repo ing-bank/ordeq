@@ -39,11 +39,11 @@ graph TB
 	example_checks.pipeline_base:process_b@{shape: rounded, label: "process_b"}
 	example_checks.pipeline_base:join@{shape: rounded, label: "join"}
 	example_checks.pipeline_base:print_result@{shape: subroutine, label: "print_result"}
+	example_checks.pipeline_base:A@{shape: rect, label: "A"}
 	example_checks.pipeline_base:AB@{shape: rect, label: "AB"}
 	example_checks.pipeline_base:Ap@{shape: rect, label: "Ap"}
-	example_checks.pipeline_base:Bp@{shape: rect, label: "Bp"}
-	example_checks.pipeline_base:A@{shape: rect, label: "A"}
 	example_checks.pipeline_base:B@{shape: rect, label: "B"}
+	example_checks.pipeline_base:Bp@{shape: rect, label: "Bp"}
 
 	class node_type,example_checks.pipeline_base:process_a,example_checks.pipeline_base:process_b,example_checks.pipeline_base:join node
 	class view_type,example_checks.pipeline_base:print_result view

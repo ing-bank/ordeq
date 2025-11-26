@@ -54,9 +54,9 @@ graph TB
 
 	__main__:agg_txs@{shape: rounded, label: "agg_txs"}
 	__main__:perform_check@{shape: subroutine, label: "perform_check"}
-	__main__:txs_agg@{shape: rect, label: "txs_agg"}
 	__main__:threshold@{shape: rect, label: "threshold"}
 	__main__:txs@{shape: rect, label: "txs"}
+	__main__:txs_agg@{shape: rect, label: "txs_agg"}
 
 	class node_type,__main__:agg_txs node
 	class view_type,__main__:perform_check view

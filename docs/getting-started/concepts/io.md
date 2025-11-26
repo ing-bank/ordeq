@@ -199,7 +199,7 @@ sales_df = PolarsEagerCSV(path="s3://bucket/sales.csv") @ "sales-file"
 ```
 
 This tells Ordeq that `sales_raw` to `sales_df` use the same resource (in this case, a file on S3).
-Defining resources informs other developers, bust most importantly helps [running and visualizing][run-and-viz] your project, as we will see later.
+Defining resources informs other developers, but most importantly helps [running and visualizing][run-and-viz] your project, as we will see later.
 
 !!! success "Where to go from here?"
 

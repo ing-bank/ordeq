@@ -51,7 +51,7 @@ input_a
 Expect Input(id=...):
 Input(id=ID1)
 Expect 'example_io' in '__main__':
-'_example' in module '__main__'
+ExampleIO '_example' in module '__main__'
 Check if logging outputs name on load and save:
 Saving data: Hello world
 
@@ -60,7 +60,7 @@ Saving data: Hello world
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading '_example' in module '__main__'
-INFO	ordeq.io	Saving '_example' in module '__main__'
+INFO	ordeq.io	Loading ExampleIO '_example' in module '__main__'
+INFO	ordeq.io	Saving ExampleIO '_example' in module '__main__'
 
 ```

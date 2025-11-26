@@ -40,12 +40,12 @@ INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running view 'b' in module 'example_function_reuse.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-INFO	ordeq.io	Loading 'C' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Persisting data for 'C' in module 'example_function_reuse.catalog'
+INFO	ordeq.io	Loading StringBuffer 'C' in module 'example_function_reuse.catalog'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'C' in module 'example_function_reuse.catalog'
 INFO	ordeq.runner	Running view 'c' in module 'example_function_reuse.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-INFO	ordeq.io	Loading 'D' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Persisting data for 'D' in module 'example_function_reuse.catalog'
+INFO	ordeq.io	Loading StringBuffer 'D' in module 'example_function_reuse.catalog'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'D' in module 'example_function_reuse.catalog'
 INFO	ordeq.runner	Running view 'd' in module 'example_function_reuse.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
@@ -53,9 +53,9 @@ INFO	ordeq.runner	Running view 'pi' in module 'example_function_reuse.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID5)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
-DEBUG	ordeq.io	Unpersisting data for 'D' in module 'example_function_reuse.catalog'
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'D' in module 'example_function_reuse.catalog'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
-DEBUG	ordeq.io	Unpersisting data for 'C' in module 'example_function_reuse.catalog'
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'C' in module 'example_function_reuse.catalog'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)

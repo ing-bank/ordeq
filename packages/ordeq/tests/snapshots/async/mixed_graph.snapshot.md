@@ -38,7 +38,7 @@ graph TB
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
-IOException: Failed to save 'buffer_2' in module 'example_async.mixed_graph'.
+IOException: Failed to save StringBuffer 'buffer_2' in module 'example_async.mixed_graph'.
 string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
@@ -85,6 +85,6 @@ RuntimeWarning: coroutine 'write_buffer_2' was never awaited
 
 ```text
 INFO	ordeq.runner	Running node 'write_buffer_2' in module 'example_async.mixed_graph'
-INFO	ordeq.io	Saving 'buffer_2' in module 'example_async.mixed_graph'
+INFO	ordeq.io	Saving StringBuffer 'buffer_2' in module 'example_async.mixed_graph'
 
 ```

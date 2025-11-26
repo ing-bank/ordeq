@@ -82,4 +82,5 @@ graph TB
 
 ```text
 UserWarning: Module 'example_1.nodes' was provided more than once. Duplicates will be ignored.
+UserWarning: Node 'world' in module 'example_1.nodes' was provided more than once. Duplicates are ignored.
 ```

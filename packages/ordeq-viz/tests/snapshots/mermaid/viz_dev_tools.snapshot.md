@@ -140,6 +140,12 @@ graph TB
 
 ```
 
+## Warnings
+
+```text
+UserWarning: View(func=ordeq_dev_tools.pipelines.shared:packages, ...) was provided more than once. Duplicates are ignored.
+```
+
 ## Logging
 
 ```text

@@ -45,6 +45,12 @@ graph TB
 
 ```
 
+## Warnings
+
+```text
+UserWarning: Node 'world_relative' in module 'example_nested.subpackage.subsubpackage.hello_relative' was provided more than once. Duplicates are ignored.
+```
+
 ## Logging
 
 ```text

@@ -59,7 +59,8 @@ def save(self, data):
     self.path.write_text(data)
 ```
 
-!!!warning  "Save methods should not return anything"
+!!! warning  "Save methods should not return anything"
+
     Save methods should always return `#!python None`.
     Ordeq will raise an error if a save method returns another type.
 
@@ -263,5 +264,4 @@ Saving data using this dataset would raise a `ordeq.IOException` explaining the 
 Similarly, you can inherit from the `Output` class for IO that only require to implement the `save` method.
 The `ordeq-matplotlib` package contains an example of this in `MatplotlibFigure`.
 
-[api-docs]: ../api/ordeq_pandas.md
 [dataclasses]: https://docs.python.org/3/library/dataclasses.html

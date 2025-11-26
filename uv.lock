@@ -2698,7 +2698,7 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "google-cloud-bigquery", specifier = "==3.38.0" },
+    { name = "google-cloud-bigquery", specifier = ">=3.0.0" },
     { name = "ordeq", editable = "packages/ordeq" },
 ]
 

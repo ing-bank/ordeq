@@ -8,7 +8,7 @@ from ordeq import IO
 
 @dataclass(frozen=True, kw_only=True)
 class BigQueryPandas(IO[pd.DataFrame]):
-    """BigQueryTable extension for loading and saving pandas DataFrames.
+    """BigQueryTable extension for loading and saving Pandas DataFrames.
 
     Example:
 
@@ -30,13 +30,13 @@ class BigQueryPandas(IO[pd.DataFrame]):
     client: bigquery.Client
 
     def load(self, **load_options: Any) -> pd.DataFrame:
-        """Loads the BigQuery table as a pandas DataFrame.
+        """Loads the BigQuery table as a Pandas DataFrame.
 
         Args:
             **load_options: Additional options passed to `to_dataframe`.
 
         Returns:
-            A pandas DataFrame containing the table data.
+            A Pandas DataFrame containing the table data.
 
         Example:
 
@@ -56,10 +56,10 @@ class BigQueryPandas(IO[pd.DataFrame]):
         return self.client.list_rows(table).to_dataframe(**load_options)
 
     def save(self, df: pd.DataFrame, **save_options: Any) -> None:
-        """Saves a pandas DataFrame to the BigQuery table.
+        """Saves a Pandas DataFrame to the BigQuery table.
 
         Args:
-            df: The pandas DataFrame to save.
+            df: The Pandas DataFrame to save.
             **save_options: Options passed to `load_table_from_dataframe`.
 
         Example:

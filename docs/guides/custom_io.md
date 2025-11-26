@@ -18,9 +18,9 @@ It includes the following key methods:
 - **`save(data)`**: Method to be implemented by subclasses for saving data.
 
 First, create a new class that extends the `IO` class and implement these `load` and `save` methods.
-The class should also have an `__init__` method to initialize the necessary attributes, such as the file path.
+The class should also have an `#!python __init__` method to initialize the necessary attributes, such as the file path.
 
-!!! question "Which IO attributes should be in the `__init__`?"
+!!! question "Which IO attributes should be in the `#!python __init__`?"
 
     Attributes that are necessary for __both loading and saving data__ should be defined in the `__init__` method.
     For example, a file path or database connection string.
@@ -60,7 +60,7 @@ def save(self, data):
 ```
 
 !!!warning  "Save methods should not return anything"
-    Save methods should always return `None`.
+    Save methods should always return `#!python None`.
     Ordeq will raise an error if a save method returns another type.
 
 ### Load- and save arguments
@@ -84,7 +84,7 @@ class CustomIO(IO):
 
 1. The `newline` argument is specific to the `save` method.
 
-All arguments to the load and save methods (except `self` and `data`) should have a default value.
+All arguments to the load and save methods (except `#!python self` and `data`) should have a default value.
 
 A common pattern when using third party functionality is to delegate keyword arguments to another function.
 Below is an example of this for the `CustomIO` class:
@@ -114,7 +114,7 @@ custom_io.save("Hello, world!", newline="\n")
 
 ### Providing type information
 
-We can provide the `str` argument to `IO` to indicate that `CustomIO` class loads and saves strings.
+We can provide the `#!python str` argument to `IO` to indicate that `CustomIO` class loads and saves strings.
 
 ```python hl_lines="1 6 9"
 class CustomIO(IO[str]):  # (1)!
@@ -129,9 +129,9 @@ class CustomIO(IO[str]):  # (1)!
         self._path.write_text(data)
 ```
 
-1. `IO[str]` indicates that the IO operates on type `str`
-1. The `load` returns a `str`
-1. The `save` takes a `str` as first argument
+1. `#!python IO[str]` indicates that the IO operates on type `#!python str`
+1. The `load` returns a `#!python str`
+1. The `save` takes a `#!python str` as first argument
 
 Ordeq will check that the signature of the `load` and `save` methods match the specified type.
 For instance, the following implementation would raise a type error:
@@ -154,13 +154,13 @@ class CustomIO(IO[str]):  # (1)!
 1. This raises a type error: `save` should take `str`
 
 Ordeq also supports static `load` and `save` methods.
-In this case the `self` argument is omitted.
+In this case the `#!python self` argument is omitted.
 
 ### Using `dataclass` for IO classes
 
 To simplify the definition of IO classes, you can use the `dataclass` decorator from the [dataclasses] library.
 This allows us to define the attributes of the class in a more concise way.
-Let's reconsider our running example using `dataclass`:
+Let's reconsider our running example using `#!python @dataclass`:
 
 ```python hl_lines="1 4"
 from dataclasses import dataclass
@@ -177,7 +177,7 @@ class CustomIO(IO[str]):
         self.path.write_text(data)
 ```
 
-Using `dataclass` to define IO classes is optional and purely for convenience.
+Using `#!python @dataclass` to define IO classes is optional and purely for convenience.
 The load and save methods can be implemented as usual.
 Please refer to the [dataclasses] documentation for more information.
 

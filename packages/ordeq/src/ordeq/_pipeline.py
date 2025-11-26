@@ -1,35 +1,10 @@
 from collections.abc import Callable
-from dataclasses import dataclass
 from typing import Any
 
-from ordeq._io import IO, Input, Output
+from ordeq._io import IO, AnyIO, Input, Output
 from ordeq._resolve import Runnable
 from ordeq._runner import run
 from ordeq.preview import preview
-
-
-# Literal from `ordeq_common.Literal` copied here to avoid dependency
-@dataclass(frozen=True, eq=False)
-class Literal(Input):
-    value: Any
-
-    def load(self):
-        return self.value
-
-    def __repr__(self):
-        return f"Literal({self.value!r})"
-
-
-# Temporary buffer until unpersisting is fixed
-@dataclass(frozen=True, eq=False)
-class Buffer(IO):
-    value: Any = None
-
-    def save(self, value: Any):
-        self.__dict__["value"] = value
-
-    def load(self):
-        return self.value
 
 
 def pipeline(
@@ -63,10 +38,10 @@ def pipeline(
                 f"Expected {len(inputs)} inputs, but got {len(args)}."
             )
 
-        input_ios = {
-            io: Literal(value) for io, value in zip(inputs, args, strict=True)
+        input_ios: dict[AnyIO, Input] = {
+            io: Input(value) for io, value in zip(inputs, args, strict=True)
         }
-        output_ios = {io: Buffer() for io in outputs}
+        output_ios: dict[AnyIO, IO] = {io: IO().retain() for io in outputs}
 
         run(*runnables, io={**input_ios, **output_ios}, **run_kwargs)  # type: ignore[dict-item]
 

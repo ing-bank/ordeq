@@ -38,24 +38,24 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "PandasCSV"}
-		L01@{shape: rect, label: "PolarsEagerCSV"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "PandasCSV"}
+		io_type_1@{shape: rect, label: "PolarsEagerCSV"}
 	end
 
-	__main__:produce --> IO0
-	IO1 --> __main__:check
+	__main__:produce --> __main__:csv_pandas
+	__main__:csv_polars --> __main__:check
 
 	__main__:produce@{shape: rounded, label: "produce"}
 	__main__:check@{shape: subroutine, label: "check"}
-	IO0@{shape: rect, label: "csv_pandas"}
-	IO1@{shape: rect, label: "csv_polars"}
+	__main__:csv_pandas@{shape: rect, label: "csv_pandas"}
+	__main__:csv_polars@{shape: rect, label: "csv_polars"}
 
-	class L0,__main__:produce node
-	class L2,__main__:check view
-	class L00,IO0 io0
-	class L01,IO1 io1
+	class node_type,__main__:produce node
+	class view_type,__main__:check view
+	class io_type_0,__main__:csv_pandas io0
+	class io_type_1,__main__:csv_polars io1
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
@@ -82,8 +82,14 @@ WARNING	ordeq.preview	Resources are in preview mode and may change without notic
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.runner	Running node 'produce' in module '__main__'
-INFO	ordeq.io	Saving PandasCSV(path=Path('<TEMP_DIR>/my.csv'))
-INFO	ordeq.io	Loading PolarsEagerCSV(path=Path('<TEMP_DIR>/my.csv'))
+INFO	ordeq.io	Saving PandasCSV 'csv_pandas' in module '__main__'
+DEBUG	ordeq.io	Persisting data for PandasCSV 'csv_pandas' in module '__main__'
+INFO	ordeq.io	Loading PolarsEagerCSV 'csv_polars' in module '__main__'
+DEBUG	ordeq.io	Persisting data for PolarsEagerCSV 'csv_polars' in module '__main__'
 INFO	ordeq.runner	Running view 'check' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for PandasCSV 'csv_pandas' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for PolarsEagerCSV 'csv_polars' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 
 ```

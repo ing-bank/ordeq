@@ -16,19 +16,19 @@ print(diagram)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L00@{shape: rect, label: "IO"}
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "IO"}
 	end
 
-	IO0 --> example_anonymous.nodes:node_with_inline_io
-	example_anonymous.nodes:node_with_inline_io --> IO1
+	unknown_0 --> example_anonymous.nodes:node_with_inline_io
+	example_anonymous.nodes:node_with_inline_io --> unknown_1
 
 	example_anonymous.nodes:node_with_inline_io@{shape: rounded, label: "node_with_inline_io"}
-	IO0@{shape: rect, label: "&lt;anonymous&gt;"}
-	IO1@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_0@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_1@{shape: rect, label: "&lt;anonymous&gt;"}
 
-	class L0,example_anonymous.nodes:node_with_inline_io node
-	class L00,IO0,IO1 io0
+	class node_type,example_anonymous.nodes:node_with_inline_io node
+	class io_type_0,unknown_0,unknown_1 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

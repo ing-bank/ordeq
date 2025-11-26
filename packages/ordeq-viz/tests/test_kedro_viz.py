@@ -8,10 +8,7 @@ def test_kedro(tmp_path):
     from example_1 import nodes as mod
 
     graph_to_kedro_viz(
-        _gather_graph(
-            nodes=[mod.world], ios={"...": {"x": mod.x, "y": mod.y}}
-        ),
-        output_directory=tmp_path / "viz",
+        _gather_graph(nodes=[mod.world]), output_directory=tmp_path / "viz"
     )
 
     text = (tmp_path / "viz" / "api" / "main").read_text()

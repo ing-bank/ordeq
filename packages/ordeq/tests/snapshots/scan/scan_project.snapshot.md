@@ -1,41 +1,69 @@
 ## Resource
 
 ```python
-from pprint import pprint
+from pprint import pp
 
 import example_project
 from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(*_resolve_packages_to_modules(example_project))
+nodes, ios = _scan_fqns(*_resolve_packages_to_modules(example_project))
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)
 
 ```
 
 ## Output
 
 ```text
-ValueError: Module 'example_project.nodes_import_alias' aliases IO 'example_project.catalog_1:b' to 'B'. IOs cannot be aliased.
-  File "/packages/ordeq/src/ordeq/_scan.py", line LINO, in scan
-    raise ValueError(
-    ...<3 lines>...
-    )
+Nodes:
+{Node(module=example_project.inner.nodes, name=func, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'tags': ['dummy']}): [FQN(module='example_project.inner.nodes', name='func')],
+ Node(module=example_project.nodes, name=func, inputs=[IO(id=ID2)], outputs=[Print()], attributes={'tags': ['dummy']}): [FQN(module='example_project.nodes', name='func')],
+ Node(module=example_project.nodes_import, name=func_a, inputs=[Input(id=ID3), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]): [FQN(module='example_project.nodes_import', name='func_a')],
+ Node(module=example_project.nodes_import, name=func_b, inputs=[Input(id=ID3), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}): [FQN(module='example_project.nodes_import', name='func_b')],
+ Node(module=example_project.nodes_import_alias, name=func, inputs=[Input(id=ID3), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}): [FQN(module='example_project.nodes_import_alias', name='func')],
+ Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Input(id=ID4)], outputs=[IO(id=ID5)]): [FQN(module='example_project.nodes_with_inline_io', name='greet')],
+ View(module=example_project.nodes_with_view, name=greet, inputs=[Input(id=ID6)]): [FQN(module='example_project.nodes_with_view', name='greet')],
+ Node(module=example_project.nodes_with_view, name=farewell, inputs=[IO(id=ID7)], outputs=[Print()]): [FQN(module='example_project.nodes_with_view', name='farewell')]}
+IOs:
+[[FQN(module='example_project.catalog_1', name='a'),
+  FQN(module='example_project.nodes_import', name='a'),
+  FQN(module='example_project.nodes_import_alias', name='a')],
+ [FQN(module='example_project.catalog_1', name='b'),
+  FQN(module='example_project.nodes_import', name='b'),
+  FQN(module='example_project.nodes_import_alias', name='b')],
+ [FQN(module='example_project.catalog_1', name='c')],
+ [FQN(module='example_project.catalog_2', name='d')],
+ [FQN(module='example_project.catalog_2', name='e')],
+ [FQN(module='example_project.catalog_2', name='f'),
+  FQN(module='example_project.nodes_import', name='f')],
+ [FQN(module='example_project.catalog_2', name='g')],
+ [FQN(module='example_project.catalog_2', name='h'),
+  FQN(module='example_project.nodes_import_alias', name='h')],
+ [FQN(module='example_project.catalog_2', name='i')],
+ [FQN(module='example_project.catalog_2', name='j')],
+ [FQN(module='example_project.inner.nodes', name='x')],
+ [FQN(module='example_project.inner.nodes', name='y')],
+ [FQN(module='example_project.nodes', name='x')],
+ [FQN(module='example_project.nodes', name='y')],
+ [FQN(module='example_project.nodes_with_view', name='greeting')],
+ [FQN(module='example_project.nodes_with_view', name='printer')]]
 
-  File "/packages/ordeq/tests/resources/scan/scan_project.py", line LINO, in <module>
-    nodes, ios = scan(*_resolve_packages_to_modules(example_project))
-                 ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+```
 
-  File "<frozen runpy>", line LINO, in _run_code
+## Warnings
 
-  File "<frozen runpy>", line LINO, in _run_module_code
-
-  File "<frozen runpy>", line LINO, in run_path
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    run_path(str(file_path), run_name="__main__")
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
+```text
+UserWarning: Module 'example_project.catalog_1' already provided as runnable
+UserWarning: Module 'example_project.catalog_2' already provided as runnable
+UserWarning: Module 'example_project.inner' already provided as runnable
+UserWarning: Module 'example_project.inner.nodes' already provided as runnable
+UserWarning: Module 'example_project.misc' already provided as runnable
+UserWarning: Module 'example_project.nodes' already provided as runnable
+UserWarning: Module 'example_project.nodes_import' already provided as runnable
+UserWarning: Module 'example_project.nodes_import_alias' already provided as runnable
+UserWarning: Module 'example_project.nodes_with_inline_io' already provided as runnable
+UserWarning: Module 'example_project.nodes_with_view' already provided as runnable
 ```

@@ -13,9 +13,11 @@ def func(x: str) -> str:
 ## Output
 
 ```text
-ValueError: Inputs invalid for function arguments: View(func=__main__:func, ...)
+ValueError: Inputs invalid for function arguments of View(func=__main__:func, ...)
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
-    raise ValueError(f"Inputs invalid for function arguments: {n}") from e
+    raise ValueError(
+        f"Inputs invalid for function arguments of {n}"
+    ) from e
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
     _raise_for_invalid_inputs(self)

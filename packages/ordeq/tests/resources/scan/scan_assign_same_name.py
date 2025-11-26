@@ -1,10 +1,10 @@
-from pprint import pprint
+from pprint import pp
 
 import example_imports.assign_same_name
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(example_imports.assign_same_name)
+nodes, ios = _scan_fqns(example_imports.assign_same_name)
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)

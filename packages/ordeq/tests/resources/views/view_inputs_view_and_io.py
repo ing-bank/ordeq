@@ -1,5 +1,4 @@
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 
 @node
@@ -10,7 +9,7 @@ def hello() -> str:
 print(repr(hello))
 
 
-@node(inputs=[Literal("Jane"), hello])
+@node(inputs=[Input[str]("Jane"), hello])
 def hello_from_someone(name: str, v: str) -> str:
     return f"{name} said '{v}'"
 

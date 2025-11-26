@@ -1,10 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import Node, node, run
-from ordeq_common import Literal, Print
+from ordeq import Input, Node, node, run
+from ordeq_common import Print
 
-greeting = Literal("Hello")
+greeting = Input[str]("Hello")
 
 
 @node(inputs=greeting, prints=False)
@@ -61,16 +61,23 @@ Hello, world!!
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal('Hello')
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'hello' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
 INFO	ordeq.runner	Running node 'world' in module '__main__'
 INFO	ordeq.io	Saving Print()
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal('Hello')
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'hello' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
 INFO	ordeq.runner	Running node 'world' in module '__main__'
 INFO	ordeq.io	Saving Print()
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```

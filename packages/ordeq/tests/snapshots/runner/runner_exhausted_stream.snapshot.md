@@ -4,9 +4,8 @@
 from collections.abc import Generator
 from dataclasses import dataclass, field
 
-from ordeq import IO, node
+from ordeq import IO, Input, node
 from ordeq._runner import run
-from ordeq_common import Literal
 
 
 @dataclass(eq=False)
@@ -24,7 +23,7 @@ class Stream(IO[Generator[str, None, None]]):
 
 x1 = Stream(["1", "2", "3"])
 x2 = Stream()
-x3 = Literal("2")
+x3 = Input[str]("2")
 x4 = Stream()
 
 
@@ -70,16 +69,31 @@ Node:__main__:multiply --> io-3
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
+DEBUG	ordeq.io	Persisting data for Stream(data=['1', '2', '3'])
 INFO	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
-INFO	ordeq.io	Loading Literal('2')
+DEBUG	ordeq.io	Persisting data for Stream(data=['2', '3', '4'])
+DEBUG	ordeq.io	Loading cached data for Stream(data=['2', '3', '4'])
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'multiply' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
+DEBUG	ordeq.io	Persisting data for Stream(data=[])
+DEBUG	ordeq.io	Unpersisting data for Stream(data=['1', '2', '3'])
+DEBUG	ordeq.io	Unpersisting data for Stream(data=['2', '3', '4'])
+DEBUG	ordeq.io	Unpersisting data for Stream(data=[])
 INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
+DEBUG	ordeq.io	Persisting data for Stream(data=['1', '2', '3'])
 INFO	ordeq.runner	Running node 'increment' in module '__main__'
-INFO	ordeq.io	Loading Literal('2')
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'multiply' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
+DEBUG	ordeq.io	Persisting data for Stream(data=['4', '6', '8'])
+DEBUG	ordeq.io	Unpersisting data for Stream(data=['1', '2', '3'])
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for Stream(data=['4', '6', '8'])
 
 ```

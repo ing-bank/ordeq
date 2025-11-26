@@ -2,8 +2,7 @@
 
 ```python
 import pandas as pd
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 
 class MockDuckDbValues:
@@ -14,7 +13,7 @@ class MockDuckDbValues:
         return pd.DataFrame(self.data, columns=["value"])
 
 
-csv = Literal(MockDuckDbValues((1, 2, 3)))
+csv = Input[MockDuckDbValues](MockDuckDbValues((1, 2, 3)))
 
 
 @node(inputs=csv)
@@ -46,8 +45,14 @@ dtype: int64
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal(<__main__.MockDuckDbValues object at HASH1>)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'csv_as_df' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'aggregate' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

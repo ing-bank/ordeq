@@ -1,11 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 
-@node(inputs=[Literal("a"), Literal("b")])
+@node(inputs=[Input[str]("a"), Input[str]("b")])
 def my_node(a, /, b):
     print(f"a: {a}, b: {b}")
 
@@ -24,8 +23,12 @@ a: a, b: b
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal('a')
-INFO	ordeq.io	Loading Literal('b')
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
 INFO	ordeq.runner	Running view 'my_node' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

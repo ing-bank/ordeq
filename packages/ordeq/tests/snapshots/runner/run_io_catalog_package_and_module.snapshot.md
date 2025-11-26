@@ -52,7 +52,7 @@ CatalogError: Catalog 'example_catalogs.local' is missing IO(s) 'another_io'
                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    user_patches = _substitutes_modules_to_ios(io_subs)
+    user_patches = _substitutes_modules_to_ios(resolved_subs)
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py", line LINO, in <module>
     run(

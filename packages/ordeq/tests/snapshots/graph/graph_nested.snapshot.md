@@ -8,8 +8,7 @@ import example_nested
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
-fqn_nodes = _resolve_runnables_to_nodes(example_nested)
-nodes = [node for _, node in fqn_nodes]
+nodes = _resolve_runnables_to_nodes(example_nested)
 base_graph = NodeIOGraph.from_nodes(nodes)
 print("NodeIOGraph")
 print(base_graph)
@@ -59,5 +58,7 @@ ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_
 ```text
 INFO	ordeq.runner	Running node 'world_relative' in module 'example_nested.subpackage.subsubpackage.hello_relative'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

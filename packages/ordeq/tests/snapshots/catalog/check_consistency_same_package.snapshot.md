@@ -8,3 +8,10 @@ from ordeq import check_catalogs_are_consistent
 check_catalogs_are_consistent(package_base, package_base)
 
 ```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+
+```

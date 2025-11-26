@@ -1,8 +1,7 @@
 ## Resource
 
 ```python
-from ordeq import node, run
-from ordeq_common import Literal
+from ordeq import Input, node, run
 
 
 class Client:
@@ -11,7 +10,7 @@ class Client:
         return ["bucket1", "bucket2", "bucket3"]
 
 
-@node(inputs=Literal(Client()))
+@node(inputs=Input(Client()))
 def buckets(client: Client) -> list[str]:
     return client.list_buckets()
 
@@ -42,8 +41,14 @@ bucket3
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal(<__main__.Client object at HASH1>)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'buckets' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'print_buckets' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

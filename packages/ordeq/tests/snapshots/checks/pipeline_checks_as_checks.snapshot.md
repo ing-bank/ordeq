@@ -19,28 +19,28 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
-		L02@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
+		io_type_2@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> example_checks.pipeline_checks_as_checks:check_a
-	IO1 --> example_checks.pipeline_checks_as_checks:check_a
-	IO0 --> example_checks.pipeline_checks_as_checks:process_a
-	example_checks.pipeline_checks_as_checks:process_a --> IO2
-	IO3 --> example_checks.pipeline_checks_as_checks:process_b
-	example_checks.pipeline_checks_as_checks:process_b --> IO4
-	IO2 --> example_checks.pipeline_checks_as_checks:check_ap
-	IO2 --> example_checks.pipeline_checks_as_checks:check_join
-	IO4 --> example_checks.pipeline_checks_as_checks:check_join
-	IO4 --> example_checks.pipeline_checks_as_checks:check_bp
-	IO2 --> example_checks.pipeline_checks_as_checks:join
-	IO4 --> example_checks.pipeline_checks_as_checks:join
-	example_checks.pipeline_checks_as_checks:join --> IO5
-	IO5 --> example_checks.pipeline_checks_as_checks:check_ab
-	IO5 --> example_checks.pipeline_checks_as_checks:print_result
+	example_checks.pipeline_checks_as_checks:A --> example_checks.pipeline_checks_as_checks:check_a
+	example_checks.pipeline_checks_as_checks:D --> example_checks.pipeline_checks_as_checks:check_a
+	example_checks.pipeline_checks_as_checks:A --> example_checks.pipeline_checks_as_checks:process_a
+	example_checks.pipeline_checks_as_checks:process_a --> example_checks.pipeline_checks_as_checks:Ap
+	example_checks.pipeline_checks_as_checks:B --> example_checks.pipeline_checks_as_checks:process_b
+	example_checks.pipeline_checks_as_checks:process_b --> example_checks.pipeline_checks_as_checks:Bp
+	example_checks.pipeline_checks_as_checks:Ap --> example_checks.pipeline_checks_as_checks:check_ap
+	example_checks.pipeline_checks_as_checks:Ap --> example_checks.pipeline_checks_as_checks:check_join
+	example_checks.pipeline_checks_as_checks:Bp --> example_checks.pipeline_checks_as_checks:check_join
+	example_checks.pipeline_checks_as_checks:Bp --> example_checks.pipeline_checks_as_checks:check_bp
+	example_checks.pipeline_checks_as_checks:Ap --> example_checks.pipeline_checks_as_checks:join
+	example_checks.pipeline_checks_as_checks:Bp --> example_checks.pipeline_checks_as_checks:join
+	example_checks.pipeline_checks_as_checks:join --> example_checks.pipeline_checks_as_checks:AB
+	example_checks.pipeline_checks_as_checks:AB --> example_checks.pipeline_checks_as_checks:check_ab
+	example_checks.pipeline_checks_as_checks:AB --> example_checks.pipeline_checks_as_checks:print_result
 
 	example_checks.pipeline_checks_as_checks:check_a@{shape: subroutine, label: "check_a"}
 	example_checks.pipeline_checks_as_checks:process_a@{shape: rounded, label: "process_a"}
@@ -51,18 +51,18 @@ graph TB
 	example_checks.pipeline_checks_as_checks:join@{shape: rounded, label: "join"}
 	example_checks.pipeline_checks_as_checks:check_ab@{shape: subroutine, label: "check_ab"}
 	example_checks.pipeline_checks_as_checks:print_result@{shape: subroutine, label: "print_result"}
-	IO2@{shape: rect, label: "Ap"}
-	IO4@{shape: rect, label: "Bp"}
-	IO5@{shape: rect, label: "AB"}
-	IO0@{shape: rect, label: "A"}
-	IO1@{shape: rect, label: "D"}
-	IO3@{shape: rect, label: "B"}
+	example_checks.pipeline_checks_as_checks:AB@{shape: rect, label: "AB"}
+	example_checks.pipeline_checks_as_checks:Ap@{shape: rect, label: "Ap"}
+	example_checks.pipeline_checks_as_checks:Bp@{shape: rect, label: "Bp"}
+	example_checks.pipeline_checks_as_checks:A@{shape: rect, label: "A"}
+	example_checks.pipeline_checks_as_checks:B@{shape: rect, label: "B"}
+	example_checks.pipeline_checks_as_checks:D@{shape: rect, label: "D"}
 
-	class L0,example_checks.pipeline_checks_as_checks:process_a,example_checks.pipeline_checks_as_checks:process_b,example_checks.pipeline_checks_as_checks:join node
-	class L2,example_checks.pipeline_checks_as_checks:check_a,example_checks.pipeline_checks_as_checks:check_ap,example_checks.pipeline_checks_as_checks:check_join,example_checks.pipeline_checks_as_checks:check_bp,example_checks.pipeline_checks_as_checks:check_ab,example_checks.pipeline_checks_as_checks:print_result view
-	class L00,IO2,IO4 io0
-	class L01,IO0,IO1,IO3 io1
-	class L02,IO5 io2
+	class node_type,example_checks.pipeline_checks_as_checks:process_a,example_checks.pipeline_checks_as_checks:process_b,example_checks.pipeline_checks_as_checks:join node
+	class view_type,example_checks.pipeline_checks_as_checks:check_a,example_checks.pipeline_checks_as_checks:check_ap,example_checks.pipeline_checks_as_checks:check_join,example_checks.pipeline_checks_as_checks:check_bp,example_checks.pipeline_checks_as_checks:check_ab,example_checks.pipeline_checks_as_checks:print_result view
+	class io_type_0,example_checks.pipeline_checks_as_checks:Ap,example_checks.pipeline_checks_as_checks:Bp io0
+	class io_type_1,example_checks.pipeline_checks_as_checks:A,example_checks.pipeline_checks_as_checks:B,example_checks.pipeline_checks_as_checks:D io1
+	class io_type_2,example_checks.pipeline_checks_as_checks:AB io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
@@ -78,23 +78,53 @@ aBBB
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal('A')
-INFO	ordeq.io	Loading Literal('D')
+DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Loading cached data for Input 'D' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running view 'check_a' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_checks_as_checks'
-INFO	ordeq.io	Loading Literal('B')
+DEBUG	ordeq.io	Persisting data for IO 'Ap' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO 'Bp' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running view 'check_ap' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID5)
+DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running view 'check_join' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID6)
+DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running view 'check_bp' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID7)
+DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_checks_as_checks'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Saving StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Loading cached data for StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running view 'check_ab' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID8)
+DEBUG	ordeq.io	Loading cached data for StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_checks'
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Persisting data for IO(id=ID9)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
+DEBUG	ordeq.io	Unpersisting data for IO 'Bp' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Unpersisting data for IO 'Ap' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID7)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID6)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_checks'
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID8)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID9)
 
 ```

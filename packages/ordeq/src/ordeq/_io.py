@@ -14,6 +14,7 @@ try:
 except ImportError:
     from typing_extensions import Self
 
+from ordeq._fqn import FQN
 from ordeq._hook import InputHook, OutputHook
 
 logger = logging.getLogger("ordeq.io")
@@ -135,9 +136,6 @@ def _process_input_meta(name, bases, class_dict):
             )
             raise TypeError(msg)
 
-        if isinstance(load_method, staticmethod):
-            raise ValueError("Load method cannot be static.")
-
         # Ensure all arguments (except self/cls) have default values
         sig = inspect.signature(load_method)
         for argument, param in sig.parameters.items():
@@ -215,19 +213,18 @@ def _process_output_meta(name, bases, class_dict):
             )
             raise TypeError(msg)
 
-        if isinstance(save_method, staticmethod):
-            raise ValueError("Save method cannot be static.")
-
         sig = inspect.signature(save_method)
-        if len(sig.parameters) < 2:
-            raise TypeError("Save method requires a data parameter.")
-
-        # Ensure all arguments (except the first two, self/cls and data)
-        # have default values
-        for i, (argument, param) in enumerate(sig.parameters.items()):
-            # Skip self/cls and data
-            if i < 2:
+        seen_data = False
+        for argument, param in sig.parameters.items():
+            if argument in {"self", "cls"}:
                 continue
+
+            if not seen_data:
+                seen_data = True
+                continue  # Skip the data parameter itself
+
+            # Ensure all arguments (except the first two, self/cls and data)
+            # have default values
             if (
                 param.default is inspect.Parameter.empty
                 and param.kind != inspect._ParameterKind.VAR_KEYWORD
@@ -236,6 +233,9 @@ def _process_output_meta(name, bases, class_dict):
                     f"Argument '{argument}' of function "
                     f"'{save_method.__name__}' has no default value."
                 )
+
+        if not seen_data:
+            raise TypeError("Save method requires a data parameter.")
 
         if (
             sig.return_annotation != inspect.Signature.empty
@@ -377,30 +377,38 @@ class _InputCache(_BaseInput[Tin]):
     """Class that adds caching to an Input."""
 
     _data: Tin
+    _unpersist: bool = True
+
+    def __init__(self, value: Any = None):
+        super().__init__()
+        if type(self).__name__ in {"Input", "IO"} and value is not None:
+            self.persist(value)
+            self.retain()
+
+    @property
+    def is_persisted(self) -> bool:
+        return hasattr(self, "_data")
 
     def load_wrapper(self, load_func, *args, **kwargs) -> Tin:
-        if not hasattr(self, "_data"):
+        if not self.is_persisted:
             return load_func(*args, **kwargs)
+        logger.debug("Loading cached data for %s", self)
         return self._data
 
     def persist(self, data: Tin) -> None:
+        logger.debug("Persisting data for %s", self)
         self.__dict__["_data"] = data
 
+    def retain(self) -> Self:
+        self._unpersist = False
+        return self
+
     def unpersist(self) -> None:
-        if "_data" in self.__dict__:
+        if not self._unpersist:
+            return
+        if self.is_persisted:
+            logger.debug("Unpersisting data for %s", self)
             del self.__dict__["_data"]
-
-
-class _WithName:
-    _module: str | None = None
-    _name: str | None = None
-
-    @property
-    def _fqn(self) -> tuple[str | None, str | None]:
-        return self._module, self._name
-
-    def __str__(self):
-        return repr(self) if self._name is None else f"'{self._name}'"
 
 
 class _WithAttributes:
@@ -410,6 +418,40 @@ class _WithAttributes:
         new_instance = copy(self)
         new_instance.__dict__["_attributes"] = attributes
         return new_instance
+
+
+class _WithTypeFQN:
+    @property
+    def type_fqn(self) -> FQN:
+        t = type(self)
+        return FQN(t.__module__, t.__name__)
+
+
+class _WithName(_WithTypeFQN):
+    _module: str | None = None
+    _name: str | None = None
+
+    @property
+    def fqn(self) -> FQN | None:
+        if self.is_fq:
+            return FQN(module=self._module, name=self._name)  # type: ignore[arg-type]
+        return None
+
+    def _set_fqn(self, fqn: FQN) -> None:
+        self.__dict__["_module"] = fqn.module
+        self.__dict__["_name"] = fqn.name
+
+    def _set_name(self, name: str) -> None:
+        self.__dict__["_name"] = name
+
+    @property
+    def is_fq(self) -> bool:
+        return self._module is not None and self._name is not None
+
+    def __str__(self) -> str:
+        if self.is_fq:
+            return f"{self.type_fqn.name} {self.fqn:desc}"
+        return repr(self)
 
 
 class _WithResource:
@@ -485,8 +527,8 @@ class Input(
     To use the `greet` node, we need to provide an actual input. For instance:
 
     ```python
-    >>> from ordeq_common import Literal
-    >>> run(greet, io={name: Literal("Alice")})
+    >>> from ordeq import Input
+    >>> run(greet, io={name: Input[str]("Alice")})
     >>> greeting.load()
     'Hello, Alice!'
     ```
@@ -638,10 +680,10 @@ class IO(Input[T], Output[T]):
 
     ```python
     >>> from ordeq import Input, node
-    >>> from ordeq_common import StringBuffer, Literal
+    >>> from ordeq_common import StringBuffer
 
     >>> hello = StringBuffer("hi")
-    >>> name = Literal("Bob")
+    >>> name = Input[str]("Bob")
     >>> greeting = IO[str]()
     >>> greeting_capitalized = StringBuffer()
 

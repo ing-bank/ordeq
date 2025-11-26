@@ -6,12 +6,11 @@ import typing
 from pathlib import Path
 
 import pandas as pd
-from ordeq import IO, node, run
-from ordeq_common import Literal
+from ordeq import IO, Input, node, run
 from ordeq_files import JSON
 from ordeq_viz import viz
 
-records = Literal(
+records = Input[pd.DataFrame](
     pd.DataFrame({"id": [1, 2, 3, 4], "value": [10, -5, 20, -1]})
 )
 invalid_records = JSON(
@@ -59,31 +58,31 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "JSON"}
-		L02@{shape: rect, label: "Literal"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
+		io_type_2@{shape: rect, label: "JSON"}
 	end
 
-	IO0 --> __main__:check_store_invalid_records
-	__main__:check_store_invalid_records --> IO1
-	IO0 --> __main__:process_records
+	__main__:records --> __main__:check_store_invalid_records
+	__main__:check_store_invalid_records --> __main__:invalid_records
+	__main__:records --> __main__:process_records
 	__main__:process_records --> __main__:print_processed_records
-	IO1 --> __main__:print_invalid_records
+	__main__:invalid_records --> __main__:print_invalid_records
 
 	__main__:check_store_invalid_records@{shape: rounded, label: "check_store_invalid_records"}
 	__main__:process_records@{shape: subroutine, label: "process_records"}
 	__main__:print_processed_records@{shape: subroutine, label: "print_processed_records"}
 	__main__:print_invalid_records@{shape: subroutine, label: "print_invalid_records"}
-	IO1@{shape: rect, label: "invalid_records"}
-	IO0@{shape: rect, label: "records"}
+	__main__:invalid_records@{shape: rect, label: "invalid_records"}
+	__main__:records@{shape: rect, label: "records"}
 
-	class L0,__main__:check_store_invalid_records node
-	class L2,__main__:process_records,__main__:print_processed_records,__main__:print_invalid_records view
-	class L00 io0
-	class L01,IO1 io1
-	class L02,IO0 io2
+	class node_type,__main__:check_store_invalid_records node
+	class view_type,__main__:process_records,__main__:print_processed_records,__main__:print_invalid_records view
+	class io_type_0 io0
+	class io_type_1,__main__:records io1
+	class io_type_2,__main__:invalid_records io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
@@ -100,16 +99,24 @@ Invalid Records Data: {"id":{"0":null,"1":2.0,"2":null,"3":4.0},"value":{"0":nul
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
-INFO	ordeq.io	Loading Literal(   id  value
-0   1     10
-1   2     -5
-2   3     20
-3   4     -1)
+DEBUG	ordeq.io	Loading cached data for Input 'records' in module '__main__'
 INFO	ordeq.runner	Running node 'check_store_invalid_records' in module '__main__'
-INFO	ordeq.io	Saving JSON(path=Path('<TEMP_DIR>/invalid_records.json'))
+INFO	ordeq.io	Saving JSON 'invalid_records' in module '__main__'
+DEBUG	ordeq.io	Persisting data for JSON 'invalid_records' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for Input 'records' in module '__main__'
 INFO	ordeq.runner	Running view 'process_records' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'print_processed_records' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Loading cached data for JSON 'invalid_records' in module '__main__'
 INFO	ordeq.runner	Running view 'print_invalid_records' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+DEBUG	ordeq.io	Unpersisting data for JSON 'invalid_records' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 
 ```

@@ -16,20 +16,17 @@ print(diagram)
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
+		view_type@{shape: subroutine, label: "View"}
 	end
 
 
-	subgraph s0["example_3.func_defs"]
+	subgraph s0["example_3.nodes"]
 		direction TB
-		example_3.func_defs:hello@{shape: subroutine, label: "hello"}
-		example_3.func_defs:hello@{shape: subroutine, label: "hello"}
+		example_3.nodes:f1@{shape: subroutine, label: "f1"}
+		example_3.nodes:f2@{shape: subroutine, label: "f2"}
 	end
 
-	class L0 node
-	class L2,example_3.func_defs:hello,example_3.func_defs:hello view
-	classDef node fill:#008AD7,color:#FFF
+	class view_type,example_3.nodes:f1,example_3.nodes:f2 view
 	classDef view fill:#00C853,color:#FFF
 
 

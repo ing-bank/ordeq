@@ -1,10 +1,10 @@
-from pprint import pprint
+from pprint import pp
 
 import example_imports.local_import_made_global
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(example_imports.local_import_made_global)
+nodes, ios = _scan_fqns(example_imports.local_import_made_global)
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)

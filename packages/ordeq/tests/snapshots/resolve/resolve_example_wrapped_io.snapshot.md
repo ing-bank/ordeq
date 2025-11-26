@@ -27,17 +27,13 @@ pprint(_resolve_runnables_to_nodes(*runnables))
 
 ```text
 ['example_1.wrapped_io']
-[(FQN(module='example_1.wrapped_io', name='hello'),
-  Node(module=example_1.wrapped_io, name=hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])),
- (FQN(module='example_1.wrapped_io', name='print_message'),
-  Node(module=example_1.wrapped_io, name=print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()]))]
+[Node(module=example_1.wrapped_io, name=hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))]),
+ Node(module=example_1.wrapped_io, name=print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()])]
 {'example_1.wrapped_io': {'message': SayHello(name=NameGenerator(name='John'),
                                               writer=(NamePrinter(),)),
                           'name_generator': NameGenerator(name='John'),
                           'name_printer': NamePrinter()}}
-[(FQN(module='example_1.wrapped_io', name='hello'),
-  Node(module=example_1.wrapped_io, name=hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))])),
- (FQN(module='example_1.wrapped_io', name='print_message'),
-  Node(module=example_1.wrapped_io, name=print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()]))]
+[Node(module=example_1.wrapped_io, name=hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))]),
+ Node(module=example_1.wrapped_io, name=print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()])]
 
 ```

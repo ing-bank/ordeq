@@ -1,11 +1,10 @@
-from pprint import pprint
+from pprint import pp
 
 import example_nested
-from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(*_resolve_packages_to_modules(example_nested))
+nodes, ios = _scan_fqns(example_nested)
 print("Nodes:")
-pprint(nodes)
+print(nodes)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)

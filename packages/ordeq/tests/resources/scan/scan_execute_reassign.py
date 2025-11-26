@@ -1,5 +1,5 @@
 import example_imports.execute_reassign
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
 print("Should raise an error:")
-_ = scan(example_imports.execute_reassign)
+_ = _scan_fqns(example_imports.execute_reassign)

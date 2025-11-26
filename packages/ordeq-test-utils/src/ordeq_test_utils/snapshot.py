@@ -162,7 +162,7 @@ def capture_module(
     Returns:
         The normalized captured output as a string.
     """
-    caplog.set_level(logging.INFO)
+    caplog.set_level(logging.DEBUG)
     caplog.handler.setFormatter(
         logging.Formatter(fmt="%(levelname)s\t%(name)s\t%(message)s")
     )

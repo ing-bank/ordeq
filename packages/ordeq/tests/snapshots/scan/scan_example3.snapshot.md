@@ -1,17 +1,16 @@
 ## Resource
 
 ```python
-from pprint import pprint
+from pprint import pp
 
 import example_3
-from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._scan import scan
+from ordeq._scan import _scan_fqns
 
-nodes, ios = scan(*_resolve_packages_to_modules(example_3))
+nodes, ios = _scan_fqns(example_3)
 print("Nodes:")
-pprint(nodes)
+pp(nodes, width=40)
 print("IOs:")
-pprint(ios, width=40)
+pp(list(ios.values()), width=40)
 
 ```
 
@@ -19,10 +18,8 @@ pprint(ios, width=40)
 
 ```text
 Nodes:
-[(FQN(module='example_3.nodes', name='f1'),
-  View(func=example_3.func_defs:hello)),
- (FQN(module='example_3.nodes', name='f2'),
-  View(func=example_3.func_defs:hello))]
+{View(func=example_3.func_defs:hello): [FQN(module='example_3.nodes', name='f1')],
+ View(func=example_3.func_defs:hello): [FQN(module='example_3.nodes', name='f2')]}
 IOs:
 []
 

@@ -3,13 +3,13 @@
 ```python
 import logging
 
-from ordeq import IO, node, run
-from ordeq_common import Literal, LoggerHook
+from ordeq import IO, Input, node, run
+from ordeq_common import LoggerHook
 
 logger = LoggerHook(level=logging.CRITICAL)
 
 
-@node(inputs=Literal("name"), outputs=IO())
+@node(inputs=Input[str]("name"), outputs=IO())
 def hello(name: str) -> str:
     return f"Hello, {name}!"
 
@@ -42,16 +42,19 @@ ValueError: Intentional failure for testing.
     raise exc
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
-    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    results = _run_node_func(node, args=args, hooks=hooks)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     _run_node(node, hooks=node_hooks)
     ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    _run_graph(graph, node_hooks=node_hooks, run_hooks=run_hooks)
-    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    _run_graph(
+    ~~~~~~~~~~^
+        graph, node_hooks=resolved_node_hooks, run_hooks=resolved_run_hooks
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
 
   File "/packages/ordeq-common/tests/resources/hooks/logger_hook_custom_level.py", line LINO, in <module>
     run(fail, hooks=[logger])
@@ -72,12 +75,15 @@ ValueError: Intentional failure for testing.
 ## Logging
 
 ```text
-CRITICAL	LoggerHook	Called 'before_node_run' with args: (Node(module=__main__, name=hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
-INFO	ordeq.io	Loading Literal('name')
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+CRITICAL	LoggerHook	Called 'before_node_run' with args: (Node(module=__main__, name=hello, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]),)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
-CRITICAL	LoggerHook	Called 'after_node_run' with args: (Node(module=__main__, name=hello, inputs=[Literal('name')], outputs=[IO(id=ID1)]),)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+CRITICAL	LoggerHook	Called 'after_node_run' with args: (Node(module=__main__, name=hello, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]),)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 CRITICAL	LoggerHook	Called 'before_node_run' with args: (View(func=__main__:fail),)
-INFO	ordeq.runner	Running view View(func=__main__:fail, ...)
+INFO	ordeq.runner	Running View(func=__main__:fail, ...)
 CRITICAL	LoggerHook	Called 'on_node_call_error' with args: (View(func=__main__:fail), ValueError('Intentional failure for testing.'))
 
 ```

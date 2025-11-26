@@ -19,37 +19,37 @@ if __name__ == "__main__":
 graph TB
 	subgraph legend["Legend"]
 		direction TB
-		L0@{shape: rounded, label: "Node"}
-		L2@{shape: subroutine, label: "View"}
-		L00@{shape: rect, label: "IO"}
-		L01@{shape: rect, label: "Literal"}
-		L02@{shape: rect, label: "StringBuffer"}
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "IO"}
+		io_type_1@{shape: rect, label: "Input"}
+		io_type_2@{shape: rect, label: "StringBuffer"}
 	end
 
-	IO0 --> example_checks.pipeline_base:process_a
-	example_checks.pipeline_base:process_a --> IO1
-	IO2 --> example_checks.pipeline_base:process_b
-	example_checks.pipeline_base:process_b --> IO3
-	IO1 --> example_checks.pipeline_base:join
-	IO3 --> example_checks.pipeline_base:join
-	example_checks.pipeline_base:join --> IO4
-	IO4 --> example_checks.pipeline_base:print_result
+	example_checks.pipeline_base:A --> example_checks.pipeline_base:process_a
+	example_checks.pipeline_base:process_a --> example_checks.pipeline_base:Ap
+	example_checks.pipeline_base:B --> example_checks.pipeline_base:process_b
+	example_checks.pipeline_base:process_b --> example_checks.pipeline_base:Bp
+	example_checks.pipeline_base:Ap --> example_checks.pipeline_base:join
+	example_checks.pipeline_base:Bp --> example_checks.pipeline_base:join
+	example_checks.pipeline_base:join --> example_checks.pipeline_base:AB
+	example_checks.pipeline_base:AB --> example_checks.pipeline_base:print_result
 
 	example_checks.pipeline_base:process_a@{shape: rounded, label: "process_a"}
 	example_checks.pipeline_base:process_b@{shape: rounded, label: "process_b"}
 	example_checks.pipeline_base:join@{shape: rounded, label: "join"}
 	example_checks.pipeline_base:print_result@{shape: subroutine, label: "print_result"}
-	IO1@{shape: rect, label: "Ap"}
-	IO3@{shape: rect, label: "Bp"}
-	IO4@{shape: rect, label: "AB"}
-	IO0@{shape: rect, label: "A"}
-	IO2@{shape: rect, label: "B"}
+	example_checks.pipeline_base:AB@{shape: rect, label: "AB"}
+	example_checks.pipeline_base:Ap@{shape: rect, label: "Ap"}
+	example_checks.pipeline_base:Bp@{shape: rect, label: "Bp"}
+	example_checks.pipeline_base:A@{shape: rect, label: "A"}
+	example_checks.pipeline_base:B@{shape: rect, label: "B"}
 
-	class L0,example_checks.pipeline_base:process_a,example_checks.pipeline_base:process_b,example_checks.pipeline_base:join node
-	class L2,example_checks.pipeline_base:print_result view
-	class L00,IO1,IO3 io0
-	class L01,IO0,IO2 io1
-	class L02,IO4 io2
+	class node_type,example_checks.pipeline_base:process_a,example_checks.pipeline_base:process_b,example_checks.pipeline_base:join node
+	class view_type,example_checks.pipeline_base:print_result view
+	class io_type_0,example_checks.pipeline_base:Ap,example_checks.pipeline_base:Bp io0
+	class io_type_1,example_checks.pipeline_base:A,example_checks.pipeline_base:B io1
+	class io_type_2,example_checks.pipeline_base:AB io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF
@@ -65,12 +65,25 @@ aBBB
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Literal('A')
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_base'
-INFO	ordeq.io	Loading Literal('B')
+DEBUG	ordeq.io	Persisting data for IO 'Ap' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Persisting data for IO 'Bp' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_base'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Saving StringBuffer 'AB' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'AB' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for StringBuffer 'AB' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO 'Bp' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Unpersisting data for IO 'Ap' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'AB' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```

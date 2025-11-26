@@ -181,6 +181,26 @@ sales = CSV(path=Path("sales.csv")).with_attributes(
 Attributes are stored on the IO instance.
 Framework extensions like `ordeq-viz` can leverage these attributes to provide additional functionality.
 
+### Resources
+
+Your project may contain multiple IOs for the same underlying _resource_.
+For instance, one IO that saves a raw CSV, and another IO to manipulate the CSV data.
+The processing of the raw CSV can be done using a lower-level library like Boto3,
+and the manipulation with a DataFrame-like library such as Polars.
+
+IOs can be assigned a resource using the `@` operator:
+
+```python
+from ordeq_boto3 import S3Object
+from ordeq_polars import PolarsEagerCSV
+
+sales_raw = S3Object(bucket="bucket", key="sales.csv") @ "sales-file"
+sales_df = PolarsEagerCSV(path="s3://bucket/sales.csv") @ "sales-file"
+```
+
+This tells Ordeq that `sales_raw` to `sales_df` use the same resource (in this case, a file on S3).
+Defining resources informs other developers, but most importantly helps [running and visualizing][run-and-viz] your project, as we will see later.
+
 !!! success "Where to go from here?"
 
     - See how IOs are used in [nodes]
@@ -193,3 +213,4 @@ Framework extensions like `ordeq-viz` can leverage these attributes to provide a
 [custom-ios]: ../../guides/custom_io.md
 [hooks]: hooks.md
 [nodes]: nodes.md
+[run-and-viz]: ../../guides/run_and_viz.md

@@ -9,17 +9,32 @@ from collections.abc import Generator
 from types import ModuleType
 from typing import TypeAlias, TypeGuard
 
-from ordeq._fqn import FQ, FQN, ModuleName, Unknown, is_object_ref
+from ordeq._fqn import FQN, ModuleName, ObjectRef, is_object_ref
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
 from ordeq._nodes import Node, _is_node
 
-Runnable: TypeAlias = ModuleType | Node | str
+RunnableRef: TypeAlias = ObjectRef | ModuleName
+Runnable: TypeAlias = ModuleType | Node
 Catalog: TypeAlias = dict[str, dict[str, AnyIO]]
 
 
 def _is_module(obj: object) -> TypeGuard[ModuleType]:
     return isinstance(obj, ModuleType)
+
+
+def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
+    for runnable in runnables:
+        if not (
+            _is_module(runnable)
+            or _is_node(runnable)
+            or isinstance(runnable, str)
+        ):
+            raise TypeError(
+                f"{runnable} is not something we can run. "
+                f"Expected a module or a node, got "
+                f"{type(runnable).__name__}"
+            )
 
 
 def _is_package(module: ModuleType) -> TypeGuard[ModuleType]:
@@ -141,7 +156,8 @@ def _resolve_refs_to_modules(
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "
-                f"Expected a module or a string, got {type(runnable)}"
+                f"Expected a module or a string, got "
+                f"{type(runnable).__name__}"
             )
 
     # Then, for each module or package, if it's a package, resolve to all its
@@ -193,7 +209,8 @@ def _resolve_hook_refs(*hooks: str | RunnerHook) -> list[RunnerHook]:
         else:
             raise TypeError(
                 f"{hook} is not a valid hook reference. "
-                f"Expected a RunnerHook or a string, got {type(hook)}"
+                f"Expected a RunnerHook or a string, got "
+                f"{type(hook).__name__}"
             )
     return resolved_hooks
 
@@ -219,8 +236,8 @@ def _resolve_refs_to_hooks(
 
 
 def _resolve_runnables_to_nodes_and_modules(
-    *runnables: Runnable,
-) -> tuple[list[FQ[Node]], list[ModuleType]]:
+    *runnables: Runnable | RunnableRef,
+) -> tuple[list[Node], list[ModuleType]]:
     """Collects nodes and modules from the provided runnables.
 
     Args:
@@ -234,36 +251,37 @@ def _resolve_runnables_to_nodes_and_modules(
         TypeError: if a runnable is not a module and not a node
     """
     modules_and_strs: list[ModuleType | str] = []
-    nodes: list[FQ[Node]] = []
+    nodes: list[Node] = []
     for runnable in runnables:
         if _is_module(runnable) or (
             isinstance(runnable, str) and not is_object_ref(runnable)
         ):
             # mypy false positive
             modules_and_strs.append(runnable)  # type: ignore[arg-type]
-        elif callable(runnable):
-            node = runnable
-            if node not in nodes:
-                nodes.append((FQN(Unknown, Unknown), node))
+        elif _is_node(runnable):
+            if runnable not in nodes:
+                nodes.append(runnable)
             else:
                 warnings.warn(
-                    f"Node '{node.name}' already provided in another runnable",
+                    f"Node '{runnable.ref}' already provided in another "
+                    f"runnable",
                     stacklevel=2,
                 )
         elif isinstance(runnable, str):
             fqn = FQN.from_ref(runnable)
             node = _resolve_fqn_to_node(fqn)
             if node not in nodes:
-                nodes.append((fqn, node))
+                nodes.append(node)
             else:
                 warnings.warn(
-                    f"Node '{runnable}' already provided in another runnable",
+                    f"Node '{node.ref}' already provided in another runnable",
                     stacklevel=2,
                 )
         else:
             raise TypeError(
                 f"{runnable} is not something we can run. "
-                f"Expected a module or a node, got {type(runnable)}"
+                f"Expected a module or a node, got "
+                f"{type(runnable).__name__}"
             )
 
     modules = list(_resolve_refs_to_modules(*modules_and_strs))
@@ -283,7 +301,7 @@ def _resolve_module_to_nodes(module: ModuleType) -> dict[str, Node]:
     return {name: node for node, name in nodes.items()}
 
 
-def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQ[Node]]:
+def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[Node]:
     """Collects nodes from the provided runnables.
 
     Args:
@@ -296,16 +314,13 @@ def _resolve_runnables_to_nodes(*runnables: Runnable) -> list[FQ[Node]]:
     """
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
     for module in modules:
-        nodes.extend(
-            (FQN(module.__name__, node_name), node)
-            for node_name, node in _resolve_module_to_nodes(module).items()
-        )
+        nodes.extend(_resolve_module_to_nodes(module).values())
     return nodes
 
 
 def _resolve_runnables_to_nodes_and_ios(
-    *runnables: Runnable,
-) -> tuple[list[FQ[Node]], Catalog]:
+    *runnables: Runnable | RunnableRef,
+) -> tuple[list[Node], Catalog]:
     """Collects nodes and IOs from the provided runnables.
 
     Args:
@@ -319,16 +334,13 @@ def _resolve_runnables_to_nodes_and_ios(
     ios = {}
     nodes, modules = _resolve_runnables_to_nodes_and_modules(*runnables)
 
-    for (module_name, _), _ in nodes:
-        if module_name is not Unknown:
-            module = _resolve_module_ref_to_module(module_name)
-            ios.update({module_name: _resolve_module_to_ios(module)})
+    for node in nodes:
+        if node.module:
+            module = _resolve_module_ref_to_module(node.module)
+            ios.update({node.module: _resolve_module_to_ios(module)})
 
     for module in modules:
-        nodes.extend(
-            (FQN(module.__name__, node_name), node)
-            for node_name, node in _resolve_module_to_nodes(module).items()
-        )
+        nodes.extend(_resolve_module_to_nodes(module).values())
         ios.update({module.__name__: _resolve_module_to_ios(module)})
 
     # Filter empty IO modules
@@ -340,25 +352,41 @@ def _resolve_runnables_to_nodes_and_ios(
     return nodes, ios
 
 
-def _resolve_runnables_to_modules(
-    *runnables: Runnable,
-) -> Generator[ModuleType]:
+def _resolve_modules_to_nodes(*modules: ModuleType) -> list[Node]:
+    nodes: list[Node] = []
+    for module in _resolve_packages_to_modules(*modules):
+        nodes.extend(_resolve_module_to_nodes(module).values())
+    return nodes
+
+
+def _resolve_runnable_refs_to_runnables(
+    *runnables: RunnableRef | Runnable,
+) -> tuple[list[ModuleType], list[Node]]:
+    modules: list[ModuleType] = []
+    nodes: list[Node] = []
     for runnable in runnables:
-        if isinstance(runnable, ModuleType):
-            yield runnable
-        elif isinstance(runnable, str) and not is_object_ref(runnable):
-            yield _resolve_module_ref_to_module(runnable)
+        if _is_module(runnable):
+            modules.append(runnable)
+        elif _is_node(runnable):
+            nodes.append(runnable)
+        elif isinstance(runnable, str):
+            if is_object_ref(runnable):
+                fqn = FQN.from_ref(runnable)
+                nodes.append(_resolve_fqn_to_node(fqn))
+            else:
+                modules.append(_resolve_module_ref_to_module(runnable))
+    return modules, nodes
 
 
-def _resolve_callables_to_nodes(*runnables: Runnable) -> Generator[FQ[Node]]:
-    for runnable in runnables:
-        if not isinstance(runnable, ModuleType) and _is_node(runnable):
-            yield FQN(Unknown, Unknown), runnable
-
-
-def _resolve_refs_to_nodes(*runnables) -> Generator[FQ[Node]]:
-    for runnable in runnables:
-        if isinstance(runnable, str) and is_object_ref(runnable):
-            fqn = FQN.from_ref(runnable)
-            node = _resolve_fqn_to_node(fqn)
-            yield fqn, node
+def _resolve_module_name_to_module(
+    module: ModuleType | ModuleName,
+) -> ModuleType:
+    if _is_module(module):
+        return module
+    if isinstance(module, str):
+        return _resolve_module_ref_to_module(module)
+    raise TypeError(
+        f"'{module}' is not a valid module. "
+        f"Expected a ModuleType or a string, got "
+        f"{type(module).__name__}"
+    )

@@ -42,11 +42,10 @@ class IOModel(BaseModel):
     @classmethod
     def from_io(cls, io: FQ[AnyIO], resource: int | None) -> "IOModel":
         (_, io_name), io_obj = io
-        io_type = type(io_obj)
-        io_type_fqn = (io_type.__module__, io_type.__name__)
+        io_type_fqn = io_obj.type_fqn
         return cls(
             name=io_name,
-            type=fqn_to_object_ref(io_type_fqn),
+            type=str(io_type_fqn),
             references=list(io_obj.references.keys()),
             attributes=io_obj._attributes or {},
             resource=resource,
@@ -64,62 +63,62 @@ class NodeModel(BaseModel):
 
     @classmethod
     def from_node(
-        cls, node: FQ[Node], io_to_fqns: dict[AnyIO, list[str]]
+        cls, node: Node, io_to_fqns: dict[AnyIO, list[str]]
     ) -> "NodeModel":
-        (module_ref, node_name), node_obj = node
+        module_name, node_name = node.fqn or ("unknown", "unknown")
         ins = []
-        for i in node_obj.inputs:
+        for i in node.inputs:
             candidates = io_to_fqns[i]
             if len(candidates) == 1:
                 ins.append(candidates[0])
             else:
                 candidates = [
-                    c.removeprefix(module_ref + ":")
+                    c.removeprefix(module_name + ":")
                     for c in candidates
-                    if c.startswith(module_ref + ":")
+                    if c.startswith(module_name + ":")
                 ]
                 if len(candidates) == 1:
-                    ins.append(module_ref + ":" + candidates[0])
+                    ins.append(module_name + ":" + candidates[0])
                 else:
-                    ins.append(module_ref + ":" + "|".join(candidates))
+                    ins.append(module_name + ":" + "|".join(candidates))
         outs = []
-        for o in node_obj.outputs:
+        for o in node.outputs:
             candidates = io_to_fqns[o]
             if len(candidates) == 1:
                 outs.append(candidates[0])
             else:
                 candidates = [
-                    c.removeprefix(module_ref + ":")
+                    c.removeprefix(module_name + ":")
                     for c in candidates
-                    if c.startswith(module_ref + ":")
+                    if c.startswith(module_name + ":")
                 ]
                 if len(candidates) == 1:
-                    outs.append(module_ref + ":" + candidates[0])
+                    outs.append(module_name + ":" + candidates[0])
                 else:
-                    outs.append(module_ref + ":" + "|".join(candidates))
+                    outs.append(module_name + ":" + "|".join(candidates))
 
         checks = []
-        for check in node_obj.checks:
+        for check in node.checks:
             candidates = io_to_fqns[check]
             if len(candidates) == 1:
                 checks.append(candidates[0])
             else:
                 candidates = [
-                    c.removeprefix(module_ref + ":")
+                    c.removeprefix(module_name + ":")
                     for c in candidates
-                    if c.startswith(module_ref + ":")
+                    if c.startswith(module_name + ":")
                 ]
                 if len(candidates) == 1:
-                    checks.append(module_ref + ":" + candidates[0])
+                    checks.append(module_name + ":" + candidates[0])
                 else:
-                    checks.append(module_ref + ":" + "|".join(candidates))
+                    checks.append(module_name + ":" + "|".join(candidates))
 
         return cls(
             name=node_name,
             inputs=ins,  # type: ignore[index,arg-type]
             outputs=outs,
             checks=checks,
-            attributes=node_obj.attributes,
+            attributes=node.attributes,
         )
 
 
@@ -133,7 +132,7 @@ class ProjectModel(BaseModel):
 
     @classmethod
     def from_nodes_and_ios(
-        cls, name: str, nodes: list[FQ[Node]], ios: Catalog
+        cls, name: str, nodes: list[Node], ios: Catalog
     ) -> "ProjectModel":
         """Create a ProjectModel from nodes and ios dictionaries.
 
@@ -168,10 +167,10 @@ class ProjectModel(BaseModel):
         # Anonymous IOs:
         # TODO: assign these names in a named graph in `ordeq`.
         idx = 0
-        for (module_ref, _), node in nodes:
+        for node in nodes:
             for io_ in chain(node.inputs, node.outputs):
                 if io_ not in io_to_fqns:
-                    resource = io_._resource
+                    resource = io_._resource  # type: ignore[attr-defined]
                     if (
                         resource not in resource_to_model
                         and resource is not io_
@@ -182,10 +181,10 @@ class ProjectModel(BaseModel):
                             )
                         )
                     # same module as node
-                    fqn = f"{module_ref}:<anonymous{idx}>"
-                    io_to_fqns[io_].append(f"{module_ref}:<anonymous{idx}>")  # type: ignore[index]
+                    fqn = f"{node.module}:<anonymous{idx}>"
+                    io_to_fqns[io_].append(f"{node.module}:<anonymous{idx}>")  # type: ignore[index]
                     model = IOModel.from_io(
-                        ((module_ref, f"<anonymous{idx}>"), io_),  # type: ignore[arg-type]
+                        ((node.module, f"<anonymous{idx}>"), io_),  # type: ignore[arg-type]
                         resource_to_model[resource].id
                         if resource in resource_to_model
                         else None,
@@ -194,10 +193,8 @@ class ProjectModel(BaseModel):
                     idx += 1
 
         refs_to_nodes = {
-            fqn_to_object_ref(fqn): NodeModel.from_node(
-                (fqn, node), io_to_fqns
-            )
-            for fqn, node in nodes
+            str(node.fqn): NodeModel.from_node(node, io_to_fqns)
+            for node in nodes
         }
         return cls(
             name=name,

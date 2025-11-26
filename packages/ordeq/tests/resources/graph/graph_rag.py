@@ -5,8 +5,7 @@ import example_rag_pipeline
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
-fqn_nodes = _resolve_runnables_to_nodes(example_rag_pipeline)
-nodes = [node for _, node in fqn_nodes]
+nodes = _resolve_runnables_to_nodes(example_rag_pipeline)
 base_graph = NodeIOGraph.from_nodes(nodes)
 print("NodeIOGraph")
 print(base_graph)

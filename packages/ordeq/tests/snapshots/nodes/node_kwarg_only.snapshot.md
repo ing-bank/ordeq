@@ -1,11 +1,10 @@
 ## Resource
 
 ```python
-from ordeq import node
-from ordeq_common import Literal
+from ordeq import Input, node
 
 
-@node(inputs=[Literal("a"), Literal("b")])
+@node(inputs=[Input[str]("a"), Input[str]("b")])
 def my_node(*, a, b):
     print(f"a: {a}, b: {b}")
 
@@ -14,9 +13,11 @@ def my_node(*, a, b):
 ## Output
 
 ```text
-ValueError: Inputs invalid for function arguments: 'my_node' in module '__main__'
+ValueError: Inputs invalid for function arguments of view 'my_node' in module '__main__'
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
-    raise ValueError(f"Inputs invalid for function arguments: {n}") from e
+    raise ValueError(
+        f"Inputs invalid for function arguments of {n}"
+    ) from e
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
     _raise_for_invalid_inputs(self)
@@ -43,8 +44,8 @@ ValueError: Inputs invalid for function arguments: 'my_node' in module '__main__
     )
 
   File "/packages/ordeq/tests/resources/nodes/node_kwarg_only.py", line LINO, in <module>
-    @node(inputs=[Literal("a"), Literal("b")])
-     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    @node(inputs=[Input[str]("a"), Input[str]("b")])
+     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 
@@ -55,5 +56,13 @@ ValueError: Inputs invalid for function arguments: 'my_node' in module '__main__
   File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
     run_path(str(file_path), run_name="__main__")
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 
 ```

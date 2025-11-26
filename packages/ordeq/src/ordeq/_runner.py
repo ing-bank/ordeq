@@ -4,23 +4,20 @@ from itertools import chain
 from types import ModuleType
 from typing import Any, Literal, TypeAlias, TypeVar, cast
 
-from ordeq._fqn import AnyRef, ObjectRef
+from ordeq._fqn import AnyRef, ModuleName, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
-from ordeq._nodes import Node, View, _is_node
+from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
-from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
+from ordeq._process_nodes import NodeFilter
+from ordeq._process_nodes_and_ios import process_nodes_and_ios
 from ordeq._resolve import (
     Runnable,
-    _is_module,
-    _resolve_callables_to_nodes,
-    _resolve_packages_to_modules,
+    RunnableRef,
+    _resolve_module_name_to_module,
     _resolve_refs_to_hooks,
-    _resolve_refs_to_nodes,
-    _resolve_runnables_to_modules,
 )
-from ordeq._scan import scan
 from ordeq._substitute import (
     _resolve_refs_to_subs,
     _substitutes_modules_to_ios,
@@ -42,15 +39,15 @@ SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 def _load_inputs(inputs) -> list[Any]:
     args = []
-    for input_dataset in inputs:
+    for input_io in inputs:
         # We know at this point that all view inputs are patched by
         # sentinel IOs, so we can safely cast here.
-        data = cast("Input", input_dataset).load()
+        data = cast("Input", input_io).load()
         args.append(data)
 
         # TODO: optimize persisting only when needed
-        if isinstance(input_dataset, _InputCache):
-            input_dataset.persist(data)
+        if isinstance(input_io, _InputCache) and not input_io.is_persisted:
+            input_io.persist(data)
     return args
 
 
@@ -66,8 +63,7 @@ def _save_outputs(outputs, values) -> None:
 def _run_node_func(
     node: Node, args: list[Any], *, hooks: Sequence[NodeHook] = ()
 ) -> tuple[Any, ...]:
-    node_type = "view" if isinstance(node, View) else "node"
-    logger.info("Running %s %s", node_type, node)
+    logger.info("Running %s", node)
 
     try:
         values = node.func(*args)
@@ -87,10 +83,9 @@ def _run_node_func(
 
 
 def _run_node(node: Node, hooks: Sequence[NodeHook] = ()) -> None:
-    _save_outputs(
-        node.outputs,
-        _run_node_func(node, args=_load_inputs(node.inputs), hooks=hooks),
-    )
+    args = _load_inputs(node.inputs)
+    results = _run_node_func(node, args=args, hooks=hooks)
+    _save_outputs(node.outputs, results)
 
 
 def _run_node_before_hooks(node, hooks) -> None:
@@ -137,7 +132,7 @@ def _run_graph(
 
     # unpersist IO objects
     # TODO: optimize by unpersisting as soon as possible
-    for gnode in graph.nodes:
+    for gnode in graph.edges:
         io_objs = chain(gnode.inputs, gnode.outputs)
         for io_obj in io_objs:
             if isinstance(io_obj, _InputCache):
@@ -146,27 +141,15 @@ def _run_graph(
     _run_after_hooks(graph, hooks=run_hooks)
 
 
-def _validate_runnables(*runnables: Runnable) -> None:
-    for runnable in runnables:
-        if not (
-            _is_module(runnable)
-            or _is_node(runnable)
-            or isinstance(runnable, str)
-        ):
-            raise TypeError(
-                f"{runnable} is not something we can run. "
-                f"Expected a module or a node, got {type(runnable)}"
-            )
-
-
 def run(
-    *runnables: Runnable,
+    *runnables: Runnable | RunnableRef,
     hooks: Sequence[RunnerHook | ObjectRef] = (),
     save: SaveMode = "all",
     verbose: bool = False,
     io: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType]
     | None = None,
     node_filter: NodeFilter | None = None,
+    context: ModuleType | ModuleName | None = None,
 ) -> None:
     """Runs nodes in topological order.
 
@@ -179,6 +162,7 @@ def run(
         verbose: Whether to print the node graph.
         io: Mapping of IO objects to their run-time substitutes.
         node_filter: Method to filter nodes.
+        context: Module to use as context for resolving string references.
 
     Arguments `runnables`, `hooks` and `io` also support string references.
     Each string reference should be formatted `module.submodule.[...]`
@@ -254,7 +238,7 @@ def run(
     >>> from ordeq import Node
     >>> import pipeline
     >>> def filter_daily_frequency(node: Node) -> bool:
-    ...     # Filters the nodes with attribute "frequency' set to daily
+    ...     # Filters the nodes with attribute "frequency" set to daily
     ...     # e.g.: @node(..., frequency="daily")
     ...     return node.attributes.get("frequency", None) == "daily"
     >>> run(pipeline, filter=filter_daily_frequency)
@@ -262,45 +246,42 @@ def run(
     ```
 
     """
+    resolved_context = (
+        _resolve_module_name_to_module(context) if context else None
+    )
+    resolved_run_hooks, resolved_node_hooks = _resolve_refs_to_hooks(*hooks)
+    resolved_subs = _resolve_refs_to_subs(io or {})
 
-    _validate_runnables(*runnables)
-    modules = _resolve_runnables_to_modules(*runnables)
-    submodules = _resolve_packages_to_modules(*modules)
-    fq_nodes, _ = scan(*submodules)
-    fq_nodes += _resolve_refs_to_nodes(*runnables)
-    fq_nodes += _resolve_callables_to_nodes(*runnables)
-
-    fq_nodes_and_views = _process_nodes(*fq_nodes, node_filter=node_filter)
-    nodes_and_views = [node for _, node in fq_nodes_and_views]
-    graph = NodeGraph.from_nodes(nodes_and_views)
+    nodes = process_nodes_and_ios(
+        *runnables,
+        context=[resolved_context] if resolved_context else [],
+        node_filter=node_filter,
+    )
+    graph = NodeGraph.from_nodes(nodes)
 
     save_mode_patches: dict[AnyIO, AnyIO] = {}
     if save in {"none", "sinks"}:
         # Replace relevant outputs with ordeq.IO, that does not save
         save_nodes = (
-            nodes_and_views
+            nodes
             if save == "none"
-            else [node for node in nodes_and_views if node not in graph.sinks]
+            else [node for node in nodes if node not in graph.sinks]
         )
         for node in save_nodes:
             if not isinstance(node, View):
                 for output in node.outputs:
                     save_mode_patches[output] = IO()
 
-    io_subs = _resolve_refs_to_subs(io or {})
-    user_patches = _substitutes_modules_to_ios(io_subs)
+    user_patches = _substitutes_modules_to_ios(resolved_subs)
     patches = {**user_patches, **save_mode_patches}
     if patches:
-        fq_patched_nodes = _patch_nodes(*fq_nodes_and_views, patches=patches)
-        patched_nodes = [node for _, node in fq_patched_nodes]
+        patched_nodes = _patch_nodes(*nodes, patches=patches)
         graph = NodeGraph.from_nodes(patched_nodes)
 
     if verbose:
         graph_with_io = NodeIOGraph.from_graph(graph)
         print(graph_with_io)
 
-    _validate_nodes(*graph.topological_ordering)
-
-    run_hooks, node_hooks = _resolve_refs_to_hooks(*hooks)
-
-    _run_graph(graph, node_hooks=node_hooks, run_hooks=run_hooks)
+    _run_graph(
+        graph, node_hooks=resolved_node_hooks, run_hooks=resolved_run_hooks
+    )

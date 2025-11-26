@@ -44,11 +44,17 @@ None
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view View(func=__main__:conditional, ...)
+INFO	ordeq.runner	Running View(func=__main__:conditional, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
-INFO	ordeq.runner	Running view View(func=__main__:conditional, ...)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+INFO	ordeq.runner	Running View(func=__main__:conditional, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 
 ```

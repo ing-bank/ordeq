@@ -14,32 +14,34 @@ print(diagram)
 
 ```text
 Relativistic mass
-ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' and 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' both output to Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)). Nodes cannot output to the same resource.
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    raise ValueError(msg)
+graph TB
+	subgraph legend["Legend"]
+		direction TB
+		node_type@{shape: rounded, label: "Node"}
+		view_type@{shape: subroutine, label: "View"}
+		io_type_0@{shape: rect, label: "StringBuffer"}
+	end
 
-  File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
-    return cls.from_graph(NodeResourceGraph.from_nodes(nodes))
-                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+	example_nested.subpackage.subsubpackage.hello_relative:world_relative --> unknown_0
 
-  File "/packages/ordeq-viz/src/ordeq_viz/graph.py", line LINO, in _gather_graph
-    node_graph = NodeGraph.from_nodes(nodes)
+	subgraph s0["example_nested.subpackage.subsubpackage.hello_relative"]
+		direction TB
+		example_nested.subpackage.subsubpackage.hello_relative:world_relative@{shape: rounded, label: "world_relative"}
+	end
+	subgraph s1["example_nested.subpackage.subsubpackage.hello"]
+		direction TB
+		example_nested.subpackage.subsubpackage.hello:world@{shape: subroutine, label: "world"}
+	end
+	unknown_0@{shape: rect, label: "message"}
 
-  File "/packages/ordeq-viz/src/ordeq_viz/api.py", line LINO, in viz
-    graph = _gather_graph(nodes_, ios)
+	class node_type,example_nested.subpackage.subsubpackage.hello_relative:world_relative node
+	class view_type,example_nested.subpackage.subsubpackage.hello:world view
+	class io_type_0,unknown_0 io0
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef view fill:#00C853,color:#FFF
+	classDef io0 fill:#66c2a5
 
-  File "/packages/ordeq-viz/tests/resources/mermaid/viz_nested.py", line LINO, in <module>
-    diagram = viz(example_nested, fmt="mermaid", subgraphs=True)
-
-  File "<frozen runpy>", line LINO, in _run_code
-
-  File "<frozen runpy>", line LINO, in _run_module_code
-
-  File "<frozen runpy>", line LINO, in run_path
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    run_path(str(file_path), run_name="__main__")
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
 
@@ -48,5 +50,8 @@ ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_
 ```text
 INFO	ordeq.runner	Running node 'world_relative' in module 'example_nested.subpackage.subsubpackage.hello_relative'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+WARNING	ordeq.preview	Subgraphs are in pre-release, functionality may break in future releases without it being considered a breaking change.
 
 ```

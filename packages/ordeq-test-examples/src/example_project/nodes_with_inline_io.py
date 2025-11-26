@@ -1,7 +1,6 @@
-from ordeq import IO, node
-from ordeq_common import Literal
+from ordeq import IO, Input, node
 
 
-@node(inputs=Literal("Buenos dias"), outputs=IO())
+@node(inputs=Input[str]("Buenos dias"), outputs=IO())
 def greet(hello: str):
     print(hello)

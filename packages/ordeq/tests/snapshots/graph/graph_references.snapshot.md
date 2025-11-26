@@ -8,8 +8,7 @@ import example_references
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._resolve import _resolve_runnables_to_nodes
 
-fqn_nodes = _resolve_runnables_to_nodes(example_references)
-nodes = [node for _, node in fqn_nodes]
+nodes = _resolve_runnables_to_nodes(example_references)
 base_graph = NodeIOGraph.from_nodes(nodes)
 print("NodeIOGraph")
 print(base_graph)
@@ -32,5 +31,14 @@ NodeGraph
 
 Topological ordering
 ()
+
+```
+
+## Logging
+
+```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 
 ```

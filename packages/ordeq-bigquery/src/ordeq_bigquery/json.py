@@ -34,16 +34,20 @@ class BigQueryJSON(IO[list[dict[str, Any]]]):
             TypeError: if query is not provided, i.e. is None
 
         Example:
-            >>> from google.cloud import bigquery
-            >>> from ordeq_bigquery import BigQueryJSON
-            >>>
-            >>> client = bigquery.Client()  # doctest: +SKIP
-            >>> inp = BigQueryJSON(
-            ...     query="SELECT * FROM my_table",
-            ...     table_id="project.dataset.table",
-            ...     client=client,
-            ... )  # doctest: +SKIP
-            >>> rows = inp.load()  # doctest: +SKIP
+
+        ```pycon
+        >>> from google.cloud import bigquery
+        >>> from ordeq_bigquery import BigQueryJSON
+        >>>
+        >>> client = bigquery.Client()  # doctest: +SKIP
+        >>> inp = BigQueryJSON(
+        ...     query="SELECT * FROM my_table",
+        ...     table_id="project.dataset.table",
+        ...     client=client,
+        ... )  # doctest: +SKIP
+        >>> rows = inp.load()  # doctest: +SKIP
+
+        ```
         """
         if self.query is None:
             raise TypeError("Loading is only supported if query is provided")
@@ -61,17 +65,21 @@ class BigQueryJSON(IO[list[dict[str, Any]]]):
             IOException: If insertion fails.
 
         Example:
-            >>> from google.cloud import bigquery
-            >>> from ordeq_bigquery import BigQueryJSON
-            >>>
-            >>> client = bigquery.Client()  # doctest: +SKIP
-            >>> out = BigQueryJSON(
-            ...     table_id="project.dataset.table", client=client
-            ... )  # doctest: +SKIP
-            >>> out.save([
-            ...     {"col1": "val1"},
-            ...     {"col1": "val2"},
-            ... ])  # doctest: +SKIP
+
+        ```pycon
+        >>> from google.cloud import bigquery
+        >>> from ordeq_bigquery import BigQueryJSON
+        >>>
+        >>> client = bigquery.Client()  # doctest: +SKIP
+        >>> out = BigQueryJSON(
+        ...     table_id="project.dataset.table", client=client
+        ... )  # doctest: +SKIP
+        >>> out.save([
+        ...     {"col1": "val1"},
+        ...     {"col1": "val2"},
+        ... ])  # doctest: +SKIP
+
+        ```
         """
         errors = self.client.insert_rows_json(
             table=self.table_id, json_rows=data, **save_options

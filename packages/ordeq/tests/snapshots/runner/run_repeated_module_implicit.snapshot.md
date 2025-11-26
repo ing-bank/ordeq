@@ -20,6 +20,8 @@ Name: John
 
 ```text
 UserWarning: Module 'example_1.pipeline' was provided more than once. Duplicates will be ignored.
+UserWarning: Node 'transform_input' in module 'example_1.pipeline' was provided more than once. Duplicates are ignored.
+UserWarning: Node 'transform_mock_input' in module 'example_1.pipeline' was provided more than once. Duplicates are ignored.
 ```
 
 ## Logging

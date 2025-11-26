@@ -20,6 +20,7 @@ run(__name__, __name__)
 
 ```text
 UserWarning: Module '__main__' was provided more than once. Duplicates will be ignored.
+UserWarning: Node 'func1' in module '__main__' was provided more than once. Duplicates are ignored.
 ```
 
 ## Logging

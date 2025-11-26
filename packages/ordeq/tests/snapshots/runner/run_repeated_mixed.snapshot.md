@@ -16,6 +16,12 @@ run(__name__, func1)
 
 ```
 
+## Warnings
+
+```text
+UserWarning: Node 'func1' in module '__main__' was provided more than once. Duplicates are ignored.
+```
+
 ## Logging
 
 ```text

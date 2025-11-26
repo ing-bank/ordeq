@@ -153,6 +153,17 @@ To learn more about Ordeq, check out the following resources:
 - Check out the [core concepts][core-concepts] to learn how to use Ordeq
 - Explore the [example projects][example-projects] to see how Ordeq is used
 
+## Visualizing pipelines
+
+Ordeq makes it easy to visualize your pipelines like this with a single line of code.
+Read more in the [documentation](https://ing-bank.github.io/ordeq/guides/run_and_viz/#viz).
+
+The following figure shows an example Ordeq pipeline of a Retrieval-Augmented Generation (RAG) pipeline visualized with Mermaid:
+
+<a href="https://ing-bank.github.io/ordeq/guides/run_and_viz/#viz">
+    <img src="./docs/_static/ordeq_example_pipeline.svg" width="800px" alt="RAG pipeline" />
+</a>
+
 ## Acknowledgements
 
 Ordeq builds upon design choices and ideas from [Kedro] and other frameworks.

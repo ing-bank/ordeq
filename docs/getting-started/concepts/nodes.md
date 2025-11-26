@@ -140,7 +140,7 @@ Let's extend our example with another node that parses the name to greet from a 
 
 === "nodes.py"
 
-    ```python hl_lines="3-9"
+    ```python hl_lines="5-8"
     import catalog
     from ordeq import node
 

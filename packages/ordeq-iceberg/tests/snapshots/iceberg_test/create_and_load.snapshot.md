@@ -39,7 +39,7 @@ my_table = IcebergTable(
 
 @node(inputs=[my_catalog, test_namespace], outputs=[my_table])
 def create_save_table(catalog: Catalog, namespace: str) -> None:
-    catalog.create_namespace(namespace)
+    catalog.create_namespace_if_not_exists(namespace)
 
 
 @node(inputs=[my_table])

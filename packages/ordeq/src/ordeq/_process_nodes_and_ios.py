@@ -8,8 +8,11 @@ from ordeq._resolve import (
     Catalog,
     Runnable,
     RunnableRef,
+    _deduplicate_modules,
     _resolve_modules_to_nodes,
-    _resolve_runnable_refs_to_runnables,
+    _resolve_packages_to_modules,
+    _resolve_runnable_refs_to_modules,
+    _resolve_runnable_refs_to_nodes,
     _validate_runnables,
 )
 from ordeq._scan import _scan_fqns
@@ -24,11 +27,17 @@ def process_nodes_and_ios(
     node_filter: NodeFilter | None = None,
 ) -> tuple[Node, ...]:
     _validate_runnables(*runnables)
-    modules, nodes = _resolve_runnable_refs_to_runnables(*runnables)
-    nodes += _resolve_modules_to_nodes(*modules)
-    node_fqns, io_fqns = _scan_fqns(*context, *modules)
+    modules_to_process = _resolve_runnable_refs_to_modules(*runnables)
+    nodes_to_process = _resolve_runnable_refs_to_nodes(*runnables)
+    nodes_to_process += _resolve_modules_to_nodes(*modules_to_process)
+    submodules_to_process = _resolve_packages_to_modules(*modules_to_process)
+    submodules_to_process = _deduplicate_modules(*submodules_to_process)
+    submodules_context = _resolve_packages_to_modules(*context)
+    node_fqns, io_fqns = _scan_fqns(
+        *submodules_context, *submodules_to_process
+    )
     nodes_processed = _process_nodes(
-        *nodes, node_filter=node_filter, node_fqns=node_fqns
+        *nodes_to_process, node_filter=node_filter, node_fqns=node_fqns
     )
     nodes_processed = _process_ios(*nodes_processed, io_fqns=io_fqns)
     _validate_nodes(*nodes_processed)

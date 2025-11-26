@@ -5,7 +5,6 @@ from typing import TypeAlias
 from ordeq._fqn import FQN
 from ordeq._io import IOIdentity, _is_io
 from ordeq._nodes import Node, _is_node
-from ordeq._resolve import _resolve_packages_to_modules
 
 NodeFQNs: TypeAlias = dict[Node, list[FQN]]
 IOFQNs: TypeAlias = dict[IOIdentity, list[FQN]]
@@ -14,7 +13,7 @@ IOFQNs: TypeAlias = dict[IOIdentity, list[FQN]]
 def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:
     node_fqns: NodeFQNs = defaultdict(list)
     io_fqns: IOFQNs = defaultdict(list)
-    for module in _resolve_packages_to_modules(*modules):
+    for module in modules:
         for name, obj in vars(module).items():
             if _is_io(obj):
                 io_id = id(obj)

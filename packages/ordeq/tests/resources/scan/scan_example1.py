@@ -1,9 +1,10 @@
 from pprint import pp
 
 import example_1
+from ordeq._resolve import _resolve_packages_to_modules
 from ordeq._scan import _scan_fqns
 
-nodes, ios = _scan_fqns(example_1)
+nodes, ios = _scan_fqns(*_resolve_packages_to_modules(example_1))
 print("Nodes:")
 pp(nodes, width=40)
 print("IOs:")

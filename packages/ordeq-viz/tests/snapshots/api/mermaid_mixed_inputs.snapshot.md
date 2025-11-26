@@ -81,5 +81,5 @@ graph TB
 ## Warnings
 
 ```text
-UserWarning: Module 'example_1.nodes' already provided as runnable
+UserWarning: Module 'example_1.nodes' was provided more than once. Duplicates will be ignored.
 ```

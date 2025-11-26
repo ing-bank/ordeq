@@ -37,6 +37,19 @@ def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
             )
 
 
+def _deduplicate_modules(*modules: ModuleType) -> Generator[ModuleType]:
+    visited = set()
+    for module in modules:
+        if module.__name__ in visited:
+            warnings.warn(
+                f"Module '{module.__name__}' was provided more than once. "
+                f"Duplicates will be ignored.",
+                stacklevel=2,
+            )
+        visited.add(module.__name__)
+        yield module
+
+
 def _is_package(module: ModuleType) -> TypeGuard[ModuleType]:
     return hasattr(module, "__path__")
 
@@ -104,25 +117,10 @@ def _resolve_module_globals(
 def _resolve_packages_to_modules(
     *modules: ModuleType,
 ) -> Generator[ModuleType, None, None]:
-    visited = set()
-
     def _walk(module: ModuleType):
-        if module.__name__ in visited:
-            warnings.warn(
-                f"Module '{module.__name__}' already provided as runnable",
-                stacklevel=2,
-            )
-            return
-        visited.add(module.__name__)
         yield module
         if _is_package(module):
             for subname in _resolve_package_to_module_names(module):
-                if subname in visited:
-                    warnings.warn(
-                        f"Module '{subname}' already provided as runnable",
-                        stacklevel=2,
-                    )
-                    continue
                 submodule = _resolve_module_ref_to_module(subname)
                 yield from _walk(submodule)
 
@@ -359,23 +357,29 @@ def _resolve_modules_to_nodes(*modules: ModuleType) -> list[Node]:
     return nodes
 
 
-def _resolve_runnable_refs_to_runnables(
+def _resolve_runnable_refs_to_nodes(
     *runnables: RunnableRef | Runnable,
-) -> tuple[list[ModuleType], list[Node]]:
-    modules: list[ModuleType] = []
+) -> list[Node]:
     nodes: list[Node] = []
+    for runnable in runnables:
+        if _is_node(runnable):
+            nodes.append(runnable)
+        elif isinstance(runnable, str) and is_object_ref(runnable):
+            fqn = FQN.from_ref(runnable)
+            nodes.append(_resolve_fqn_to_node(fqn))
+    return nodes
+
+
+def _resolve_runnable_refs_to_modules(
+    *runnables: RunnableRef | Runnable,
+) -> list[ModuleType]:
+    modules: list[ModuleType] = []
     for runnable in runnables:
         if _is_module(runnable):
             modules.append(runnable)
-        elif _is_node(runnable):
-            nodes.append(runnable)
-        elif isinstance(runnable, str):
-            if is_object_ref(runnable):
-                fqn = FQN.from_ref(runnable)
-                nodes.append(_resolve_fqn_to_node(fqn))
-            else:
-                modules.append(_resolve_module_ref_to_module(runnable))
-    return modules, nodes
+        elif isinstance(runnable, str) and not is_object_ref(runnable):
+            modules.append(_resolve_module_ref_to_module(runnable))
+    return modules
 
 
 def _resolve_module_name_to_module(

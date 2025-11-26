@@ -33,11 +33,3 @@ IOs:
  [FQN(module='example_function_reuse.catalog', name='D')]]
 
 ```
-
-## Warnings
-
-```text
-UserWarning: Module 'example_function_reuse.catalog' already provided as runnable
-UserWarning: Module 'example_function_reuse.func_defs' already provided as runnable
-UserWarning: Module 'example_function_reuse.nodes' already provided as runnable
-```

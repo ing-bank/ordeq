@@ -1,9 +1,10 @@
 from pprint import pp
 
 import example_nested
+from ordeq._resolve import _resolve_packages_to_modules
 from ordeq._scan import _scan_fqns
 
-nodes, ios = _scan_fqns(example_nested)
+nodes, ios = _scan_fqns(*_resolve_packages_to_modules(example_nested))
 print("Nodes:")
 print(nodes)
 print("IOs:")

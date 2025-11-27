@@ -44,9 +44,9 @@ my_pipeline(30, 1)
 ```text
 Should raise error for wrong number of args
 ValueError: Expected 3 inputs, but got 2.
-  File "/packages/ordeq/src/ordeq/_pipeline.py", line LINO, in runner
+  File "/packages/ordeq/src/ordeq/_pipeline.py", line LINO, in __call__
     raise ValueError(
-        f"Expected {len(inputs)} inputs, but got {len(args)}."
+        f"Expected {len(self.inputs)} inputs, but got {len(args)}."
     )
 
   File "/packages/ordeq/tests/resources/pipeline/modular_multiple_args.py", line LINO, in <module>

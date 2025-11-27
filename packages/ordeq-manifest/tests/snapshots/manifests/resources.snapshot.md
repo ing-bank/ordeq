@@ -57,10 +57,10 @@ print(create_manifest_json(example_resources))
     "example_resources.updates:update": {
       "name": "update",
       "inputs": [
-        "example_resources.updates:csv|csv_old|csv_new"
+        "example_resources.updates:csv_old"
       ],
       "outputs": [
-        "example_resources.updates:csv|csv_old|csv_new"
+        "example_resources.updates:csv_new"
       ],
       "checks": [],
       "attributes": {}
@@ -68,7 +68,7 @@ print(create_manifest_json(example_resources))
     "example_resources.updates:reflect": {
       "name": "reflect",
       "inputs": [
-        "example_resources.updates:csv|csv_old|csv_new"
+        "example_resources.updates:csv_new"
       ],
       "outputs": [
         "example_resources.updates:<anonymous4>"

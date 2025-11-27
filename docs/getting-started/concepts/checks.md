@@ -225,6 +225,4 @@ You can run your pipeline as before, and Ordeq will take care of running the che
 
     If you have any questions or feedback about checks or this guide, please open an issue on [GitHub][issues].
 
-[gx]: https://greatexpectations.io/
 [issues]: https://github.com/ing-bank/ordeq/issues/new
-[pandera]: https://pandera.readthedocs.io/

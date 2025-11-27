@@ -23,7 +23,8 @@ nav:
       - Hooks:
           - Benchmark runtimes: guides/examples/benchmark_node_runtime.md
       - Adopting Ordeq:
-          - Coming from Kedro: guides/kedro.md
+          - Coming from Kedro: guides/adopting/kedro.md
+          - Coming from Dagster: guides/adopting/dagster.md
       - Integrations:
           - Docker: guides/integrations/docker.md
           - Marimo: guides/integrations/marimo.md

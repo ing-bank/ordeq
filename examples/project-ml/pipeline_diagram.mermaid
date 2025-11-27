@@ -1,0 +1,129 @@
+graph TB
+	subgraph legend["Legend"]
+		direction TB
+		L0@{shape: rounded, label: "Node"}
+		L2@{shape: subroutine, label: "View"}
+		L00@{shape: rect, label: "IO"}
+		L01@{shape: rect, label: "Literal"}
+		L02@{shape: rect, label: "MatplotlibFigure"}
+		L03@{shape: rect, label: "Pickle"}
+	end
+
+	project_ml.data.raw_data_loading:raw_mnist_test_data --> project_ml.data.data_preprocessing:processed_mnist_test_data
+	project_ml.data.raw_data_loading:raw_mnist_train_data --> project_ml.data.data_preprocessing:processed_mnist_train_data
+	IO0 --> project_ml.data.data_preprocessing:processed_mnist_train_data
+	IO1 --> project_ml.data.data_preprocessing:processed_mnist_train_data
+	IO2 --> project_ml.data.raw_data_loading:raw_mnist_test_data
+	project_ml.data.raw_data_loading:transform --> project_ml.data.raw_data_loading:raw_mnist_test_data
+	IO3 --> project_ml.data.raw_data_loading:raw_mnist_train_data
+	project_ml.data.raw_data_loading:transform --> project_ml.data.raw_data_loading:raw_mnist_train_data
+	IO4 --> project_ml.data.raw_data_loading:transform
+	project_ml.deploy.predict:dummy_images --> project_ml.deploy.predict:batch_digit_predictions
+	IO5 --> project_ml.deploy.predict:batch_digit_predictions
+	IO6 --> project_ml.deploy.predict:batch_digit_predictions
+	project_ml.deploy.predict:inference_device --> project_ml.deploy.predict:batch_digit_predictions
+	project_ml.deploy.predict:batch_digit_predictions --> IO7
+	project_ml.deploy.predict:batch_digit_predictions --> IO8
+	project_ml.deploy.predict:dummy_batch --> project_ml.deploy.predict:digit_predictions
+	IO5 --> project_ml.deploy.predict:digit_predictions
+	IO9 --> project_ml.deploy.predict:digit_predictions
+	project_ml.deploy.predict:inference_device --> project_ml.deploy.predict:digit_predictions
+	project_ml.deploy.predict:digit_predictions --> IO10
+	project_ml.deploy.predict:digit_predictions --> IO11
+	IO9 --> project_ml.deploy.predict:dummy_batch
+	IO6 --> project_ml.deploy.predict:dummy_images
+	IO6 --> project_ml.deploy.predict:inference_device
+	IO5 --> project_ml.model.model_evaluation:model_evaluation
+	project_ml.model.model_evaluation:test_loader --> project_ml.model.model_evaluation:model_evaluation
+	project_ml.model.train_model:training_device --> project_ml.model.model_evaluation:model_evaluation
+	project_ml.model.model_evaluation:model_evaluation --> IO12
+	project_ml.model.model_evaluation:model_evaluation --> IO13
+	project_ml.model.model_evaluation:model_evaluation --> IO14
+	project_ml.data.data_preprocessing:processed_mnist_test_data --> project_ml.model.model_evaluation:test_loader
+	IO15 --> project_ml.model.model_evaluation:test_loader
+	IO16 --> project_ml.model.train_model:optimizer
+	project_ml.model.train_model:untrained_model --> project_ml.model.train_model:optimizer
+	IO16 --> project_ml.model.train_model:scheduler
+	project_ml.model.train_model:optimizer --> project_ml.model.train_model:scheduler
+	project_ml.data.data_preprocessing:processed_mnist_train_data --> project_ml.model.train_model:train_loader
+	IO16 --> project_ml.model.train_model:train_loader
+	project_ml.model.train_model:train_loader --> project_ml.model.train_model:train_model
+	project_ml.model.train_model:val_loader --> project_ml.model.train_model:train_model
+	IO16 --> project_ml.model.train_model:train_model
+	project_ml.model.train_model:training_device --> project_ml.model.train_model:train_model
+	project_ml.model.train_model:untrained_model --> project_ml.model.train_model:train_model
+	project_ml.model.train_model:optimizer --> project_ml.model.train_model:train_model
+	project_ml.model.train_model:scheduler --> project_ml.model.train_model:train_model
+	project_ml.model.train_model:train_model --> IO5
+	project_ml.model.train_model:train_model --> IO17
+	IO18 --> project_ml.model.train_model:untrained_model
+	project_ml.data.data_preprocessing:processed_mnist_train_data --> project_ml.model.train_model:val_loader
+	IO16 --> project_ml.model.train_model:val_loader
+
+	subgraph s0["project_ml.data.data_preprocessing"]
+		direction TB
+		project_ml.data.data_preprocessing:processed_mnist_test_data@{shape: subroutine, label: "processed_mnist_test_data"}
+		project_ml.data.data_preprocessing:processed_mnist_train_data@{shape: subroutine, label: "processed_mnist_train_data"}
+	end
+	subgraph s1["project_ml.data.raw_data_loading"]
+		direction TB
+		project_ml.data.raw_data_loading:raw_mnist_test_data@{shape: subroutine, label: "raw_mnist_test_data"}
+		project_ml.data.raw_data_loading:raw_mnist_train_data@{shape: subroutine, label: "raw_mnist_train_data"}
+		project_ml.data.raw_data_loading:transform@{shape: subroutine, label: "transform"}
+	end
+	subgraph s2["project_ml.deploy.predict"]
+		direction TB
+		project_ml.deploy.predict:batch_digit_predictions@{shape: rounded, label: "batch_digit_predictions"}
+		project_ml.deploy.predict:digit_predictions@{shape: rounded, label: "digit_predictions"}
+		project_ml.deploy.predict:dummy_batch@{shape: subroutine, label: "dummy_batch"}
+		project_ml.deploy.predict:dummy_images@{shape: subroutine, label: "dummy_images"}
+		project_ml.deploy.predict:inference_device@{shape: subroutine, label: "inference_device"}
+	end
+	subgraph s3["project_ml.model.model_evaluation"]
+		direction TB
+		project_ml.model.model_evaluation:model_evaluation@{shape: rounded, label: "model_evaluation"}
+		project_ml.model.model_evaluation:test_loader@{shape: subroutine, label: "test_loader"}
+	end
+	subgraph s4["project_ml.model.train_model"]
+		direction TB
+		project_ml.model.train_model:optimizer@{shape: subroutine, label: "optimizer"}
+		project_ml.model.train_model:scheduler@{shape: subroutine, label: "scheduler"}
+		project_ml.model.train_model:train_loader@{shape: subroutine, label: "train_loader"}
+		project_ml.model.train_model:train_model@{shape: rounded, label: "train_model"}
+		project_ml.model.train_model:training_device@{shape: subroutine, label: "training_device"}
+		project_ml.model.train_model:untrained_model@{shape: subroutine, label: "untrained_model"}
+		project_ml.model.train_model:val_loader@{shape: subroutine, label: "val_loader"}
+	end
+	IO0@{shape: rect, label: "validation_split"}
+	IO1@{shape: rect, label: "random_seed"}
+	IO10@{shape: rect, label: "real_time_predictions"}
+	IO11@{shape: rect, label: "real_time_prediction_metadata"}
+	IO12@{shape: rect, label: "model_evaluation_result"}
+	IO13@{shape: rect, label: "confusion_matrix"}
+	IO14@{shape: rect, label: "model_evaluation_metadata"}
+	IO15@{shape: rect, label: "model_evaluation_config"}
+	IO16@{shape: rect, label: "training_config"}
+	IO17@{shape: rect, label: "training_metadata"}
+	IO18@{shape: rect, label: "model_config"}
+	IO2@{shape: rect, label: "test_dataset"}
+	IO3@{shape: rect, label: "train_dataset"}
+	IO4@{shape: rect, label: "mnist_moments"}
+	IO5@{shape: rect, label: "production_model"}
+	IO6@{shape: rect, label: "batch_prediction_config"}
+	IO7@{shape: rect, label: "batch_predictions"}
+	IO8@{shape: rect, label: "batch_prediction_metadata"}
+	IO9@{shape: rect, label: "real_time_prediction_config"}
+
+	class L0,project_ml.deploy.predict:batch_digit_predictions,project_ml.deploy.predict:digit_predictions,project_ml.model.model_evaluation:model_evaluation,project_ml.model.train_model:train_model node
+	class L2,project_ml.data.data_preprocessing:processed_mnist_test_data,project_ml.data.data_preprocessing:processed_mnist_train_data,project_ml.data.raw_data_loading:raw_mnist_test_data,project_ml.data.raw_data_loading:raw_mnist_train_data,project_ml.data.raw_data_loading:transform,project_ml.deploy.predict:dummy_batch,project_ml.deploy.predict:dummy_images,project_ml.deploy.predict:inference_device,project_ml.model.model_evaluation:test_loader,project_ml.model.train_model:optimizer,project_ml.model.train_model:scheduler,project_ml.model.train_model:train_loader,project_ml.model.train_model:training_device,project_ml.model.train_model:untrained_model,project_ml.model.train_model:val_loader view
+	class L00,IO10,IO11,IO12,IO14,IO17,IO7,IO8 io0
+	class L01,IO0,IO1,IO15,IO16,IO18,IO2,IO3,IO4,IO6,IO9 io1
+	class L02,IO13 io2
+	class L03,IO5 io3
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef view fill:#00C853,color:#FFF
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62
+	classDef io2 fill:#8da0cb
+	classDef io3 fill:#e78ac3

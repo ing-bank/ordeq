@@ -7,6 +7,7 @@ nav:
           - Nodes: getting-started/concepts/nodes.md
           - Catalogs: getting-started/concepts/catalogs.md
           - Views: getting-started/concepts/views.md
+          - Checks: getting-started/concepts/checks.md
           - Hooks: getting-started/concepts/hooks.md
   - Guides & examples:
       - Starting a new project: guides/starting_a_new_project.md

@@ -60,6 +60,7 @@ ordeq-requests = { workspace = true }
 ordeq-sentence-transformers = { workspace = true }
 ordeq-spark = { workspace = true }
 ordeq-toml = { workspace = true }
+ordeq-torch = { workspace = true }
 ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }
 ordeq-yaml = { workspace = true }

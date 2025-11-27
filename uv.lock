@@ -47,6 +47,7 @@ members = [
     "ordeq-test-examples",
     "ordeq-test-utils",
     "ordeq-toml",
+    "ordeq-torch",
     "ordeq-viz",
     "ordeq-viz-cli",
     "ordeq-yaml",
@@ -3446,6 +3447,24 @@ requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
     { name = "tomli", marker = "python_full_version < '3.11'", specifier = ">=1.1.0" },
     { name = "tomli-w" },
+]
+
+[package.metadata.requires-dev]
+test = []
+
+[[package]]
+name = "ordeq-torch"
+source = { editable = "packages/ordeq-torch" }
+dependencies = [
+    { name = "ordeq" },
+    { name = "torch", version = "2.9.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform == 'darwin'" },
+    { name = "torch", version = "2.9.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "sys_platform != 'darwin'" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "ordeq", editable = "packages/ordeq" },
+    { name = "torch" },
 ]
 
 [package.metadata.requires-dev]

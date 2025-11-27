@@ -1,4 +1,4 @@
-# Orchestration integrations
+# Orchestration
 
 This guide explains the concept of orchestration integrations in Ordeq.
 
@@ -31,3 +31,7 @@ You can then easily integrate your Ordeq pipelines with various orchestration to
 
 This separation of concerns leads to more modular, reusable, and testable code, making it easier to maintain and evolve your data processing workflows over time.
 As a bonus, this also allows you to switch between different orchestration tools with minimal changes to your pipeline code.
+
+## Open-source integrations
+
+[![Kubeflow](https://avatars.githubusercontent.com/u/33164907?s=280&v=4)](./kubeflow.md)

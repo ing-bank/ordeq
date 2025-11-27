@@ -20,5 +20,5 @@ class StreamlitElement(Input[T]):
         Raises:
             StreamlitAPIException:
                 If the specified key does not exist in the session state.
-        """  # noqa: DOC502 (exception not explicitly raised)
+        """
         return st.session_state[self.key]

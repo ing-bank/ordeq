@@ -1,7 +1,8 @@
 # Checks
 
-A **check** is a special type of node that is run after certain IOs are loaded or saved.
-Checks are useful for validating data like enforcing constraints or running data quality tests.
+A **check** is a special type of node that is triggered once certain IOs are loaded or saved.
+Checks are triggered before other nodes are run.
+This can be useful for checking data, like enforcing constraints or running data quality tests.
 For example:
 
 - Validating that data conforms to a specific schema (e.g., ensuring correct data types).
@@ -59,25 +60,6 @@ The inputs can be the same IOs that trigger the check, or different ones.
 This allows you to validate the data with additional IOs.
 For example, you can perform a check on one IO, using another IO as input:
 
-```python hl_lines="7"
-import pandas as pd
-from ordeq_pandas import PandasCSV
-
-txs_pandas = PandasCSV(path="s3://my-bucket/txs.csv")
-
-
-@node(inputs=txs_pandas, checks=txs)  # (1)!
-def validate_row_count(txs: pd.DataFrame) -> None:
-    assert txs.count() > 0, "No transactions data found!"
-```
-
-1. The check is triggered by the `PandasEagerCSV`, but the check is performed using `PandasCSV` as input.
-
-This is useful if you would like to use a different library for the validation than the one used to load or save the data.
-Examples are data quality libraries such as [Great Expectations][gx] or [Pandera].
-
-Likewise, it's possible to use _more_ inputs than the one that trigger the check:
-
 ```python hl_lines="8"
 from pathlib import Path
 
@@ -97,7 +79,7 @@ def validate_schema(df: pl.DataFrame, schema: dict) -> None:
 This is useful if the check logic requires additional data to perform the validation.
 In the example above, this additional data is metadata (the schema), but it could also be other actual data:
 
-```python hl_lines="8"
+```python hl_lines="7"
 from ordeq import node
 from ordeq_polars import PolarsEagerCSV
 

@@ -39,11 +39,11 @@ one uses CSV files, the other uses Iceberg tables.
 
 Now you can use the IOs in your nodes by importing the catalog:
 
-```python title="pipeline.py"
+```python title="pipeline.py" hl_lines="4"
 from ordeq import node
 from pyspark.sql import DataFrame
 
-from catalogs import local  # or 'production'
+from catalogs import local #(1)!
 
 
 @node(inputs=local.iris, outputs=local.predictions)
@@ -51,6 +51,8 @@ def predict(iris: DataFrame) -> DataFrame:
     # Your prediction logic here
     ...
 ```
+
+1. Imports the `local` catalog
 
 !!! tip "Avoid individual IO imports"
 
@@ -65,7 +67,7 @@ An easy way to do this is by using an environment variable.
 Say you want to switch between the local and production catalogs based on an environment variable called `ENV`.
 You can do so as follows:
 
-```python title="catalogs/__init__.py"
+```python title="catalogs/__init__.py" hl_lines="4"
 import os
 from catalogs import local, production
 
@@ -74,11 +76,11 @@ catalog = local if os.getenv("ENV") == "local" else production
 
 Now, you can use the resolved catalog in your nodes:
 
-```python title="nodes.py"
+```python title="nodes.py" hl_lines="4"
 from ordeq import node
 from pyspark.sql import DataFrame
 
-from catalogs import catalog  # resolves to 'local' or 'production'
+from catalogs import catalog  #(1)!
 
 
 @node(inputs=catalog.iris, outputs=catalog.predictions)
@@ -86,6 +88,8 @@ def predict(iris: DataFrame) -> DataFrame:
     # Your prediction logic here
     ...
 ```
+
+1. Resolves to 'local' or 'production' depending on the `ENV` variable
 
 When the environment variable `ENV=local` it uses the local catalog.
 For any other value, it uses the production catalog.
@@ -137,22 +141,24 @@ from ordeq_spark import SparkCSV
 
 from catalogs.production import *
 
-iris = SparkCSV(path="path/to/staging/iris.csv")  # Override iris IO
+iris = SparkCSV(path="path/to/staging/iris.csv") #(1)!
 ```
+
+1. Overrides the `iris` IO from the `prodution` catalog
 
 This way, the `staging` catalog inherits all IOs from `production`, except for `iris`, which is replaced with a CSV.
 
 You can also extend catalogs, as follows:
 
-```python title="catalogs/staging.py"  hl_lines="6"
+```python title="catalogs/staging.py" hl_lines="5"
 from ordeq_spark import SparkCSV
 
 from catalogs.production import *
 
-iris_large = SparkCSV(
-    path="path/to/staging/iris_large.csv"
-)  # Extends with a new IO
+iris_large = SparkCSV(path="path/to/staging/iris_large.csv") #(1)!
 ```
+
+1. Extends the `production` catalog with `iris_large`
 
 Note that the extended catalog is not consistent with the `production` catalog, since it defines a new IO.
 

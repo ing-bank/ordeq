@@ -111,6 +111,7 @@ pythonpath = ["src", "tests"]
 [tool.ruff]
 exclude = [
     "packages/*/src/*/_version.py",
+    "examples/orchestration-kubeflow/original.py"
 ]
 force-exclude = true
 line-length = 79
@@ -241,8 +242,8 @@ split-on-trailing-comma = false
     "F821",  # Undefined name
 ]
 # Rules not applicable for some example projects
-"examples/starter-single-file/*" = ["INP001", ]
-"examples/integration-marimo/*" = ["PLC0415", "E501", "INP001"]
+"examples/*" = ["INP001", "D", "DOC"]
+"examples/integration-marimo/*" = ["PLC0415", "E501"]
 "examples/testing-nodes/tests/test_pipeline.py" = ["E402"]
 # Rules not applicable for private examples
 "packages/ordeq-test-examples/*" = ["D103", "INP001", "S101"]

@@ -28,7 +28,9 @@ nav:
           - Docker: guides/integrations/docker.md
           - Marimo: guides/integrations/marimo.md
           - Streamlit: guides/integrations/streamlit.md
-          - Orchestration: guides/integrations/orchestration.md
+      - Orchestration:
+          - Orchestration: guides/orchestration/orchestration.md
+          - Kubeflow: guides/orchestration/kubeflow.md
   - Reference:
       - Packages: packages.md
       - API: api

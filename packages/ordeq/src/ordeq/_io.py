@@ -271,6 +271,14 @@ def _has_base(bases, target_names: set[str]) -> bool:
     return any(_check_ancestor(base) for base in bases)
 
 
+def eq(self, other) -> bool:
+    return id(self) == id(other)
+
+
+def h(self) -> int:
+    return id(self)
+
+
 class _IOMeta(type):
     """Metaclass that handles Input and Output logic."""
 
@@ -288,6 +296,15 @@ class _IOMeta(type):
             class_dict, bases = _process_output_meta(name, bases, class_dict)
 
         return super().__new__(cls, name, bases, class_dict)
+
+    def __init__(cls, name, bases, class_dict):
+        if name not in {"Input", "Output", "IO"}:
+            # Each IO instance is unique, so we override __eq__ and __hash__
+            # to ensure identity-based comparison and hashing.
+            cls.__eq__ = eq  # type: ignore[invalid-assignment,method-assign,assignment]
+            cls.__hash__ = h  # type: ignore[invalid-assignment,method-assign,assignment]
+
+        super().__init__(name, bases, class_dict)
 
 
 class _BaseInput(Generic[Tin]):

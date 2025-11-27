@@ -8,8 +8,6 @@ from ordeq import run
 sub = MyIO(
     value="sub", attr=result.attr
 )  # has the same hash as `result` and `hello`
-assert hash(sub) == hash(result)
-assert hash(sub) == hash(hello)
 
 print("Should print 'Saying hello (attr = 0)'")
 run(duplicate_io_same_hash, io={result: sub})

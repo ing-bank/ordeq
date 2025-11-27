@@ -3,6 +3,8 @@ from dataclasses import dataclass
 import pyspark.sql
 from ordeq import Input
 
+from ordeq_spark.utils import get_spark_session
+
 
 @dataclass(frozen=True)
 class SparkSession(Input[pyspark.sql.SparkSession]):
@@ -39,16 +41,12 @@ class SparkSession(Input[pyspark.sql.SparkSession]):
     """
 
     def load(self) -> pyspark.sql.SparkSession:
-        """Gets the active SparkSession
+        """Gets the active SparkSession. Errors if there is no active
+        Spark session.
 
         Returns:
             pyspark.sql.SparkSession: The Spark session.
 
-        Raises:
-            ValueError: If there is no active Spark session.
         """
 
-        session = pyspark.sql.SparkSession.getActiveSession()
-        if session is None:
-            raise ValueError("Spark session must be active")
-        return session
+        return get_spark_session()

@@ -18,6 +18,7 @@ theme:
     - content.code.select
     - navigation.footer
     - content.code.annotate
+    - navigation.indexes
   palette:
     - scheme: slate
       primary: black

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from ordeq import IO, Input, Output
 
 
-@dataclass(kw_only=True, frozen=True, eq=False)
+@dataclass(kw_only=True, frozen=True)
 class NameGenerator(Input[str]):
     name: str
 
@@ -14,13 +14,13 @@ class NameGenerator(Input[str]):
         return self.name
 
 
-@dataclass(kw_only=True, frozen=True, eq=False)
+@dataclass(kw_only=True, frozen=True)
 class NamePrinter(Output[str]):
     def save(self, data: str) -> None:
         print(f"Name: {data}")
 
 
-@dataclass(kw_only=True, frozen=True, eq=False)
+@dataclass(kw_only=True, frozen=True)
 class SayHello(IO[str]):
     name: Input[str]
     writer: Output[str]

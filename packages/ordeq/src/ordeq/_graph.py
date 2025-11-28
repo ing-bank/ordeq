@@ -6,7 +6,7 @@ from graphlib import TopologicalSorter
 from itertools import chain
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import AnyIO, IOIdentity, _is_io
+from ordeq._io import AnyIO, _is_io
 from ordeq._nodes import Node, _is_view
 from ordeq._resource import Resource
 
@@ -181,9 +181,9 @@ class NodeGraph(Graph[Node]):
 
 # TODO: remove entire class
 @dataclass(frozen=True)
-class NodeIOGraph(Graph[IOIdentity | Node]):
-    edges: dict[IOIdentity | Node, list[IOIdentity | Node]]
-    ios: dict[IOIdentity, AnyIO]
+class NodeIOGraph(Graph[AnyIO | Node]):
+    edges: dict[AnyIO | Node, list[AnyIO | Node]]
+    ios: dict[AnyIO, AnyIO]
 
     @classmethod
     def from_nodes(cls, nodes: Sequence[Node]) -> Self:
@@ -191,19 +191,15 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
 
     @classmethod
     def from_graph(cls, base: NodeGraph) -> Self:
-        edges: dict[IOIdentity | Node, list[IOIdentity | Node]] = defaultdict(
-            list
-        )
-        ios: dict[IOIdentity, AnyIO] = {}
+        edges: dict[AnyIO | Node, list[AnyIO | Node]] = defaultdict(list)
+        ios: dict[AnyIO, AnyIO] = {}
         for node in base.topological_ordering:
             for input_ in node.inputs:
-                input_id = id(input_)
-                ios[input_id] = input_
-                edges[input_id].append(node)
+                ios[input_] = input_
+                edges[input_].append(node)
             for output in node.outputs:
-                output_id = id(output)
-                ios[output_id] = output
-                edges[node].append(output_id)
+                ios[output] = output
+                edges[node].append(output)
         return cls(edges=edges, ios=ios)
 
     @cached_property
@@ -214,7 +210,7 @@ class NodeIOGraph(Graph[IOIdentity | Node]):
         # Hacky way to generate a deterministic repr of this class.
         # This should move to a separate named graph class.
         lines: list[str] = []
-        names: dict[IOIdentity | Node, str] = {
+        names: dict[AnyIO | Node, str] = {
             **{node: f"{node.type_name}:{node.ref}" for node in self.nodes},
             **{
                 io: f"io-{i}"

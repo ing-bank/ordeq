@@ -37,22 +37,34 @@ run(
 ## Output
 
 ```text
-ValueError: Input to Node(func=__main__:add_world, ...) must be an Input or View, got Print
-  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
-    raise ValueError(
-    ...<2 lines>...
+CatalogError: Catalog 'example_catalogs.local' is missing IO(s) 'another_io'
+  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in check_catalogs_are_consistent
+    raise CatalogError(
+        f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
     )
 
-  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped
-    node_ = create_node(
-        inner,
-    ...<5 lines>...
-        name=f.__name__,
-    )
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
+    check_catalogs_are_consistent(old, new)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
+    substitution_map.update(_substitute_catalog_by_catalog(old, new))
+                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
+    user_patches = _substitutes_modules_to_ios(resolved_subs)
 
   File "/packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py", line LINO, in <module>
-    @node(inputs=remote_extended.another_io, outputs=Print())
-     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    run(
+    ~~~^
+        uppercase,
+        ^^^^^^^^^^
+        add_world,
+        ^^^^^^^^^^
+        io={local_package: remote_package, remote_extended: local},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
 
   File "<frozen runpy>", line LINO, in _run_code
 

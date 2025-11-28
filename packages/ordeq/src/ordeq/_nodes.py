@@ -17,15 +17,7 @@ from typing import (
 )
 
 from ordeq._fqn import FQN
-from ordeq._io import (
-    IO,
-    AnyIO,
-    Input,
-    Output,
-    ResourceType,
-    _is_input,
-    _is_output,
-)
+from ordeq._io import IO, AnyIO, Input, Output, ResourceType, _is_output
 from ordeq.preview import preview
 
 T = TypeVar("T")

@@ -16,10 +16,27 @@ def func() -> None:
 
 ```text
 Should raise an error:
-ValueError: Input to Node(func=__main__:func, ...) must be an Input or View, got str
-  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
+ValueError: Inputs invalid for function arguments of view 'func' in module '__main__'
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
     raise ValueError(
-    ...<2 lines>...
+        f"Inputs invalid for function arguments of {n}"
+    ) from e
+
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
+    _raise_for_invalid_inputs(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __post_init__
+    self.validate()
+    ~~~~~~~~~~~~~^^
+
+  File "<string>", line LINO, in __init__
+
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
+    return View(
+        func=func,  # type: ignore[arg-type]
+    ...<6 lines>...
+        name=name,  # type: ignore[arg-type]
     )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in wrapped

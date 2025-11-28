@@ -42,6 +42,13 @@ Feeding my dog
 
 ```
 
+## Warnings
+
+```text
+UserWarning: IO implementation MyPet overrides __eq__. This method will be ignored.
+UserWarning: IO implementation MyPet overrides __hash__. This method will be ignored.
+```
+
 ## Logging
 
 ```text

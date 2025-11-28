@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from ordeq import Input, Output
 
 
-@dataclass(kw_only=True, frozen=True)
+@dataclass(kw_only=True, frozen=True, eq=False)
 class ExampleIO(Input[str], Output[int]):
     attribute: str
 

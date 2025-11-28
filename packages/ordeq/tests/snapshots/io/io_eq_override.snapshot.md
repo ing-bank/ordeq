@@ -41,3 +41,10 @@ assert b != B
 assert hash(b) != hash(B)
 
 ```
+
+## Warnings
+
+```text
+UserWarning: IO implementation CustomIO overrides __eq__. This method will be ignored.
+UserWarning: IO implementation CustomIO overrides __hash__. This method will be ignored.
+```

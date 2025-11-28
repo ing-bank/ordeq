@@ -21,7 +21,7 @@ print("Expect Input(id=...):")
 print(a)
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, eq=False)
 class ExampleIO(IO[str]):
     def load(self):
         return "Hello world"

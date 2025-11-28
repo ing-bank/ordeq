@@ -297,12 +297,12 @@ def _is_node(obj: object) -> TypeGuard[Node]:
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | Node] | Input | Node | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
     | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
@@ -315,12 +315,12 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | Node] | Input | Node | None = None,
     outputs: None = None,
-    checks: Sequence[Input | Output | Callable]
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
     | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
@@ -332,12 +332,12 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | Node] | Input | Node | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
     | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
@@ -432,19 +432,22 @@ def create_node(
 
 # Default value for 'func' in case it is not passed.
 # Used to distinguish between 'func=None' and func missing as positional arg.
-def not_passed(*args, **kwargs): ...
+def _not_passed(*args, **kwargs): ...
+
+
+not_passed = cast("Node", _not_passed)
 
 
 @overload
 def node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | Node] | Input | Node | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
     | ResourceType
     | None = None,
     **attributes: Any,
@@ -454,12 +457,12 @@ def node(
 @overload
 def node(
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable = not_passed,
+    inputs: Sequence[Input | Node] | Input | Node = not_passed,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
     | ResourceType
     | None = None,
     **attributes: Any,
@@ -471,12 +474,12 @@ def node(
 def node(
     func: Callable[FuncParams, FuncReturns] = not_passed,
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | Node] | Input | Node | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
     | ResourceType
     | None = None,
     **attributes: Any,

@@ -1,9 +1,9 @@
 import inspect
-from typing_extensions import reveal_type
 
 from ordeq import node
 from ordeq._nodes import _is_node
 from ordeq_common import StringBuffer
+from typing_extensions import reveal_type
 
 
 @node(inputs=[StringBuffer("x"), StringBuffer("y")])

@@ -301,7 +301,7 @@ def _is_view(obj: object) -> TypeGuard[View]:
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Node] | Input | Node | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: Sequence[Output] | Output,
     checks: Sequence[Input | Output | Node]
     | Input
@@ -319,7 +319,7 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Node] | Input | Node | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: None = None,
     checks: Sequence[Input | Output | Node]
     | Input
@@ -336,7 +336,7 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Node] | Input | Node | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: Sequence[Output] | Output | None = None,
     checks: Sequence[Input | Output | Node]
     | Input

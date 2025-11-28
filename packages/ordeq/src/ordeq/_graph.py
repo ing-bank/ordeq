@@ -6,8 +6,8 @@ from graphlib import TopologicalSorter
 from itertools import chain
 from typing import Generic, TypeVar, cast
 
-from ordeq._io import AnyIO, Input, IOIdentity, Output
-from ordeq._nodes import Node, View
+from ordeq._io import AnyIO, IOIdentity, _is_io
+from ordeq._nodes import Node, _is_view
 from ordeq._resource import Resource
 
 try:
@@ -80,9 +80,9 @@ class NodeResourceGraph(Graph[Resource | Node]):
         checks: dict[Resource, list[Resource]] = defaultdict(list)
         for node in nodes:
             for check in node.checks:
-                if isinstance(check, View):
+                if _is_view(check):
                     resource = Resource(check.outputs[0]._resource)
-                elif isinstance(check, (Input, Output)):
+                elif _is_io(check):
                     resource = Resource(check._resource)
                 else:
                     resource = Resource(check)

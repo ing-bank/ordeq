@@ -1,4 +1,4 @@
-from ordeq import Output, node, run
+from ordeq import Output, node
 
 
 class Example(Output[str]):
@@ -8,15 +8,9 @@ class Example(Output[str]):
 
 example = Example()
 
-
-@node(outputs=[example])
-def my_node() -> str:
-    return "Hello, World!"
+print("Should raise an error ('example' is an output):")
 
 
 @node(inputs=[example])
 def load_node(data: str) -> None:
     print("loading!", data)
-
-
-run(my_node, load_node)

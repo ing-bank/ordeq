@@ -17,7 +17,15 @@ from typing import (
 )
 
 from ordeq._fqn import FQN
-from ordeq._io import IO, AnyIO, Input, Output, ResourceType
+from ordeq._io import (
+    IO,
+    AnyIO,
+    Input,
+    Output,
+    ResourceType,
+    _is_input,
+    _is_output,
+)
 from ordeq.preview import preview
 
 T = TypeVar("T")
@@ -179,7 +187,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
             node arguments.
     """
 
-    are_outputs = [isinstance(o, Output) for o in n.outputs]
+    are_outputs = [_is_output(o) for o in n.outputs]
     if not all(are_outputs):
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
@@ -293,6 +301,10 @@ def _is_node(obj: object) -> TypeGuard[Node]:
     return isinstance(obj, Node)
 
 
+def _is_view(obj: object) -> TypeGuard[View]:
+    return isinstance(obj, View)
+
+
 @overload
 def create_node(
     func: Callable[FuncParams, FuncReturns],
@@ -380,8 +392,13 @@ def create_node(
                 )
             views.append(view)
             inputs_.append(view.outputs[0])
+        elif _is_input(input_):
+            inputs_.append(input_)
         else:
-            inputs_.append(cast("Input", input_))
+            raise ValueError(
+                f"Input to Node(func={func_name}, ...) must be an Input or "
+                f"View, got {type(input_).__name__}"
+            )
 
     checks_: list[Input] = []
     if checks:

@@ -384,13 +384,9 @@ def create_node(
                 )
             views.append(view)
             inputs_.append(view.outputs[0])
-        elif _is_input(input_):
-            inputs_.append(input_)
         else:
-            raise ValueError(
-                f"Input to Node(func={func_name}, ...) must be an Input or "
-                f"View, got {type(input_).__name__}"
-            )
+            # TODO: Check if _is_input and raise an error otherwise
+            inputs_.append(cast("Input", input_))
 
     checks_: list[Input] = []
     if checks:

@@ -167,7 +167,7 @@ Let's reconsider our running example using `#!python @dataclass`:
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass(frozen=True, eq=False, kw_only=True)
 class CustomIO(IO[str]):
     path: Path
 
@@ -181,6 +181,11 @@ class CustomIO(IO[str]):
 Using `#!python @dataclass` to define IO classes is optional and purely for convenience.
 The load and save methods can be implemented as usual.
 Please refer to the [dataclasses] documentation for more information.
+
+!!! warning "IO classes should not implement `__eq__` or `__hash__`"
+
+    All IOs inherit the `__eq__` or `__hash__` methods from the IO base class.
+    IO classes should not override these methods, and doing so issues a warning.
 
 ### Stay close to the underlying API
 
@@ -232,7 +237,7 @@ import random
 from ordeq import Input
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass(frozen=True, eq=False, kw_only=True)
 class SensorDataGenerator(Input[dict[str, Any]]): # (1)!
     """Example Input class to generate synthetic sensor data
 

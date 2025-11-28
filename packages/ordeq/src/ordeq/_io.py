@@ -2,10 +2,19 @@ from __future__ import annotations
 
 import inspect
 import logging
+import warnings
 from collections.abc import Callable, Hashable, Sequence
 from copy import copy
 from functools import cached_property, reduce, wraps
-from typing import Annotated, Any, Generic, TypeAlias, TypeGuard, TypeVar
+from typing import (
+    Annotated,
+    Any,
+    Generic,
+    TypeAlias,
+    TypeGuard,
+    TypeVar,
+    final,
+)
 
 from ordeq.preview import preview
 
@@ -279,6 +288,25 @@ def h(self) -> int:
     return id(self)
 
 
+class _WithEq:
+    """
+    Interface defining the default equality and hashing behavior for IO
+    objects based on their identity. This ensures that each IO instance is
+    treated as unique, regardless of its internal state or attributes.
+
+    If the __eq__ and __hash__ methods are explicitly overridden in the
+    subclass, a type error will be raised.
+    """
+
+    @final
+    def __eq__(self, other) -> bool:
+        return id(self) == id(other)
+
+    @final
+    def __hash__(self) -> int:
+        return id(self)
+
+
 class _IOMeta(type):
     """Metaclass that handles Input and Output logic."""
 
@@ -299,10 +327,24 @@ class _IOMeta(type):
 
     def __init__(cls, name, bases, class_dict):
         if name not in {"Input", "Output", "IO"}:
+
             # Each IO instance is unique, so we override __eq__ and __hash__
             # to ensure identity-based comparison and hashing.
-            cls.__eq__ = eq  # type: ignore[invalid-assignment,method-assign,assignment]
-            cls.__hash__ = h  # type: ignore[invalid-assignment,method-assign,assignment]
+            if cls.__eq__ is not _WithEq.__eq__:
+                warnings.warn(
+                    f"IO implementation {name} overrides __eq__. "
+                    f"This method will be ignored.",
+                    stacklevel=2,
+                )
+            if cls.__hash__ is not _WithEq.__hash__:
+                warnings.warn(
+                    f"IO implementation {name} overrides __hash__. "
+                    f"This method will be ignored.",
+                    stacklevel=2,
+                )
+
+            cls.__eq__ = _WithEq.__eq__  # type: ignore[invalid-assignment,method-assign,assignment]
+            cls.__hash__ = _WithEq.__hash__  # type: ignore[invalid-assignment,method-assign,assignment]
 
         super().__init__(name, bases, class_dict)
 
@@ -508,6 +550,7 @@ class Input(
     _WithResource,
     _WithName,
     _WithAttributes,
+    _WithEq,
     Generic[Tin],
     metaclass=_IOMeta,
 ):
@@ -649,6 +692,7 @@ class Output(
     _WithResource,
     _WithName,
     _WithAttributes,
+    _WithEq,
     Generic[Tout],
     metaclass=_IOMeta,
 ):

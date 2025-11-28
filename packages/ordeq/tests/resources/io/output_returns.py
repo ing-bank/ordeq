@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from ordeq import Output
 
 
-@dataclass(kw_only=True, frozen=True)
+@dataclass(kw_only=True, frozen=True, eq=False)
 class ExampleOutputNosave(Output):
     def save(self, data: str) -> str:
         return "hello"

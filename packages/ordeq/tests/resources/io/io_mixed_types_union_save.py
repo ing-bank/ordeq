@@ -9,7 +9,7 @@ from tempfile import NamedTemporaryFile
 from ordeq import Input, Output
 
 
-@dataclass(kw_only=True, frozen=True)
+@dataclass(kw_only=True, frozen=True, eq=False)
 class Text(Input[str], Output[bytes | str]):
     path: Path
 

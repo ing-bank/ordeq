@@ -50,7 +50,7 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
     return name
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass(frozen=True, eq=False, kw_only=True)
 class Node(Generic[FuncParams, FuncReturns]):
     @property
     def __doc__(self) -> str | None:  # type: ignore[override]
@@ -254,7 +254,7 @@ def _sequence_to_tuple(obj: Sequence[T] | T | None) -> tuple[T, ...]:
     return (obj,)  # ty: ignore[invalid-return-type]
 
 
-@dataclass(frozen=True, kw_only=True)
+@dataclass(frozen=True, eq=False, kw_only=True)
 class View(Node[FuncParams, FuncReturns]):
     outputs: tuple[IO, ...] = ()
 

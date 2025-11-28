@@ -751,3 +751,11 @@ AnyIO: TypeAlias = Input[T] | Output[T]
 # identify IO instances. We cannot rely on the __eq__ and __hash__ of IO
 # objects, as they may be overridden by the user.
 IOIdentity: TypeAlias = Annotated[int, "Identity of an IO object"]
+
+
+def _is_input(obj: object) -> TypeGuard[Input]:
+    return isinstance(obj, Input)
+
+
+def _is_output(obj: object) -> TypeGuard[Output]:
+    return isinstance(obj, Output)

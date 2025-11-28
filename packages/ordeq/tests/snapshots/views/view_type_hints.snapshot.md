@@ -9,10 +9,7 @@ from ordeq._nodes import _is_node
 from ordeq_common import StringBuffer
 
 
-@node(
-    inputs=[StringBuffer("x"), StringBuffer("y")],
-    outputs=[StringBuffer("z"), StringBuffer("1")],
-)
+@node(inputs=[StringBuffer("x"), StringBuffer("y")])
 def func(x: str, y: str) -> tuple[str, str]:
     return f"{x} + {y}", y
 
@@ -28,8 +25,8 @@ print(_is_node(func))
 ## Output
 
 ```text
-<class 'ordeq._nodes.Node'>
-node 'func' in module '__main__'
+<class 'ordeq._nodes.View'>
+view 'func' in module '__main__'
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
 True
 
@@ -38,6 +35,6 @@ True
 ## Error
 
 ```text
-Runtime type is 'Node'
+Runtime type is 'View'
 
 ```

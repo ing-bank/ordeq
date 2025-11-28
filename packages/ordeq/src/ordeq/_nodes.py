@@ -17,7 +17,15 @@ from typing import (
 )
 
 from ordeq._fqn import FQN
-from ordeq._io import IO, AnyIO, Input, Output, ResourceType, _is_output
+from ordeq._io import (
+    IO,
+    AnyIO,
+    Input,
+    Output,
+    ResourceType,
+    _is_input,
+    _is_output,
+)
 from ordeq.preview import preview
 
 T = TypeVar("T")
@@ -384,9 +392,13 @@ def create_node(
                 )
             views.append(view)
             inputs_.append(view.outputs[0])
+        elif _is_input(input_):
+            inputs_.append(input_)
         else:
-            # TODO: Check if _is_input and raise an error otherwise
-            inputs_.append(cast("Input", input_))
+            raise ValueError(
+                f"Input to Node(func={func_name}, ...) must be of type "
+                f"Input or View, got {type(input_).__name__}"
+            )
 
     checks_: list[Input] = []
     if checks:

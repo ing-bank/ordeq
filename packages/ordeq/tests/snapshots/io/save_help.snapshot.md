@@ -7,7 +7,7 @@ from pathlib import Path
 from ordeq import Output
 
 
-@dataclass(kw_only=True, frozen=True, eq=False)
+@dataclass(kw_only=True, frozen=True)
 class ExampleOutputsaveArg(Output):
     path: Path
     attribute: str

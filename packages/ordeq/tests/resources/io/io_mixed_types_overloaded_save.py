@@ -10,7 +10,7 @@ from typing import overload
 from ordeq import Input, Output
 
 
-@dataclass(kw_only=True, frozen=True, eq=False)
+@dataclass(kw_only=True, frozen=True)
 class Text(Input[str], Output[bytes | str]):
     path: Path
 

@@ -78,7 +78,7 @@ def _select_canonical_fqn_using_imports(
                 relevant[f.module].add(f.name)
             objects_with_multiple_fqns.append(obj)
 
-    removals = set()
+    removals: set[FQN] = set()
     for module in modules:
         module_path = _module_name_to_path(module)
         tree = _module_path_to_ast(module_path)

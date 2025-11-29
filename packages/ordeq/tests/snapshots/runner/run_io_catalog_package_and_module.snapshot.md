@@ -16,12 +16,12 @@ from ordeq_common import Print
 catalog = local_package
 
 
-@node(inputs=local_package.hello, outputs=remote_extended.hello)
+@node(inputs=local_package.hello, outputs=remote_extended.result)
 def uppercase(hello: str) -> str:
     return f"{hello.upper()}!"
 
 
-@node(inputs=remote_extended.another_io, outputs=Print())
+@node(inputs=local_package.result, outputs=Print())
 def add_world(hello: str) -> str:
     return f"{hello}, world!!"
 

@@ -747,11 +747,6 @@ class IO(Input[T], Output[T]):
 # Type aliases
 AnyIO: TypeAlias = Input[T] | Output[T]
 
-# Type alias for IO identity retrieved using id(). This is used to uniquely
-# identify IO instances. We cannot rely on the __eq__ and __hash__ of IO
-# objects, as they may be overridden by the user.
-IOIdentity: TypeAlias = Annotated[int, "Identity of an IO object"]
-
 
 def _is_input(obj: object) -> TypeGuard[Input]:
     return isinstance(obj, Input)

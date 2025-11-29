@@ -3,11 +3,11 @@ from types import ModuleType
 from typing import TypeAlias
 
 from ordeq._fqn import FQN
-from ordeq._io import IOIdentity, _is_io
+from ordeq._io import AnyIO, _is_io
 from ordeq._nodes import Node, _is_node
 
 NodeFQNs: TypeAlias = dict[Node, list[FQN]]
-IOFQNs: TypeAlias = dict[IOIdentity, list[FQN]]
+IOFQNs: TypeAlias = dict[AnyIO, list[FQN]]
 
 
 def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:
@@ -16,9 +16,8 @@ def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:
     for module in modules:
         for name, obj in vars(module).items():
             if _is_io(obj):
-                io_id = id(obj)
-                if io_id in io_fqns:
-                    existing_fqn = io_fqns[io_id][0]
+                if obj in io_fqns:
+                    existing_fqn = io_fqns[obj][0]
                     if name != existing_fqn.name:
                         raise ValueError(
                             f"Module '{module.__name__}' aliases IO "
@@ -26,8 +25,8 @@ def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:
                             f"IOs cannot be aliased."
                         )
                 fqn = FQN(module.__name__, name)
-                if fqn not in io_fqns[io_id]:
-                    io_fqns[io_id].append(fqn)
+                if fqn not in io_fqns[obj]:
+                    io_fqns[obj].append(fqn)
             elif _is_node(obj):
                 if obj in node_fqns:
                     existing = node_fqns[obj][0]

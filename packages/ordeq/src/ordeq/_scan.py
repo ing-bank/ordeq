@@ -25,7 +25,9 @@ def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:
                             f"'{existing_fqn.ref}' to '{name}'. "
                             f"IOs cannot be aliased."
                         )
-                io_fqns[io_id].append(FQN(module.__name__, name))
+                fqn = FQN(module.__name__, name)
+                if fqn not in io_fqns[io_id]:
+                    io_fqns[io_id].append(fqn)
             elif _is_node(obj):
                 if obj in node_fqns:
                     existing = node_fqns[obj][0]
@@ -35,5 +37,7 @@ def _scan_fqns(*modules: ModuleType) -> tuple[NodeFQNs, IOFQNs]:
                             f"{existing} to '{name}'. "
                             f"Nodes cannot be aliased."
                         )
-                node_fqns[obj].append(FQN(module.__name__, name))
+                fqn = FQN(module.__name__, name)
+                if fqn not in node_fqns[obj]:
+                    node_fqns[obj].append(fqn)
     return dict(node_fqns), dict(io_fqns)

@@ -27,8 +27,8 @@ UserWarning: Node 'func1' in module '__main__' was provided more than once. Dupl
 
 ```text
 INFO	ordeq.runner	Running node 'func1' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Saving StringBuffer 'x' in module '__main__'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'x' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'x' in module '__main__'
 
 ```

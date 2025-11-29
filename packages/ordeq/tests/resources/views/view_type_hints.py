@@ -6,10 +6,7 @@ from ordeq_common import StringBuffer
 from typing_extensions import reveal_type
 
 
-@node(
-    inputs=[StringBuffer("x"), StringBuffer("y")],
-    outputs=[StringBuffer("z"), StringBuffer("1")],
-)
+@node(inputs=[StringBuffer("x"), StringBuffer("y")])
 def func(x: str, y: str) -> tuple[str, str]:
     return f"{x} + {y}", y
 

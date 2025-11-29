@@ -309,8 +309,8 @@ def _is_view(obj: object) -> TypeGuard[View]:
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Node] | Input | Node | None = None,
-    outputs: Sequence[Output] | Output | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
+    outputs: Sequence[Output] | Output,
     checks: Sequence[Input | Output | Node]
     | Input
     | Output
@@ -327,7 +327,7 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Node] | Input | Node | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: None = None,
     checks: Sequence[Input | Output | Node]
     | Input
@@ -344,7 +344,7 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Node] | Input | Node | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: Sequence[Output] | Output | None = None,
     checks: Sequence[Input | Output | Node]
     | Input
@@ -452,15 +452,15 @@ def create_node(
 def _not_passed(*args, **kwargs): ...
 
 
-not_passed = cast("Node", _not_passed)
+not_passed = cast("View", _not_passed)
 
 
 @overload
 def node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Node] | Input | Node | None = None,
-    outputs: Sequence[Output] | Output | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
+    outputs: Sequence[Output] | Output,
     checks: Sequence[Input | Output | Node]
     | Input
     | Output
@@ -473,9 +473,25 @@ def node(
 
 @overload
 def node(
+    func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Node] | Input | Node = not_passed,
-    outputs: Sequence[Output] | Output | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
+    outputs: None = None,
+    checks: Sequence[Input | Output | Node]
+    | Input
+    | Output
+    | Node
+    | ResourceType
+    | None = None,
+    **attributes: Any,
+) -> View[FuncParams, FuncReturns]: ...
+
+
+@overload
+def node(
+    *,
+    inputs: Sequence[Input | View] | Input | View = not_passed,
+    outputs: Sequence[Output] | Output,
     checks: Sequence[Input | Output | Node]
     | Input
     | Output
@@ -488,10 +504,27 @@ def node(
 ]: ...
 
 
+@overload
 def node(
-    func: Callable[FuncParams, FuncReturns] = not_passed,
     *,
-    inputs: Sequence[Input | Node] | Input | Node | None = None,
+    inputs: Sequence[Input | View] | Input | View = not_passed,
+    outputs: None = None,
+    checks: Sequence[Input | Output | Node]
+    | Input
+    | Output
+    | Node
+    | ResourceType
+    | None = None,
+    **attributes: Any,
+) -> Callable[
+    [Callable[FuncParams, FuncReturns]], View[FuncParams, FuncReturns]
+]: ...
+
+
+def node(
+    func: Callable[FuncParams, FuncReturns] = _not_passed,
+    *,
+    inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: Sequence[Output] | Output | None = None,
     checks: Sequence[Input | Output | Node]
     | Input
@@ -502,9 +535,11 @@ def node(
     **attributes: Any,
 ) -> (
     Callable[
-        [Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]
+        [Callable[FuncParams, FuncReturns]],
+        Node[FuncParams, FuncReturns] | View[FuncParams, FuncReturns],
     ]
     | Node[FuncParams, FuncReturns]
+    | View[FuncParams, FuncReturns]
 ):
     """Decorator that creates a node from a function. When a node is run,
     the inputs are loaded and passed to the function. The returned values

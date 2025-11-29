@@ -9,7 +9,7 @@ from ordeq import Node
 from ordeq._fqn import FQN
 from ordeq._io import AnyIO
 
-T: TypeVar = TypeVar("T", Node, AnyIO)
+T = TypeVar("T", Node, AnyIO)
 
 
 def _module_name_to_path(module_name: str) -> Path:

@@ -377,17 +377,18 @@ def create_node(
     func_name = infer_node_name_from_func(func)
     inputs_: list[Input] = []
     views: list[View] = []
+    cls = "View" if not outputs else "Node"
     for input_ in _sequence_to_tuple(inputs):
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input to Node(func={func_name}, ...) is not a node "
+                    f"Input to {cls}(func={func_name}, ...) is not a node "
                     f"(got {type(input_).__name__})"
                 )
             view = input_
             if not isinstance(view, View):
                 raise ValueError(
-                    f"Input to Node(func={func_name}, ...) is not a view "
+                    f"Input to {cls}(func={func_name}, ...) is not a view "
                     f"(got {type(view).__name__})"
                 )
             views.append(view)
@@ -411,13 +412,13 @@ def create_node(
             if callable(check):
                 if not _is_node(check):
                     raise ValueError(
-                        f"Check {check} to node Node(func={func_name}, ...) "
+                        f"Check {check} to node {cls}(func={func_name}, ...) "
                         f"is not a node"
                     )
                 view = check
                 if not isinstance(view, View):
                     raise ValueError(
-                        f"Check {check} to node Node(func={func_name}, ...) "
+                        f"Check {check} to node {cls}(func={func_name}, ...) "
                         f"is not a view"
                     )
                 checks_.append(view.outputs[0])

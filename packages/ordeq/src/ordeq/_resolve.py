@@ -11,7 +11,7 @@ from typing import TypeAlias, TypeGuard
 
 from ordeq._fqn import FQN, ModuleName, ObjectRef, is_object_ref
 from ordeq._hook import NodeHook, RunHook, RunnerHook
-from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
+from ordeq._io import AnyIO, _is_io, _is_io_sequence
 from ordeq._nodes import Node, _is_node
 
 RunnableRef: TypeAlias = ObjectRef | ModuleName
@@ -164,19 +164,17 @@ def _resolve_refs_to_modules(
 
 
 def _resolve_module_to_ios(module: ModuleType) -> dict[str, AnyIO]:
-    ios: dict[IOIdentity, tuple[AnyIO, str]] = {}
+    ios: dict[AnyIO, str] = {}
     for name, obj in vars(module).items():
         if _is_io(obj):
-            io_id = id(obj)
             # TODO: Should also resolve to IO sequence
-            if io_id in ios:
-                alias = ios[io_id][1]
+            if obj in ios:
                 raise ValueError(
                     f"Module '{module.__name__}' contains duplicate keys "
-                    f"for the same IO ('{name}' and '{alias}')"
+                    f"for the same IO ('{name}' and '{ios[obj]}')"
                 )
-            ios[io_id] = (obj, name)
-    return {name: io for io, name in ios.values()}
+            ios[obj] = name
+    return {name: io for io, name in ios.items()}
 
 
 def _resolve_package_to_ios(package: ModuleType) -> Catalog:

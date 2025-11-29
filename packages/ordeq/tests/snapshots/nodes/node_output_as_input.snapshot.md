@@ -1,25 +1,30 @@
 ## Resource
 
 ```python
-from ordeq import node
-from ordeq_common import Print
+from ordeq import Output, node
 
 
-@node(outputs=Print())
-def hello() -> str:
-    return "Hello, World!"
+class Example(Output[str]):
+    def save(self, data: str) -> None:
+        print("saving!", data)
 
 
-@node(inputs=hello)
-def say_hello(value: str) -> str:
-    return value
+example = Example()
+
+print("Should raise an error ('example' is an output):")
+
+
+@node(inputs=[example])
+def load_node(data: str) -> None:
+    print("loading!", data)
 
 ```
 
 ## Output
 
 ```text
-ValueError: Input to View(func=__main__:say_hello, ...) is not a view (got Node)
+Should raise an error ('example' is an output):
+ValueError: Input to Node(func=__main__:load_node, ...) must be of type Input or View, got Example
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
     ...<2 lines>...
@@ -32,9 +37,9 @@ ValueError: Input to View(func=__main__:say_hello, ...) is not a view (got Node)
         name=f.__name__,
     )
 
-  File "/packages/ordeq/tests/resources/views/view_with_output.py", line LINO, in <module>
-    @node(inputs=hello)
-     ~~~~^^^^^^^^^^^^^^
+  File "/packages/ordeq/tests/resources/nodes/node_output_as_input.py", line LINO, in <module>
+    @node(inputs=[example])
+     ~~~~^^^^^^^^^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 

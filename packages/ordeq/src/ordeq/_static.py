@@ -9,7 +9,6 @@ from ordeq import Node
 from ordeq._fqn import FQN
 from ordeq._io import AnyIO
 
-
 T: TypeVar = TypeVar("T", Node, AnyIO)
 
 

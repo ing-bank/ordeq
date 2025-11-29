@@ -6,7 +6,7 @@ from types import ModuleType
 
 from ordeq import Node
 from ordeq._fqn import FQN
-from ordeq._io import IOIdentity
+from ordeq._io import AnyIO
 
 
 def _module_name_to_path(module_name: str) -> Path:
@@ -60,8 +60,8 @@ def _ast_to_imports(
 
 
 def _select_canonical_fqn_using_imports(
-    obj_fqns: dict[Node | IOIdentity, list[FQN]],
-) -> dict[Node | IOIdentity, list[FQN]]:
+    obj_fqns: dict[Node | AnyIO, list[FQN]],
+) -> dict[Node | AnyIO, list[FQN]]:
     objects_with_multiple_fqns = []
     modules = set()
     relevant = defaultdict(set)

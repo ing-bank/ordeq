@@ -10,7 +10,12 @@ from ordeq._io import AnyIO
 
 
 def _module_name_to_path(module_name: str) -> Path:
-    return Path(importlib.util.find_spec(module_name, None).origin)
+    spec = importlib.util.find_spec(module_name, None)
+    if spec is None or spec.origin is None:
+        raise ModuleNotFoundError(
+            f"Cannot find module '{module_name}' or it has no origin."
+        )
+    return Path(spec.origin)
 
 
 def _module_to_path(module: ModuleType) -> Path:
@@ -82,5 +87,4 @@ def _select_canonical_fqn_using_imports(
 
     for obj in objects_with_multiple_fqns:
         obj_fqns[obj] = [fqn for fqn in obj_fqns[obj] if fqn not in removals]
-
     return obj_fqns

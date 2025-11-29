@@ -3,10 +3,14 @@ import importlib.util
 from collections import defaultdict
 from pathlib import Path
 from types import ModuleType
+from typing import TypeVar
 
 from ordeq import Node
 from ordeq._fqn import FQN
 from ordeq._io import AnyIO
+
+
+T: TypeVar = TypeVar("T", Node, AnyIO)
 
 
 def _module_name_to_path(module_name: str) -> Path:
@@ -65,8 +69,8 @@ def _ast_to_imports(
 
 
 def _select_canonical_fqn_using_imports(
-    obj_fqns: dict[Node | AnyIO, list[FQN]],
-) -> dict[Node | AnyIO, list[FQN]]:
+    obj_fqns: dict[T, list[FQN]],
+) -> dict[T, list[FQN]]:
     objects_with_multiple_fqns = []
     modules = set()
     relevant = defaultdict(set)

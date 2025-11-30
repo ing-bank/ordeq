@@ -30,31 +30,31 @@ doccmd-fix: doccmd-ruff-format doccmd-ruff-lint
 
 # Linting with ruff
 lint:
-    uv run --group lint ruff check packages/ scripts/ examples/
+    uv run --group lint ruff check packages/ examples/
 
 # Fix linting issues with ruff
 lint-fix:
-    uv run --group lint ruff check --fix --unsafe-fixes packages/ scripts/ examples/
+    uv run --group lint ruff check --fix --unsafe-fixes packages/ examples/
 
 # Formatting with ruff
 format:
-    uv run --group lint ruff format --check packages/ scripts/ examples/
+    uv run --group lint ruff format --check packages/ examples/
 
 # Fix formatting with ruff
 format-fix:
-    uv run --group lint ruff format packages/ scripts/ examples/
+    uv run --group lint ruff format packages/ examples/
 
 # Source code sorting with ssort
 ssort:
-    uv run --with ssort ssort --check packages/ scripts/ examples/
+    uv run --with ssort ssort --check packages/ examples/
 
 # Apply source code sorting with ssort
 ssort-fix:
-    uv run --with ssort ssort packages/ scripts/ examples/
+    uv run --with ssort ssort packages/ examples/
 
 # Type checking with ty
 ty:
-    uv run --group types ty check packages/ scripts/
+    uv run --group types ty check packages/
 
 # List all packages
 list:
@@ -109,7 +109,7 @@ test-examples:
 
 # Generate API documentation pages
 generate-api-docs:
-    uv run scripts/generate_api_docs.py
+    uv run -m ordeq_dev_tools generate_api_docs .
 
 # Generate package overview documentation page
 generate-package-overview:

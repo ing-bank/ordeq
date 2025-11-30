@@ -33,31 +33,31 @@ graph TB
 	example_project.inner.nodes:func --> example_project.inner.nodes:y
 	example_project.nodes:x --> example_project.nodes:func
 	example_project.nodes:func --> example_project.nodes:y
-	unknown_0 --> example_project.nodes_import:func_b
-	unknown_1 --> example_project.nodes_import:func_b
+	example_project.catalog_1:a --> example_project.nodes_import:func_b
+	example_project.catalog_1:b --> example_project.nodes_import:func_b
 	example_project.nodes_import:func_b --> example_project.catalog_2:g
-	unknown_0 --> example_project.nodes_import_alias:func
-	unknown_1 --> example_project.nodes_import_alias:func
-	example_project.nodes_import_alias:func --> unknown_2
+	example_project.catalog_1:a --> example_project.nodes_import_alias:func
+	example_project.catalog_1:b --> example_project.nodes_import_alias:func
+	example_project.nodes_import_alias:func --> example_project.catalog_2:h
 
 	example_project.inner.nodes:func@{shape: rounded, label: "func"}
 	example_project.nodes:func@{shape: rounded, label: "func"}
 	example_project.nodes_import:func_b@{shape: rounded, label: "func_b"}
 	example_project.nodes_import_alias:func@{shape: rounded, label: "func"}
+	example_project.catalog_1:a@{shape: rect, label: "a"}
+	example_project.catalog_1:b@{shape: rect, label: "b"}
 	example_project.catalog_2:g@{shape: rect, label: "g"}
+	example_project.catalog_2:h@{shape: rect, label: "h"}
 	example_project.inner.nodes:x@{shape: rect, label: "x"}
 	example_project.inner.nodes:y@{shape: rect, label: "y"}
 	example_project.nodes:x@{shape: rect, label: "x"}
 	example_project.nodes:y@{shape: rect, label: "y"}
-	unknown_0@{shape: rect, label: "a"}
-	unknown_1@{shape: rect, label: "b"}
-	unknown_2@{shape: rect, label: "h"}
 
 	class node_type,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_b,example_project.nodes_import_alias:func node
 	class io_type_0,example_project.inner.nodes:x,example_project.nodes:x io0
-	class io_type_1,unknown_0 io1
-	class io_type_2,example_project.catalog_2:g,example_project.inner.nodes:y,example_project.nodes:y,unknown_2 io2
-	class io_type_3,unknown_1 io3
+	class io_type_1,example_project.catalog_1:a io1
+	class io_type_2,example_project.catalog_2:g,example_project.catalog_2:h,example_project.inner.nodes:y,example_project.nodes:y io2
+	class io_type_3,example_project.catalog_1:b io3
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

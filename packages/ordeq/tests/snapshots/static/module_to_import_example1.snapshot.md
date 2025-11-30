@@ -3,22 +3,25 @@
 ```python
 import example_1
 from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._static import _module_to_imports
+from ordeq._static import _ast_to_imports, _module_path_to_ast, _module_to_path
 
 submodules = list(_resolve_packages_to_modules(example_1))
 for submodule in submodules:
-    print(submodule.__name__, _module_to_imports(submodule))
+    imports = _ast_to_imports(
+        _module_path_to_ast(_module_to_path(submodule)),
+        module_name=submodule.__name__,
+        relevant_modules={
+            "example_1.catalog": {"Hello", "World", "TestInput", "TestOutput"}
+        },
+    )
+    if imports:
+        print(submodule.__name__, imports)
 
 ```
 
 ## Output
 
 ```text
-example_1 {}
-example_1.catalog {'Input': 'ordeq', 'Output': 'ordeq', 'StringBuffer': 'ordeq_common'}
-example_1.hooks {'RunHook': 'ordeq'}
-example_1.nodes {'node': 'ordeq', 'StringBuffer': 'ordeq_common'}
-example_1.pipeline {'node': 'ordeq', 'World': 'example_1.catalog', 'Hello': 'example_1.catalog', 'TestInput': 'example_1.catalog', 'TestOutput': 'example_1.catalog'}
-example_1.wrapped_io {'dataclass': 'dataclasses', 'IO': 'ordeq', 'Input': 'ordeq', 'Output': 'ordeq', 'node': 'ordeq', 'run': 'ordeq'}
+example_1.pipeline {'World': 'example_1.catalog', 'Hello': 'example_1.catalog', 'TestInput': 'example_1.catalog', 'TestOutput': 'example_1.catalog'}
 
 ```

@@ -597,6 +597,16 @@ class Input(
     ```
     """
 
+    @cached_property
+    def _loader(self):
+        from ordeq._nodes import create_node  # noqa: PLC0415 (deferred import)
+
+        return create_node(
+            func=lambda: self.__class__.load(self),
+            module=self.type_fqn.module,
+            name=f"{self.type_fqn.name}:load",
+        )
+
     def __repr__(self):
         return f"Input(id={id(self)})"
 

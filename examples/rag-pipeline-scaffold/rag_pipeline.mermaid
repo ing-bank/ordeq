@@ -1,4 +1,15 @@
 graph TB
+	subgraph legend["Legend"]
+		direction TB
+		node_type@{shape: rounded, label: "Node"}
+		io_type_0@{shape: rect, label: "FaissIndex"}
+		io_type_1@{shape: rect, label: "IO"}
+		io_type_2@{shape: rect, label: "PandasExcel"}
+		io_type_3@{shape: rect, label: "Pickle"}
+		io_type_4@{shape: rect, label: "PymupdfFile"}
+		io_type_5@{shape: rect, label: "SentenceTransformer"}
+	end
+
 	rag_pipeline.catalog:pdf_documents --> rag_pipeline.rag.indexer:create_vector_index
 	rag_pipeline.catalog:llm_vision_retrieval_model --> rag_pipeline.rag.indexer:create_vector_index
 	rag_pipeline.rag.indexer:create_vector_index --> rag_pipeline.catalog:index
@@ -22,14 +33,32 @@ graph TB
 	rag_pipeline.catalog:pdf_documents --> rag_pipeline.rag.annotation:annotate_documents
 	rag_pipeline.rag.annotation:annotate_documents --> rag_pipeline.catalog:pdfs_documents_annotated
 
-	rag_pipeline.rag.indexer:create_vector_index@{shape: rounded, label: "create_vector_index"}
-	rag_pipeline.rag.policies:generate_questions@{shape: rounded, label: "generate_questions"}
-	rag_pipeline.rag.retrieval:retrieve@{shape: rounded, label: "retrieve"}
-	rag_pipeline.rag.retrieval:filter_relevant@{shape: rounded, label: "filter_relevant"}
-	rag_pipeline.catalog:retrieved_pages@{shape: rect, label: "retrieved_pages"}
-	rag_pipeline.rag.question_answering:question_answering@{shape: rounded, label: "question_answering"}
-	rag_pipeline.rag.evaluation:evaluate_answers@{shape: rounded, label: "evaluate_answers"}
-	rag_pipeline.rag.annotation:annotate_documents@{shape: rounded, label: "annotate_documents"}
+	subgraph s0["rag_pipeline.rag.indexer"]
+		direction TB
+		rag_pipeline.rag.indexer:create_vector_index@{shape: rounded, label: "create_vector_index"}
+	end
+	subgraph s1["rag_pipeline.rag.policies"]
+		direction TB
+		rag_pipeline.rag.policies:generate_questions@{shape: rounded, label: "generate_questions"}
+	end
+	subgraph s2["rag_pipeline.rag.retrieval"]
+		direction TB
+		rag_pipeline.rag.retrieval:retrieve@{shape: rounded, label: "retrieve"}
+		rag_pipeline.rag.retrieval:filter_relevant@{shape: rounded, label: "filter_relevant"}
+		rag_pipeline.catalog:retrieved_pages@{shape: rect, label: "retrieved_pages"}
+	end
+	subgraph s3["rag_pipeline.rag.question_answering"]
+		direction TB
+		rag_pipeline.rag.question_answering:question_answering@{shape: rounded, label: "question_answering"}
+	end
+	subgraph s4["rag_pipeline.rag.evaluation"]
+		direction TB
+		rag_pipeline.rag.evaluation:evaluate_answers@{shape: rounded, label: "evaluate_answers"}
+	end
+	subgraph s5["rag_pipeline.rag.annotation"]
+		direction TB
+		rag_pipeline.rag.annotation:annotate_documents@{shape: rounded, label: "annotate_documents"}
+	end
 	rag_pipeline.catalog:index@{shape: rect, label: "index"}
 	rag_pipeline.catalog:llm_answers@{shape: rect, label: "llm_answers"}
 	rag_pipeline.catalog:llm_model@{shape: rect, label: "llm_model"}
@@ -41,13 +70,13 @@ graph TB
 	rag_pipeline.catalog:questions@{shape: rect, label: "questions"}
 	rag_pipeline.catalog:relevant_pages@{shape: rect, label: "relevant_pages"}
 
-	class rag_pipeline.rag.indexer:create_vector_index,rag_pipeline.rag.policies:generate_questions,rag_pipeline.rag.retrieval:retrieve,rag_pipeline.rag.retrieval:filter_relevant,rag_pipeline.rag.question_answering:question_answering,rag_pipeline.rag.evaluation:evaluate_answers,rag_pipeline.rag.annotation:annotate_documents node
-	class rag_pipeline.catalog:retrieved_pages,rag_pipeline.catalog:llm_answers,rag_pipeline.catalog:questions,rag_pipeline.catalog:relevant_pages io1
-	class rag_pipeline.catalog:index io0
-	class rag_pipeline.catalog:llm_model,rag_pipeline.catalog:llm_vision_retrieval_model io5
-	class rag_pipeline.catalog:metrics io3
-	class rag_pipeline.catalog:pdf_documents,rag_pipeline.catalog:pdfs_documents_annotated io4
-	class rag_pipeline.catalog:policies io2
+	class node_type,rag_pipeline.rag.indexer:create_vector_index,rag_pipeline.rag.policies:generate_questions,rag_pipeline.rag.retrieval:retrieve,rag_pipeline.rag.retrieval:filter_relevant,rag_pipeline.rag.question_answering:question_answering,rag_pipeline.rag.evaluation:evaluate_answers,rag_pipeline.rag.annotation:annotate_documents node
+	class io_type_0,rag_pipeline.catalog:index io0
+	class io_type_1,rag_pipeline.catalog:retrieved_pages,rag_pipeline.catalog:llm_answers,rag_pipeline.catalog:questions,rag_pipeline.catalog:relevant_pages io1
+	class io_type_2,rag_pipeline.catalog:policies io2
+	class io_type_3,rag_pipeline.catalog:metrics io3
+	class io_type_4,rag_pipeline.catalog:pdf_documents,rag_pipeline.catalog:pdfs_documents_annotated io4
+	class io_type_5,rag_pipeline.catalog:llm_model,rag_pipeline.catalog:llm_vision_retrieval_model io5
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

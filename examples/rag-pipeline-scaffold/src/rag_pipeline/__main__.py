@@ -8,5 +8,5 @@ import rag_pipeline
 logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
-    mermaid_path = Path(__file__).parent.parent.parent / "rag_pipeline.mermaid"
+    mermaid_path = Path(__file__).parents[2] / "rag_pipeline.mermaid"
     viz(rag_pipeline, fmt="mermaid", output=mermaid_path)

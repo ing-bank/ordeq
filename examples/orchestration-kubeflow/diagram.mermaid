@@ -1,0 +1,31 @@
+graph TB
+	ml_pipeline.catalog:csv_remote --> ml_pipeline.preprocessing:create_dataset
+	ml_pipeline.preprocessing:create_dataset --> ml_pipeline.catalog:csv_local
+	ml_pipeline.catalog:csv_local --> ml_pipeline.preprocessing:normalize_dataset
+	ml_pipeline.catalog:scaler --> ml_pipeline.preprocessing:normalize_dataset
+	ml_pipeline.preprocessing:normalize_dataset --> ml_pipeline.catalog:csv_normalized
+	ml_pipeline.catalog:csv_normalized --> ml_pipeline.train:train_model
+	ml_pipeline.catalog:n_neighbors --> ml_pipeline.train:train_model
+	ml_pipeline.catalog:seed --> ml_pipeline.train:train_model
+	ml_pipeline.train:train_model --> ml_pipeline.catalog:knn_model
+
+	ml_pipeline.preprocessing:create_dataset@{shape: rounded, label: "create_dataset"}
+	ml_pipeline.preprocessing:normalize_dataset@{shape: rounded, label: "normalize_dataset"}
+	ml_pipeline.catalog:csv_local@{shape: rect, label: "csv_local"}
+	ml_pipeline.train:train_model@{shape: rounded, label: "train_model"}
+	ml_pipeline.catalog:csv_normalized@{shape: rect, label: "csv_normalized"}
+	ml_pipeline.catalog:csv_remote@{shape: rect, label: "csv_remote"}
+	ml_pipeline.catalog:knn_model@{shape: rect, label: "knn_model"}
+	ml_pipeline.catalog:n_neighbors@{shape: rect, label: "n_neighbors"}
+	ml_pipeline.catalog:scaler@{shape: rect, label: "scaler"}
+	ml_pipeline.catalog:seed@{shape: rect, label: "seed"}
+
+	class ml_pipeline.preprocessing:create_dataset,ml_pipeline.preprocessing:normalize_dataset,ml_pipeline.train:train_model node
+	class ml_pipeline.catalog:csv_local,ml_pipeline.catalog:csv_normalized,ml_pipeline.catalog:csv_remote io1
+	class ml_pipeline.catalog:knn_model io2
+	class ml_pipeline.catalog:n_neighbors,ml_pipeline.catalog:scaler,ml_pipeline.catalog:seed io0
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62
+	classDef io2 fill:#8da0cb

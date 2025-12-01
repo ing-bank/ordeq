@@ -1,0 +1,15 @@
+graph TB
+	single_file:user --> single_file:parse_users
+	single_file:parse_users --> single_file:yaml
+
+	single_file:parse_users@{shape: rounded, label: "parse_users"}
+	single_file:user@{shape: rect, label: "user"}
+	single_file:yaml@{shape: rect, label: "yaml"}
+
+	class single_file:parse_users node
+	class single_file:user io0
+	class single_file:yaml io1
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62

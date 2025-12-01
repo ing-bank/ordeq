@@ -1,0 +1,15 @@
+graph TB
+	starter_package.catalog:user --> starter_package.pipeline:parse_users
+	starter_package.pipeline:parse_users --> starter_package.catalog:yaml
+
+	starter_package.pipeline:parse_users@{shape: rounded, label: "parse_users"}
+	starter_package.catalog:user@{shape: rect, label: "user"}
+	starter_package.catalog:yaml@{shape: rect, label: "yaml"}
+
+	class starter_package.pipeline:parse_users node
+	class starter_package.catalog:user io0
+	class starter_package.catalog:yaml io1
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62

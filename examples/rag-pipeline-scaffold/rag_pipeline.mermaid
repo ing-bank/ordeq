@@ -1,65 +1,53 @@
 graph TB
-	subgraph legend["Legend"]
-		direction TB
-		subgraph Objects
-			L0([Node]):::node
-			L1[(IO)]:::io
-		end
-		subgraph IO Types
-			L00[(FaissIndex)]:::io0
-			L01[(IO)]:::io1
-			L02[(PandasExcel)]:::io2
-			L03[(Pickle)]:::io3
-			L04[(PymupdfFile)]:::io4
-			L05[(SentenceTransformer)]:::io5
-		end
-	end
+	rag_pipeline.catalog:pdf_documents --> rag_pipeline.rag.indexer:create_vector_index
+	rag_pipeline.catalog:llm_vision_retrieval_model --> rag_pipeline.rag.indexer:create_vector_index
+	rag_pipeline.rag.indexer:create_vector_index --> rag_pipeline.catalog:index
+	rag_pipeline.catalog:policies --> rag_pipeline.rag.policies:generate_questions
+	rag_pipeline.rag.policies:generate_questions --> rag_pipeline.catalog:questions
+	rag_pipeline.catalog:index --> rag_pipeline.rag.retrieval:retrieve
+	rag_pipeline.catalog:questions --> rag_pipeline.rag.retrieval:retrieve
+	rag_pipeline.catalog:llm_vision_retrieval_model --> rag_pipeline.rag.retrieval:retrieve
+	rag_pipeline.rag.retrieval:retrieve --> rag_pipeline.catalog:retrieved_pages
+	rag_pipeline.catalog:retrieved_pages --> rag_pipeline.rag.retrieval:filter_relevant
+	rag_pipeline.catalog:llm_model --> rag_pipeline.rag.retrieval:filter_relevant
+	rag_pipeline.rag.retrieval:filter_relevant --> rag_pipeline.catalog:relevant_pages
+	rag_pipeline.catalog:questions --> rag_pipeline.rag.question_answering:question_answering
+	rag_pipeline.catalog:relevant_pages --> rag_pipeline.rag.question_answering:question_answering
+	rag_pipeline.catalog:llm_model --> rag_pipeline.rag.question_answering:question_answering
+	rag_pipeline.rag.question_answering:question_answering --> rag_pipeline.catalog:llm_answers
+	rag_pipeline.catalog:llm_answers --> rag_pipeline.rag.evaluation:evaluate_answers
+	rag_pipeline.catalog:llm_model --> rag_pipeline.rag.evaluation:evaluate_answers
+	rag_pipeline.rag.evaluation:evaluate_answers --> rag_pipeline.catalog:metrics
+	rag_pipeline.catalog:llm_answers --> rag_pipeline.rag.annotation:annotate_documents
+	rag_pipeline.catalog:pdf_documents --> rag_pipeline.rag.annotation:annotate_documents
+	rag_pipeline.rag.annotation:annotate_documents --> rag_pipeline.catalog:pdfs_documents_annotated
 
-	IO0 --> generate_questions
-	generate_questions --> IO1
-	IO2 --> create_vector_index
-	IO3 --> create_vector_index
-	create_vector_index --> IO4
-	IO4 --> retrieve
-	IO1 --> retrieve
-	IO3 --> retrieve
-	retrieve --> IO5
-	IO5 --> filter_relevant
-	IO6 --> filter_relevant
-	filter_relevant --> IO7
-	IO1 --> question_answering
-	IO7 --> question_answering
-	IO6 --> question_answering
-	question_answering --> IO8
-	IO8 --> evaluate_answers
-	IO6 --> evaluate_answers
-	evaluate_answers --> IO9
-	IO8 --> annotate_documents
-	IO2 --> annotate_documents
-	annotate_documents --> IO10
+	rag_pipeline.rag.indexer:create_vector_index@{shape: rounded, label: "create_vector_index"}
+	rag_pipeline.rag.policies:generate_questions@{shape: rounded, label: "generate_questions"}
+	rag_pipeline.rag.retrieval:retrieve@{shape: rounded, label: "retrieve"}
+	rag_pipeline.rag.retrieval:filter_relevant@{shape: rounded, label: "filter_relevant"}
+	rag_pipeline.catalog:retrieved_pages@{shape: rect, label: "retrieved_pages"}
+	rag_pipeline.rag.question_answering:question_answering@{shape: rounded, label: "question_answering"}
+	rag_pipeline.rag.evaluation:evaluate_answers@{shape: rounded, label: "evaluate_answers"}
+	rag_pipeline.rag.annotation:annotate_documents@{shape: rounded, label: "annotate_documents"}
+	rag_pipeline.catalog:index@{shape: rect, label: "index"}
+	rag_pipeline.catalog:llm_answers@{shape: rect, label: "llm_answers"}
+	rag_pipeline.catalog:llm_model@{shape: rect, label: "llm_model"}
+	rag_pipeline.catalog:llm_vision_retrieval_model@{shape: rect, label: "llm_vision_retrieval_model"}
+	rag_pipeline.catalog:metrics@{shape: rect, label: "metrics"}
+	rag_pipeline.catalog:pdf_documents@{shape: rect, label: "pdf_documents"}
+	rag_pipeline.catalog:pdfs_documents_annotated@{shape: rect, label: "pdfs_documents_annotated"}
+	rag_pipeline.catalog:policies@{shape: rect, label: "policies"}
+	rag_pipeline.catalog:questions@{shape: rect, label: "questions"}
+	rag_pipeline.catalog:relevant_pages@{shape: rect, label: "relevant_pages"}
 
-	subgraph pipeline["Pipeline"]
-		direction TB
-		generate_questions([generate_questions]):::node
-		create_vector_index([create_vector_index]):::node
-		retrieve([retrieve]):::node
-		filter_relevant([filter_relevant]):::node
-		question_answering([question_answering]):::node
-		evaluate_answers([evaluate_answers]):::node
-		annotate_documents([annotate_documents]):::node
-		IO0[(policies)]:::io2
-		IO1[(questions)]:::io1
-		IO2[(pdf_documents)]:::io4
-		IO3[(llm_vision_retrieval_model)]:::io5
-		IO4[(index)]:::io0
-		IO5[(retrieved_pages)]:::io1
-		IO6[(llm_model)]:::io5
-		IO7[(relevant_pages)]:::io1
-		IO8[(llm_answers)]:::io1
-		IO9[(metrics)]:::io3
-		IO10[(pdfs_documents_annotated)]:::io4
-	end
-
+	class rag_pipeline.rag.indexer:create_vector_index,rag_pipeline.rag.policies:generate_questions,rag_pipeline.rag.retrieval:retrieve,rag_pipeline.rag.retrieval:filter_relevant,rag_pipeline.rag.question_answering:question_answering,rag_pipeline.rag.evaluation:evaluate_answers,rag_pipeline.rag.annotation:annotate_documents node
+	class rag_pipeline.catalog:retrieved_pages,rag_pipeline.catalog:llm_answers,rag_pipeline.catalog:questions,rag_pipeline.catalog:relevant_pages io1
+	class rag_pipeline.catalog:index io0
+	class rag_pipeline.catalog:llm_model,rag_pipeline.catalog:llm_vision_retrieval_model io5
+	class rag_pipeline.catalog:metrics io3
+	class rag_pipeline.catalog:pdf_documents,rag_pipeline.catalog:pdfs_documents_annotated io4
+	class rag_pipeline.catalog:policies io2
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

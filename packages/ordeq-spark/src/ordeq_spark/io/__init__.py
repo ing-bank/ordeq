@@ -1,5 +1,5 @@
 from ordeq_spark.io.dataframe import SparkDataFrame
-from ordeq_spark.io.files import SparkCSV, SparkJSON
+from ordeq_spark.io.files import SparkCSV, SparkJSON, SparkParquet
 from ordeq_spark.io.jdbc import SparkJDBCQuery, SparkJDBCTable
 from ordeq_spark.io.session import SparkSession
 from ordeq_spark.io.tables import (
@@ -19,6 +19,7 @@ __all__ = (
     "SparkJDBCQuery",
     "SparkJDBCTable",
     "SparkJSON",
+    "SparkParquet",
     "SparkSession",
     "SparkTable",
     "SparkTempView",

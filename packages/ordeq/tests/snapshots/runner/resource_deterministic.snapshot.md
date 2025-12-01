@@ -73,20 +73,20 @@ WARNING	ordeq.preview	Resources are in preview mode and may change without notic
 INFO	ordeq.runner	Running node 'first' in module '__main__'
 INFO	ordeq.io	Saving File
 DEBUG	ordeq.io	Persisting data for File
-INFO	ordeq.io	Loading File
-DEBUG	ordeq.io	Persisting data for File
+INFO	ordeq.io	Loading File 'second:value' in module '__main__'
+DEBUG	ordeq.io	Persisting data for File 'second:value' in module '__main__'
 INFO	ordeq.runner	Running node 'second' in module '__main__'
 INFO	ordeq.io	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for File
-DEBUG	ordeq.io	Unpersisting data for File
+DEBUG	ordeq.io	Unpersisting data for File 'second:value' in module '__main__'
 INFO	ordeq.runner	Running node 'first' in module '__main__'
 INFO	ordeq.io	Saving File
 DEBUG	ordeq.io	Persisting data for File
-INFO	ordeq.io	Loading File
-DEBUG	ordeq.io	Persisting data for File
+INFO	ordeq.io	Loading File 'second:value' in module '__main__'
+DEBUG	ordeq.io	Persisting data for File 'second:value' in module '__main__'
 INFO	ordeq.runner	Running node 'second' in module '__main__'
 INFO	ordeq.io	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for File
-DEBUG	ordeq.io	Unpersisting data for File
+DEBUG	ordeq.io	Unpersisting data for File 'second:value' in module '__main__'
 
 ```

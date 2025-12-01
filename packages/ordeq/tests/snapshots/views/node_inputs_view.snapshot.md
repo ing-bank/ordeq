@@ -37,10 +37,10 @@ She said 'Hello, World!'
 
 ```text
 INFO	ordeq.runner	Running View(func=__main__:hello, ...)
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO 'n:greeting' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for IO 'n:greeting' in module '__main__'
 INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO 'n:greeting' in module '__main__'
 
 ```

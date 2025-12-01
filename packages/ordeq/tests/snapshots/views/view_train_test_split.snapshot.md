@@ -62,12 +62,12 @@ max    3.0  8.0
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'split' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO 'train:data' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for IO 'train:data' in module '__main__'
 INFO	ordeq.runner	Running view 'train' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO 'train:data' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 
 ```
 

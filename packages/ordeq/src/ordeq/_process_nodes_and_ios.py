@@ -1,6 +1,9 @@
+import inspect
+from collections import defaultdict
 from types import ModuleType
 from typing import TYPE_CHECKING
 
+from ordeq._fqn import FQN
 from ordeq._nodes import Node, View
 from ordeq._process_ios import _process_ios
 from ordeq._process_nodes import NodeFilter, _process_nodes, _validate_nodes
@@ -15,11 +18,39 @@ from ordeq._resolve import (
     _resolve_runnable_refs_to_nodes,
     _validate_runnables,
 )
-from ordeq._scan import _scan_fqns
+from ordeq._scan import IOFQNs, _scan_fqns
 from ordeq._static import _select_canonical_fqn_using_imports
 
 if TYPE_CHECKING:
     from ordeq._io import AnyIO
+
+
+def _get_missing_io_fqns_from_parameters(
+    io_fqns: IOFQNs, nodes_to_process: list[Node]
+) -> IOFQNs:
+    """For the IOs that do not have any FQNs, can be derived from the
+    argument names of the nodes
+
+    Args:
+        io_fqns: Mapping of IOs to their FQNs
+        nodes_to_process: Nodes to process
+
+    Returns:
+        Updated mapping of IOs to their FQNs
+    """
+    io_param_fqns = defaultdict(list)
+    for node in nodes_to_process:
+        func = node.func
+        sig = inspect.signature(func)
+
+        for io, param in zip(
+            node.inputs, sig.parameters.values(), strict=True
+        ):
+            if io not in io_fqns:
+                fqn = FQN(func.__module__, f"{func.__name__}:{param.name}")
+                io_param_fqns[io].append(fqn)
+    io_fqns.update(io_param_fqns)
+    return io_fqns
 
 
 def process_nodes_and_ios(
@@ -39,6 +70,7 @@ def process_nodes_and_ios(
     )
     node_fqns = _select_canonical_fqn_using_imports(node_fqns)
     io_fqns = _select_canonical_fqn_using_imports(io_fqns)
+    io_fqns = _get_missing_io_fqns_from_parameters(io_fqns, nodes_to_process)
 
     nodes_processed = _process_nodes(
         *nodes_to_process, node_filter=node_filter, node_fqns=node_fqns

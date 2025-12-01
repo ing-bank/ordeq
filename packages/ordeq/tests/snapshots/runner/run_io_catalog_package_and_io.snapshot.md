@@ -42,7 +42,7 @@ I want to say: HEY I AM OVERRIDING THE HELLO IO!, world!!
 ## Logging
 
 ```text
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input 'func1:hello' in module '__main__'
 INFO	ordeq.runner	Running node 'uppercase' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)

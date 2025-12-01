@@ -91,19 +91,19 @@ IOException: Failed to load IO(id=ID1).
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 DEBUG	ordeq.io	Persisting data for Input(id=ID3)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID3)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input 'hello_from_someone:name' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for Input 'hello_from_someone:v' in module '__main__'
 INFO	ordeq.runner	Running node 'hello_from_someone' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'what_i_heard' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID4)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
+DEBUG	ordeq.io	Persisting data for IO 'sink:s' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for IO 'sink:s' in module '__main__'
 INFO	ordeq.runner	Running view 'sink' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID5)
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO 'sink:s' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
 INFO	ordeq.io	Loading IO(id=ID1)
 
 ```

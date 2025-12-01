@@ -115,6 +115,15 @@ def _load_decorator(load_func):
     return wrapper
 
 
+def _warn_if_eq_or_hash_is_implemented(name, class_dict):
+    for method in "__eq__", "__hash__":
+        if "__hash__" in class_dict:
+            warnings.warn(
+                f"IO {name} implements '{method}'. This will be ignored.",
+                stacklevel=2,
+            )
+
+
 def _process_input_meta(name, bases, class_dict):
     # Retrieve the closest load method
     load_method = _raise_not_implemented
@@ -323,29 +332,16 @@ class _IOMeta(type):
         if has_output_base or name in {"Output", "IO"}:
             class_dict, bases = _process_output_meta(name, bases, class_dict)
 
+        _warn_if_eq_or_hash_is_implemented(name, class_dict)
+
         return super().__new__(cls, name, bases, class_dict)
 
     def __init__(cls, name, bases, class_dict):
         if name not in {"Input", "Output", "IO"}:
-
             # Each IO instance is unique, so we override __eq__ and __hash__
             # to ensure identity-based comparison and hashing.
-            if cls.__eq__ is not _WithEq.__eq__:
-                warnings.warn(
-                    f"IO implementation {name} overrides __eq__. "
-                    f"This method will be ignored.",
-                    stacklevel=2,
-                )
-            if cls.__hash__ is not _WithEq.__hash__:
-                warnings.warn(
-                    f"IO implementation {name} overrides __hash__. "
-                    f"This method will be ignored.",
-                    stacklevel=2,
-                )
-
             cls.__eq__ = _WithEq.__eq__  # type: ignore[invalid-assignment,method-assign,assignment]
             cls.__hash__ = _WithEq.__hash__  # type: ignore[invalid-assignment,method-assign,assignment]
-
         super().__init__(name, bases, class_dict)
 
 

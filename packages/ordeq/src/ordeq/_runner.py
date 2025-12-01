@@ -2,7 +2,7 @@ import logging
 from collections.abc import Sequence
 from itertools import chain
 from types import ModuleType
-from typing import Any, Literal, TypeAlias, TypeVar, cast
+from typing import Any, Literal, TypeAlias, TypeVar
 
 from ordeq._fqn import AnyRef, ModuleName, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
@@ -37,17 +37,15 @@ T = TypeVar("T")
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
 
-def _load_inputs(inputs) -> list[Any]:
+def _load_inputs(inputs: Sequence[Input]) -> list[Any]:
     args = []
-    for input_io in inputs:
-        # We know at this point that all view inputs are patched by
-        # sentinel IOs, so we can safely cast here.
-        data = cast("Input", input_io).load()
+    for io in inputs:
+        data = io.load()
         args.append(data)
 
         # TODO: optimize persisting only when needed
-        if isinstance(input_io, _InputCache) and not input_io.is_persisted:
-            input_io.persist(data)
+        if not io.is_persisted:
+            io.persist(data)
     return args
 
 

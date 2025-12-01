@@ -38,7 +38,7 @@ IOException: Failed to load Input(id=ID1).
     raise IOException(msg) from exc
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _load_inputs
-    data = cast("Input", input_io).load()
+    data = io.load()
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     args = _load_inputs(node.inputs)

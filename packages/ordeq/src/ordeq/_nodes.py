@@ -378,27 +378,16 @@ def create_node(
     inputs_: list[Input] = []
     views: list[View] = []
     cls = "View" if not outputs else "Node"
-    for input_ in _sequence_to_tuple(inputs):
-        if callable(input_):
-            if not _is_node(input_):
-                raise ValueError(
-                    f"Input to {cls}(func={func_name}, ...) is not a node "
-                    f"(got {type(input_).__name__})"
-                )
-            view = input_
-            if not isinstance(view, View):
-                raise ValueError(
-                    f"Input to {cls}(func={func_name}, ...) is not a view "
-                    f"(got {type(view).__name__})"
-                )
-            views.append(view)
-            inputs_.append(view.outputs[0])
-        elif _is_input(input_):
-            inputs_.append(input_)
+    for obj in _sequence_to_tuple(inputs):
+        if _is_view(obj):
+            views.append(obj)
+            inputs_.append(obj.outputs[0])
+        elif _is_input(obj):
+            inputs_.append(obj)
         else:
             raise ValueError(
-                f"Input to Node(func={func_name}, ...) must be of type "
-                f"Input or View, got {type(input_).__name__}"
+                f"Inputs to {cls}(func={func_name}, ...) must be an "
+                f"Input or View, got {type(obj).__name__}"
             )
 
     checks_: list[Input] = []

@@ -217,9 +217,6 @@ split-on-trailing-comma = false
     "PLC2701",
     "PLR6301",
 ]
-# Rules not applicable for scripts
-"scripts/*" = ["INP001", "S607", "S603", "S404"]
-"scripts/generate_package_overview.py" = ["E501"]
 # Rules not applicable in documentation files
 "docs/*" = ["INP001", "DOC", "S", "E501", "PERF", "PLW1514"]
 "doccmd_kedro_md*.py" = [

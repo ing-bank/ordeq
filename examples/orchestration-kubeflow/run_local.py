@@ -1,4 +1,5 @@
 import ml_pipeline
 from ordeq import run
 
-run(ml_pipeline)
+if __name__ == "__main__":
+    run(ml_pipeline)

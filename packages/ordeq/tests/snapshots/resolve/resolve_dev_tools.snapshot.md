@@ -19,6 +19,7 @@ pprint(ios)
  'ordeq_dev_tools.pipelines.docs_update_just': {'contribution_guide': Text(path=Path('/docs/CONTRIBUTING.md')),
                                                 'docs_file': Text(path=Path('/docs/CONTRIBUTING.md')),
                                                 'updated_docs_file': Text(path=Path('/docs/CONTRIBUTING.md'))},
+ 'ordeq_dev_tools.pipelines.generate_gallery': {'gallery_file': Text(path=Path('/docs/guides/gallery.md'))},
  'ordeq_dev_tools.pipelines.generate_release_notes': {'new_tag': IO(id=ID1),
                                                       'package': Input(id=ID2),
                                                       'release_notes': IO(id=ID3)},

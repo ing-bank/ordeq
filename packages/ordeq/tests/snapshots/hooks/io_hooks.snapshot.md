@@ -38,11 +38,11 @@ print(hooked_output.load())
 ## Output
 
 ```text
-Before loading data from: StringBuffer 'hello_world:input_data' in module '__main__'
-After loading data from: StringBuffer 'hello_world:input_data' in module '__main__'
+Before loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+After loading data from: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 HELLO WORLD
-Before saving data to: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-After saving data to: StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+Before saving data to: StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+After saving data to: StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 dlrow olleh
 
 ```
@@ -50,13 +50,13 @@ dlrow olleh
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer 'hello_world:input_data' in module '__main__'
-DEBUG	ordeq.io	Persisting data for StringBuffer 'hello_world:input_data' in module '__main__'
-INFO	ordeq.runner	Running Node(func=__main__:hello_world, ...)
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer 'hello_world:input_data' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running Node(func=__main__:hello_world, ...)
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

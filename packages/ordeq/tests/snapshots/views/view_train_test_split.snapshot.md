@@ -60,7 +60,7 @@ max    3.0  8.0
 
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input 'split:df' in module '__main__'
 INFO	ordeq.runner	Running view 'split' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'train:data' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'train:data' in module '__main__'

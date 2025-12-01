@@ -47,7 +47,7 @@ io-0 --> View:__main__:what_i_heard
 View:__main__:what_i_heard --> io-1
 io-1 --> View:__main__:sink
 View:__main__:sink --> io-2
-IOException: Failed to load IO(id=ID1).
+IOException: Failed to load IO 'what_i_heard:v' in module '__main__'.
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
@@ -89,21 +89,21 @@ IOException: Failed to load IO(id=ID1).
 ## Logging
 
 ```text
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
-DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 DEBUG	ordeq.io	Loading cached data for Input 'hello_from_someone:name' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for Input 'hello_from_someone:v' in module '__main__'
 INFO	ordeq.runner	Running node 'hello_from_someone' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO 'what_i_heard:v' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for IO 'what_i_heard:v' in module '__main__'
 INFO	ordeq.runner	Running view 'what_i_heard' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'sink:s' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'sink:s' in module '__main__'
 INFO	ordeq.runner	Running view 'sink' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID4)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO 'what_i_heard:v' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'sink:s' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
-INFO	ordeq.io	Loading IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+INFO	ordeq.io	Loading IO 'what_i_heard:v' in module '__main__'
 
 ```

@@ -26,7 +26,7 @@ if TYPE_CHECKING:
 
 
 def _get_missing_io_fqns_from_parameters(
-    io_fqns: IOFQNs, nodes_to_process: list[Node]
+    io_fqns: IOFQNs, nodes_to_process: tuple[Node, ...]
 ) -> IOFQNs:
     """For the IOs that do not have any FQNs, can be derived from the
     argument names of the nodes
@@ -47,7 +47,7 @@ def _get_missing_io_fqns_from_parameters(
             node.inputs, sig.parameters.values(), strict=True
         ):
             if io not in io_fqns:
-                fqn = FQN(func.__module__, f"{func.__name__}:{param.name}")
+                fqn = FQN(node.module, f"{node.name}:{param.name}")
                 io_param_fqns[io].append(fqn)
     io_fqns.update(io_param_fqns)
     return io_fqns
@@ -69,12 +69,14 @@ def process_nodes_and_ios(
         *submodules_context, *submodules_to_process
     )
     node_fqns = _select_canonical_fqn_using_imports(node_fqns)
-    io_fqns = _select_canonical_fqn_using_imports(io_fqns)
-    io_fqns = _get_missing_io_fqns_from_parameters(io_fqns, nodes_to_process)
 
     nodes_processed = _process_nodes(
         *nodes_to_process, node_filter=node_filter, node_fqns=node_fqns
     )
+
+    io_fqns = _select_canonical_fqn_using_imports(io_fqns)
+    io_fqns = _get_missing_io_fqns_from_parameters(io_fqns, nodes_processed)
+
     nodes_processed = _process_ios(*nodes_processed, io_fqns=io_fqns)
     _validate_nodes(*nodes_processed)
     return nodes_processed

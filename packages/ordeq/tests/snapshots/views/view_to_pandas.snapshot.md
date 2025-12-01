@@ -46,7 +46,7 @@ dtype: int64
 
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input 'csv_as_df:data' in module '__main__'
 INFO	ordeq.runner	Running view 'csv_as_df' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'aggregate:df' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'aggregate:df' in module '__main__'

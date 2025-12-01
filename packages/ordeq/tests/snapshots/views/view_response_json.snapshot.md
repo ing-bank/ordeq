@@ -39,7 +39,7 @@ Data: {'id': 1, 'name': 'Leanne Graham', 'username': 'Bret', 'email': 'Sincere@a
 DEBUG	urllib3.connectionpool	Starting new HTTPS connection (1): jsonplaceholder.typicode.com:443
 DEBUG	urllib3.connectionpool	https://jsonplaceholder.typicode.com:443 "GET /users/1 HTTP/1.1" 200 None
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input 'users_json:r' in module '__main__'
 INFO	ordeq.runner	Running view 'users_json' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'to_yaml:d' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'to_yaml:d' in module '__main__'

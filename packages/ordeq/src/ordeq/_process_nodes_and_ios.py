@@ -16,6 +16,7 @@ from ordeq._resolve import (
     _validate_runnables,
 )
 from ordeq._scan import _scan_fqns
+from ordeq._static import _select_canonical_fqn_using_imports
 
 if TYPE_CHECKING:
     from ordeq._io import AnyIO
@@ -36,6 +37,9 @@ def process_nodes_and_ios(
     node_fqns, io_fqns = _scan_fqns(
         *submodules_context, *submodules_to_process
     )
+    node_fqns = _select_canonical_fqn_using_imports(node_fqns)
+    io_fqns = _select_canonical_fqn_using_imports(io_fqns)
+
     nodes_processed = _process_nodes(
         *nodes_to_process, node_filter=node_filter, node_fqns=node_fqns
     )

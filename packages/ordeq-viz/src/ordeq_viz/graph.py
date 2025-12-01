@@ -110,7 +110,7 @@ def _gather_graph(
             for output_dataset in line.outputs
         ]
 
-        node_fqn = line.fqn or FQN(line.func.__module__, line.func.__name__)
+        node_fqn = line.fqn or FQN("unknown", line.func.__name__)
 
         node_modules[node_fqn.module].append(
             NodeData(

@@ -39,12 +39,12 @@ graph TB
 	example_1.wrapped_io:print_message --> example_1.wrapped_io:name_printer
 	example_1.nodes:x --> example_1.nodes:world
 	example_1.nodes:world --> example_1.nodes:y
-	unknown_0 --> example_1.pipeline:transform_input
-	example_1.pipeline:transform_input --> unknown_1
-	unknown_2 --> example_1.pipeline:transform_mock_input
-	example_1.pipeline:transform_mock_input --> unknown_3
-	unknown_4 --> example_2.nodes:transform_input_2
-	example_2.nodes:transform_input_2 --> unknown_5
+	example_1.catalog:TestInput --> example_1.pipeline:transform_input
+	example_1.pipeline:transform_input --> example_1.catalog:TestOutput
+	example_1.catalog:Hello --> example_1.pipeline:transform_mock_input
+	example_1.pipeline:transform_mock_input --> example_1.catalog:World
+	example_2.catalog:TestInput2 --> example_2.nodes:transform_input_2
+	example_2.nodes:transform_input_2 --> example_2.catalog:TestOutput2
 
 	example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
 	example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
@@ -53,26 +53,26 @@ graph TB
 	example_1.pipeline:transform_input@{shape: rounded, label: "transform_input"}
 	example_1.pipeline:transform_mock_input@{shape: rounded, label: "transform_mock_input"}
 	example_2.nodes:transform_input_2@{shape: rounded, label: "transform_input_2"}
+	example_1.catalog:Hello@{shape: rect, label: "Hello"}
+	example_1.catalog:TestInput@{shape: rect, label: "TestInput"}
+	example_1.catalog:TestOutput@{shape: rect, label: "TestOutput"}
+	example_1.catalog:World@{shape: rect, label: "World"}
 	example_1.nodes:x@{shape: rect, label: "x"}
 	example_1.nodes:y@{shape: rect, label: "y"}
 	example_1.wrapped_io:name_generator@{shape: rect, label: "name_generator"}
 	example_1.wrapped_io:name_printer@{shape: rect, label: "name_printer"}
-	unknown_0@{shape: rect, label: "TestInput"}
-	unknown_1@{shape: rect, label: "TestOutput"}
-	unknown_2@{shape: rect, label: "Hello"}
-	unknown_3@{shape: rect, label: "World"}
-	unknown_4@{shape: rect, label: "TestInput2"}
-	unknown_5@{shape: rect, label: "TestOutput2"}
+	example_2.catalog:TestInput2@{shape: rect, label: "TestInput2"}
+	example_2.catalog:TestOutput2@{shape: rect, label: "TestOutput2"}
 
 	class node_type,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input,example_2.nodes:transform_input_2 node
-	class io_type_0,unknown_4 io0
-	class io_type_1,unknown_0 io1
-	class io_type_2,unknown_1 io2
+	class io_type_0,example_2.catalog:TestInput2 io0
+	class io_type_1,example_1.catalog:TestInput io1
+	class io_type_2,example_1.catalog:TestOutput io2
 	class io_type_3,example_1.wrapped_io:name_generator io3
 	class io_type_4,example_1.wrapped_io:name_printer io4
-	class io_type_5,unknown_5 io5
+	class io_type_5,example_2.catalog:TestOutput2 io5
 	class io_type_6,example_1.wrapped_io:message io6
-	class io_type_7,example_1.nodes:x,example_1.nodes:y,unknown_2,unknown_3 io7
+	class io_type_7,example_1.catalog:Hello,example_1.catalog:World,example_1.nodes:x,example_1.nodes:y io7
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

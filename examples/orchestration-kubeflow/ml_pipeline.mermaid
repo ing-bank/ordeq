@@ -1,12 +1,4 @@
 graph TB
-	subgraph legend["Legend"]
-		direction TB
-		node_type@{shape: rounded, label: "Node"}
-		io_type_0@{shape: rect, label: "Input"}
-		io_type_1@{shape: rect, label: "PandasCSV"}
-		io_type_2@{shape: rect, label: "Pickle"}
-	end
-
 	ml_pipeline.catalog:csv_remote --> ml_pipeline.preprocessing:create_dataset
 	ml_pipeline.preprocessing:create_dataset --> ml_pipeline.catalog:csv_local
 	ml_pipeline.catalog:csv_local --> ml_pipeline.preprocessing:normalize_dataset
@@ -28,10 +20,10 @@ graph TB
 	ml_pipeline.catalog:scaler@{shape: rect, label: "scaler"}
 	ml_pipeline.catalog:seed@{shape: rect, label: "seed"}
 
-	class node_type,ml_pipeline.preprocessing:create_dataset,ml_pipeline.preprocessing:normalize_dataset,ml_pipeline.train:train_model node
-	class io_type_0,ml_pipeline.catalog:n_neighbors,ml_pipeline.catalog:scaler,ml_pipeline.catalog:seed io0
-	class io_type_1,ml_pipeline.catalog:csv_local,ml_pipeline.catalog:csv_normalized,ml_pipeline.catalog:csv_remote io1
-	class io_type_2,ml_pipeline.catalog:knn_model io2
+	class ml_pipeline.preprocessing:create_dataset,ml_pipeline.preprocessing:normalize_dataset,ml_pipeline.train:train_model node
+	class ml_pipeline.catalog:csv_local,ml_pipeline.catalog:csv_normalized,ml_pipeline.catalog:csv_remote io1
+	class ml_pipeline.catalog:knn_model io2
+	class ml_pipeline.catalog:n_neighbors,ml_pipeline.catalog:scaler,ml_pipeline.catalog:seed io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5

@@ -104,6 +104,7 @@ Node:ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section --
 Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group --> io-38
 Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools --> io-39
 Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> io-40
+Node:ordeq_dev_tools.pipelines.generate_gallery:generate_gallery --> io-41
 NodeGraph
 View:ordeq_dev_tools.pipelines.generate_release_notes:tags --> View:ordeq_dev_tools.pipelines.generate_release_notes:tags
 View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag --> View:ordeq_dev_tools.pipelines.generate_release_notes:latest_tag
@@ -138,6 +139,7 @@ View:ordeq_dev_tools.pipelines.generate_release_notes:changes --> Node:ordeq_dev
 View:View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files, ...) --> Node:View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files, ...)
 Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
 Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies --> Node:ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies
+Node:ordeq_dev_tools.pipelines.generate_gallery:generate_gallery
 Node:ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
 Node:ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools
 Node:ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group
@@ -175,6 +177,7 @@ Topological ordering
  View(module=ordeq_dev_tools.pipelines.generate_release_notes, name=changes, inputs=[IO(id=ID7), IO(id=ID4), IO(id=ID9)]),
  View(func=ordeq_dev_tools.pipelines.list_changed_packages:changed_files),
  Node(module=ordeq_dev_tools.pipelines.list_dependencies, name=parse_dependencies, inputs=[TOML(path=Path('/uv.lock'))], outputs=[JSON(path=Path('/data/dev_tools/dependencies.json'))]),
+ Node(module=ordeq_dev_tools.pipelines.generate_gallery, name=generate_gallery, outputs=[Text(path=Path('/docs/guides/gallery.md'))]),
  Node(module=ordeq_dev_tools.pipelines.relevant_packages, name=extract_relevant_packages, inputs=[JSON(path=Path('/data/dev_tools/changed_packages.json')), JSON(path=Path('/data/dev_tools/affected_dependencies.json'))], outputs=[JSON(path=Path('/data/dev_tools/relevant_packages.json'))]),
  Node(module=ordeq_dev_tools.pipelines.viz_self, name=visualize_ordeq_dev_tools, outputs=[Text(path=Path('/data/dev_tools/ordeq_dev_tools_diagram.mmd'))]),
  Node(module=ordeq_dev_tools.pipelines.docs_package_overview, name=write_html_table_by_group, inputs=[IO(id=ID17)], outputs=[TextLinesStream(path=Path('/docs/packages.md'))]),

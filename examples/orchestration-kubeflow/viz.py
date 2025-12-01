@@ -7,6 +7,6 @@ if __name__ == "__main__":
     viz(
         ml_pipeline,
         fmt="mermaid",
-        output=Path("diagram.mermaid"),
+        output=Path("ml_pipeline.mermaid"),
         legend=False,
     )

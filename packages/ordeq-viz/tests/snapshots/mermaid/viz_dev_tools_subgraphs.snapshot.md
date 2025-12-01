@@ -71,6 +71,7 @@ graph TB
 	ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies --> ordeq_dev_tools.pipelines.list_dependencies:affected_dependencies
 	ordeq_dev_tools.pipelines.list_dependencies:dependencies --> ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram
 	ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram --> ordeq_dev_tools.pipelines.list_dependencies:diagram
+	ordeq_dev_tools.pipelines.generate_gallery:generate_gallery --> ordeq_dev_tools.pipelines.generate_gallery:gallery_file
 	ordeq_dev_tools.pipelines.relevant_packages:packages --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
 	ordeq_dev_tools.pipelines.relevant_packages:affected_dependencies --> ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages
 	ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages --> ordeq_dev_tools.pipelines.relevant_packages:relevant_packages
@@ -135,21 +136,26 @@ graph TB
 		ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram@{shape: rounded, label: "generate_mermaid_diagram"}
 		ordeq_dev_tools.pipelines.list_dependencies:dependencies@{shape: rect, label: "dependencies"}
 	end
-	subgraph s8["ordeq_dev_tools.pipelines.relevant_packages"]
+	subgraph s8["ordeq_dev_tools.pipelines.generate_gallery"]
+		direction TB
+		ordeq_dev_tools.pipelines.generate_gallery:generate_gallery@{shape: rounded, label: "generate_gallery"}
+	end
+	subgraph s9["ordeq_dev_tools.pipelines.relevant_packages"]
 		direction TB
 		ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages@{shape: rounded, label: "extract_relevant_packages"}
 	end
-	subgraph s9["ordeq_dev_tools.pipelines.viz_self"]
+	subgraph s10["ordeq_dev_tools.pipelines.viz_self"]
 		direction TB
 		ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools@{shape: rounded, label: "visualize_ordeq_dev_tools"}
 	end
-	subgraph s10["ordeq_dev_tools.pipelines.validate_pyproject"]
+	subgraph s11["ordeq_dev_tools.pipelines.validate_pyproject"]
 		direction TB
 		ordeq_dev_tools.pipelines.validate_pyproject:groups@{shape: subroutine, label: "groups"}
 	end
 	ordeq_dev_tools.pipelines.docs_package_overview:package_overview@{shape: rect, label: "package_overview"}
 	ordeq_dev_tools.pipelines.docs_update_just:docs_file@{shape: rect, label: "docs_file"}
 	ordeq_dev_tools.pipelines.docs_update_just:updated_docs_file@{shape: rect, label: "updated_docs_file"}
+	ordeq_dev_tools.pipelines.generate_gallery:gallery_file@{shape: rect, label: "gallery_file"}
 	ordeq_dev_tools.pipelines.generate_release_notes:new_tag@{shape: rect, label: "new_tag"}
 	ordeq_dev_tools.pipelines.generate_release_notes:package@{shape: rect, label: "package"}
 	ordeq_dev_tools.pipelines.generate_release_notes:release_notes@{shape: rect, label: "release_notes"}
@@ -162,13 +168,13 @@ graph TB
 	ordeq_dev_tools.pipelines.relevant_packages:relevant_packages@{shape: rect, label: "relevant_packages"}
 	ordeq_dev_tools.pipelines.viz_self:ordeq_dev_tools_diagram@{shape: rect, label: "ordeq_dev_tools_diagram"}
 
-	class node_type,ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag,ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes,ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section,ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group,ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages,ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies,ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies,ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram,ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages,ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools node
+	class node_type,ordeq_dev_tools.pipelines.generate_release_notes:get_new_tag,ordeq_dev_tools.pipelines.generate_release_notes:create_release_notes,ordeq_dev_tools.pipelines.docs_update_just:update_docs_with_just_section,ordeq_dev_tools.pipelines.docs_package_overview:write_html_table_by_group,ordeq_dev_tools.pipelines.list_changed_packages:extract_changed_packages,ordeq_dev_tools.pipelines.list_dependencies:parse_dependencies,ordeq_dev_tools.pipelines.list_dependencies:compute_affected_dependencies,ordeq_dev_tools.pipelines.list_dependencies:generate_mermaid_diagram,ordeq_dev_tools.pipelines.generate_gallery:generate_gallery,ordeq_dev_tools.pipelines.relevant_packages:extract_relevant_packages,ordeq_dev_tools.pipelines.viz_self:visualize_ordeq_dev_tools node
 	class view_type,ordeq_dev_tools.pipelines.generate_release_notes:tags,ordeq_dev_tools.pipelines.generate_release_notes:latest_tag,ordeq_dev_tools.pipelines.generate_release_notes:commits_since_tag,ordeq_dev_tools.pipelines.generate_release_notes:commit_hashes,ordeq_dev_tools.pipelines.generate_release_notes:commit_changed_files,ordeq_dev_tools.pipelines.generate_release_notes:relevant_commits,ordeq_dev_tools.pipelines.generate_release_notes:relevant_prs,ordeq_dev_tools.pipelines.generate_release_notes:distinct_labels,ordeq_dev_tools.pipelines.generate_release_notes:latest_version,ordeq_dev_tools.pipelines.generate_release_notes:bump_type,ordeq_dev_tools.pipelines.generate_release_notes:bump_version,ordeq_dev_tools.pipelines.generate_release_notes:changes,ordeq_dev_tools.pipelines.shared:packages,ordeq_dev_tools.pipelines.generate_api_docs:filter_packages,ordeq_dev_tools.pipelines.generate_api_docs:clear_api_docs,ordeq_dev_tools.pipelines.generate_api_docs:check_ios_packages,ordeq_dev_tools.pipelines.generate_api_docs:generate_package_docs,ordeq_dev_tools.pipelines.generate_api_docs:generate_api_readmes,ordeq_dev_tools.pipelines.docs_update_just:just_output,ordeq_dev_tools.pipelines.docs_update_just:docs_just_section,ordeq_dev_tools.pipelines.docs_package_overview:groups,ordeq_dev_tools.pipelines.generate_draft_releases:draft_releases,ordeq_dev_tools.pipelines.generate_draft_releases:new_releases,ordeq_dev_tools.pipelines.generate_draft_releases:create_releases,ordeq_dev_tools.pipelines.list_changed_packages:changed_files,ordeq_dev_tools.pipelines.validate_pyproject:groups view
 	class io_type_0,ordeq_dev_tools.pipelines.generate_release_notes:new_tag,ordeq_dev_tools.pipelines.generate_release_notes:release_notes io0
 	class io_type_1,ordeq_dev_tools.pipelines.generate_release_notes:package io1
 	class io_type_2,ordeq_dev_tools.pipelines.list_dependencies:dependencies,ordeq_dev_tools.pipelines.list_changed_packages:changed_packages,ordeq_dev_tools.pipelines.list_dependencies:affected_dependencies,ordeq_dev_tools.pipelines.relevant_packages:affected_dependencies,ordeq_dev_tools.pipelines.relevant_packages:packages,ordeq_dev_tools.pipelines.relevant_packages:relevant_packages io2
 	class io_type_3,ordeq_dev_tools.pipelines.list_dependencies:lock_file io3
-	class io_type_4,ordeq_dev_tools.pipelines.docs_update_just:docs_file,ordeq_dev_tools.pipelines.docs_update_just:updated_docs_file,ordeq_dev_tools.pipelines.list_dependencies:diagram,ordeq_dev_tools.pipelines.viz_self:ordeq_dev_tools_diagram io4
+	class io_type_4,ordeq_dev_tools.pipelines.docs_update_just:docs_file,ordeq_dev_tools.pipelines.docs_update_just:updated_docs_file,ordeq_dev_tools.pipelines.generate_gallery:gallery_file,ordeq_dev_tools.pipelines.list_dependencies:diagram,ordeq_dev_tools.pipelines.viz_self:ordeq_dev_tools_diagram io4
 	class io_type_5,ordeq_dev_tools.pipelines.docs_package_overview:package_overview io5
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B

@@ -28,16 +28,6 @@ if TYPE_CHECKING:
 def _get_missing_io_fqns_from_parameters(
     io_fqns: IOFQNs, nodes_to_process: tuple[Node, ...]
 ) -> IOFQNs:
-    """For the IOs that do not have any FQNs, can be derived from the
-    argument names of the nodes
-
-    Args:
-        io_fqns: Mapping of IOs to their FQNs
-        nodes_to_process: Nodes to process
-
-    Returns:
-        Updated mapping of IOs to their FQNs
-    """
     io_param_fqns: defaultdict[AnyIO, list[FQN]] = defaultdict(list)
     for node in nodes_to_process:
         func = node.func

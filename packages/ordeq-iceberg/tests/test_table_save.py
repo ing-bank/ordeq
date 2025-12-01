@@ -116,7 +116,7 @@ def test_create_existing_table_ignore(catalog: InMemoryCatalog):
     assert catalog.table_exists("test_namespace.test_table_no_action")
 
 
-@patch("ordeq_iceberg.table.IcebergTable._catalog_value")
+@patch("ordeq_iceberg.table.IcebergTable._catalog")
 @patch("ordeq_iceberg.table.IcebergTable.table_exists")
 def test_create_existing_table_drop(
     mock_table_exists: MagicMock,
@@ -139,7 +139,7 @@ def test_create_existing_table_drop(
     mock_catalog.create_table.assert_called_once()
 
 
-@patch("ordeq_iceberg.table.IcebergTable._catalog_value")
+@patch("ordeq_iceberg.table.IcebergTable._catalog")
 @patch("ordeq_iceberg.table.IcebergTable.table_exists")
 def test_create_existing_table_if_exists_null(
     mock_table_exists: MagicMock, mock_catalog: MagicMock
@@ -160,7 +160,7 @@ def test_create_existing_table_if_exists_null(
     mock_catalog.create_table.assert_called_once()
 
 
-@patch("ordeq_iceberg.table.IcebergTable._catalog_value")
+@patch("ordeq_iceberg.table.IcebergTable._catalog")
 @patch("ordeq_iceberg.table.IcebergTable.table_exists")
 def test_if_exists_drop_as_string(
     mock_table_exists: MagicMock,
@@ -181,3 +181,28 @@ def test_if_exists_drop_as_string(
     table_create.save(None)
     mock_catalog.drop_table.assert_called_once()
     mock_catalog.create_table.assert_called_once()
+
+
+@patch("ordeq_iceberg.table.IcebergTable._catalog")
+@patch("ordeq_iceberg.table.IcebergTable.table_exists")
+def test_if_exists_drop_as_string_invalid_value(
+    mock_table_exists: MagicMock,
+    mock_catalog: MagicMock,
+    catalog: InMemoryCatalog,
+):
+    mock_table_exists.return_value = True
+    table_create = IcebergTable(
+        catalog=catalog,
+        table_name="test_table_if_exists_invalid_str",
+        namespace="test_namespace",
+        schema=T.StructType(
+            T.NestedField(1, "id", T.IntegerType(), required=True),
+            T.NestedField(2, "data", T.StringType(), required=False),
+        ),
+        if_exists="invalid_option",
+    )
+    with pytest.raises(
+        IOException,
+        match=r"'invalid_option' is not a valid IfTableExistsSaveOptions",
+    ):
+        table_create.save(None)

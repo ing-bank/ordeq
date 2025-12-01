@@ -67,21 +67,29 @@ class IcebergTable(Input[Table], Output[None]):
         return f"{self.namespace}.{self.table_name}"
 
     @property
-    def _catalog_value(self) -> Catalog:
+    def _catalog(self) -> Catalog:
         if isinstance(self.catalog, Input):
             return self.catalog.load()  # type: ignore[return-value]
         return self.catalog
 
     @property
-    def _schema_value(self) -> Schema | None:
+    def _schema(self) -> Schema | None:
         if not self.schema:
             return None
         if isinstance(self.schema, StructType):
             return Schema(*self.schema.fields)
         return self.schema
 
+    @property
+    def _if_exists(self) -> IfTableExistsSaveOptions | None:
+        if not self.if_exists:
+            return None
+        if isinstance(self.if_exists, IfTableExistsSaveOptions):
+            return self.if_exists
+        return IfTableExistsSaveOptions(self.if_exists)
+
     def table_exists(self) -> bool:
-        catalog = self._catalog_value
+        catalog = self._catalog
         return catalog.table_exists(self.table_identifier)
 
     def persist(self, _) -> None:
@@ -94,46 +102,37 @@ class IcebergTable(Input[Table], Output[None]):
         Returns:
             The loaded Iceberg table instance
         """
-        catalog = self._catalog_value
+        catalog = self._catalog
         return catalog.load_table(self.table_identifier, **load_options)
 
     def save(self, _: None = None, **save_options) -> None:
         """Create the table in the catalog with the provided schema.
 
         Raises:
-            IcebergIOError:
+            ValueError:
                 If the schema is not provided when saving a new table.
             IcebergTableAlreadyExistsError: If the table already exists and
                 `if_exists` is set to RAISE
         """
-        catalog = self._catalog_value
+        catalog = self._catalog
         table_exists = self.table_exists()
-        schema = self._schema_value or save_options.get("schema")
+        schema = self._schema or save_options.get("schema")
         if not schema:
-            raise IcebergIOError(
+            raise ValueError(
                 "Schema must be provided when saving a new Iceberg table."
             )
         if table_exists:
-            match self.if_exists:
-                case (
-                    IfTableExistsSaveOptions.IGNORE
-                    | IfTableExistsSaveOptions.IGNORE.value
-                ):
+            match self._if_exists:
+                case IfTableExistsSaveOptions.IGNORE:
                     return
-                case (
-                    IfTableExistsSaveOptions.DROP
-                    | IfTableExistsSaveOptions.DROP.value
-                ):
+                case IfTableExistsSaveOptions.DROP:
                     catalog.drop_table(self.table_identifier)
-                case (
-                    IfTableExistsSaveOptions.RAISE
-                    | IfTableExistsSaveOptions.RAISE.value
-                ):
+                case IfTableExistsSaveOptions.RAISE:
                     raise IcebergTableAlreadyExistsError(
                         f"Table '{self.table_identifier}' already exists."
                     )
         catalog.create_table(
             identifier=self.table_identifier,
-            schema=self._schema_value,
+            schema=self._schema,
             **save_options,
         )

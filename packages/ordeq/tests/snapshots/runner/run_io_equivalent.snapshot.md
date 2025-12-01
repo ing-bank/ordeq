@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from ordeq import Output, node, run
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, eq=False)
 class MyPet(Output[str]):
     name: str
 

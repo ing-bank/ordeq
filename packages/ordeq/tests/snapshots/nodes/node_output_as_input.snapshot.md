@@ -24,7 +24,7 @@ def load_node(data: str) -> None:
 
 ```text
 Should raise an error ('example' is an output):
-ValueError: Input to Node(func=__main__:load_node, ...) must be of type Input or View, got Example
+ValueError: Inputs to View(func=__main__:load_node, ...) must be an Input or View, got Example
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
     ...<2 lines>...

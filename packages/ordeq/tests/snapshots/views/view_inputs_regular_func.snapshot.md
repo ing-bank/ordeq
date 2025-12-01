@@ -26,7 +26,7 @@ print(repr(hello))
 ## Output
 
 ```text
-ValueError: Input to View(func=__main__:func, ...) is not a node (got function)
+ValueError: Inputs to View(func=__main__:func, ...) must be an Input or View, got function
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
     ...<2 lines>...

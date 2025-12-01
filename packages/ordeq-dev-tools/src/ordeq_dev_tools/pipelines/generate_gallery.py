@@ -100,18 +100,10 @@ def generate_gallery() -> str:
 
         # Add visualization section if available
         if viz_content:
-            print(f"Visualization for {example_name}")
             # Indent mermaid content properly for markdown cards
             indented_viz = "\n".join(f"    {line}" for line in viz_content.split("\n"))
 
             card_content.extend(["    ```mermaid", indented_viz, "    ```", ""])
-        else:
-            if viz_content:
-                print(
-                    f"Visualization too short for {example_name} (length: {len(viz_content)})"
-                )
-            else:
-                print(f"No visualization generated for {example_name}")
 
         # Always add the link at the bottom
         card_content.extend(
@@ -126,65 +118,3 @@ def generate_gallery() -> str:
     content_lines.append("</div>")
 
     return "\n".join(content_lines)
-
-
-def _python_file_to_module_path(file_path: Path, base_dir: Path) -> str:
-    """Convert a Python file path to a module path."""
-    relative_path = file_path.relative_to(base_dir)
-    module_parts = list(relative_path.parts[:-1])  # Remove file extension
-    module_parts.append(relative_path.stem)
-    return ".".join(module_parts)
-
-
-def _find_pipeline_module(example_dir: Path) -> str | None:
-    """Find the main pipeline module for an example."""
-    # Check for single file examples
-    python_files = list(example_dir.glob("*.py"))
-
-    if len(python_files) == 1:
-        module_path = _python_file_to_module_path(python_files[0], example_dir)
-        return module_path
-
-    # Check for package structure in root directory
-    root_package_dirs = [
-        d
-        for d in example_dir.iterdir()
-        if d.is_dir() and not d.name.startswith(".") and (d / "__init__.py").exists()
-    ]
-
-    if root_package_dirs:
-        # Use first package found in root
-        main_package = root_package_dirs[0]
-        return main_package.name
-
-    # Check for package structure in src directory
-    src_dir = example_dir / "src"
-
-    if src_dir.exists():
-        # Check for single Python files in src directory first
-        src_python_files = list(src_dir.glob("*.py"))
-
-        if len(src_python_files) == 1:
-            # Single file in src directory
-            module_path = _python_file_to_module_path(src_python_files[0], src_dir)
-            return module_path
-
-        # Find the main package in src
-        package_dirs = [
-            d
-            for d in src_dir.iterdir()
-            if d.is_dir() and not d.name.endswith(".egg-info")
-        ]
-
-        if package_dirs:
-            main_package = package_dirs[0]  # Take first package
-
-            # Look for __main__.py or __init__.py
-            if (main_package / "__main__.py").exists():
-                module_name = f"{main_package.name}.__main__"
-                return module_name
-            elif (main_package / "__init__.py").exists():
-                module_name = main_package.name
-                return module_name
-
-    return None

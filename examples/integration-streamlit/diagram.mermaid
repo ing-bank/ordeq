@@ -1,0 +1,13 @@
+graph TB
+	integration_streamlit.catalog:checkbox --> integration_streamlit.pipeline:display_values
+	integration_streamlit.catalog:slider --> integration_streamlit.pipeline:display_values
+
+	integration_streamlit.pipeline:display_values@{shape: subroutine, label: "display_values"}
+	integration_streamlit.catalog:checkbox@{shape: rect, label: "checkbox"}
+	integration_streamlit.catalog:slider@{shape: rect, label: "slider"}
+
+	class integration_streamlit.pipeline:display_values view
+	class integration_streamlit.catalog:checkbox,integration_streamlit.catalog:slider io0
+	classDef io fill:#FFD43B
+	classDef view fill:#00C853,color:#FFF
+	classDef io0 fill:#66c2a5

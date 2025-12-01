@@ -21,6 +21,7 @@ COMMAND_TO_MODULE: Final[dict[str, str]] = {
     "docs_package_overview": "docs_package_overview",
     "validate_pyproject": "validate_pyproject",
     "generate_api_docs": "generate_api_docs",
+    "generate_gallery": "generate_gallery",
 }
 
 

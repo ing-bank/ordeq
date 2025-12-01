@@ -1,0 +1,23 @@
+graph TB
+	testing_nodes.catalog:txs --> testing_nodes.pipeline:join_txs_and_clients
+	testing_nodes.catalog:clients --> testing_nodes.pipeline:join_txs_and_clients
+	testing_nodes.catalog:date --> testing_nodes.pipeline:join_txs_and_clients
+	testing_nodes.pipeline:join_txs_and_clients --> testing_nodes.catalog:txs_and_clients
+	testing_nodes.catalog:txs_and_clients --> testing_nodes.pipeline:aggregate_txs
+	testing_nodes.pipeline:aggregate_txs --> testing_nodes.catalog:aggregated_txs
+
+	testing_nodes.pipeline:join_txs_and_clients@{shape: rounded, label: "join_txs_and_clients"}
+	testing_nodes.pipeline:aggregate_txs@{shape: rounded, label: "aggregate_txs"}
+	testing_nodes.catalog:txs_and_clients@{shape: rect, label: "txs_and_clients"}
+	testing_nodes.catalog:aggregated_txs@{shape: rect, label: "aggregated_txs"}
+	testing_nodes.catalog:clients@{shape: rect, label: "clients"}
+	testing_nodes.catalog:date@{shape: rect, label: "date"}
+	testing_nodes.catalog:txs@{shape: rect, label: "txs"}
+
+	class testing_nodes.pipeline:join_txs_and_clients,testing_nodes.pipeline:aggregate_txs node
+	class testing_nodes.catalog:txs_and_clients,testing_nodes.catalog:aggregated_txs,testing_nodes.catalog:clients,testing_nodes.catalog:txs io1
+	class testing_nodes.catalog:date io0
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62

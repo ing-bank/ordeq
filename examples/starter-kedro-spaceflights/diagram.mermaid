@@ -1,0 +1,22 @@
+graph TB
+	kedro_spaceflights.catalog:companies --> kedro_spaceflights.pipeline:preprocess_companies
+	kedro_spaceflights.pipeline:preprocess_companies --> kedro_spaceflights.catalog:preprocessed_companies
+	kedro_spaceflights.catalog:shuttles --> kedro_spaceflights.pipeline:preprocess_shuttles
+	kedro_spaceflights.pipeline:preprocess_shuttles --> kedro_spaceflights.catalog:preprocessed_shuttles
+
+	kedro_spaceflights.pipeline:preprocess_companies@{shape: rounded, label: "preprocess_companies"}
+	kedro_spaceflights.pipeline:preprocess_shuttles@{shape: rounded, label: "preprocess_shuttles"}
+	kedro_spaceflights.catalog:companies@{shape: rect, label: "companies"}
+	kedro_spaceflights.catalog:preprocessed_companies@{shape: rect, label: "preprocessed_companies"}
+	kedro_spaceflights.catalog:preprocessed_shuttles@{shape: rect, label: "preprocessed_shuttles"}
+	kedro_spaceflights.catalog:shuttles@{shape: rect, label: "shuttles"}
+
+	class kedro_spaceflights.pipeline:preprocess_companies,kedro_spaceflights.pipeline:preprocess_shuttles node
+	class kedro_spaceflights.catalog:companies io0
+	class kedro_spaceflights.catalog:preprocessed_companies,kedro_spaceflights.catalog:preprocessed_shuttles io2
+	class kedro_spaceflights.catalog:shuttles io1
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62
+	classDef io2 fill:#8da0cb

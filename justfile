@@ -111,6 +111,10 @@ test-examples:
 generate-api-docs:
     uv run -m ordeq_dev_tools generate_api_docs .
 
+# Generate gallery documentation page
+generate-gallery:
+    uv run -m ordeq_dev_tools generate_gallery .
+
 # Generate package overview documentation page
 generate-package-overview:
     uv run -m ordeq_dev_tools docs_package_overview .
@@ -120,11 +124,11 @@ generate-draft-releases:
     uv run -m ordeq_dev_tools generate_draft_releases .
 
 # Build the documentation
-docs-build: generate-api-docs generate-package-overview
+docs-build: generate-api-docs generate-package-overview generate-gallery
     uv run --group docs mkdocs build --strict
 
 # Build and serve the documentation locally
-docs-serve: generate-api-docs generate-package-overview
+docs-serve: generate-api-docs generate-package-overview generate-gallery
     uv run --group docs mkdocs serve --strict
 
 # Publish the documentation to GitHub Pages

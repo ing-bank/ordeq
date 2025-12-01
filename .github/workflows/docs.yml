@@ -34,6 +34,9 @@ jobs:
       - name: Generate package overview
         run: uv run -m ordeq_dev_tools docs_package_overview .
 
+      - name: Generate example gallery
+        run: uv run -m ordeq_dev_tools generate_gallery .
+
       - name: Build site
         run: uv run mkdocs build --strict
 

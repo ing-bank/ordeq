@@ -3,23 +3,27 @@
 ```python
 import example_nested
 from ordeq._resolve import _resolve_packages_to_modules
-from ordeq._static import _module_to_imports
+from ordeq._static import _ast_to_imports, _module_path_to_ast, _module_to_path
 
 submodules = list(_resolve_packages_to_modules(example_nested))
 for submodule in submodules:
-    print(submodule.__name__, _module_to_imports(submodule))
+    imports = _ast_to_imports(
+        _module_path_to_ast(_module_to_path(submodule)),
+        module_name=submodule.__name__,
+        relevant_modules={
+            "example_nested.subpackage.subsubpackage.hello_relative": {
+                "world_relative"
+            }
+        },
+    )
+    if imports:
+        print(submodule.__name__, imports)
 
 ```
 
 ## Output
 
 ```text
-example_nested {}
-example_nested.__main__ {'run': 'ordeq', 'world_relative': 'example_nested.subpackage.subsubpackage.hello_relative'}
-example_nested.catalog {'StringBuffer': 'ordeq_common'}
-example_nested.subpackage {}
-example_nested.subpackage.subsubpackage {}
-example_nested.subpackage.subsubpackage.hello {'node': 'ordeq', 'run': 'ordeq'}
-example_nested.subpackage.subsubpackage.hello_relative {'node': 'ordeq', 'message': 'example_nested.catalog'}
+example_nested.__main__ {'world_relative': 'example_nested.subpackage.subsubpackage.hello_relative'}
 
 ```

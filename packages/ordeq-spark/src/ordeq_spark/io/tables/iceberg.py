@@ -18,7 +18,6 @@ if TYPE_CHECKING:
 from pyspark.sql.utils import AnalysisException
 
 from ordeq_spark.io.tables.table import SparkTable
-from ordeq_spark.utils import apply_schema
 
 SparkIcebergWriteMode: TypeAlias = Literal[
     "create", "createOrReplace", "overwrite", "overwritePartitions", "append"
@@ -65,8 +64,6 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
     ... )
 
     ```
-
-    If `schema` is provided, it will be applied before save and after load.
 
     Saving is idempotent: if the target table does not exist, it is
     created with the configuration set in the save options.
@@ -196,7 +193,6 @@ class SparkIcebergTable(SparkTable, IO[DataFrame]):
             RuntimeError: if the Spark captured exception cannot be parsed
             CapturedException: if there is an error during the write operation
         """
-        df = apply_schema(df, self.schema) if self.schema else df
         if partition_by:
             partition_cols, _ = self._parse_partition_by(partition_by)
             df = df.sortWithinPartitions(*partition_cols)

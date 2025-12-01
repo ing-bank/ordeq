@@ -12,6 +12,6 @@ print(_substitutes_modules_to_ios({local_package: local_package}))
 ## Output
 
 ```text
-{}
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>): StringBuffer(_buffer=<_io.StringIO object at HASH2>)}
 
 ```

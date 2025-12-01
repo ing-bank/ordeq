@@ -11,7 +11,7 @@ from typing import TypeAlias, TypeGuard
 
 from ordeq._fqn import FQN, ModuleName, ObjectRef, is_object_ref
 from ordeq._hook import NodeHook, RunHook, RunnerHook
-from ordeq._io import AnyIO, IOIdentity, _is_io, _is_io_sequence
+from ordeq._io import AnyIO, _is_io, _is_io_sequence
 from ordeq._nodes import Node, _is_node
 
 RunnableRef: TypeAlias = ObjectRef | ModuleName
@@ -35,6 +35,19 @@ def _validate_runnables(*runnables: Runnable | RunnableRef) -> None:
                 f"Expected a module or a node, got "
                 f"{type(runnable).__name__}"
             )
+
+
+def _deduplicate_modules(*modules: ModuleType) -> Generator[ModuleType]:
+    visited = set()
+    for module in modules:
+        if module.__name__ in visited:
+            warnings.warn(
+                f"Module '{module.__name__}' was provided more than once. "
+                f"Duplicates will be ignored.",
+                stacklevel=2,
+            )
+        visited.add(module.__name__)
+        yield module
 
 
 def _is_package(module: ModuleType) -> TypeGuard[ModuleType]:
@@ -104,25 +117,10 @@ def _resolve_module_globals(
 def _resolve_packages_to_modules(
     *modules: ModuleType,
 ) -> Generator[ModuleType, None, None]:
-    visited = set()
-
     def _walk(module: ModuleType):
-        if module.__name__ in visited:
-            warnings.warn(
-                f"Module '{module.__name__}' already provided as runnable",
-                stacklevel=2,
-            )
-            return
-        visited.add(module.__name__)
         yield module
         if _is_package(module):
             for subname in _resolve_package_to_module_names(module):
-                if subname in visited:
-                    warnings.warn(
-                        f"Module '{subname}' already provided as runnable",
-                        stacklevel=2,
-                    )
-                    continue
                 submodule = _resolve_module_ref_to_module(subname)
                 yield from _walk(submodule)
 
@@ -166,19 +164,17 @@ def _resolve_refs_to_modules(
 
 
 def _resolve_module_to_ios(module: ModuleType) -> dict[str, AnyIO]:
-    ios: dict[IOIdentity, tuple[AnyIO, str]] = {}
+    ios: dict[AnyIO, str] = {}
     for name, obj in vars(module).items():
         if _is_io(obj):
-            io_id = id(obj)
             # TODO: Should also resolve to IO sequence
-            if io_id in ios:
-                alias = ios[io_id][1]
+            if obj in ios:
                 raise ValueError(
                     f"Module '{module.__name__}' contains duplicate keys "
-                    f"for the same IO ('{name}' and '{alias}')"
+                    f"for the same IO ('{name}' and '{ios[obj]}')"
                 )
-            ios[io_id] = (obj, name)
-    return {name: io for io, name in ios.values()}
+            ios[obj] = name
+    return {name: io for io, name in ios.items()}
 
 
 def _resolve_package_to_ios(package: ModuleType) -> Catalog:
@@ -359,23 +355,29 @@ def _resolve_modules_to_nodes(*modules: ModuleType) -> list[Node]:
     return nodes
 
 
-def _resolve_runnable_refs_to_runnables(
+def _resolve_runnable_refs_to_nodes(
     *runnables: RunnableRef | Runnable,
-) -> tuple[list[ModuleType], list[Node]]:
-    modules: list[ModuleType] = []
+) -> list[Node]:
     nodes: list[Node] = []
+    for runnable in runnables:
+        if _is_node(runnable):
+            nodes.append(runnable)
+        elif isinstance(runnable, str) and is_object_ref(runnable):
+            fqn = FQN.from_ref(runnable)
+            nodes.append(_resolve_fqn_to_node(fqn))
+    return nodes
+
+
+def _resolve_runnable_refs_to_modules(
+    *runnables: RunnableRef | Runnable,
+) -> list[ModuleType]:
+    modules: list[ModuleType] = []
     for runnable in runnables:
         if _is_module(runnable):
             modules.append(runnable)
-        elif _is_node(runnable):
-            nodes.append(runnable)
-        elif isinstance(runnable, str):
-            if is_object_ref(runnable):
-                fqn = FQN.from_ref(runnable)
-                nodes.append(_resolve_fqn_to_node(fqn))
-            else:
-                modules.append(_resolve_module_ref_to_module(runnable))
-    return modules, nodes
+        elif isinstance(runnable, str) and not is_object_ref(runnable):
+            modules.append(_resolve_module_ref_to_module(runnable))
+    return modules
 
 
 def _resolve_module_name_to_module(

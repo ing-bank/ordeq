@@ -38,13 +38,12 @@ class UnknownCounter:
         self.unknown_ids = {}
 
     def next_id(self, obj) -> str:
-        obj_id = id(obj)
-        if obj_id not in self.unknown_ids:
+        if obj not in self.unknown_ids:
             current_id = f"unknown_{self._count}"
             self._count += 1
-            self.unknown_ids[obj_id] = current_id
+            self.unknown_ids[obj] = current_id
             return current_id
-        return self.unknown_ids[obj_id]
+        return self.unknown_ids[obj]
 
 
 def _add_io_data(
@@ -91,8 +90,6 @@ def _gather_graph(
     unknown_counter = UnknownCounter()
 
     node_modules = defaultdict(list)
-    io_input_modules = defaultdict(set)
-    io_output_modules = defaultdict(set)
     for line in node_graph.topological_ordering:
         inputs = [
             _add_io_data(
@@ -113,23 +110,29 @@ def _gather_graph(
             for output_dataset in line.outputs
         ]
 
-        node_fqn = line.fqn or FQN(line.func.__module__, line.func.__name__)
+        node_fqn = line.fqn or FQN("unknown", line.func.__name__)
 
-        node_data = NodeData(
-            id=node_fqn.ref,
-            node=line,
-            name=node_fqn.name,
-            module=node_fqn.module,
-            inputs=inputs,
-            outputs=outputs,
-            view=isinstance(line, View),
+        node_modules[node_fqn.module].append(
+            NodeData(
+                id=node_fqn.ref,
+                node=line,
+                name=node_fqn.name,
+                module=node_fqn.module,
+                inputs=inputs,
+                outputs=outputs,
+                view=line.type_name == "View",
+            )
         )
-        for io_id in inputs:
-            io_input_modules[io_id].add(node_fqn.module)
-        if not node_data.view:
-            for io_id in outputs:
-                io_output_modules[io_id].add(node_fqn.module)
-        node_modules[node_fqn.module].append(node_data)
+
+    io_input_modules = defaultdict(set)
+    io_output_modules = defaultdict(set)
+    for module_nodes in node_modules.values():
+        for node_data in module_nodes:
+            for io_id in node_data.inputs:
+                io_input_modules[io_id].add(node_data.module)
+            if not node_data.view:
+                for io_id in node_data.outputs:
+                    io_output_modules[io_id].add(node_data.module)
 
     io_modules_ = defaultdict(list)
     for io_id in set(io_input_modules.keys()) | set(io_output_modules.keys()):

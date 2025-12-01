@@ -271,6 +271,14 @@ def _has_base(bases, target_names: set[str]) -> bool:
     return any(_check_ancestor(base) for base in bases)
 
 
+def eq(self, other) -> bool:
+    return id(self) == id(other)
+
+
+def h(self) -> int:
+    return id(self)
+
+
 class _IOMeta(type):
     """Metaclass that handles Input and Output logic."""
 
@@ -288,6 +296,15 @@ class _IOMeta(type):
             class_dict, bases = _process_output_meta(name, bases, class_dict)
 
         return super().__new__(cls, name, bases, class_dict)
+
+    def __init__(cls, name, bases, class_dict):
+        if name not in {"Input", "Output", "IO"}:
+            # Each IO instance is unique, so we override __eq__ and __hash__
+            # to ensure identity-based comparison and hashing.
+            cls.__eq__ = eq  # type: ignore[invalid-assignment,method-assign,assignment]
+            cls.__hash__ = h  # type: ignore[invalid-assignment,method-assign,assignment]
+
+        super().__init__(name, bases, class_dict)
 
 
 class _BaseInput(Generic[Tin]):
@@ -454,10 +471,17 @@ class _WithName(_WithTypeFQN):
         return repr(self)
 
 
-class _WithResource:
-    _resource_: Hashable = None
+ResourceType: TypeAlias = Annotated[
+    Hashable,
+    """Any hashable object that is used to identify an IO resource.
+    Examples: pathlib.Path, str.""",
+]
 
-    def with_resource(self, resource: Any) -> Self:
+
+class _WithResource:
+    _resource_: ResourceType = None
+
+    def with_resource(self, resource: ResourceType) -> Self:
         if resource is None:
             raise ValueError("Resource cannot be None.")
         preview(
@@ -469,10 +493,10 @@ class _WithResource:
         return new_instance
 
     @property
-    def _resource(self) -> Hashable:
+    def _resource(self) -> ResourceType:
         return self._resource_ or self
 
-    def __matmul__(self, resource: Any) -> Self:
+    def __matmul__(self, resource: ResourceType) -> Self:
         return self.with_resource(resource)
 
 
@@ -723,7 +747,10 @@ class IO(Input[T], Output[T]):
 # Type aliases
 AnyIO: TypeAlias = Input[T] | Output[T]
 
-# Type alias for IO identity retrieved using id(). This is used to uniquely
-# identify IO instances. We cannot rely on the __eq__ and __hash__ of IO
-# objects, as they may be overridden by the user.
-IOIdentity: TypeAlias = Annotated[int, "Identity of an IO object"]
+
+def _is_input(obj: object) -> TypeGuard[Input]:
+    return isinstance(obj, Input)
+
+
+def _is_output(obj: object) -> TypeGuard[Output]:
+    return isinstance(obj, Output)

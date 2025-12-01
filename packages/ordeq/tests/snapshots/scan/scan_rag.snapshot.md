@@ -4,9 +4,10 @@
 from pprint import pp
 
 import example_rag_pipeline
+from ordeq._resolve import _resolve_packages_to_modules
 from ordeq._scan import _scan_fqns
 
-nodes, ios = _scan_fqns(example_rag_pipeline)
+nodes, ios = _scan_fqns(*_resolve_packages_to_modules(example_rag_pipeline))
 print("Nodes:")
 pp(nodes, width=40)
 print("IOs:")

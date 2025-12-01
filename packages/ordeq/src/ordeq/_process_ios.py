@@ -7,12 +7,11 @@ from ordeq._scan import IOFQNs
 def _assign_io_fqns(*nodes: Node, io_fqns: IOFQNs) -> None:
     for node in nodes:
         for io in chain(node.inputs, node.outputs):
-            io_id = id(io)
-            if io_id in io_fqns:
-                if len(io_fqns[io_id]) == 1:
-                    io._set_fqn(io_fqns[io_id][0])  # type: ignore[attr-defined]
-                elif len(io_fqns[io_id]) > 1:
-                    io._set_name(io_fqns[io_id][0].name)  # type: ignore[attr-defined]
+            if io in io_fqns:
+                if len(io_fqns[io]) == 1:  # type: ignore[index]
+                    io._set_fqn(io_fqns[io][0])  # type: ignore[index]
+                elif len(io_fqns[io]) > 1:  # type: ignore[index]
+                    io._set_name(io_fqns[io][0].name)  # type: ignore[index]
 
 
 def _process_ios(

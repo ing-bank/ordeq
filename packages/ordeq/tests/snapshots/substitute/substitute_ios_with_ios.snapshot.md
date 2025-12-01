@@ -27,6 +27,6 @@ print(_substitutes_modules_to_ios({a: a, b: b}))
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH2>), IO(id=ID1): IO(id=ID2)}
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH2>): StringBuffer(_buffer=<_io.StringIO object at HASH1>)}
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH2>), IO(id=ID1): StringBuffer(_buffer=<_io.StringIO object at HASH1>)}
-{}
+{StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH1>), IO(id=ID1): IO(id=ID1)}
 
 ```

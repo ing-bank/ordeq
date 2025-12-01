@@ -17,7 +17,15 @@ from typing import (
 )
 
 from ordeq._fqn import FQN
-from ordeq._io import IO, AnyIO, Input, Output
+from ordeq._io import (
+    IO,
+    AnyIO,
+    Input,
+    Output,
+    ResourceType,
+    _is_input,
+    _is_output,
+)
 from ordeq.preview import preview
 
 T = TypeVar("T")
@@ -51,7 +59,7 @@ class Node(Generic[FuncParams, FuncReturns]):
     func: Callable[FuncParams, FuncReturns]
     inputs: tuple[Input, ...]
     outputs: tuple[Output, ...]
-    checks: tuple[AnyIO, ...] = ()
+    checks: tuple[AnyIO | ResourceType, ...] = ()
     attributes: dict[str, Any] = field(default_factory=dict, hash=False)
     views: tuple[View, ...] = ()
 
@@ -179,7 +187,7 @@ def _raise_for_invalid_outputs(n: Node) -> None:
             node arguments.
     """
 
-    are_outputs = [isinstance(o, Output) for o in n.outputs]
+    are_outputs = [_is_output(o) for o in n.outputs]
     if not all(are_outputs):
         not_an_output = n.outputs[are_outputs.index(False)]
         raise ValueError(
@@ -293,16 +301,21 @@ def _is_node(obj: object) -> TypeGuard[Node]:
     return isinstance(obj, Node)
 
 
+def _is_view(obj: object) -> TypeGuard[View]:
+    return isinstance(obj, View)
+
+
 @overload
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
-    outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    inputs: Sequence[Input | View] | Input | View | None = None,
+    outputs: Sequence[Output] | Output,
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
+    | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
     module: str | None = None,
@@ -314,12 +327,13 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: None = None,
-    checks: Sequence[Input | Output | Callable]
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
+    | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
     module: str | None = None,
@@ -330,12 +344,13 @@ def create_node(
 def create_node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
+    inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
+    | ResourceType
     | None = None,
     attributes: dict[str, Any] | None = None,
     module: str | None = None,
@@ -362,23 +377,29 @@ def create_node(
     func_name = infer_node_name_from_func(func)
     inputs_: list[Input] = []
     views: list[View] = []
+    cls = "View" if not outputs else "Node"
     for input_ in _sequence_to_tuple(inputs):
         if callable(input_):
             if not _is_node(input_):
                 raise ValueError(
-                    f"Input to Node(func={func_name}, ...) is not a node "
+                    f"Input to {cls}(func={func_name}, ...) is not a node "
                     f"(got {type(input_).__name__})"
                 )
             view = input_
             if not isinstance(view, View):
                 raise ValueError(
-                    f"Input to Node(func={func_name}, ...) is not a view "
+                    f"Input to {cls}(func={func_name}, ...) is not a view "
                     f"(got {type(view).__name__})"
                 )
             views.append(view)
             inputs_.append(view.outputs[0])
+        elif _is_input(input_):
+            inputs_.append(input_)
         else:
-            inputs_.append(cast("Input", input_))
+            raise ValueError(
+                f"Input to Node(func={func_name}, ...) must be of type "
+                f"Input or View, got {type(input_).__name__}"
+            )
 
     checks_: list[Input] = []
     if checks:
@@ -391,13 +412,13 @@ def create_node(
             if callable(check):
                 if not _is_node(check):
                     raise ValueError(
-                        f"Check {check} to node Node(func={func_name}, ...) "
+                        f"Check {check} to node {cls}(func={func_name}, ...) "
                         f"is not a node"
                     )
                 view = check
                 if not isinstance(view, View):
                     raise ValueError(
-                        f"Check {check} to node Node(func={func_name}, ...) "
+                        f"Check {check} to node {cls}(func={func_name}, ...) "
                         f"is not a view"
                     )
                 checks_.append(view.outputs[0])
@@ -429,19 +450,23 @@ def create_node(
 
 # Default value for 'func' in case it is not passed.
 # Used to distinguish between 'func=None' and func missing as positional arg.
-def not_passed(*args, **kwargs): ...
+def _not_passed(*args, **kwargs): ...
+
+
+not_passed = cast("View", _not_passed)
 
 
 @overload
 def node(
     func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
-    outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    inputs: Sequence[Input | View] | Input | View | None = None,
+    outputs: Sequence[Output] | Output,
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
+    | ResourceType
     | None = None,
     **attributes: Any,
 ) -> Node[FuncParams, FuncReturns]: ...
@@ -449,13 +474,30 @@ def node(
 
 @overload
 def node(
+    func: Callable[FuncParams, FuncReturns],
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable = not_passed,
-    outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    inputs: Sequence[Input | View] | Input | View | None = None,
+    outputs: None = None,
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
+    | ResourceType
+    | None = None,
+    **attributes: Any,
+) -> View[FuncParams, FuncReturns]: ...
+
+
+@overload
+def node(
+    *,
+    inputs: Sequence[Input | View] | Input | View = not_passed,
+    outputs: Sequence[Output] | Output,
+    checks: Sequence[Input | Output | Node]
+    | Input
+    | Output
+    | Node
+    | ResourceType
     | None = None,
     **attributes: Any,
 ) -> Callable[
@@ -463,22 +505,42 @@ def node(
 ]: ...
 
 
+@overload
 def node(
-    func: Callable[FuncParams, FuncReturns] = not_passed,
     *,
-    inputs: Sequence[Input | Callable] | Input | Callable | None = None,
-    outputs: Sequence[Output] | Output | None = None,
-    checks: Sequence[Input | Output | Callable]
+    inputs: Sequence[Input | View] | Input | View = not_passed,
+    outputs: None = None,
+    checks: Sequence[Input | Output | Node]
     | Input
     | Output
-    | Callable
+    | Node
+    | ResourceType
+    | None = None,
+    **attributes: Any,
+) -> Callable[
+    [Callable[FuncParams, FuncReturns]], View[FuncParams, FuncReturns]
+]: ...
+
+
+def node(
+    func: Callable[FuncParams, FuncReturns] = _not_passed,
+    *,
+    inputs: Sequence[Input | View] | Input | View | None = None,
+    outputs: Sequence[Output] | Output | None = None,
+    checks: Sequence[Input | Output | Node]
+    | Input
+    | Output
+    | Node
+    | ResourceType
     | None = None,
     **attributes: Any,
 ) -> (
     Callable[
-        [Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]
+        [Callable[FuncParams, FuncReturns]],
+        Node[FuncParams, FuncReturns] | View[FuncParams, FuncReturns],
     ]
     | Node[FuncParams, FuncReturns]
+    | View[FuncParams, FuncReturns]
 ):
     """Decorator that creates a node from a function. When a node is run,
     the inputs are loaded and passed to the function. The returned values

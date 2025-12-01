@@ -61,6 +61,7 @@ ordeq-requests = { workspace = true }
 ordeq-sentence-transformers = { workspace = true }
 ordeq-spark = { workspace = true }
 ordeq-toml = { workspace = true }
+ordeq-torch = { workspace = true }
 ordeq-viz = { workspace = true }
 ordeq-viz-cli = { workspace = true }
 ordeq-yaml = { workspace = true }
@@ -111,6 +112,7 @@ pythonpath = ["src", "tests"]
 [tool.ruff]
 exclude = [
     "packages/*/src/*/_version.py",
+    "examples/orchestration-kubeflow/original.py"
 ]
 force-exclude = true
 line-length = 79
@@ -128,15 +130,7 @@ extend-select = [
     "ASYNC",
     "B",
     "C4",
-    #  "D102",  # TODO: enable
-    "D103",
-    "D212",
-    "D301",
-    "D410",
-    "D411",
-    "D414",
-    "D416",
-    "D417",
+    "D417",  # undocumented parameter
     "DOC",
     "E",
     "ERA",
@@ -189,7 +183,6 @@ split-on-trailing-comma = false
 # Rules not applicable for package tests
 "packages/*/tests/*" = [
     "ANN201",
-    "D",
     "DOC",
     "INP",
     "PLC2701",
@@ -207,7 +200,6 @@ split-on-trailing-comma = false
 # Rules not applicable for example tests
 "examples/*/tests/*" = [
     "ANN201",
-    "D",
     "DOC",
     "INP",
     "PLC2701",
@@ -221,26 +213,30 @@ split-on-trailing-comma = false
 # Rules not applicable for types.py
 "packages/ordeq/src/ordeq/types.py" = [
     "ANN201",
-    "D",
     "DOC",
     "PLC2701",
     "PLR6301",
 ]
 # Rules not applicable for scripts
-"scripts/*" = ["INP001", "S607", "S603", "S404", "D103"]
+"scripts/*" = ["INP001", "S607", "S603", "S404"]
 "scripts/generate_package_overview.py" = ["E501"]
 # Rules not applicable in documentation files
-"docs/*" = ["INP001", "D", "DOC", "S", "E501", "PERF", "PLW1514"]
+"docs/*" = ["INP001", "DOC", "S", "E501", "PERF", "PLW1514"]
 "doccmd_kedro_md*.py" = [
-    # Allow hardcoded secrets in documentation.
-    "F821",
+    "F821",  # Undefined name
+]
+"doccmd_custom_io_md*.py" = [
+    "F821",  # Undefined name
+]
+"doccmd_checks_md*.py" = [
+    "F821",  # Undefined name
 ]
 # Rules not applicable for some example projects
-"examples/starter-single-file/*" = ["INP001", ]
-"examples/integration-marimo/*" = ["PLC0415", "E501", "INP001"]
+"examples/*" = ["INP001", "D", "DOC"]
+"examples/integration-marimo/*" = ["PLC0415", "E501"]
 "examples/testing-nodes/tests/test_pipeline.py" = ["E402"]
 # Rules not applicable for private examples
-"packages/ordeq-test-examples/*" = ["D103", "INP001", "S101"]
+"packages/ordeq-test-examples/*" = ["INP001", "S101"]
 # Rules not applicable for framework extensions
 "packages/ordeq/src/ordeq/*" = ["SLF001"]
 "packages/ordeq-viz/src/ordeq_viz/*" = ["PLC2701"]

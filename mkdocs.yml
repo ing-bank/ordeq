@@ -17,6 +17,8 @@ theme:
     - content.code.copy
     - content.code.select
     - navigation.footer
+    - content.code.annotate
+    - navigation.indexes
   palette:
     - scheme: slate
       primary: black
@@ -32,7 +34,8 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.snippets:
+      check_paths: true
   - admonition
   - pymdownx.details
   - pymdownx.superfences:
@@ -46,6 +49,7 @@ markdown_extensions:
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - toc:
       permalink: true
+  - md_in_html
 
 plugins:
   - search

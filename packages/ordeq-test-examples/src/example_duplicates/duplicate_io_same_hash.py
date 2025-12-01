@@ -18,8 +18,6 @@ class MyIO(IO[str]):
 hello = MyIO("hello", attr=0)
 result = MyIO("result", attr=0)
 
-assert hash(hello) == hash(result), "Hashes should be the same"
-
 
 @node(inputs=[hello], outputs=[result])
 def say(hi: str) -> str:

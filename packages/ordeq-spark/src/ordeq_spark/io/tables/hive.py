@@ -6,7 +6,6 @@ from pyspark.sql import DataFrame
 
 from ordeq_spark.io.tables.table import SparkTable
 from ordeq_spark.io.types import SparkFormat
-from ordeq_spark.utils import apply_schema
 
 SparkWriteMode = Literal["overwrite", "append", "errorifexists", "ignore"]
 
@@ -31,8 +30,6 @@ class SparkHiveTable(SparkTable, IO[DataFrame]):
 
     ```
 
-    If `schema` is provided, it will be applied before save and after load.
-
     """  # noqa: E501 (line too long)
 
     def save(
@@ -42,7 +39,6 @@ class SparkHiveTable(SparkTable, IO[DataFrame]):
         mode: SparkWriteMode = "overwrite",
         partition_by: str | list[str] | None = None,
     ) -> None:
-        df = apply_schema(df, self.schema) if self.schema else df
         df.write.saveAsTable(
             name=self.table, format=format, mode=mode, partitionBy=partition_by
         )

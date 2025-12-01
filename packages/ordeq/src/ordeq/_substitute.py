@@ -56,8 +56,6 @@ def _substitutes_modules_to_ios(
 ) -> IOSubstitutes:
     substitution_map: IOSubstitutes = {}
     for old, new in io.items():
-        if old == new:
-            continue
         if _is_module(old) and _is_module(new):
             substitution_map.update(_substitute_catalog_by_catalog(old, new))
         elif _is_io(old) and _is_io(new):

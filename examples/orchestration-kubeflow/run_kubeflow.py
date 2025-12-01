@@ -42,7 +42,7 @@ def train_model(
     normalized_iris_dataset: dsl.Input[dsl.Dataset],
     model: dsl.Output[dsl.Model],
     n_neighbors: int,
-    seed: int | None,
+    seed: int,
 ):
     run(
         train.train_model,
@@ -58,7 +58,7 @@ def train_model(
 
 
 @dsl.pipeline(name="iris-training-pipeline")
-def my_pipeline(scaler: str, neighbors: list[int], seed: int | None):
+def my_pipeline(scaler: str, neighbors: list[int], seed: int):
     create_dataset_task = create_dataset()
 
     normalize_dataset_task = normalize_dataset(

@@ -2,10 +2,19 @@ from __future__ import annotations
 
 import inspect
 import logging
+import warnings
 from collections.abc import Callable, Hashable, Sequence
 from copy import copy
 from functools import cached_property, reduce, wraps
-from typing import Annotated, Any, Generic, TypeAlias, TypeGuard, TypeVar
+from typing import (
+    Annotated,
+    Any,
+    Generic,
+    TypeAlias,
+    TypeGuard,
+    TypeVar,
+    final,
+)
 
 from ordeq.preview import preview
 
@@ -104,6 +113,15 @@ def _load_decorator(load_func):
             raise IOException(msg) from exc
 
     return wrapper
+
+
+def _warn_if_eq_or_hash_is_implemented(name, class_dict):
+    for method in "__eq__", "__hash__":
+        if "__hash__" in class_dict:
+            warnings.warn(
+                f"IO {name} implements '{method}'. This will be ignored.",
+                stacklevel=2,
+            )
 
 
 def _process_input_meta(name, bases, class_dict):
@@ -279,6 +297,25 @@ def h(self) -> int:
     return id(self)
 
 
+class _WithEq:
+    """
+    Interface defining the default equality and hashing behavior for IO
+    objects based on their identity. This ensures that each IO instance is
+    treated as unique, regardless of its internal state or attributes.
+
+    If the __eq__ and __hash__ methods are explicitly overridden in the
+    subclass, a type error will be raised.
+    """
+
+    @final
+    def __eq__(self, other) -> bool:
+        return id(self) == id(other)
+
+    @final
+    def __hash__(self) -> int:
+        return id(self)
+
+
 class _IOMeta(type):
     """Metaclass that handles Input and Output logic."""
 
@@ -295,15 +332,16 @@ class _IOMeta(type):
         if has_output_base or name in {"Output", "IO"}:
             class_dict, bases = _process_output_meta(name, bases, class_dict)
 
+        _warn_if_eq_or_hash_is_implemented(name, class_dict)
+
         return super().__new__(cls, name, bases, class_dict)
 
     def __init__(cls, name, bases, class_dict):
         if name not in {"Input", "Output", "IO"}:
             # Each IO instance is unique, so we override __eq__ and __hash__
             # to ensure identity-based comparison and hashing.
-            cls.__eq__ = eq  # type: ignore[invalid-assignment,method-assign,assignment]
-            cls.__hash__ = h  # type: ignore[invalid-assignment,method-assign,assignment]
-
+            cls.__eq__ = _WithEq.__eq__  # type: ignore[invalid-assignment,method-assign,assignment]
+            cls.__hash__ = _WithEq.__hash__  # type: ignore[invalid-assignment,method-assign,assignment]
         super().__init__(name, bases, class_dict)
 
 
@@ -508,6 +546,7 @@ class Input(
     _WithResource,
     _WithName,
     _WithAttributes,
+    _WithEq,
     Generic[Tin],
     metaclass=_IOMeta,
 ):
@@ -649,6 +688,7 @@ class Output(
     _WithResource,
     _WithName,
     _WithAttributes,
+    _WithEq,
     Generic[Tout],
     metaclass=_IOMeta,
 ):

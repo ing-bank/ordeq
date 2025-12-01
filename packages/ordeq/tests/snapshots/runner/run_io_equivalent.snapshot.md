@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from ordeq import Output, node, run
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, eq=False)
 class MyPet(Output[str]):
     name: str
 
@@ -40,6 +40,13 @@ run(feeding, io={cat: dog})
 Should print 'Feeding my dog':
 Feeding my dog
 
+```
+
+## Warnings
+
+```text
+UserWarning: IO MyPet implements '__eq__'. This will be ignored.
+UserWarning: IO MyPet implements '__hash__'. This will be ignored.
 ```
 
 ## Logging

@@ -12,6 +12,8 @@ packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     d
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def node(*, inputs: Sequence[Input[Any] | View[Any, Any]] | Input[Any] | View[Any, Any] = ..., outputs: Sequence[Output[Any]] | Output[Any], checks: Sequence[Input[Any] | Output[Any] | Node[Any, Any]] | Input[Any] | Output[Any] | Node[Any, Any] | Hashable | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]]
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def node(*, inputs: Sequence[Input[Any] | View[Any, Any]] | Input[Any] | View[Any, Any] = ..., outputs: None = ..., checks: Sequence[Input[Any] | Output[Any] | Node[Any, Any]] | Input[Any] | Output[Any] | Node[Any, Any] | Hashable | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], View[FuncParams, FuncReturns]]
 packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Node[Any, Any] | str  [arg-type]
+packages/ordeq/tests/resources/runner/run_io_equivalent.py:13: error: Cannot override final attribute "__eq__" (previously declared in base class "_WithEq")  [misc]
+packages/ordeq/tests/resources/runner/run_io_equivalent.py:16: error: Cannot override final attribute "__hash__" (previously declared in base class "_WithEq")  [misc]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: error: No overload variant of "node" matches argument types "Input[str]", "Input[str]"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: note: Possible overload variants:
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | View[Any, Any]] | Input[Any] | View[Any, Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any], checks: Sequence[Input[Any] | Output[Any] | Node[Any, Any]] | Input[Any] | Output[Any] | Node[Any, Any] | Hashable | None = ..., **attributes: Any) -> Node[FuncParams, FuncReturns]
@@ -54,6 +56,8 @@ packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: error: N
 packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note: Possible overload variants:
 packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note:     def save(self, data: str) -> Any
 packages/ordeq/tests/resources/io/io_mixed_types_overloaded_save.py:46: note:     def save(self, data: bytes) -> Any
+packages/ordeq/tests/resources/io/io_eq_override.py:16: error: Cannot override final attribute "__eq__" (previously declared in base class "_WithEq")  [misc]
+packages/ordeq/tests/resources/io/io_eq_override.py:19: error: Cannot override final attribute "__hash__" (previously declared in base class "_WithEq")  [misc]
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: error: Argument 1 of "before_output_save" is incompatible with supertype "ordeq._hook.OutputHook"; supertype defines the argument type as "Output[str]"  [override]
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: This violates the Liskov substitution principle
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
@@ -89,4 +93,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note:     
 packages/ordeq/tests/resources/checks/check_store_invalid_records.py:16: error: Need type annotation for "processed_records"  [var-annotated]
 packages/ordeq/tests/resources/checks/check_after_save.py:18: error: "Series[Any]" not callable  [operator]
 packages/ordeq/tests/resources/views/view_query.py:5: error: Need type annotation for "connection"  [var-annotated]
-Found 32 errors in 25 files (checked 301 source files)
+Found 36 errors in 27 files (checked 301 source files)

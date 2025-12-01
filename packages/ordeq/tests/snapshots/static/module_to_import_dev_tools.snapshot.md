@@ -21,6 +21,7 @@ for submodule in submodules:
 
 ```text
 ordeq_dev_tools.pipelines.docs_package_overview {'packages': 'ordeq_dev_tools.pipelines.shared'}
+ordeq_dev_tools.pipelines.generate_api_docs {'packages': 'ordeq_dev_tools.pipelines.shared'}
 ordeq_dev_tools.pipelines.generate_draft_releases {'packages': 'ordeq_dev_tools.pipelines.shared'}
 ordeq_dev_tools.pipelines.validate_pyproject {'packages': 'ordeq_dev_tools.pipelines.shared'}
 

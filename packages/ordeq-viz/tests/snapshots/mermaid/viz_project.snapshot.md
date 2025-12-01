@@ -40,8 +40,8 @@ graph TB
 	example_project.catalog_1:a --> example_project.nodes_import_alias:func
 	example_project.catalog_1:b --> example_project.nodes_import_alias:func
 	example_project.nodes_import_alias:func --> example_project.catalog_2:h
-	unknown_1 --> example_project.nodes_with_inline_io:greet
-	example_project.nodes_with_inline_io:greet --> unknown_2
+	example_project.nodes_with_inline_io:greet:hello --> example_project.nodes_with_inline_io:greet
+	example_project.nodes_with_inline_io:greet --> unknown_0
 
 	example_project.nodes_with_view:greet@{shape: subroutine, label: "greet"}
 	example_project.nodes_with_view:farewell@{shape: rounded, label: "farewell"}
@@ -60,15 +60,15 @@ graph TB
 	example_project.inner.nodes:y@{shape: rect, label: "y"}
 	example_project.nodes:x@{shape: rect, label: "x"}
 	example_project.nodes:y@{shape: rect, label: "y"}
+	example_project.nodes_with_inline_io:greet:hello@{shape: rect, label: "greet:hello"}
 	example_project.nodes_with_view:greeting@{shape: rect, label: "greeting"}
 	example_project.nodes_with_view:printer@{shape: rect, label: "printer"}
-	unknown_1@{shape: rect, label: "&lt;anonymous&gt;"}
-	unknown_2@{shape: rect, label: "&lt;anonymous&gt;"}
+	unknown_0@{shape: rect, label: "&lt;anonymous&gt;"}
 
 	class node_type,example_project.nodes_with_view:farewell,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_a,example_project.nodes_import:func_b,example_project.nodes_import_alias:func,example_project.nodes_with_inline_io:greet node
 	class view_type,example_project.nodes_with_view:greet view
-	class io_type_0,example_project.inner.nodes:x,example_project.nodes:x,unknown_2 io0
-	class io_type_1,example_project.catalog_1:a,example_project.nodes_with_view:greeting,unknown_1 io1
+	class io_type_0,example_project.inner.nodes:x,example_project.nodes:x,unknown_0 io0
+	class io_type_1,example_project.catalog_1:a,example_project.nodes_with_inline_io:greet:hello,example_project.nodes_with_view:greeting io1
 	class io_type_2,example_project.catalog_2:f,example_project.catalog_2:g,example_project.catalog_2:h,example_project.inner.nodes:y,example_project.nodes:y,example_project.nodes_with_view:printer io2
 	class io_type_3,example_project.catalog_1:b io3
 	classDef node fill:#008AD7,color:#FFF

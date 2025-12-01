@@ -38,7 +38,7 @@ def _get_missing_io_fqns_from_parameters(
     Returns:
         Updated mapping of IOs to their FQNs
     """
-    io_param_fqns = defaultdict(list)
+    io_param_fqns: defaultdict[AnyIO, list[FQN]] = defaultdict(list)
     for node in nodes_to_process:
         func = node.func
         sig = inspect.signature(func)

@@ -7,7 +7,7 @@ from pyiceberg.schema import Schema
 from pyiceberg.table import Table
 from pyiceberg.types import StructType
 
-from ordeq_iceberg.errors import IcebergIOError, IcebergTableAlreadyExistsError
+from ordeq_iceberg.errors import IcebergTableAlreadyExistsError
 
 
 class IfTableExistsSaveOptions(Enum):

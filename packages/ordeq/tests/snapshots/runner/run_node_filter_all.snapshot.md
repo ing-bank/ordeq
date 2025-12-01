@@ -44,14 +44,14 @@ Should run no nodes (node filter maps all nodes to False):
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Loading cached data for Input 'hello:hi' in module '__main__'
 INFO	ordeq.runner	Running node 'hello' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Saving StringBuffer 'world:value' in module '__main__'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'world:value' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for StringBuffer 'world:value' in module '__main__'
 INFO	ordeq.runner	Running view 'world' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'world:value' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
 

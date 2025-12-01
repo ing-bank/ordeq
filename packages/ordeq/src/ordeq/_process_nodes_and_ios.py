@@ -46,8 +46,8 @@ def _get_missing_io_fqns_from_parameters(
         for io, param in zip(
             node.inputs, sig.parameters.values(), strict=True
         ):
-            if io not in io_fqns:
-                fqn = FQN(node.module, f"{node.name}:{param.name}")
+            if io not in io_fqns and node.is_fq:
+                fqn = FQN(node.module, f"{node.name}:{param.name}")  # type: ignore[arg-type]
                 io_param_fqns[io].append(fqn)
     io_fqns.update(io_param_fqns)
     return io_fqns

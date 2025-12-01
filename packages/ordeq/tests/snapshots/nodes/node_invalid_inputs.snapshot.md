@@ -16,7 +16,7 @@ def func() -> None:
 
 ```text
 Should raise an error:
-ValueError: Input to Node(func=__main__:func, ...) must be of type Input or View, got str
+ValueError: Inputs to View(func=__main__:func, ...) must be an Input or View, got str
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in create_node
     raise ValueError(
     ...<2 lines>...

@@ -38,13 +38,12 @@ class UnknownCounter:
         self.unknown_ids = {}
 
     def next_id(self, obj) -> str:
-        obj_id = id(obj)
-        if obj_id not in self.unknown_ids:
+        if obj not in self.unknown_ids:
             current_id = f"unknown_{self._count}"
             self._count += 1
-            self.unknown_ids[obj_id] = current_id
+            self.unknown_ids[obj] = current_id
             return current_id
-        return self.unknown_ids[obj_id]
+        return self.unknown_ids[obj]
 
 
 def _add_io_data(
@@ -111,7 +110,7 @@ def _gather_graph(
             for output_dataset in line.outputs
         ]
 
-        node_fqn = line.fqn or FQN(line.func.__module__, line.func.__name__)
+        node_fqn = line.fqn or FQN("unknown", line.func.__name__)
 
         node_modules[node_fqn.module].append(
             NodeData(

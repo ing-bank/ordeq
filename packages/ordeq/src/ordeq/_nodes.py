@@ -297,11 +297,6 @@ class View(Node[FuncParams, FuncReturns]):
         return f"View({attributes_str})"
 
 
-@dataclass(frozen=True, kw_only=True)
-class Loader(View[FuncParams, FuncReturns]):
-    inputs: tuple[Input, ...] = ()
-
-
 def _is_node(obj: object) -> TypeGuard[Node]:
     return isinstance(obj, Node)
 

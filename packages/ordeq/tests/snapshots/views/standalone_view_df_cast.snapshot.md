@@ -58,10 +58,10 @@ Node:__main__:group_by --> io-2
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running View(func=__main__:cast, ...)
-DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Persisting data for IO 'group_by:df' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for IO 'group_by:df' in module '__main__'
 INFO	ordeq.runner	Running node 'group_by' in module '__main__'
-INFO	ordeq.io	Saving Output(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+INFO	ordeq.io	Saving Output(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO 'group_by:df' in module '__main__'
 
 ```

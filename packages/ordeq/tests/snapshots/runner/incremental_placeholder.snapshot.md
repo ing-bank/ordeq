@@ -32,7 +32,7 @@ io-1 --> Node:__main__:f
 Node:__main__:f --> io-2
 io-2 --> Node:__main__:g
 Node:__main__:g --> io-3
-IOException: Failed to load Input(id=ID1).
+IOException: Failed to load Input 'f:i' in module '__main__'.
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
@@ -74,6 +74,6 @@ IOException: Failed to load Input(id=ID1).
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Input(id=ID1)
+INFO	ordeq.io	Loading Input 'f:i' in module '__main__'
 
 ```

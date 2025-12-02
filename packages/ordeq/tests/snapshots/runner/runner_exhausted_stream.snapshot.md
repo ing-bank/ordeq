@@ -53,16 +53,16 @@ run(increment, multiply, verbose=True, save="sinks")
 ## Output
 
 ```text
-io-0 --> Node:__main__:multiply
+io-0 --> Node:__main__:increment
+Node:__main__:increment --> io-2
 io-1 --> Node:__main__:multiply
-io-2 --> Node:__main__:increment
+io-2 --> Node:__main__:multiply
 Node:__main__:multiply --> io-3
-Node:__main__:increment --> io-4
-io-0 --> Node:__main__:multiply
+io-0 --> Node:__main__:increment
+Node:__main__:increment --> io-2
 io-1 --> Node:__main__:multiply
-io-2 --> Node:__main__:increment
+io-2 --> Node:__main__:multiply
 Node:__main__:multiply --> io-3
-Node:__main__:increment --> io-4
 
 ```
 
@@ -70,51 +70,30 @@ Node:__main__:increment --> io-4
 
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-DEBUG	ordeq.runner	Running Stream(data=['1', '2', '3'])
-INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-DEBUG	ordeq.io	Persisting data for IO 'increment:items' in module '__main__'
-DEBUG	ordeq.runner	Running Stream(data=[])
-INFO	ordeq.io	Loading Stream(data=[])
-DEBUG	ordeq.io	Persisting data for IO 'multiply:items' in module '__main__'
-DEBUG	ordeq.runner	Running Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO 'multiply:y' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for IO 'increment:items' in module '__main__'
-DEBUG	ordeq.runner	Running node 'increment' in module '__main__'
+INFO	ordeq.io	Loading Stream 'increment:items' in module '__main__'
+DEBUG	ordeq.io	Persisting data for Stream 'increment:items' in module '__main__'
+INFO	ordeq.runner	Running node 'increment' in module '__main__'
+INFO	ordeq.io	Saving Stream 'multiply:items' in module '__main__'
+DEBUG	ordeq.io	Persisting data for Stream 'multiply:items' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for Stream 'multiply:items' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for Input 'multiply:y' in module '__main__'
+INFO	ordeq.runner	Running node 'multiply' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
-DEBUG	ordeq.io	Persisting data for Stream(data=['2', '3', '4'])
-DEBUG	ordeq.io	Loading cached data for IO 'multiply:items' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for IO 'multiply:y' in module '__main__'
-DEBUG	ordeq.runner	Running node 'multiply' in module '__main__'
+DEBUG	ordeq.io	Persisting data for Stream(data=[])
+DEBUG	ordeq.io	Unpersisting data for Stream 'increment:items' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for Stream 'multiply:items' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for Stream(data=[])
+INFO	ordeq.io	Loading Stream 'increment:items' in module '__main__'
+DEBUG	ordeq.io	Persisting data for Stream 'increment:items' in module '__main__'
+INFO	ordeq.runner	Running node 'increment' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for Input 'multiply:y' in module '__main__'
+INFO	ordeq.runner	Running node 'multiply' in module '__main__'
 INFO	ordeq.io	Saving Stream(data=[])
 DEBUG	ordeq.io	Persisting data for Stream(data=['4', '6', '8'])
-DEBUG	ordeq.io	Unpersisting data for IO 'multiply:y' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for IO 'multiply:items' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for IO 'increment:items' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for Stream 'increment:items' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for Stream(data=['4', '6', '8'])
-DEBUG	ordeq.io	Unpersisting data for Stream(data=['2', '3', '4'])
-DEBUG	ordeq.runner	Running Stream(data=['1', '2', '3'])
-INFO	ordeq.io	Loading Stream(data=['1', '2', '3'])
-DEBUG	ordeq.io	Persisting data for IO 'increment:items' in module '__main__'
-DEBUG	ordeq.runner	Running Stream(data=['2', '3', '4'])
-INFO	ordeq.io	Loading Stream(data=['2', '3', '4'])
-DEBUG	ordeq.io	Persisting data for IO 'multiply:items' in module '__main__'
-DEBUG	ordeq.runner	Running Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO 'multiply:y' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for IO 'increment:items' in module '__main__'
-DEBUG	ordeq.runner	Running node 'increment' in module '__main__'
-INFO	ordeq.io	Saving Stream(data=['2', '3', '4'])
-DEBUG	ordeq.io	Persisting data for Stream(data=['2', '3', '4', '2', '3', '4'])
-DEBUG	ordeq.io	Loading cached data for IO 'multiply:items' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for IO 'multiply:y' in module '__main__'
-DEBUG	ordeq.runner	Running node 'multiply' in module '__main__'
-INFO	ordeq.io	Saving Stream(data=['4', '6', '8'])
-DEBUG	ordeq.io	Persisting data for Stream(data=['4', '6', '8', '4', '6', '8', '4', '6', '8'])
-DEBUG	ordeq.io	Unpersisting data for IO 'multiply:y' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for IO 'multiply:items' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for IO 'increment:items' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for Stream(data=['4', '6', '8', '4', '6', '8', '4', '6', '8'])
-DEBUG	ordeq.io	Unpersisting data for Stream(data=['2', '3', '4', '2', '3', '4'])
 
 ```

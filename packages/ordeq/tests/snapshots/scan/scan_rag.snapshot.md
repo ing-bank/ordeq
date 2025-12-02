@@ -23,9 +23,9 @@ Nodes:
  Node(module=example_rag_pipeline.rag.evaluation, name=evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)]): [FQN(module='example_rag_pipeline.rag.evaluation', name='evaluate_answers')],
  Node(module=example_rag_pipeline.rag.indexer, name=create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)]): [FQN(module='example_rag_pipeline.rag.indexer', name='create_vector_index')],
  Node(module=example_rag_pipeline.rag.policies, name=generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)]): [FQN(module='example_rag_pipeline.rag.policies', name='generate_questions')],
- Node(module=example_rag_pipeline.rag.question_answering, name=question_answering, inputs=[IO(id=ID10), IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID12)]): [FQN(module='example_rag_pipeline.rag.question_answering', name='question_answering')],
- Node(module=example_rag_pipeline.rag.retrieval, name=retrieve, inputs=[IO(id=ID13), IO(id=ID10), IO(id=ID6)], outputs=[IO(id=ID14)]): [FQN(module='example_rag_pipeline.rag.retrieval', name='retrieve')],
- Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID15), IO(id=ID4)], outputs=[IO(id=ID16)]): [FQN(module='example_rag_pipeline.rag.retrieval', name='filter_relevant')]}
+ Node(module=example_rag_pipeline.rag.question_answering, name=question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)]): [FQN(module='example_rag_pipeline.rag.question_answering', name='question_answering')],
+ Node(module=example_rag_pipeline.rag.retrieval, name=retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)]): [FQN(module='example_rag_pipeline.rag.retrieval', name='retrieve')],
+ Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)]): [FQN(module='example_rag_pipeline.rag.retrieval', name='filter_relevant')]}
 IOs:
 [[FQN(module='example_rag_pipeline.catalog', name='policies')],
  [FQN(module='example_rag_pipeline.catalog', name='llm_model')],

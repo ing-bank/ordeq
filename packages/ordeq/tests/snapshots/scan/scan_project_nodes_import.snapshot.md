@@ -21,8 +21,8 @@ pp(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{Node(module=example_project.nodes_import, name=func_a, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[Print()]): [FQN(module='example_project.nodes_import', name='func_a')],
- Node(module=example_project.nodes_import, name=func_b, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}): [FQN(module='example_project.nodes_import', name='func_b')]}
+{Node(module=example_project.nodes_import, name=func_a, inputs=[Input(id=ID1), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]): [FQN(module='example_project.nodes_import', name='func_a')],
+ Node(module=example_project.nodes_import, name=func_b, inputs=[Input(id=ID1), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}): [FQN(module='example_project.nodes_import', name='func_b')]}
 IOs:
 [[FQN(module='example_project.nodes_import', name='a')],
  [FQN(module='example_project.nodes_import', name='b')],

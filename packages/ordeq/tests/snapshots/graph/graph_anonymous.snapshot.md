@@ -35,7 +35,7 @@ NodeGraph
 View:example_anonymous.node_with_var_names:add
 Node:example_anonymous.nodes:node_with_inline_io
 Topological ordering
-(View(module=example_anonymous.node_with_var_names, name=add, inputs=[IO(id=ID1), IO(id=ID2)]),
+(View(module=example_anonymous.node_with_var_names, name=add, inputs=[Input(id=ID1), Input(id=ID2)]),
  Node(module=example_anonymous.nodes, name=node_with_inline_io, inputs=[IO(id=ID3)], outputs=[IO(id=ID4)]))
 
 ```
@@ -43,7 +43,7 @@ Topological ordering
 ## Logging
 
 ```text
-DEBUG	ordeq.io	Persisting data for Input(id=ID5)
-DEBUG	ordeq.io	Persisting data for Input(id=ID6)
+DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 
 ```

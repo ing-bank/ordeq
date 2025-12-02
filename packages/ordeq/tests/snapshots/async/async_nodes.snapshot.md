@@ -84,7 +84,7 @@ RuntimeWarning: coroutine 'write_buffer_1' was never awaited
 ## Logging
 
 ```text
-DEBUG	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.async_nodes'
+INFO	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.async_nodes'
 INFO	ordeq.io	Saving StringBuffer 'buffer_1' in module 'example_async.async_nodes'
 
 ```

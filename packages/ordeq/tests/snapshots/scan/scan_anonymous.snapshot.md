@@ -19,7 +19,7 @@ pp(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{View(module=example_anonymous.node_with_var_names, name=add, inputs=[IO(id=ID1), IO(id=ID2)]): [FQN(module='example_anonymous.node_with_var_names', name='add')],
+{View(module=example_anonymous.node_with_var_names, name=add, inputs=[Input(id=ID1), Input(id=ID2)]): [FQN(module='example_anonymous.node_with_var_names', name='add')],
  Node(module=example_anonymous.nodes, name=node_with_inline_io, inputs=[IO(id=ID3)], outputs=[IO(id=ID4)]): [FQN(module='example_anonymous.nodes', name='node_with_inline_io')]}
 IOs:
 []

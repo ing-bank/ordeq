@@ -17,34 +17,28 @@ graph TB
 	subgraph legend["Legend"]
 		direction TB
 		node_type@{shape: rounded, label: "Node"}
-		io_type_0@{shape: rect, label: "IO"}
-		io_type_1@{shape: rect, label: "StringBuffer"}
+		io_type_0@{shape: rect, label: "StringBuffer"}
 	end
 
-	example_async.mixed_graph:buffer_2 --> example_async.mixed_graph:process_buffer:buf1
-	example_async.mixed_graph:write_buffer_1 --> example_async.mixed_graph:buffer_1
 	example_async.mixed_graph:write_buffer_2 --> example_async.mixed_graph:buffer_2
-	example_async.mixed_graph:process_buffer:buf1 --> example_async.mixed_graph:process_buffer
+	example_async.mixed_graph:write_buffer_1 --> example_async.mixed_graph:buffer_1
+	example_async.mixed_graph:buffer_2 --> example_async.mixed_graph:process_buffer
 	example_async.mixed_graph:process_buffer --> example_async.mixed_graph:processed_buffer
 
-	example_async.mixed_graph:buffer_2@{shape: rounded, label: "buffer_2"}
-	example_async.mixed_graph:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.mixed_graph:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
+	example_async.mixed_graph:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.mixed_graph:process_buffer@{shape: rounded, label: "process_buffer"}
-	example_async.mixed_graph:process_buffer:buf1@{shape: rect, label: "process_buffer:buf1"}
-	example_async.mixed_graph:buffer_1@{shape: rect, label: "buffer_1"}
 	example_async.mixed_graph:buffer_2@{shape: rect, label: "buffer_2"}
+	example_async.mixed_graph:buffer_1@{shape: rect, label: "buffer_1"}
 	example_async.mixed_graph:processed_buffer@{shape: rect, label: "processed_buffer"}
 
-	class node_type,example_async.mixed_graph:buffer_2,example_async.mixed_graph:write_buffer_1,example_async.mixed_graph:write_buffer_2,example_async.mixed_graph:process_buffer node
-	class io_type_0,example_async.mixed_graph:process_buffer:buf1 io0
-	class io_type_1,example_async.mixed_graph:buffer_1,example_async.mixed_graph:buffer_2,example_async.mixed_graph:processed_buffer io1
+	class node_type,example_async.mixed_graph:write_buffer_2,example_async.mixed_graph:write_buffer_1,example_async.mixed_graph:process_buffer node
+	class io_type_0,example_async.mixed_graph:buffer_2,example_async.mixed_graph:buffer_1,example_async.mixed_graph:processed_buffer io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
-	classDef io1 fill:#fc8d62
 
-IOException: Failed to save StringBuffer 'buffer_1' in module 'example_async.mixed_graph'.
+IOException: Failed to save StringBuffer 'buffer_2' in module 'example_async.mixed_graph'.
 string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
@@ -88,16 +82,13 @@ string argument expected, got 'coroutine'
 ## Warnings
 
 ```text
-RuntimeWarning: coroutine 'write_buffer_1' was never awaited
+RuntimeWarning: coroutine 'write_buffer_2' was never awaited
 ```
 
 ## Logging
 
 ```text
-DEBUG	ordeq.runner	Running StringBuffer 'buffer_2' in module 'example_async.mixed_graph'
-INFO	ordeq.io	Loading StringBuffer 'buffer_2' in module 'example_async.mixed_graph'
-DEBUG	ordeq.io	Persisting data for IO 'process_buffer:buf1' in module 'example_async.mixed_graph'
-DEBUG	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.mixed_graph'
-INFO	ordeq.io	Saving StringBuffer 'buffer_1' in module 'example_async.mixed_graph'
+INFO	ordeq.runner	Running node 'write_buffer_2' in module 'example_async.mixed_graph'
+INFO	ordeq.io	Saving StringBuffer 'buffer_2' in module 'example_async.mixed_graph'
 
 ```

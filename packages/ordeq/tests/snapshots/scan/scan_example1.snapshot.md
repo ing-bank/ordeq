@@ -19,11 +19,11 @@ pp(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{Node(module=example_1.nodes, name=world, inputs=[IO(id=ID1)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [FQN(module='example_1.nodes', name='world')],
- Node(module=example_1.pipeline, name=transform_input, inputs=[IO(id=ID2)], outputs=[Output(id=ID3)]): [FQN(module='example_1.pipeline', name='transform_input')],
- Node(module=example_1.pipeline, name=transform_mock_input, inputs=[IO(id=ID4)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [FQN(module='example_1.pipeline', name='transform_mock_input')],
- Node(module=example_1.wrapped_io, name=hello, inputs=[IO(id=ID5)], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))]): [FQN(module='example_1.wrapped_io', name='hello')],
- Node(module=example_1.wrapped_io, name=print_message, inputs=[IO(id=ID6)], outputs=[NamePrinter()]): [FQN(module='example_1.wrapped_io', name='print_message')]}
+{Node(module=example_1.nodes, name=world, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [FQN(module='example_1.nodes', name='world')],
+ Node(module=example_1.pipeline, name=transform_input, inputs=[Input(id=ID1)], outputs=[Output(id=ID2)]): [FQN(module='example_1.pipeline', name='transform_input')],
+ Node(module=example_1.pipeline, name=transform_mock_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]): [FQN(module='example_1.pipeline', name='transform_mock_input')],
+ Node(module=example_1.wrapped_io, name=hello, inputs=[NameGenerator(name='John')], outputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))]): [FQN(module='example_1.wrapped_io', name='hello')],
+ Node(module=example_1.wrapped_io, name=print_message, inputs=[SayHello(name=NameGenerator(name='John'), writer=(NamePrinter(),))], outputs=[NamePrinter()]): [FQN(module='example_1.wrapped_io', name='print_message')]}
 IOs:
 [[FQN(module='example_1.catalog', name='Hello'),
   FQN(module='example_1.pipeline', name='Hello')],

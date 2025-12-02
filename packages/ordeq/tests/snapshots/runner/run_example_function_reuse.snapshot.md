@@ -11,20 +11,20 @@ run(example_function_reuse, verbose=True)
 ## Output
 
 ```text
-io-0 --> View:example_function_reuse.nodes:a
 io-0 --> View:example_function_reuse.nodes:pi
+io-0 --> View:example_function_reuse.nodes:a
 io-1 --> View:example_function_reuse.nodes:d
 io-2 --> View:example_function_reuse.nodes:c
 io-3 --> View:example_function_reuse.nodes:b
-View:example_function_reuse.nodes:pi --> io-4
-View:example_function_reuse.nodes:d --> io-5
-View:example_function_reuse.nodes:c --> io-6
-View:example_function_reuse.nodes:b --> io-7
-View:example_function_reuse.nodes:a --> io-8
-A
+View:example_function_reuse.nodes:a --> io-4
+View:example_function_reuse.nodes:pi --> io-5
+View:example_function_reuse.nodes:d --> io-6
+View:example_function_reuse.nodes:c --> io-7
+View:example_function_reuse.nodes:b --> io-8
 B
 C
 D
+A
 A
 
 ```
@@ -32,33 +32,41 @@ A
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer 'A' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Persisting data for StringBuffer 'A' in module 'example_function_reuse.catalog'
-INFO	ordeq.runner	Running view 'a' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.runner	Running StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for IO 'b:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.runner	Running StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Persisting data for IO 'c:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.runner	Running StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+DEBUG	ordeq.io	Persisting data for IO 'd:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.runner	Running StringBuffer(_buffer=<_io.StringIO object at HASH4>)
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-INFO	ordeq.io	Loading StringBuffer 'B' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Persisting data for StringBuffer 'B' in module 'example_function_reuse.catalog'
-INFO	ordeq.runner	Running view 'b' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.io	Loading cached data for IO 'b:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.runner	Running view 'b' in module 'example_function_reuse.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-INFO	ordeq.io	Loading StringBuffer 'C' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Persisting data for StringBuffer 'C' in module 'example_function_reuse.catalog'
-INFO	ordeq.runner	Running view 'c' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.io	Loading cached data for IO 'c:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.runner	Running view 'c' in module 'example_function_reuse.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-INFO	ordeq.io	Loading StringBuffer 'D' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Persisting data for StringBuffer 'D' in module 'example_function_reuse.catalog'
-INFO	ordeq.runner	Running view 'd' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.io	Loading cached data for IO 'd:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.runner	Running view 'd' in module 'example_function_reuse.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
-DEBUG	ordeq.io	Loading cached data for StringBuffer 'A' in module 'example_function_reuse.catalog'
-INFO	ordeq.runner	Running view 'pi' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.runner	Running view 'pi' in module 'example_function_reuse.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID5)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer 'A' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer 'D' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer 'C' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer 'B' in module 'example_function_reuse.catalog'
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+DEBUG	ordeq.runner	Running view 'a' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.io	Persisting data for IO(id=ID6)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for IO 'd:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.io	Unpersisting data for IO 'c:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.io	Unpersisting data for IO 'b:input_data' in module 'example_function_reuse.nodes'
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID6)
 
 ```

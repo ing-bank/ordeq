@@ -34,7 +34,7 @@ def _get_missing_io_fqns_from_parameters(
         sig = inspect.signature(func)
 
         for io, param in zip(
-            node.inputs, sig.parameters.values(), strict=True
+            node.inputs, sig.parameters.values(), strict=False
         ):
             if io not in io_fqns and node.is_fq:
                 fqn = FQN(node.module, f"{node.name}:{param.name}")  # type: ignore[arg-type]
@@ -58,13 +58,15 @@ def process_nodes_and_ios(
     node_fqns, io_fqns = _scan_fqns(
         *submodules_context, *submodules_to_process
     )
+    io_fqns = _select_canonical_fqn_using_imports(io_fqns)
     node_fqns = _select_canonical_fqn_using_imports(node_fqns)
-
     nodes_processed = _process_nodes(
-        *nodes_to_process, node_filter=node_filter, node_fqns=node_fqns
+        *nodes_to_process,
+        node_filter=node_filter,
+        node_fqns=node_fqns,
+        io_fqns=io_fqns,
     )
 
-    io_fqns = _select_canonical_fqn_using_imports(io_fqns)
     io_fqns = _get_missing_io_fqns_from_parameters(io_fqns, nodes_processed)
 
     nodes_processed = _process_ios(*nodes_processed, io_fqns=io_fqns)

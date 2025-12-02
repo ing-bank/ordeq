@@ -59,14 +59,22 @@ View:__main__:group_by --> io-3
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+DEBUG	ordeq.runner	Running Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.runner	Running Input(id=ID2)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
-INFO	ordeq.runner	Running View(func=__main__:filter_df, ...)
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
+DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
+DEBUG	ordeq.runner	Running View(func=__main__:filter_df, ...)
 DEBUG	ordeq.io	Persisting data for IO 'group_by:df' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'group_by:df' in module '__main__'
-INFO	ordeq.runner	Running view 'group_by' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for IO 'group_by:df' in module '__main__'
+DEBUG	ordeq.runner	Running view 'group_by' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID5)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO 'group_by:df' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
 
 ```

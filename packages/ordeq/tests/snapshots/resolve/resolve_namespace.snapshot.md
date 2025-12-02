@@ -17,8 +17,8 @@ pprint(_resolve_module_globals(example_namespace.namespace))
  'a': IO(id=ID1),
  'ios': [IO(id=ID1), IO(id=ID1)],
  'node_with_inline_io': Node(module=example_namespace.namespace, name=node_with_inline_io, inputs=[IO(id=ID2)], outputs=[IO(id=ID3)]),
- 'node_with_list_input': Node(module=example_namespace.namespace, name=node_with_list_input, inputs=[IO(id=ID1), IO(id=ID1)], outputs=[IO(id=ID4)]),
- 'node_with_node_input': Node(module=example_namespace.namespace, name=node_with_node_input, inputs=[IO(id=ID5)], outputs=[IO(id=ID6)]),
+ 'node_with_list_input': Node(module=example_namespace.namespace, name=node_with_list_input, inputs=[IO(id=ID4), IO(id=ID4)], outputs=[IO(id=ID5)]),
+ 'node_with_node_input': Node(module=example_namespace.namespace, name=node_with_node_input, inputs=[IO(id=ID6)], outputs=[IO(id=ID7)]),
  'x': View(func=example_namespace.other:hello),
  'y': View(func=example_namespace.other:hello)}
 

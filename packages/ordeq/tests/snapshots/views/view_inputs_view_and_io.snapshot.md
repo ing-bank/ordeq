@@ -33,7 +33,7 @@ run(n, verbose=True)
 
 ```text
 View(func=__main__:hello)
-View(module=__main__, name=hello_from_someone, inputs=[Input(id=ID1), IO(id=ID2)])
+View(module=__main__, name=hello_from_someone, inputs=[IO(id=ID1), IO(id=ID2)])
 View:View(func=__main__:hello, ...) --> io-0
 io-0 --> View:__main__:hello_from_someone
 io-1 --> View:__main__:hello_from_someone
@@ -47,18 +47,22 @@ I heard that Jane said 'Hello, World!'
 ## Logging
 
 ```text
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-INFO	ordeq.runner	Running View(func=__main__:hello, ...)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
+DEBUG	ordeq.runner	Running Input(id=ID3)
+DEBUG	ordeq.io	Loading cached data for Input(id=ID3)
+DEBUG	ordeq.io	Persisting data for IO 'hello_from_someone:name' in module '__main__'
+DEBUG	ordeq.runner	Running View(func=__main__:hello, ...)
 DEBUG	ordeq.io	Persisting data for IO 'hello_from_someone:v' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for Input 'hello_from_someone:name' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for IO 'hello_from_someone:name' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'hello_from_someone:v' in module '__main__'
-INFO	ordeq.runner	Running view 'hello_from_someone' in module '__main__'
+DEBUG	ordeq.runner	Running view 'hello_from_someone' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'n:v' in module '__main__'
-INFO	ordeq.runner	Running view 'n' in module '__main__'
-DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+DEBUG	ordeq.runner	Running view 'n' in module '__main__'
+DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO 'hello_from_someone:v' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for IO 'hello_from_someone:name' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'n:v' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 
 ```

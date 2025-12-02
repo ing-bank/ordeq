@@ -21,7 +21,7 @@ pp(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Input(id=ID1)], outputs=[IO(id=ID2)]): [FQN(module='example_project.nodes_with_inline_io', name='greet')]}
+{Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[IO(id=ID1)], outputs=[IO(id=ID2)]): [FQN(module='example_project.nodes_with_inline_io', name='greet')]}
 IOs:
 []
 

@@ -8,7 +8,7 @@ from ordeq._fqn import AnyRef, ModuleName, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
-from ordeq._nodes import Node, View
+from ordeq._nodes import Node, View, _is_loader
 from ordeq._patch import _patch_nodes
 from ordeq._process_nodes import NodeFilter
 from ordeq._process_nodes_and_ios import process_nodes_and_ios
@@ -61,7 +61,8 @@ def _save_outputs(outputs, values) -> None:
 def _run_node_func(
     node: Node, args: list[Any], *, hooks: Sequence[NodeHook] = ()
 ) -> tuple[Any, ...]:
-    logger.info("Running %s", node)
+    level = logging.DEBUG if _is_loader(node) else logging.DEBUG
+    logger.log(level, "Running %s", node)
 
     try:
         values = node.func(*args)

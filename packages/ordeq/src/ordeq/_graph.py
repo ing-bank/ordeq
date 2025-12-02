@@ -7,7 +7,7 @@ from itertools import chain
 from typing import Generic, TypeVar, cast
 
 from ordeq._io import AnyIO, _is_io
-from ordeq._nodes import Node, _is_view
+from ordeq._nodes import Node, _is_loader, _is_view
 from ordeq._resource import Resource
 
 try:
@@ -211,7 +211,11 @@ class NodeIOGraph(Graph[AnyIO | Node]):
         # This should move to a separate named graph class.
         lines: list[str] = []
         names: dict[AnyIO | Node, str] = {
-            **{node: f"{node.type_name}:{node.ref}" for node in self.nodes},
+            **{
+                node: f"{node.type_name}:{node.ref}"
+                for node in self.nodes
+                if not _is_loader(node)
+            },
             **{
                 io: f"io-{i}"
                 for i, io in enumerate(
@@ -221,9 +225,10 @@ class NodeIOGraph(Graph[AnyIO | Node]):
         }
 
         for vertex in self.topological_ordering:
-            lines.extend(
-                f"{names[vertex]} --> {names[next_vertex]}"
-                for next_vertex in self.edges[vertex]
-            )
+            if not _is_loader(vertex):
+                lines.extend(
+                    f"{names[vertex]} --> {names[next_vertex]}"
+                    for next_vertex in self.edges[vertex]
+                )
 
         return "\n".join(lines)

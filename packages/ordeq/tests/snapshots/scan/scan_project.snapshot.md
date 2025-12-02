@@ -21,12 +21,12 @@ pp(list(ios.values()), width=40)
 Nodes:
 {Node(module=example_project.inner.nodes, name=func, inputs=[IO(id=ID1)], outputs=[Print()], attributes={'tags': ['dummy']}): [FQN(module='example_project.inner.nodes', name='func')],
  Node(module=example_project.nodes, name=func, inputs=[IO(id=ID2)], outputs=[Print()], attributes={'tags': ['dummy']}): [FQN(module='example_project.nodes', name='func')],
- Node(module=example_project.nodes_import, name=func_a, inputs=[Input(id=ID3), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()]): [FQN(module='example_project.nodes_import', name='func_a')],
- Node(module=example_project.nodes_import, name=func_b, inputs=[Input(id=ID3), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}): [FQN(module='example_project.nodes_import', name='func_b')],
- Node(module=example_project.nodes_import_alias, name=func, inputs=[Input(id=ID3), StringBuffer(_buffer=<_io.StringIO object at HASH1>)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}): [FQN(module='example_project.nodes_import_alias', name='func')],
- Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[Input(id=ID4)], outputs=[IO(id=ID5)]): [FQN(module='example_project.nodes_with_inline_io', name='greet')],
- View(module=example_project.nodes_with_view, name=greet, inputs=[Input(id=ID6)]): [FQN(module='example_project.nodes_with_view', name='greet')],
- Node(module=example_project.nodes_with_view, name=farewell, inputs=[IO(id=ID7)], outputs=[Print()]): [FQN(module='example_project.nodes_with_view', name='farewell')]}
+ Node(module=example_project.nodes_import, name=func_a, inputs=[IO(id=ID3), IO(id=ID4)], outputs=[Print()]): [FQN(module='example_project.nodes_import', name='func_a')],
+ Node(module=example_project.nodes_import, name=func_b, inputs=[IO(id=ID3), IO(id=ID4)], outputs=[Print()], attributes={'tags': {'viz': 'orange'}}): [FQN(module='example_project.nodes_import', name='func_b')],
+ Node(module=example_project.nodes_import_alias, name=func, inputs=[IO(id=ID3), IO(id=ID4)], outputs=[Print()], attributes={'tags': {'key': 'threshold', 'value': 0.23}}): [FQN(module='example_project.nodes_import_alias', name='func')],
+ Node(module=example_project.nodes_with_inline_io, name=greet, inputs=[IO(id=ID5)], outputs=[IO(id=ID6)]): [FQN(module='example_project.nodes_with_inline_io', name='greet')],
+ View(module=example_project.nodes_with_view, name=greet, inputs=[IO(id=ID7)]): [FQN(module='example_project.nodes_with_view', name='greet')],
+ Node(module=example_project.nodes_with_view, name=farewell, inputs=[IO(id=ID8)], outputs=[Print()]): [FQN(module='example_project.nodes_with_view', name='farewell')]}
 IOs:
 [[FQN(module='example_project.catalog_1', name='a'),
   FQN(module='example_project.nodes_import', name='a'),

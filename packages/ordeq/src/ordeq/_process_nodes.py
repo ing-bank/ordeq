@@ -4,7 +4,8 @@ from dataclasses import replace
 from typing import Annotated, TypeAlias
 
 from ordeq import Node
-from ordeq._scan import NodeFQNs
+from ordeq._nodes import _is_loader
+from ordeq._scan import IOFQNs, NodeFQNs
 from ordeq.preview import preview
 
 
@@ -66,9 +67,20 @@ def _validate_nodes(*nodes: Node) -> None:
         node.validate()
 
 
-def _assign_node_fqns(*nodes: Node, node_fqns: NodeFQNs) -> Generator[Node]:
+def _assign_node_fqns(
+    *nodes: Node, node_fqns: NodeFQNs, io_fqns: IOFQNs
+) -> Generator[Node]:
     for node in nodes:
-        if not node.is_fq and node in node_fqns and len(node_fqns[node]) == 1:
+        if (
+            _is_loader(node)
+            and node.io in io_fqns
+            and len(io_fqns[node.io]) == 1
+        ):
+            fqn = io_fqns[node.io][0]
+            yield replace(node, name=fqn.name, module=fqn.module)
+        elif (
+            not node.is_fq and node in node_fqns and len(node_fqns[node]) == 1
+        ):
             fqn = node_fqns[node][0]
             yield replace(node, name=fqn.name, module=fqn.module)
         else:
@@ -92,6 +104,7 @@ def _process_nodes(
     *nodes: Node,
     node_filter: NodeFilter | None = None,
     node_fqns: NodeFQNs | None = None,
+    io_fqns: IOFQNs | None = None,
 ) -> tuple[Node, ...]:
     nodes_deduplicated = _deduplicate_nodes(*nodes)
     filtered_nodes = _filter_nodes(
@@ -100,6 +113,8 @@ def _process_nodes(
     nodes_and_views = _collect_views(*filtered_nodes)
     if node_fqns:
         nodes_and_views = tuple(
-            _assign_node_fqns(*nodes_and_views, node_fqns=node_fqns)
+            _assign_node_fqns(
+                *nodes_and_views, node_fqns=node_fqns, io_fqns=io_fqns
+            )
         )
     return nodes_and_views

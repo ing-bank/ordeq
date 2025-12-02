@@ -28,7 +28,7 @@ from ordeq._fqn import FQN
 from ordeq._hook import InputHook, OutputHook
 
 if TYPE_CHECKING:
-    from ordeq._nodes import Loader
+    from ordeq._nodes import Loader, Saver
 
 logger = logging.getLogger("ordeq.io")
 
@@ -738,6 +738,14 @@ class Output(
     'HELLO'
     ```
     """
+
+    @cached_property
+    def _saver(self) -> Saver[[Tout], Tout]:
+        from ordeq._nodes import Saver  # noqa: PLC0415 (deferred import)
+
+        return Saver(
+            io=self,
+        )
 
     def __repr__(self):
         return f"Output(id={id(self)})"

@@ -40,7 +40,7 @@ SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 def _load_inputs(inputs: Sequence[Input]) -> list[Any]:
     args = []
     for io in inputs:
-        data = io.load()
+        data = io._loader()
         args.append(data)
 
         # TODO: optimize persisting only when needed
@@ -61,7 +61,9 @@ def _save_outputs(outputs, values) -> None:
 def _run_node_func(
     node: Node, args: list[Any], *, hooks: Sequence[NodeHook] = ()
 ) -> tuple[Any, ...]:
-    level = logging.DEBUG if _is_loader(node) else logging.DEBUG
+    level = logging.INFO
+    if _is_loader(node):
+        level = logging.DEBUG
     logger.log(level, "Running %s", node)
 
     try:

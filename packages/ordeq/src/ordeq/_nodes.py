@@ -300,10 +300,6 @@ class View(Node[FuncParams, FuncReturns]):
 @dataclass(frozen=True, kw_only=True)
 class Loader(View[FuncParams, FuncReturns]):
     inputs: tuple[Input, ...] = ()
-    io: Input[FuncReturns]
-
-    def __str__(self) -> str:
-        return str(self.io)
 
 
 def _is_node(obj: object) -> TypeGuard[Node]:
@@ -312,6 +308,10 @@ def _is_node(obj: object) -> TypeGuard[Node]:
 
 def _is_view(obj: object) -> TypeGuard[View]:
     return isinstance(obj, View)
+
+
+def _is_loader(obj: object) -> TypeGuard[Loader]:
+    return isinstance(obj, Loader)
 
 
 @overload

@@ -602,10 +602,10 @@ class Input(
     """
 
     @cached_property
-    def _loader(self) -> View[[], Tin]:
+    def _loader(self) -> View[[], Tin]:  # type: ignore[invalid-type-form]
         from ordeq._nodes import View  # noqa: PLC0415 (deferred import)
 
-        return View(func=self.load, inputs=(), outputs=(IO(),))
+        return View(func=self.load, inputs=(), outputs=(Output(),))  # type: ignore[arg-type]
 
     def __repr__(self):
         return f"Input(id={id(self)})"

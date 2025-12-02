@@ -124,7 +124,7 @@ def _warn_if_eq_or_hash_is_implemented(name, class_dict):
             )
 
 
-def _process_input_meta(name, bases, class_dict):
+def _process_input_meta(cls, name, bases, class_dict):
     # Retrieve the closest load method
     load_method = _raise_not_implemented
     for base in bases:
@@ -169,7 +169,15 @@ def _process_input_meta(name, bases, class_dict):
                 )
 
     if not hasattr(load_method, "__wrapped__"):
-        class_dict["load"] = _load_decorator(load_method)
+        class_dict["_load"] = _load_decorator(load_method)
+        if name not in {"Input", "IO"}:
+            from ordeq._nodes import View
+            def view(self):
+                return View(func=class_dict["_load"].__get__(self, cls), inputs=(), outputs=(IO(),))
+            class_dict["load"] = cached_property(view)
+            class_dict["load"].__qualname__ = view.__qualname__
+        else:
+            class_dict["load"] = class_dict["_load"]
     return class_dict, bases
 
 
@@ -326,7 +334,7 @@ class _IOMeta(type):
 
         # Apply input metaclass logic if needed
         if has_input_base or name in {"Input", "IO"}:
-            class_dict, bases = _process_input_meta(name, bases, class_dict)
+            class_dict, bases = _process_input_meta(cls, name, bases, class_dict)
 
         # Apply output metaclass logic if needed
         if has_output_base or name in {"Output", "IO"}:

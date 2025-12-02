@@ -383,8 +383,7 @@ def create_node(
             views.append(obj)
             inputs_.append(obj.outputs[0])
         elif _is_input(obj):
-            views.append(obj._loader)
-            inputs_.append(obj._loader.outputs[0])
+            inputs_.append(obj)
         else:
             raise ValueError(
                 f"Inputs to {cls}(func={func_name}, ...) must be an "

@@ -7,6 +7,7 @@ from collections.abc import Callable, Hashable, Sequence
 from copy import copy
 from functools import cached_property, reduce, wraps
 from typing import (
+    TYPE_CHECKING,
     Annotated,
     Any,
     Generic,
@@ -14,7 +15,6 @@ from typing import (
     TypeGuard,
     TypeVar,
     final,
-    TYPE_CHECKING
 )
 
 from ordeq.preview import preview
@@ -28,7 +28,7 @@ from ordeq._fqn import FQN
 from ordeq._hook import InputHook, OutputHook
 
 if TYPE_CHECKING:
-    from ordeq._nodes import View
+    from ordeq._nodes import Loader
 
 logger = logging.getLogger("ordeq.io")
 
@@ -602,9 +602,10 @@ class Input(
     """
 
     @cached_property
-    def _loader(self) -> "View[[], Tin]":
-        from ordeq._nodes import View  # noqa: PLC0415 (deferred import)
-        return View(func=self.load, inputs=(), outputs=(IO(),))
+    def _loader(self) -> Loader[[], Tin]:
+        from ordeq._nodes import Loader  # noqa: PLC0415 (deferred import)
+
+        return Loader(func=self.load, io=self, outputs=(IO(),))
 
     def __repr__(self):
         return f"Input(id={id(self)})"

@@ -310,10 +310,6 @@ def _is_view(obj: object) -> TypeGuard[View]:
     return isinstance(obj, View)
 
 
-def _is_loader(obj: object) -> TypeGuard[Loader]:
-    return isinstance(obj, Loader)
-
-
 @overload
 def create_node(
     func: Callable[FuncParams, FuncReturns],

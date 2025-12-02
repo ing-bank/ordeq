@@ -9,6 +9,7 @@ s = StringBuffer("Hello, World!")
 reveal_type(s._saver)
 print(s._saver("~/.',.`#"))
 print(s.load())
+
 ```
 
 ## Output

@@ -38,16 +38,12 @@ Hello world !!!
 
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-DEBUG	ordeq.runner	Running View(func=__main__:hello, ...)
+INFO	ordeq.runner	Running View(func=__main__:hello, ...)
 DEBUG	ordeq.io	Persisting data for IO 'combine_greeting_with_ending:greeting' in module '__main__'
-DEBUG	ordeq.runner	Running Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO 'combine_greeting_with_ending:e' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'combine_greeting_with_ending:greeting' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for IO 'combine_greeting_with_ending:e' in module '__main__'
-DEBUG	ordeq.runner	Running node 'combine_greeting_with_ending' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for Input 'combine_greeting_with_ending:e' in module '__main__'
+INFO	ordeq.runner	Running node 'combine_greeting_with_ending' in module '__main__'
 INFO	ordeq.io	Saving Print()
-DEBUG	ordeq.io	Unpersisting data for IO 'combine_greeting_with_ending:e' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'combine_greeting_with_ending:greeting' in module '__main__'
 
 ```

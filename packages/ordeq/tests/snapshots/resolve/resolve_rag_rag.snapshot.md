@@ -37,16 +37,16 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  Node(module=example_rag_pipeline.rag.evaluation, name=evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)]),
  Node(module=example_rag_pipeline.rag.indexer, name=create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)]),
  Node(module=example_rag_pipeline.rag.policies, name=generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)]),
- Node(module=example_rag_pipeline.rag.question_answering, name=question_answering, inputs=[IO(id=ID10), IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID12)]),
- Node(module=example_rag_pipeline.rag.retrieval, name=retrieve, inputs=[IO(id=ID13), IO(id=ID10), IO(id=ID6)], outputs=[IO(id=ID14)]),
- Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID15), IO(id=ID4)], outputs=[IO(id=ID16)])]
+ Node(module=example_rag_pipeline.rag.question_answering, name=question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)]),
+ Node(module=example_rag_pipeline.rag.retrieval, name=retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)]),
+ Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)])]
 {}
 [Node(module=example_rag_pipeline.rag.annotation, name=annotate_documents, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[IO(id=ID3)]),
  Node(module=example_rag_pipeline.rag.evaluation, name=evaluate_answers, inputs=[IO(id=ID1), IO(id=ID4)], outputs=[IO(id=ID5)]),
  Node(module=example_rag_pipeline.rag.indexer, name=create_vector_index, inputs=[IO(id=ID2), IO(id=ID6)], outputs=[IO(id=ID7)]),
  Node(module=example_rag_pipeline.rag.policies, name=generate_questions, inputs=[IO(id=ID8)], outputs=[IO(id=ID9)]),
- Node(module=example_rag_pipeline.rag.question_answering, name=question_answering, inputs=[IO(id=ID10), IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID12)]),
- Node(module=example_rag_pipeline.rag.retrieval, name=retrieve, inputs=[IO(id=ID13), IO(id=ID10), IO(id=ID6)], outputs=[IO(id=ID14)]),
- Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID15), IO(id=ID4)], outputs=[IO(id=ID16)])]
+ Node(module=example_rag_pipeline.rag.question_answering, name=question_answering, inputs=[IO(id=ID9), IO(id=ID10), IO(id=ID4)], outputs=[IO(id=ID1)]),
+ Node(module=example_rag_pipeline.rag.retrieval, name=retrieve, inputs=[IO(id=ID7), IO(id=ID9), IO(id=ID6)], outputs=[IO(id=ID11)]),
+ Node(module=example_rag_pipeline.rag.retrieval, name=filter_relevant, inputs=[IO(id=ID11), IO(id=ID4)], outputs=[IO(id=ID10)])]
 
 ```

@@ -43,10 +43,10 @@ View:View(func=example_function_reuse.func_defs:print_input, ...)
 View:View(func=example_function_reuse.func_defs:print_input, ...)
 View:example_function_reuse.nodes:pi
 Topological ordering
-(View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID1)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID2)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID3)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID4)]),
- View(module=example_function_reuse.nodes, name=pi, inputs=[IO(id=ID1)]))
+(View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]),
+ View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]))
 
 ```

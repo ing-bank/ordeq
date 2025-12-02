@@ -30,10 +30,10 @@ Hello from printer
 ## Logging
 
 ```text
-DEBUG	ordeq.runner	Running View(func=__main__:print_message, ...)
+INFO	ordeq.runner	Running View(func=__main__:print_message, ...)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
-DEBUG	ordeq.runner	Running View(func=__main__:print_message, ...)
+INFO	ordeq.runner	Running View(func=__main__:print_message, ...)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 

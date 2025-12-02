@@ -42,16 +42,12 @@ Node:__main__:printer --> io-2
 DEBUG	urllib3.connectionpool	Starting new HTTPS connection (1): jsonplaceholder.typicode.com:443
 DEBUG	urllib3.connectionpool	https://jsonplaceholder.typicode.com:443 "GET /users/1 HTTP/1.1" 200 None
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-DEBUG	ordeq.runner	Running Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO 'users_stream:r' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for IO 'users_stream:r' in module '__main__'
-DEBUG	ordeq.runner	Running view 'users_stream' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for Input 'users_stream:r' in module '__main__'
+INFO	ordeq.runner	Running view 'users_stream' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'printer:stream' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'printer:stream' in module '__main__'
-DEBUG	ordeq.runner	Running node 'printer' in module '__main__'
+INFO	ordeq.runner	Running node 'printer' in module '__main__'
 INFO	ordeq.io	Saving Print()
-DEBUG	ordeq.io	Unpersisting data for IO 'users_stream:r' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'printer:stream' in module '__main__'
 
 ```

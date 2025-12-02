@@ -30,21 +30,21 @@ pprint(_resolve_runnables_to_nodes(*runnables))
  'example_function_reuse.catalog',
  'example_function_reuse.func_defs',
  'example_function_reuse.nodes']
-[View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID1)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID2)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID3)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID4)]),
- View(module=example_function_reuse.nodes, name=pi, inputs=[IO(id=ID1)])]
+[View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]),
+ View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])]
 {'example_function_reuse.catalog': {'A': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
                                     'B': StringBuffer(_buffer=<_io.StringIO object at HASH2>),
                                     'C': StringBuffer(_buffer=<_io.StringIO object at HASH3>),
                                     'D': StringBuffer(_buffer=<_io.StringIO object at HASH4>)},
  'example_function_reuse.nodes': {'A': StringBuffer(_buffer=<_io.StringIO object at HASH1>),
                                   'B': StringBuffer(_buffer=<_io.StringIO object at HASH2>)}}
-[View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID1)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID2)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID3)]),
- View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID4)]),
- View(module=example_function_reuse.nodes, name=pi, inputs=[IO(id=ID1)])]
+[View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]),
+ View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]),
+ View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)])]
 
 ```

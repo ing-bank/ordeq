@@ -15,7 +15,7 @@ print(s._loader())
 ## Output
 
 ```text
-StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+Loader(func=ordeq_common.io.string_buffer:load, ...)
 Hello, World!
 
 ```

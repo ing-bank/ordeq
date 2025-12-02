@@ -27,24 +27,25 @@ run(f, g, verbose=True)  # raises NotImplementedError
 ## Output
 
 ```text
-io-0 --> Node:__main__:g
+io-0 --> Node:__main__:f
 io-1 --> Node:__main__:f
-io-2 --> Node:__main__:f
+Node:__main__:f --> io-2
+io-2 --> Node:__main__:g
 Node:__main__:g --> io-3
-Node:__main__:f --> io-4
-IOException: Failed to load Input(id=ID1).
+IOException: Failed to load Input 'f:i' in module '__main__'.
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node_func
-    values = node.func(*args)
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __call__
+    return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node_func
-    raise exc
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _load_inputs
+    data = io._loader()
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
-    results = _run_node_func(node, args=args, hooks=hooks)
+    args = _load_inputs(node.inputs)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
     _run_node(node, hooks=node_hooks)
@@ -77,7 +78,6 @@ IOException: Failed to load Input(id=ID1).
 ## Logging
 
 ```text
-DEBUG	ordeq.runner	Running Input(id=ID1)
-INFO	ordeq.io	Loading Input(id=ID1)
+INFO	ordeq.io	Loading Input 'f:i' in module '__main__'
 
 ```

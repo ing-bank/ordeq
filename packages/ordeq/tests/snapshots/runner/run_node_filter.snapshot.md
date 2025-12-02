@@ -34,6 +34,7 @@ run(hello, world, node_filter=takes_greeting)
 
 ```text
 Should run only `hello` (filter returns False for `world`):
+Saying Hello
 
 ```
 
@@ -42,5 +43,10 @@ Should run only `hello` (filter returns False for `world`):
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Node filters are in preview mode and may change without notice in future releases.
+DEBUG	ordeq.io	Loading cached data for Input 'hello:hi' in module '__main__'
+INFO	ordeq.runner	Running node 'hello' in module '__main__'
+INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 
 ```

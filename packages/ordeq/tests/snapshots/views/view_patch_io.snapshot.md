@@ -27,7 +27,7 @@ io-0 --> View:__main__:hello_world
 View:__main__:hello_world --> io-1
 io-1 --> View:__main__:n
 View:__main__:n --> io-2
-Node received 'Hello World!'
+Node received 'Buenos dias World!'
 
 ```
 
@@ -36,16 +36,12 @@ Node received 'Hello World!'
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
-DEBUG	ordeq.runner	Running Input(id=ID1)
-DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for IO 'hello_world:hello' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for IO 'hello_world:hello' in module '__main__'
-DEBUG	ordeq.runner	Running view 'hello_world' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
+INFO	ordeq.runner	Running view 'hello_world' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'n:v' in module '__main__'
-DEBUG	ordeq.runner	Running view 'n' in module '__main__'
+INFO	ordeq.runner	Running view 'n' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for IO 'hello_world:hello' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 

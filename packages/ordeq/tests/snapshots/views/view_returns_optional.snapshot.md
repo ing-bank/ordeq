@@ -44,16 +44,16 @@ None
 ## Logging
 
 ```text
-DEBUG	ordeq.runner	Running View(func=__main__:conditional, ...)
+INFO	ordeq.runner	Running View(func=__main__:conditional, ...)
 DEBUG	ordeq.io	Persisting data for IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'n:v' in module '__main__'
-DEBUG	ordeq.runner	Running node 'n' in module '__main__'
+INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for IO 'n:v' in module '__main__'
-DEBUG	ordeq.runner	Running View(func=__main__:conditional, ...)
+INFO	ordeq.runner	Running View(func=__main__:conditional, ...)
 DEBUG	ordeq.io	Persisting data for IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'n:v' in module '__main__'
-DEBUG	ordeq.runner	Running node 'n' in module '__main__'
+INFO	ordeq.runner	Running node 'n' in module '__main__'
 INFO	ordeq.io	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for IO 'n:v' in module '__main__'
 

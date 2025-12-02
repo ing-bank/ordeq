@@ -55,7 +55,7 @@ Node:__main__:second --> io-1
 Node:__main__:first --> io-2
 First node
 Second node
-
+Hello, world!
 io-0 --> Node:__main__:second
 Node:__main__:second --> io-1
 Node:__main__:first --> io-2
@@ -70,27 +70,23 @@ Hello, world!
 ```text
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
-DEBUG	ordeq.runner	Running File
-INFO	ordeq.io	Loading File
-DEBUG	ordeq.io	Persisting data for IO 'second:value' in module '__main__'
-DEBUG	ordeq.runner	Running node 'first' in module '__main__'
+INFO	ordeq.runner	Running node 'first' in module '__main__'
 INFO	ordeq.io	Saving File
 DEBUG	ordeq.io	Persisting data for File
-DEBUG	ordeq.io	Loading cached data for IO 'second:value' in module '__main__'
-DEBUG	ordeq.runner	Running node 'second' in module '__main__'
+INFO	ordeq.io	Loading File 'second:value' in module '__main__'
+DEBUG	ordeq.io	Persisting data for File 'second:value' in module '__main__'
+INFO	ordeq.runner	Running node 'second' in module '__main__'
 INFO	ordeq.io	Saving Print()
-DEBUG	ordeq.io	Unpersisting data for IO 'second:value' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for File
-DEBUG	ordeq.runner	Running File
-INFO	ordeq.io	Loading File
-DEBUG	ordeq.io	Persisting data for IO 'second:value' in module '__main__'
-DEBUG	ordeq.runner	Running node 'first' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for File 'second:value' in module '__main__'
+INFO	ordeq.runner	Running node 'first' in module '__main__'
 INFO	ordeq.io	Saving File
 DEBUG	ordeq.io	Persisting data for File
-DEBUG	ordeq.io	Loading cached data for IO 'second:value' in module '__main__'
-DEBUG	ordeq.runner	Running node 'second' in module '__main__'
+INFO	ordeq.io	Loading File 'second:value' in module '__main__'
+DEBUG	ordeq.io	Persisting data for File 'second:value' in module '__main__'
+INFO	ordeq.runner	Running node 'second' in module '__main__'
 INFO	ordeq.io	Saving Print()
-DEBUG	ordeq.io	Unpersisting data for IO 'second:value' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for File
+DEBUG	ordeq.io	Unpersisting data for File 'second:value' in module '__main__'
 
 ```

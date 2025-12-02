@@ -1,9 +1,8 @@
 ## Resource
 
 ```python
-from typing_extensions import reveal_type
-
 from ordeq_common import StringBuffer
+from typing_extensions import reveal_type
 
 s = StringBuffer("Hello, World!")
 
@@ -16,7 +15,7 @@ print(s._loader())
 ## Output
 
 ```text
-View(func=ordeq_common.io.string_buffer:load, ...)
+StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 Hello, World!
 
 ```
@@ -24,7 +23,7 @@ Hello, World!
 ## Error
 
 ```text
-Runtime type is 'View'
+Runtime type is 'Loader'
 
 ```
 

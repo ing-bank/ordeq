@@ -1,6 +1,5 @@
-from typing_extensions import reveal_type
-
 from ordeq_common import StringBuffer
+from typing_extensions import reveal_type
 
 s = StringBuffer("Hello, World!")
 

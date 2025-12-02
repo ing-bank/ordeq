@@ -1,9 +1,10 @@
 ## Resource
 
 ```python
+from functools import cache
+
 from ordeq import Input, node, run
 from ordeq_common import StringBuffer
-from functools import cache
 
 out = StringBuffer()
 

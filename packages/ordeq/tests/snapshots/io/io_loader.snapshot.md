@@ -15,7 +15,7 @@ print(s._loader())
 ## Output
 
 ```text
-Loader(func=ordeq_common.io.string_buffer:load, ...)
+View(func=ordeq_common.io.string_buffer:load, ...)
 Hello, World!
 
 ```
@@ -23,7 +23,7 @@ Hello, World!
 ## Error
 
 ```text
-Runtime type is 'Loader'
+Runtime type is 'View'
 
 ```
 

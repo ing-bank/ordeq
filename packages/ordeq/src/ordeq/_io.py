@@ -605,7 +605,7 @@ class Input(
     def _loader(self) -> Loader[[], Tin]:
         from ordeq._nodes import Loader  # noqa: PLC0415 (deferred import)
 
-        return Loader(func=self.load, io=self, outputs=(IO(),))
+        return Loader(func=self.load, outputs=(IO(),))
 
     def __repr__(self):
         return f"Input(id={id(self)})"

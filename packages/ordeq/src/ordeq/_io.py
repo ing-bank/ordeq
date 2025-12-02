@@ -14,6 +14,7 @@ from typing import (
     TypeGuard,
     TypeVar,
     final,
+    TYPE_CHECKING
 )
 
 from ordeq.preview import preview
@@ -25,6 +26,9 @@ except ImportError:
 
 from ordeq._fqn import FQN
 from ordeq._hook import InputHook, OutputHook
+
+if TYPE_CHECKING:
+    from ordeq._nodes import View
 
 logger = logging.getLogger("ordeq.io")
 
@@ -124,7 +128,7 @@ def _warn_if_eq_or_hash_is_implemented(name, class_dict):
             )
 
 
-def _process_input_meta(cls, name, bases, class_dict):
+def _process_input_meta(name, bases, class_dict):
     # Retrieve the closest load method
     load_method = _raise_not_implemented
     for base in bases:
@@ -169,15 +173,7 @@ def _process_input_meta(cls, name, bases, class_dict):
                 )
 
     if not hasattr(load_method, "__wrapped__"):
-        class_dict["_load"] = _load_decorator(load_method)
-        if name not in {"Input", "IO"}:
-            from ordeq._nodes import View
-            def view(self):
-                return View(func=class_dict["_load"].__get__(self, cls), inputs=(), outputs=(IO(),))
-            class_dict["load"] = cached_property(view)
-            class_dict["load"].__qualname__ = view.__qualname__
-        else:
-            class_dict["load"] = class_dict["_load"]
+        class_dict["load"] = _load_decorator(load_method)
     return class_dict, bases
 
 
@@ -334,7 +330,7 @@ class _IOMeta(type):
 
         # Apply input metaclass logic if needed
         if has_input_base or name in {"Input", "IO"}:
-            class_dict, bases = _process_input_meta(cls, name, bases, class_dict)
+            class_dict, bases = _process_input_meta(name, bases, class_dict)
 
         # Apply output metaclass logic if needed
         if has_output_base or name in {"Output", "IO"}:
@@ -606,14 +602,9 @@ class Input(
     """
 
     @cached_property
-    def _loader(self):
-        from ordeq._nodes import create_node  # noqa: PLC0415 (deferred import)
-
-        return create_node(
-            func=lambda: self.__class__.load(self),
-            module=self.type_fqn.module,
-            name=f"{self.type_fqn.name}:load",
-        )
+    def _loader(self) -> "View[[], Tin]":
+        from ordeq._nodes import View  # noqa: PLC0415 (deferred import)
+        return View(func=self.load, inputs=(), outputs=(IO(),))
 
     def __repr__(self):
         return f"Input(id={id(self)})"

@@ -2,6 +2,7 @@ import pyiceberg.types as T
 from ordeq import node, run
 from ordeq_common import Literal
 from ordeq_iceberg import IcebergCatalog, IcebergTable
+from ordeq_viz import viz
 from pyiceberg.catalog import Catalog, CatalogType
 from pyiceberg.schema import Schema
 from pyiceberg.table import Table
@@ -24,7 +25,7 @@ my_table = IcebergTable(
 # Nodes
 
 
-@node(inputs=[my_catalog, test_namespace, test_table_name])
+@node(inputs=[my_catalog, test_namespace, test_table_name], checks=[my_table])
 def create_table(catalog: Catalog, namespace: str, table_name: str) -> None:
     catalog.create_namespace_if_not_exists(namespace)
     catalog.create_table_if_not_exists(
@@ -38,9 +39,10 @@ def create_table(catalog: Catalog, namespace: str, table_name: str) -> None:
     )
 
 
-@node(inputs=[my_table, create_table])
-def load_table(created_table: Table, _: None) -> None:
+@node(inputs=[my_table])
+def load_table(created_table: Table) -> None:
     print(f"Table loaded from Input object: '{created_table}'")
 
 
-run(load_table)
+print(f"Viz Diagram:\n```\n{viz(__name__, fmt='mermaid-md')}\n```")
+run(load_table, create_table)

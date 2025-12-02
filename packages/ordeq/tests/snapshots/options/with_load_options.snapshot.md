@@ -83,8 +83,8 @@ TypeError: got an unexpected keyword argument 'unknown_kwarg'
            ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in with_load_options
-    inspect.signature(new_instance.load).bind_partial(**load_options)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+    inspect.signature(new_instance.load.func).bind_partial(**load_options)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/options/with_load_options.py", line LINO, in <module>
     example_input_arg.with_load_options(unknown_kwarg="Hello")  # should error

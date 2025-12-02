@@ -30,8 +30,8 @@ TypeError: got an unexpected keyword argument 'hello'
            ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in with_load_options
-    inspect.signature(new_instance.load).bind_partial(**load_options)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+    inspect.signature(new_instance.load.func).bind_partial(**load_options)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/io/input_non_existing_load_argument.py", line LINO, in <module>
     _ = ExampleInputLoadArg().with_load_options(hello="hello world")

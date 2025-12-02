@@ -22,6 +22,10 @@ Some load exception
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
 
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __call__
+    return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
+           ~~~~~~~~~^^^^^^^^^^^^^^^^^
+
   File "/packages/ordeq/tests/resources/io/load_exception.py", line LINO, in <module>
     mock.load()
     ~~~~~~~~~^^

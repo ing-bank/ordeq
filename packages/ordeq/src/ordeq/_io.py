@@ -5,8 +5,9 @@ import logging
 import warnings
 from collections.abc import Callable, Hashable, Sequence
 from copy import copy
-from functools import cached_property, reduce, wraps
+from functools import cached_property, partial, reduce, wraps
 from typing import (
+    TYPE_CHECKING,
     Annotated,
     Any,
     Generic,
@@ -25,6 +26,9 @@ except ImportError:
 
 from ordeq._fqn import FQN
 from ordeq._hook import InputHook, OutputHook
+
+if TYPE_CHECKING:
+    from ordeq._nodes import View
 
 logger = logging.getLogger("ordeq.io")
 
@@ -169,7 +173,20 @@ def _process_input_meta(name, bases, class_dict):
                 )
 
     if not hasattr(load_method, "__wrapped__"):
-        class_dict["load"] = _load_decorator(load_method)
+        func = _load_decorator(load_method)
+        if name not in {"Input", "IO"}:
+            from ordeq._nodes import View  # noqa: PLC0415 (deferred import)
+            def view_property(self):
+                return View(
+                    func=func.__get__(self, type(self)), inputs=(), outputs=(IO(),)
+                )
+
+            load = cached_property(view_property)
+            load.__qualname__ = func.__qualname__
+        else:
+            load = func
+        class_dict["load"] = load
+
     return class_dict, bases
 
 
@@ -369,7 +386,10 @@ class _InputOptions(_BaseInput[Tin]):
         new_instance = copy(self)
 
         # ensure the `load_options` are valid for the `load` method
-        inspect.signature(new_instance.load).bind_partial(**load_options)
+        inspect.signature(new_instance.load.func).bind_partial(**load_options)
+        bound = partial(new_instance.load.func, **load_options)
+
+        self.load.__dict__["func"] = bound
 
         # Set the dict directly to support IO that are frozen dataclasses:
         new_instance.__dict__["_load_options"] = load_options

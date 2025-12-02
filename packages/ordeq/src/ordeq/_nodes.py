@@ -6,6 +6,7 @@ from dataclasses import dataclass, field, replace
 from functools import wraps
 from inspect import Signature, signature
 from typing import (
+    TYPE_CHECKING,
     Any,
     Generic,
     Literal,
@@ -17,16 +18,10 @@ from typing import (
 )
 
 from ordeq._fqn import FQN
-from ordeq._io import (
-    IO,
-    AnyIO,
-    Input,
-    Output,
-    ResourceType,
-    _is_input,
-    _is_output,
-)
 from ordeq.preview import preview
+
+if TYPE_CHECKING:
+    from ordeq._io import IO, Any, AnyIO, Input, Output, ResourceType
 
 T = TypeVar("T")
 FuncParams = ParamSpec("FuncParams")
@@ -186,6 +181,8 @@ def _raise_for_invalid_outputs(n: Node) -> None:
         ValueError: if the number of outputs is incompatible with the number of
             node arguments.
     """
+
+    from ordeq._io import _is_output  # noqa: PLC0415 (deferred import)
 
     are_outputs = [_is_output(o) for o in n.outputs]
     if not all(are_outputs):
@@ -374,6 +371,8 @@ def create_node(
         ValueError: if any of the inputs is a callable that is not a view
     """
 
+    from ordeq._io import _is_input  # noqa: PLC0415 (deferred import)
+
     func_name = infer_node_name_from_func(func)
     inputs_: list[Input] = []
     views: list[View] = []
@@ -415,6 +414,8 @@ def create_node(
                 checks_.append(cast("Input", check))
 
     if not outputs:
+        from ordeq._io import IO  # noqa: PLC0415 (deferred import)
+
         return View(
             func=func,  # type: ignore[arg-type]
             inputs=tuple(inputs_),  # type: ignore[arg-type]

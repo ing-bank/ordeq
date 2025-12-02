@@ -19,11 +19,11 @@ pp(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [FQN(module='example_function_reuse.nodes', name='a')],
- View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]): [FQN(module='example_function_reuse.nodes', name='b')],
- View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]): [FQN(module='example_function_reuse.nodes', name='c')],
- View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]): [FQN(module='example_function_reuse.nodes', name='d')],
- View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]): [FQN(module='example_function_reuse.nodes', name='pi')]}
+{View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID1)]): [FQN(module='example_function_reuse.nodes', name='a')],
+ View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID2)]): [FQN(module='example_function_reuse.nodes', name='b')],
+ View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID3)]): [FQN(module='example_function_reuse.nodes', name='c')],
+ View(func=example_function_reuse.func_defs:print_input, inputs=[IO(id=ID4)]): [FQN(module='example_function_reuse.nodes', name='d')],
+ View(module=example_function_reuse.nodes, name=pi, inputs=[IO(id=ID1)]): [FQN(module='example_function_reuse.nodes', name='pi')]}
 IOs:
 [[FQN(module='example_function_reuse.catalog', name='A'),
   FQN(module='example_function_reuse.nodes', name='A')],

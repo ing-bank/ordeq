@@ -19,7 +19,7 @@ pp(list(ios.values()), width=40)
 
 ```text
 Nodes:
-{Node(module=example_2.nodes, name=transform_input_2, inputs=[Input(id=ID1)], outputs=[Output(id=ID2)]): [FQN(module='example_2.nodes', name='transform_input_2')]}
+{Node(module=example_2.nodes, name=transform_input_2, inputs=[IO(id=ID1)], outputs=[Output(id=ID2)]): [FQN(module='example_2.nodes', name='transform_input_2')]}
 IOs:
 [[FQN(module='example_2.catalog', name='TestInput2'),
   FQN(module='example_2.nodes', name='TestInput2')],

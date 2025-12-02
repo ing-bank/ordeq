@@ -20,31 +20,43 @@ _run_graph(NodeGraph.from_nodes(nodes))
 
 ```
 
+## Output
+
+```text
+IOException: Failed to load IO(id=ID1).
+
+  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
+    raise IOException(msg) from exc
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _load_inputs
+    data = io.load()
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
+    args = _load_inputs(node.inputs)
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_graph
+    _run_node(node, hooks=node_hooks)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "/packages/ordeq/tests/resources/runner/logging_verbosity.py", line LINO, in <module>
+    _run_graph(NodeGraph.from_nodes(nodes))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "<frozen runpy>", line LINO, in _run_code
+
+  File "<frozen runpy>", line LINO, in _run_module_code
+
+  File "<frozen runpy>", line LINO, in run_path
+
+  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
+    run_path(str(file_path), run_name="__main__")
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+```
+
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.runner	Running Node(func=__main__:<lambda>, ...)
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-INFO	ordeq.runner	Running Node(func=__main__:<lambda>, ...)
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-INFO	ordeq.runner	Running Node(func=__main__:<lambda>, ...)
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH6>)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH4>)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH5>)
-DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH6>)
+INFO	ordeq.io	Loading IO(id=ID1)
 
 ```

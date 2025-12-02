@@ -33,7 +33,7 @@ node 'func' in module '__main__'
 {'x': <class 'str'>, 'y': <class 'str'>, 'return': tuple[str, str]}
 ordeq._nodes
 Should all print long representation:
-Node(module=__main__, name=func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
-Node(module=__main__, name=func, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>), StringBuffer(_buffer=<_io.StringIO object at HASH4>)])
+Node(module=__main__, name=func, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
+Node(module=__main__, name=func, inputs=[IO(id=ID1), IO(id=ID2)], outputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>), StringBuffer(_buffer=<_io.StringIO object at HASH2>)])
 
 ```

@@ -46,7 +46,7 @@ saving! Hello, World!
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node 'my_node' in module '__main__'
+DEBUG	ordeq.runner	Running node 'my_node' in module '__main__'
 INFO	ordeq.io	Saving Output(id=ID1)
 
 ```

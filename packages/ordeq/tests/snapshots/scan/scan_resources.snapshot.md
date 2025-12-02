@@ -20,11 +20,11 @@ pp(list(ios.values()), width=40)
 ```text
 Nodes:
 {Node(module=example_resources.inline, name=generate, outputs=[CSV(path=Path('data1.csv'))]): [FQN(module='example_resources.inline', name='generate')],
- View(module=example_resources.inline, name=consume, inputs=[Text(path=Path('data1.csv'))]): [FQN(module='example_resources.inline', name='consume')],
+ View(module=example_resources.inline, name=consume, inputs=[IO(id=ID1)]): [FQN(module='example_resources.inline', name='consume')],
  Node(module=example_resources.pipeline, name=generate, outputs=[CSV(path=Path('data2.csv'))]): [FQN(module='example_resources.pipeline', name='generate')],
- View(module=example_resources.pipeline, name=consume, inputs=[Text(path=Path('data2.csv'))]): [FQN(module='example_resources.pipeline', name='consume')],
- Node(module=example_resources.updates, name=update, inputs=[CSV(path=Path('data3.csv'))], outputs=[CSV(path=Path('data3.csv'))]): [FQN(module='example_resources.updates', name='update')],
- Node(module=example_resources.updates, name=reflect, inputs=[CSV(path=Path('data3.csv'))], outputs=[Print()]): [FQN(module='example_resources.updates', name='reflect')]}
+ View(module=example_resources.pipeline, name=consume, inputs=[IO(id=ID2)]): [FQN(module='example_resources.pipeline', name='consume')],
+ Node(module=example_resources.updates, name=update, inputs=[IO(id=ID3)], outputs=[CSV(path=Path('data3.csv'))]): [FQN(module='example_resources.updates', name='update')],
+ Node(module=example_resources.updates, name=reflect, inputs=[IO(id=ID4)], outputs=[Print()]): [FQN(module='example_resources.updates', name='reflect')]}
 IOs:
 [[FQN(module='example_resources.pipeline', name='csv')],
  [FQN(module='example_resources.pipeline', name='text')],

@@ -46,33 +46,41 @@ print(x4.load())
 ## Output
 
 ```text
-io-0 --> Node:__main__:increment
-Node:__main__:increment --> io-2
+io-0 --> Node:__main__:decrement
 io-1 --> Node:__main__:decrement
-io-2 --> Node:__main__:decrement
+io-2 --> Node:__main__:increment
 Node:__main__:decrement --> io-3
-x says 'x says y did it ' but y says 'x did it and I know the murder weapon'  
+Node:__main__:increment --> io-4
+x says ' ' but y says 'x did it and I know the murder weapon'  
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading CustomIO 'increment:x' in module '__main__'
-DEBUG	ordeq.io	Persisting data for CustomIO 'increment:x' in module '__main__'
-INFO	ordeq.runner	Running node 'increment' in module '__main__'
-INFO	ordeq.io	Saving CustomIO 'decrement:x' in module '__main__'
-DEBUG	ordeq.io	Persisting data for CustomIO 'decrement:x' in module '__main__'
-DEBUG	ordeq.io	Loading cached data for CustomIO 'decrement:x' in module '__main__'
-INFO	ordeq.io	Loading CustomIO 'decrement:y' in module '__main__'
-DEBUG	ordeq.io	Persisting data for CustomIO 'decrement:y' in module '__main__'
-INFO	ordeq.runner	Running node 'decrement' in module '__main__'
+DEBUG	ordeq.runner	Running CustomIO(attr=y did it)
+INFO	ordeq.io	Loading CustomIO(attr=y did it)
+DEBUG	ordeq.io	Persisting data for IO 'increment:x' in module '__main__'
+DEBUG	ordeq.runner	Running CustomIO(attr=)
+INFO	ordeq.io	Loading CustomIO(attr=)
+DEBUG	ordeq.io	Persisting data for IO 'decrement:x' in module '__main__'
+DEBUG	ordeq.runner	Running CustomIO(attr=x did it)
+INFO	ordeq.io	Loading CustomIO(attr=x did it)
+DEBUG	ordeq.io	Persisting data for IO 'decrement:y' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for IO 'increment:x' in module '__main__'
+DEBUG	ordeq.runner	Running node 'increment' in module '__main__'
 INFO	ordeq.io	Saving CustomIO(attr=)
-DEBUG	ordeq.io	Persisting data for CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
-DEBUG	ordeq.io	Unpersisting data for CustomIO 'increment:x' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for CustomIO 'decrement:x' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for CustomIO 'decrement:y' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
-INFO	ordeq.io	Loading CustomIO(attr=x says 'x says y did it ' but y says 'x did it and I know the murder weapon' )
+DEBUG	ordeq.io	Persisting data for CustomIO(attr=x says y did it  !)
+DEBUG	ordeq.io	Loading cached data for IO 'decrement:x' in module '__main__'
+DEBUG	ordeq.io	Loading cached data for IO 'decrement:y' in module '__main__'
+DEBUG	ordeq.runner	Running node 'decrement' in module '__main__'
+INFO	ordeq.io	Saving CustomIO(attr=)
+DEBUG	ordeq.io	Persisting data for CustomIO(attr=x says ' ' but y says 'x did it and I know the murder weapon' )
+DEBUG	ordeq.io	Unpersisting data for IO 'decrement:y' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for IO 'decrement:x' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for IO 'increment:x' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for CustomIO(attr=x says ' ' but y says 'x did it and I know the murder weapon' )
+DEBUG	ordeq.io	Unpersisting data for CustomIO(attr=x says y did it  !)
+INFO	ordeq.io	Loading CustomIO(attr=x says ' ' but y says 'x did it and I know the murder weapon' )
 
 ```

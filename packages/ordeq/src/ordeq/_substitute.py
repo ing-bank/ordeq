@@ -59,7 +59,8 @@ def _substitutes_modules_to_ios(
         if _is_module(old) and _is_module(new):
             substitution_map.update(_substitute_catalog_by_catalog(old, new))
         elif _is_io(old) and _is_io(new):
-            substitution_map[old] = new
+            # (ty false positive)
+            substitution_map[old] = new  # type: ignore[invalid-assignment]
         else:
             raise TypeError(
                 f"Cannot substitute objects of type "

@@ -1,8 +1,1 @@
 data/*
-!data/.gitkeep
-db/*
-!db/.gitkeep
-logs/*
-!logs/.gitkeep
-plugins/*
-!plugins/.gitkeep

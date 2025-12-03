@@ -1,6 +1,9 @@
+from datetime import date
 from pathlib import Path
 
+from ordeq import Input
 from ordeq_duckdb import DuckDBParquet
+from ordeq_pandas import PandasParquet
 from ordeq_requests import ResponseJSON
 
 DATA_DIRECTORY = Path(__file__).resolve().parent.parent.parent / "data"
@@ -11,7 +14,7 @@ air_quality_json = ResponseJSON(
     params={
         "latitude": 28.6139,
         "longitude": 77.2090,
-        "current": ",".join({
+        "hourly": ",".join({
             "pm10": "float64",
             "pm2_5": "float64",
             "carbon_monoxide": "float64",
@@ -25,10 +28,21 @@ air_quality_json = ResponseJSON(
     }
 )
 
-air_quality_data = (
-    DuckDBParquet(path=str(DATA_DIRECTORY / "air_quality_data"))
-).with_save_options(partition_by=["date"], overwrite=True)
+air_quality_path = DATA_DIRECTORY / "air_quality"
+
+air_quality_pandas = (
+    PandasParquet(path=air_quality_path).with_save_options(
+        partition_cols=["date"]
+    )
+    @ air_quality_path
+)
+
+air_quality_duckdb = (
+    DuckDBParquet(path=str(air_quality_path)) @ air_quality_path
+)
 
 air_quality_insights = DuckDBParquet(
     path=str(DATA_DIRECTORY / "air_quality_insights.parquet")
 )
+
+logical_date = Input(date(2025, 12, 16))

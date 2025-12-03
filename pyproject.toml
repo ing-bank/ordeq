@@ -111,7 +111,8 @@ pythonpath = ["src", "tests"]
 [tool.ruff]
 exclude = [
     "packages/*/src/*/_version.py",
-    "examples/orchestration-kubeflow/original.py"
+    "examples/orchestration-kubeflow/original.py",
+    "examples/orchestration-airflow/dags/dag_original.py"
 ]
 force-exclude = true
 line-length = 79

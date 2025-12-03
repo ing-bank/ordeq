@@ -114,9 +114,9 @@ DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Loading cached data for JSON 'invalid_records' in module '__main__'
 INFO	ordeq.runner	Running view 'print_invalid_records' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for JSON 'invalid_records' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'print_processed_records:rows' in module '__main__'
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for JSON 'invalid_records' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```

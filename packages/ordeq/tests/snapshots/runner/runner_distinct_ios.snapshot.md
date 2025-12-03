@@ -22,18 +22,18 @@ run(func1, func2, verbose=True)
 ## Output
 
 ```text
-Node:__main__:func2 --> io-0
-Node:__main__:func1 --> io-1
+Node:__main__:func1 --> io-2
+Node:__main__:func2 --> io-3
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node 'func1' in module '__main__'
+INFO	ordeq.runner	Running node 'func2' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.runner	Running node 'func2' in module '__main__'
+INFO	ordeq.runner	Running node 'func1' in module '__main__'
 INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)

@@ -28,7 +28,7 @@ run(range_to_csv, verbose=True)
 io-0 --> View:__main__:selected_range
 View:__main__:selected_range --> io-1
 io-1 --> View:__main__:range_to_csv
-View:__main__:range_to_csv --> io-2
+View:__main__:range_to_csv --> io-4
 ┌───────┐
 │ range │
 │ int64 │

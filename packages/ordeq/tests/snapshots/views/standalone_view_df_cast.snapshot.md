@@ -45,7 +45,7 @@ run(group_by, verbose=True)
 io-0 --> View:View(func=__main__:cast, ...)
 View:View(func=__main__:cast, ...) --> io-1
 io-1 --> Node:__main__:group_by
-Node:__main__:group_by --> io-2
+Node:__main__:group_by --> io-4
      A    B    D
 0  bar  2.0  5.0
 1  foo  2.0  8.0

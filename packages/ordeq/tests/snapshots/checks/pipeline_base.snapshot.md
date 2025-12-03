@@ -26,17 +26,17 @@ graph TB
 		io_type_2@{shape: rect, label: "StringBuffer"}
 	end
 
-	example_checks.pipeline_base:A --> example_checks.pipeline_base:process_a
-	example_checks.pipeline_base:process_a --> example_checks.pipeline_base:Ap
 	example_checks.pipeline_base:B --> example_checks.pipeline_base:process_b
 	example_checks.pipeline_base:process_b --> example_checks.pipeline_base:Bp
+	example_checks.pipeline_base:A --> example_checks.pipeline_base:process_a
+	example_checks.pipeline_base:process_a --> example_checks.pipeline_base:Ap
 	example_checks.pipeline_base:Ap --> example_checks.pipeline_base:join
 	example_checks.pipeline_base:Bp --> example_checks.pipeline_base:join
 	example_checks.pipeline_base:join --> example_checks.pipeline_base:AB
 	example_checks.pipeline_base:AB --> example_checks.pipeline_base:print_result
 
-	example_checks.pipeline_base:process_a@{shape: rounded, label: "process_a"}
 	example_checks.pipeline_base:process_b@{shape: rounded, label: "process_b"}
+	example_checks.pipeline_base:process_a@{shape: rounded, label: "process_a"}
 	example_checks.pipeline_base:join@{shape: rounded, label: "join"}
 	example_checks.pipeline_base:print_result@{shape: subroutine, label: "print_result"}
 	example_checks.pipeline_base:AB@{shape: rect, label: "AB"}
@@ -45,7 +45,7 @@ graph TB
 	example_checks.pipeline_base:A@{shape: rect, label: "A"}
 	example_checks.pipeline_base:B@{shape: rect, label: "B"}
 
-	class node_type,example_checks.pipeline_base:process_a,example_checks.pipeline_base:process_b,example_checks.pipeline_base:join node
+	class node_type,example_checks.pipeline_base:process_b,example_checks.pipeline_base:process_a,example_checks.pipeline_base:join node
 	class view_type,example_checks.pipeline_base:print_result view
 	class io_type_0,example_checks.pipeline_base:Ap,example_checks.pipeline_base:Bp io0
 	class io_type_1,example_checks.pipeline_base:A,example_checks.pipeline_base:B io1
@@ -67,12 +67,12 @@ aBBB
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
-DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_base'
-INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_base'
-DEBUG	ordeq.io	Persisting data for IO 'Ap' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Persisting data for IO 'Bp' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Persisting data for IO 'Ap' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_base'
@@ -81,8 +81,8 @@ DEBUG	ordeq.io	Persisting data for StringBuffer 'AB' in module 'example_checks.p
 DEBUG	ordeq.io	Loading cached data for StringBuffer 'AB' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for IO 'Bp' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Unpersisting data for IO 'Ap' in module 'example_checks.pipeline_base'
+DEBUG	ordeq.io	Unpersisting data for IO 'Bp' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'AB' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 

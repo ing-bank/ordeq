@@ -39,7 +39,7 @@ io-0 --> View:__main__:hello_from_someone
 io-1 --> View:__main__:hello_from_someone
 View:__main__:hello_from_someone --> io-2
 io-2 --> View:__main__:n
-View:__main__:n --> io-3
+View:__main__:n --> io-5
 I heard that Jane said 'Hello, World!'
 
 ```
@@ -57,8 +57,8 @@ DEBUG	ordeq.io	Persisting data for IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'n:v' in module '__main__'
 INFO	ordeq.runner	Running view 'n' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for IO 'hello_from_someone:v' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
+DEBUG	ordeq.io	Unpersisting data for IO 'hello_from_someone:v' in module '__main__'
 
 ```

@@ -20,9 +20,9 @@ run(show_message, verbose=True)
 ## Output
 
 ```text
-View:View(func=__main__:print_message, ...) --> io-0
+View:View(func=__main__:print_message, ...) --> io-1
 Hello from printer
-View:View(func=__main__:print_message, ...) --> io-0
+View:View(func=__main__:print_message, ...) --> io-1
 Hello from printer
 
 ```

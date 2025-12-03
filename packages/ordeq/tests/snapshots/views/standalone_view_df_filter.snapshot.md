@@ -48,7 +48,7 @@ io-0 --> View:View(func=__main__:filter_df, ...)
 io-1 --> View:View(func=__main__:filter_df, ...)
 View:View(func=__main__:filter_df, ...) --> io-2
 io-2 --> View:__main__:group_by
-View:__main__:group_by --> io-3
+View:__main__:group_by --> io-6
      A   B   D
 0  NaN NaN NaN
 

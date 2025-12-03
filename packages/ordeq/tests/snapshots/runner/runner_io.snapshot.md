@@ -42,13 +42,13 @@ io-0 --> Node:__main__:increment
 Node:__main__:increment --> io-2
 io-1 --> Node:__main__:decrement
 io-2 --> Node:__main__:decrement
-Node:__main__:decrement --> io-3
+Node:__main__:decrement --> io-7
 0
 io-0 --> Node:__main__:increment
 Node:__main__:increment --> io-2
 io-1 --> Node:__main__:decrement
 io-2 --> Node:__main__:decrement
-Node:__main__:decrement --> io-3
+Node:__main__:decrement --> io-8
 -10
 
 ```

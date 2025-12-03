@@ -4,11 +4,10 @@ from dataclasses import dataclass
 from functools import cached_property
 from graphlib import TopologicalSorter
 from itertools import chain
-from typing import Generic, TypeVar, cast
+from typing import Generic, TypeVar
 
 from ordeq._io import AnyIO, _is_io
-from ordeq._nodes import Node, _is_view
-from ordeq._resource import Resource
+from ordeq._nodes import Node, Stub, _is_stub, _is_view
 
 try:
     from typing import Self  # type: ignore[attr-defined]
@@ -64,78 +63,68 @@ class Graph(Generic[T]):
 
 
 @dataclass(frozen=True)
-class NodeResourceGraph(Graph[Resource | Node]):
-    edges: dict[Resource | Node, list[Resource | Node]]
+class NodeResourceGraph(Graph[Node]):
+    edges: dict[Node, list[Node]]
 
     @classmethod
     def from_nodes(cls, nodes: Sequence[Node]) -> Self:
-        edges: dict[Resource | Node, list[Resource | Node]] = {
-            node: [] for node in nodes
-        }
-        resource_to_node: dict[Resource, Node] = {}
+        edges: dict[Node, list[Node]] = {node: [] for node in nodes}
+        resource_to_node: dict[Stub, Node] = {}
 
         # if node.checks contains an resource, then this node precedes node(s)
         # with that input that do not have it as a check.
         # add edges from check resource to node(s) with that input
-        checks: dict[Resource, list[Resource]] = defaultdict(list)
+        checks: dict[Node, list[Stub]] = defaultdict(list)
         for node in nodes:
             for check in node.checks:
                 if _is_view(check):
-                    resource = Resource(check.outputs[0]._resource)
+                    stub = check.outputs[0]._stub
                 elif _is_io(check):
-                    resource = Resource(check._resource)
+                    stub = check._stub
                 else:
-                    resource = Resource(check)
+                    stub = check  # type: ignore[assignment]
 
                 for output in node.outputs:
-                    checks[resource].append(Resource(output._resource))
+                    checks[stub].append(output._stub)
 
         for node in nodes:
             for ip in node.inputs:
-                resource = Resource(ip._resource)
-                if resource not in edges:
-                    edges[resource] = []
+                stub = ip._stub
+                if stub not in edges:
+                    edges[stub] = []
 
                 # link checks
-                if resource in checks and node.checks == ():
-                    for check_resource in checks[resource]:
+                if stub in checks and node.checks == ():
+                    for check_resource in checks[stub]:
                         if check_resource not in edges:
                             edges[check_resource] = []
 
                         edges[check_resource].append(node)
 
-                edges[resource].append(node)
+                edges[stub].append(node)
 
             for op in node.outputs:
-                resource = Resource(op._resource)
-                if resource in resource_to_node:
+                stub = op._stub
+                if stub in resource_to_node:
                     msg = (
                         f"Nodes '{node.ref}' and "
-                        f"'{resource_to_node[resource].ref}' "
-                        f"both output to {resource!r}. "
+                        f"'{resource_to_node[stub].ref}' "
+                        f"both output to {stub.value}. "
                         f"Nodes cannot output to the same resource."
                     )
                     raise ValueError(msg)
 
-                resource_to_node[resource] = node
-                edges[node].append(resource)
+                resource_to_node[stub] = node
+                edges[node].append(stub)
 
-                if resource not in edges:
-                    edges[resource] = []
+                if stub not in edges:
+                    edges[stub] = []
 
         return cls(edges=edges)
 
     @cached_property
     def nodes(self) -> set[Node]:
         return {node for node in self.edges if isinstance(node, Node)}
-
-    @cached_property
-    def resources(self) -> set[Resource]:
-        return {
-            resource
-            for resource in self.edges
-            if isinstance(resource, Resource)
-        }
 
 
 @dataclass(frozen=True)
@@ -148,17 +137,7 @@ class NodeGraph(Graph[Node]):
 
     @classmethod
     def from_graph(cls, base: NodeResourceGraph) -> Self:
-        edges: dict[Node, list[Node]] = {
-            cast("Node", node): []
-            for node in base.topological_ordering
-            if node in base.nodes
-        }
-        for source in base.topological_ordering:
-            if source in base.resources:
-                continue
-            for target in base.edges[source]:
-                edges[source].extend(base.edges[target])  # type: ignore[index,arg-type]
-        return cls(edges=edges)
+        return cls(edges=base.edges)
 
     @cached_property
     def nodes(self) -> set[Node]:
@@ -168,14 +147,15 @@ class NodeGraph(Graph[Node]):
     def __repr__(self) -> str:
         lines: list[str] = []
         for node in self.topological_ordering:
-            if self.edges[node]:
-                lines.extend(
-                    f"{node.type_name}:{node.ref} --> "
-                    f"{next_node.type_name}:{node.ref}"
-                    for next_node in self.edges[node]
-                )
-            else:
-                lines.append(f"{node.type_name}:{node.ref}")
+            if not _is_stub(node):
+                if self.edges[node]:
+                    lines.extend(
+                        f"{node.type_name}:{node.ref} --> "
+                        f"{next_node.type_name}:{node.ref}"
+                        for next_node in self.edges[node]
+                    )
+                else:
+                    lines.append(f"{node.type_name}:{node.ref}")
         return "\n".join(lines)
 
 
@@ -211,7 +191,11 @@ class NodeIOGraph(Graph[AnyIO | Node]):
         # This should move to a separate named graph class.
         lines: list[str] = []
         names: dict[AnyIO | Node, str] = {
-            **{node: f"{node.type_name}:{node.ref}" for node in self.nodes},
+            **{
+                node: f"{node.type_name}:{node.ref}"
+                for node in self.nodes
+                if not _is_stub(node)
+            },
             **{
                 io: f"io-{i}"
                 for i, io in enumerate(
@@ -221,9 +205,10 @@ class NodeIOGraph(Graph[AnyIO | Node]):
         }
 
         for vertex in self.topological_ordering:
-            lines.extend(
-                f"{names[vertex]} --> {names[next_vertex]}"
-                for next_vertex in self.edges[vertex]
-            )
+            if not _is_stub(vertex):
+                lines.extend(
+                    f"{names[vertex]} --> {names[next_vertex]}"
+                    for next_vertex in self.edges[vertex]
+                )
 
         return "\n".join(lines)

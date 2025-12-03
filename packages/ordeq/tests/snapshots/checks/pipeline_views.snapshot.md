@@ -24,20 +24,20 @@ graph TB
 		io_type_1@{shape: rect, label: "Input"}
 	end
 
-	example_checks.pipeline_views:A --> example_checks.pipeline_views:Ap
 	example_checks.pipeline_views:B --> example_checks.pipeline_views:Bp
+	example_checks.pipeline_views:A --> example_checks.pipeline_views:Ap
 	example_checks.pipeline_views:Ap --> example_checks.pipeline_views:AB
 	example_checks.pipeline_views:Bp --> example_checks.pipeline_views:AB
 	example_checks.pipeline_views:AB --> example_checks.pipeline_views:print_result
 
-	example_checks.pipeline_views:Ap@{shape: subroutine, label: "Ap"}
 	example_checks.pipeline_views:Bp@{shape: subroutine, label: "Bp"}
+	example_checks.pipeline_views:Ap@{shape: subroutine, label: "Ap"}
 	example_checks.pipeline_views:AB@{shape: subroutine, label: "AB"}
 	example_checks.pipeline_views:print_result@{shape: subroutine, label: "print_result"}
 	example_checks.pipeline_views:A@{shape: rect, label: "A"}
 	example_checks.pipeline_views:B@{shape: rect, label: "B"}
 
-	class view_type,example_checks.pipeline_views:Ap,example_checks.pipeline_views:Bp,example_checks.pipeline_views:AB,example_checks.pipeline_views:print_result view
+	class view_type,example_checks.pipeline_views:Bp,example_checks.pipeline_views:Ap,example_checks.pipeline_views:AB,example_checks.pipeline_views:print_result view
 	class io_type_0 io0
 	class io_type_1,example_checks.pipeline_views:A,example_checks.pipeline_views:B io1
 	classDef io fill:#FFD43B
@@ -55,12 +55,12 @@ aBBB
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
-DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_views'
-INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_views'
-DEBUG	ordeq.io	Persisting data for IO 'AB:a' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'Bp' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Persisting data for IO 'AB:b' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Persisting data for IO 'AB:a' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Loading cached data for IO 'AB:a' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Loading cached data for IO 'AB:b' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'AB' in module 'example_checks.pipeline_views'
@@ -68,8 +68,8 @@ DEBUG	ordeq.io	Persisting data for IO 'print_result:data' in module 'example_che
 DEBUG	ordeq.io	Loading cached data for IO 'print_result:data' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-DEBUG	ordeq.io	Unpersisting data for IO 'AB:b' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Unpersisting data for IO 'AB:a' in module 'example_checks.pipeline_views'
+DEBUG	ordeq.io	Unpersisting data for IO 'AB:b' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Unpersisting data for IO 'print_result:data' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 

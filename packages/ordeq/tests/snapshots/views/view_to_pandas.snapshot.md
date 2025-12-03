@@ -36,7 +36,7 @@ run(aggregate, verbose=True)
 io-0 --> View:__main__:csv_as_df
 View:__main__:csv_as_df --> io-1
 io-1 --> View:__main__:aggregate
-View:__main__:aggregate --> io-2
+View:__main__:aggregate --> io-4
 value    6
 dtype: int64
 

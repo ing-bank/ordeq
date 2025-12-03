@@ -7,6 +7,7 @@ from ordeq import Node, View
 from ordeq._fqn import FQN
 from ordeq._graph import NodeGraph
 from ordeq._io import AnyIO
+from ordeq._nodes import _is_stub
 
 
 @dataclass
@@ -91,6 +92,8 @@ def _gather_graph(
 
     node_modules = defaultdict(list)
     for line in node_graph.topological_ordering:
+        if _is_stub(line):
+            continue
         inputs = [
             _add_io_data(
                 input_dataset,

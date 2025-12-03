@@ -20,37 +20,37 @@ graph TB
 		io_type_0@{shape: rect, label: "StringBuffer"}
 	end
 
-	example_async.sync_nodes:write_buffer_1 --> example_async.sync_nodes:buffer_1
 	example_async.sync_nodes:write_buffer_2 --> example_async.sync_nodes:buffer_2
+	example_async.sync_nodes:write_buffer_1 --> example_async.sync_nodes:buffer_1
 
-	example_async.sync_nodes:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.sync_nodes:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
+	example_async.sync_nodes:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.sync_nodes:buffer_1@{shape: rect, label: "buffer_1"}
 	example_async.sync_nodes:buffer_2@{shape: rect, label: "buffer_2"}
 
-	class node_type,example_async.sync_nodes:write_buffer_1,example_async.sync_nodes:write_buffer_2 node
+	class node_type,example_async.sync_nodes:write_buffer_2,example_async.sync_nodes:write_buffer_1 node
 	class io_type_0,example_async.sync_nodes:buffer_1,example_async.sync_nodes:buffer_2 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
-Start fetching buffer_1...
-Finished fetching buffer_1 after 4 seconds.
 Start analyzing buffer_2...
 Finished analyzing buffer_2 after 2 seconds.
+Start fetching buffer_1...
+Finished fetching buffer_1 after 4 seconds.
 
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.sync_nodes'
-INFO	ordeq.io	Saving StringBuffer 'buffer_1' in module 'example_async.sync_nodes'
-DEBUG	ordeq.io	Persisting data for StringBuffer 'buffer_1' in module 'example_async.sync_nodes'
 INFO	ordeq.runner	Running node 'write_buffer_2' in module 'example_async.sync_nodes'
 INFO	ordeq.io	Saving StringBuffer 'buffer_2' in module 'example_async.sync_nodes'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'buffer_2' in module 'example_async.sync_nodes'
-DEBUG	ordeq.io	Unpersisting data for StringBuffer 'buffer_2' in module 'example_async.sync_nodes'
+INFO	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.sync_nodes'
+INFO	ordeq.io	Saving StringBuffer 'buffer_1' in module 'example_async.sync_nodes'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'buffer_1' in module 'example_async.sync_nodes'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'buffer_1' in module 'example_async.sync_nodes'
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'buffer_2' in module 'example_async.sync_nodes'
 
 ```

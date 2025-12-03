@@ -29,7 +29,7 @@ View(func=__main__:hello)
 View:View(func=__main__:hello, ...) --> io-0
 io-0 --> Node:__main__:n
 io-0 --> Node:__main__:n
-Node:__main__:n --> io-1
+Node:__main__:n --> io-2
 Hello, World! == Hello, World!'
 
 ```

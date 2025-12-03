@@ -26,7 +26,7 @@ pprint(node_graph.topological_ordering)
 
 ```text
 Relativistic mass
-ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' and 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' both output to Resource(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)). Nodes cannot output to the same resource.
+ValueError: Nodes 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' and 'example_nested.subpackage.subsubpackage.hello_relative:world_relative' both output to StringBuffer(_buffer=<_io.StringIO object at HASH1>). Nodes cannot output to the same resource.
   File "/packages/ordeq/src/ordeq/_graph.py", line LINO, in from_nodes
     raise ValueError(msg)
 

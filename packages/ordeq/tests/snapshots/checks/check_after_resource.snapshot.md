@@ -88,8 +88,8 @@ INFO	ordeq.io	Loading PolarsEagerCSV 'csv_polars' in module '__main__'
 DEBUG	ordeq.io	Persisting data for PolarsEagerCSV 'csv_polars' in module '__main__'
 INFO	ordeq.runner	Running view 'check' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-DEBUG	ordeq.io	Unpersisting data for PandasCSV 'csv_pandas' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for PolarsEagerCSV 'csv_polars' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
+DEBUG	ordeq.io	Unpersisting data for PandasCSV 'csv_pandas' in module '__main__'
 
 ```

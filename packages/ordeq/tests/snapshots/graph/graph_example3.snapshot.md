@@ -26,12 +26,15 @@ pprint(node_graph.topological_ordering)
 
 ```text
 NodeIOGraph
-View:View(func=example_3.func_defs:hello, ...) --> io-0
-View:View(func=example_3.func_defs:hello, ...) --> io-1
+View:View(func=example_3.func_defs:hello, ...) --> io-2
+View:View(func=example_3.func_defs:hello, ...) --> io-3
 NodeGraph
-View:View(func=example_3.func_defs:hello, ...)
-View:View(func=example_3.func_defs:hello, ...)
+View:View(func=example_3.func_defs:hello, ...) --> Stub:View(func=example_3.func_defs:hello, ...)
+View:View(func=example_3.func_defs:hello, ...) --> Stub:View(func=example_3.func_defs:hello, ...)
 Topological ordering
-(View(func=example_3.func_defs:hello), View(func=example_3.func_defs:hello))
+(View(func=example_3.func_defs:hello),
+ View(func=example_3.func_defs:hello),
+ Stub(value=IO(id=ID1)),
+ Stub(value=IO(id=ID2)))
 
 ```

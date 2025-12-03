@@ -43,7 +43,7 @@ Should run both `hello` and `world`:
 io-0 --> View:__main__:hello
 View:__main__:hello --> io-1
 io-1 --> Node:__main__:world
-Node:__main__:world --> io-2
+Node:__main__:world --> io-4
 Saying Hello, world!!
 Hello, world!!
 Should run neither `hello` nor `world`:
@@ -52,7 +52,7 @@ Should run both `hello` and `world`:
 io-0 --> View:__main__:hello
 View:__main__:hello --> io-1
 io-1 --> Node:__main__:world
-Node:__main__:world --> io-2
+Node:__main__:world --> io-4
 Saying Hello, world!!
 Hello, world!!
 

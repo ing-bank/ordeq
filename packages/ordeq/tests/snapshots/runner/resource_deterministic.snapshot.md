@@ -51,14 +51,14 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 
 ```text
 io-0 --> Node:__main__:second
-Node:__main__:second --> io-1
-Node:__main__:first --> io-2
+Node:__main__:second --> io-3
+Node:__main__:first --> io-5
 First node
 Second node
 Hello, world!
 io-0 --> Node:__main__:second
-Node:__main__:second --> io-1
-Node:__main__:first --> io-2
+Node:__main__:second --> io-3
+Node:__main__:first --> io-5
 First node
 Second node
 Hello, world!
@@ -77,8 +77,8 @@ INFO	ordeq.io	Loading File 'second:value' in module '__main__'
 DEBUG	ordeq.io	Persisting data for File 'second:value' in module '__main__'
 INFO	ordeq.runner	Running node 'second' in module '__main__'
 INFO	ordeq.io	Saving Print()
-DEBUG	ordeq.io	Unpersisting data for File
 DEBUG	ordeq.io	Unpersisting data for File 'second:value' in module '__main__'
+DEBUG	ordeq.io	Unpersisting data for File
 INFO	ordeq.runner	Running node 'first' in module '__main__'
 INFO	ordeq.io	Saving File
 DEBUG	ordeq.io	Persisting data for File

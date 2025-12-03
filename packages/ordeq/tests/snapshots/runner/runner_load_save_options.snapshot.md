@@ -50,7 +50,7 @@ io-0 --> Node:__main__:increment
 Node:__main__:increment --> io-2
 io-1 --> Node:__main__:decrement
 io-2 --> Node:__main__:decrement
-Node:__main__:decrement --> io-3
+Node:__main__:decrement --> io-7
 x says 'x says y did it ' but y says 'x did it and I know the murder weapon'  
 
 ```

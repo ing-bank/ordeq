@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import importlib
 from abc import ABC, abstractmethod
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Hashable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import wraps
 from inspect import Signature, signature
@@ -331,12 +331,39 @@ class Saver(AbstractNode[[T], None]):  # type: ignore[invalid-type-form]
         return repr(self)
 
 
+@dataclass(frozen=True, kw_only=True, eq=False)
+class Stub(View[FuncParams, None]):
+    func: Callable[[], None] = return_none  # type: ignore[assignment]
+    value: Hashable
+    inputs: tuple[Input, ...] = ()
+
+    def __post_init__(self): ...
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Stub):
+            return False
+        return self.value == other.value
+
+    def __hash__(self) -> int:
+        return hash(self.value)
+
+    def __repr__(self) -> str:
+        return f"Stub(value={self.value})"
+
+    def __str__(self) -> str:
+        return f"Stub(value={self.value})"
+
+
 def _is_node(obj: object) -> TypeGuard[Node]:
     return isinstance(obj, Node)
 
 
 def _is_view(obj: object) -> TypeGuard[View]:
     return isinstance(obj, View)
+
+
+def _is_stub(obj: object) -> TypeGuard[Stub]:
+    return isinstance(obj, Stub)
 
 
 @overload

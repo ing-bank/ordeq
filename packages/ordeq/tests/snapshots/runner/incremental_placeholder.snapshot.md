@@ -31,7 +31,7 @@ io-0 --> Node:__main__:f
 io-1 --> Node:__main__:f
 Node:__main__:f --> io-2
 io-2 --> Node:__main__:g
-Node:__main__:g --> io-3
+Node:__main__:g --> io-7
 IOException: Failed to load Input 'f:i' in module '__main__'.
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper

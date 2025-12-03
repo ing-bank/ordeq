@@ -362,7 +362,7 @@ def _resolve_runnable_refs_to_nodes(
     for runnable in runnables:
         if _is_node(runnable):
             nodes.append(runnable)
-        elif isinstance(runnable, str) and is_object_ref(runnable):
+        elif is_object_ref(runnable):
             fqn = FQN.from_ref(runnable)
             nodes.append(_resolve_fqn_to_node(fqn))
     return nodes

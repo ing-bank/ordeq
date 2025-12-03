@@ -30,6 +30,10 @@ def is_object_ref(obj: object) -> TypeGuard[ObjectRef]:
     return isinstance(obj, str) and ":" in obj
 
 
+def is_module_name(obj: object) -> TypeGuard[ModuleName]:
+    return isinstance(obj, str) and ":" not in obj
+
+
 def fqn_to_object_ref(fqn: tuple[ModuleName, ObjectName]) -> ObjectRef:
     """Convert a fully qualified name (FQN) to a string representation.
 

@@ -110,7 +110,7 @@ class Response(Input[T]):
     session: Session = field(default_factory=Session)
 
     @abstractmethod
-    def load(self) -> T: ...
+    def load(self, **load_options) -> T: ...
 
     def _request(self, **request_args: Any) -> requests.Response:
         """Make a request and return the response.
@@ -135,23 +135,23 @@ class Response(Input[T]):
 
 @dataclass(frozen=True)
 class ResponseContent(Response[bytes]):
-    def load(self) -> bytes:
-        return self._request().content
+    def load(self, **load_options: Any) -> bytes:
+        return self._request(**load_options).content
 
 
 @dataclass(frozen=True)
 class ResponseText(Response[str]):
-    def load(self) -> str:
-        return self._request().text
+    def load(self, **load_options: Any) -> str:
+        return self._request(**load_options).text
 
 
 @dataclass(frozen=True)
 class ResponseJSON(Response[dict]):
-    def load(self) -> dict:
-        return self._request().json()
+    def load(self, **load_options: Any) -> dict:
+        return self._request(**load_options).json()
 
 
 @dataclass(frozen=True)
 class ResponseStream(Response[HTTPResponse]):
-    def load(self) -> HTTPResponse:
-        return self._request(stream=True).raw
+    def load(self, **load_options: Any) -> HTTPResponse:
+        return self._request(stream=True, **load_options).raw

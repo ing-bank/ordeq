@@ -51,7 +51,16 @@ def test_it_builds_a_graph():
     assert g.edges[second] == [Stub(value=D)]
     assert g.edges[Stub(value=D)] == [third]
     assert g.edges[third] == [Stub(value=F)]
-    assert g.nodes == {first, second, third, Stub(value=A), Stub(value=B), Stub(value=C), Stub(value=D), Stub(value=F)}
+    assert g.nodes == {
+        first,
+        second,
+        third,
+        Stub(value=A),
+        Stub(value=B),
+        Stub(value=C),
+        Stub(value=D),
+        Stub(value=F),
+    }
 
 
 def test_it_builds_graph_with_single_node():
@@ -63,7 +72,11 @@ def test_it_builds_graph_with_single_node():
     first.checks = []
 
     g = NodeGraph.from_nodes([first])
-    assert g.edges == {first: [Stub(value=B)], Stub(value=B): [], Stub(value=A): [first]}
+    assert g.edges == {
+        first: [Stub(value=B)],
+        Stub(value=B): [],
+        Stub(value=A): [first],
+    }
     assert set(g.nodes) == {first, Stub(value=A), Stub(value=B)}
 
 

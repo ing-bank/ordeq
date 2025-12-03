@@ -42,8 +42,7 @@ class TextLinesStream(IO[Generator[str]]):
     def persist(self, data: Generator[str]) -> None:
         """Don't persist since is a stream-based IO."""
 
-    @staticmethod
-    def __post_init__() -> None:
+    def __post_init__(self) -> None:
         preview(
             "TextLinesStream is in pre-release, "
             "functionality may break in future releases "

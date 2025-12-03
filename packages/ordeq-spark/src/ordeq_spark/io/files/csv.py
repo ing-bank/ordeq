@@ -1,9 +1,8 @@
 from dataclasses import dataclass
+from typing import Any
 
 from ordeq import IO
 from pyspark.sql import DataFrame, SparkSession
-
-from ordeq_spark.io.files.utils import _save_single_file
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -21,26 +20,28 @@ class SparkCSV(IO[DataFrame]):
     ... )
 
     ```
-
-    By default, Spark creates a directory on save.
-    Use `single_file` if you want to write to a file instead:
-
-    ```pycon
-    >>> from ordeq_spark import SparkCSV
-    >>> csv = SparkCSV(
-    ...     path="to.csv"
-    ... ).with_save_options(single_file=True)
-
-    ```
-
     """
 
     path: str
     format: str = "csv"
 
     def load(
-        self, infer_schema: bool = True, header: bool = True, **load_options
+        self,
+        infer_schema: bool = True,
+        header: bool = True,
+        **load_options: Any,
     ) -> DataFrame:
+        """
+        Load a CSV into a DataFrame.
+
+        Args:
+            infer_schema: Whether to infer the schema.
+            header: Whether the CSV has a header row.
+            load_options: Additional options for loading.
+
+        Returns:
+            The loaded DataFrame.
+        """
         return SparkSession.builder.getOrCreate().read.load(
             path=self.path,
             format=self.format,
@@ -49,10 +50,12 @@ class SparkCSV(IO[DataFrame]):
             **load_options,
         )
 
-    def save(
-        self, df: DataFrame, single_file: bool = False, **save_options
-    ) -> None:
-        if single_file:
-            _save_single_file(df, self.path, self.format, **save_options)
-        else:
-            df.write.save(path=self.path, format=self.format, **save_options)
+    def save(self, df: DataFrame, **save_options: Any) -> None:
+        """
+        Save a DataFrame to CSV.
+
+        Args:
+            df: The DataFrame to save.
+            save_options: Additional options for saving.
+        """
+        df.write.save(path=self.path, format=self.format, **save_options)

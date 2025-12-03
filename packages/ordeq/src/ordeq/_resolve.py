@@ -384,7 +384,8 @@ def _resolve_module_name_to_module(
     module: ModuleType | ModuleName,
 ) -> ModuleType:
     if _is_module(module):
-        return module
+        # (ty false positive)
+        return module  # type: ignore[invalid-return-type]
     if isinstance(module, str):
         return _resolve_module_ref_to_module(module)
     raise TypeError(

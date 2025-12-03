@@ -39,7 +39,7 @@ class TextLinesStream(IO[Generator[str]]):
 
     path: PathLike
 
-    def persist(self, _) -> None:
+    def persist(self, data: Generator[str]) -> None:
         """Don't persist since is a stream-based IO."""
 
     def __post_init__(self) -> None:

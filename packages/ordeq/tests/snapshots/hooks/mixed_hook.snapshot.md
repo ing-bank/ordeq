@@ -50,3 +50,11 @@ INFO	ordeq.runner	Running node 'my_node' in module '__main__'
 INFO	ordeq.io	Saving Output(id=ID1)
 
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/hooks/mixed_hook.py:15:9: error[invalid-method-override] Invalid override of method `before_output_save`: Definition is incompatible with `OutputHook.before_output_save`
+Found 1 diagnostic
+
+```

@@ -27,7 +27,7 @@ test = [
 ]
 types = [
     "mypy>=1.18.2",
-    "ty>=0.0.1a25",
+    "ty>=0.0.1a30",
 ]
 
 [tool.uv.sources]

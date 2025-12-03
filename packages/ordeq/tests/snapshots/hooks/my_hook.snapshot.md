@@ -38,3 +38,11 @@ Running node 'func' in module '__main__'
 saving data `world` to output `StringBuffer(_buffer=<_io.StringIO object at HASH1>)`
 
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/hooks/my_hook.py:6:9: error[invalid-method-override] Invalid override of method `before_output_save`: Definition is incompatible with `OutputHook.before_output_save`
+Found 1 diagnostic
+
+```

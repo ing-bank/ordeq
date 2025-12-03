@@ -34,3 +34,11 @@ print(io.input_hooks)
 (ExampleHook(value=2),)
 
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/hooks/io_hook_replace.py:10:9: error[invalid-method-override] Invalid override of method `before_input_load`: Definition is incompatible with `InputHook.before_input_load`
+Found 1 diagnostic
+
+```

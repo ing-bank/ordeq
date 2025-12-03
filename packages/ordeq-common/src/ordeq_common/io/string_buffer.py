@@ -71,5 +71,5 @@ class StringBuffer(IO[str]):
     def save(self, data: str) -> None:
         self._buffer.write(data)
 
-    def persist(self, _) -> None:
+    def persist(self, data: str) -> None:
         return super().persist(self._buffer.getvalue())

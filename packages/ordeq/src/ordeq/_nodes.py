@@ -306,7 +306,7 @@ class View(Node[FuncParams, FuncReturns]):
 
 
 @dataclass(frozen=True)
-class Loader(AbstractNode[[], FuncReturns]):
+class Loader(AbstractNode[[], FuncReturns]):  # type: ignore[invalid-type-form]
     io: Input[FuncReturns]
 
     def __call__(self) -> FuncReturns:

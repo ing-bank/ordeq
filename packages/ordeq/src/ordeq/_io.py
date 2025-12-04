@@ -740,12 +740,10 @@ class Output(
     """
 
     @cached_property
-    def _saver(self) -> Saver[[Tout], Tout]:
+    def _saver(self) -> Saver[Tout]:
         from ordeq._nodes import Saver  # noqa: PLC0415 (deferred import)
 
-        return Saver(
-            io=self,
-        )
+        return Saver(io=self)
 
     def __repr__(self):
         return f"Output(id={id(self)})"

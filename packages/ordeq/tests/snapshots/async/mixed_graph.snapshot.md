@@ -43,13 +43,9 @@ string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
 
-  File "/packages/ordeq/src/ordeq/_io.py", line LINO, in save_and_return
-    self.save(data)
-    ~~~~~~~~~^^^^^^
-
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __call__
-    return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
-           ~~~~~~~~~^^^^^^^^^^^^^^^^^
+    return self.io.save(data)
+           ~~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _save_outputs
     output._saver(data)

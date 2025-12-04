@@ -318,6 +318,19 @@ class Loader(AbstractNode[[], FuncReturns]):  # type: ignore[invalid-type-form]
         return repr(self)
 
 
+@dataclass(frozen=True)
+class Saver(AbstractNode[[T], None]):  # type: ignore[invalid-type-form]
+    io: Output[T]
+
+    def __call__(self, data: T) -> None:
+        return self.io.save(data)
+
+    def __str__(self) -> str:
+        if self.io.is_fq:
+            return f"Save {self.io.type_fqn.name} {self.io.fqn:desc}"
+        return repr(self)
+
+
 def _is_node(obj: object) -> TypeGuard[Node]:
     return isinstance(obj, Node)
 

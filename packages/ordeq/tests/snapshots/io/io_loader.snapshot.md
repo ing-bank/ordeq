@@ -3,27 +3,31 @@
 ```python
 from ordeq_common import StringBuffer
 from typing_extensions import reveal_type
+from ordeq._fqn import FQN
 
 s = StringBuffer("Hello, World!")
 
 reveal_type(s._loader)
 print(s._loader)
 print(s._loader())
+s._set_fqn(FQN(__name__, "s"))
+print(s._loader)
 
 ```
 
 ## Output
 
 ```text
-View(func=ordeq_common.io.string_buffer:load, ...)
+Loader(io=StringBuffer(_buffer=<_io.StringIO object at HASH1>))
 Hello, World!
+Load StringBuffer 's' in module '__main__'
 
 ```
 
 ## Error
 
 ```text
-Runtime type is 'View'
+Runtime type is 'Loader'
 
 ```
 

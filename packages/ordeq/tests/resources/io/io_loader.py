@@ -1,6 +1,6 @@
+from ordeq._fqn import FQN
 from ordeq_common import StringBuffer
 from typing_extensions import reveal_type
-from ordeq._fqn import FQN
 
 s = StringBuffer("Hello, World!")
 

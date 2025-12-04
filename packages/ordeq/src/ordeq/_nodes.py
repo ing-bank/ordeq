@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+from abc import ABC, abstractmethod
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import wraps
@@ -50,8 +51,15 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
     return name
 
 
+class AbstractNode(ABC, Generic[FuncParams, FuncReturns]):
+    @abstractmethod
+    def __call__(
+        self, *args: FuncParams.args, **kwargs: FuncParams.kwargs
+    ) -> FuncReturns: ...
+
+
 @dataclass(frozen=True, kw_only=True)
-class Node(Generic[FuncParams, FuncReturns]):
+class Node(AbstractNode[FuncParams, FuncReturns]):
     @property
     def __doc__(self) -> str | None:  # type: ignore[override]
         return self.func.__doc__
@@ -295,6 +303,19 @@ class View(Node[FuncParams, FuncReturns]):
         attributes_str = ", ".join(f"{k}={v}" for k, v in attributes.items())
 
         return f"View({attributes_str})"
+
+
+@dataclass(frozen=True)
+class Loader(AbstractNode[[], FuncReturns]):
+    io: Input[FuncReturns]
+
+    def __call__(self) -> FuncReturns:
+        return self.io.load()
+
+    def __str__(self) -> str:
+        if self.io.is_fq:
+            return f"Load {self.io.type_fqn.name} {self.io.fqn:desc}"
+        return repr(self)
 
 
 def _is_node(obj: object) -> TypeGuard[Node]:

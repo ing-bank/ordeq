@@ -53,8 +53,8 @@ IOException: Failed to load IO 'what_i_heard:v' in module '__main__'.
     raise IOException(msg) from exc
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __call__
-    return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
-           ~~~~~~~~~^^^^^^^^^^^^^^^^^
+    return self.io.load()
+           ~~~~~~~~~~~~^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _load_inputs
     data = io._loader()

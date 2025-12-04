@@ -70,11 +70,3 @@ DEBUG	ordeq.io	Unpersisting data for IO 'train:data' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 
 ```
-
-## Typing
-
-```text
-packages/ordeq/tests/resources/views/view_train_test_split.py:24:12: error[invalid-return-type] Return type does not match returned value: expected `tuple[DataFrame, DataFrame]`, found `tuple[Series[Any], Series[Any]]`
-Found 1 diagnostic
-
-```

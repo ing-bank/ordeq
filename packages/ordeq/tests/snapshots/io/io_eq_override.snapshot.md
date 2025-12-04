@@ -48,3 +48,12 @@ assert hash(b) != hash(B)
 UserWarning: IO CustomIO implements '__eq__'. This will be ignored.
 UserWarning: IO CustomIO implements '__hash__'. This will be ignored.
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/io/io_eq_override.py:16:9: error[override-of-final-method] Cannot override final member `__eq__` from superclass `_WithEq`
+packages/ordeq/tests/resources/io/io_eq_override.py:19:9: error[override-of-final-method] Cannot override final member `__hash__` from superclass `_WithEq`
+Found 2 diagnostics
+
+```

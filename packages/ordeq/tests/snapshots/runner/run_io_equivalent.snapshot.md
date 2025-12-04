@@ -56,3 +56,12 @@ INFO	ordeq.runner	Running node 'feeding' in module '__main__'
 INFO	ordeq.io	Saving MyPet(name='dog')
 
 ```
+
+## Typing
+
+```text
+packages/ordeq/tests/resources/runner/run_io_equivalent.py:13:9: error[override-of-final-method] Cannot override final member `__eq__` from superclass `_WithEq`
+packages/ordeq/tests/resources/runner/run_io_equivalent.py:16:9: error[override-of-final-method] Cannot override final member `__hash__` from superclass `_WithEq`
+Found 2 diagnostics
+
+```

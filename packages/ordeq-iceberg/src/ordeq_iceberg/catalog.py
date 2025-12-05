@@ -26,7 +26,7 @@ class IcebergCatalog(Input[Catalog]):
 
     def load(self, **load_options) -> Catalog:
         if isinstance(self.catalog_type, CatalogType):
-            catalog_type_value = self.catalog_type.value
+            catalog_type_value: str | None = self.catalog_type.value
         else:
             catalog_type_value = self.catalog_type
         return load_catalog(self.name, type=catalog_type_value, **load_options)

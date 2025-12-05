@@ -11,9 +11,6 @@ packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     d
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | View[Any, Any]] | Input[Any] | View[Any, Any] | None = ..., outputs: None = ..., checks: Sequence[Input[Any] | Output[Any] | Node[Any, Any]] | Input[Any] | Output[Any] | Node[Any, Any] | Hashable | None = ..., **attributes: Any) -> View[FuncParams, FuncReturns]
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def node(*, inputs: Sequence[Input[Any] | View[Any, Any]] | Input[Any] | View[Any, Any] = ..., outputs: Sequence[Output[Any]] | Output[Any], checks: Sequence[Input[Any] | Output[Any] | Node[Any, Any]] | Input[Any] | Output[Any] | Node[Any, Any] | Hashable | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], Node[FuncParams, FuncReturns]]
 packages/ordeq/tests/resources/views/node_outputs_regular_func.py:8: note:     def node(*, inputs: Sequence[Input[Any] | View[Any, Any]] | Input[Any] | View[Any, Any] = ..., outputs: None = ..., checks: Sequence[Input[Any] | Output[Any] | Node[Any, Any]] | Input[Any] | Output[Any] | Node[Any, Any] | Hashable | None = ..., **attributes: Any) -> Callable[[Callable[FuncParams, FuncReturns]], View[FuncParams, FuncReturns]]
-packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Node[Any, Any] | str  [arg-type]
-packages/ordeq/tests/resources/runner/run_io_equivalent.py:13: error: Cannot override final attribute "__eq__" (previously declared in base class "_WithEq")  [misc]
-packages/ordeq/tests/resources/runner/run_io_equivalent.py:16: error: Cannot override final attribute "__hash__" (previously declared in base class "_WithEq")  [misc]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: error: No overload variant of "node" matches argument types "Input[str]", "Input[str]"  [call-overload]
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: note: Possible overload variants:
 packages/ordeq/tests/resources/nodes/node_unexpected_output_type.py:6: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | View[Any, Any]] | Input[Any] | View[Any, Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any], checks: Sequence[Input[Any] | Output[Any] | Node[Any, Any]] | Input[Any] | Output[Any] | Node[Any, Any] | Hashable | None = ..., **attributes: Any) -> Node[FuncParams, FuncReturns]
@@ -63,6 +60,9 @@ packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: This 
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: error: Argument 2 of "before_output_save" is incompatible with supertype "ordeq._hook.OutputHook"; supertype defines the argument type as "str"  [override]
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:6: error: If x = b'abc' then f"{x}" or "{}".format(x) produces "b'abc'", not "abc". If this is desired behavior, use f"{x!r}" or "{!r}".format(x). Otherwise, decode the bytes  [str-bytes-safe]
+packages/ordeq/tests/resources/runner/run_non_runnable.py:3: error: Argument 1 to "run" has incompatible type "float"; expected Module | Node[Any, Any] | str  [arg-type]
+packages/ordeq/tests/resources/runner/run_io_equivalent.py:13: error: Cannot override final attribute "__eq__" (previously declared in base class "_WithEq")  [misc]
+packages/ordeq/tests/resources/runner/run_io_equivalent.py:16: error: Cannot override final attribute "__hash__" (previously declared in base class "_WithEq")  [misc]
 packages/ordeq/tests/resources/catalog/overridden.py:7: error: Module has no attribute "hello"  [attr-defined]
 packages/ordeq/tests/resources/catalog/overridden.py:7: error: Module has no attribute "another_io"  [attr-defined]
 packages/ordeq/tests/resources/catalog/extended.py:5: error: Module has no attribute "hello"  [attr-defined]
@@ -84,14 +84,14 @@ packages/ordeq/tests/resources/views/view_inputs_regular_func.py:9: note:     de
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:6: error: Need type annotation for "b"  [var-annotated]
 packages/ordeq/tests/resources/substitute/substitute_ios_with_ios.py:8: error: Need type annotation for "B"  [var-annotated]
 packages/ordeq/tests/resources/runner/logging_verbosity.py:16: error: Argument 1 to "from_nodes" of "NodeGraph" has incompatible type "set[Any]"; expected "Sequence[Node[Any, Any]]"  [arg-type]
+packages/ordeq/tests/resources/nodes/node_type_hints.py:17: note: Revealed type is "ordeq._nodes.Node[[x: builtins.str, y: builtins.str], tuple[builtins.str, builtins.str]]"
+packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:5: error: Module has no attribute "result"  [attr-defined]
+packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:9: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
-packages/ordeq/tests/resources/nodes/node_type_hints.py:17: note: Revealed type is "ordeq._nodes.Node[[x: builtins.str, y: builtins.str], tuple[builtins.str, builtins.str]]"
-packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:5: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py:16: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 6  [no-redef]
-packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:9: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:11: error: Need type annotation for "dataframe"  [var-annotated]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:13: error: Need type annotation for "fltr"  [var-annotated]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]

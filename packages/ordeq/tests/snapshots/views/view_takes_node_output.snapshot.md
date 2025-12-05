@@ -40,13 +40,13 @@ Node:__main__:hello_from_someone --> io-2
 io-2 --> View:__main__:what_i_heard
 View:__main__:what_i_heard --> io-3
 io-3 --> View:__main__:sink
-View:__main__:sink --> io-8
+View:__main__:sink --> io-4
 I heard that Jane said 'Hello'
 None
 io-0 --> View:__main__:what_i_heard
 View:__main__:what_i_heard --> io-1
 io-1 --> View:__main__:sink
-View:__main__:sink --> io-4
+View:__main__:sink --> io-2
 IOException: Failed to load IO 'what_i_heard:v' in module '__main__'.
 
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper

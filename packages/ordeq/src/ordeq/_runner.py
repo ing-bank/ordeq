@@ -8,7 +8,7 @@ from ordeq._fqn import AnyRef, ModuleName, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
-from ordeq._nodes import Node, View, _is_stub
+from ordeq._nodes import Node, View, _is_unit
 from ordeq._patch import _patch_nodes
 from ordeq._process_nodes import NodeFilter
 from ordeq._process_nodes_and_ios import process_nodes_and_ios
@@ -124,7 +124,7 @@ def _run_graph(
 
     for level in graph.topological_levels:
         for node in level:
-            if _is_stub(node):
+            if _is_unit(node):
                 # Stubs are only used for dependency resolution, skip running
                 continue
             _run_node_before_hooks(node, hooks=node_hooks)

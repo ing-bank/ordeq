@@ -34,19 +34,19 @@ graph TB
 	example_1.wrapped_io:hello --> example_1.wrapped_io:message
 	example_1.wrapped_io:message --> example_1.wrapped_io:print_message
 	example_1.wrapped_io:print_message --> example_1.wrapped_io:name_printer
-	example_1.nodes:x --> example_1.nodes:world
-	example_1.nodes:world --> example_1.nodes:y
-	example_1.catalog:TestInput --> example_1.pipeline:transform_input
-	example_1.pipeline:transform_input --> example_1.catalog:TestOutput
 	example_1.catalog:Hello --> example_1.pipeline:transform_mock_input
 	example_1.pipeline:transform_mock_input --> example_1.catalog:World
+	example_1.catalog:TestInput --> example_1.pipeline:transform_input
+	example_1.pipeline:transform_input --> example_1.catalog:TestOutput
+	example_1.nodes:x --> example_1.nodes:world
+	example_1.nodes:world --> example_1.nodes:y
 
 	example_1.wrapped_io:hello@{shape: rounded, label: "hello"}
 	example_1.wrapped_io:print_message@{shape: rounded, label: "print_message"}
 	example_1.wrapped_io:message@{shape: rect, label: "message"}
-	example_1.nodes:world@{shape: rounded, label: "world"}
-	example_1.pipeline:transform_input@{shape: rounded, label: "transform_input"}
 	example_1.pipeline:transform_mock_input@{shape: rounded, label: "transform_mock_input"}
+	example_1.pipeline:transform_input@{shape: rounded, label: "transform_input"}
+	example_1.nodes:world@{shape: rounded, label: "world"}
 	example_1.catalog:Hello@{shape: rect, label: "Hello"}
 	example_1.catalog:TestInput@{shape: rect, label: "TestInput"}
 	example_1.catalog:TestOutput@{shape: rect, label: "TestOutput"}
@@ -56,7 +56,7 @@ graph TB
 	example_1.wrapped_io:name_generator@{shape: rect, label: "name_generator"}
 	example_1.wrapped_io:name_printer@{shape: rect, label: "name_printer"}
 
-	class node_type,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.nodes:world,example_1.pipeline:transform_input,example_1.pipeline:transform_mock_input node
+	class node_type,example_1.wrapped_io:hello,example_1.wrapped_io:print_message,example_1.pipeline:transform_mock_input,example_1.pipeline:transform_input,example_1.nodes:world node
 	class io_type_0,example_1.catalog:TestInput io0
 	class io_type_1,example_1.catalog:TestOutput io1
 	class io_type_2,example_1.wrapped_io:name_generator io2

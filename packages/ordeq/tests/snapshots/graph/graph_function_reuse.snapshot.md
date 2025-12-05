@@ -31,31 +31,31 @@ io-0 --> View:View(func=example_function_reuse.func_defs:print_input, ...)
 io-1 --> View:View(func=example_function_reuse.func_defs:print_input, ...)
 io-2 --> View:View(func=example_function_reuse.func_defs:print_input, ...)
 io-3 --> View:View(func=example_function_reuse.func_defs:print_input, ...)
-View:View(func=example_function_reuse.func_defs:print_input, ...) --> io-9
-View:View(func=example_function_reuse.func_defs:print_input, ...) --> io-10
-View:View(func=example_function_reuse.func_defs:print_input, ...) --> io-11
-View:View(func=example_function_reuse.func_defs:print_input, ...) --> io-12
-View:example_function_reuse.nodes:pi --> io-13
+View:View(func=example_function_reuse.func_defs:print_input, ...) --> io-4
+View:View(func=example_function_reuse.func_defs:print_input, ...) --> io-5
+View:View(func=example_function_reuse.func_defs:print_input, ...) --> io-6
+View:View(func=example_function_reuse.func_defs:print_input, ...) --> io-7
+View:example_function_reuse.nodes:pi --> io-8
 NodeGraph
-View:example_function_reuse.nodes:pi --> Stub:example_function_reuse.nodes:pi
-View:View(func=example_function_reuse.func_defs:print_input, ...) --> Stub:View(func=example_function_reuse.func_defs:print_input, ...)
-View:View(func=example_function_reuse.func_defs:print_input, ...) --> Stub:View(func=example_function_reuse.func_defs:print_input, ...)
-View:View(func=example_function_reuse.func_defs:print_input, ...) --> Stub:View(func=example_function_reuse.func_defs:print_input, ...)
-View:View(func=example_function_reuse.func_defs:print_input, ...) --> Stub:View(func=example_function_reuse.func_defs:print_input, ...)
+View:example_function_reuse.nodes:pi --> Unit:example_function_reuse.nodes:pi
+View:View(func=example_function_reuse.func_defs:print_input, ...) --> Unit:View(func=example_function_reuse.func_defs:print_input, ...)
+View:View(func=example_function_reuse.func_defs:print_input, ...) --> Unit:View(func=example_function_reuse.func_defs:print_input, ...)
+View:View(func=example_function_reuse.func_defs:print_input, ...) --> Unit:View(func=example_function_reuse.func_defs:print_input, ...)
+View:View(func=example_function_reuse.func_defs:print_input, ...) --> Unit:View(func=example_function_reuse.func_defs:print_input, ...)
 Topological ordering
-(Stub(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
- Stub(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
- Stub(value=StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
- Stub(value=StringBuffer(_buffer=<_io.StringIO object at HASH4>)),
+(Unit(value=StringBuffer(_buffer=<_io.StringIO object at HASH1>)),
+ Unit(value=StringBuffer(_buffer=<_io.StringIO object at HASH2>)),
+ Unit(value=StringBuffer(_buffer=<_io.StringIO object at HASH3>)),
+ Unit(value=StringBuffer(_buffer=<_io.StringIO object at HASH4>)),
  View(module=example_function_reuse.nodes, name=pi, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH2>)]),
  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH3>)]),
  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH4>)]),
  View(func=example_function_reuse.func_defs:print_input, inputs=[StringBuffer(_buffer=<_io.StringIO object at HASH1>)]),
- Stub(value=IO(id=ID1)),
- Stub(value=IO(id=ID2)),
- Stub(value=IO(id=ID3)),
- Stub(value=IO(id=ID4)),
- Stub(value=IO(id=ID5)))
+ Unit(value=IO(id=ID1)),
+ Unit(value=IO(id=ID2)),
+ Unit(value=IO(id=ID3)),
+ Unit(value=IO(id=ID4)),
+ Unit(value=IO(id=ID5)))
 
 ```

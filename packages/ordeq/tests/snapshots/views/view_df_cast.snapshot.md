@@ -39,7 +39,7 @@ run(group_by, verbose=True)
 io-0 --> View:__main__:df_casted
 View:__main__:df_casted --> io-1
 io-1 --> View:__main__:group_by
-View:__main__:group_by --> io-4
+View:__main__:group_by --> io-2
      A    B    D
 0  bar  2.0  5.0
 1  foo  2.0  8.0

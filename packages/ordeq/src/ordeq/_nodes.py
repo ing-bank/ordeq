@@ -6,16 +6,7 @@ from collections.abc import Callable, Hashable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import wraps
 from inspect import Signature, signature
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    ParamSpec,
-    TypeGuard,
-    TypeVar,
-    cast,
-    overload,
-)
+from typing import Any, Generic, ParamSpec, TypeGuard, TypeVar, cast, overload
 
 from ordeq._fqn import FQN
 from ordeq._io import (
@@ -52,6 +43,10 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
 
 
 class AbstractNode(ABC, Generic[FuncParams, FuncReturns]):
+    @property
+    def type_name(self) -> str:
+        return type(self).__name__
+
     @abstractmethod
     def __call__(
         self, *args: FuncParams.args, **kwargs: FuncParams.kwargs
@@ -125,10 +120,6 @@ class Node(AbstractNode[FuncParams, FuncReturns]):
         if self.is_fq:
             return FQN(module=self.module, name=self.name)  # type: ignore[arg-type]
         return None
-
-    @property
-    def type_name(self) -> Literal["Node", "View"]:
-        return type(self).__name__  # type: ignore[return-value]
 
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
@@ -331,27 +322,23 @@ class Saver(AbstractNode[[T], None]):  # type: ignore[invalid-type-form]
         return repr(self)
 
 
-@dataclass(frozen=True, kw_only=True, eq=False)
-class Stub(View[FuncParams, None]):
-    func: Callable[[], None] = return_none  # type: ignore[assignment]
-    value: Hashable
+H = TypeVar("H", bound=Hashable)
+
+
+@dataclass(frozen=True, kw_only=True)
+class Unit(AbstractNode[[], H]):
+    value: H
+
+    # These fields is only needed for compatibility with the graph builder
+    # TODO: Remove
     inputs: tuple[Input, ...] = ()
+    outputs: tuple[Output, ...] = ()
 
-    def __post_init__(self): ...
+    def __call__(self) -> None:
+        return
 
-    def __eq__(self, other: object) -> bool:
-        if not isinstance(other, Stub):
-            return False
-        return self.value == other.value
-
-    def __hash__(self) -> int:
-        return hash(self.value)
-
-    def __repr__(self) -> str:
-        return f"Stub(value={self.value})"
-
-    def __str__(self) -> str:
-        return f"Stub(value={self.value})"
+    def __repr__(self):
+        return f"Unit(value={self.value})"
 
 
 def _is_node(obj: object) -> TypeGuard[Node]:
@@ -362,8 +349,8 @@ def _is_view(obj: object) -> TypeGuard[View]:
     return isinstance(obj, View)
 
 
-def _is_stub(obj: object) -> TypeGuard[Stub]:
-    return isinstance(obj, Stub)
+def _is_unit(obj: object) -> TypeGuard[Unit]:
+    return isinstance(obj, Unit)
 
 
 @overload

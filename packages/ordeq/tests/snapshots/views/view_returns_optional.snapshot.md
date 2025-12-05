@@ -32,11 +32,11 @@ run(n, verbose=True)
 ```text
 View:View(func=__main__:conditional, ...) --> io-0
 io-0 --> Node:__main__:n
-Node:__main__:n --> io-2
+Node:__main__:n --> io-1
 Higher value!
 View:View(func=__main__:conditional, ...) --> io-0
 io-0 --> Node:__main__:n
-Node:__main__:n --> io-2
+Node:__main__:n --> io-1
 None
 
 ```

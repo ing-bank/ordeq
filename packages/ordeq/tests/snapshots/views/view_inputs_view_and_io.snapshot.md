@@ -39,7 +39,7 @@ io-0 --> View:__main__:hello_from_someone
 io-1 --> View:__main__:hello_from_someone
 View:__main__:hello_from_someone --> io-2
 io-2 --> View:__main__:n
-View:__main__:n --> io-5
+View:__main__:n --> io-3
 I heard that Jane said 'Hello, World!'
 
 ```

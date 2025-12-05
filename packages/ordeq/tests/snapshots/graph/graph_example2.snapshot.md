@@ -27,12 +27,12 @@ pprint(node_graph.topological_ordering)
 ```text
 NodeIOGraph
 io-0 --> Node:example_2.nodes:transform_input_2
-Node:example_2.nodes:transform_input_2 --> io-2
+Node:example_2.nodes:transform_input_2 --> io-1
 NodeGraph
-Node:example_2.nodes:transform_input_2 --> Stub:example_2.nodes:transform_input_2
+Node:example_2.nodes:transform_input_2 --> Unit:example_2.nodes:transform_input_2
 Topological ordering
-(Stub(value=Input(id=ID1)),
+(Unit(value=Input(id=ID1)),
  Node(module=example_2.nodes, name=transform_input_2, inputs=[Input(id=ID1)], outputs=[Output(id=ID2)]),
- Stub(value=Output(id=ID2)))
+ Unit(value=Output(id=ID2)))
 
 ```

@@ -52,25 +52,25 @@ run(
 ## Output
 
 ```text
-View:View(func=example_nested.subpackage.subsubpackage.hello:world, ...) --> io-1
+View:View(func=example_nested.subpackage.subsubpackage.hello:world, ...) --> io-0
 Hello, World!
 Should assign FQNs from context:
-View:example_nested.subpackage.subsubpackage.hello:world --> io-1
+View:example_nested.subpackage.subsubpackage.hello:world --> io-0
 Hello, World!
 Should assign FQNs from context:
-View:example_nested.subpackage.subsubpackage.hello:world --> io-1
+View:example_nested.subpackage.subsubpackage.hello:world --> io-0
 Hello, World!
 Should assign FQNs from context:
-View:example_nested.subpackage.subsubpackage.hello:world --> io-1
+View:example_nested.subpackage.subsubpackage.hello:world --> io-0
 Hello, World!
 Should assign FQNs from context:
-View:example_nested.subpackage.subsubpackage.hello:world --> io-1
+View:example_nested.subpackage.subsubpackage.hello:world --> io-0
 Hello, World!
 FQNs not found in context:
-View:View(func=example_nested.subpackage.subsubpackage.hello:world, ...) --> io-1
+View:View(func=example_nested.subpackage.subsubpackage.hello:world, ...) --> io-0
 Hello, World!
 FQNs not found in context:
-View:View(func=example_nested.subpackage.subsubpackage.hello:world, ...) --> io-1
+View:View(func=example_nested.subpackage.subsubpackage.hello:world, ...) --> io-0
 Hello, World!
 
 ```

@@ -21,8 +21,8 @@ io-0 --> Node:resources.runner.example_module_a:increment
 Node:resources.runner.example_module_a:increment --> io-2
 io-1 --> Node:resources.runner.example_module_a:decrement
 io-2 --> Node:resources.runner.example_module_a:decrement
-View:View(func=__main__:noop, ...) --> io-8
-Node:resources.runner.example_module_a:decrement --> io-9
+View:View(func=__main__:noop, ...) --> io-3
+Node:resources.runner.example_module_a:decrement --> io-4
 
 ```
 

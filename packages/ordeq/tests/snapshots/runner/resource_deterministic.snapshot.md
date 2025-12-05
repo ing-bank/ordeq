@@ -51,14 +51,14 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 
 ```text
 io-0 --> Node:__main__:second
-Node:__main__:second --> io-3
-Node:__main__:first --> io-5
+Node:__main__:second --> io-1
+Node:__main__:first --> io-2
 First node
 Second node
 Hello, world!
 io-0 --> Node:__main__:second
-Node:__main__:second --> io-3
-Node:__main__:first --> io-5
+Node:__main__:second --> io-1
+Node:__main__:first --> io-2
 First node
 Second node
 Hello, world!

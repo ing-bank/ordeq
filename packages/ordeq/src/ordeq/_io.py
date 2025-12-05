@@ -28,7 +28,7 @@ from ordeq._fqn import FQN
 from ordeq._hook import InputHook, OutputHook
 
 if TYPE_CHECKING:
-    from ordeq._nodes import Loader, Saver, Stub
+    from ordeq._nodes import Loader, Saver, Unit
 
 logger = logging.getLogger("ordeq.io")
 
@@ -539,10 +539,10 @@ class _WithResource:
         return self._resource_ or self
 
     @cached_property
-    def _stub(self) -> Stub[ResourceType]:  # type: ignore[invalid-type-form]
-        from ordeq._nodes import Stub  # noqa: PLC0415 (deferred import)
+    def _unit(self) -> Unit[ResourceType]:  # type: ignore[invalid-type-form]
+        from ordeq._nodes import Unit  # noqa: PLC0415 (deferred import)
 
-        return Stub(value=self._resource, outputs=(IO(),))  # type: ignore[arg-type]
+        return Unit(value=self._resource)  # type: ignore[arg-type]
 
     def __matmul__(self, resource: ResourceType) -> Self:
         return self.with_resource(resource)

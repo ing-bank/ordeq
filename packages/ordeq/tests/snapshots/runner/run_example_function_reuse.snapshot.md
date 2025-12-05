@@ -16,11 +16,11 @@ io-0 --> View:example_function_reuse.nodes:a
 io-1 --> View:example_function_reuse.nodes:b
 io-2 --> View:example_function_reuse.nodes:c
 io-3 --> View:example_function_reuse.nodes:d
-View:example_function_reuse.nodes:a --> io-13
-View:example_function_reuse.nodes:b --> io-14
-View:example_function_reuse.nodes:c --> io-15
-View:example_function_reuse.nodes:d --> io-16
-View:example_function_reuse.nodes:pi --> io-17
+View:example_function_reuse.nodes:a --> io-4
+View:example_function_reuse.nodes:b --> io-5
+View:example_function_reuse.nodes:c --> io-6
+View:example_function_reuse.nodes:d --> io-7
+View:example_function_reuse.nodes:pi --> io-8
 A
 D
 C

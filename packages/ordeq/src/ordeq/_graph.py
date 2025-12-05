@@ -7,7 +7,7 @@ from itertools import chain
 from typing import Generic, TypeVar
 
 from ordeq._io import AnyIO, _is_io
-from ordeq._nodes import Node, Stub, _is_stub, _is_view
+from ordeq._nodes import Node, Unit, _is_unit, _is_view
 
 try:
     from typing import Self  # type: ignore[attr-defined]
@@ -69,56 +69,56 @@ class NodeResourceGraph(Graph[Node]):
     @classmethod
     def from_nodes(cls, nodes: Sequence[Node]) -> Self:
         edges: dict[Node, list[Node]] = {node: [] for node in nodes}
-        resource_to_node: dict[Stub, Node] = {}
+        resource_to_node: dict[Unit, Node] = {}
 
-        # if node.checks contains an resource, then this node precedes node(s)
+        # if node.checks contains a resource, then this node precedes node(s)
         # with that input that do not have it as a check.
         # add edges from check resource to node(s) with that input
-        checks: dict[Node, list[Stub]] = defaultdict(list)
+        checks: dict[Node, list[Unit]] = defaultdict(list)
         for node in nodes:
             for check in node.checks:
                 if _is_view(check):
-                    stub = check.outputs[0]._stub
+                    unit = check.outputs[0]._unit
                 elif _is_io(check):
-                    stub = check._stub
+                    unit = check._unit
                 else:
-                    stub = check  # type: ignore[assignment]
+                    unit = check  # type: ignore[assignment]
 
                 for output in node.outputs:
-                    checks[stub].append(output._stub)
+                    checks[unit].append(output._unit)
 
         for node in nodes:
             for ip in node.inputs:
-                stub = ip._stub
-                if stub not in edges:
-                    edges[stub] = []
+                unit = ip._unit
+                if unit not in edges:
+                    edges[unit] = []
 
                 # link checks
-                if stub in checks and node.checks == ():
-                    for check_resource in checks[stub]:
+                if unit in checks and node.checks == ():
+                    for check_resource in checks[unit]:
                         if check_resource not in edges:
                             edges[check_resource] = []
 
                         edges[check_resource].append(node)
 
-                edges[stub].append(node)
+                edges[unit].append(node)
 
             for op in node.outputs:
-                stub = op._stub
-                if stub in resource_to_node:
+                unit = op._unit
+                if unit in resource_to_node:
                     msg = (
                         f"Nodes '{node.ref}' and "
-                        f"'{resource_to_node[stub].ref}' "
-                        f"both output to {stub.value}. "
+                        f"'{resource_to_node[unit].ref}' "
+                        f"both output to {unit.value}. "
                         f"Nodes cannot output to the same resource."
                     )
                     raise ValueError(msg)
 
-                resource_to_node[stub] = node
-                edges[node].append(stub)
+                resource_to_node[unit] = node
+                edges[node].append(unit)
 
-                if stub not in edges:
-                    edges[stub] = []
+                if unit not in edges:
+                    edges[unit] = []
 
         return cls(edges=edges)
 
@@ -147,7 +147,7 @@ class NodeGraph(Graph[Node]):
     def __repr__(self) -> str:
         lines: list[str] = []
         for node in self.topological_ordering:
-            if not _is_stub(node):
+            if not _is_unit(node):
                 if self.edges[node]:
                     lines.extend(
                         f"{node.type_name}:{node.ref} --> "
@@ -194,7 +194,7 @@ class NodeIOGraph(Graph[AnyIO | Node]):
             **{
                 node: f"{node.type_name}:{node.ref}"
                 for node in self.nodes
-                if not _is_stub(node)
+                if not _is_unit(node)
             },
             **{
                 io: f"io-{i}"
@@ -205,7 +205,7 @@ class NodeIOGraph(Graph[AnyIO | Node]):
         }
 
         for vertex in self.topological_ordering:
-            if not _is_stub(vertex):
+            if not _is_unit(vertex):
                 lines.extend(
                     f"{names[vertex]} --> {names[next_vertex]}"
                     for next_vertex in self.edges[vertex]

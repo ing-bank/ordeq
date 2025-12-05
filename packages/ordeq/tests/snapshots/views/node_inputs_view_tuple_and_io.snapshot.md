@@ -29,7 +29,7 @@ View(func=__main__:hello)
 View:View(func=__main__:hello, ...) --> io-1
 io-0 --> Node:__main__:combine_greeting_with_ending
 io-1 --> Node:__main__:combine_greeting_with_ending
-Node:__main__:combine_greeting_with_ending --> io-4
+Node:__main__:combine_greeting_with_ending --> io-2
 Hello world !!!
 
 ```

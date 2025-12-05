@@ -311,5 +311,41 @@ gzip.load(mode="rb")  # type: bytes
 gzip.load(mode="rt")  # type: str
 ```
 
+### Mixed type IO
+
+When inheriting from `IO`, the load and the save method are expected to operate on the same type.
+In some cases, you may want to create an IO class that loads a different type than it saves.
+These IO are called _mixed type IOs_.
+To create a mixed type IO, simply inherit from `Input` and `Output` instead of `IO`.
+
+Here's a snippet of a mixed type IO in the `ordeq-chromadb` package:
+
+```python hl_lines="1-4 6 9"
+class ChromaDBCollection(
+    Input[chromadb.Collection],
+    Output[dict[str, Any]]  # (1)!
+):
+
+    def load(self, **load_options: Any) -> chromadb.Collection: # (2)!
+        return self.client.get_collection(self.name, **load_options)
+
+    def save(self, data: dict[str, Any], **save_options: Any) -> None:  # (3)!
+        collection = self.client.get_or_create_collection(
+            self.name, **save_options
+        )
+        collection.add(**data)
+```
+
+1. The `ChromaDBCollection` IO loads `chromadb.Collection` and saves `dict[str, Any]`.
+1. The `load` method returns a `chromadb.Collection`.
+1. The `save` method takes a `dict[str, Any]` as first argument.
+
+A common reason to use mixed type IOs is when the IO leverages a library that has different types for reading and writing data.
+
+!!! warning "Mixed type IOs should be used sparingly"
+
+    Mixed type IOs can make code harder to understand and maintain.
+    Use them only when there is a clear need for different load and save types.
+
 [dataclasses]: https://docs.python.org/3/library/dataclasses.html
 [overload]: https://docs.python.org/3/library/typing.html#typing.overload

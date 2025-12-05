@@ -312,6 +312,7 @@ gzip.load(mode="rt")  # type: str
 ```
 
 ### Mixed type IO
+
 When inheriting from `IO`, the load and the save method are expected to operate on the same type.
 In some cases, you may want to create an IO class that loads a different type than it saves.
 These IO are called _mixed type IOs_.

@@ -1,6 +1,6 @@
 import contextlib
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Literal, TypeAlias, overload
 
 from ordeq import IO
 from ordeq.types import PathLike
@@ -8,9 +8,12 @@ from ordeq.types import PathLike
 with contextlib.suppress(ImportError):
     import gzip
 
+ReadBinary: TypeAlias = Literal["r", "rb"]
+ReadText: TypeAlias = Literal["rt"]
+
 
 @dataclass(frozen=True, kw_only=True)
-class Gzip(IO[bytes]):
+class Gzip(IO[bytes | str]):
     """IO representing a gzip-compressed file.
 
     Example usage:
@@ -28,7 +31,15 @@ class Gzip(IO[bytes]):
 
     path: str | PathLike
 
-    def load(self, mode="rb", **load_options: Any) -> bytes:
+    @overload
+    def load(self, mode: ReadBinary = "rb", **load_options: Any) -> bytes: ...
+
+    @overload
+    def load(self, mode: ReadText = "rt", **load_options: Any) -> str: ...
+
+    def load(
+        self, mode: ReadBinary | ReadText = "rb", **load_options: Any
+    ) -> bytes | str:
         with gzip.open(self.path, mode=mode, **load_options) as f:
             return f.read()
 

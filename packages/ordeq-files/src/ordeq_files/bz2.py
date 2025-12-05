@@ -47,7 +47,7 @@ class Bz2(IO[bytes | str]):
         ):
             return f.read()
 
-    def save(self, data: bytes, mode="wb", **save_options: Any) -> None:
+    def save(self, data: bytes, mode: str = "wb", **save_options: Any) -> None:
         with (
             self.path.open(mode) as fh,
             bz2.open(fh, mode=mode, **save_options) as f,

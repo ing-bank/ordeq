@@ -269,4 +269,53 @@ Saving data using this dataset would raise a `ordeq.IOException` explaining the 
 Similarly, you can inherit from the `Output` class for IO that only require to implement the `save` method.
 The `ordeq-matplotlib` package contains an example of this in `MatplotlibFigure`.
 
+## Advanced typing
+
+### Overloading load and save
+
+Sometimes it is useful to provide multiple signatures for the `load` and `save` methods.
+For example, we might want to allow loading data as either a string or bytes.
+We can achieve this using the `@overload` decorator from Python's built-in `typing` module.
+
+!!! info "More on method overloading"
+
+    For more information on function overloading in Python, refer to the [documentation][overload].
+
+Here is a slightly simplified example from the Gzip IO in `ordeq-files`:
+
+```python hl_lines="1 3-4 6-7"
+class Gzip(IO[bytes | str]): # (1)!
+
+    @overload
+    def load(self, mode: str = "rb", **load_options: Any) -> bytes: ...  # (2)!
+
+    @overload
+    def load(self, mode: str = "rt", **load_options: Any) -> str: ...  # (3)!
+
+    def load(self, mode: str = "rb", **load_options: Any) -> bytes | str:
+        with gzip.open(self.path, mode=mode, **load_options) as f:
+            return f.read()
+
+    def save(
+        self, data: str | bytes, mode: str = "wb", **save_options: Any
+    ) -> None:
+        with gzip.open(self.path, mode=mode, **save_options) as f:
+            f.write(data)
+
+```
+
+1. The `Gzip` IO can load and save both `str` and `bytes`.
+1. The first `@overload` defines the signature for loading `bytes`.
+1. The second `@overload` defines the signature for loading `str`.
+
+The `@overload` decorator indicates to type checkers that the `load` method can return different types.
+Furthermore, the return type can be inferred from the provided arguments:
+
+```python hl_lines="2 3"
+gzip = Gzip(path="data.gz")
+gzip.load(mode="rb")  # type: bytes
+gzip.load(mode="rt")  # type: str
+```
+
 [dataclasses]: https://docs.python.org/3/library/dataclasses.html
+[overload]: https://docs.python.org/3/library/typing.html#typing.overload

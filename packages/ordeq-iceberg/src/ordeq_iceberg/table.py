@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 from ordeq import Input
 from pyiceberg.catalog import Catalog
@@ -45,7 +46,7 @@ class IcebergTable(Input[Table]):
             return self.catalog.load()  # type: ignore[return-value]
         return self.catalog
 
-    def load(self, **load_options) -> Table:
+    def load(self, **load_options: Any) -> Table:
         """Load the table instance from the catalog
 
         Returns:

@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 import pyiceberg.types as T
 from ordeq import node, run
 from ordeq_common import Literal
@@ -42,6 +44,8 @@ def create_table(catalog: Catalog, namespace: str, table_name: str) -> None:
 @node(inputs=[my_table])
 def load_table(created_table: Table) -> None:
     print(f"Table loaded from Input object: '{created_table}'")
+    last_month = datetime.now() - timedelta(days=30)
+    created_table.maintenance.expire_snapshots().older_than(last_month)
 
 
 print(f"Viz Diagram:\n```\n{viz(__name__, fmt='mermaid-md')}\n```")

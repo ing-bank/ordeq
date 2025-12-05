@@ -281,7 +281,7 @@ We can achieve this using the `@overload` decorator from Python's built-in `typi
 
     For more information on function overloading in Python, refer to the [documentation][overload].
 
-Here is a slightly simplified example from the Gzip IO in `ordeq-files`:
+Here is a simplified snippet from the Gzip IO in `ordeq-files`:
 
 ```python hl_lines="1 3-4 6-7"
 class Gzip(IO[bytes | str]): # (1)!
@@ -295,12 +295,6 @@ class Gzip(IO[bytes | str]): # (1)!
     def load(self, mode: str = "rb", **load_options: Any) -> bytes | str:
         with gzip.open(self.path, mode=mode, **load_options) as f:
             return f.read()
-
-    def save(
-        self, data: str | bytes, mode: str = "wb", **save_options: Any
-    ) -> None:
-        with gzip.open(self.path, mode=mode, **save_options) as f:
-            f.write(data)
 
 ```
 

@@ -21,8 +21,8 @@ class IcebergCatalog(Input[Catalog]):
 
     """
 
-    name: str
-    catalog_type: CatalogType | str
+    name: str | None
+    catalog_type: CatalogType | str | None
 
     def load(self, **load_options) -> Catalog:
         if isinstance(self.catalog_type, CatalogType):

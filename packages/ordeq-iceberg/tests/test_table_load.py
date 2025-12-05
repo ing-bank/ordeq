@@ -23,9 +23,7 @@ def create_test_table(sql_catalog: SqlCatalog) -> Table:
 
 def test_load_table(sql_catalog: SqlCatalog, create_test_table: Table):
     table = IcebergTable(
-        catalog=sql_catalog,
-        table_name="test_table",
-        namespace="test_namespace",
+        catalog=sql_catalog, identifier=("test_namespace", "test_table")
     )
     assert table.load() == create_test_table
 
@@ -34,8 +32,6 @@ def test_load_table_with_catalog_io(
     sql_catalog_io: IcebergCatalog, create_test_table: Table
 ):
     table = IcebergTable(
-        catalog=sql_catalog_io,
-        table_name="test_table",
-        namespace="test_namespace",
+        catalog=sql_catalog_io, identifier="test_namespace.test_table"
     )
     assert table.load() == create_test_table

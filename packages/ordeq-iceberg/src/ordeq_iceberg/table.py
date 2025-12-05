@@ -24,8 +24,7 @@ class IcebergTable(Input[Table]):
     ... )
     >>> table = IcebergTable(
     ...     catalog=catalog,
-    ...     table_name="my_table",
-    ...     namespace="my_namespace",
+    ...     identifier="my_namespace.my_table",
     ... )
 
     ```
@@ -33,12 +32,7 @@ class IcebergTable(Input[Table]):
     """
 
     catalog: Input[Catalog] | Catalog
-    table_name: str
-    namespace: str
-
-    @property
-    def table_identifier(self) -> Identifier:
-        return (self.namespace, self.table_name)
+    identifier: str | Identifier
 
     @property
     def _catalog(self) -> Catalog:
@@ -52,4 +46,4 @@ class IcebergTable(Input[Table]):
         Returns:
             The loaded Iceberg table instance
         """
-        return self._catalog.load_table(self.table_identifier, **load_options)
+        return self._catalog.load_table(self.identifier, **load_options)

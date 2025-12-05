@@ -23,8 +23,7 @@ test_table_name = Literal[str]("test_table")
 
 my_table = IcebergTable(
     catalog=my_catalog,
-    table_name=test_table_name.value,
-    namespace=test_namespace.value,
+    identifier=(test_namespace.value, test_table_name.value),
 )
 
 # Nodes

@@ -17,9 +17,10 @@ run(func)
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer 'func:x' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer 'func:x' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'func:x' in module '__main__'
 INFO	ordeq.runner	Running view 'func' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'func:x' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)

@@ -28,10 +28,3 @@ print(example_input.load("Hello"))
 hello.txt@L1: Hello world!
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
-
-```

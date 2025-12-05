@@ -34,9 +34,12 @@ if __name__ == "__main__":
 
 ```text
 INFO	ordeq.runner	Running node 'node_return_tuple' in module '__main__'
+INFO	ordeq.runner	Saving IO 'node_consume_tuple:data' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'node_consume_tuple:data' in module '__main__'
+INFO	ordeq.runner	Loading IO 'node_consume_tuple:data' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'node_consume_tuple:data' in module '__main__'
 INFO	ordeq.runner	Running view 'node_consume_tuple' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO 'node_consume_tuple:data' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)

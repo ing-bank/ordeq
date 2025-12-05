@@ -30,10 +30,3 @@ IOException: Failed to load IO(id=ID1).
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading IO(id=ID1)
-
-```

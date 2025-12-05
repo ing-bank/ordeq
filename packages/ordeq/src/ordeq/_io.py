@@ -98,8 +98,6 @@ def _load_decorator(load_func):
         ]
 
         def base_func(*a, **k):
-            logger.info("Loading %s", self)
-
             return load_func(self, *a, **k)
 
         composed = reduce(
@@ -194,8 +192,6 @@ def _save_decorator(save_func):
         ]
 
         def base_func(d, *a, **k):
-            logger.info("Saving %s", self)
-
             save_func(self, d, *a, **k)
 
         composed = reduce(

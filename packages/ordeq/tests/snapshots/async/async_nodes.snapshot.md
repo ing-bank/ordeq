@@ -43,9 +43,13 @@ string argument expected, got 'coroutine'
     return self.io.save(data)
            ~~~~~~~~~~~~^^^^^^
 
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_saver
+    io._saver(data)
+    ~~~~~~~~~^^^^^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _save_outputs
-    output._saver(data)
-    ~~~~~~~~~~~~~^^^^^^
+    _run_saver(output, data)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     _save_outputs(node.outputs, results)
@@ -89,6 +93,6 @@ RuntimeWarning: coroutine 'write_buffer_1' was never awaited
 
 ```text
 INFO	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.async_nodes'
-INFO	ordeq.io	Saving StringBuffer 'buffer_1' in module 'example_async.async_nodes'
+INFO	ordeq.runner	Saving StringBuffer 'buffer_1' in module 'example_async.async_nodes'
 
 ```

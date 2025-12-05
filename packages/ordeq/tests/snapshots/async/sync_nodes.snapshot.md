@@ -45,10 +45,10 @@ Finished analyzing buffer_2 after 2 seconds.
 
 ```text
 INFO	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.sync_nodes'
-INFO	ordeq.io	Saving StringBuffer 'buffer_1' in module 'example_async.sync_nodes'
+INFO	ordeq.runner	Saving StringBuffer 'buffer_1' in module 'example_async.sync_nodes'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'buffer_1' in module 'example_async.sync_nodes'
 INFO	ordeq.runner	Running node 'write_buffer_2' in module 'example_async.sync_nodes'
-INFO	ordeq.io	Saving StringBuffer 'buffer_2' in module 'example_async.sync_nodes'
+INFO	ordeq.runner	Saving StringBuffer 'buffer_2' in module 'example_async.sync_nodes'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'buffer_2' in module 'example_async.sync_nodes'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'buffer_2' in module 'example_async.sync_nodes'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'buffer_1' in module 'example_async.sync_nodes'

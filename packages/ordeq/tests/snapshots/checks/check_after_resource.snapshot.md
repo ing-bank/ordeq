@@ -82,11 +82,12 @@ WARNING	ordeq.preview	Resources are in preview mode and may change without notic
 WARNING	ordeq.preview	Resources are in preview mode and may change without notice in future releases.
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
 INFO	ordeq.runner	Running node 'produce' in module '__main__'
-INFO	ordeq.io	Saving PandasCSV 'csv_pandas' in module '__main__'
+INFO	ordeq.runner	Saving PandasCSV 'csv_pandas' in module '__main__'
 DEBUG	ordeq.io	Persisting data for PandasCSV 'csv_pandas' in module '__main__'
-INFO	ordeq.io	Loading PolarsEagerCSV 'csv_polars' in module '__main__'
+INFO	ordeq.runner	Loading PolarsEagerCSV 'csv_polars' in module '__main__'
 DEBUG	ordeq.io	Persisting data for PolarsEagerCSV 'csv_polars' in module '__main__'
 INFO	ordeq.runner	Running view 'check' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for PandasCSV 'csv_pandas' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for PolarsEagerCSV 'csv_polars' in module '__main__'

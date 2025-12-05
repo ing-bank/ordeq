@@ -59,12 +59,17 @@ View:__main__:group_by --> io-3
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+INFO	ordeq.runner	Loading Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
+INFO	ordeq.runner	Loading Input(id=ID2)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
 INFO	ordeq.runner	Running View(func=__main__:filter_df, ...)
+INFO	ordeq.runner	Saving IO 'group_by:df' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'group_by:df' in module '__main__'
+INFO	ordeq.runner	Loading IO 'group_by:df' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'group_by:df' in module '__main__'
 INFO	ordeq.runner	Running view 'group_by' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO 'group_by:df' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)

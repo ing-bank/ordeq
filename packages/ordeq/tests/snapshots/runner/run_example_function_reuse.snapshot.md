@@ -32,24 +32,30 @@ A
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer 'A' in module 'example_function_reuse.catalog'
+INFO	ordeq.runner	Loading StringBuffer 'A' in module 'example_function_reuse.catalog'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'A' in module 'example_function_reuse.catalog'
 INFO	ordeq.runner	Running view 'a' in module 'example_function_reuse.nodes'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
-INFO	ordeq.io	Loading StringBuffer 'B' in module 'example_function_reuse.catalog'
+INFO	ordeq.runner	Loading StringBuffer 'B' in module 'example_function_reuse.catalog'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'B' in module 'example_function_reuse.catalog'
 INFO	ordeq.runner	Running view 'b' in module 'example_function_reuse.nodes'
+INFO	ordeq.runner	Saving IO(id=ID2)
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-INFO	ordeq.io	Loading StringBuffer 'C' in module 'example_function_reuse.catalog'
+INFO	ordeq.runner	Loading StringBuffer 'C' in module 'example_function_reuse.catalog'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'C' in module 'example_function_reuse.catalog'
 INFO	ordeq.runner	Running view 'c' in module 'example_function_reuse.nodes'
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
-INFO	ordeq.io	Loading StringBuffer 'D' in module 'example_function_reuse.catalog'
+INFO	ordeq.runner	Loading StringBuffer 'D' in module 'example_function_reuse.catalog'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'D' in module 'example_function_reuse.catalog'
 INFO	ordeq.runner	Running view 'd' in module 'example_function_reuse.nodes'
+INFO	ordeq.runner	Saving IO(id=ID4)
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+INFO	ordeq.runner	Loading StringBuffer 'A' in module 'example_function_reuse.catalog'
 DEBUG	ordeq.io	Loading cached data for StringBuffer 'A' in module 'example_function_reuse.catalog'
 INFO	ordeq.runner	Running view 'pi' in module 'example_function_reuse.nodes'
+INFO	ordeq.runner	Saving IO(id=ID5)
 DEBUG	ordeq.io	Persisting data for IO(id=ID5)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'A' in module 'example_function_reuse.catalog'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)

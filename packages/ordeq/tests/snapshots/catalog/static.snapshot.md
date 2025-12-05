@@ -41,21 +41,19 @@ HELLO FROM REMOTE!HEY I AM OVERRIDING THE HELLO IO!HELLO FROM REMOTE!
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer 'func1:hello' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer 'func1:hello' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'func1:hello' in module '__main__'
 INFO	ordeq.runner	Running node 'func1' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'func1:hello' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-INFO	ordeq.io	Loading StringBuffer 'func2:hello' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer 'func2:hello' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'func2:hello' in module '__main__'
 INFO	ordeq.runner	Running node 'func2' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'func2:hello' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 
 ```

@@ -26,10 +26,10 @@ HELLO FROM REMOTE!
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer 'func1:hello' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer 'func1:hello' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'func1:hello' in module '__main__'
 INFO	ordeq.runner	Running node 'func1' in module '__main__'
-INFO	ordeq.io	Saving Print()
+INFO	ordeq.runner	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'func1:hello' in module '__main__'
 
 ```

@@ -30,10 +30,3 @@ Load StringBuffer 's' in module '__main__'
 Runtime type is 'Loader'
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
-
-```

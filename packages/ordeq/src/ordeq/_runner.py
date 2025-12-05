@@ -7,7 +7,7 @@ from typing import Any, Literal, TypeAlias, TypeVar
 from ordeq._fqn import AnyRef, ModuleName, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
-from ordeq._io import IO, AnyIO, Input, _InputCache
+from ordeq._io import IO, AnyIO, Input, Output, _InputCache
 from ordeq._nodes import Node, View
 from ordeq._patch import _patch_nodes
 from ordeq._process_nodes import NodeFilter
@@ -36,11 +36,24 @@ T = TypeVar("T")
 # occurred. This can be useful for debugging.
 SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 
+Tin = TypeVar("Tin")
+Tout = TypeVar("Tout")
+
+
+def _run_loader(io: Input[Tin]) -> Tin:
+    logger.info("Loading %s", io)
+    return io._loader()
+
+
+def _run_saver(io: Output[Tout], data: Tout) -> None:
+    logger.info("Saving %s", io)
+    io._saver(data)
+
 
 def _load_inputs(inputs: Sequence[Input]) -> list[Any]:
     args = []
     for io in inputs:
-        data = io._loader()
+        data = _run_loader(io)
         args.append(data)
 
         # TODO: optimize persisting only when needed
@@ -51,7 +64,7 @@ def _load_inputs(inputs: Sequence[Input]) -> list[Any]:
 
 def _save_outputs(outputs, values) -> None:
     for output, data in zip(outputs, values, strict=True):
-        output._saver(data)
+        _run_saver(output, data)
 
         # TODO: optimize by persisting only when needed
         if isinstance(output, _InputCache):

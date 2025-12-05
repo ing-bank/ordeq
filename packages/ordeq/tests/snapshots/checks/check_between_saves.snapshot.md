@@ -120,9 +120,12 @@ AssertionError: Invalid countries found: US
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
+INFO	ordeq.runner	Loading Input 'txs' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for Input 'txs' in module '__main__'
 INFO	ordeq.runner	Running view 'txs_agg' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID2)
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+INFO	ordeq.runner	Loading IO(id=ID2)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
 INFO	ordeq.runner	Running view 'perform_check' in module '__main__'
 

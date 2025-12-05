@@ -20,10 +20,3 @@ example_output = ExampleOutputsaveArg(path=Path("hello.txt"), attribute="L1")
 example_output.save("hello.txt@L1: Hello world!")
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Saving ExampleOutputsaveArg(path=Path('hello.txt'), attribute='L1')
-
-```

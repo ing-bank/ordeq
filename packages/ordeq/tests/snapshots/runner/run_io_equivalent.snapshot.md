@@ -53,7 +53,7 @@ UserWarning: IO MyPet implements '__hash__'. This will be ignored.
 
 ```text
 INFO	ordeq.runner	Running node 'feeding' in module '__main__'
-INFO	ordeq.io	Saving MyPet(name='dog')
+INFO	ordeq.runner	Saving MyPet(name='dog')
 
 ```
 

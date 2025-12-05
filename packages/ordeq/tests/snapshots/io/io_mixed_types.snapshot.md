@@ -41,11 +41,3 @@ Should print 10:
 10
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading Text
-INFO	ordeq.io	Saving Text
-
-```

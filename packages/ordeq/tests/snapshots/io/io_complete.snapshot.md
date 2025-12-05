@@ -60,17 +60,3 @@ hello.txt@L1: Hi world!
 <class '__main__.ExampleIO'>
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading ExampleIO(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleIO(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleIO(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleIO(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Saving ExampleIO(path=Path('world.txt'), attribute='L2')
-INFO	ordeq.io	Saving ExampleIO(path=Path('world.txt'), attribute='L2')
-INFO	ordeq.io	Saving ExampleIO(path=Path('world.txt'), attribute='L2')
-INFO	ordeq.io	Saving ExampleIO(path=Path('world.txt'), attribute='L2')
-
-```

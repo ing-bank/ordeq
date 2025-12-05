@@ -41,8 +41,12 @@ IOException: Failed to load Input 'f:i' in module '__main__'.
     return self.io.load()
            ~~~~~~~~~~~~^^
 
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_loader
+    return io._loader()
+           ~~~~~~~~~~^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _load_inputs
-    data = io._loader()
+    data = _run_loader(io)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     args = _load_inputs(node.inputs)
@@ -78,6 +82,6 @@ IOException: Failed to load Input 'f:i' in module '__main__'.
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading Input 'f:i' in module '__main__'
+INFO	ordeq.runner	Loading Input 'f:i' in module '__main__'
 
 ```

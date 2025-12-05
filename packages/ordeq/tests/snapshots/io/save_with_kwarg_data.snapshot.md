@@ -38,13 +38,6 @@ TypeError: Example.save() missing 1 required positional argument: 'data'
 
 ```
 
-## Logging
-
-```text
-INFO	ordeq.io	Saving Output(id=ID1)
-
-```
-
 ## Typing
 
 ```text

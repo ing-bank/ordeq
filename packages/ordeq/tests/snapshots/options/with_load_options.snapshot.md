@@ -101,16 +101,3 @@ TypeError: got an unexpected keyword argument 'unknown_kwarg'
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleInputLoadKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Loading ExampleInputLoadArg(path=Path('hello.txt'), attribute='L1')
-
-```

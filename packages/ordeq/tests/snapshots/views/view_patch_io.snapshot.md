@@ -36,11 +36,15 @@ Node received 'Buenos dias World!'
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+INFO	ordeq.runner	Loading Input(id=ID2)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID2)
 INFO	ordeq.runner	Running view 'hello_world' in module '__main__'
+INFO	ordeq.runner	Saving IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'n:v' in module '__main__'
+INFO	ordeq.runner	Loading IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'n:v' in module '__main__'
 INFO	ordeq.runner	Running view 'n' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO 'n:v' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)

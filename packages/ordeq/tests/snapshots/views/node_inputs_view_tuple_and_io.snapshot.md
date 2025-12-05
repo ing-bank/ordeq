@@ -39,11 +39,14 @@ Hello world !!!
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 INFO	ordeq.runner	Running View(func=__main__:hello, ...)
+INFO	ordeq.runner	Saving IO 'combine_greeting_with_ending:greeting' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'combine_greeting_with_ending:greeting' in module '__main__'
+INFO	ordeq.runner	Loading IO 'combine_greeting_with_ending:greeting' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'combine_greeting_with_ending:greeting' in module '__main__'
+INFO	ordeq.runner	Loading Input 'combine_greeting_with_ending:e' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for Input 'combine_greeting_with_ending:e' in module '__main__'
 INFO	ordeq.runner	Running node 'combine_greeting_with_ending' in module '__main__'
-INFO	ordeq.io	Saving Print()
+INFO	ordeq.runner	Saving Print()
 DEBUG	ordeq.io	Unpersisting data for IO 'combine_greeting_with_ending:greeting' in module '__main__'
 
 ```

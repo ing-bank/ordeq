@@ -94,27 +94,33 @@ Hello + world! / world! - Hello + world! + Hello + world! * 2Hello + world! / wo
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading StringBuffer 'f1:i' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer 'f1:i' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'f1:i' in module '__main__'
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node 'f1' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Saving StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node 'f2' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer 'f4:j' in module '__main__'
+INFO	ordeq.runner	Saving StringBuffer 'f4:j' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'f4:j' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 INFO	ordeq.runner	Running node 'f3' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer 'f4:k' in module '__main__'
+INFO	ordeq.runner	Saving StringBuffer 'f4:k' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'f4:k' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Loading StringBuffer 'f4:j' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for StringBuffer 'f4:j' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer 'f4:k' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for StringBuffer 'f4:k' in module '__main__'
 INFO	ordeq.runner	Running node 'f4' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.runner	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'f1:i' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
@@ -122,25 +128,33 @@ DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object a
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'f4:k' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'f4:j' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.io	Loading StringBuffer 'f1:i' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer 'f1:i' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'f1:i' in module '__main__'
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node 'f1' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Loading IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'f2' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID2)
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+INFO	ordeq.runner	Loading IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
 INFO	ordeq.runner	Running node 'f3' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+INFO	ordeq.runner	Loading IO(id=ID1)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID1)
+INFO	ordeq.runner	Loading IO(id=ID2)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID2)
+INFO	ordeq.runner	Loading IO(id=ID3)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID3)
 INFO	ordeq.runner	Running node 'f4' in module '__main__'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
+INFO	ordeq.runner	Saving StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'f1:i' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
@@ -148,24 +162,33 @@ DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
-INFO	ordeq.io	Loading StringBuffer 'f1:i' in module '__main__'
+INFO	ordeq.runner	Loading StringBuffer 'f1:i' in module '__main__'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'f1:i' in module '__main__'
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 INFO	ordeq.runner	Running node 'f1' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID4)
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+INFO	ordeq.runner	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Loading cached data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Loading IO(id=ID4)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
 INFO	ordeq.runner	Running node 'f2' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID5)
 DEBUG	ordeq.io	Persisting data for IO(id=ID5)
+INFO	ordeq.runner	Loading IO(id=ID4)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
 INFO	ordeq.runner	Running node 'f3' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID6)
 DEBUG	ordeq.io	Persisting data for IO(id=ID6)
+INFO	ordeq.runner	Loading IO(id=ID4)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID4)
+INFO	ordeq.runner	Loading IO(id=ID5)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID5)
+INFO	ordeq.runner	Loading IO(id=ID6)
 DEBUG	ordeq.io	Loading cached data for IO(id=ID6)
 INFO	ordeq.runner	Running node 'f4' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID7)
 DEBUG	ordeq.io	Persisting data for IO(id=ID7)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'f1:i' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
@@ -173,6 +196,5 @@ DEBUG	ordeq.io	Unpersisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID6)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID5)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID7)
-INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH3>)
 
 ```

@@ -49,12 +49,3 @@ some_string
 some_bytes
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading Text
-INFO	ordeq.io	Saving Text
-INFO	ordeq.io	Saving Text
-
-```

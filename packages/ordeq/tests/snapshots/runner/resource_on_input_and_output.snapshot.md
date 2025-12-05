@@ -52,13 +52,12 @@ with NamedTemporaryFile(delete=False, mode="wt", encoding="utf8") as tmp:
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading File 'reverse:value' in module '__main__'
+INFO	ordeq.runner	Loading File 'reverse:value' in module '__main__'
 DEBUG	ordeq.io	Persisting data for File 'reverse:value' in module '__main__'
 INFO	ordeq.runner	Running node 'reverse' in module '__main__'
-INFO	ordeq.io	Saving File
+INFO	ordeq.runner	Saving File
 DEBUG	ordeq.io	Persisting data for File
 DEBUG	ordeq.io	Unpersisting data for File 'reverse:value' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for File
-INFO	ordeq.io	Loading File
 
 ```

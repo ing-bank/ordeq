@@ -81,36 +81,56 @@ aBBB
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 DEBUG	ordeq.io	Persisting data for Input(id=ID3)
+INFO	ordeq.runner	Loading Input 'A' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Persisting data for IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Loading Input 'B' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Persisting data for IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Loading IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Loading IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_checks_as_nodes'
-INFO	ordeq.io	Saving StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Loading Input 'A' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Loading Input 'D' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for Input 'D' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running view 'check_a' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving IO(id=ID4)
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
+INFO	ordeq.runner	Loading StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running view 'check_ab' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving IO(id=ID5)
 DEBUG	ordeq.io	Persisting data for IO(id=ID5)
+INFO	ordeq.runner	Loading StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for StringBuffer 'AB' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving IO(id=ID6)
 DEBUG	ordeq.io	Persisting data for IO(id=ID6)
+INFO	ordeq.runner	Loading IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running view 'check_ap' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving IO(id=ID7)
 DEBUG	ordeq.io	Persisting data for IO(id=ID7)
+INFO	ordeq.runner	Loading IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Loading IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running view 'check_join' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving IO(id=ID8)
 DEBUG	ordeq.io	Persisting data for IO(id=ID8)
+INFO	ordeq.runner	Loading IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
 INFO	ordeq.runner	Running view 'check_bp' in module 'example_checks.pipeline_checks_as_nodes'
+INFO	ordeq.runner	Saving IO(id=ID9)
 DEBUG	ordeq.io	Persisting data for IO(id=ID9)
 DEBUG	ordeq.io	Unpersisting data for IO 'Bp' in module 'example_checks.pipeline_checks_as_nodes'
 DEBUG	ordeq.io	Unpersisting data for IO 'Ap' in module 'example_checks.pipeline_checks_as_nodes'

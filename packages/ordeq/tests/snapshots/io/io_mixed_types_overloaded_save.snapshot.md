@@ -78,12 +78,3 @@ Text.save() got an unexpected keyword argument 'x'
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Saving Text
-INFO	ordeq.io	Saving Text
-INFO	ordeq.io	Saving Text
-
-```

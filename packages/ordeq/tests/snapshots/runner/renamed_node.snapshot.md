@@ -24,9 +24,10 @@ Node:resources.runner.example_module_b:increment --> io-1
 
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+INFO	ordeq.runner	Loading Input 'increment:x' in module 'resources.runner.example_module_b'
 DEBUG	ordeq.io	Loading cached data for Input 'increment:x' in module 'resources.runner.example_module_b'
 INFO	ordeq.runner	Running node 'increment' in module 'resources.runner.example_module_b'
-INFO	ordeq.io	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Saving StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
 

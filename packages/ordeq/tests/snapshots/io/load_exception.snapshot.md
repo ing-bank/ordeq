@@ -37,10 +37,3 @@ Some load exception
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading Input(id=ID1)
-
-```

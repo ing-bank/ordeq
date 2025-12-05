@@ -55,18 +55,27 @@ aBBB
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+INFO	ordeq.runner	Loading Input 'A' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'Ap' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Saving IO 'AB:a' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Persisting data for IO 'AB:a' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Loading Input 'B' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'Bp' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Saving IO 'AB:b' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Persisting data for IO 'AB:b' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Loading IO 'AB:a' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Loading cached data for IO 'AB:a' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Loading IO 'AB:b' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Loading cached data for IO 'AB:b' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'AB' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Saving IO 'print_result:data' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Persisting data for IO 'print_result:data' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Loading IO 'print_result:data' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Loading cached data for IO 'print_result:data' in module 'example_checks.pipeline_views'
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_views'
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO 'AB:b' in module 'example_checks.pipeline_views'
 DEBUG	ordeq.io	Unpersisting data for IO 'AB:a' in module 'example_checks.pipeline_views'

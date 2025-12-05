@@ -37,10 +37,3 @@ Some save exception
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Saving Output(id=ID1)
-
-```

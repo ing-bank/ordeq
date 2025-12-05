@@ -43,16 +43,24 @@ assert v3 == 186
 ```text
 WARNING	ordeq.preview	The pipeline function is experimental and may change in future releases.
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+INFO	ordeq.runner	Loading Input(id=ID1)
 DEBUG	ordeq.io	Loading cached data for Input(id=ID1)
 INFO	ordeq.runner	Running view 'n1' in module '__main__'
+INFO	ordeq.runner	Saving IO 'n2:b' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'n2:b' in module '__main__'
+INFO	ordeq.runner	Loading IO 'n2:b' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'n2:b' in module '__main__'
 INFO	ordeq.runner	Running view 'n2' in module '__main__'
+INFO	ordeq.runner	Saving IO 'n3:c' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'n3:c' in module '__main__'
+INFO	ordeq.runner	Loading IO 'n3:c' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'n3:c' in module '__main__'
 INFO	ordeq.runner	Running node 'n3' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID2)
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
+INFO	ordeq.runner	Saving IO(id=ID4)
 DEBUG	ordeq.io	Persisting data for IO(id=ID4)
 DEBUG	ordeq.io	Unpersisting data for IO 'n2:b' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'n3:c' in module '__main__'

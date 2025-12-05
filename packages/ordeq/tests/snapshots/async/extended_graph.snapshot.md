@@ -60,9 +60,17 @@ string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
 
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __call__
+    return self.io.save(data)
+           ~~~~~~~~~~~~^^^^^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_saver
+    io._saver(data)
+    ~~~~~~~~~^^^^^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _save_outputs
-    output.save(data)
-    ~~~~~~~~~~~^^^^^^
+    _run_saver(output, data)
+    ~~~~~~~~~~^^^^^^^^^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     _save_outputs(node.outputs, results)
@@ -106,6 +114,6 @@ RuntimeWarning: coroutine 'write_A' was never awaited
 
 ```text
 INFO	ordeq.runner	Running node 'write_A' in module 'example_async.extended_graph'
-INFO	ordeq.io	Saving StringBuffer 'A' in module 'example_async.extended_graph'
+INFO	ordeq.runner	Saving StringBuffer 'A' in module 'example_async.extended_graph'
 
 ```

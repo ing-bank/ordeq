@@ -56,11 +56,3 @@ Check if logging outputs name on load and save:
 Saving data: Hello world
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Loading ExampleIO '_example' in module '__main__'
-INFO	ordeq.io	Saving ExampleIO '_example' in module '__main__'
-
-```

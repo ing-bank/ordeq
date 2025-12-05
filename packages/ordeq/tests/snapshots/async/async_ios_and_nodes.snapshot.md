@@ -61,19 +61,20 @@ RuntimeWarning: coroutine 'AsyncStringBuffer.load' was never awaited
 
 ```text
 INFO	ordeq.runner	Running node 'retrieve_data_1' in module 'example_async.async_ios_and_nodes'
-INFO	ordeq.io	Saving AsyncStringBuffer 'buffer_1' in module 'example_async.async_ios_and_nodes'
+INFO	ordeq.runner	Saving AsyncStringBuffer 'buffer_1' in module 'example_async.async_ios_and_nodes'
 DEBUG	ordeq.io	Persisting data for AsyncStringBuffer 'buffer_1' in module 'example_async.async_ios_and_nodes'
 INFO	ordeq.runner	Running node 'retrieve_data_2' in module 'example_async.async_ios_and_nodes'
-INFO	ordeq.io	Saving AsyncStringBuffer 'buffer_2' in module 'example_async.async_ios_and_nodes'
+INFO	ordeq.runner	Saving AsyncStringBuffer 'buffer_2' in module 'example_async.async_ios_and_nodes'
 DEBUG	ordeq.io	Persisting data for AsyncStringBuffer 'buffer_2' in module 'example_async.async_ios_and_nodes'
+INFO	ordeq.runner	Loading AsyncStringBuffer 'buffer_1' in module 'example_async.async_ios_and_nodes'
 DEBUG	ordeq.io	Loading cached data for AsyncStringBuffer 'buffer_1' in module 'example_async.async_ios_and_nodes'
+INFO	ordeq.runner	Loading AsyncStringBuffer 'buffer_2' in module 'example_async.async_ios_and_nodes'
 DEBUG	ordeq.io	Loading cached data for AsyncStringBuffer 'buffer_2' in module 'example_async.async_ios_and_nodes'
 INFO	ordeq.runner	Running node 'process_data' in module 'example_async.async_ios_and_nodes'
-INFO	ordeq.io	Saving AsyncStringBuffer 'buffer_3' in module 'example_async.async_ios_and_nodes'
+INFO	ordeq.runner	Saving AsyncStringBuffer 'buffer_3' in module 'example_async.async_ios_and_nodes'
 DEBUG	ordeq.io	Persisting data for AsyncStringBuffer 'buffer_3' in module 'example_async.async_ios_and_nodes'
 DEBUG	ordeq.io	Unpersisting data for AsyncStringBuffer 'buffer_2' in module 'example_async.async_ios_and_nodes'
 DEBUG	ordeq.io	Unpersisting data for AsyncStringBuffer 'buffer_1' in module 'example_async.async_ios_and_nodes'
 DEBUG	ordeq.io	Unpersisting data for AsyncStringBuffer 'buffer_3' in module 'example_async.async_ios_and_nodes'
-INFO	ordeq.io	Loading AsyncStringBuffer 'buffer_3' in module 'example_async.async_ios_and_nodes'
 
 ```

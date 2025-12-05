@@ -35,24 +35,24 @@ Saying sub (attr = 0)
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading MyIO 'hello' in module 'example_duplicates.duplicate_io_same_hash'
+INFO	ordeq.runner	Loading MyIO 'hello' in module 'example_duplicates.duplicate_io_same_hash'
 DEBUG	ordeq.io	Persisting data for MyIO 'hello' in module 'example_duplicates.duplicate_io_same_hash'
 INFO	ordeq.runner	Running node 'say' in module 'example_duplicates.duplicate_io_same_hash'
-INFO	ordeq.io	Saving MyIO(value='sub', attr=0)
+INFO	ordeq.runner	Saving MyIO(value='sub', attr=0)
 DEBUG	ordeq.io	Persisting data for MyIO(value='sub', attr=0)
 DEBUG	ordeq.io	Unpersisting data for MyIO 'hello' in module 'example_duplicates.duplicate_io_same_hash'
 DEBUG	ordeq.io	Unpersisting data for MyIO(value='sub', attr=0)
-INFO	ordeq.io	Loading MyIO 'hello' in module 'example_duplicates.duplicate_io_same_hash'
+INFO	ordeq.runner	Loading MyIO 'hello' in module 'example_duplicates.duplicate_io_same_hash'
 DEBUG	ordeq.io	Persisting data for MyIO 'hello' in module 'example_duplicates.duplicate_io_same_hash'
 INFO	ordeq.runner	Running node 'say' in module 'example_duplicates.duplicate_io_same_hash'
-INFO	ordeq.io	Saving MyIO 'result' in module 'example_duplicates.duplicate_io_same_hash'
+INFO	ordeq.runner	Saving MyIO 'result' in module 'example_duplicates.duplicate_io_same_hash'
 DEBUG	ordeq.io	Persisting data for MyIO 'result' in module 'example_duplicates.duplicate_io_same_hash'
 DEBUG	ordeq.io	Unpersisting data for MyIO 'hello' in module 'example_duplicates.duplicate_io_same_hash'
 DEBUG	ordeq.io	Unpersisting data for MyIO 'result' in module 'example_duplicates.duplicate_io_same_hash'
-INFO	ordeq.io	Loading MyIO(value='sub', attr=0)
+INFO	ordeq.runner	Loading MyIO(value='sub', attr=0)
 DEBUG	ordeq.io	Persisting data for MyIO(value='sub', attr=0)
 INFO	ordeq.runner	Running node 'say' in module 'example_duplicates.duplicate_io_same_hash'
-INFO	ordeq.io	Saving MyIO 'result' in module 'example_duplicates.duplicate_io_same_hash'
+INFO	ordeq.runner	Saving MyIO 'result' in module 'example_duplicates.duplicate_io_same_hash'
 DEBUG	ordeq.io	Persisting data for MyIO 'result' in module 'example_duplicates.duplicate_io_same_hash'
 DEBUG	ordeq.io	Unpersisting data for MyIO(value='sub', attr=0)
 DEBUG	ordeq.io	Unpersisting data for MyIO 'result' in module 'example_duplicates.duplicate_io_same_hash'

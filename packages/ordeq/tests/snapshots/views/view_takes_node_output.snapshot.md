@@ -52,8 +52,16 @@ IOException: Failed to load IO 'what_i_heard:v' in module '__main__'.
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
 
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __call__
+    return self.io.load()
+           ~~~~~~~~~~~~^^
+
+  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_loader
+    return io._loader()
+           ~~~~~~~~~~^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _load_inputs
-    data = io.load()
+    data = _run_loader(io)
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     args = _load_inputs(node.inputs)
@@ -91,19 +99,26 @@ IOException: Failed to load IO 'what_i_heard:v' in module '__main__'.
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+INFO	ordeq.runner	Loading Input 'hello_from_someone:name' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for Input 'hello_from_someone:name' in module '__main__'
+INFO	ordeq.runner	Loading Input 'hello_from_someone:v' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for Input 'hello_from_someone:v' in module '__main__'
 INFO	ordeq.runner	Running node 'hello_from_someone' in module '__main__'
+INFO	ordeq.runner	Saving IO 'what_i_heard:v' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'what_i_heard:v' in module '__main__'
+INFO	ordeq.runner	Loading IO 'what_i_heard:v' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'what_i_heard:v' in module '__main__'
 INFO	ordeq.runner	Running view 'what_i_heard' in module '__main__'
+INFO	ordeq.runner	Saving IO 'sink:s' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'sink:s' in module '__main__'
+INFO	ordeq.runner	Loading IO 'sink:s' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'sink:s' in module '__main__'
 INFO	ordeq.runner	Running view 'sink' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO 'what_i_heard:v' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'sink:s' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID3)
-INFO	ordeq.io	Loading IO 'what_i_heard:v' in module '__main__'
+INFO	ordeq.runner	Loading IO 'what_i_heard:v' in module '__main__'
 
 ```

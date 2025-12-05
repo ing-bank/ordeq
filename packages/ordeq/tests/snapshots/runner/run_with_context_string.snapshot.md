@@ -79,24 +79,31 @@ Hello, World!
 
 ```text
 INFO	ordeq.runner	Running View(func=example_nested.subpackage.subsubpackage.hello:world, ...)
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'world' in module 'example_nested.subpackage.subsubpackage.hello'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'world' in module 'example_nested.subpackage.subsubpackage.hello'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'world' in module 'example_nested.subpackage.subsubpackage.hello'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'world' in module 'example_nested.subpackage.subsubpackage.hello'
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 INFO	ordeq.runner	Running View(func=example_nested.subpackage.subsubpackage.hello:world, ...)
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 INFO	ordeq.runner	Running View(func=example_nested.subpackage.subsubpackage.hello:world, ...)
+INFO	ordeq.runner	Saving IO(id=ID1)
 DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 

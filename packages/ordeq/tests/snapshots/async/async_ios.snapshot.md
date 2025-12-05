@@ -71,26 +71,27 @@ RuntimeWarning: coroutine 'AsyncStaticString.load' was never awaited
 ## Logging
 
 ```text
-INFO	ordeq.io	Loading AsyncStaticString 'slow_string_io' in module 'example_async.async_ios'
+INFO	ordeq.runner	Loading AsyncStaticString 'slow_string_io' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Persisting data for AsyncStaticString 'slow_string_io' in module 'example_async.async_ios'
 INFO	ordeq.runner	Running node 'process_slow_string' in module 'example_async.async_ios'
-INFO	ordeq.io	Saving StringBuffer 'slow_result' in module 'example_async.async_ios'
+INFO	ordeq.runner	Saving StringBuffer 'slow_result' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'slow_result' in module 'example_async.async_ios'
-INFO	ordeq.io	Loading AsyncStaticString 'fast_string_io' in module 'example_async.async_ios'
+INFO	ordeq.runner	Loading AsyncStaticString 'fast_string_io' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Persisting data for AsyncStaticString 'fast_string_io' in module 'example_async.async_ios'
 INFO	ordeq.runner	Running node 'process_fast_string' in module 'example_async.async_ios'
-INFO	ordeq.io	Saving AsyncStringBuffer 'fast_result' in module 'example_async.async_ios'
+INFO	ordeq.runner	Saving AsyncStringBuffer 'fast_result' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Persisting data for AsyncStringBuffer 'fast_result' in module 'example_async.async_ios'
+INFO	ordeq.runner	Loading StringBuffer 'slow_result' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Loading cached data for StringBuffer 'slow_result' in module 'example_async.async_ios'
+INFO	ordeq.runner	Loading AsyncStringBuffer 'fast_result' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Loading cached data for AsyncStringBuffer 'fast_result' in module 'example_async.async_ios'
 INFO	ordeq.runner	Running node 'combine_results' in module 'example_async.async_ios'
-INFO	ordeq.io	Saving StringBuffer 'combined_result' in module 'example_async.async_ios'
+INFO	ordeq.runner	Saving StringBuffer 'combined_result' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'combined_result' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Unpersisting data for AsyncStaticString 'fast_string_io' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Unpersisting data for AsyncStringBuffer 'fast_result' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Unpersisting data for AsyncStaticString 'slow_string_io' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'slow_result' in module 'example_async.async_ios'
 DEBUG	ordeq.io	Unpersisting data for StringBuffer 'combined_result' in module 'example_async.async_ios'
-INFO	ordeq.io	Loading StringBuffer 'combined_result' in module 'example_async.async_ios'
 
 ```

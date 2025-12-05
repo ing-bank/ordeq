@@ -47,7 +47,7 @@ saving! Hello, World!
 
 ```text
 INFO	ordeq.runner	Running node 'my_node' in module '__main__'
-INFO	ordeq.io	Saving Output(id=ID1)
+INFO	ordeq.runner	Saving Output(id=ID1)
 
 ```
 

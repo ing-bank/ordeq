@@ -67,19 +67,27 @@ aBBB
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
+INFO	ordeq.runner	Loading Input 'A' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Loading cached data for Input 'A' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'process_a' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Saving IO 'Ap' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Persisting data for IO 'Ap' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Loading Input 'B' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Loading cached data for Input 'B' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'process_b' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Saving IO 'Bp' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Persisting data for IO 'Bp' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Loading IO 'Ap' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Loading cached data for IO 'Ap' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Loading IO 'Bp' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Loading cached data for IO 'Bp' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running node 'join' in module 'example_checks.pipeline_base'
-INFO	ordeq.io	Saving StringBuffer 'AB' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Saving StringBuffer 'AB' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Persisting data for StringBuffer 'AB' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Loading StringBuffer 'AB' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Loading cached data for StringBuffer 'AB' in module 'example_checks.pipeline_base'
 INFO	ordeq.runner	Running view 'print_result' in module 'example_checks.pipeline_base'
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for IO 'Bp' in module 'example_checks.pipeline_base'
 DEBUG	ordeq.io	Unpersisting data for IO 'Ap' in module 'example_checks.pipeline_base'

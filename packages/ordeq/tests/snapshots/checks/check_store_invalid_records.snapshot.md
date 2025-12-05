@@ -101,18 +101,25 @@ Invalid Records Data: {"id":{"0":null,"1":2.0,"2":null,"3":4.0},"value":{"0":nul
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
 WARNING	ordeq.preview	Checks are in preview mode and may change without notice in future releases.
+INFO	ordeq.runner	Loading Input 'records' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for Input 'records' in module '__main__'
 INFO	ordeq.runner	Running node 'check_store_invalid_records' in module '__main__'
-INFO	ordeq.io	Saving JSON 'invalid_records' in module '__main__'
+INFO	ordeq.runner	Saving JSON 'invalid_records' in module '__main__'
 DEBUG	ordeq.io	Persisting data for JSON 'invalid_records' in module '__main__'
+INFO	ordeq.runner	Loading Input 'records' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for Input 'records' in module '__main__'
 INFO	ordeq.runner	Running view 'process_records' in module '__main__'
+INFO	ordeq.runner	Saving IO 'print_processed_records:rows' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO 'print_processed_records:rows' in module '__main__'
+INFO	ordeq.runner	Loading IO 'print_processed_records:rows' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for IO 'print_processed_records:rows' in module '__main__'
 INFO	ordeq.runner	Running view 'print_processed_records' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID2)
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
+INFO	ordeq.runner	Loading JSON 'invalid_records' in module '__main__'
 DEBUG	ordeq.io	Loading cached data for JSON 'invalid_records' in module '__main__'
 INFO	ordeq.runner	Running view 'print_invalid_records' in module '__main__'
+INFO	ordeq.runner	Saving IO(id=ID3)
 DEBUG	ordeq.io	Persisting data for IO(id=ID3)
 DEBUG	ordeq.io	Unpersisting data for JSON 'invalid_records' in module '__main__'
 DEBUG	ordeq.io	Unpersisting data for IO 'print_processed_records:rows' in module '__main__'

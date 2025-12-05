@@ -94,16 +94,3 @@ TypeError: got an unexpected keyword argument 'unknown_kwarg'
     ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ```
-
-## Logging
-
-```text
-INFO	ordeq.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Saving ExampleOutputSaveKwarg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Saving ExampleOutputSaveArg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Saving ExampleOutputSaveArg(path=Path('hello.txt'), attribute='L1')
-INFO	ordeq.io	Saving ExampleOutputSaveArg(path=Path('hello.txt'), attribute='L1')
-
-```

@@ -1,5 +1,3 @@
-from datetime import date
-
 import duckdb
 import pandas as pd
 from ordeq import node
@@ -7,24 +5,18 @@ from ordeq import node
 from air_quality_insights import catalog
 
 
-@node(
-    inputs=[catalog.air_quality_json, catalog.logical_date],
-    outputs=catalog.air_quality_pandas,
-)
-def get_air_quality_data(
-    air_quality: dict, logical_date: date
-) -> pd.DataFrame:
-    hourly_data = air_quality.get("hourly", {})
-    df = pd.DataFrame(hourly_data)
-    df["time"] = pd.to_datetime(df["time"])
-    df["date"] = logical_date
-    return df
+@node(inputs=catalog.air_quality_json, outputs=catalog.air_quality_data)
+def ingest(air_quality_data: dict) -> duckdb.DuckDBPyRelation:
+    current_data = air_quality_data.get("current", {})
+    df = pd.DataFrame(current_data, index=["time"])
+    df["date"] = df["time"].astype("datetime64[ns]")
+    return duckdb.from_df(df)
 
 
 @node(
-    inputs=[catalog.air_quality_duckdb], outputs=[catalog.air_quality_insights]
+    inputs=[catalog.air_quality_data], outputs=[catalog.air_quality_insights]
 )
-def analyze(air_quality: duckdb.DuckDBPyRelation) -> duckdb.DuckDBPyRelation:
+def aggregate(air_quality: duckdb.DuckDBPyRelation) -> duckdb.DuckDBPyRelation:
     daily_stats = air_quality.aggregate(
         """
         DATE(time) AS date,

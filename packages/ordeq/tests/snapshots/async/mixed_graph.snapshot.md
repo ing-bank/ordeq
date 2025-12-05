@@ -21,18 +21,18 @@ graph TB
 	end
 
 	example_async.mixed_graph:write_buffer_2 --> example_async.mixed_graph:buffer_2
-	example_async.mixed_graph:write_buffer_1 --> example_async.mixed_graph:buffer_1
 	example_async.mixed_graph:buffer_2 --> example_async.mixed_graph:process_buffer
 	example_async.mixed_graph:process_buffer --> example_async.mixed_graph:processed_buffer
+	example_async.mixed_graph:write_buffer_1 --> example_async.mixed_graph:buffer_1
 
 	example_async.mixed_graph:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
-	example_async.mixed_graph:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.mixed_graph:process_buffer@{shape: rounded, label: "process_buffer"}
+	example_async.mixed_graph:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.mixed_graph:buffer_2@{shape: rect, label: "buffer_2"}
 	example_async.mixed_graph:buffer_1@{shape: rect, label: "buffer_1"}
 	example_async.mixed_graph:processed_buffer@{shape: rect, label: "processed_buffer"}
 
-	class node_type,example_async.mixed_graph:write_buffer_2,example_async.mixed_graph:write_buffer_1,example_async.mixed_graph:process_buffer node
+	class node_type,example_async.mixed_graph:write_buffer_2,example_async.mixed_graph:process_buffer,example_async.mixed_graph:write_buffer_1 node
 	class io_type_0,example_async.mixed_graph:buffer_2,example_async.mixed_graph:buffer_1,example_async.mixed_graph:processed_buffer io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
@@ -43,9 +43,13 @@ string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
 
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __call__
+    return self.io.save(data)
+           ~~~~~~~~~~~~^^^^^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _save_outputs
-    output.save(data)
-    ~~~~~~~~~~~^^^^^^
+    output._saver(data)
+    ~~~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     _save_outputs(node.outputs, results)

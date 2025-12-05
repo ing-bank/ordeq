@@ -29,9 +29,12 @@ NodeIOGraph
 View:View(func=example_3.func_defs:hello, ...) --> io-0
 View:View(func=example_3.func_defs:hello, ...) --> io-1
 NodeGraph
-View:View(func=example_3.func_defs:hello, ...)
-View:View(func=example_3.func_defs:hello, ...)
+View:View(func=example_3.func_defs:hello, ...) --> Unit:View(func=example_3.func_defs:hello, ...)
+View:View(func=example_3.func_defs:hello, ...) --> Unit:View(func=example_3.func_defs:hello, ...)
 Topological ordering
-(View(func=example_3.func_defs:hello), View(func=example_3.func_defs:hello))
+(View(func=example_3.func_defs:hello),
+ View(func=example_3.func_defs:hello),
+ Unit(value=IO(id=ID1)),
+ Unit(value=IO(id=ID2)))
 
 ```

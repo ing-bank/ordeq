@@ -27,30 +27,30 @@ graph TB
 	example_project.nodes_with_view:greeting --> example_project.nodes_with_view:greet
 	example_project.nodes_with_view:greet --> example_project.nodes_with_view:farewell
 	example_project.nodes_with_view:farewell --> example_project.nodes_with_view:printer
-	example_project.inner.nodes:x --> example_project.inner.nodes:func
-	example_project.inner.nodes:func --> example_project.inner.nodes:y
-	example_project.nodes:x --> example_project.nodes:func
-	example_project.nodes:func --> example_project.nodes:y
-	example_project.catalog_1:a --> example_project.nodes_import:func_a
-	example_project.catalog_1:b --> example_project.nodes_import:func_a
-	example_project.nodes_import:func_a --> example_project.catalog_2:f
-	example_project.catalog_1:a --> example_project.nodes_import:func_b
-	example_project.catalog_1:b --> example_project.nodes_import:func_b
-	example_project.nodes_import:func_b --> example_project.catalog_2:g
+	example_project.nodes_with_inline_io:greet:hello --> example_project.nodes_with_inline_io:greet
+	example_project.nodes_with_inline_io:greet --> unknown_0
 	example_project.catalog_1:a --> example_project.nodes_import_alias:func
 	example_project.catalog_1:b --> example_project.nodes_import_alias:func
 	example_project.nodes_import_alias:func --> example_project.catalog_2:h
-	example_project.nodes_with_inline_io:greet:hello --> example_project.nodes_with_inline_io:greet
-	example_project.nodes_with_inline_io:greet --> unknown_0
+	example_project.catalog_1:a --> example_project.nodes_import:func_b
+	example_project.catalog_1:b --> example_project.nodes_import:func_b
+	example_project.nodes_import:func_b --> example_project.catalog_2:g
+	example_project.catalog_1:a --> example_project.nodes_import:func_a
+	example_project.catalog_1:b --> example_project.nodes_import:func_a
+	example_project.nodes_import:func_a --> example_project.catalog_2:f
+	example_project.nodes:x --> example_project.nodes:func
+	example_project.nodes:func --> example_project.nodes:y
+	example_project.inner.nodes:x --> example_project.inner.nodes:func
+	example_project.inner.nodes:func --> example_project.inner.nodes:y
 
 	example_project.nodes_with_view:greet@{shape: subroutine, label: "greet"}
 	example_project.nodes_with_view:farewell@{shape: rounded, label: "farewell"}
-	example_project.inner.nodes:func@{shape: rounded, label: "func"}
-	example_project.nodes:func@{shape: rounded, label: "func"}
-	example_project.nodes_import:func_a@{shape: rounded, label: "func_a"}
-	example_project.nodes_import:func_b@{shape: rounded, label: "func_b"}
-	example_project.nodes_import_alias:func@{shape: rounded, label: "func"}
 	example_project.nodes_with_inline_io:greet@{shape: rounded, label: "greet"}
+	example_project.nodes_import_alias:func@{shape: rounded, label: "func"}
+	example_project.nodes_import:func_b@{shape: rounded, label: "func_b"}
+	example_project.nodes_import:func_a@{shape: rounded, label: "func_a"}
+	example_project.nodes:func@{shape: rounded, label: "func"}
+	example_project.inner.nodes:func@{shape: rounded, label: "func"}
 	example_project.catalog_1:a@{shape: rect, label: "a"}
 	example_project.catalog_1:b@{shape: rect, label: "b"}
 	example_project.catalog_2:f@{shape: rect, label: "f"}
@@ -65,7 +65,7 @@ graph TB
 	example_project.nodes_with_view:printer@{shape: rect, label: "printer"}
 	unknown_0@{shape: rect, label: "&lt;anonymous&gt;"}
 
-	class node_type,example_project.nodes_with_view:farewell,example_project.inner.nodes:func,example_project.nodes:func,example_project.nodes_import:func_a,example_project.nodes_import:func_b,example_project.nodes_import_alias:func,example_project.nodes_with_inline_io:greet node
+	class node_type,example_project.nodes_with_view:farewell,example_project.nodes_with_inline_io:greet,example_project.nodes_import_alias:func,example_project.nodes_import:func_b,example_project.nodes_import:func_a,example_project.nodes:func,example_project.inner.nodes:func node
 	class view_type,example_project.nodes_with_view:greet view
 	class io_type_0,example_project.inner.nodes:x,example_project.nodes:x,unknown_0 io0
 	class io_type_1,example_project.catalog_1:a,example_project.nodes_with_inline_io:greet:hello,example_project.nodes_with_view:greeting io1

@@ -32,10 +32,10 @@ graph TB
 	end
 
 
-	example_3.nodes:f1@{shape: subroutine, label: "f1"}
 	example_3.nodes:f2@{shape: subroutine, label: "f2"}
+	example_3.nodes:f1@{shape: subroutine, label: "f1"}
 
-	class view_type,example_3.nodes:f1,example_3.nodes:f2 view
+	class view_type,example_3.nodes:f2,example_3.nodes:f1 view
 	classDef view fill:#00C853,color:#FFF
 
 Hello, world!
@@ -46,9 +46,9 @@ Hello, world!
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running view 'f1' in module 'example_3.nodes'
-DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.runner	Running view 'f2' in module 'example_3.nodes'
+DEBUG	ordeq.io	Persisting data for IO(id=ID1)
+INFO	ordeq.runner	Running view 'f1' in module 'example_3.nodes'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)

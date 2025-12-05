@@ -20,23 +20,23 @@ graph TB
 		io_type_0@{shape: rect, label: "StringBuffer"}
 	end
 
-	example_function_reuse.catalog:A --> example_function_reuse.nodes:a
-	example_function_reuse.catalog:B --> example_function_reuse.nodes:b
-	example_function_reuse.catalog:C --> example_function_reuse.nodes:c
-	example_function_reuse.catalog:D --> example_function_reuse.nodes:d
 	example_function_reuse.catalog:A --> example_function_reuse.nodes:pi
+	example_function_reuse.catalog:D --> example_function_reuse.nodes:d
+	example_function_reuse.catalog:C --> example_function_reuse.nodes:c
+	example_function_reuse.catalog:B --> example_function_reuse.nodes:b
+	example_function_reuse.catalog:A --> example_function_reuse.nodes:a
 
-	example_function_reuse.nodes:a@{shape: subroutine, label: "a"}
-	example_function_reuse.nodes:b@{shape: subroutine, label: "b"}
-	example_function_reuse.nodes:c@{shape: subroutine, label: "c"}
-	example_function_reuse.nodes:d@{shape: subroutine, label: "d"}
 	example_function_reuse.nodes:pi@{shape: subroutine, label: "pi"}
+	example_function_reuse.nodes:d@{shape: subroutine, label: "d"}
+	example_function_reuse.nodes:c@{shape: subroutine, label: "c"}
+	example_function_reuse.nodes:b@{shape: subroutine, label: "b"}
+	example_function_reuse.nodes:a@{shape: subroutine, label: "a"}
 	example_function_reuse.catalog:A@{shape: rect, label: "A"}
 	example_function_reuse.catalog:B@{shape: rect, label: "B"}
 	example_function_reuse.catalog:C@{shape: rect, label: "C"}
 	example_function_reuse.catalog:D@{shape: rect, label: "D"}
 
-	class view_type,example_function_reuse.nodes:a,example_function_reuse.nodes:b,example_function_reuse.nodes:c,example_function_reuse.nodes:d,example_function_reuse.nodes:pi view
+	class view_type,example_function_reuse.nodes:pi,example_function_reuse.nodes:d,example_function_reuse.nodes:c,example_function_reuse.nodes:b,example_function_reuse.nodes:a view
 	class io_type_0,example_function_reuse.catalog:A,example_function_reuse.catalog:B,example_function_reuse.catalog:C,example_function_reuse.catalog:D io0
 	classDef io fill:#FFD43B
 	classDef view fill:#00C853,color:#FFF

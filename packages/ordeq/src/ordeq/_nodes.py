@@ -1,20 +1,12 @@
 from __future__ import annotations
 
 import importlib
-from collections.abc import Callable, Sequence
+from abc import ABC, abstractmethod
+from collections.abc import Callable, Hashable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import wraps
 from inspect import Signature, signature
-from typing import (
-    Any,
-    Generic,
-    Literal,
-    ParamSpec,
-    TypeGuard,
-    TypeVar,
-    cast,
-    overload,
-)
+from typing import Any, Generic, ParamSpec, TypeGuard, TypeVar, cast, overload
 
 from ordeq._fqn import FQN
 from ordeq._io import (
@@ -50,8 +42,19 @@ def infer_node_name_from_func(func: Callable[..., Any]) -> str:
     return name
 
 
+class AbstractNode(ABC, Generic[FuncParams, FuncReturns]):
+    @property
+    def type_name(self) -> str:
+        return type(self).__name__
+
+    @abstractmethod
+    def __call__(
+        self, *args: FuncParams.args, **kwargs: FuncParams.kwargs
+    ) -> FuncReturns: ...
+
+
 @dataclass(frozen=True, kw_only=True)
-class Node(Generic[FuncParams, FuncReturns]):
+class Node(AbstractNode[FuncParams, FuncReturns]):
     @property
     def __doc__(self) -> str | None:  # type: ignore[override]
         return self.func.__doc__
@@ -117,10 +120,6 @@ class Node(Generic[FuncParams, FuncReturns]):
         if self.is_fq:
             return FQN(module=self.module, name=self.name)  # type: ignore[arg-type]
         return None
-
-    @property
-    def type_name(self) -> Literal["Node", "View"]:
-        return type(self).__name__  # type: ignore[return-value]
 
     def __call__(self, *args, **kwargs) -> FuncReturns:
         return self.func(*args, **kwargs)  # type: ignore[invalid-return-type]
@@ -297,12 +296,61 @@ class View(Node[FuncParams, FuncReturns]):
         return f"View({attributes_str})"
 
 
+@dataclass(frozen=True)
+class Loader(AbstractNode[[], FuncReturns]):  # type: ignore[invalid-type-form]
+    io: Input[FuncReturns]
+
+    def __call__(self) -> FuncReturns:
+        return self.io.load()
+
+    def __str__(self) -> str:
+        if self.io.is_fq:
+            return f"Load {self.io.type_fqn.name} {self.io.fqn:desc}"
+        return repr(self)
+
+
+@dataclass(frozen=True)
+class Saver(AbstractNode[[T], None]):  # type: ignore[invalid-type-form]
+    io: Output[T]
+
+    def __call__(self, data: T) -> None:
+        return self.io.save(data)
+
+    def __str__(self) -> str:
+        if self.io.is_fq:
+            return f"Save {self.io.type_fqn.name} {self.io.fqn:desc}"
+        return repr(self)
+
+
+H = TypeVar("H", bound=Hashable)
+
+
+@dataclass(frozen=True, kw_only=True)
+class Unit(AbstractNode[[], H]):
+    value: H
+
+    # These fields is only needed for compatibility with the graph builder
+    # TODO: Remove
+    inputs: tuple[Input, ...] = ()
+    outputs: tuple[Output, ...] = ()
+
+    def __call__(self) -> None:
+        return
+
+    def __repr__(self):
+        return f"Unit(value={self.value})"
+
+
 def _is_node(obj: object) -> TypeGuard[Node]:
     return isinstance(obj, Node)
 
 
 def _is_view(obj: object) -> TypeGuard[View]:
     return isinstance(obj, View)
+
+
+def _is_unit(obj: object) -> TypeGuard[Unit]:
+    return isinstance(obj, Unit)
 
 
 @overload

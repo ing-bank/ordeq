@@ -20,28 +20,32 @@ graph TB
 		io_type_0@{shape: rect, label: "StringBuffer"}
 	end
 
-	example_async.async_nodes:write_buffer_1 --> example_async.async_nodes:buffer_1
 	example_async.async_nodes:write_buffer_2 --> example_async.async_nodes:buffer_2
+	example_async.async_nodes:write_buffer_1 --> example_async.async_nodes:buffer_1
 
-	example_async.async_nodes:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.async_nodes:write_buffer_2@{shape: rounded, label: "write_buffer_2"}
+	example_async.async_nodes:write_buffer_1@{shape: rounded, label: "write_buffer_1"}
 	example_async.async_nodes:buffer_1@{shape: rect, label: "buffer_1"}
 	example_async.async_nodes:buffer_2@{shape: rect, label: "buffer_2"}
 
-	class node_type,example_async.async_nodes:write_buffer_1,example_async.async_nodes:write_buffer_2 node
+	class node_type,example_async.async_nodes:write_buffer_2,example_async.async_nodes:write_buffer_1 node
 	class io_type_0,example_async.async_nodes:buffer_1,example_async.async_nodes:buffer_2 io0
 	classDef node fill:#008AD7,color:#FFF
 	classDef io fill:#FFD43B
 	classDef io0 fill:#66c2a5
 
-IOException: Failed to save StringBuffer 'buffer_1' in module 'example_async.async_nodes'.
+IOException: Failed to save StringBuffer 'buffer_2' in module 'example_async.async_nodes'.
 string argument expected, got 'coroutine'
   File "/packages/ordeq/src/ordeq/_io.py", line LINO, in wrapper
     raise IOException(msg) from exc
 
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __call__
+    return self.io.save(data)
+           ~~~~~~~~~~~~^^^^^^
+
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _save_outputs
-    output.save(data)
-    ~~~~~~~~~~~^^^^^^
+    output._saver(data)
+    ~~~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in _run_node
     _save_outputs(node.outputs, results)
@@ -78,13 +82,13 @@ string argument expected, got 'coroutine'
 ## Warnings
 
 ```text
-RuntimeWarning: coroutine 'write_buffer_1' was never awaited
+RuntimeWarning: coroutine 'write_buffer_2' was never awaited
 ```
 
 ## Logging
 
 ```text
-INFO	ordeq.runner	Running node 'write_buffer_1' in module 'example_async.async_nodes'
-INFO	ordeq.io	Saving StringBuffer 'buffer_1' in module 'example_async.async_nodes'
+INFO	ordeq.runner	Running node 'write_buffer_2' in module 'example_async.async_nodes'
+INFO	ordeq.io	Saving StringBuffer 'buffer_2' in module 'example_async.async_nodes'
 
 ```

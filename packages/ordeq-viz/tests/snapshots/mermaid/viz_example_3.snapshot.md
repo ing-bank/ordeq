@@ -22,11 +22,11 @@ graph TB
 
 	subgraph s0["example_3.nodes"]
 		direction TB
-		example_3.nodes:f1@{shape: subroutine, label: "f1"}
 		example_3.nodes:f2@{shape: subroutine, label: "f2"}
+		example_3.nodes:f1@{shape: subroutine, label: "f1"}
 	end
 
-	class view_type,example_3.nodes:f1,example_3.nodes:f2 view
+	class view_type,example_3.nodes:f2,example_3.nodes:f1 view
 	classDef view fill:#00C853,color:#FFF
 
 

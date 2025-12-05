@@ -26,24 +26,29 @@ pprint(node_graph.topological_ordering)
 
 ```text
 NodeIOGraph
-io-0 --> Node:example_anonymous.nodes:node_with_inline_io
+io-0 --> View:example_anonymous.node_with_var_names:add
 io-1 --> View:example_anonymous.node_with_var_names:add
-io-2 --> View:example_anonymous.node_with_var_names:add
-Node:example_anonymous.nodes:node_with_inline_io --> io-3
-View:example_anonymous.node_with_var_names:add --> io-4
+io-2 --> Node:example_anonymous.nodes:node_with_inline_io
+View:example_anonymous.node_with_var_names:add --> io-3
+Node:example_anonymous.nodes:node_with_inline_io --> io-4
 NodeGraph
-View:example_anonymous.node_with_var_names:add
-Node:example_anonymous.nodes:node_with_inline_io
+Node:example_anonymous.nodes:node_with_inline_io --> Unit:example_anonymous.nodes:node_with_inline_io
+View:example_anonymous.node_with_var_names:add --> Unit:example_anonymous.node_with_var_names:add
 Topological ordering
-(View(module=example_anonymous.node_with_var_names, name=add, inputs=[Input(id=ID1), Input(id=ID2)]),
- Node(module=example_anonymous.nodes, name=node_with_inline_io, inputs=[IO(id=ID3)], outputs=[IO(id=ID4)]))
+(Unit(value=IO(id=ID1)),
+ Unit(value=Input(id=ID2)),
+ Unit(value=Input(id=ID3)),
+ Node(module=example_anonymous.nodes, name=node_with_inline_io, inputs=[IO(id=ID1)], outputs=[IO(id=ID4)]),
+ View(module=example_anonymous.node_with_var_names, name=add, inputs=[Input(id=ID3), Input(id=ID2)]),
+ Unit(value=IO(id=ID4)),
+ Unit(value=IO(id=ID5)))
 
 ```
 
 ## Logging
 
 ```text
-DEBUG	ordeq.io	Persisting data for Input(id=ID1)
+DEBUG	ordeq.io	Persisting data for Input(id=ID3)
 DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 
 ```

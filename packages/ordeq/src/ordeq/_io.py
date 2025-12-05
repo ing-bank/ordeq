@@ -7,6 +7,7 @@ from collections.abc import Callable, Hashable, Sequence
 from copy import copy
 from functools import cached_property, reduce, wraps
 from typing import (
+    TYPE_CHECKING,
     Annotated,
     Any,
     Generic,
@@ -25,6 +26,9 @@ except ImportError:
 
 from ordeq._fqn import FQN
 from ordeq._hook import InputHook, OutputHook
+
+if TYPE_CHECKING:
+    from ordeq._nodes import Loader, Saver, Unit
 
 logger = logging.getLogger("ordeq.io")
 
@@ -534,6 +538,12 @@ class _WithResource:
     def _resource(self) -> ResourceType:
         return self._resource_ or self
 
+    @cached_property
+    def _unit(self) -> Unit[ResourceType]:  # type: ignore[invalid-type-form]
+        from ordeq._nodes import Unit  # noqa: PLC0415 (deferred import)
+
+        return Unit(value=self._resource)  # type: ignore[arg-type]
+
     def __matmul__(self, resource: ResourceType) -> Self:
         return self.with_resource(resource)
 
@@ -596,6 +606,12 @@ class Input(
     'Hello, Alice!'
     ```
     """
+
+    @cached_property
+    def _loader(self) -> Loader[Tin]:  # type: ignore[invalid-type-form]
+        from ordeq._nodes import Loader  # noqa: PLC0415 (deferred import)
+
+        return Loader(io=self)  # type: ignore[arg-type]
 
     def __repr__(self):
         return f"Input(id={id(self)})"
@@ -728,6 +744,12 @@ class Output(
     'HELLO'
     ```
     """
+
+    @cached_property
+    def _saver(self) -> Saver[Tout]:
+        from ordeq._nodes import Saver  # noqa: PLC0415 (deferred import)
+
+        return Saver(io=self)
 
     def __repr__(self):
         return f"Output(id={id(self)})"

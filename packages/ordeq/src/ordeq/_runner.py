@@ -8,7 +8,7 @@ from ordeq._fqn import AnyRef, ModuleName, ObjectRef
 from ordeq._graph import NodeGraph, NodeIOGraph
 from ordeq._hook import NodeHook, RunHook, RunnerHook
 from ordeq._io import IO, AnyIO, Input, _InputCache
-from ordeq._nodes import Node, View
+from ordeq._nodes import Node, View, _is_unit
 from ordeq._patch import _patch_nodes
 from ordeq._process_nodes import NodeFilter
 from ordeq._process_nodes_and_ios import process_nodes_and_ios
@@ -40,7 +40,7 @@ SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 def _load_inputs(inputs: Sequence[Input]) -> list[Any]:
     args = []
     for io in inputs:
-        data = io.load()
+        data = io._loader()
         args.append(data)
 
         # TODO: optimize persisting only when needed
@@ -51,7 +51,7 @@ def _load_inputs(inputs: Sequence[Input]) -> list[Any]:
 
 def _save_outputs(outputs, values) -> None:
     for output, data in zip(outputs, values, strict=True):
-        output.save(data)
+        output._saver(data)
 
         # TODO: optimize by persisting only when needed
         if isinstance(output, _InputCache):
@@ -124,6 +124,9 @@ def _run_graph(
 
     for level in graph.topological_levels:
         for node in level:
+            if _is_unit(node):
+                # Stubs are only used for dependency resolution, skip running
+                continue
             _run_node_before_hooks(node, hooks=node_hooks)
             _run_node(node, hooks=node_hooks)
             _run_node_after_hooks(node, hooks=node_hooks)

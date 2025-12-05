@@ -2,7 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 from ordeq._graph import NodeGraph
-from ordeq._nodes import Node
+from ordeq._nodes import Node, Unit
 from ordeq_common import StringBuffer
 
 A, B, C, D, E, F = [StringBuffer(c) for c in "ABCDEF"]
@@ -46,8 +46,21 @@ def test_it_builds_a_graph():
     third.checks = []
 
     g = NodeGraph.from_nodes([third, second, first])
-    assert g.edges == {second: [third], first: [third, second], third: []}
-    assert set(g.nodes) == {first, second, third}
+    assert g.edges[first] == [Unit(value=B)]
+    assert g.edges[Unit(value=B)] == [third, second]
+    assert g.edges[second] == [Unit(value=D)]
+    assert g.edges[Unit(value=D)] == [third]
+    assert g.edges[third] == [Unit(value=F)]
+    assert g.nodes == {
+        first,
+        second,
+        third,
+        Unit(value=A),
+        Unit(value=B),
+        Unit(value=C),
+        Unit(value=D),
+        Unit(value=F),
+    }
 
 
 def test_it_builds_graph_with_single_node():
@@ -59,8 +72,12 @@ def test_it_builds_graph_with_single_node():
     first.checks = []
 
     g = NodeGraph.from_nodes([first])
-    assert g.edges == {first: []}
-    assert set(g.nodes) == {first}
+    assert g.edges == {
+        first: [Unit(value=B)],
+        Unit(value=B): [],
+        Unit(value=A): [first],
+    }
+    assert set(g.nodes) == {first, Unit(value=A), Unit(value=B)}
 
 
 def test_it_raises_error_on_duplicated_outputs():

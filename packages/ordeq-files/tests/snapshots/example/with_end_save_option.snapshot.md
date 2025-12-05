@@ -61,7 +61,7 @@ DEBUG	ordeq.io	Persisting data for IO(id=ID1)
 INFO	ordeq.io	Loading TextLinesStream(path=Path('<TEMP_DIR>/with_end_save_option.txt'))
 INFO	ordeq.runner	Running view 'show_lines' in module '__main__'
 DEBUG	ordeq.io	Persisting data for IO(id=ID2)
-DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 DEBUG	ordeq.io	Unpersisting data for IO(id=ID2)
+DEBUG	ordeq.io	Unpersisting data for IO(id=ID1)
 
 ```

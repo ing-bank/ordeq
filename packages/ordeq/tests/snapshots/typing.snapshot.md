@@ -63,7 +63,11 @@ packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: This 
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:5: error: Argument 2 of "before_output_save" is incompatible with supertype "ordeq._hook.OutputHook"; supertype defines the argument type as "str"  [override]
 packages/ordeq/tests/resources/hooks/invalid_typed_output_hook.py:6: error: If x = b'abc' then f"{x}" or "{}".format(x) produces "b'abc'", not "abc". If this is desired behavior, use f"{x!r}" or "{!r}".format(x). Otherwise, decode the bytes  [str-bytes-safe]
-packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 6  [no-redef]
+packages/ordeq/tests/resources/catalog/overridden.py:7: error: Module has no attribute "hello"  [attr-defined]
+packages/ordeq/tests/resources/catalog/overridden.py:7: error: Module has no attribute "another_io"  [attr-defined]
+packages/ordeq/tests/resources/catalog/extended.py:5: error: Module has no attribute "hello"  [attr-defined]
+packages/ordeq/tests/resources/catalog/extended.py:5: error: Module has no attribute "result"  [attr-defined]
+packages/ordeq/tests/resources/catalog/extended.py:11: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/views/view_with_output.py:10: error: No overload variant of "node" matches argument type "Node[[], str]"  [call-overload]
 packages/ordeq/tests/resources/views/view_with_output.py:10: note: Possible overload variants:
 packages/ordeq/tests/resources/views/view_with_output.py:10: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns], *, inputs: Sequence[Input[Any] | View[Any, Any]] | Input[Any] | View[Any, Any] | None = ..., outputs: Sequence[Output[Any]] | Output[Any], checks: Sequence[Input[Any] | Output[Any] | Node[Any, Any]] | Input[Any] | Output[Any] | Node[Any, Any] | Hashable | None = ..., **attributes: Any) -> Node[FuncParams, FuncReturns]
@@ -84,6 +88,10 @@ packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" ha
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
 packages/ordeq/tests/resources/nodes/node_type_hints.py:17: note: Revealed type is "ordeq._nodes.Node[[x: builtins.str, y: builtins.str], tuple[builtins.str, builtins.str]]"
+packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:5: error: Module has no attribute "result"  [attr-defined]
+packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py:16: error: Module has no attribute "result"  [attr-defined]
+packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 6  [no-redef]
+packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:9: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:11: error: Need type annotation for "dataframe"  [var-annotated]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:13: error: Need type annotation for "fltr"  [var-annotated]
 packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]
@@ -93,4 +101,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note:     
 packages/ordeq/tests/resources/checks/check_store_invalid_records.py:16: error: Need type annotation for "processed_records"  [var-annotated]
 packages/ordeq/tests/resources/checks/check_after_save.py:18: error: "Series[Any]" not callable  [operator]
 packages/ordeq/tests/resources/views/view_query.py:5: error: Need type annotation for "connection"  [var-annotated]
-Found 36 errors in 27 files (checked 301 source files)
+Found 44 errors in 32 files (checked 301 source files)

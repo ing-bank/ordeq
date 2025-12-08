@@ -3262,7 +3262,7 @@ test = [
     { name = "pytest-cov", specifier = ">=6.2.1" },
 ]
 types = [
-    { name = "mypy", specifier = ">=1.18.2" },
+    { name = "mypy", specifier = ">=1.19.0" },
     { name = "ty", specifier = ">=0.0.1a30" },
 ]
 
@@ -3559,7 +3559,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "mypy", specifier = ">=0.18.2" },
+    { name = "mypy", specifier = ">=0.19.0" },
     { name = "ty" },
 ]
 

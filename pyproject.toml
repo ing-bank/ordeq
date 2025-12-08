@@ -26,7 +26,7 @@ test = [
     "pytest>=8.4.1",
 ]
 types = [
-    "mypy>=1.18.2",
+    "mypy>=1.19.0",
     "ty>=0.0.1a30",
 ]
 
@@ -108,6 +108,11 @@ markers = [
 ]
 norecursedirs = ["build", "resources"]
 pythonpath = ["src", "tests"]
+
+[tool.mypy]
+check_untyped_defs = true
+follow_untyped_imports = true
+disallow_untyped_calls = false
 
 [tool.ruff]
 exclude = [

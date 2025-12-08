@@ -20,19 +20,15 @@ print(_substitutes_modules_to_ios({package_base: package_inconsistent}))
 
 ```text
 {Input(id=ID1): Input(id=ID2), IO(id=ID3): IO(id=ID4), IO(id=ID5): StringBuffer(_buffer=<_io.StringIO object at HASH1>), IO(id=ID6): IO(id=ID7), JSON(path=Path('predictions-base.json')): JSON(path=Path('predictions-overlay.json')), IO(id=ID8): IO(id=ID9), IO(id=ID10): IO(id=ID11)}
-CatalogError: Catalog 'example_catalogs.package_inconsistent' is missing IO(s) 'creds:secret', 'ml:metrics', 'ml:model', 'ml:plot', 'ml:predictions'
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in check_catalogs_are_consistent
+CatalogError: Catalog 'example_catalogs.package_inconsistent' is missing IO 'secret' 
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
     raise CatalogError(
-        f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
+        f"Catalog '{new.__name__}' is missing IO '{name}' "
     )
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
-    check_catalogs_are_consistent(old, new)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
-    substitution_map.update(_substitute_catalog_by_catalog(old, new))
-                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+    _substitute_catalog_by_catalog(old, new, requested)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/substitute/substitute_package_with_package.py", line LINO, in <module>
     print(_substitutes_modules_to_ios({package_base: package_inconsistent}))

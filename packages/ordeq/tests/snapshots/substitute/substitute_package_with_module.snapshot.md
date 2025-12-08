@@ -16,19 +16,15 @@ print(_substitutes_modules_to_ios({local: package_base}))
 
 ```text
 {StringBuffer(_buffer=<_io.StringIO object at HASH1>): StringBuffer(_buffer=<_io.StringIO object at HASH2>), StringBuffer(_buffer=<_io.StringIO object at HASH3>): StringBuffer(_buffer=<_io.StringIO object at HASH4>)}
-CatalogError: Catalog 'example_catalogs.package_base' is missing IO(s) 'hello', 'result'
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in check_catalogs_are_consistent
+CatalogError: Catalog 'example_catalogs.package_base' is missing IO 'hello' 
+  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
     raise CatalogError(
-        f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
+        f"Catalog '{new.__name__}' is missing IO '{name}' "
     )
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
-    check_catalogs_are_consistent(old, new)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
-
   File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
-    substitution_map.update(_substitute_catalog_by_catalog(old, new))
-                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+    _substitute_catalog_by_catalog(old, new, requested)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
 
   File "/packages/ordeq/tests/resources/substitute/substitute_package_with_module.py", line LINO, in <module>
     print(_substitutes_modules_to_ios({local: package_base}))

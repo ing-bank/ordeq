@@ -19,6 +19,8 @@ theme:
     - navigation.footer
     - content.code.annotate
     - navigation.indexes
+  logo: _static/ordeq-logo.svg
+  favicon: _static/ordeq-logo.svg
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"

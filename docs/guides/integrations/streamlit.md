@@ -137,7 +137,7 @@ This will show the following:
 Clicking the button triggers an Ordeq pipeline.
 The pipeline prints the configured values of the checkbox and slider to the console, for example:
 
-```text
+```text linenums="0"
 Checkbox is False
 Slider value is 0
 ```

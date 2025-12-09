@@ -20,7 +20,7 @@ After installing it, you can run `just` to see the available commands:
 
 <!-- auto-generated justfile commands start -->
 
-```text
+```text linenums="0"
 Available recipes:
     localsetup                # Local installation
     ruff                      # Linting and formatting with ruff
@@ -64,7 +64,7 @@ Tip: install support for `just` in your IDE, e.g. [just for PyCharm](https://plu
 
 Install Ordeq locally in editable mode:
 
-```shell
+```shell linenums="0"
 just localsetup
 ```
 
@@ -127,7 +127,7 @@ this usually indicates that the dependencies were altered in the `pyproject.toml
 If you receive the following error installing `pymssql` on Mac,
 you need to install FreeTDS to get the required C-headers: `brew install freetds`.
 
-```text
+```text linenums="0"
   × Failed to build `pymssql==2.3.7`
   ├─▶ The build backend returned an error
   ╰─▶ Call to `setuptools.build_meta:__legacy__.build_wheel` failed (exit status: 1)
@@ -138,7 +138,7 @@ you need to install FreeTDS to get the required C-headers: `brew install freetds
 Some of the unit tests rely on Docker via the [`testcontainers`][tesco] PyPI package.
 If you're using Docker Desktop on macOS, these tests will fail in the default configuration:
 
-```text
+```text linenums="0"
 ERROR tests/.../test_xxx.py::TestFile::test_function - docker.errors.DockerException: Error while fetching server API version: ('Connection aborted.', FileNotFoundError(2, 'No such file or directory'))
 ```
 
@@ -154,7 +154,7 @@ This can be remedied by changing the configuration of Docker Desktop for macOS:
 The unit tests for `ordeq-spark` run Spark on your host system.
 This means that Java must be installed on your laptop, and your default Java VM must not be newer than JDK 17, because newer versions remove some deprecated functions that Spark still relies on:
 
-```text
+```text linenums="0"
 E                   py4j.protocol.Py4JJavaError: An error occurred while calling None.org.apache.spark.api.java.JavaSparkContext.
 E                   : java.lang.ExceptionInInitializerError
 E                   	at org.apache.spark.unsafe.array.ByteArrayMethods.<clinit>(ByteArrayMethods.java:56)
@@ -165,7 +165,7 @@ E                   Caused by: java.lang.NoSuchMethodException: java.nio.DirectB
 
 If you use [SdkMan!][sdkm] to manage your Java installations:
 
-```shell
+```shell linenums="0"
 sdk list java | fgrep 17 | fgrep tem
 sdk install java 17.0.12-tem   # replace 12 by whatever is current
 sdk default java 17.0.12-tem

@@ -12,7 +12,7 @@ Please refer to the [license] and [notice] for more details.
 
 To install Ordeq, run:
 
-```shell
+```shell linenums="0"
 uv pip install ordeq
 ```
 
@@ -20,7 +20,7 @@ Ordeq supports various IO packages for reading and writing data.
 You can install them as needed.
 For example, for reading and writing CSV files with Pandas, install the `ordeq-pandas` package:
 
-```shell
+```shell linenums="0"
 uv pip install ordeq-pandas
 ```
 

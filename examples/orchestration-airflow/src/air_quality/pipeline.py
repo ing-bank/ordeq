@@ -16,10 +16,8 @@ def ingest(air_quality: dict) -> duckdb.DuckDBPyRelation:
 @node(inputs=catalog.air_quality_data, outputs=catalog.air_quality_insights)
 def aggregate(air_quality: duckdb.DuckDBPyRelation) -> duckdb.DuckDBPyRelation:
     return air_quality.aggregate(
-        """
-        DATE(time) AS date,
-        AVG(pm2_5) AS avg_pm2_5,
-        AVG(european_aqi) AS avg_european_aqi,
-        AVG(us_aqi) AS avg_us_aqi
-        """
+        "DATE(time) AS date"
+        "AVG(pm2_5) AS avg_pm2_5"
+        "AVG(european_aqi) AS avg_european_aqi"
+        "AVG(us_aqi) AS avg_us_aqi"
     ).select("date, avg_pm2_5, avg_european_aqi, avg_us_aqi")

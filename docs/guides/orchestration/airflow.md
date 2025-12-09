@@ -14,7 +14,7 @@ The code examples presented in this section can be found [here][code-link].
 ## Example: air quality pipeline
 
 We will use the air_quality pipeline as an example to demonstrate how to orchestrate an Ordeq pipeline using Airflow.
-This pipeline ingests air quality data from an external API, processes it, and generates insights.
+This pipeline ingests air quality data from an [external API][air-quality-api], processes it, and generates insights.
 The example is adapted from the [Airflow docs][aq-example].
 
 Let's inspect the project first:
@@ -50,7 +50,7 @@ Let's inspect the project first:
     ```
 
 The DAG consists of two nodes: `ingest` and `aggregate`.
-The `ingest` node fetches air quality data from an external API and stores it into a Parquet file.
+The `ingest` node fetches air quality data from the API and stores it into a Parquet file.
 The last tab shows an example response from this API.
 The `aggregate` node computes statistics from the ingested data.
 
@@ -116,7 +116,7 @@ The `DockerOperator` takes the image and runs the Ordeq project inside the conta
 The `command` parameter specifies the command to run inside the container, which in this case is to run the `air_quality` pipeline.
 For more details on how to configure the Docker operator, please refer to the [Airflow documentation][docker-operator].
 
-To run the DAG with Docker operator, you have to first build the image:
+To run the DAG with Docker operator locally, you have to first build the image:
 
 ```shell
 docker build -t air_quality_insights:latest .
@@ -132,3 +132,4 @@ Next, you can launch the Airflow environment and trigger the DAG from the UI.
 [docker-operator]: https://airflow.apache.org/docs/apache-airflow-providers-docker/stable/_api/airflow/providers/docker/operators/docker/index.html
 [pythonic-dags]: https://airflow.apache.org/docs/apache-airflow/stable/tutorial/taskflow.html
 [run-and-viz]: ../../guides/run_and_viz.md
+[air-quality-api]: https://open-meteo.com/en/docs/air-quality-api

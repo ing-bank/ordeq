@@ -1,0 +1,4 @@
+data/*
+airflow.db*
+airflow.cfg
+creds.json

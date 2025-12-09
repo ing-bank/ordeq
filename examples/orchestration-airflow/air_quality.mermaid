@@ -1,0 +1,19 @@
+graph TB
+	air_quality.catalog:air_quality_json --> air_quality.pipeline:ingest
+	air_quality.pipeline:ingest --> air_quality.catalog:air_quality_data
+	air_quality.catalog:air_quality_data --> air_quality.pipeline:aggregate
+	air_quality.pipeline:aggregate --> air_quality.catalog:air_quality_insights
+
+	air_quality.pipeline:ingest@{shape: rounded, label: "ingest"}
+	air_quality.pipeline:aggregate@{shape: rounded, label: "aggregate"}
+	air_quality.catalog:air_quality_data@{shape: rect, label: "air_quality_data"}
+	air_quality.catalog:air_quality_insights@{shape: rect, label: "air_quality_insights"}
+	air_quality.catalog:air_quality_json@{shape: rect, label: "air_quality_json"}
+
+	class air_quality.pipeline:ingest,air_quality.pipeline:aggregate node
+	class air_quality.catalog:air_quality_data,air_quality.catalog:air_quality_insights io0
+	class air_quality.catalog:air_quality_json io1
+	classDef node fill:#008AD7,color:#FFF
+	classDef io fill:#FFD43B
+	classDef io0 fill:#66c2a5
+	classDef io1 fill:#fc8d62

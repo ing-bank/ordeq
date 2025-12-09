@@ -35,7 +35,7 @@ Below is the directory structure of the Kedro project, and the Ordeq equivalent.
 
 === "Kedro"
 
-    ```text
+    ```text linenums="0"
     conf/
     └── base
         └── catalog.yml
@@ -52,7 +52,7 @@ Below is the directory structure of the Kedro project, and the Ordeq equivalent.
 
 === "Ordeq"
 
-    ```text
+    ```text linenums="0"
     src/
     ├── __main__.py
     ├── catalog.py

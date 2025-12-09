@@ -118,7 +118,7 @@ For more details on how to configure the Docker operator, please refer to the [A
 
 To run the DAG with Docker operator locally, you have to first build the image:
 
-```shell
+```shell linenums="0"
 docker build -t air_quality_insights:latest .
 ```
 

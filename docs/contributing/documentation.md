@@ -11,7 +11,7 @@ just install
 
 To spin up the documentation server, run:
 
-```shell
+```shell linenums="0"
 just docs-serve
 ```
 

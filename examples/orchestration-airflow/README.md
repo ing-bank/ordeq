@@ -1,5 +1,7 @@
 # Airflow orchestration example
 
+This example demonstrates how to orchestrate an Ordeq pipeline using Apache Airflow.
+
 To run the `air_quality` pipeline locally (without Airflow):
 
 ```shell

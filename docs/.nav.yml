@@ -32,7 +32,7 @@ nav:
           - guides/orchestration/index.md
           - Airflow: guides/orchestration/airflow.md
           - Kubeflow: guides/orchestration/kubeflow.md
-      - Example gallery: guides/gallery.md
+      - Gallery: guides/gallery.md
   - Reference:
       - Packages: packages.md
       - API: api

@@ -1,6 +1,6 @@
 from ordeq import run
 
-from air_quality_insights import pipeline
+from air_quality import pipeline
 
 if __name__ == "__main__":
     run(pipeline)

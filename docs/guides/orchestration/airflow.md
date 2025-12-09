@@ -124,6 +124,7 @@ docker build -t air_quality_insights:latest .
 
 Next, you can launch the Airflow environment and trigger the DAG from the UI.
 
+[air-quality-api]: https://open-meteo.com/en/docs/air-quality-api
 [airflow]: https://airflow.apache.org/
 [airflow-example-readme]: https://github.com/ing-bank/ordeq/tree/main/examples/orchestration-airflow/README.md
 [aq-example]: https://airflow.apache.org/docs/apache-airflow/stable/tutorial/objectstorage.html
@@ -132,4 +133,3 @@ Next, you can launch the Airflow environment and trigger the DAG from the UI.
 [docker-operator]: https://airflow.apache.org/docs/apache-airflow-providers-docker/stable/_api/airflow/providers/docker/operators/docker/index.html
 [pythonic-dags]: https://airflow.apache.org/docs/apache-airflow/stable/tutorial/taskflow.html
 [run-and-viz]: ../../guides/run_and_viz.md
-[air-quality-api]: https://open-meteo.com/en/docs/air-quality-api

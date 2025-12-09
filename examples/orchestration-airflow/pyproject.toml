@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=75.0", "setuptools_scm>=8.1.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orchestration-airflow"
+version = "0.1.0"
+description = "Example Airflow for orchestration with Ordeq"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "ordeq",
+    "ordeq-duckdb",
+    "pandas",
+    "ordeq-requests"
+]
+
+[dependency-groups]
+airflow = [
+    "apache-airflow>=3.0.0",
+    "apache-airflow-providers-docker"
+]
+
+[tool.ordeq]
+group = "examples"
+
+[tool.setuptools.packages.find]
+namespaces = true
+where = ["src"]

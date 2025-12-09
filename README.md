@@ -5,7 +5,9 @@
 [![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)](https://pypi.org/project/ordeq/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)](https://pypistats.org/packages/ordeq)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Static Badge](https://img.shields.io/badge/powered_by-Ordeq-darkgreen?style=flat&link=https%3A%2F%2Fing-bank.github.io%2Fordeq%2F)](https://github.com/ing-bank/ordeq)
+[![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![ty](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ty/main/assets/badge/v0.json)](https://github.com/astral-sh/ty)
+[![Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=flat&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
 Ordeq is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.

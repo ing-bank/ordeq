@@ -97,6 +97,8 @@ packages/ordeq/tests/resources/runner/graph.py:35: error: Argument 1 to "run" ha
 packages/ordeq/tests/resources/runner/graph.py:38: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
 packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" has incompatible type "*list[object]"; expected Module | Node[Any, Any] | str  [arg-type]
 packages/ordeq/tests/resources/nodes/node_type_hints.py:17: note: Revealed type is "ordeq._nodes.Node[[x: builtins.str, y: builtins.str], tuple[builtins.str, builtins.str]]"
+packages/ordeq/tests/resources/io/io_saver.py:7: note: Revealed type is "ordeq._nodes.Saver[builtins.str]"
+packages/ordeq/tests/resources/io/io_loader.py:7: note: Revealed type is "ordeq._nodes.Loader[builtins.str]"
 packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:5: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py:16: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 6  [no-redef]
@@ -110,4 +112,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note:     
 packages/ordeq/tests/resources/checks/check_store_invalid_records.py:16: error: Need type annotation for "processed_records"  [var-annotated]
 packages/ordeq/tests/resources/checks/check_after_save.py:18: error: "Series[Any]" not callable  [operator]
 packages/ordeq/tests/resources/views/view_query.py:5: error: Need type annotation for "connection"  [var-annotated]
-Found 44 errors in 32 files (checked 307 source files)
+Found 44 errors in 32 files (checked 309 source files)

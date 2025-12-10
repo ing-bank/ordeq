@@ -40,7 +40,7 @@ SaveMode: TypeAlias = Literal["all", "sinks", "none"]
 def _load_inputs(inputs: Sequence[Input]) -> list[Any]:
     args = []
     for io in inputs:
-        data = io.load()
+        data = io._loader()
         args.append(data)
 
         # TODO: optimize persisting only when needed
@@ -51,7 +51,7 @@ def _load_inputs(inputs: Sequence[Input]) -> list[Any]:
 
 def _save_outputs(outputs, values) -> None:
     for output, data in zip(outputs, values, strict=True):
-        output.save(data)
+        output._saver(data)
 
         # TODO: optimize by persisting only when needed
         if isinstance(output, _InputCache):

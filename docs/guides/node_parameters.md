@@ -369,7 +369,7 @@ Here are examples of both approaches:
 In this example, the `language` parameter is read from a command-line argument `--language`.
 You can run the pipeline with different languages like this:
 
-```bash
+```shell linenums="0"
 python pipeline.py --language es
 ```
 
@@ -378,7 +378,7 @@ This will produce the greeting in Spanish: `Hola, Alice`.
 Alternatively, you can read the parameter from an environment variable by using the `EnvironmentVariable` IO instead of `CommandLineArg`.
 Set the environment variable and run the pipeline like this:
 
-```bash
+```shell linenums="0"
 export LANGUAGE=es
 python pipeline.py
 ```

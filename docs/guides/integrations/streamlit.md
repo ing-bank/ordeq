@@ -115,7 +115,7 @@ Click on the tables below to see the contents of each file:
 
 To install the dependencies for the example project:
 
-```bash
+```shell linenums="0"
 uv sync
 ```
 
@@ -125,7 +125,7 @@ uv sync
 
 Next, you can launch the example application as follows:
 
-```bash
+```shell linenums="0"
 uv run streamlit run src/example/app.py
 ```
 

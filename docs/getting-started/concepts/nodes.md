@@ -92,7 +92,7 @@ Similarly, we can add a `greetings` IO and specify it as output to the `greet` n
 
     The `@node` decorator only registers the function as a node, it does not change the function's behavior:
 
-    ```pycon
+    ```pycon linenums="0"
     >>> type(greet)
     function
     >>> greet(["Alice", "Bob"])
@@ -111,7 +111,7 @@ Similarly, we can add a `greetings` IO and specify it as output to the `greet` n
 
 Nodes can be run as follows:
 
-```pycon
+```pycon linenums="0"
 >>> from ordeq import run
 >>> run(greet)
 ```
@@ -124,7 +124,7 @@ Let's break down what happens when a node is run:
 
 Running `greet` is therefore roughly equivalent to:
 
-```pycon
+```pycon linenums="0"
 >>> names = catalog.names.load()
 >>> greetings = greet(names)
 >>> catalog.greetings.save(greetings)
@@ -175,13 +175,13 @@ Let's extend our example with another node that parses the name to greet from a 
 Note that `parse_names` outputs the `names` IO, which is input to the `greet` node.
 When we run the two nodes together, Ordeq will automatically pass the output of `parse_names` to `greet`:
 
-```pycon
+```pycon linenums="0"
 >>> run(parse_names, greet)
 ```
 
 This is roughly equivalent to:
 
-```pycon
+```pycon linenums="0"
 >>> invitees = catalog.invitees.load()
 >>> names = parse_names(invitees)
 >>> catalog.names.save(names)
@@ -201,7 +201,7 @@ But now, it also takes care of passing the outputs of one node as inputs to anot
 
 The result of `run` is a dictionary containing the data that was loaded or saved by each IO:
 
-```pycon
+```pycon linenums="0"
 >>> result = run(parse_names, greet)
 >>> result[catalog.names]
 ["Abraham", "Adam", "Azul", ...]
@@ -212,7 +212,7 @@ The result of `run` is a dictionary containing the data that was loaded or saved
 This works much like a cache of the processed data for the duration of the run.
 Of course, you can also load the data directly from the IOs:
 
-```pycon
+```pycon linenums="0"
 >>> greetings.load()
 ["Hello, Abraham!", "Hello, Adam!", "Hello, Azul!", ...]
 ```

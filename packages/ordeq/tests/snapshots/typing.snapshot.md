@@ -75,13 +75,6 @@ packages/ordeq/tests/resources/catalog/overridden.py:7: error: Module has no att
 packages/ordeq/tests/resources/catalog/extended.py:5: error: Module has no attribute "hello"  [attr-defined]
 packages/ordeq/tests/resources/catalog/extended.py:5: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/catalog/extended.py:11: error: Module has no attribute "result"  [attr-defined]
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:11: error: Need type annotation for "dataframe"  [var-annotated]
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:13: error: Need type annotation for "fltr"  [var-annotated]
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note: Possible overload variants:
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
-packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
-packages/ordeq/tests/resources/views/view_query.py:5: error: Need type annotation for "connection"  [var-annotated]
 packages/ordeq/tests/resources/views/view_with_output.py:10: error: No overload variant of "node" matches argument type "Node[[], str]"  [call-overload]
 packages/ordeq/tests/resources/views/view_with_output.py:10: note: Possible overload variants:
 packages/ordeq/tests/resources/views/view_with_output.py:10: note:     def [FuncParams`-1, FuncReturns] node(func: Callable[FuncParams, FuncReturns]) -> View[FuncParams, FuncReturns]
@@ -106,10 +99,17 @@ packages/ordeq/tests/resources/runner/graph.py:41: error: Argument 1 to "run" ha
 packages/ordeq/tests/resources/nodes/node_type_hints.py:17: note: Revealed type is "ordeq._nodes.Node[[x: builtins.str, y: builtins.str], tuple[builtins.str, builtins.str]]"
 packages/ordeq/tests/resources/io/io_saver.py:7: note: Revealed type is "ordeq._nodes.Saver[builtins.str]"
 packages/ordeq/tests/resources/io/io_loader.py:7: note: Revealed type is "ordeq._nodes.Loader[builtins.str]"
-packages/ordeq/tests/resources/checks/check_after_save.py:18: error: "Series[Any]" not callable  [operator]
-packages/ordeq/tests/resources/checks/check_store_invalid_records.py:16: error: Need type annotation for "processed_records"  [var-annotated]
 packages/ordeq/tests/resources/catalog/inconsistent_without_check.py:5: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py:16: error: Module has no attribute "result"  [attr-defined]
 packages/ordeq/tests/resources/catalog/static.py:17: error: Name "catalog" already defined on line 6  [no-redef]
 packages/ordeq/tests/resources/catalog/inconsistent_with_check.py:9: error: Module has no attribute "result"  [attr-defined]
-Found 44 errors in 32 files (checked 308 source files)
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:11: error: Need type annotation for "dataframe"  [var-annotated]
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:13: error: Need type annotation for "fltr"  [var-annotated]
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: error: No overload variant of "where" of "DataFrame" matches argument type "str"  [call-overload]
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note: Possible overload variants:
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[True], axis: Literal['index', 0] | Literal['columns', 1] | None = ..., level: Hashable | None = ...) -> None
+packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note:     def where(self, cond: Series[Any] | DataFrame | ndarray[tuple[Any, ...], dtype[Any]] | Callable[[DataFrame], DataFrame] | Callable[[Any], bool], other: Any = ..., *, inplace: Literal[False] = ..., axis: Literal['index', 0, 'columns', 1] | None = ..., level: Hashable | None = ...) -> DataFrame
+packages/ordeq/tests/resources/checks/check_store_invalid_records.py:16: error: Need type annotation for "processed_records"  [var-annotated]
+packages/ordeq/tests/resources/checks/check_after_save.py:18: error: "Series[Any]" not callable  [operator]
+packages/ordeq/tests/resources/views/view_query.py:5: error: Need type annotation for "connection"  [var-annotated]
+Found 44 errors in 32 files (checked 309 source files)

@@ -110,4 +110,4 @@ packages/ordeq/tests/resources/views/standalone_view_df_filter.py:17: note:     
 packages/ordeq/tests/resources/checks/check_store_invalid_records.py:16: error: Need type annotation for "processed_records"  [var-annotated]
 packages/ordeq/tests/resources/checks/check_after_save.py:18: error: "Series[Any]" not callable  [operator]
 packages/ordeq/tests/resources/views/view_query.py:5: error: Need type annotation for "connection"  [var-annotated]
-Found 44 errors in 32 files (checked 303 source files)
+Found 44 errors in 32 files (checked 306 source files)

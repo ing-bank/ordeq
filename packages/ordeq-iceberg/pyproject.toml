@@ -35,6 +35,7 @@ test = [
     "ordeq-test-utils",
     "ordeq-dev-tools",
     "pytest",
+    "pyiceberg[sql-sqlite]>=0.10.0",
 ]
 
 [tool.setuptools_scm]

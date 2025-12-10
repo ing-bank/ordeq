@@ -3082,7 +3082,7 @@ source = { editable = "packages/ordeq-iceberg" }
 dependencies = [
     { name = "ordeq" },
     { name = "pyarrow" },
-    { name = "pyiceberg", extra = ["sql-sqlite"] },
+    { name = "pyiceberg" },
 ]
 
 [package.dev-dependencies]
@@ -3097,7 +3097,7 @@ test = [
 requires-dist = [
     { name = "ordeq", editable = "packages/ordeq" },
     { name = "pyarrow", specifier = ">=21.0.0" },
-    { name = "pyiceberg", extras = ["sql-sqlite"], specifier = ">=0.10.0" },
+    { name = "pyiceberg", specifier = ">=0.10.0" },
 ]
 
 [package.metadata.requires-dev]

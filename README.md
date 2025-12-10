@@ -1,16 +1,18 @@
-# Welcome to Ordeq!
+# <img src="docs/_static/ordeq-logo.svg" alt="Ordeq" height="40"/> Ordeq
 
 [![Release](https://github.com/ing-bank/ordeq/actions/workflows/release.yml/badge.svg?event=push)](https://github.com/ing-bank/ordeq/actions/workflows/release.yml)
 [![Docs](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml/badge.svg)](https://github.com/ing-bank/ordeq/actions/workflows/docs.yml)
 [![PyPI](https://img.shields.io/pypi/v/ordeq?label=ordeq)](https://pypi.org/project/ordeq/)
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/ordeq?label=downloads)](https://pypistats.org/packages/ordeq)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Static Badge](https://img.shields.io/badge/powered_by-Ordeq-darkgreen?style=flat&link=https%3A%2F%2Fing-bank.github.io%2Fordeq%2F)](https://github.com/ing-bank/ordeq)
+[![ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![ty](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ty/main/assets/badge/v0.json)](https://github.com/astral-sh/ty)
+[![Material for MkDocs](https://img.shields.io/badge/Material_for_MkDocs-526CFE?style=flat&logo=MaterialForMkDocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 
-Ordeq is a framework for developing data pipelines.
+Ordeq (pronounced [/ɒɹdɛk/][ordeq-pronunciation]) is a framework for developing data pipelines.
 It simplifies IO and modularizes pipeline logic.
 Ordeq elevates your proof-of-concept to a production-grade pipelines.
-See the [introduction][intro] for an easy-to-follow example of how Ordeq can help.
+See the [introduction][intro] for an easy-to-follow example of how Ordeq helps.
 
 ## Installation
 
@@ -183,4 +185,5 @@ Please refer to the [license] and [notice] for more details.
 [kedro]: https://github.com/kedro-org/kedro
 [license]: https://github.com/ing-bank/ordeq/blob/main/LICENSE
 [notice]: https://github.com/ing-bank/ordeq/blob/main/NOTICE
+[ordeq-pronunciation]: https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=ord-eck
 [packages]: https://ing-bank.github.io/ordeq/packages/

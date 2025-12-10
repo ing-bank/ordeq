@@ -410,7 +410,7 @@ For example, to parse a date string to a `date` object, you can use the `date.fr
 
 When running the pipeline, you can pass the date in ISO format:
 
-```shell
+```shell linenums="0"
 python pipeline.py --date 2024-06-15
 ```
 

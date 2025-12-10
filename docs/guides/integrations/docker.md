@@ -11,7 +11,7 @@ First, make your project runnable by creating an entrypoint.
 In Python, this is typically a `__main__.py` script at the source root.
 For example, your project structure might look like:
 
-```text
+```text linenums="0"
 src
 ├── __init__.py
 ├── __main__.py
@@ -110,7 +110,7 @@ docker run app pipeline:hello_world
 This command starts a container from the `app` image and runs the `hello_world` node in the `pipeline` pipeline. You can replace `pipeline:hello_world` with any arguments your entrypoint script accepts.
 The output for our example should be:
 
-```text
+```text linenums="0"
 Hello, World!
 ```
 

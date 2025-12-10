@@ -19,6 +19,8 @@ theme:
     - navigation.footer
     - content.code.annotate
     - navigation.indexes
+  logo: _static/ordeq-logo.svg
+  favicon: _static/ordeq-logo.svg
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
@@ -50,6 +52,7 @@ markdown_extensions:
       custom_checkbox: true
   - pymdownx.highlight:
       use_pygments: true
+      linenums: true
   - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true

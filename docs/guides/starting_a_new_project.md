@@ -24,7 +24,7 @@ uv init
 
 This will create the following project structure:
 
-```text
+```text linenums="0"
 project
 ├── README.md
 ├── main.py
@@ -100,7 +100,7 @@ For instance, we recommend defining your IOs in a [catalog][catalogs], separatel
 In Python, a collection of files is called a _package_.
 A packaged project may look as follows:
 
-```text
+```text linenums="0"
 project
 ├── README.md
 ├── pyproject.toml
@@ -183,7 +183,7 @@ Each sub-pipeline is represented by its own module or package.
 Suppose you are working on a machine learning pipeline that consists of pre-processing, actual processing, and post-processing.
 Your project structure may look as follows:
 
-```text
+```text linenums="0"
 project
 ├── README.md
 ├── pyproject.toml
@@ -210,7 +210,7 @@ Suppose these pipelines share the same source data, but require different transf
 
 This project can be structured with one package for `nl` and one for `usa`:
 
-```text
+```text linenums="0"
 project
 ├── README.md
 ├── pyproject.toml
@@ -243,7 +243,7 @@ You can download the example package above [here][starter-subpipelines].
 
 You can also nest packages to reflect nested sub-pipelines:
 
-```text
+```text linenums="0"
 project/
 ├── README.md
 ├── pyproject.toml

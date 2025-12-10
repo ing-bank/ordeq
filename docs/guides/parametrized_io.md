@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
 You can now run `main.py` from the command line, and specify the target path as argument:
 
-```bash
+```shell linenums="0"
 python src/main.py --target output.json
 ```
 
@@ -124,7 +124,7 @@ keyword arguments to `pd.read_excel`.
 We can initialize `PandasExcel` with any IO that loads a dictionary.
 For example, we can use the `YAML` IO from `ordeq-yaml` as a parameter:
 
-```pycon
+```pycon linenums="0"
 >>> from pandas_excel import PandasExcel
 >>> PandasExcel(
 ...     path=Path("data.xlsx"),
@@ -189,7 +189,7 @@ The environment variable contains the user ID to request.
 
 The `UsersRequest` IO can then be used as follows:
 
-```pycon
+```pycon linenums="0"
 >>> from user_request import UsersRequest
 >>> from ordeq_args import EnvironmentVariable
 >>> idx = EnvironmentVariable(name="USER_ID")

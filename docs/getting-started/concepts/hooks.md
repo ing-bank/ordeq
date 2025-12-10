@@ -36,7 +36,7 @@ To see how hooks can be useful, let's consider the following example:
 
 As we learned [earlier][running-a-node], running the node `greet` is roughly equivalent to:
 
-```pycon
+```pycon linenums="0"
 >>> import catalog
 >>> names = catalog.names.load()
 >>> greetings = greet(names)
@@ -46,7 +46,7 @@ As we learned [earlier][running-a-node], running the node `greet` is roughly equ
 With hooks, you can inject custom logic around each step.
 For example, you might want to log the time taken to load the input `names`:
 
-```pycon hl_lines="2 3 5 6"
+```pycon linenums="0" hl_lines="2 3 5 6"
 >>> import catalog
 >>> import time
 >>> start_time = time.time()

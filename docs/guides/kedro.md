@@ -288,7 +288,7 @@ Here's the `src/__main__.py` file for both Kedro and Ordeq:
 
 To run the Ordeq project through the CLI, you can now run:
 
-```bash
+```shell linenums="0"
 python src/__main__.py run spaceflights.pipeline
 ```
 

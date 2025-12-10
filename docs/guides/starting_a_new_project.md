@@ -18,7 +18,7 @@ As the name implies, a single-file project contains only one Python module.
 
 To create a single-file project, navigate to the desired project directory and run:
 
-```bash
+```shell linenums="0"
 uv init
 ```
 
@@ -35,7 +35,7 @@ The `README.md` contains documentation on the project, while the `pyproject.toml
 
 Next, install Ordeq from the PyPi registry:
 
-```bash
+```shell linenums="0"
 uv add ordeq
 ```
 
@@ -79,7 +79,7 @@ if __name__ == "__main__":
 The nodes and IOs are defined in the same file, together with the run script.
 When you're ready to run this pipeline, use:
 
-```bash
+```shell linenums="0"
 uv run main.py
 ```
 
@@ -300,7 +300,7 @@ Consider, for example:
 Suppose you want to create a library that uses Ordeq.
 To initialize your library project, run:
 
-```bash
+```shell linenums="0"
 uv init --lib
 ```
 

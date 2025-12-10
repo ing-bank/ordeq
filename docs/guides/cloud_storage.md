@@ -13,7 +13,7 @@ For instance, you can load and save a CSV to S3 using Pandas as follows:
 
     To follow the example below, you need to install the `ordeq-pandas` package.
 
-```pycon
+```pycon linenums="0"
 >>> from ordeq_pandas import PandasCSV
 >>> csv = PandasCSV(path="gs://my-bucket/my-data.csv")
 >>> csv.load()  # this loads from Google Cloud Storage
@@ -38,7 +38,7 @@ CloudPaths abstract away the complexities of interacting with cloud storage like
 
 The following example loads a JSON from Azure Blob Storage:
 
-```pycon
+```pycon linenums="0"
 >>> from cloudpathlib import CloudPath
 >>> json = JSON(path=CloudPath("az://my-container/txs.json"))
 >>> json.load()  # this loads from Azure Blob Storage

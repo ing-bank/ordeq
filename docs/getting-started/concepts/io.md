@@ -23,7 +23,7 @@ def load_csv(path: Path) -> list[list[str]]:
 
 The main downside of this approach is that it immediately loads the data when the IO details, like the path to the file, are defined:
 
-```pycon
+```pycon linenums="0"
 >>> load_csv(Path("to/data.csv"))
 [(1, "kiwis", 7.2), (2, "grapefruits", 1.4)]
 ```
@@ -40,7 +40,7 @@ io = CSV(path=Path("to/data.csv"))
 
 Defining the IO does not load the data yet, until we tell it to:
 
-```pycon
+```pycon linenums="0"
 >>> io.load()
 [(1, "kiwis", 7.2), (2, "grapefruits", 1.4)]
 ```
@@ -54,7 +54,7 @@ It also means IOs can be easily reused in different places.
 
 The same IO can be used to save data as well:
 
-```pycon
+```pycon linenums="0"
 >>> data_to_save = [(1, "apples", 3.5), (2, "bananas", 4.0)]
 >>> io.save(data_to_save)
 ```
@@ -66,7 +66,7 @@ The same IO can be used to save data as well:
 
 Lastly, IOs serve as convenient and lightweight representations of data in your project:
 
-```pycon
+```pycon linenums="0"
 >>> print(io)
 CSV(path=PosixPath('to/data.csv'))
 ```
@@ -86,7 +86,7 @@ IOs can be used stand-alone, for instance when exploring data in a Jupyter noteb
 Suppose you just received an Excel file from a colleague and want to take a look at it.
 You can use the `PandasExcel` IO from `ordeq_pandas` to load and inspect the data:
 
-```pycon
+```pycon linenums="0"
 >>> from ordeq_pandas import PandasExcel
 >>> from pathlib import Path
 >>> fruit_sales = PandasExcel(path=Path("fruit_sales.xlsx"))
@@ -111,7 +111,7 @@ Furthermore, we want to drop the `Store` column as we don't need it.
 
 You can alter the loading behaviour of an IO through its _load options_:
 
-```pycon
+```pycon linenums="0"
 >>> fruit_sales = fruit_sales.with_load_options(
 ...     dtype={"Quantity (kg)": float},
 ...     usecols="A:C",
@@ -135,7 +135,7 @@ Under the hood, these options are passed to `pandas.read_excel`.
 
 Similarly, you can alter the saving behaviour of an IO through its _save options_:
 
-```pycon
+```pycon linenums="0"
 >>> fruit_sales = fruit_sales.with_save_options(index=False)
 >>> fruit_sales.save(df)
 ```

@@ -93,7 +93,7 @@ You can inspect the example project [here][docker-example].
 
 Build the Docker image with:
 
-```bash
+```shell linenums="0"
 docker build -t app .
 ```
 
@@ -103,7 +103,7 @@ This creates a Docker image named `app` containing your Ordeq application. The u
 
 To run the application in a container:
 
-```bash
+```shell linenums="0"
 docker run app pipeline:hello_world
 ```
 

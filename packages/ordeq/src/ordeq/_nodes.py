@@ -448,6 +448,12 @@ not_passed = cast("View", _not_passed)
 @overload
 def node(
     func: Callable[FuncParams, FuncReturns],
+) -> View[FuncParams, FuncReturns]: ...
+
+
+@overload
+def node(
+    func: Callable[FuncParams, FuncReturns],
     *,
     inputs: Sequence[Input | View] | Input | View | None = None,
     outputs: Sequence[Output] | Output,

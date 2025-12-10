@@ -30,6 +30,7 @@ def process_second(connection: str) -> None:
 run(process_first, process_second)
 
 conn.load()
+
 ```
 
 ## Output

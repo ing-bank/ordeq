@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field, replace
 from functools import wraps
-from inspect import Signature, signature
+from inspect import Parameter, Signature, signature
 from typing import (
     Any,
     Generic,
@@ -83,6 +83,7 @@ class Node(AbstractNode[FuncParams, FuncReturns]):
 
     def validate(self) -> None:
         """These checks are performed before the node is run."""
+        _raise_if_keyword_only_arg_is_missing_default(self)
         _raise_if_not_hashable(self)
         _raise_for_invalid_inputs(self)
         _raise_for_invalid_outputs(self)
@@ -159,6 +160,19 @@ class Node(AbstractNode[FuncParams, FuncReturns]):
         if self.is_fq:
             return f"{self.type_name.lower()} {self.fqn:desc}"
         return f"{self.type_name}(func={self.func_name}, ...)"
+
+
+def _raise_if_keyword_only_arg_is_missing_default(n: Node) -> None:
+    sign = signature(n.func)
+    for param in sign.parameters.values():
+        if (
+            param.kind == Parameter.KEYWORD_ONLY
+            and param.default is Parameter.empty
+        ):
+            raise ValueError(
+                f"Keyword-only argument '{param.name}' of {n} "
+                f"must have a default"
+            )
 
 
 def _raise_for_invalid_inputs(n: Node) -> None:

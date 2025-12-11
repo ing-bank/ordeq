@@ -1,7 +1,7 @@
 ## Resource
 
 ```python
-from ordeq import node, Input
+from ordeq import Input, node
 
 
 @node(inputs=Input[str]("A!"))

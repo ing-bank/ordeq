@@ -11,6 +11,7 @@ from typing import TypeAlias, TypeGuard
 
 from ordeq._fqn import (
     FQN,
+    AnyRef,
     ModuleName,
     ObjectRef,
     is_module_name,
@@ -397,3 +398,20 @@ def _resolve_module_name_to_module(
         f"Expected a ModuleType or a string, got "
         f"{type(module).__name__}"
     )
+
+
+def _resolve_refs_to_subs(
+    subs: dict[AnyRef | AnyIO | ModuleType, AnyRef | AnyIO | ModuleType],
+) -> dict[AnyIO | ModuleType, AnyIO | ModuleType]:
+    def resolve_ref_to_sub(ref: AnyRef) -> AnyIO | ModuleType:
+        if is_object_ref(ref):
+            fqn = FQN.from_ref(ref)
+            return _resolve_fqn_to_io(fqn)
+        return _resolve_module_ref_to_module(ref)
+
+    subs_ = {}
+    for old, new in subs.items():
+        old_sub = resolve_ref_to_sub(old) if isinstance(old, str) else old
+        new_sub = resolve_ref_to_sub(new) if isinstance(new, str) else new
+        subs_[old_sub] = new_sub
+    return subs_

@@ -17,11 +17,9 @@ from ordeq._resolve import (
     RunnableRef,
     _resolve_module_name_to_module,
     _resolve_refs_to_hooks,
-)
-from ordeq._substitute import (
     _resolve_refs_to_subs,
-    _substitutes_modules_to_ios,
 )
+from ordeq._substitute import _substitutes_modules_to_ios
 
 logger = logging.getLogger("ordeq.runner")
 
@@ -248,7 +246,8 @@ def run(
         _resolve_module_name_to_module(context) if context else None
     )
     resolved_run_hooks, resolved_node_hooks = _resolve_refs_to_hooks(*hooks)
-    resolved_subs = _resolve_refs_to_subs(io or {})
+    user_subs = io or {}
+    resolved_subs = _resolve_refs_to_subs(user_subs)
 
     nodes = process_nodes_and_ios(
         *runnables,
@@ -270,7 +269,8 @@ def run(
                 for output in node.outputs:
                     save_mode_patches[output] = IO()
 
-    user_patches = _substitutes_modules_to_ios(resolved_subs)
+    requested_io = {io for node in nodes for io in node.inputs + node.outputs}
+    user_patches = _substitutes_modules_to_ios(resolved_subs, requested_io)
     patches = {**user_patches, **save_mode_patches}
     if patches:
         patched_nodes = _patch_nodes(*nodes, patches=patches)

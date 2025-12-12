@@ -37,43 +37,24 @@ run(
 ## Output
 
 ```text
-CatalogError: Catalog 'example_catalogs.local' is missing IO(s) 'another_io'
-  File "/packages/ordeq/src/ordeq/_catalog.py", line LINO, in check_catalogs_are_consistent
-    raise CatalogError(
-        f"Catalog '{module.__name__}' is missing IO(s) {missing_ios}"
-    )
+HELLO FROM REMOTE!, world!!
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitute_catalog_by_catalog
-    check_catalogs_are_consistent(old, new)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+```
 
-  File "/packages/ordeq/src/ordeq/_substitute.py", line LINO, in _substitutes_modules_to_ios
-    substitution_map.update(_substitute_catalog_by_catalog(old, new))
-                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+## Logging
 
-  File "/packages/ordeq/src/ordeq/_runner.py", line LINO, in run
-    user_patches = _substitutes_modules_to_ios(resolved_subs)
-
-  File "/packages/ordeq/tests/resources/runner/run_io_catalog_package_and_module.py", line LINO, in <module>
-    run(
-    ~~~^
-        uppercase,
-        ^^^^^^^^^^
-        add_world,
-        ^^^^^^^^^^
-        io={local_package: remote_package, remote_extended: local},
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    )
-    ^
-
-  File "<frozen runpy>", line LINO, in _run_code
-
-  File "<frozen runpy>", line LINO, in _run_module_code
-
-  File "<frozen runpy>", line LINO, in run_path
-
-  File "/packages/ordeq-test-utils/src/ordeq_test_utils/snapshot.py", line LINO, in run_module
-    run_path(str(file_path), run_name="__main__")
-    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+```text
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+INFO	ordeq.runner	Running node 'uppercase' in module '__main__'
+INFO	ordeq.io	Saving StringBuffer 'add_world:hello' in module '__main__'
+DEBUG	ordeq.io	Persisting data for StringBuffer 'add_world:hello' in module '__main__'
+INFO	ordeq.io	Loading StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Persisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+INFO	ordeq.runner	Running node 'add_world' in module '__main__'
+INFO	ordeq.io	Saving Print()
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH2>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer(_buffer=<_io.StringIO object at HASH1>)
+DEBUG	ordeq.io	Unpersisting data for StringBuffer 'add_world:hello' in module '__main__'
 
 ```

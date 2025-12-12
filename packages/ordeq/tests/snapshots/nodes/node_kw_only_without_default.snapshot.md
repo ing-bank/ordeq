@@ -4,24 +4,24 @@
 from ordeq import Input, node
 
 
-@node(inputs=[Input[str]("a"), Input[str]("b")])
-def my_node(*, a, b):
-    print(f"a: {a}, b: {b}")
+@node(inputs=[Input[str]("a")])
+def my_node(*, a):
+    print(a)
 
 ```
 
 ## Output
 
 ```text
-ValueError: Inputs invalid for function arguments of view 'my_node' in module '__main__'
-  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_for_invalid_inputs
+ValueError: Keyword-only argument 'a' of view 'my_node' in module '__main__' must have a default
+  File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in _raise_if_keyword_only_arg_is_missing_default
     raise ValueError(
-        f"Inputs invalid for function arguments of {n}"
-    ) from e
+    ...<2 lines>...
+    )
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in validate
-    _raise_for_invalid_inputs(self)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+    _raise_if_keyword_only_arg_is_missing_default(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
 
   File "/packages/ordeq/src/ordeq/_nodes.py", line LINO, in __post_init__
     self.validate()
@@ -43,9 +43,9 @@ ValueError: Inputs invalid for function arguments of view 'my_node' in module '_
         name=f.__name__,
     )
 
-  File "/packages/ordeq/tests/resources/nodes/node_kwarg_only.py", line LINO, in <module>
-    @node(inputs=[Input[str]("a"), Input[str]("b")])
-     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/packages/ordeq/tests/resources/nodes/node_kw_only_without_default.py", line LINO, in <module>
+    @node(inputs=[Input[str]("a")])
+     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
 
   File "<frozen runpy>", line LINO, in _run_code
 
@@ -63,6 +63,5 @@ ValueError: Inputs invalid for function arguments of view 'my_node' in module '_
 
 ```text
 DEBUG	ordeq.io	Persisting data for Input(id=ID1)
-DEBUG	ordeq.io	Persisting data for Input(id=ID2)
 
 ```

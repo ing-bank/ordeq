@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ordeq-transformers"
+version = "0.1.0"
+description = "Inference-only text-to-embeddings integration using Hugging Face Transformers."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "transformers",
+    "torch",
+    "numpy",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "isort",
+    "flake8",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ordeq_transformers"]
